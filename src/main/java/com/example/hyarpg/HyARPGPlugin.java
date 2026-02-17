@@ -36,9 +36,6 @@ public class HyARPGPlugin extends JavaPlugin {
     protected void setup() {
         LOGGER.at(Level.INFO).log("[HyARPG] Setting up...");
 
-        // Register commands
-//        registerCommands();
-
         // Register event listeners
         registerListeners();
 
@@ -48,16 +45,6 @@ public class HyARPGPlugin extends JavaPlugin {
         LOGGER.at(Level.INFO).log("[HyARPG] Setup complete!");
     }
 
-    // Register plugin commands.
-//    private void registerCommands() {
-//        try {
-//            getCommandRegistry().registerCommand(new HyARPGPluginCommand());
-//            LOGGER.at(Level.INFO).log("[HyARPG] Registered /hya command");
-//        } catch (Exception e) {
-//            LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register commands");
-//        }
-//    }
-
     // Register event listeners
     private void registerListeners() {
         EventRegistry eventBus = getEventRegistry();
@@ -65,6 +52,7 @@ public class HyARPGPlugin extends JavaPlugin {
         try {
             // register each listener with the main event bus
             new Listeners_Player().register(eventBus);
+            getEntityStoreRegistry().registerSystem(new Listeners_Death());
 
             // log the registration
             LOGGER.at(Level.INFO).log("[HyARPG] Registered listener: PlayerListener");
@@ -77,9 +65,10 @@ public class HyARPGPlugin extends JavaPlugin {
     private void registerModules() {
         try {
             // instantiate each module
-            Module_Greeter moduleGreeter = new Module_Greeter();
-//            PlayerHud modulePlayerHud = new PlayerHud();
-            Module_Hunger moduleHunger = new Module_Hunger(this);
+            new Module_Greeter();
+            new Module_Hunger(this);
+            new Module_Thirst(this);
+            new Module_RPG_Stats(this);
 
             // log the instantiation
             LOGGER.at(Level.INFO).log("[HyARPG] Instantiated modules");

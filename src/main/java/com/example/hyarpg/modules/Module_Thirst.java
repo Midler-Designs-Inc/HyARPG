@@ -1,69 +1,64 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+
+import au.ellie.hyui.builders.*;
+import com.example.hyarpg.HyARPGPlugin;
+import com.example.hyarpg.ModEventBus;
+import com.example.hyarpg.components.Component_Thirst;
+import com.example.hyarpg.events.Event_PlayerDeath;
+import com.example.hyarpg.events.Event_PlayerReady;
+import com.example.hyarpg.interactions.Interaction_RestoreThirstT1;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.server.core.HytaleServer;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
-import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
-import com.hypixel.hytale.server.core.universe.Universe;
-import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import com.hypixel.hytale.server.core.universe.world.World;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
+import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
-// Mod Imports
-import com.example.hyarpg.ModEventBus;
-import com.example.hyarpg.events.Event_PlayerReady;
-import com.example.hyarpg.events.Event_PlayerDeath;
-import com.example.hyarpg.HyARPGPlugin;
-import com.example.hyarpg.components.Component_Hunger;
-import com.example.hyarpg.interactions.Interaction_RestoreHungerT1;
-
-// HyUI Imports
-import au.ellie.hyui.builders.*;
-
-// Java Imports
-import java.awt.*;
 import java.util.UUID;
-import java.util.concurrent.*;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
-public class Module_Hunger {
+public class Module_Thirst {
 
     private final HyARPGPlugin plugin;
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
-    public static ComponentType<EntityStore, Component_Hunger> componentTypeHunger;
+    public static ComponentType<EntityStore, Component_Thirst> componentTypeThirst;
 
     // initialize this module
-    public Module_Hunger(HyARPGPlugin plugin) {
+    public Module_Thirst(HyARPGPlugin plugin) {
         this.plugin = plugin;
 
         // Register the component type using EntityStoreRegistry
-        componentTypeHunger = plugin.getEntityStoreRegistry()
-                .registerComponent(Component_Hunger.class, "HungerComponent", Component_Hunger.CODEC);
+        componentTypeThirst = plugin.getEntityStoreRegistry()
+                .registerComponent(Component_Thirst.class, "ThirstComponent", Component_Thirst.CODEC);
 
-        // Get the interaction registry and register the RestoreHunger interaction
+        // Get the interaction registry and register the RestoreThirst interaction
         final var interactionRegistry = plugin.getCodecRegistry(Interaction.CODEC);
-        interactionRegistry.register("RestoreHunger_T1", Interaction_RestoreHungerT1.class, Interaction_RestoreHungerT1.CODEC);
+        interactionRegistry.register("RestoreThirst_T1", Interaction_RestoreThirstT1.class, Interaction_RestoreThirstT1.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
         ModEventBus.register(Event_PlayerDeath.class, this::onPlayerDeath);
 
-        // Start the hunger tick system
-        startHungerTickSystem();
+        // Start the thirst tick system
+        startThirstTickSystem();
     }
 
-    // Start a repeating task that drains hunger and applies starvation damage
-    private void startHungerTickSystem() {
+    // Start a repeating task that drains thirst and applies starvation damage
+    private void startThirstTickSystem() {
         ScheduledFuture scheduleFuture = HytaleServer.SCHEDULED_EXECUTOR.scheduleWithFixedDelay(() -> {
             // Iterate through all online players
             for (PlayerRef playerRef : Universe.get().getPlayers()) {
@@ -87,18 +82,18 @@ public class Module_Hunger {
                         Player player = store.getComponent(entityRef, Player.getComponentType());
                         if (player == null) return;
 
-                        // Get the hunger component
-                        Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
-                        if (hunger == null) return;
+                        // Get the thirst component
+                        Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
+                        if (thirst == null) return;
 
-                        // Don't drain hunger in creative mode
+                        // Don't drain thirst in creative mode
                         if (player.getGameMode() != GameMode.Creative) {
-                            hunger.drain(hunger.drainRate);
-                            store.putComponent(entityRef, componentTypeHunger, hunger);
+                            thirst.drain(thirst.drainRate);
+                            store.putComponent(entityRef, componentTypeThirst, thirst);
                         }
 
                         // Apply starvation damage if starving
-                        if (hunger.isStarving() && player.getGameMode() != GameMode.Creative) {
+                        if (thirst.isStarving() && player.getGameMode() != GameMode.Creative) {
                             // get the stat map component from the player
                             ComponentType<EntityStore, EntityStatMap> statMapType =
                                     EntityStatsModule.get().getEntityStatMapComponentType();
@@ -142,10 +137,10 @@ public class Module_Hunger {
         Store<EntityStore> store = world.getEntityStore().getStore();
 
         // ensure the component exists (supposedly this will putComponent internally if not??)
-        store.ensureAndGetComponent(entityRef, componentTypeHunger);
+        store.ensureAndGetComponent(entityRef, componentTypeThirst);
 
-        // add the hunger hud to the player's hud
-        createHungerHud(player, world, entityRef);
+        // add the thirst hud to the player's hud
+        createThirstHud(player, world, entityRef);
     }
 
     // This function runs whenever a player has died
@@ -168,13 +163,13 @@ public class Module_Hunger {
         Ref<EntityStore> entityRef = playerRef.getReference();
         if (entityRef == null) return;
 
-        // Get the hunger component
-        Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
-        hunger.setOnDeath();
+        // Get the thirst component
+        Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
+        thirst.setOnDeath();
     }
 
-    // function to show the hunger hud for a player
-    private void createHungerHud(Player player, World world, Ref<EntityStore> entityRef) {
+    // function to show the thirst hud for a player
+    private void createThirstHud(Player player, World world, Ref<EntityStore> entityRef) {
         // get the entity store and player ref
         Store<EntityStore> store = world.getEntityStore().getStore();
         PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
@@ -182,17 +177,17 @@ public class Module_Hunger {
         // initialize the hud element with HyUI
         HudBuilder.hudForPlayer(playerRef)
                 .addElement(new ImageBuilder()
-                        .withId("hungerIcon")
+                        .withId("thirstIcon")
                         .withAnchor(new HyUIAnchor()
-                                .setWidth(25)
-                                .setHeight(25)
-                                .setBottom(142)
+                                .setWidth(20)
+                                .setHeight(22)
+                                .setBottom(143)
                         )
-                        .withPadding(new HyUIPadding().setRight(676))
-                        .withImage("HyARPG_Texture_Hunger_Icon.png")
+                        .withPadding(new HyUIPadding().setLeft(676))
+                        .withImage("HyARPG_Texture_Thirst_Icon.png")
                 )
                 .addElement(new ProgressBarBuilder()
-                        .withId("hungerBar")
+                        .withId("thirstBar")
                         .withOuterAnchor(new HyUIAnchor()
                                 .setWidth(0)
                                 .setHeight(0)
@@ -201,22 +196,22 @@ public class Module_Hunger {
                         .withAnchor(new HyUIAnchor()
                                 .setWidth(155) // 309
                                 .setHeight(12)
-                                .setLeft(-315)
+                                .setRight(-315)
                         )
                         .withValue(1f)
-                        .withBarTexturePath("FF9760.png")
+                        .withBarTexturePath("0687cc.png")
                         .withBackground(new HyUIPatchStyle().setColor("#222222"))
                 )
                 .withRefreshRate(500)
                 .onRefresh(hud -> {
-                    hud.getById("hungerBar", ProgressBarBuilder.class).ifPresent(bar -> {
+                    hud.getById("thirstBar", ProgressBarBuilder.class).ifPresent(bar -> {
                         // Schedule component access on the world thread
                         world.execute(() -> {
-                            // get the players hunger component
-                            Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
+                            // get the players thirst component
+                            Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
 
-                            // get the players hunger percentage
-                            float percentage = hunger.getPercentage();
+                            // get the players thirst percentage
+                            float percentage = thirst.getPercentage();
 
                             // Update the bar value
                             bar.withValue(percentage);

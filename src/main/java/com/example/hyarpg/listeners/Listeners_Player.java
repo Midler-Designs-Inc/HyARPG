@@ -3,7 +3,6 @@ package com.example.hyarpg.listeners;
 // Hytale Jar Imports
 import com.hypixel.hytale.event.EventRegistry;
 import com.hypixel.hytale.logger.HytaleLogger;
-import com.hypixel.hytale.server.core.NameMatching;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
@@ -14,15 +13,12 @@ import com.example.hyarpg.events.Event_PlayerJoin;
 import com.example.hyarpg.events.Event_PlayerDisconnect;
 import com.example.hyarpg.events.Event_PlayerReady;
 import com.example.hyarpg.ModEventBus;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 
 // Java Imports
 import java.util.logging.Level;
 
 // Class for registering player event listener handler logic
 public class Listeners_Player {
-
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     // Register all player event listeners

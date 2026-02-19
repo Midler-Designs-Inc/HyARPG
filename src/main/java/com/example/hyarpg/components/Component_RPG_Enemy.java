@@ -1,6 +1,9 @@
 package com.example.hyarpg.components;
 
 // Hytale Imports
+import com.hypixel.hytale.codec.Codec;
+import com.hypixel.hytale.codec.KeyedCodec;
+import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
@@ -13,6 +16,9 @@ public class Component_RPG_Enemy implements Component<EntityStore> {
     // Constructor properties
     public int level;
     public int monsterRarity = 0;
+
+    // Register properties that needs to get persisted (none, just register codec in this case)
+    public static final BuilderCodec<Component_RPG_Enemy> CODEC = BuilderCodec.builder( Component_RPG_Enemy.class, Component_RPG_Enemy::new ).build();
 
     // Default no-arg constructor (required for component registration)
     public Component_RPG_Enemy() { this(1); }

@@ -9,6 +9,7 @@ import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
+import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -22,7 +23,6 @@ import com.example.hyarpg.components.Component_RPG_Stats;
 import com.example.hyarpg.components.Component_RPG_Enemy;
 
 // Java Imports
-import java.awt.*;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -34,7 +34,6 @@ public class Module_RPG_Stats {
     public static ComponentType<EntityStore, Component_RPG_Enemy> componentTypeRPGEnemy;
 
     // properties that control enemy level as they get further from spawn
-    private static final double LEVEL_DISTANCE_THRESHOLD_METERS = 500.0;
     private static final double LEVEL_DISTANCE_THRESHOLD = 500.0;
     private static final int LEVEL_VARIANCE = 5;
     private static final Random random = new Random();
@@ -49,10 +48,12 @@ public class Module_RPG_Stats {
         // Register the component type using EntityStoreRegistry
         componentTypeRPGStats = plugin.getEntityStoreRegistry()
                 .registerComponent(Component_RPG_Stats.class, "RPGStatsComponent", Component_RPG_Stats.CODEC);
+        componentTypeRPGEnemy = plugin.getEntityStoreRegistry()
+                .registerComponent(Component_RPG_Enemy.class, "RPGEnemyComponent", Component_RPG_Enemy.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
-        ModEventBus.register(Event_EnemyDamaged.class, this::onEnemyDamaged);
+        ModEventBus.register(Event_EntityDamaged.class, this::onEntityDamaged);
         ModEventBus.register(Event_NPCDeath.class, this::onEnemyKilled);
         ModEventBus.register(Event_NPCSpawn.class, this::onNPCSpawn);
         ModEventBus.register(Event_NPCPreSpawn.class, this::onNPCPreSpawn);
@@ -78,17 +79,11 @@ public class Module_RPG_Stats {
         // get the entity holder Ref
         Holder<EntityStore> holder = event.getHolder();
 
-        // Create an RPGStats component and assign a monster level
         // Create an RPGEnemy component and assign a monster level
         int enemyLevel = calculateEnemyLevel(holder);
-        Component_RPG_Stats rpgStats = new Component_RPG_Stats(enemyLevel, 0, 0);
-
-        // Assign Monster Rarity
-        rpgStats.rollMonsterRarity();
         Component_RPG_Enemy rpgEnemy = new Component_RPG_Enemy(enemyLevel);
 
         // Add the component
-        holder.putComponent(componentTypeRPGStats, rpgStats);
         holder.putComponent(componentTypeRPGEnemy, rpgEnemy);
     }
 
@@ -99,11 +94,7 @@ public class Module_RPG_Stats {
         Store<EntityStore> store = event.getStore();
         CommandBuffer<EntityStore> commandBuffer = event.getCommandBuffer();
 
-        // get the rpg stats component
-        Component_RPG_Stats rpgStats = store.getComponent(ref, componentTypeRPGStats);
-        if (rpgStats == null) return;
-        int level = rpgStats.level;
-        String rarityString = rpgStats.monsterRarity > 0 ? (rpgStats.getRarityString() + " ") : "";
+        // get the rpg enemy component
         Component_RPG_Enemy rpgEnemy = store.getComponent(ref, componentTypeRPGEnemy);
         if (rpgEnemy == null) return;
         int level = rpgEnemy.level;
@@ -114,7 +105,6 @@ public class Module_RPG_Stats {
         if (npcEntity == null) return;
 
         // Get the entity's role name and create the nameplate text
-        String roleName = npcEntity.getRoleName();
         String roleName = npcEntity.getRoleName().replace("_", " ");
         String nameplateText = rarityString + roleName + " (Lv. " + level + ")";
 
@@ -124,9 +114,6 @@ public class Module_RPG_Stats {
         else commandBuffer.addComponent(ref, Nameplate.getComponentType(), new Nameplate(nameplateText));
 
         // Add rarity effect if applicable
-        if(rpgStats.monsterRarity > 0) {
-            String entityEffectStr = rpgStats.getRarityString() + "_Glow";
-            EntityEffect eliteEffect = (EntityEffect) EntityEffect.getAssetMap().getAsset(entityEffectStr);
         if(rpgEnemy.monsterRarity > 0) {
             String entityEffectStr = rpgEnemy.getRarityString() + "_Glow";
             EntityEffect specialEffect = (EntityEffect) EntityEffect.getAssetMap().getAsset(entityEffectStr);
@@ -134,8 +121,6 @@ public class Module_RPG_Stats {
 
             EffectControllerComponent effectController = store.getComponent(ref, EffectControllerComponent.getComponentType());
             if (effectController != null) {
-                effectController.addEffect(ref, eliteEffect, commandBuffer);
-                effectController.addEffect(ref, eliteEffect, commandBuffer);
                 effectController.addEffect(ref, specialEffect, commandBuffer);
                 effectController.addEffect(ref, specialEffect, commandBuffer);
             }
@@ -143,15 +128,21 @@ public class Module_RPG_Stats {
     }
 
     // This function adds/refreshes players/enemies to a registry when dealing damage/damages
-    private void onEnemyDamaged (Event_EnemyDamaged event) {
+    private void onEntityDamaged (Event_EntityDamaged event) {
         Ref<EntityStore> attacker = event.getAttacker();
         Ref<EntityStore> defender = event.getDefender();
-        long now = System.currentTimeMillis();
+        Store<EntityStore> store = event.getStore();
+        Damage damage = event.getDamage();
 
-        // Get or create the attacker map for this enemy
-        damageRegistry
-            .computeIfAbsent(defender, k -> new ConcurrentHashMap<>())
-            .put(attacker, now);
+        // check/register if a player is damaging an enemy
+        Component_RPG_Stats rpgStats = store.getComponent(attacker, componentTypeRPGStats);
+        if (rpgStats != null) {
+            damage.setAmount(9999999999f);
+            // register the player damage to the enemy in the damage registry
+            damageRegistry
+                .computeIfAbsent(defender, k -> new ConcurrentHashMap<>())
+                .put(attacker, System.currentTimeMillis());
+        }
     }
 
     // This function that fires when an enemy dies
@@ -181,8 +172,6 @@ public class Module_RPG_Stats {
                 if (playerRef == null) return;
 
                 // get the killed enemies level or default to 1
-                Component_RPG_Stats rpgStats = store.getComponent(defender, componentTypeRPGStats);
-                int enemyLevel = (rpgStats != null) ? rpgStats.level : 1;
                 Component_RPG_Enemy rpgEnemy = store.getComponent(defender, componentTypeRPGEnemy);
                 int enemyLevel = (rpgEnemy != null) ? rpgEnemy.level : 1;
 
@@ -213,7 +202,6 @@ public class Module_RPG_Stats {
         );
 
         // get level based on distance
-        int baseLevel = Math.max(1, (int)(distance / LEVEL_DISTANCE_THRESHOLD_METERS) + 1);
         int baseLevel = Math.max(1, (int)(distance / LEVEL_DISTANCE_THRESHOLD) + 1);
 
         // roll for a random level within variance range of base level

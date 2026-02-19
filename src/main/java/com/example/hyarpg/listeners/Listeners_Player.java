@@ -1,8 +1,10 @@
 package com.example.hyarpg.listeners;
 
 // Hytale Jar Imports
+import com.example.hyarpg.HyARPGPlugin;
 import com.hypixel.hytale.event.EventRegistry;
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
@@ -13,6 +15,11 @@ import com.example.hyarpg.events.Event_PlayerJoin;
 import com.example.hyarpg.events.Event_PlayerDisconnect;
 import com.example.hyarpg.events.Event_PlayerReady;
 import com.example.hyarpg.ModEventBus;
+import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
+import com.hypixel.hytale.server.flock.FlockMembershipSystems;
+import com.hypixel.hytale.server.npc.systems.NPCDamageSystems;
 
 // Java Imports
 import java.util.logging.Level;
@@ -22,7 +29,7 @@ public class Listeners_Player {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     // Register all player event listeners
-    public void register(EventRegistry eventBus) {
+    public void register(EventRegistry eventBus, HyARPGPlugin plugin) {
         // Start listening for the PlayerConnectEvent - When a player connects
         try {
             eventBus.register(PlayerConnectEvent.class, this::onPlayerConnect);
@@ -46,6 +53,7 @@ public class Listeners_Player {
         } catch (Exception e) {
             LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register PlayerReadyEvent");
         }
+
     }
 
     // Handle player connect event

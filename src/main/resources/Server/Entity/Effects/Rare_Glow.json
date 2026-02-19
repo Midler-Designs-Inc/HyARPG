@@ -1,0 +1,10 @@
+{
+  "ApplicationEffects": {
+    "EntityBottomTint": "#FFFF00",
+    "EntityTopTint": "#FFFF00"
+  },
+  "Duration": -1,
+  "Infinite": true,
+  "RemovalBehavior": "Complete",
+  "OverlapBehavior": "Overwrite"
+}

@@ -1,14 +1,7 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-
-import au.ellie.hyui.builders.*;
-import com.example.hyarpg.HyARPGPlugin;
-import com.example.hyarpg.ModEventBus;
-import com.example.hyarpg.components.Component_Thirst;
-import com.example.hyarpg.events.Event_PlayerDeath;
-import com.example.hyarpg.events.Event_PlayerReady;
-import com.example.hyarpg.interactions.Interaction_RestoreThirstT1;
+import au.ellie.hyui.types.ProgressBarDirection;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -26,6 +19,19 @@ import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+// Mod Imports
+import com.example.hyarpg.HyARPGPlugin;
+import com.example.hyarpg.ModEventBus;
+import com.example.hyarpg.components.Component_Thirst;
+import com.example.hyarpg.events.Event_PlayerDeath;
+import com.example.hyarpg.events.Event_PlayerReady;
+import com.example.hyarpg.interactions.Interaction_RestoreThirstT1;
+
+// HyUI Imports
+import au.ellie.hyui.builders.*;
+
+// Java Imports
+import javax.swing.*;
 import java.util.UUID;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -136,88 +142,21 @@ public class Module_Thirst {
         Ref<EntityStore> entityRef = player.getReference();
         Store<EntityStore> store = world.getEntityStore().getStore();
 
-        // ensure the component exists (supposedly this will putComponent internally if not??)
+        // ensure the component exists
         store.ensureAndGetComponent(entityRef, componentTypeThirst);
-
-        // add the thirst hud to the player's hud
-        createThirstHud(player, world, entityRef);
     }
 
     // This function runs whenever a player has died
     private void onPlayerDeath(Event_PlayerDeath event) {
         // get playerRef of the player that died
-        PlayerRef playerRef = event.getPlayer();
-
-        // Get world UUID from PlayerRef
-        UUID worldUuid = playerRef.getWorldUuid();
-        if (worldUuid == null) return;
-
-        // Get the World from the Universe
-        World world = Universe.get().getWorld(worldUuid);
-        if (world == null) return;
-
-        // get the entity store
-        Store<EntityStore> store = world.getEntityStore().getStore();
-
-        // Get the player entityRef
-        Ref<EntityStore> entityRef = playerRef.getReference();
-        if (entityRef == null) return;
+        Ref<EntityStore> ref = event.getRef();
+        Store<EntityStore> store = event.getStore();
 
         // Get the thirst component
-        Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
+        Component_Thirst thirst = store.getComponent(ref, componentTypeThirst);
+        if (thirst == null) return;
+
+        // call the thirst component on death method
         thirst.setOnDeath();
-    }
-
-    // function to show the thirst hud for a player
-    private void createThirstHud(Player player, World world, Ref<EntityStore> entityRef) {
-        // get the entity store and player ref
-        Store<EntityStore> store = world.getEntityStore().getStore();
-        PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
-
-        // initialize the hud element with HyUI
-        HudBuilder.hudForPlayer(playerRef)
-                .addElement(new ImageBuilder()
-                        .withId("thirstIcon")
-                        .withAnchor(new HyUIAnchor()
-                                .setWidth(20)
-                                .setHeight(22)
-                                .setBottom(143)
-                        )
-                        .withPadding(new HyUIPadding().setLeft(676))
-                        .withImage("HyARPG_Texture_Thirst_Icon.png")
-                )
-                .addElement(new ProgressBarBuilder()
-                        .withId("thirstBar")
-                        .withOuterAnchor(new HyUIAnchor()
-                                .setWidth(0)
-                                .setHeight(0)
-                                .setBottom(153)
-                        )
-                        .withAnchor(new HyUIAnchor()
-                                .setWidth(155) // 309
-                                .setHeight(12)
-                                .setRight(-315)
-                        )
-                        .withValue(1f)
-                        .withBarTexturePath("0687cc.png")
-                        .withBackground(new HyUIPatchStyle().setColor("#222222"))
-                )
-                .withRefreshRate(500)
-                .onRefresh(hud -> {
-                    hud.getById("thirstBar", ProgressBarBuilder.class).ifPresent(bar -> {
-                        // Schedule component access on the world thread
-                        world.execute(() -> {
-                            // get the players thirst component
-                            Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
-
-                            // get the players thirst percentage
-                            float percentage = thirst.getPercentage();
-
-                            // Update the bar value
-                            bar.withValue(percentage);
-                        });
-                    });
-                })
-                .show(playerRef);
     }
 }

@@ -7,7 +7,6 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.server.core.HytaleServer;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -143,86 +142,20 @@ public class Module_Hunger {
 
         // ensure the component exists (supposedly this will putComponent internally if not??)
         store.ensureAndGetComponent(entityRef, componentTypeHunger);
-
-        // add the hunger hud to the player's hud
-        createHungerHud(player, world, entityRef);
     }
 
     // This function runs whenever a player has died
     private void onPlayerDeath(Event_PlayerDeath event) {
         // get playerRef of the player that died
-        PlayerRef playerRef = event.getPlayer();
-
-        // Get world UUID from PlayerRef
-        UUID worldUuid = playerRef.getWorldUuid();
-        if (worldUuid == null) return;
-
-        // Get the World from the Universe
-        World world = Universe.get().getWorld(worldUuid);
-        if (world == null) return;
-
-        // get the entity store
-        Store<EntityStore> store = world.getEntityStore().getStore();
-
-        // Get the player entityRef
-        Ref<EntityStore> entityRef = playerRef.getReference();
-        if (entityRef == null) return;
+        Ref<EntityStore> ref = event.getRef();
+        Store<EntityStore> store = event.getStore();
 
         // Get the hunger component
-        Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
+        Component_Hunger hunger = store.getComponent(ref, componentTypeHunger);
+        if (hunger == null) return;
+
+        // call the hunger component on death method
         hunger.setOnDeath();
     }
 
-    // function to show the hunger hud for a player
-    private void createHungerHud(Player player, World world, Ref<EntityStore> entityRef) {
-        // get the entity store and player ref
-        Store<EntityStore> store = world.getEntityStore().getStore();
-        PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
-
-        // initialize the hud element with HyUI
-        HudBuilder.hudForPlayer(playerRef)
-                .addElement(new ImageBuilder()
-                        .withId("hungerIcon")
-                        .withAnchor(new HyUIAnchor()
-                                .setWidth(25)
-                                .setHeight(25)
-                                .setBottom(142)
-                        )
-                        .withPadding(new HyUIPadding().setRight(676))
-                        .withImage("HyARPG_Texture_Hunger_Icon.png")
-                )
-                .addElement(new ProgressBarBuilder()
-                        .withId("hungerBar")
-                        .withOuterAnchor(new HyUIAnchor()
-                                .setWidth(0)
-                                .setHeight(0)
-                                .setBottom(153)
-                        )
-                        .withAnchor(new HyUIAnchor()
-                                .setWidth(155) // 309
-                                .setHeight(12)
-                                .setLeft(-315)
-                        )
-                        .withValue(1f)
-                        .withBarTexturePath("FF9760.png")
-                        .withBackground(new HyUIPatchStyle().setColor("#222222"))
-                )
-                .withRefreshRate(500)
-                .onRefresh(hud -> {
-                    hud.getById("hungerBar", ProgressBarBuilder.class).ifPresent(bar -> {
-                        // Schedule component access on the world thread
-                        world.execute(() -> {
-                            // get the players hunger component
-                            Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
-
-                            // get the players hunger percentage
-                            float percentage = hunger.getPercentage();
-
-                            // Update the bar value
-                            bar.withValue(percentage);
-                        });
-                    });
-                })
-                .show(playerRef);
-    }
 }

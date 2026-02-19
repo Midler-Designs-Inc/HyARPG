@@ -1,0 +1,16 @@
+{
+  "OverlapBehavior": "Extend",
+  "Duration": 5,
+  "DamageCalculatorCooldown": 1,
+  "StatusEffectIcon": "UI/StatusEffects/HealthRegen.png",
+  "Debuff": true,
+  "Infinite": false,
+  "DamageCalculator": {
+    "Type": "Absolute",
+    "Class": "Unknown",
+    "BaseDamage": {
+      "Environmental": 1,
+      "Physical": 1
+    }
+  }
+}

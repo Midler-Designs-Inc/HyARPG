@@ -1,0 +1,25 @@
+{
+  "Type": "RefillContainer",
+  "Next": {
+    "Type": "Simple",
+    "Effects": {
+      "ClearAnimationOnFinish": true,
+      "ItemAnimationId": "Water"
+    },
+    "RunTime": 0.5
+  },
+  "States": {
+    "Blessed": {
+      "AllowedFluids": [
+        "Blessed_Source",
+        "Blessed"
+      ]
+    },
+    "Filled_Water": {
+      "AllowedFluids": [
+        "Water_Source",
+        "Water"
+      ]
+    }
+  }
+}

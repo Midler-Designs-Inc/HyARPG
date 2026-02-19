@@ -1,0 +1,254 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Water_Bottle.name",
+    "Description": "server.items.Water_Bottle.description"
+  },
+  "Categories": [
+    "Items.Tools"
+  ],
+  "ItemLevel": 10,
+  "Recipe": {
+    "TimeSeconds": 10,
+    "Input": [
+      {
+        "Quantity": 1,
+        "ResourceTypeId": "Sands"
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Processing",
+        "Id": "Furnace"
+      }
+    ]
+  },
+  "Quality": "Common",
+  "Tool": {},
+  "PlayerAnimationsId": "Watering_Can",
+  "IconProperties": {
+    "Scale": 0.55,
+    "Rotation": [45, 60, 0],
+    "Translation": [-11.4, -10.8]
+  },
+  "Texture": "Items/Consumables/Potions/Potion_Textures/Empty.png",
+  "Model": "Items/Consumables/Potions/Potion_Small.blockymodel",
+  "Icon": "Icons/ItemsGenerated/Potion_Empty_Small.png",
+  "State": {
+    "Filled_Water": {
+      "Variant": true,
+      "TranslationProperties": {
+        "Name": "server.items.Water_Bottle_Full.name",
+        "Description": "server.items.Water_Bottle_Full.description"
+      },
+      "$Comment": "FOLLOWING PROPERTIES DUPLICATED BECAUSE OF SERVER BUG",
+      "Recipe": null,
+      "Quality": "Common",
+      "ItemLevel": 40,
+      "Tool": {},
+      "PlayerAnimationsId": "Watering_Can",
+      "IconProperties": {
+        "Scale": 0.55,
+        "Translation": [-11.4, -10.8],
+        "Rotation": [45, 60, 0]
+      },
+      "Texture": "Items/Consumables/Potions/Potion_Textures/Blue.png",
+      "Model": "Items/Consumables/Potions/Potion_Small.blockymodel",
+      "Icon": "Icons/ItemsGenerated/Potion_Mana_Small.png",
+      "MaxDurability": 3,
+      "DurabilityLossOnDeath": false,
+      "Weapon": {},
+      "Scale": 1.3,
+      "Interactions": {
+        "Secondary": {
+          "Interactions": [
+            {
+              "Type": "Charging",
+              "FailOnDamage": true,
+              "Effects": {
+                "ItemAnimationId": "Consume",
+                "ClearAnimationOnFinish": true,
+                "ClearSoundEventOnFinish": true
+              },
+              "HorizontalSpeedMultiplier": 0.4,
+              "Next": {
+                "2.0": {
+                  "Type": "ApplyEffect",
+                  "EffectId": {
+                    "Parent": "Debuff_Health_Dirty_Water"
+                  },
+                  "Next": {
+                    "Type": "ModifyInventory",
+                    "AdjustHeldItemDurability": -1,
+                    "BrokenItem": "Water_Bottle",
+                    "Next": {
+                      "Type": "Serial",
+                      "Interactions": [
+                        {
+                          "Type": "RestoreThirst_T1"
+                        },
+                        {
+                          "Type": "Simple",
+                          "RunTime": 0.2
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "Failed": {
+                "Type": "Simple"
+              }
+            }
+          ]
+        }
+      },
+      "State": {
+        "Clean": {
+          "Icon": "Icons/ItemsGenerated/Potion_Mana_Small.png",
+          "ItemLevel": 10,
+          "Quality": "Common",
+          "Categories": ["Items.Tools"],
+          "ItemSoundSetId": "ISS_Items_Potion",
+          "Model": "Items/Consumables/Potions/Potion_Small.blockymodel",
+          "Scale": 1.3,
+          "Texture": "Items/Consumables/Potions/Potion_Textures/Blue.png",
+          "PlayerAnimationsId": "Watering_Can",
+          "Recipe": {
+            "Input": [
+              {
+                "ItemId": "*Water_Bottle_State_Filled_Water"
+              }
+            ],
+            "BenchRequirement": [
+              {
+                "Type": "Crafting",
+                "Id": "Cookingbench",
+                "Categories": ["Prepared"]
+              }
+            ],
+            "TimeSeconds": 5
+          },
+          "MaxDurability": 3,
+          "Interactions": {
+            "Secondary": {
+              "Interactions": [
+                {
+                  "Type": "Charging",
+                  "FailOnDamage": true,
+                  "Effects": {
+                    "ItemAnimationId": "Consume",
+                    "ClearAnimationOnFinish": true,
+                    "ClearSoundEventOnFinish": true
+                  },
+                  "HorizontalSpeedMultiplier": 0.4,
+                  "Next": {
+                    "2.0": {
+                      "Type": "ClearEntityEffect",
+                      "EntityEffectId": "Debuff_Health_Dirty_Water",
+                      "Next": {
+                        "Type": "ModifyInventory",
+                        "AdjustHeldItemDurability": -1,
+                        "BrokenItem": "Water_Bottle",
+                        "Next": {
+                          "Type": "Serial",
+                          "Interactions": [
+                            {
+                              "Type": "RestoreThirst_T1"
+                            },
+                            {
+                              "Type": "Simple",
+                              "RunTime": 0.2
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Failed": {
+                    "Type": "Simple"
+                  }
+                }
+              ]
+            }
+          },
+          "Variant": true,
+          "TranslationProperties": {
+            "Description": "server.items.Water_Bottle_Clean.description",
+            "Name": "server.items.Water_Bottle_Clean.name"
+          }
+        }
+      },
+      "ItemSoundSetId": "ISS_Items_Potion"
+    },
+    "Blessed": {
+      "Icon": "Icons/ItemsGenerated/Potion_Mana_Small.png",
+      "ItemLevel": 10,
+      "Quality": "Common",
+      "Categories": ["Items.Tools"],
+      "ItemSoundSetId": "ISS_Items_Potion",
+      "Model": "Items/Consumables/Potions/Potion_Small.blockymodel",
+      "Scale": 1.3,
+      "Texture": "Items/Consumables/Potions/Potion_Textures/Blue.png",
+      "PlayerAnimationsId": "Watering_Can",
+      "MaxDurability": 3,
+      "Interactions": {
+        "Secondary": {
+          "Interactions": [
+            {
+              "Type": "Charging",
+              "FailOnDamage": true,
+              "Effects": {
+                "ItemAnimationId": "Consume",
+                "ClearAnimationOnFinish": true,
+                "ClearSoundEventOnFinish": true
+              },
+              "HorizontalSpeedMultiplier": 0.4,
+              "Next": {
+                "2.0": {
+                  "Type": "ApplyEffect",
+                  "EffectId": "Buff_Blessed_Water",
+                  "Next": {
+                    "Type": "ModifyInventory",
+                    "AdjustHeldItemDurability": -1,
+                    "BrokenItem": "Water_Bottle",
+                    "Next": {
+                      "Type": "Serial",
+                      "Interactions": [
+                        {
+                          "Type": "RestoreThirst_T1"
+                        },
+                        {
+                          "Type": "Simple",
+                          "RunTime": 0.2
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "Failed": {
+                "Type": "Simple"
+              }
+            }
+          ]
+        }
+      },
+      "Variant": true,
+      "TranslationProperties": {
+        "Description": "server.items.Water_Bottle_Blessed.description",
+        "Name": "server.items.Water_Bottle_Blessed.name"
+      }
+    }
+  },
+  "Tags": {
+    "Type": ["Tool"]
+  },
+  "Weapon": {},
+  "ItemSoundSetId": "ISS_Items_Potion",
+  "Scale": 1.3,
+  "Interactions": {
+    "Secondary": {
+      "Parent": "Blessed_Fill"
+    }
+  }
+}

@@ -60,7 +60,10 @@ public class Module_Greeter {
     // This function runs whenever a player has died
     private void onPlayerDeath(Event_PlayerDeath event) {
         // get playerRef of the player that died
-        PlayerRef playerRef = event.getPlayer();
+        Ref<EntityStore> ref = event.getRef();
+        Store<EntityStore> store = event.getStore();
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+        if (playerRef == null) return;
 
         // set the system death message
         Message systemMessage = Message.raw("Player " + playerRef.getUsername() + " has died.")

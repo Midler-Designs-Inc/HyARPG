@@ -5,9 +5,17 @@ import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.core.util.EventTitleUtil;
+
+// Java Imports
+import java.util.Random;
 
 public class Component_RPG_Stats implements Component<EntityStore> {
+    Random random = new Random();
+
     // Constructor properties
     public int level;
     public double xp;
@@ -17,6 +25,9 @@ public class Component_RPG_Stats implements Component<EntityStore> {
     public final int xpToFirstLevel = 10;
     public final float xpPerLevelModifier = 0.1f;
     public final int xpGainedFromEqualLevelMonster = 1;
+
+    // Enemy Only Properties
+    public int monsterRarity = 0;
 
     // Register properties that needs to get persisted
     public static final BuilderCodec<Component_RPG_Stats> CODEC = BuilderCodec.builder(
@@ -52,33 +63,116 @@ public class Component_RPG_Stats implements Component<EntityStore> {
         this.skillPoints = skillPoints;
     }
 
-    // Method to get how much more XP is needed to hit the next level
+    // Method to get how much total XP is needed to reach a specific level
+    public double calculateTotalXPRequiredToReachTargetLevel(int targetLevel) {
+        double growthFactor = 1 + xpPerLevelModifier;
+        double cumulativeXPToCurrentLevel = xpToFirstLevel * (Math.pow(growthFactor, (targetLevel - 1)) - 1) / xpPerLevelModifier;
+
+        return Math.max(0, Math.round(cumulativeXPToCurrentLevel));
+    }
+
     public double calculateXPRequiredToLevelUp() {
-        // Step 1: Calculate cumulative XP required for each level up to next
-        double startingXP = xpToFirstLevel;
-        double cumulativeXP = xpToFirstLevel;
+        double growthFactor = 1 + xpPerLevelModifier;
+        double cumulativeXPToCurrentLevel = xpToFirstLevel * (Math.pow(growthFactor, level) - 1) / xpPerLevelModifier;
 
-        // loop over each level between level 2 and the players level
-        for (int lvl = 2; lvl <= level; lvl++) {
-            startingXP += startingXP * xpPerLevelModifier;
-            cumulativeXP += startingXP;
-        }
-
-        // Step 2: XP required for next level = cumulative XP up to next level
-        double requiredXP = cumulativeXP;
-
-        // Step 3: Remaining XP = next level threshold - current XP
-        return Math.max(0, requiredXP - xp);
+        return Math.max(0, Math.round(cumulativeXPToCurrentLevel - xp));
     }
 
     // Method to get the players current level based on their total XP
-    public int  calculateLevelFromXP() {
-        // if current XP is less than what's required to hit level 1 just return 1
+    public int calculateLevelFromXP() {
         if (xp < xpToFirstLevel) return 1;
-        double N = Math.log(1 + (xp * xpPerLevelModifier) / xpToFirstLevel) / Math.log(1 + xpPerLevelModifier);
 
-        // Convert to int for the player's level
-        return (int) Math.floor(N) + 1;
+        double growthFactor = 1 + xpPerLevelModifier;
+
+        // Add tiny epsilon to account for floating point rounding
+        double epsilon = 1e-6;
+        double L = Math.log(1 + (xp * xpPerLevelModifier) / xpToFirstLevel + epsilon) / Math.log(growthFactor);
+
+        return (int) Math.floor(L);
+    }
+
+    // Method to get the percentage of current level as a 0-1 integer
+    public float calculateLevelProgress() {
+        // XP required to reach the start of the current level and next level
+        double xpForCurrentLevelStart = calculateTotalXPRequiredToReachTargetLevel(level);
+        double xpForNextLevelStart = calculateTotalXPRequiredToReachTargetLevel(level + 1);
+
+        // Calculate the percentage of the way into the next level 0-1
+        double progress = (xp - xpForCurrentLevelStart) / (xpForNextLevelStart - xpForCurrentLevelStart);
+
+        // Clamp just in case
+        return (float) Math.max(0.0, Math.min(1.0, progress));
+    }
+
+    // Method to award XP
+    public void awardXP(int enemyLevel, PlayerRef playerRef) {
+        // Calculate level difference (positive if enemy is higher)
+        int levelDiff = enemyLevel - level;
+
+        // Clamp level difference between -10 and +10
+        if (levelDiff > 10) levelDiff = 10;
+        if (levelDiff < -10) levelDiff = -10;
+
+        // Scale factor: -10 → 0%, 0 → 100%, +10 → 300%
+        float scaleFactor;
+        if (levelDiff >= 0) {
+            // Enemy same or higher level: linear scale 100% → 300%
+            scaleFactor = 1.0f + (levelDiff / 10.0f) * 2.0f;
+        } else {
+            // Enemy lower level: linear scale 0% → 100%
+            scaleFactor = 1.0f + (levelDiff / 10.0f);
+        }
+
+        // Calculate scaled XP and ensure it's not negative
+        int xpGained = Math.max(Math.round(xpGainedFromEqualLevelMonster * scaleFactor), 0);
+
+        // apply the XP
+        xp += xpGained;
+
+        // while xp required to level up is 0 then level up
+        while (calculateXPRequiredToLevelUp() <= 0) {
+            levelUp(playerRef);
+        }
+    }
+
+    // Method to level up
+    public void levelUp(PlayerRef playerRef) {
+        this.level += 1;
+        this.skillPoints += 2;
+
+        // Create the level up messages
+        Message smallText = Message.raw("LEVEL UP");
+        Message bigText = Message.raw(String.valueOf(level));
+
+        try {
+            // Directly show the event title
+            EventTitleUtil.showEventTitleToPlayer(
+                playerRef,
+                bigText,
+                smallText,
+                true
+            );
+        } catch (Exception e) {}
+    }
+
+    // Randomly roll monster rarity
+    public void rollMonsterRarity () {
+        double roll = random.nextDouble(); // 0.0 <= roll < 1.0
+
+        if (roll < 0.79) monsterRarity = 0; // 79% chance
+        else if (roll < 0.94) monsterRarity = 1; // next 15%
+        else if (roll < 0.99) monsterRarity = 2; // next 5%
+        else monsterRarity = 3; // remaining 1%
+    }
+
+    // Get the intended glow effect for the monster rarity
+    public String getRarityString () {
+        return switch (monsterRarity) {
+            case 1 -> "Magical";
+            case 2 -> "Rare";
+            case 3 -> "Elite";
+            default -> "";
+        };
     }
 
     // required for Hytale ECS system

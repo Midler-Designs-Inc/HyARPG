@@ -3,8 +3,9 @@
   "Name": "HyARPG",
   "Version": "1.0.0",
   "Description": "A Hytale mod to add a large and deep variety of ARPG elements to the game.",
-  "Authors": [{"Name": "jmdiler"}],
+  "Authors": [{"Name": "Jeffery Midler"}, {"Name": "Michael Midler"}],
   "Main": "com.example.hyarpg.HyARPGPlugin",
   "LoadOrder": "POSTWORLD",
-  "IncludesAssetPack": true
+  "IncludesAssetPack": true,
+  "ServerVersion": "2026.02.18-f3b8fff95"
 }

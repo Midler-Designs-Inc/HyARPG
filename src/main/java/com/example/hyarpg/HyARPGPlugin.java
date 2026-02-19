@@ -51,8 +51,11 @@ public class HyARPGPlugin extends JavaPlugin {
 
         try {
             // register each listener with the main event bus
-            new Listeners_Player().register(eventBus);
+            new Listeners_Player().register(eventBus, this);
             getEntityStoreRegistry().registerSystem(new Listeners_Death());
+            getEntityStoreRegistry().registerSystem(new Listeners_Damage());
+            getEntityStoreRegistry().registerSystem(new Listeners_Entity_PrePost());
+            getEntityStoreRegistry().registerSystem(new Listeners_Entity_PostPre());
 
             // log the registration
             LOGGER.at(Level.INFO).log("[HyARPG] Registered listener: PlayerListener");
@@ -69,6 +72,7 @@ public class HyARPGPlugin extends JavaPlugin {
             new Module_Hunger(this);
             new Module_Thirst(this);
             new Module_RPG_Stats(this);
+            new Module_PlayerHud(this);
 
             // log the instantiation
             LOGGER.at(Level.INFO).log("[HyARPG] Instantiated modules");

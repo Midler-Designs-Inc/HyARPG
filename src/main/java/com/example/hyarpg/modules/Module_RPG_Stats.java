@@ -19,6 +19,7 @@ import com.example.hyarpg.events.*;
 import com.example.hyarpg.HyARPGPlugin;
 import com.example.hyarpg.ModEventBus;
 import com.example.hyarpg.components.Component_RPG_Stats;
+import com.example.hyarpg.components.Component_RPG_Enemy;
 
 // Java Imports
 import java.awt.*;
@@ -30,9 +31,11 @@ public class Module_RPG_Stats {
     private final HyARPGPlugin plugin;
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     public static ComponentType<EntityStore, Component_RPG_Stats> componentTypeRPGStats;
+    public static ComponentType<EntityStore, Component_RPG_Enemy> componentTypeRPGEnemy;
 
     // properties that control enemy level as they get further from spawn
     private static final double LEVEL_DISTANCE_THRESHOLD_METERS = 500.0;
+    private static final double LEVEL_DISTANCE_THRESHOLD = 500.0;
     private static final int LEVEL_VARIANCE = 5;
     private static final Random random = new Random();
 
@@ -76,14 +79,17 @@ public class Module_RPG_Stats {
         Holder<EntityStore> holder = event.getHolder();
 
         // Create an RPGStats component and assign a monster level
+        // Create an RPGEnemy component and assign a monster level
         int enemyLevel = calculateEnemyLevel(holder);
         Component_RPG_Stats rpgStats = new Component_RPG_Stats(enemyLevel, 0, 0);
 
         // Assign Monster Rarity
         rpgStats.rollMonsterRarity();
+        Component_RPG_Enemy rpgEnemy = new Component_RPG_Enemy(enemyLevel);
 
         // Add the component
         holder.putComponent(componentTypeRPGStats, rpgStats);
+        holder.putComponent(componentTypeRPGEnemy, rpgEnemy);
     }
 
     // This function runs whenever an NPCSpawn event is posted
@@ -98,6 +104,10 @@ public class Module_RPG_Stats {
         if (rpgStats == null) return;
         int level = rpgStats.level;
         String rarityString = rpgStats.monsterRarity > 0 ? (rpgStats.getRarityString() + " ") : "";
+        Component_RPG_Enemy rpgEnemy = store.getComponent(ref, componentTypeRPGEnemy);
+        if (rpgEnemy == null) return;
+        int level = rpgEnemy.level;
+        String rarityString = rpgEnemy.monsterRarity > 0 ? (rpgEnemy.getRarityString() + " ") : "";
 
         // get the NPC entity component
         NPCEntity npcEntity = store.getComponent(ref, NPCEntity.getComponentType());
@@ -105,6 +115,7 @@ public class Module_RPG_Stats {
 
         // Get the entity's role name and create the nameplate text
         String roleName = npcEntity.getRoleName();
+        String roleName = npcEntity.getRoleName().replace("_", " ");
         String nameplateText = rarityString + roleName + " (Lv. " + level + ")";
 
         // Nameplate is what actually shows above the head
@@ -116,10 +127,17 @@ public class Module_RPG_Stats {
         if(rpgStats.monsterRarity > 0) {
             String entityEffectStr = rpgStats.getRarityString() + "_Glow";
             EntityEffect eliteEffect = (EntityEffect) EntityEffect.getAssetMap().getAsset(entityEffectStr);
+        if(rpgEnemy.monsterRarity > 0) {
+            String entityEffectStr = rpgEnemy.getRarityString() + "_Glow";
+            EntityEffect specialEffect = (EntityEffect) EntityEffect.getAssetMap().getAsset(entityEffectStr);
+            if (specialEffect == null) return;
+
             EffectControllerComponent effectController = store.getComponent(ref, EffectControllerComponent.getComponentType());
             if (effectController != null) {
                 effectController.addEffect(ref, eliteEffect, commandBuffer);
                 effectController.addEffect(ref, eliteEffect, commandBuffer);
+                effectController.addEffect(ref, specialEffect, commandBuffer);
+                effectController.addEffect(ref, specialEffect, commandBuffer);
             }
         }
     }
@@ -165,6 +183,8 @@ public class Module_RPG_Stats {
                 // get the killed enemies level or default to 1
                 Component_RPG_Stats rpgStats = store.getComponent(defender, componentTypeRPGStats);
                 int enemyLevel = (rpgStats != null) ? rpgStats.level : 1;
+                Component_RPG_Enemy rpgEnemy = store.getComponent(defender, componentTypeRPGEnemy);
+                int enemyLevel = (rpgEnemy != null) ? rpgEnemy.level : 1;
 
                 // award XP to the player
                 Component_RPG_Stats attackerRPGStats = store.getComponent(attacker, componentTypeRPGStats);
@@ -194,6 +214,7 @@ public class Module_RPG_Stats {
 
         // get level based on distance
         int baseLevel = Math.max(1, (int)(distance / LEVEL_DISTANCE_THRESHOLD_METERS) + 1);
+        int baseLevel = Math.max(1, (int)(distance / LEVEL_DISTANCE_THRESHOLD) + 1);
 
         // roll for a random level within variance range of base level
         int variance = random.nextInt(LEVEL_VARIANCE * 2 + 1) - LEVEL_VARIANCE;

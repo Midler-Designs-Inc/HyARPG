@@ -14,8 +14,6 @@ import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import java.util.Random;
 
 public class Component_RPG_Stats implements Component<EntityStore> {
-    Random random = new Random();
-
     // Constructor properties
     public int level;
     public double xp;
@@ -25,9 +23,6 @@ public class Component_RPG_Stats implements Component<EntityStore> {
     public final int xpToFirstLevel = 10;
     public final float xpPerLevelModifier = 0.1f;
     public final int xpGainedFromEqualLevelMonster = 1;
-
-    // Enemy Only Properties
-    public int monsterRarity = 0;
 
     // Register properties that needs to get persisted
     public static final BuilderCodec<Component_RPG_Stats> CODEC = BuilderCodec.builder(
@@ -48,15 +43,11 @@ public class Component_RPG_Stats implements Component<EntityStore> {
         .build();
 
     // Default no-arg constructor (required for component registration)
-    public Component_RPG_Stats() {
-        this(1, 0, 0);
-    }
+    public Component_RPG_Stats() { this(1, 0, 0); }
 
     // Constructor
     public Component_RPG_Stats(
-        int level,
-        double xp,
-        int skillPoints
+        int level, double xp, int skillPoints
     ) {
         this.level = level;
         this.xp = xp;
@@ -153,26 +144,6 @@ public class Component_RPG_Stats implements Component<EntityStore> {
                 true
             );
         } catch (Exception e) {}
-    }
-
-    // Randomly roll monster rarity
-    public void rollMonsterRarity () {
-        double roll = random.nextDouble(); // 0.0 <= roll < 1.0
-
-        if (roll < 0.79) monsterRarity = 0; // 79% chance
-        else if (roll < 0.94) monsterRarity = 1; // next 15%
-        else if (roll < 0.99) monsterRarity = 2; // next 5%
-        else monsterRarity = 3; // remaining 1%
-    }
-
-    // Get the intended glow effect for the monster rarity
-    public String getRarityString () {
-        return switch (monsterRarity) {
-            case 1 -> "Magical";
-            case 2 -> "Rare";
-            case 3 -> "Elite";
-            default -> "";
-        };
     }
 
     // required for Hytale ECS system

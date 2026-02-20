@@ -17,11 +17,11 @@ import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 // Mod Imports
 import static com.example.hyarpg.modules.Module_Hunger.componentTypeHunger;
 
-public class Interaction_RestoreHungerT1 extends SimpleInstantInteraction {
+public class Interaction_RestoreHungerT3 extends SimpleInstantInteraction {
     // Create the CODEC - this is required for serialization
-    public static final BuilderCodec<Interaction_RestoreHungerT1> CODEC = BuilderCodec.builder(
-            Interaction_RestoreHungerT1.class,
-            Interaction_RestoreHungerT1::new,
+    public static final BuilderCodec<Interaction_RestoreHungerT3> CODEC = BuilderCodec.builder(
+            Interaction_RestoreHungerT3.class,
+            Interaction_RestoreHungerT3::new,
             SimpleInstantInteraction.CODEC
     ).build();
 
@@ -40,7 +40,7 @@ public class Interaction_RestoreHungerT1 extends SimpleInstantInteraction {
         if (hunger == null) return;
 
         // restore some hunger
-        float value = (float) (hunger.max * 0.20);
+        float value = hunger.max;
         hunger.restore(value);
     }
 }

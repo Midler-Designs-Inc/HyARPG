@@ -25,9 +25,8 @@ import com.example.hyarpg.events.Event_PlayerDeath;
 import com.example.hyarpg.HyARPGPlugin;
 import com.example.hyarpg.components.Component_Hunger;
 import com.example.hyarpg.interactions.Interaction_RestoreHungerT1;
-
-// HyUI Imports
-import au.ellie.hyui.builders.*;
+import com.example.hyarpg.interactions.Interaction_RestoreHungerT2;
+import com.example.hyarpg.interactions.Interaction_RestoreHungerT3;
 
 // Java Imports
 import java.awt.*;
@@ -52,6 +51,8 @@ public class Module_Hunger {
         // Get the interaction registry and register the RestoreHunger interaction
         final var interactionRegistry = plugin.getCodecRegistry(Interaction.CODEC);
         interactionRegistry.register("RestoreHunger_T1", Interaction_RestoreHungerT1.class, Interaction_RestoreHungerT1.CODEC);
+        interactionRegistry.register("RestoreHunger_T2", Interaction_RestoreHungerT2.class, Interaction_RestoreHungerT2.CODEC);
+        interactionRegistry.register("RestoreHunger_T3", Interaction_RestoreHungerT3.class, Interaction_RestoreHungerT3.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);

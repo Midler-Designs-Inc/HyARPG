@@ -8,6 +8,7 @@ import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemTranslationProperties;
 import com.hypixel.hytale.server.core.asset.type.item.config.ItemWeapon;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
@@ -34,6 +35,7 @@ import com.example.hyarpg.components.Component_RPG_Stats;
 import com.example.hyarpg.components.Component_RPG_Enemy;
 
 // Java Imports
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -179,62 +181,25 @@ public class Module_RPG_Stats {
             defenderRarity = defenderRPGEnemy.monsterRarity;
         };
 
-        // if attacker is a player and defender is an enemy register the damage
-        if (attackerRPGStats != null && defenderRPGEnemy != null) {
-            // loop over all players and broadcast the message
-            for (PlayerRef player : Universe.get().getPlayers()) {
-                player.sendMessage(Message.raw("Player dealt damage"));
-            }
+        // if attacker is a player and defender is an enemy register the damage and adjust based on gear score
+        if(attackerRPGStats != null && defenderRPGEnemy != null) {
             // register the player damage to the enemy in the damage registry
             damageRegistry
                 .computeIfAbsent(defender, k -> new ConcurrentHashMap<>())
                 .put(attacker, System.currentTimeMillis());
+
+            // adjust attack stats to gear score instead of level
+            Player player = store.getComponent(attacker, Player.getComponentType());
+            if(player != null) attackerLevel = attackerRPGStats.calculateGearScore(player);
+        }
+        else if(defenderRPGStats != null && attackerRPGEnemy != null) {
+            // adjust attack stats to gear score instead of level
+            Player player = store.getComponent(defender, Player.getComponentType());
+            if(player != null) defenderLevel = defenderRPGStats.calculateGearScore(player);
         }
 
         // adjust damage based player/enemy level
         adjustDamageBasedOnLevel(attackerLevel, attackerRarity, defenderLevel, defenderRarity, damage);
-
-        // loop over all players and broadcast the message
-        for (PlayerRef player : Universe.get().getPlayers()) {
-            Player player2 = store.getComponent(attacker, Player.getComponentType());
-            if (player2 == null) continue;
-            int gearScore = calculateGearScore(player2);
-        }
-    }
-
-    private int calculateGearScore(Player player) {
-        Inventory inventory = player.getInventory();
-        int totalLevel = 0;
-        int count = 6;
-
-        // Active hand item (weapon)
-        ItemStack inHand = inventory.getItemInHand();
-        if (!ItemStack.isEmpty(inHand)) {
-            Integer level = inHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
-            if (level != null) totalLevel += level;
-        }
-
-        // Off hand item
-        ItemStack offHand = inventory.getUtilityItem();
-        if (!ItemStack.isEmpty(offHand)) {
-            Integer level = offHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
-            if (level != null) totalLevel += level;
-        }
-        else count--;
-
-        // Armor slots
-        ItemContainer armor = inventory.getArmor();
-        for (short i = 0; i < armor.getCapacity(); i++) {
-            ItemStack armorPiece = armor.getItemStack(i);
-            if (ItemStack.isEmpty(armorPiece)) continue;
-            Integer level = armorPiece.getFromMetadataOrNull("GearScore", Codec.INTEGER);
-            if (level != null) totalLevel += level;
-        }
-        player.sendMessage(Message.raw("Total level is: " + totalLevel));
-        player.sendMessage(Message.raw("Total slot count is: " + count));
-        player.sendMessage(Message.raw("Gear Score is: " + Math.max(0, totalLevel / count)));
-
-        return Math.max(0, totalLevel / count);
     }
 
     // This function that fires when an enemy dies
@@ -297,10 +262,11 @@ public class Module_RPG_Stats {
                 // get the killed enemies level or default to 1
                 Component_RPG_Enemy rpgEnemy = store.getComponent(defender, componentTypeRPGEnemy);
                 int enemyLevel = (rpgEnemy != null) ? rpgEnemy.level : 1;
+                int enemyRarity = (rpgEnemy != null) ? rpgEnemy.monsterRarity : 0;
 
                 // award XP to the player
                 Component_RPG_Stats attackerRPGStats = store.getComponent(attacker, componentTypeRPGStats);
-                attackerRPGStats.awardXP(enemyLevel, playerRef);
+                attackerRPGStats.awardXP(enemyLevel, enemyRarity, playerRef);
             });
         });
     }
@@ -358,5 +324,21 @@ public class Module_RPG_Stats {
 
         // update the value on the damage object
         damage.setAmount((int) scaledDamage);
+
+        // loop over all players and broadcast the message
+        for (PlayerRef player : Universe.get().getPlayers()) {
+            player.sendMessage(Message.raw(
+                "Initial Damage: " + damage.getInitialAmount() +
+                " Final Damage: " + damage.getAmount()
+            ).color(Color.YELLOW));
+            player.sendMessage(Message.raw(
+                "Level Delta: " + levelDelta +
+                " Rarity Delta: " + rarityDelta
+            ).color(Color.YELLOW));
+            player.sendMessage(Message.raw(
+                "Level Scale: " + levelScale +
+                " Rarity Scale: " + rarityScale
+            ).color(Color.YELLOW));
+        }
     }
 }

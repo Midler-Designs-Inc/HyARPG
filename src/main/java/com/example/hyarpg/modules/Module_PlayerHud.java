@@ -78,19 +78,23 @@ public class Module_PlayerHud {
                 Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
                 Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
                 Component_RPG_Stats RPGStats = store.getComponent(entityRef, componentTypeRPGStats);
+                Player player = store.getComponent(entityRef, Player.getComponentType());
+                if (hunger == null || thirst == null || RPGStats == null || player == null);
 
                 float thirstPercent = thirst.getPercentage();
                 float hungerPercent = hunger.getPercentage();
                 float levelPercent = RPGStats.calculateLevelProgress();
                 int playerLevel = RPGStats.level;
-                int nextLevel = RPGStats.level + 1;
+                int gearScore = RPGStats.calculateGearScore(player);
 
                 // Update UI back on the HyUI/render thread
                 hudRef.getById("thirstBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(thirstPercent));
                 hudRef.getById("hungerBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(hungerPercent));
                 hudRef.getById("xpBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(levelPercent));
-                hudRef.getById("xpLevelCurrent", LabelBuilder.class).ifPresent(l -> l.withText("Lv " + String.valueOf(playerLevel)));
-                hudRef.getById("xpLevelNext", LabelBuilder.class).ifPresent(l -> l.withText("Lv " + String.valueOf(nextLevel)));
+                hudRef.getById("xpLevelCurrent", LabelBuilder.class).ifPresent(l -> l.withText(
+                    "Ip " + String.valueOf(gearScore)
+                    + "  |  Lv " + String.valueOf(playerLevel)
+                ));
             });
         });
     }
@@ -162,26 +166,26 @@ public class Module_PlayerHud {
     private void createXPHud(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
         // XP Bar itself
         hud.addElement(new ProgressBarBuilder()
-                .withId("xpBar")
-                .withOuterAnchor(new HyUIAnchor()
-                        .setWidth(0)
-                        .setHeight(0)
-                        .setBottom(12)
-                )
-                .withAnchor(new HyUIAnchor()
-                        .setWidth(700)
-                        .setHeight(10)
-                )
-                .withValue(0f)
-                .withBarTexturePath("d3e582.png")
-                .withBackground(new HyUIPatchStyle().setColor("#222222"))
+            .withId("xpBar")
+            .withOuterAnchor(new HyUIAnchor()
+                    .setWidth(0)
+                    .setHeight(0)
+                    .setBottom(12)
+            )
+            .withAnchor(new HyUIAnchor()
+                    .setWidth(700)
+                    .setHeight(10)
+            )
+            .withValue(0f)
+            .withBarTexturePath("d3e582.png")
+            .withBackground(new HyUIPatchStyle().setColor("#222222"))
         );
 
         // Current level label (left of bar)
         hud.addElement(new LabelBuilder()
             .withId("xpLevelCurrent")
             .withAnchor(new HyUIAnchor()
-                .setWidth(50)
+                .setWidth(75)
                 .setHeight(15)
                 .setBottom(5)
             )
@@ -190,9 +194,8 @@ public class Module_PlayerHud {
                 .setTextColor("#cccccc")
                 .setRenderBold(true)
             )
-            .withPadding(new HyUIPadding().setLeft(-357))
-            .withText("Lv 1")
+            .withPadding(new HyUIPadding().setLeft(-417))
+            .withText("IP 0  |  Lv 1")
         );
     }
-
 }

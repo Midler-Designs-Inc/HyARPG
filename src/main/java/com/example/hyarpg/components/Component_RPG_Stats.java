@@ -6,6 +6,10 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.inventory.Inventory;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
@@ -24,7 +28,7 @@ public class Component_RPG_Stats implements Component<EntityStore> {
     public final float xpPerLevelModifier = 0.1f;
     public final int xpGainedFromEqualLevelMonster = 1;
 
-    // Register properties that needs to get persisted
+    // Register properties that needs to be persisted
     public static final BuilderCodec<Component_RPG_Stats> CODEC = BuilderCodec.builder(
             Component_RPG_Stats.class, Component_RPG_Stats::new
         )
@@ -95,8 +99,42 @@ public class Component_RPG_Stats implements Component<EntityStore> {
         return (float) Math.max(0.0, Math.min(1.0, progress));
     }
 
+    // Calculate the players gear score
+    public int calculateGearScore(Player player) {
+        Inventory inventory = player.getInventory();
+        int totalLevel = 0;
+        int count = 6;
+
+        // Active hand item (weapon)
+        ItemStack inHand = inventory.getItemInHand();
+        if (!ItemStack.isEmpty(inHand)) {
+            Integer level = inHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+            if (level != null) totalLevel += level;
+        }
+
+        // Off hand item
+        ItemStack offHand = inventory.getUtilityItem();
+        if (!ItemStack.isEmpty(offHand)) {
+            Integer level = offHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+            if (level != null) totalLevel += level;
+        }
+        else count--;
+
+        // Armor slots
+        ItemContainer armor = inventory.getArmor();
+        for (short i = 0; i < armor.getCapacity(); i++) {
+            ItemStack armorPiece = armor.getItemStack(i);
+            if (ItemStack.isEmpty(armorPiece)) continue;
+            Integer level = armorPiece.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+            if (level != null) totalLevel += level;
+        }
+
+        // return value or 0, whichever is higher
+        return Math.max(0, totalLevel / count);
+    }
+
     // Method to award XP
-    public void awardXP(int enemyLevel, PlayerRef playerRef) {
+    public void awardXP(int enemyLevel, int enemyRarity, PlayerRef playerRef) {
         // Calculate level difference (positive if enemy is higher)
         int levelDiff = enemyLevel - level;
 
@@ -114,8 +152,10 @@ public class Component_RPG_Stats implements Component<EntityStore> {
             scaleFactor = 1.0f + (levelDiff / 10.0f);
         }
 
-        // Calculate scaled XP and ensure it's not negative
-        int xpGained = Math.max(Math.round(xpGainedFromEqualLevelMonster * scaleFactor), 0);
+        // Calculate scaled XP and rarity bonus
+        float xpSummedBase = xpGainedFromEqualLevelMonster * scaleFactor;
+        float rarityBonus = xpSummedBase * (enemyRarity * .33f);
+        int xpGained = Math.max(Math.round(xpSummedBase + rarityBonus), 0);
 
         // apply the XP
         xp += xpGained;

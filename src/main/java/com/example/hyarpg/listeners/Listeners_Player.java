@@ -4,7 +4,6 @@ package com.example.hyarpg.listeners;
 import com.example.hyarpg.HyARPGPlugin;
 import com.hypixel.hytale.event.EventRegistry;
 import com.hypixel.hytale.logger.HytaleLogger;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
@@ -15,11 +14,6 @@ import com.example.hyarpg.events.Event_PlayerJoin;
 import com.example.hyarpg.events.Event_PlayerDisconnect;
 import com.example.hyarpg.events.Event_PlayerReady;
 import com.example.hyarpg.ModEventBus;
-import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
-import com.hypixel.hytale.server.flock.FlockMembershipSystems;
-import com.hypixel.hytale.server.npc.systems.NPCDamageSystems;
 
 // Java Imports
 import java.util.logging.Level;
@@ -46,7 +40,7 @@ public class Listeners_Player {
             LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register PlayerDisconnectEvent");
         }
 
-        // Start listening for the PlayerDisconnectEvent - When a player disconnects
+        // Start listening for the PlayerJoinEvent - When a player joins
         try {
             eventBus.registerGlobal(PlayerReadyEvent.class, this::onPlayerReady);
             LOGGER.at(Level.INFO).log("[HyARPG] Registered PlayerReadyEvent listener");

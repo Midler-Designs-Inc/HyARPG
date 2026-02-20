@@ -50,17 +50,22 @@ public class HyARPGPlugin extends JavaPlugin {
         EventRegistry eventBus = getEventRegistry();
 
         try {
-            // register each listener with the main event bus
+            // register these listeners which have their own logic
+            new Listeners_PlayerInventory();
+
+            // register these listeners with the main event bus
             new Listeners_Player().register(eventBus, this);
+
+            // register these listeners in the entity registry system
             getEntityStoreRegistry().registerSystem(new Listeners_Death());
             getEntityStoreRegistry().registerSystem(new Listeners_Damage());
             getEntityStoreRegistry().registerSystem(new Listeners_Entity_PrePost());
             getEntityStoreRegistry().registerSystem(new Listeners_Entity_PostPre());
 
             // log the registration
-            LOGGER.at(Level.INFO).log("[HyARPG] Registered listener: PlayerListener");
+            LOGGER.at(Level.INFO).log("[HyARPG] Registered listeners");
         } catch (Exception e) {
-            LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register listener: PlayerListener");
+            LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register listeners");
         }
     }
 

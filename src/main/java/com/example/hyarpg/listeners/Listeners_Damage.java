@@ -3,17 +3,15 @@ package com.example.hyarpg.listeners;
 // Hytale Imports
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
 import com.example.hyarpg.ModEventBus;
-import com.example.hyarpg.events.Event_EntityDamaged;
+import com.example.hyarpg.events.Event_EntityPreDamaged;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 
 // Java Imports
@@ -33,12 +31,8 @@ public class Listeners_Damage extends DamageEventSystem {
         if (source instanceof Damage.EntitySource entitySource) {
             Ref<EntityStore> attacker = entitySource.getRef();
             if (!attacker.isValid()) return;
-            // loop over all players and broadcast the message
-            for (PlayerRef player : Universe.get().getPlayers()) {
-                player.sendMessage(Message.raw("Something just took damage"));
-            }
 
-            ModEventBus.post(new Event_EntityDamaged(attacker, defender, store, commandBuffer, damage));
+            ModEventBus.post(new Event_EntityPreDamaged(attacker, defender, store, commandBuffer, damage));
         }
     }
 
@@ -46,12 +40,13 @@ public class Listeners_Damage extends DamageEventSystem {
     @NullableDecl
     @Override
     public Query<EntityStore> getQuery() {
-        return Query.and(
+        return Query.or(
             NPCEntity.getComponentType(),
             PlayerRef.getComponentType()
         );
     }
 
+    // this group get here let's the event fire pre damage, removing this makes the event fire post damage
     @Override
     public SystemGroup<EntityStore> getGroup() {
         return DamageModule.get().getFilterDamageGroup();

@@ -1,16 +1,27 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemWeapon;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.inventory.Inventory;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.inventory.transaction.ActionType;
+import com.hypixel.hytale.server.core.inventory.transaction.ItemStackSlotTransaction;
+import com.hypixel.hytale.server.core.inventory.transaction.ItemStackTransaction;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
@@ -23,6 +34,8 @@ import com.example.hyarpg.components.Component_RPG_Stats;
 import com.example.hyarpg.components.Component_RPG_Enemy;
 
 // Java Imports
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -53,10 +66,11 @@ public class Module_RPG_Stats {
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
-        ModEventBus.register(Event_EntityDamaged.class, this::onEntityDamaged);
+        ModEventBus.register(Event_EntityPreDamaged.class, this::onEntityPreDamage);
         ModEventBus.register(Event_NPCDeath.class, this::onEnemyKilled);
         ModEventBus.register(Event_NPCSpawn.class, this::onNPCSpawn);
         ModEventBus.register(Event_NPCPreSpawn.class, this::onNPCPreSpawn);
+        ModEventBus.register(Event_PlayerInventoryChange.class, this::onPlayerInventoryChange);
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -128,26 +142,135 @@ public class Module_RPG_Stats {
     }
 
     // This function adds/refreshes players/enemies to a registry when dealing damage/damages
-    private void onEntityDamaged (Event_EntityDamaged event) {
+    private void onEntityPreDamage (Event_EntityPreDamaged event) {
+        // get event properties
         Ref<EntityStore> attacker = event.getAttacker();
         Ref<EntityStore> defender = event.getDefender();
         Store<EntityStore> store = event.getStore();
         Damage damage = event.getDamage();
 
-        // check/register if a player is damaging an enemy
-        Component_RPG_Stats rpgStats = store.getComponent(attacker, componentTypeRPGStats);
-        if (rpgStats != null) {
-            damage.setAmount(9999999999f);
+        // get attacker components
+        Component_RPG_Stats attackerRPGStats = store.getComponent(attacker, componentTypeRPGStats);
+        Component_RPG_Enemy attackerRPGEnemy = store.getComponent(attacker, componentTypeRPGEnemy);
+
+        // default attacker values
+        int attackerLevel = 1;
+        int attackerRarity = 0;
+
+        // determine attacker values
+        if(attackerRPGStats != null) attackerLevel = attackerRPGStats.level;
+        else if(attackerRPGEnemy != null) {
+            attackerLevel = attackerRPGEnemy.level;
+            attackerRarity = attackerRPGEnemy.monsterRarity;
+        };
+
+        // check if the defender is a player or NPC
+        Component_RPG_Stats defenderRPGStats = store.getComponent(defender, componentTypeRPGStats);
+        Component_RPG_Enemy defenderRPGEnemy = store.getComponent(defender, componentTypeRPGEnemy);
+
+        // default defender values
+        int defenderLevel = 1;
+        int defenderRarity = 0;
+
+        // determine defender values
+        if(defenderRPGStats != null) defenderLevel = defenderRPGStats.level;
+        else if(defenderRPGEnemy != null) {
+            defenderLevel = defenderRPGEnemy.level;
+            defenderRarity = defenderRPGEnemy.monsterRarity;
+        };
+
+        // if attacker is a player and defender is an enemy register the damage
+        if (attackerRPGStats != null && defenderRPGEnemy != null) {
+            // loop over all players and broadcast the message
+            for (PlayerRef player : Universe.get().getPlayers()) {
+                player.sendMessage(Message.raw("Player dealt damage"));
+            }
             // register the player damage to the enemy in the damage registry
             damageRegistry
                 .computeIfAbsent(defender, k -> new ConcurrentHashMap<>())
                 .put(attacker, System.currentTimeMillis());
         }
+
+        // adjust damage based player/enemy level
+        adjustDamageBasedOnLevel(attackerLevel, attackerRarity, defenderLevel, defenderRarity, damage);
+
+        // loop over all players and broadcast the message
+        for (PlayerRef player : Universe.get().getPlayers()) {
+            Player player2 = store.getComponent(attacker, Player.getComponentType());
+            if (player2 == null) continue;
+            int gearScore = calculateGearScore(player2);
+        }
+    }
+
+    private int calculateGearScore(Player player) {
+        Inventory inventory = player.getInventory();
+        int totalLevel = 0;
+        int count = 6;
+
+        // Active hand item (weapon)
+        ItemStack inHand = inventory.getItemInHand();
+        if (!ItemStack.isEmpty(inHand)) {
+            Integer level = inHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+            if (level != null) totalLevel += level;
+        }
+
+        // Off hand item
+        ItemStack offHand = inventory.getUtilityItem();
+        if (!ItemStack.isEmpty(offHand)) {
+            Integer level = offHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+            if (level != null) totalLevel += level;
+        }
+        else count--;
+
+        // Armor slots
+        ItemContainer armor = inventory.getArmor();
+        for (short i = 0; i < armor.getCapacity(); i++) {
+            ItemStack armorPiece = armor.getItemStack(i);
+            if (ItemStack.isEmpty(armorPiece)) continue;
+            Integer level = armorPiece.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+            if (level != null) totalLevel += level;
+        }
+        player.sendMessage(Message.raw("Total level is: " + totalLevel));
+        player.sendMessage(Message.raw("Total slot count is: " + count));
+        player.sendMessage(Message.raw("Gear Score is: " + Math.max(0, totalLevel / count)));
+
+        return Math.max(0, totalLevel / count);
     }
 
     // This function that fires when an enemy dies
     private void onEnemyKilled (Event_NPCDeath event) {
         awardXPToPlayers(event);
+    }
+
+    // This function runs whenever a player crafted something
+    private void onPlayerInventoryChange(Event_PlayerInventoryChange event) {
+        // only fire if a single non-stacking item was added
+        if(event.getActionType() == ActionType.ADD) {
+            // get all the slot transactions
+            ItemStackTransaction itemTx = event.getItemTx();
+            List<ItemStackSlotTransaction> slotTXs = itemTx.getSlotTransactions();
+
+            // loop over the slot transactions
+            for (ItemStackSlotTransaction tx : slotTXs) {
+                ItemStack slotAfter = tx.getSlotAfter(); // change this
+                if (ItemStack.isEmpty(slotAfter)) continue;
+
+                // Get the item
+                Item item = slotAfter.getItem();
+                if(item.getWeapon() == null && item.getArmor() == null) continue;
+
+                // If the item already has an item level do nothing
+                if (slotAfter.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) continue;
+
+                // get the player's level who picked up the item
+                Component_RPG_Stats stats = event.getStore().getComponent(event.getRef(), componentTypeRPGStats);
+                if (stats == null) continue;
+
+                // Otherwise assign the item level
+                ItemStack leveled = slotAfter.withMetadata("GearScore", Codec.INTEGER, stats.level);
+                event.getChangeEvent().container().replaceItemStackInSlot(tx.getSlot(), slotAfter, leveled);
+            }
+        }
     }
 
     // check for deaths and award XP on repeat
@@ -209,5 +332,31 @@ public class Module_RPG_Stats {
 
         // Minimum level 1 regardless of roll
         return Math.max(1, baseLevel + variance);
+    }
+
+    // adjust damage packets based on the enemies level
+    private void adjustDamageBasedOnLevel(int attackerLevel, int attackerRarity, int defenderLevel, int defenderRarity, Damage damage) {
+        // Tunable constants (safe for infinite scaling)
+        final double LEVEL_MULTIPLIER = 1.15;   // 15% per level
+        final double RARITY_MULTIPLIER = 1.33;  // 33% per rarity tier
+
+        // determine delta based on level/rarity difference
+        int levelDelta = attackerLevel - defenderLevel;
+        int rarityDelta = attackerRarity - defenderRarity;
+
+        // use the deltas to determen a level/rarity scale
+        double levelScale = Math.pow(LEVEL_MULTIPLIER, levelDelta);
+        double rarityScale = Math.pow(RARITY_MULTIPLIER, rarityDelta);
+
+        // apply the damage scales to the damage amount
+        double scaledDamage = damage.getAmount();
+        scaledDamage *= levelScale;
+        scaledDamage *= rarityScale;
+
+        // Clamp result to prevent degenerate damage
+        scaledDamage = Math.max(1.0, scaledDamage);
+
+        // update the value on the damage object
+        damage.setAmount((int) scaledDamage);
     }
 }

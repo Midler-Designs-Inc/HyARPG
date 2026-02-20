@@ -1,7 +1,6 @@
 package com.example.hyarpg.events;
 
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 
 public class Event_PlayerReady {

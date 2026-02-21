@@ -260,12 +260,7 @@ public class Module_RPG_Stats {
     }
 
     // capture when an item is removed from a players inventory
-    private void onPlayerInventoryItemRemoved(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {
-        // loop over all players and broadcast the message
-        for (PlayerRef player : Universe.get().getPlayers()) {
-            player.sendMessage(Message.raw("Item removed"));
-        }
-    }
+    private void onPlayerInventoryItemRemoved(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {}
 
     // register an item a player picked up to their discovered list
     private void registerDiscoveredItem(Ref<EntityStore> ref, Store<EntityStore> store, Item query) {

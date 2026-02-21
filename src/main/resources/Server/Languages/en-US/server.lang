@@ -6,3 +6,4 @@ items.Water_Bottle_Clean.name=Water Bottle (Clean)
 items.Water_Bottle_Clean.description=A bottle full of clean, boiled water.
 items.Water_Bottle_Blessed.name=Water Bottle (Blessed)
 items.Water_Bottle_Blessed.description=Water that has been blessed by a benevolent deity. It has many health benefits.
+hyarpg.notifications.discovered_item=Discovered {item}

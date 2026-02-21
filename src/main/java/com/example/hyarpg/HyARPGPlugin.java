@@ -27,9 +27,7 @@ public class HyARPGPlugin extends JavaPlugin {
     }
 
     // Get the plugin instance.
-    public static HyARPGPlugin getInstance() {
-        return instance;
-    }
+    public static HyARPGPlugin getInstance() { return instance; }
 
     // mod one time setup
     @Override
@@ -61,6 +59,7 @@ public class HyARPGPlugin extends JavaPlugin {
             getEntityStoreRegistry().registerSystem(new Listeners_Damage());
             getEntityStoreRegistry().registerSystem(new Listeners_Entity_PrePost());
             getEntityStoreRegistry().registerSystem(new Listeners_Entity_PostPre());
+            getEntityStoreRegistry().registerSystem(new Listeners_Crafting());
 
             // log the registration
             LOGGER.at(Level.INFO).log("[HyARPG] Registered listeners");

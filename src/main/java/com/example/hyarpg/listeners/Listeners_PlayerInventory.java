@@ -15,6 +15,8 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+import java.util.List;
+
 // Mod Imports
 
 // Java Imports
@@ -32,18 +34,20 @@ public class Listeners_PlayerInventory {
 
         // Hook inventory changes to stamp item levels
         player.getInventory().getCombinedEverything().registerChangeEvent(changeEvent -> {
+            // get the transaction and make sure it succeeded
             Transaction transaction = changeEvent.transaction();
             if (!transaction.succeeded()) return;
 
-            // this works to detect when an item is removed or changed
-            if (transaction instanceof ItemStackSlotTransaction slotTx) {
-                ModEventBus.post(new Event_PlayerInventoryChange(ref, store, changeEvent, slotTx.getAction(), slotTx, null));
-            }
+            // get the transactions depending on event type??
+            List<ItemStackSlotTransaction> slotTransactions = null;
+            if (transaction instanceof ItemStackTransaction itemTx) slotTransactions = itemTx.getSlotTransactions();
+            else if (transaction instanceof ItemStackSlotTransaction slotTx) slotTransactions = List.of(slotTx);
 
-            // this works to detect add item
-            else if (transaction instanceof ItemStackTransaction itemTx) {
-                ModEventBus.post(new Event_PlayerInventoryChange(ref, store, changeEvent, itemTx.getAction(), null, itemTx));
-            }
+            // bail if we could not find slot transactions
+            if (slotTransactions == null) return;
+
+            // fire the event on the internal bus
+            ModEventBus.post(new Event_PlayerInventoryChange(ref, store, changeEvent, slotTransactions));
         });
     }
 }

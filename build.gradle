@@ -45,6 +45,7 @@ shadowJar {
 // Disable the default jar task to avoid conflicts with shadowJar
 tasks.named('jar') {
     enabled = false
+    finalizedBy("deployToServer")
 }
 
 tasks.named('build') {
@@ -55,9 +56,9 @@ tasks.named('build') {
 tasks.register('deployToServer', Copy) {
     // Using 'from shadowJar' automatically adds task dependency and proper input tracking
     from shadowJar
-    into 'server/mods'
+    into 'C:\\Users\\jeffm\\AppData\\Roaming\\Hytale\\UserData\\Mods'
     doLast {
-        println "Deployed to server/mods/"
+        println "Deployed to C:\\Users\\jeffm\\AppData\\Roaming\\Hytale\\UserData\\Mods"
     }
 }
 

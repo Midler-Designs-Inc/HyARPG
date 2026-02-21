@@ -1,6 +1,7 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.components.Component_CraftingKnowledge;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -8,15 +9,11 @@ import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
-import com.hypixel.hytale.server.core.asset.type.item.config.ItemTranslationProperties;
-import com.hypixel.hytale.server.core.asset.type.item.config.ItemWeapon;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
-import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
-import com.hypixel.hytale.server.core.inventory.transaction.ActionType;
 import com.hypixel.hytale.server.core.inventory.transaction.ItemStackSlotTransaction;
 import com.hypixel.hytale.server.core.inventory.transaction.ItemStackTransaction;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
@@ -36,8 +33,6 @@ import com.example.hyarpg.components.Component_RPG_Enemy;
 
 // Java Imports
 import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -47,6 +42,7 @@ public class Module_RPG_Stats {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     public static ComponentType<EntityStore, Component_RPG_Stats> componentTypeRPGStats;
     public static ComponentType<EntityStore, Component_RPG_Enemy> componentTypeRPGEnemy;
+    public static ComponentType<EntityStore, Component_CraftingKnowledge> componentTypeCraftingKnowledge;
 
     // properties that control enemy level as they get further from spawn
     private static final double LEVEL_DISTANCE_THRESHOLD = 500.0;
@@ -65,6 +61,8 @@ public class Module_RPG_Stats {
                 .registerComponent(Component_RPG_Stats.class, "RPGStatsComponent", Component_RPG_Stats.CODEC);
         componentTypeRPGEnemy = plugin.getEntityStoreRegistry()
                 .registerComponent(Component_RPG_Enemy.class, "RPGEnemyComponent", Component_RPG_Enemy.CODEC);
+        componentTypeCraftingKnowledge = plugin.getEntityStoreRegistry()
+                .registerComponent(Component_CraftingKnowledge.class, "CraftingKnowledgeComponent", Component_CraftingKnowledge.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
@@ -86,21 +84,34 @@ public class Module_RPG_Stats {
         Store<EntityStore> store = world.getEntityStore().getStore();
         if (entityRef == null) return;
 
-        // ensure the component exists
+        // ensure the RPG Stats component exists, add it if it doesn't
         store.ensureAndGetComponent(entityRef, componentTypeRPGStats);
+
+        // Check if the Crafting Knowledge component exists and if not add it
+        Component_CraftingKnowledge knowledge = store.getComponent(entityRef, componentTypeCraftingKnowledge);
+        if (knowledge == null) {
+            knowledge = new Component_CraftingKnowledge();
+            store.putComponent(entityRef, componentTypeCraftingKnowledge, knowledge);
+        }
     }
 
     // This function runs whenever an NPCPreSpawn event is posted
     private void onNPCPreSpawn(Event_NPCPreSpawn event) {
         // get the entity holder Ref
         Holder<EntityStore> holder = event.getHolder();
+        Store<EntityStore> store = event.getStore();
 
-        // Create an RPGEnemy component and assign a monster level
-        int enemyLevel = calculateEnemyLevel(holder);
-        Component_RPG_Enemy rpgEnemy = new Component_RPG_Enemy(enemyLevel);
+        // If the RPG Enemy component doesn't exist, add it
+        Component_RPG_Enemy rpgEnemy = holder.getComponent(componentTypeRPGEnemy);
+        if (rpgEnemy == null) {
+            // Create an RPGEnemy component and assign a monster level
+            int enemyLevel = calculateEnemyLevel(holder);
+            rpgEnemy = new Component_RPG_Enemy(enemyLevel);
 
-        // Add the component
-        holder.putComponent(componentTypeRPGEnemy, rpgEnemy);
+            // Add the component to the NPC
+            holder.putComponent(componentTypeRPGEnemy, rpgEnemy);
+        }
+
     }
 
     // This function runs whenever an NPCSpawn event is posted
@@ -207,35 +218,82 @@ public class Module_RPG_Stats {
         awardXPToPlayers(event);
     }
 
-    // This function runs whenever a player crafted something
+    // This function runs whenever a players inventory is changed
     private void onPlayerInventoryChange(Event_PlayerInventoryChange event) {
-        // only fire if a single non-stacking item was added
-        if(event.getActionType() == ActionType.ADD) {
-            // get all the slot transactions
-            ItemStackTransaction itemTx = event.getItemTx();
-            List<ItemStackSlotTransaction> slotTXs = itemTx.getSlotTransactions();
+        // get our entity and store refs
+        Ref<EntityStore> ref = event.getRef();
+        Store<EntityStore> store = event.getStore();
+        ItemContainer container = event.getChangeEvent().container();
 
-            // loop over the slot transactions
-            for (ItemStackSlotTransaction tx : slotTXs) {
-                ItemStack slotAfter = tx.getSlotAfter(); // change this
-                if (ItemStack.isEmpty(slotAfter)) continue;
+        // loop over slot transactions and determine overall changes made
+        for (ItemStackSlotTransaction tx : event.getSlotTransactions()) {
+            if (!tx.succeeded()) continue;
 
-                // Get the item
-                Item item = slotAfter.getItem();
-                if(item.getWeapon() == null && item.getArmor() == null) continue;
+            // get the slot and check what it's state was before and after
+            short slot = tx.getSlot();
+            ItemStack before = tx.getSlotBefore();
+            ItemStack after = tx.getSlotAfter();
 
-                // If the item already has an item level do nothing
-                if (slotAfter.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) continue;
+            // some basic logic gates to determine what changed
+            boolean wasAdded = ItemStack.isEmpty(before) && !ItemStack.isEmpty(after);
+            boolean wasRemoved = !ItemStack.isEmpty(before) && ItemStack.isEmpty(after);
+            boolean wasSwapped = !ItemStack.isEmpty(before) && !ItemStack.isEmpty(after);
 
-                // get the player's level who picked up the item
-                Component_RPG_Stats stats = event.getStore().getComponent(event.getRef(), componentTypeRPGStats);
-                if (stats == null) continue;
+            // check if an item was added or removed
+            Item addedItem = wasAdded ? after.getItem() : null;
+            Item removedItem = wasRemoved ? before.getItem() : null;
 
-                // Otherwise assign the item level
-                ItemStack leveled = slotAfter.withMetadata("GearScore", Codec.INTEGER, stats.level);
-                event.getChangeEvent().container().replaceItemStackInSlot(tx.getSlot(), slotAfter, leveled);
-            }
+            if (addedItem != null) onPlayerInventoryItemAdded(ref, store, slot, addedItem, after, container);
+            if (removedItem != null) onPlayerInventoryItemRemoved(ref, store, slot, removedItem, before, container);
         }
+    }
+
+    // capture when an item is added to a players inventory
+    private void onPlayerInventoryItemAdded(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {
+        // register discovery for ALL items
+        registerDiscoveredItem(ref, store, item);
+
+        // gear score only for weapons/armor
+        if (item.getWeapon() != null || item.getArmor() != null) {
+            assignGearScore(ref, store, stack, container, slot);
+        }
+    }
+
+    // capture when an item is removed from a players inventory
+    private void onPlayerInventoryItemRemoved(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {
+        // loop over all players and broadcast the message
+        for (PlayerRef player : Universe.get().getPlayers()) {
+            player.sendMessage(Message.raw("Item removed"));
+        }
+    }
+
+    // register an item a player picked up to their discovered list
+    private void registerDiscoveredItem(Ref<EntityStore> ref, Store<EntityStore> store, Item query) {
+        // get the crafting knowledge component
+        Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+        if (craftingKnowledge == null || playerRef == null) return;
+
+        // get the item id string and try to discover it
+        String itemId = query.getId();
+        String itemName = query.getTranslationKey();
+        craftingKnowledge.addDiscoveredItem(playerRef, itemId, itemName);
+    }
+
+    // assign a gear score to an item a player picked up
+    private void assignGearScore(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
+        // Already has a gear score
+        if (stack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) return;
+
+        // Get the level of the player who picked up the item
+        Component_RPG_Stats stats = store.getComponent(ref, componentTypeRPGStats);
+        if (stats == null) return;
+
+        // If the gear has a gear score already bail
+        if (stack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) return;
+
+        ItemStack leveled = stack.withMetadata("GearScore", Codec.INTEGER, stats.level);
+        container.replaceItemStackInSlot(slot, stack, leveled);
     }
 
     // check for deaths and award XP on repeat

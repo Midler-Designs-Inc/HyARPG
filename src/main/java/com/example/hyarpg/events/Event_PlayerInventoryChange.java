@@ -9,21 +9,19 @@ import com.hypixel.hytale.server.core.inventory.transaction.ItemStackSlotTransac
 import com.hypixel.hytale.server.core.inventory.transaction.ItemStackTransaction;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+import java.util.List;
+
 public class Event_PlayerInventoryChange {
     private final Ref<EntityStore> ref;
     private final Store<EntityStore> store;
     private final ItemContainer.ItemContainerChangeEvent changeEvent;
-    private final ActionType actionType;
-    private final ItemStackSlotTransaction slotTx;
-    private final ItemStackTransaction itemTx;
+    private final List<ItemStackSlotTransaction> slotTransactions;
 
-    public Event_PlayerInventoryChange(Ref<EntityStore> ref, Store<EntityStore> store, ItemContainer.ItemContainerChangeEvent changeEvent, ActionType actionType, ItemStackSlotTransaction slotTx, ItemStackTransaction itemTx) {
+    public Event_PlayerInventoryChange(Ref<EntityStore> ref, Store<EntityStore> store, ItemContainer.ItemContainerChangeEvent changeEvent, List<ItemStackSlotTransaction> slotTransactions) {
         this.ref = ref;
         this.store = store;
         this.changeEvent = changeEvent;
-        this.actionType = actionType;
-        this.slotTx = slotTx;
-        this.itemTx = itemTx;
+        this.slotTransactions = slotTransactions;
     }
 
     public Ref<EntityStore> getRef() { return ref; }
@@ -32,9 +30,5 @@ public class Event_PlayerInventoryChange {
 
     public ItemContainer.ItemContainerChangeEvent getChangeEvent() { return changeEvent; }
 
-    public ActionType getActionType() { return actionType; }
-
-    public ItemStackSlotTransaction getSlotTx() { return slotTx; }
-
-    public ItemStackTransaction getItemTx() { return itemTx; }
+    public List<ItemStackSlotTransaction> getSlotTransactions() { return slotTransactions; }
 }

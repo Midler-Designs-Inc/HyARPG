@@ -1,0 +1,92 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Mithril_Legs.name"
+  },
+  "Parent": "Armor_Iron_Legs",
+  "Quality": "Epic",
+  "ItemLevel": 50,
+  "Icon": "Icons/ItemsGenerated/Armor_Mithril_Legs.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.415,
+    "Translation": [
+      4.2,
+      -9.6
+    ]
+  },
+  "Model": "Items/Armors/Mithril/Legs.blockymodel",
+  "Texture": "Items/Armors/Mithril/Legs_Texture.png",
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 1800
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 600
+      },
+      {
+        "ItemId": "Ingredient_Void_Essence",
+        "Quantity": 6000
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Legs"
+        ],
+        "RequiredTierLevel": 5
+      }
+    ],
+    "KnowledgeRequired": true,
+    "TimeSeconds": 0
+  },
+  "Armor": {
+    "ArmorSlot": "Legs",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Pants",
+      "Shoes"
+    ],
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.112,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.112,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    },
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 19,
+          "CalculationType": "Additive"
+        }
+      ]
+    }
+  },
+  "MaxDurability": 0,
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Mithril"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "DurabilityLossOnHit": 0.5
+}

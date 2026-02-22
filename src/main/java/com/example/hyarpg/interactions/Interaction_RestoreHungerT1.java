@@ -40,7 +40,7 @@ public class Interaction_RestoreHungerT1 extends SimpleInstantInteraction {
         if (hunger == null) return;
 
         // restore some hunger
-        float value = (float) (hunger.max * 0.20);
+        float value = (float) (hunger.max * 0.10);
         hunger.restore(value);
     }
 }

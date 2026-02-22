@@ -1,0 +1,90 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Cloth_Linen_Chest.name"
+  },
+  "Parent": "Armor_Iron_Chest",
+  "Quality": "Rare",
+  "ItemLevel": 15,
+  "Icon": "Icons/ItemsGenerated/Armor_Cloth_Linen_Chest.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.395,
+    "Translation": [
+      0,
+      -3.3
+    ]
+  },
+  "Model": "Items/Armors/Linen/Chest.blockymodel",
+  "Texture": "Items/Armors/Linen/Chest_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Linen",
+        "Quantity": 180
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 60
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 60
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Chest"
+        ],
+        "RequiredTierLevel": 1
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Chest",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Overtop"
+    ],
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 17,
+          "CalculationType": "Additive"
+        }
+      ]
+    },
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.09,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.09,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Cloth_Linen"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Cloth"
+}

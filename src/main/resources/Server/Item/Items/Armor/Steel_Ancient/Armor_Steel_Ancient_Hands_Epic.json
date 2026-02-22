@@ -1,0 +1,87 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Steel_Ancient_Hands.name"
+  },
+  "Parent": "Armor_Iron_Hands",
+  "ItemLevel": 30,
+  "Icon": "Icons/ItemsGenerated/Armor_Steel_Ancient_Hands.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.8,
+    "Translation": [
+      18.6,
+      -30.6
+    ]
+  },
+  "Model": "Items/Armors/Steel/Hands.blockymodel",
+  "Texture": "Items/Armors/Steel/Hands_Ancient.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Bronze",
+        "Quantity": 120
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 60
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 120
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Hands"
+        ],
+        "RequiredTierLevel": 3
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Hands",
+    "BaseDamageResistance": 0,
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.04,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.04,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    },
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 7,
+          "CalculationType": "Additive"
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Steel"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "Quality": "Epic"
+}

@@ -34,6 +34,8 @@ public class Listeners_PlayerInventory {
 
         // Hook inventory changes to stamp item levels
         player.getInventory().getCombinedEverything().registerChangeEvent(changeEvent -> {
+            player.sendMessage(Message.raw("Base level boi"));
+
             // get the transaction and make sure it succeeded
             Transaction transaction = changeEvent.transaction();
             if (!transaction.succeeded()) return;

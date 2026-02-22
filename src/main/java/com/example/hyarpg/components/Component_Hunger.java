@@ -25,7 +25,7 @@ public class Component_Hunger implements Component<EntityStore> {
 
     // Default no-arg constructor (required for component registration)
     public Component_Hunger() {
-        this(120f, 120f, 0.5f);  // Default values
+        this(100f, 100f, 0.5f);  // Default values
     }
 
     // Constructor

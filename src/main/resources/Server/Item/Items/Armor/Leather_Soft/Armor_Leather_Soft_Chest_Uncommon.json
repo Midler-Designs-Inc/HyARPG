@@ -1,0 +1,90 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Soft_Chest.name"
+  },
+  "Parent": "Armor_Iron_Chest",
+  "Quality": "Uncommon",
+  "ItemLevel": 10,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Soft_Chest.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.43,
+    "Translation": [
+      0,
+      -12.9
+    ]
+  },
+  "Model": "Items/Armors/Leather_Soft/Chest.blockymodel",
+  "Texture": "Items/Armors/Leather_Soft/Chest_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 120
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 40
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Wool",
+        "Quantity": 40
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Chest"
+        ],
+        "RequiredTierLevel": 1
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Chest",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Overtop"
+    ],
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 17,
+          "CalculationType": "Additive"
+        }
+      ]
+    },
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.09,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.09,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Leather"
+}

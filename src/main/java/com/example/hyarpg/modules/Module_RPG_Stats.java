@@ -15,7 +15,6 @@ import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.inventory.transaction.ItemStackSlotTransaction;
-import com.hypixel.hytale.server.core.inventory.transaction.ItemStackTransaction;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -86,13 +85,7 @@ public class Module_RPG_Stats {
 
         // ensure the RPG Stats component exists, add it if it doesn't
         store.ensureAndGetComponent(entityRef, componentTypeRPGStats);
-
-        // Check if the Crafting Knowledge component exists and if not add it
-        Component_CraftingKnowledge knowledge = store.getComponent(entityRef, componentTypeCraftingKnowledge);
-        if (knowledge == null) {
-            knowledge = new Component_CraftingKnowledge();
-            store.putComponent(entityRef, componentTypeCraftingKnowledge, knowledge);
-        }
+        store.ensureAndGetComponent(entityRef, componentTypeCraftingKnowledge);
     }
 
     // This function runs whenever an NPCPreSpawn event is posted
@@ -220,10 +213,12 @@ public class Module_RPG_Stats {
 
     // This function runs whenever a players inventory is changed
     private void onPlayerInventoryChange(Event_PlayerInventoryChange event) {
+        alertPlayer("I see the change");
         // get our entity and store refs
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
         ItemContainer container = event.getChangeEvent().container();
+        Player player = store.getComponent(ref, Player.getComponentType());
 
         // loop over slot transactions and determine overall changes made
         for (ItemStackSlotTransaction tx : event.getSlotTransactions()) {
@@ -243,8 +238,15 @@ public class Module_RPG_Stats {
             Item addedItem = wasAdded ? after.getItem() : null;
             Item removedItem = wasRemoved ? before.getItem() : null;
 
-            if (addedItem != null) onPlayerInventoryItemAdded(ref, store, slot, addedItem, after, container);
-            if (removedItem != null) onPlayerInventoryItemRemoved(ref, store, slot, removedItem, before, container);
+            // check if the slot is in the armor container
+            alertPlayer("stuff changed");
+            boolean isArmorContainer = container == player.getInventory().getArmor();
+            alertPlayer("Was armor container: "+ isArmorContainer);
+
+            if (addedItem != null && !isArmorContainer) onPlayerInventoryItemAdded(ref, store, slot, addedItem, after, container);
+            else if (addedItem != null && isArmorContainer) onPlayerInventoryItemEquip(ref, store, slot, addedItem, after, container);
+            else if (removedItem != null && !isArmorContainer) onPlayerInventoryItemRemoved(ref, store, slot, removedItem, before, container);
+            else if (removedItem != null && isArmorContainer) onPlayerInventoryItemUnEquip(ref, store, slot, removedItem, before, container);
         }
     }
 
@@ -262,17 +264,25 @@ public class Module_RPG_Stats {
     // capture when an item is removed from a players inventory
     private void onPlayerInventoryItemRemoved(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {}
 
+    // method for when a player equips an item
+    private void onPlayerInventoryItemEquip(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {
+        alertPlayer("You equipped something");
+    }
+
+    // method for when a player equips an item
+    private void onPlayerInventoryItemUnEquip(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {
+        alertPlayer("You unequipped something");
+    }
+
     // register an item a player picked up to their discovered list
     private void registerDiscoveredItem(Ref<EntityStore> ref, Store<EntityStore> store, Item query) {
-        // get the crafting knowledge component
         Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
         if (craftingKnowledge == null || playerRef == null) return;
 
-        // get the item id string and try to discover it
-        String itemId = query.getId();
-        String itemName = query.getTranslationKey();
-        craftingKnowledge.addDiscoveredItem(playerRef, itemId, itemName);
+        // Discover the item, then discover any new recipes
+        boolean discoveredNew = craftingKnowledge.addDiscoveredItem(playerRef, query);
+        if (discoveredNew) craftingKnowledge.discoverRecipes(ref, store, query);
     }
 
     // assign a gear score to an item a player picked up
@@ -392,6 +402,13 @@ public class Module_RPG_Stats {
                 "Level Scale: " + levelScale +
                 " Rarity Scale: " + rarityScale
             ).color(Color.YELLOW));
+        }
+    }
+
+    public void alertPlayer(String msg) {
+        // loop over all players and broadcast the message
+        for (PlayerRef player : Universe.get().getPlayers()) {
+            player.sendMessage(Message.raw(msg));
         }
     }
 }

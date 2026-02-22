@@ -1,0 +1,92 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Bronze_Legs.name"
+  },
+  "Parent": "Armor_Iron_Legs",
+  "ItemLevel": 25,
+  "Icon": "Icons/ItemsGenerated/Armor_Bronze_Legs.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Translation": [
+      -1.2,
+      -5
+    ]
+  },
+  "Model": "Items/Armors/Bronze/Legs.blockymodel",
+  "Texture": "Items/Armors/Bronze/Legs_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Bronze",
+        "Quantity": 200
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 100
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 150
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Legs",
+          "Discoverable"
+        ],
+        "RequiredTierLevel": 2
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Legs",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Pants",
+      "Shoes"
+    ],
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 13,
+          "CalculationType": "Additive"
+        }
+      ]
+    },
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.07,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.07,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    }
+  },
+  "MaxDurability": 0,
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Bronze"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "Quality": "Common"
+}

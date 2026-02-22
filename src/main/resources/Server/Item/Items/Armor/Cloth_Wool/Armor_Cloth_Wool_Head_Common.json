@@ -1,0 +1,94 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Cloth_Wool_Head.name"
+  },
+  "Parent": "Armor_Iron_Head",
+  "Quality": "Common",
+  "ItemLevel": 10,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Light_Head.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      47.815,
+      22.5
+    ],
+    "Scale": 0.5,
+    "Translation": [
+      -1.5,
+      -12.3
+    ]
+  },
+  "Model": "Items/Armors/Leather_Light/Head.blockymodel",
+  "Texture": "Items/Armors/Leather_Light/Head_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Wool",
+        "Quantity": 60
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 40
+      },
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 40
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Head",
+          "Discoverable"
+        ],
+        "RequiredTierLevel": 1
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Head",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "EarAccessory",
+      "Ear",
+      "Haircut",
+      "HeadAccessory"
+    ],
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 9,
+          "CalculationType": "Additive"
+        }
+      ]
+    },
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.05,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.05,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Cloth_Wool"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Cloth"
+}

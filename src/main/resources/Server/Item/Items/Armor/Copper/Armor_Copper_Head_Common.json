@@ -1,0 +1,79 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Copper_Head.name"
+  },
+  "Parent": "Armor_Iron_Head",
+  "ItemLevel": 10,
+  "Icon": "Icons/ItemsGenerated/Armor_Copper_Head.png",
+  "Model": "Items/Armors/Copper/Head.blockymodel",
+  "Texture": "Items/Armors/Copper/Head_Texture.png",
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 120
+      },
+      {
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 40
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Head",
+          "Discoverable"
+        ],
+        "RequiredTierLevel": 1
+      }
+    ],
+    "KnowledgeRequired": true,
+    "TimeSeconds": 0
+  },
+  "Armor": {
+    "ArmorSlot": "Head",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "EarAccessory",
+      "Ear",
+      "Haircut",
+      "HeadAccessory"
+    ],
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.036,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.036,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    },
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 5,
+          "CalculationType": "Additive"
+        }
+      ]
+    }
+  },
+  "MaxDurability": 0,
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Copper"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "DurabilityLossOnHit": 0.5,
+  "Quality": "Common"
+}

@@ -1,0 +1,91 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Light_Legs.name"
+  },
+  "Parent": "Armor_Iron_Legs",
+  "Quality": "Uncommon",
+  "ItemLevel": 15,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Light_Legs.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.445,
+    "Translation": [
+      0.6,
+      -22.8
+    ]
+  },
+  "Model": "Items/Armors/Leather_Light/Legs.blockymodel",
+  "Texture": "Items/Armors/Leather_Light/Legs_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 120
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 60
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Wool",
+        "Quantity": 90
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Legs"
+        ],
+        "RequiredTierLevel": 1
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Legs",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Shoes",
+      "Pants"
+    ],
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 13,
+          "CalculationType": "Additive"
+        }
+      ]
+    },
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.07,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.07,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Leather"
+}

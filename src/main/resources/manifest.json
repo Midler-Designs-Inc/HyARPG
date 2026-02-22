@@ -5,7 +5,6 @@
   "Description": "A Hytale mod to add a large and deep variety of ARPG elements to the game.",
   "Authors": [{"Name": "Jeffery Midler"}, {"Name": "Michael Midler"}],
   "Main": "com.example.hyarpg.HyARPGPlugin",
-  "LoadOrder": "POSTWORLD",
   "IncludesAssetPack": true,
   "ServerVersion": "2026.02.19-1a311a592"
 }

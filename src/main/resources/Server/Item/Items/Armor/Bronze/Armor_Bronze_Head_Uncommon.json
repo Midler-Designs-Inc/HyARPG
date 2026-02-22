@@ -1,0 +1,81 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Bronze_Head.name"
+  },
+  "Parent": "Armor_Iron_Head",
+  "ItemLevel": 25,
+  "Icon": "Icons/ItemsGenerated/Armor_Bronze_Head.png",
+  "Model": "Items/Armors/Bronze/Head.blockymodel",
+  "Texture": "Items/Armors/Bronze/Head_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Bronze",
+        "Quantity": 150
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 100
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 100
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Head"
+        ],
+        "RequiredTierLevel": 2
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Head",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "EarAccessory",
+      "Ear",
+      "Haircut",
+      "HeadAccessory"
+    ],
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 9,
+          "CalculationType": "Additive"
+        }
+      ]
+    },
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.05,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.05,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    }
+  },
+  "MaxDurability": 0,
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Bronze"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "Quality": "Uncommon"
+}

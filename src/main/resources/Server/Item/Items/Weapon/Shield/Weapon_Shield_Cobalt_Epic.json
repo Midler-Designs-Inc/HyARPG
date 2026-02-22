@@ -1,0 +1,53 @@
+{
+  "Parent": "Template_Weapon_Shield",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Shield_Cobalt.name"
+  },
+  "Quality": "Epic",
+  "ItemLevel": 35,
+  "Model": "Items/Weapons/Shield/Cobalt.blockymodel",
+  "Texture": "Items/Weapons/Shield/Cobalt_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Shield_Cobalt.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 420
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 210
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
+        "Quantity": 210
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Shield"
+        ],
+        "RequiredTierLevel": 3,
+        "Id": "Armor_Bench_HyARPG"
+      }
+    ]
+  },
+  "InteractionVars": {
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shield_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 17.11,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  },
+  "MaxDurability": 0
+}

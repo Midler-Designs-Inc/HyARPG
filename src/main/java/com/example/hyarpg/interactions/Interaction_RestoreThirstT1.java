@@ -38,7 +38,7 @@ public class Interaction_RestoreThirstT1 extends SimpleInstantInteraction {
         if (thirst == null) return;
 
         // restore some thirst
-        float value = (float) (thirst.max * 0.33);
+        float value = (float) (thirst.max * 0.10);
         thirst.restore(value);
     }
 }

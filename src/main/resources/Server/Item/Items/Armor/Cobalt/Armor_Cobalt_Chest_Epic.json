@@ -1,0 +1,99 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Cobalt_Chest.name"
+  },
+  "Parent": "Armor_Iron_Chest",
+  "Quality": "Epic",
+  "ItemLevel": 35,
+  "Icon": "Icons/ItemsGenerated/Armor_Cobalt_Chest.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.4,
+    "Translation": [
+      0.3,
+      -6.9
+    ]
+  },
+  "Model": "Items/Armors/Cobalt/Chest.blockymodel",
+  "Texture": "Items/Armors/Cobalt/Chest_Texture.png",
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 1680
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 490
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
+        "Quantity": 490
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Chest"
+        ],
+        "RequiredTierLevel": 3
+      }
+    ],
+    "KnowledgeRequired": true,
+    "TimeSeconds": 0
+  },
+  "Armor": {
+    "ArmorSlot": "Chest",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Overtop"
+    ],
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.1152,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.1152,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    },
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 22,
+          "CalculationType": "Additive"
+        }
+      ]
+    },
+    "DamageClassEnhancement": {
+      "Signature": [
+        {
+          "Amount": 0.06,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    }
+  },
+  "MaxDurability": 0,
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Cobalt"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "DurabilityLossOnHit": 0.5
+}

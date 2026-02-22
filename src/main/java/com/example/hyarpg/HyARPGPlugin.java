@@ -1,6 +1,10 @@
 package com.example.hyarpg;
 
 // Hytale Imports
+import com.example.hyarpg.utils.Utils_PatchedCraftingRecipe;
+import com.hypixel.hytale.assetstore.event.LoadedAssetsEvent;
+import com.hypixel.hytale.server.core.asset.type.item.config.CraftingRecipe;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.event.EventRegistry;
@@ -12,6 +16,7 @@ import com.example.hyarpg.modules.*;
 
 // Java Imports
 import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
 import java.util.logging.Level;
 
 // HyARPG Root Class

@@ -116,7 +116,7 @@ public class Module_Hunger {
 
                             // Only damage if health > 1 (don't kill the player)
                             if (currentHealth > 1.0f) {
-                                float healthDMG = maxHealth / 60f; // full drain over 60 seconds
+                                float healthDMG = maxHealth / 1200f; // full drain over 20 minutes seconds
                                 float newHealth = Math.max(1.0f, currentHealth - healthDMG);
                                 statMap.setStatValue(healthIndex, newHealth);
                             }

@@ -1,0 +1,93 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Cloth_Silk_Hands.name"
+  },
+  "Parent": "Armor_Iron_Hands",
+  "Quality": "Legendary",
+  "ItemLevel": 35,
+  "Icon": "Icons/ItemsGenerated/Armor_Cloth_Silk_Hands.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.6,
+    "Translation": [
+      0.6,
+      -31.2
+    ]
+  },
+  "Model": "Items/Armors/Silk/Hands.blockymodel",
+  "Texture": "Items/Armors/Silk/Hands_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Silk",
+        "Quantity": 140
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 70
+      },
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 140
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Hands"
+        ],
+        "RequiredTierLevel": 3
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Hands",
+    "BaseDamageResistance": 0,
+    "StatModifiers": {
+      "Health": [
+        {
+          "Amount": 7,
+          "CalculationType": "Additive"
+        }
+      ],
+      "Mana": [
+        {
+          "Amount": 10,
+          "CalculationType": "Additive"
+        }
+      ]
+    },
+    "DamageResistance": {
+      "Physical": [
+        {
+          "Amount": 0.04,
+          "CalculationType": "Multiplicative"
+        }
+      ],
+      "Projectile": [
+        {
+          "Amount": 0.04,
+          "CalculationType": "Multiplicative"
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Cloth_Silk"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Cloth"
+}

@@ -1,0 +1,53 @@
+{
+  "Parent": "Template_Weapon_Shield",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Shield_Mithril.name"
+  },
+  "Model": "Items/Weapons/Shield/Mithril.blockymodel",
+  "Texture": "Items/Weapons/Shield/Mithril_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Shield_Mithril.png",
+  "Quality": "Rare",
+  "ItemLevel": 50,
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 400
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 300
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Stormsilk",
+        "Quantity": 300
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Shield"
+        ],
+        "RequiredTierLevel": 5,
+        "Id": "Armor_Bench_HyARPG"
+      }
+    ]
+  },
+  "InteractionVars": {
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Shield_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 28,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  },
+  "MaxDurability": 0
+}

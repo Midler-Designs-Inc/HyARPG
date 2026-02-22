@@ -48,7 +48,7 @@ public class Module_RPG_Stats {
     private static final int LEVEL_VARIANCE = 5;
     private static final Random random = new Random();
 
-    // Map<defender_ref, Map<attacker_ref, timestamp>>
+    // Map<defender_ref, Map<attacker_ref, timestamp>
     private final ConcurrentHashMap<Ref<EntityStore>, ConcurrentHashMap<Ref<EntityStore>, Long>> damageRegistry = new ConcurrentHashMap<>();
 
     // initialize this module
@@ -69,7 +69,11 @@ public class Module_RPG_Stats {
         ModEventBus.register(Event_NPCDeath.class, this::onEnemyKilled);
         ModEventBus.register(Event_NPCSpawn.class, this::onNPCSpawn);
         ModEventBus.register(Event_NPCPreSpawn.class, this::onNPCPreSpawn);
-        ModEventBus.register(Event_PlayerInventoryChange.class, this::onPlayerInventoryChange);
+        ModEventBus.register(Event_PlayerInventoryItemAdded.class, this::onPlayerInventoryItemAdded);
+        ModEventBus.register(Event_PlayerInventoryItemRemoved.class, this::onPlayerInventoryItemRemoved);
+        ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onPlayerInventoryItemEquip);
+        ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
+        ModEventBus.register(Event_PlayerInventoryItemSwapped.class, this::onPlayerInventoryItemSwapped);
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -211,67 +215,74 @@ public class Module_RPG_Stats {
         awardXPToPlayers(event);
     }
 
-    // This function runs whenever a players inventory is changed
-    private void onPlayerInventoryChange(Event_PlayerInventoryChange event) {
-        alertPlayer("I see the change");
-        // get our entity and store refs
-        Ref<EntityStore> ref = event.getRef();
-        Store<EntityStore> store = event.getStore();
-        ItemContainer container = event.getChangeEvent().container();
-        Player player = store.getComponent(ref, Player.getComponentType());
-
-        // loop over slot transactions and determine overall changes made
-        for (ItemStackSlotTransaction tx : event.getSlotTransactions()) {
-            if (!tx.succeeded()) continue;
-
-            // get the slot and check what it's state was before and after
-            short slot = tx.getSlot();
-            ItemStack before = tx.getSlotBefore();
-            ItemStack after = tx.getSlotAfter();
-
-            // some basic logic gates to determine what changed
-            boolean wasAdded = ItemStack.isEmpty(before) && !ItemStack.isEmpty(after);
-            boolean wasRemoved = !ItemStack.isEmpty(before) && ItemStack.isEmpty(after);
-            boolean wasSwapped = !ItemStack.isEmpty(before) && !ItemStack.isEmpty(after);
-
-            // check if an item was added or removed
-            Item addedItem = wasAdded ? after.getItem() : null;
-            Item removedItem = wasRemoved ? before.getItem() : null;
-
-            // check if the slot is in the armor container
-            alertPlayer("stuff changed");
-            boolean isArmorContainer = container == player.getInventory().getArmor();
-            alertPlayer("Was armor container: "+ isArmorContainer);
-
-            if (addedItem != null && !isArmorContainer) onPlayerInventoryItemAdded(ref, store, slot, addedItem, after, container);
-            else if (addedItem != null && isArmorContainer) onPlayerInventoryItemEquip(ref, store, slot, addedItem, after, container);
-            else if (removedItem != null && !isArmorContainer) onPlayerInventoryItemRemoved(ref, store, slot, removedItem, before, container);
-            else if (removedItem != null && isArmorContainer) onPlayerInventoryItemUnEquip(ref, store, slot, removedItem, before, container);
-        }
-    }
+//    // This function runs whenever a players inventory is changed
+//    private void onPlayerInventoryChange(Event_PlayerInventoryItemAdded event) {
+//        // get our entity and store refs
+//        Ref<EntityStore> ref = event.getRef();
+//        Store<EntityStore> store = event.getStore();
+//        ItemContainer container = event.getChangeEvent().container();
+//        Player player = store.getComponent(ref, Player.getComponentType());
+//
+//        // loop over slot transactions and determine overall changes made
+//        for (ItemStackSlotTransaction tx : event.getSlotTransactions()) {
+//            if (!tx.succeeded()) continue;
+//
+//            // get the slot and check what it's state was before and after
+//            short slot = tx.getSlot();
+//            ItemStack before = tx.getSlotBefore();
+//            ItemStack after = tx.getSlotAfter();
+//
+//            // some basic logic gates to determine what changed
+//            boolean wasAdded = ItemStack.isEmpty(before) && !ItemStack.isEmpty(after);
+//            boolean wasRemoved = !ItemStack.isEmpty(before) && ItemStack.isEmpty(after);
+//            boolean wasSwapped = !ItemStack.isEmpty(before) && !ItemStack.isEmpty(after);
+//
+//            // check if an item was added or removed
+//            Item addedItem = wasAdded ? after.getItem() : null;
+//            Item removedItem = wasRemoved ? before.getItem() : null;
+//
+//            // check if the slot is in the armor container
+//            alertPlayer("stuff changed");
+//            boolean isArmorContainer = container == player.getInventory().getArmor();
+//            alertPlayer("Was armor container: "+ isArmorContainer);
+//
+//            if (addedItem != null && !isArmorContainer) onPlayerInventoryItemAdded(ref, store, slot, addedItem, after, container);
+//            else if (addedItem != null && isArmorContainer) onPlayerInventoryItemEquip(ref, store, slot, addedItem, after, container);
+//            else if (removedItem != null && !isArmorContainer) onPlayerInventoryItemRemoved(ref, store, slot, removedItem, before, container);
+//            else if (removedItem != null && isArmorContainer) onPlayerInventoryItemUnEquip(ref, store, slot, removedItem, before, container);
+//        }
+//    }
 
     // capture when an item is added to a players inventory
-    private void onPlayerInventoryItemAdded(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {
+    private void onPlayerInventoryItemAdded(Event_PlayerInventoryItemAdded event) {
+        alertPlayer("You added something");
         // register discovery for ALL items
-        registerDiscoveredItem(ref, store, item);
+//        registerDiscoveredItem(ref, store, item);
 
         // gear score only for weapons/armor
-        if (item.getWeapon() != null || item.getArmor() != null) {
-            assignGearScore(ref, store, stack, container, slot);
-        }
+//        if (item.getWeapon() != null || item.getArmor() != null) {
+//            assignGearScore(ref, store, stack, container, slot);
+//        }
     }
 
     // capture when an item is removed from a players inventory
-    private void onPlayerInventoryItemRemoved(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {}
-
-    // method for when a player equips an item
-    private void onPlayerInventoryItemEquip(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {
-        alertPlayer("You equipped something");
+    private void onPlayerInventoryItemRemoved(Event_PlayerInventoryItemRemoved event) {
+        alertPlayer("You removed something");
     }
 
     // method for when a player equips an item
-    private void onPlayerInventoryItemUnEquip(Ref<EntityStore> ref, Store<EntityStore> store, short slot, Item item, ItemStack stack, ItemContainer container) {
+    private void onPlayerInventoryItemEquip(Event_PlayerInventoryItemEquip event) {
+        alertPlayer("You equipped something");
+    }
+
+    // method for when a player unequips an item
+    private void onPlayerInventoryItemUnEquip(Event_PlayerInventoryItemUnEquip event) {
         alertPlayer("You unequipped something");
+    }
+
+    // method for when a player swaps an item
+    private void onPlayerInventoryItemSwapped(Event_PlayerInventoryItemSwapped event) {
+        alertPlayer("You swapped something");
     }
 
     // register an item a player picked up to their discovered list

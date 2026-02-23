@@ -3,7 +3,8 @@
     "Name": "server.items.Weapon_Axe_Stone_Trork.name"
   },
   "Categories": [
-    "Items.Weapons"
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Axe_Stone_Trork.png",
   "ItemLevel": 25,

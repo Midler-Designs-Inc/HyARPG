@@ -3,7 +3,8 @@
     "Name": "server.items.Weapon_Longsword_Thorium.name"
   },
   "Categories": [
-    "Items.Weapons"
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Longsword_Thorium.png",
   "Quality": "Epic",

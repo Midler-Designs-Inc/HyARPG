@@ -3,7 +3,8 @@
     "Name": "server.items.Weapon_Longsword_Adamantite.name"
   },
   "Categories": [
-    "Items.Weapons"
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
   ],
   "Quality": "Common",
   "ItemLevel": 40,

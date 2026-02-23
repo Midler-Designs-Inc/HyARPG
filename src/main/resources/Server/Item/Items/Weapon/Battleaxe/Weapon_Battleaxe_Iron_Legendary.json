@@ -137,5 +137,8 @@
     }
   },
   "MaxDurability": 0,
-  "DurabilityLossOnHit": 0.45
+  "DurabilityLossOnHit": 0.45,
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
 }

@@ -48,7 +48,7 @@ public class Listeners_Death extends DeathSystems.OnDeathSystem {
         if (playerRef != null)
             ModEventBus.post(new Event_PlayerDeath(ref, store));
         else if (npcEntity != null)
-            ModEventBus.post(new Event_NPCDeath(ref, store));
+            ModEventBus.post(new Event_NPCDeath(ref, store, commandBuffer));
     }
 
     // fired when player hits respawn

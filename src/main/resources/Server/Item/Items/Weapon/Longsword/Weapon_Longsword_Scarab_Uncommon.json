@@ -3,7 +3,8 @@
     "Name": "server.items.Weapon_Longsword_Scarab.name"
   },
   "Categories": [
-    "Items.Weapons"
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
   ],
   "Quality": "Uncommon",
   "ItemLevel": 40,

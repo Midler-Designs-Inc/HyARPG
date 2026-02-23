@@ -70,5 +70,8 @@
     ]
   },
   "MaxDurability": 0,
-  "Quality": "Legendary"
+  "Quality": "Legendary",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
 }

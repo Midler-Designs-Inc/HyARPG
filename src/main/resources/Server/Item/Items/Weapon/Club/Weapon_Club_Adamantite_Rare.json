@@ -3,7 +3,8 @@
     "Name": "server.items.Weapon_Club_Adamantite.name"
   },
   "Categories": [
-    "Items.Weapons"
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
   ],
   "Quality": "Rare",
   "ItemLevel": 40,

@@ -71,5 +71,8 @@
       "Trork"
     ]
   },
-  "MaxDurability": 0
+  "MaxDurability": 0,
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
 }

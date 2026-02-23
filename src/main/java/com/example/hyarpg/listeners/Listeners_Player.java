@@ -47,7 +47,6 @@ public class Listeners_Player {
         } catch (Exception e) {
             LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register PlayerReadyEvent");
         }
-
     }
 
     // Handle player connect event
@@ -85,4 +84,5 @@ public class Listeners_Player {
         // Emit the event on the internal mod bus
         ModEventBus.post(new Event_PlayerReady(player, event.getPlayer().getWorld()));
     }
+
 }

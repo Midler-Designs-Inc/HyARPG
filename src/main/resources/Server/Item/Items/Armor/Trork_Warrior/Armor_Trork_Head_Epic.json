@@ -61,5 +61,8 @@
     ]
   },
   "MaxDurability": 0,
-  "Quality": "Epic"
+  "Quality": "Epic",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
 }

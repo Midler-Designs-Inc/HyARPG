@@ -66,5 +66,8 @@
       "Prisma"
     ]
   },
-  "ItemSoundSetId": "ISS_Armor_Heavy"
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
 }

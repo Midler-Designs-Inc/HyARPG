@@ -77,5 +77,8 @@
     ]
   },
   "ItemSoundSetId": "ISS_Armor_Heavy",
-  "Quality": "Epic"
+  "Quality": "Epic",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
 }

@@ -16,12 +16,12 @@ public class Component_Hunger implements Component<EntityStore> {
     public static final BuilderCodec<Component_Hunger> CODEC = BuilderCodec.builder(
         Component_Hunger.class, Component_Hunger::new
     )
-        .append(new KeyedCodec<>("HungerLevel", Codec.FLOAT),
-            ((comp, value) -> comp.value = value),
-            comp -> comp.value
-        )
-        .add()
-        .build();
+    .append(new KeyedCodec<>("HungerLevel", Codec.FLOAT),
+        ((comp, value) -> comp.value = value),
+        comp -> comp.value
+    )
+    .add()
+    .build();
 
     // Default no-arg constructor (required for component registration)
     public Component_Hunger() {

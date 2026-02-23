@@ -66,9 +66,11 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
 
         // if the add is successful rebuild the raw string
         if (discoveredItems.add(itemId)) {
-            // check if the item has a resource type and if so silently register that also
-            for(ItemResourceType resourceType : item.getResourceTypes()) {
-                discoveredItems.add(resourceType.id);
+            if (item.getResourceTypes() != null) {
+                // check if the item has a resource type and if so silently register that also
+                for(ItemResourceType resourceType : item.getResourceTypes()) {
+                    if(resourceType.id != null) discoveredItems.add(resourceType.id);
+                }
             }
 
             // Show the discovered notification

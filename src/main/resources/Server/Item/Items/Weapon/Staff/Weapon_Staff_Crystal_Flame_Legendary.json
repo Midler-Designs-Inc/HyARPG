@@ -4,7 +4,8 @@
     "Description": "server.items.Weapon_Staff_Crystal_Flame.description"
   },
   "Categories": [
-    "Items.Weapons"
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Staff_Crystal_Flame.png",
   "Quality": "Legendary",

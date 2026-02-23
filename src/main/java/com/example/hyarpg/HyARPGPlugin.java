@@ -1,10 +1,8 @@
 package com.example.hyarpg;
 
 // Hytale Imports
-import com.example.hyarpg.utils.Utils_PatchedCraftingRecipe;
-import com.hypixel.hytale.assetstore.event.LoadedAssetsEvent;
-import com.hypixel.hytale.server.core.asset.type.item.config.CraftingRecipe;
-import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.event.EventRegistry;
@@ -13,10 +11,13 @@ import com.hypixel.hytale.logger.HytaleLogger;
 // Mod Imports
 import com.example.hyarpg.listeners.*;
 import com.example.hyarpg.modules.*;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
+import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.meta.state.ItemContainerState;
 
 // Java Imports
 import javax.annotation.Nonnull;
-import java.lang.reflect.Field;
 import java.util.logging.Level;
 
 // HyARPG Root Class
@@ -65,6 +66,7 @@ public class HyARPGPlugin extends JavaPlugin {
             getEntityStoreRegistry().registerSystem(new Listeners_Entity_PrePost());
             getEntityStoreRegistry().registerSystem(new Listeners_Entity_PostPre());
             getEntityStoreRegistry().registerSystem(new Listeners_Crafting());
+            getEntityStoreRegistry().registerSystem(new Listeners_UtilitySlot());
 
             // log the registration
             LOGGER.at(Level.INFO).log("[HyARPG] Registered listeners");

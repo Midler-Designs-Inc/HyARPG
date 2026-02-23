@@ -3,7 +3,8 @@
     "Name": "server.items.Weapon_Axe_Adamantite.name"
   },
   "Categories": [
-    "Items.Weapons"
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
   ],
   "Quality": "Legendary",
   "ItemLevel": 40,

@@ -89,5 +89,8 @@
     ]
   },
   "MaxDurability": 0,
-  "ItemSoundSetId": "ISS_Armor_Cloth"
+  "ItemSoundSetId": "ISS_Armor_Cloth",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
 }

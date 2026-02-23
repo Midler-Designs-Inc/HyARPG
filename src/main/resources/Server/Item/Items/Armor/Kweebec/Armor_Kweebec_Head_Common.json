@@ -65,5 +65,8 @@
     ]
   },
   "MaxDurability": 0,
-  "Quality": "Common"
+  "Quality": "Common",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
 }

@@ -77,5 +77,8 @@
   },
   "MaxDurability": 0,
   "ItemSoundSetId": "ISS_Armor_Leather",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ],
   "Quality": "Epic"
 }

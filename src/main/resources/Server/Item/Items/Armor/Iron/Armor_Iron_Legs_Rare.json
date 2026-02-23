@@ -26,6 +26,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 160
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -96,5 +100,10 @@
     "Family": [
       "Iron"
     ]
-  }
+  },
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
+  ]
 }

@@ -4,7 +4,12 @@
   },
   "Parent": "Armor_Iron_Head",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -64,5 +69,10 @@
   "Quality": "Uncommon",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

@@ -28,6 +28,10 @@
       {
         "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 2000
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -332,5 +336,10 @@
   },
   "ItemSoundSetId": "ISS_Weapons_Wood",
   "MaxDurability": 0,
-  "DurabilityLossOnHit": 0.5
+  "DurabilityLossOnHit": 0.5,
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
+  ]
 }

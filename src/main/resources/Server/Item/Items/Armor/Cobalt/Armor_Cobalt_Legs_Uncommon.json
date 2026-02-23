@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
         "Quantity": 420
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -99,5 +103,10 @@
   "DurabilityLossOnHit": 0.5,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

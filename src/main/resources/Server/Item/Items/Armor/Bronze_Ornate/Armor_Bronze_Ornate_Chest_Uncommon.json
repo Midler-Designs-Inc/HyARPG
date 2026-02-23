@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Leather_Medium",
         "Quantity": 112
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -92,5 +96,10 @@
   "Quality": "Uncommon",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

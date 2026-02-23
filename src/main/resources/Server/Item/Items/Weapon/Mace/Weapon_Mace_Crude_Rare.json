@@ -23,6 +23,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 64
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -257,5 +261,10 @@
   "DurabilityLossOnHit": 0.5,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
   ]
 }

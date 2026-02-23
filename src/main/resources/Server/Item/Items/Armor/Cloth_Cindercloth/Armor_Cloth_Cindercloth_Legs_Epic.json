@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bar_Adamantite",
         "Quantity": 270
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -93,5 +97,10 @@
   "ItemSoundSetId": "ISS_Armor_Cloth",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
   ]
 }

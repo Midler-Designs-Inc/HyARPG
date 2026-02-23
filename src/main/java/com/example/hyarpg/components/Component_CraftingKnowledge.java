@@ -26,7 +26,7 @@ import java.util.*;
 public class Component_CraftingKnowledge implements Component<EntityStore> {
     // List of items and recipes the player has discovered
     private Set<String> discoveredItems = new HashSet<>();
-    private Set<String> discoveredDroppableRecipes = new HashSet<>();
+    public Set<String> discoveredDroppableRecipes = new HashSet<>();
 
     // persisted - raw string values from codec because storing a hashset is not practical
     public String discoveredItemsRaw = "";
@@ -37,7 +37,9 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
         .append(new KeyedCodec<>("DiscoveredItems", Codec.STRING),
             ((comp, value) -> {
                 comp.discoveredItemsRaw = value;
-                comp.discoveredItems = new HashSet<>(Arrays.asList(value.split(",")));
+                comp.discoveredItems = value.isEmpty()
+                    ? new HashSet<>()
+                    : new HashSet<>(Arrays.asList(value.split(",")));
             }),
             comp -> comp.discoveredItemsRaw
         )
@@ -45,7 +47,9 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
         .append(new KeyedCodec<>("DiscoveredRecipes", Codec.STRING),
             ((comp, value) -> {
                 comp.discoveredDroppableRecipesRaw = value;
-                comp.discoveredDroppableRecipes = new HashSet<>(Arrays.asList(value.split(",")));
+                comp.discoveredDroppableRecipes = value.isEmpty()
+                    ? new HashSet<>()
+                    : new HashSet<>(Arrays.asList(value.split(",")));
             }),
             comp -> comp.discoveredDroppableRecipesRaw
         )
@@ -89,6 +93,28 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
 
         // return the discovered flag
         return discoveredNew;
+    }
+
+    // try to register a discovered recipe
+    public void addDiscoveredRecipe(Ref<EntityStore> ref, Store<EntityStore> store, String itemId) {
+
+        // if the add is successful rebuild the raw string
+        if (discoveredDroppableRecipes.add(itemId)) {
+            // add the recipe to the player
+            CraftingPlugin.learnRecipe(ref, itemId, store);
+
+            // Show the discovered notification
+            PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+            String itemName = itemId.replace("Weapon_", "").replace("Armor_", "").replace("_", " ");
+            NotificationUtil.sendNotification(
+                playerRef.getPacketHandler(),
+                Message.translation("server.hyarpg.notifications.learned_recipe").param("item", Message.translation(itemName)),
+                NotificationStyle.Success
+            );
+
+            // update the serialized value of discovered map
+            discoveredDroppableRecipesRaw = String.join(",", discoveredDroppableRecipes);
+        }
     }
 
     public void discoverRecipes(Ref<EntityStore> ref, Store<EntityStore> store, Item item) {
@@ -180,8 +206,17 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
                 CraftingPlugin.learnRecipe(ref, recipeId, store);
                 discoveredDroppableRecipes.add(recipeId);
 
+                // Show the discovered notification
+                PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+                String itemName = itemId.replace("Weapon_", "").replace("Armor_", "").replace("_", " ");
+                NotificationUtil.sendNotification(
+                    playerRef.getPacketHandler(),
+                    Message.translation("server.hyarpg.notifications.learned_recipe").param("item", Message.translation(itemName)),
+                    NotificationStyle.Success
+                );
+
                 // update the serialized value of discovered map
-                discoveredDroppableRecipesRaw = String.join(",", discoveredItems);
+                discoveredDroppableRecipesRaw = String.join(",", discoveredDroppableRecipes);
             } catch (Exception e) {}
         }
     }

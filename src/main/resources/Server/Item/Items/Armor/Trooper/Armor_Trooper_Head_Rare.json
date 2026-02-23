@@ -4,7 +4,12 @@
   },
   "Parent": "Armor_Iron_Head",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -68,5 +73,10 @@
   "MaxDurability": 0,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
   ]
 }

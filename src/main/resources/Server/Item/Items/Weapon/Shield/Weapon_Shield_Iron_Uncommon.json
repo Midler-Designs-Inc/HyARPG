@@ -36,6 +36,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 120
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -52,5 +56,10 @@
   "MaxDurability": 0,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

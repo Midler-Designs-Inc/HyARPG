@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bolt_Wool",
         "Quantity": 150
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -90,5 +94,10 @@
   "ItemSoundSetId": "ISS_Armor_Leather",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

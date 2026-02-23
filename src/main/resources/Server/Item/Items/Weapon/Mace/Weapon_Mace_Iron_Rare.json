@@ -23,6 +23,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 120
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -192,5 +196,10 @@
   "DurabilityLossOnHit": 0.5,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
   ]
 }

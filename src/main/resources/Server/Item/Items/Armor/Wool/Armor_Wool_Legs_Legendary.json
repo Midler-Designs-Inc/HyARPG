@@ -21,7 +21,12 @@
   "Model": "Items/Armors/Wool/Feet.blockymodel",
   "Texture": "Items/Armors/Wool/Feet_Texture.png",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -64,5 +69,10 @@
   "ItemSoundSetId": "ISS_Armor_Cloth",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
   ]
 }

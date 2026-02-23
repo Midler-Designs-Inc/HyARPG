@@ -22,6 +22,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 120
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -173,5 +177,10 @@
   "DurabilityLossOnHit": 0.58,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
   ]
 }

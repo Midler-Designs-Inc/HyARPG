@@ -38,6 +38,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 120
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -104,5 +108,10 @@
     "Family": [
       "Iron"
     ]
-  }
+  },
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
+  ]
 }

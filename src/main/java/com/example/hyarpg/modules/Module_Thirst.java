@@ -1,7 +1,8 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import au.ellie.hyui.types.ProgressBarDirection;
+import com.example.hyarpg.interactions.Interaction_RestoreThirstT2;
+import com.example.hyarpg.interactions.Interaction_RestoreThirstT3;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -54,6 +55,8 @@ public class Module_Thirst {
         // Get the interaction registry and register the RestoreThirst interaction
         final var interactionRegistry = plugin.getCodecRegistry(Interaction.CODEC);
         interactionRegistry.register("RestoreThirst_T1", Interaction_RestoreThirstT1.class, Interaction_RestoreThirstT1.CODEC);
+        interactionRegistry.register("RestoreThirst_T2", Interaction_RestoreThirstT2.class, Interaction_RestoreThirstT2.CODEC);
+        interactionRegistry.register("RestoreThirst_T3", Interaction_RestoreThirstT3.class, Interaction_RestoreThirstT3.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);

@@ -18,6 +18,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 108
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -345,5 +349,10 @@
   "DurabilityLossOnHit": 0.58,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

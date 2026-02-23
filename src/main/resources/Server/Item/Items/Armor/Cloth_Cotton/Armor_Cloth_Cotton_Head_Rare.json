@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bar_Thorium",
         "Quantity": 100
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -92,5 +96,10 @@
   "ItemSoundSetId": "ISS_Armor_Cloth",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
   ]
 }

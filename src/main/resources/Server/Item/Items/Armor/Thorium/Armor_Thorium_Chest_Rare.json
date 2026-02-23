@@ -37,6 +37,10 @@
       {
         "ItemId": "Ingredient_Sac_Venom",
         "Quantity": 240
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -100,5 +104,10 @@
   "ItemSoundSetId": "ISS_Armor_Heavy",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
   ]
 }

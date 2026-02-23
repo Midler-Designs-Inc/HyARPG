@@ -4,7 +4,12 @@
   },
   "Parent": "Armor_Iron_Head",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -66,5 +71,10 @@
   "ItemSoundSetId": "ISS_Armor_Cloth",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
   ]
 }

@@ -32,6 +32,10 @@
       {
         "ItemId": "Ingredient_Bar_Copper",
         "Quantity": 80
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "KnowledgeRequired": true
@@ -436,5 +440,10 @@
   "DurabilityLossOnHit": 0.1,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
   ]
 }

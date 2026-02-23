@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Leather_Medium",
         "Quantity": 240
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -152,5 +156,10 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blunt_Small"
+  "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
+  ]
 }

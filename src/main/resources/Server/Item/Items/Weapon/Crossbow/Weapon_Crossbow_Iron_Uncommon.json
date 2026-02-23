@@ -22,6 +22,10 @@
       {
         "ItemId": "Ingredient_Bar_Iron",
         "Quantity": 240
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -97,5 +101,10 @@
   "DurabilityLossOnHit": 0.28,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

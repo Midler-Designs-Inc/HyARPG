@@ -23,6 +23,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
         "Quantity": 210
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -288,5 +292,10 @@
   "DurabilityLossOnHit": 0.58,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
   ]
 }

@@ -4,7 +4,12 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -72,5 +77,10 @@
   "ItemSoundSetId": "ISS_Armor_Heavy",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
   ]
 }

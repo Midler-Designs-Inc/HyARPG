@@ -4,7 +4,12 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -65,5 +70,10 @@
   "MaxDurability": 0,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

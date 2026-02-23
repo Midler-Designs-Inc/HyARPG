@@ -4,7 +4,12 @@
   },
   "Parent": "Armor_Iron_Hands",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -69,5 +74,10 @@
   "ItemSoundSetId": "ISS_Armor_Heavy",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

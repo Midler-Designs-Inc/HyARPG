@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Bolt_Cotton",
         "Quantity": 128
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -90,5 +94,10 @@
   "Categories": [
     "Items.HyARPG.Gear"
   ],
-  "Quality": "Uncommon"
+  "Quality": "Uncommon",
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
+  ]
 }

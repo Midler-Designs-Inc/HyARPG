@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Leather_Light",
         "Quantity": 160
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -168,5 +172,10 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blade_Large"
+  "ItemSoundSetId": "ISS_Weapons_Blade_Large",
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
+  ]
 }

@@ -27,6 +27,10 @@
       {
         "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 320
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -152,5 +156,10 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.56,
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blunt_Small"
+  "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
+  ]
 }

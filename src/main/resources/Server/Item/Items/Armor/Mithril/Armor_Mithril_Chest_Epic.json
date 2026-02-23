@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Void_Essence",
         "Quantity": 8000
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -90,5 +94,10 @@
   "DurabilityLossOnHit": 0.5,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
   ]
 }

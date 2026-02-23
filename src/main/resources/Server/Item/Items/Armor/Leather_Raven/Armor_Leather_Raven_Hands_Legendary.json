@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Bolt_Cotton",
         "Quantity": 64
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -86,5 +90,10 @@
   "Categories": [
     "Items.HyARPG.Gear"
   ],
-  "Quality": "Legendary"
+  "Quality": "Legendary",
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
+  ]
 }

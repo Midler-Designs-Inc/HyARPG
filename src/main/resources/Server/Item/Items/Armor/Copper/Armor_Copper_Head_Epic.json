@@ -16,6 +16,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 40
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -77,5 +81,10 @@
   "Quality": "Epic",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
   ]
 }

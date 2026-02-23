@@ -28,6 +28,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 80
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -86,5 +90,10 @@
   "Quality": "Uncommon",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

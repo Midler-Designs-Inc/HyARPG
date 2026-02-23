@@ -21,6 +21,10 @@
       {
         "ItemId": "Ingredient_Leather_Light",
         "Quantity": 100
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -80,5 +84,10 @@
   "Quality": "Legendary",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
   ]
 }

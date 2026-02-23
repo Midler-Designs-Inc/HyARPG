@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Leather_Medium",
         "Quantity": 240
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -168,5 +172,10 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blade_Large"
+  "ItemSoundSetId": "ISS_Weapons_Blade_Large",
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
+  ]
 }

@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Stick",
         "Quantity": 12
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -218,5 +222,10 @@
   "DurabilityLossOnHit": 0.21,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

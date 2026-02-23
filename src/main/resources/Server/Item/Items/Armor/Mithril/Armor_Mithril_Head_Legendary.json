@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Void_Essence",
         "Quantity": 4000
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -93,5 +97,10 @@
   "DurabilityLossOnHit": 0.5,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
   ]
 }

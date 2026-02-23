@@ -21,6 +21,10 @@
       {
         "ItemId": "Ingredient_Voidheart",
         "Quantity": 100
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -436,5 +440,10 @@
   "DurabilityLossOnHit": 0.1,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
   ]
 }

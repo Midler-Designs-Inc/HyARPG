@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Leather_Light",
         "Quantity": 160
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -182,5 +186,10 @@
       }
     ]
   },
-  "ItemSoundSetId": "ISS_Weapons_Blunt_Small"
+  "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
+  ]
 }

@@ -21,6 +21,10 @@
       {
         "ItemId": "Ingredient_Leather_Light",
         "Quantity": 100
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -74,5 +78,10 @@
   "Quality": "Epic",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
   ]
 }

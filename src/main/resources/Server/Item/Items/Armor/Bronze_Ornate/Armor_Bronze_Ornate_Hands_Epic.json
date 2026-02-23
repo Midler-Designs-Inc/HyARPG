@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Leather_Medium",
         "Quantity": 112
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -89,5 +93,10 @@
   "Quality": "Epic",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
   ]
 }

@@ -28,6 +28,10 @@
       {
         "ItemId": "Ingredient_Ice_Essence",
         "Quantity": 2000
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -180,5 +184,10 @@
   },
   "ItemSoundSetId": "ISS_Weapons_Wood",
   "MaxDurability": 0,
-  "DurabilityLossOnHit": 0.5
+  "DurabilityLossOnHit": 0.5,
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
+  ]
 }

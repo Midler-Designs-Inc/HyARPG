@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 280
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -152,5 +156,10 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blunt_Small"
+  "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
+  ]
 }

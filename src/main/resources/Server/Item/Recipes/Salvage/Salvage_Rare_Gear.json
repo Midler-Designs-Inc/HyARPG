@@ -1,0 +1,25 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Rare_Shards",
+      "Quantity": 3
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Rare_Shards",
+    "Quantity": 3
+  },
+  "TimeSeconds": 7,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Rare_Gear"
+    }
+  ]
+}

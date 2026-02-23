@@ -28,6 +28,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 20
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -83,5 +87,10 @@
   "Quality": "Legendary",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
   ]
 }

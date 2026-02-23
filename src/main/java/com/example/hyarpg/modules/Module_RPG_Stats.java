@@ -1,11 +1,14 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.interactions.*;
+import com.hypixel.hytale.builtin.crafting.state.ProcessingBenchState;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.bench.ProcessingBench;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
@@ -13,8 +16,11 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
+import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -33,9 +39,11 @@ import com.example.hyarpg.components.Component_RPG_Enemy;
 
 // Java Imports
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
+
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class Module_RPG_Stats {
@@ -66,6 +74,13 @@ public class Module_RPG_Stats {
         componentTypeCraftingKnowledge = plugin.getEntityStoreRegistry()
                 .registerComponent(Component_CraftingKnowledge.class, "CraftingKnowledgeComponent", Component_CraftingKnowledge.CODEC);
 
+        // Get the interaction registry and register the RestoreHunger interaction
+        final var interactionRegistry = plugin.getCodecRegistry(Interaction.CODEC);
+        interactionRegistry.register("LearnRandomGearRecipe_Uncommon", Interaction_LearnRandomGearRecipe_Uncommon.class, Interaction_LearnRandomGearRecipe_Uncommon.CODEC);
+        interactionRegistry.register("LearnRandomGearRecipe_Rare", Interaction_LearnRandomGearRecipe_Rare.class, Interaction_LearnRandomGearRecipe_Rare.CODEC);
+        interactionRegistry.register("LearnRandomGearRecipe_Epic", Interaction_LearnRandomGearRecipe_Epic.class, Interaction_LearnRandomGearRecipe_Epic.CODEC);
+        interactionRegistry.register("LearnRandomGearRecipe_Legendary", Interaction_LearnRandomGearRecipe_Legendary.class, Interaction_LearnRandomGearRecipe_Legendary.CODEC);
+
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
         ModEventBus.register(Event_EntityPreDamaged.class, this::onEntityPreDamage);
@@ -76,7 +91,6 @@ public class Module_RPG_Stats {
         ModEventBus.register(Event_PlayerInventoryItemRemoved.class, this::onPlayerInventoryItemRemoved);
         ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onPlayerInventoryItemEquip);
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
-        ModEventBus.register(Event_PlayerInventoryItemSwapped.class, this::onPlayerInventoryItemSwapped);
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -215,8 +229,6 @@ public class Module_RPG_Stats {
 
     // This function fires when an enemy dies to award XP and modify loot
     private void onEnemyKilled(Event_NPCDeath event) {
-        awardXPToPlayers(event);
-
         // get event props
         CommandBuffer<EntityStore> commandBuffer = event.getCommandBuffer();
         Ref<EntityStore> ref = event.getRef();
@@ -241,34 +253,37 @@ public class Module_RPG_Stats {
         // get the items that are to be dropped
         var drops = itemModule.getRandomItemDrops(dropListId);
 
-        // filter out vanilla weapons and armor, replace with your drops
-        var filteredDrops = new ObjectArrayList();
+        // filter out vanilla weapons and armor
+        List<ItemStack> filteredDrops = new ObjectArrayList();
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
-            if (item == null) continue;
             if (item.getWeapon() != null || item.getArmor() != null) {
-                // replace with your custom loot logic
-                alertPlayer("Filtered out: " + item.getId());
+                alertPlayers("Filtered out: " + item.getId(), Color.WHITE);
                 continue;
             }
             filteredDrops.add(drop);
         }
 
-//        // spawn filtered drops
-//        if (!filteredDrops.isEmpty()) {
-//            TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
-//            HeadRotation headRotation = store.getComponent(ref, HeadRotation.getComponentType());
-//            assert transform != null && headRotation != null;
-//
-//            Vector3d dropPosition = transform.getPosition().clone().add(0.0, 1.0, 0.0);
-//            Holder<EntityStore>[] dropEntities = ItemComponent.generateItemDrops(store, filteredDrops, dropPosition, headRotation.getRotation().clone());
-//            commandBuffer.addEntities(dropEntities, AddReason.SPAWN);
-//        }
+        // add mod drops
+        filteredDrops = rollLoot(ref, store, commandBuffer, filteredDrops);
+
+        // spawn filtered drops
+        if (!filteredDrops.isEmpty()) {
+            TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
+            HeadRotation headRotation = store.getComponent(ref, HeadRotation.getComponentType());
+            assert transform != null && headRotation != null;
+
+            Vector3d dropPosition = transform.getPosition().clone().add(0.0, 1.0, 0.0);
+            Holder<EntityStore>[] dropEntities = ItemComponent.generateItemDrops(store, filteredDrops, dropPosition, headRotation.getRotation().clone());
+            commandBuffer.addEntities(dropEntities, AddReason.SPAWN);
+        }
+
+        // do this last because it removes the enemy from the damage registry
+        awardXPToPlayers(event);
     }
 
     // capture when an item is added to a players inventory
     private void onPlayerInventoryItemAdded(Event_PlayerInventoryItemAdded event) {
-        alertPlayer("I added something");
         // entity and store refs
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
@@ -282,11 +297,12 @@ public class Module_RPG_Stats {
 
         // gear score only for weapons/armor
         if (item.getWeapon() != null || item.getArmor() != null) {
-            // swap vanilla items if applicable and then requery the stack item
-            swapVanillaItems(ref, store, stack, container, slot);
-            item = stack.getItem();
+            // swap vanilla items if applicable and then test if teh stack got a new item
+            swapVanillaItem(ref, store, stack, container, slot);
+            if(stack.isEmpty()) return;
 
             // assign a gear score to the item
+            item = stack.getItem();
             assignGearScore(ref, store, stack, container, slot);
         }
 
@@ -295,9 +311,7 @@ public class Module_RPG_Stats {
     }
 
     // capture when an item is removed from a players inventory
-    private void onPlayerInventoryItemRemoved(Event_PlayerInventoryItemRemoved event) {
-        alertPlayer("You removed something");
-    }
+    private void onPlayerInventoryItemRemoved(Event_PlayerInventoryItemRemoved event) {}
 
     // method for when a player equips an item
     private void onPlayerInventoryItemEquip(Event_PlayerInventoryItemEquip event) {
@@ -307,28 +321,6 @@ public class Module_RPG_Stats {
     // method for when a player unequips an item
     private void onPlayerInventoryItemUnEquip(Event_PlayerInventoryItemUnEquip event) {
 //        alertPlayer("You unequipped something");
-    }
-
-    // method for when a player swaps an item
-    private void onPlayerInventoryItemSwapped(Event_PlayerInventoryItemSwapped event) {
-        alertPlayer("You swapped something");
-        // entity and store refs
-        Ref<EntityStore> ref = event.getRef();
-        Store<EntityStore> store = event.getStore();
-        ItemContainer.ItemContainerChangeEvent changeEvent = event.getChangeEvent();
-
-        // get item stack, item, item slot and item container
-        ItemStack stack = event.getStackAfter();
-        Item item = stack.getItem();
-        short slot = event.getSlot();
-
-        ItemContainer container = changeEvent.container();
-
-        // gear score only for weapons/armor
-        if (item.getWeapon() != null || item.getArmor() != null) {
-            // swap vanilla items if applicable and then requery the stack item
-            swapVanillaItems(ref, store, stack, container, slot);
-        }
     }
 
     // register an item a player picked up to their discovered list
@@ -345,22 +337,31 @@ public class Module_RPG_Stats {
     }
 
     // assign a gear score to an item a player picked up
-    private void swapVanillaItems(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
+    private void swapVanillaItem(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
         // get the item from the stack
         Item item = stack.getItem();
-        if(Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")) return;
-        alertPlayer("I should swap out a vanilla item");
+        if (Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")) return;
 
+        // get the players crafting knowledge
+        Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
+        if (craftingKnowledge == null) return;
 
-//        // Already has a gear score
-//        if (stack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) return;
+        // get the players list of discovered recipes
+        Set<String> dropPoolItemIds = craftingKnowledge.discoveredDroppableRecipes;
 
-//        // Get the level of the player who picked up the item
-//        Component_RPG_Stats stats = store.getComponent(ref, componentTypeRPGStats);
-//        if (stats == null) return;
+        // nothing discovered that can drop yet, just remove the item
+        if (dropPoolItemIds.isEmpty()) {
+            container.removeItemStackFromSlot(slot);
+            return;
+        }
 
-//        ItemStack leveled = stack.withMetadata("GearScore", Codec.INTEGER, stats.level);
-//        container.replaceItemStackInSlot(slot, stack, leveled);
+        // pick a random item from the drop pool
+        String[] dropPool = dropPoolItemIds.toArray(new String[0]);
+        String randomItemId = dropPool[ThreadLocalRandom.current().nextInt(dropPool.length)];
+
+        // create a new item stack and swap it in
+        ItemStack newStack = new ItemStack(randomItemId, 1);
+        container.replaceItemStackInSlot(slot, stack, newStack);
     }
 
     // assign a gear score to an item a player picked up
@@ -374,6 +375,30 @@ public class Module_RPG_Stats {
 
         ItemStack leveled = stack.withMetadata("GearScore", Codec.INTEGER, stats.level);
         container.replaceItemStackInSlot(slot, stack, leveled);
+    }
+
+    // get valid attackers from the damage registry
+    private List<Ref<EntityStore>> getAttackingPlayers(Ref<EntityStore> defender, Store<EntityStore> store) {
+        ConcurrentHashMap<Ref<EntityStore>, Long> attackers = damageRegistry.get(defender);
+        long cutoff = System.currentTimeMillis() - 30_000;
+        List<Ref<EntityStore>> attackingRefs = new ArrayList<Ref<EntityStore>>();
+        if(attackers == null) return Collections.emptyList();
+
+        // loop over attackers
+        attackers.forEach((attacker, timestamp) -> {
+                // Skip stale or invalid entries
+                if (timestamp < cutoff || !attacker.isValid()) return;
+
+                // get the playerRef that dealt damage and check they are still valid
+                PlayerRef playerRef = store.getComponent(attacker, PlayerRef.getComponentType());
+                if (playerRef == null) return;
+
+                // add ref to attacking refs
+                attackingRefs.add(attacker);
+            });
+
+        // return the attacking refs
+        return attackingRefs;
     }
 
     // check for deaths and award XP on repeat
@@ -480,6 +505,32 @@ public class Module_RPG_Stats {
         }
     }
 
+    // function for spawning loot drops
+    private List<ItemStack> rollLoot(Ref<EntityStore> defender, Store<EntityStore> store, CommandBuffer<EntityStore> commandBuffer, List<ItemStack> dropPool){
+        // loop over all players who damaged the defender in the last 30 seconds
+        List<Ref<EntityStore>> players = getAttackingPlayers(defender, store);
+        for (Ref<EntityStore> ref : players) {
+            // get the players unlocked recipes
+            Player player = store.getComponent(ref, Player.getComponentType());
+            Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
+            if (craftingKnowledge == null) continue;
+
+            // bail if the players recipes are empty
+            if (craftingKnowledge.discoveredDroppableRecipes.isEmpty()) continue;
+
+            // pick a random item from the players discovered recipes
+            Set<String> itemIds = craftingKnowledge.discoveredDroppableRecipes;
+            String[] itemIdsArray = itemIds.toArray(new String[0]);
+            String randomItemId = itemIdsArray[ThreadLocalRandom.current().nextInt(itemIdsArray.length)];
+
+            // add the item stack to the pool
+            dropPool.add(new ItemStack(randomItemId, 1));
+        }
+
+        // return the list of items
+        return dropPool;
+    }
+
     // function to calculate stats on tick
     private void onTickCalculateStats() {
 //        // cache the last known state
@@ -508,10 +559,11 @@ public class Module_RPG_Stats {
     }
 
     // helper function for console logging
-    public void alertPlayer(String msg) {
+    public void alertPlayers(String msg, Color color) {
+        color = color != null ? color : Color.WHITE;
         // loop over all players and broadcast the message
         for (PlayerRef player : Universe.get().getPlayers()) {
-            player.sendMessage(Message.raw(msg));
+            player.sendMessage(Message.raw(msg).color(color));
         }
     }
 }

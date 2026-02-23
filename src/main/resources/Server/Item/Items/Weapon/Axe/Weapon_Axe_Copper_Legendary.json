@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 80
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -153,5 +157,10 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blunt_Small"
+  "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
+  ]
 }

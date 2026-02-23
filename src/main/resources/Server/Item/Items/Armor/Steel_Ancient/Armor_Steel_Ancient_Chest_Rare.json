@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Leather_Light",
         "Quantity": 120
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -89,5 +93,10 @@
   "Quality": "Rare",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
   ]
 }

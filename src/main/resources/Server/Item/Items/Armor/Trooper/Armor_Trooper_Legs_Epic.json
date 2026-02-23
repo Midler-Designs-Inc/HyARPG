@@ -4,7 +4,12 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -66,5 +71,10 @@
   "MaxDurability": 0,
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
   ]
 }

@@ -26,6 +26,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 80
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -168,5 +172,10 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blade_Large"
+  "ItemSoundSetId": "ISS_Weapons_Blade_Large",
+  "ResourceTypes": [
+    {
+      "Id": "Epic_Gear"
+    }
+  ]
 }

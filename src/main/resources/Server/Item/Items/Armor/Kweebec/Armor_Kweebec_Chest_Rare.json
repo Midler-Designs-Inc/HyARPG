@@ -4,7 +4,12 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Recipe": {
-    "Input": [],
+    "Input": [
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
     "BenchRequirement": [],
     "KnowledgeRequired": true
   },
@@ -62,5 +67,10 @@
   "Quality": "Rare",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
   ]
 }

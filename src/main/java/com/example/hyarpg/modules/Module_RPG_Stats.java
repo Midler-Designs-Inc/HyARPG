@@ -64,6 +64,23 @@ public class Module_RPG_Stats {
     private static final int LEVEL_VARIANCE = 5;
     private static final Random random = new Random();
 
+    // Create a map to match a rarity string to a java utils color
+    public class colorUtils {
+        // simple JS-style lookup map
+        private static final Map<String, Color> RARITY_COLORS = Map.of(
+            "Common", Color.WHITE,
+            "Uncommon", Color.GREEN,
+            "Rare", Color.BLUE,
+            "Epic", new Color(255, 0, 255),        // magenta
+            "Legendary", new Color(255, 180, 0)   // gold-orange
+        );
+
+        // usage
+        public static Color getRarityColor(String rarity) {
+            return RARITY_COLORS.getOrDefault(rarity, Color.WHITE);
+        }
+    }
+
     // Map<defender_ref, Map<attacker_ref, timestamp>
     private final ConcurrentHashMap<Ref<EntityStore>, ConcurrentHashMap<Ref<EntityStore>, Long>> damageRegistry = new ConcurrentHashMap<>();
 
@@ -228,37 +245,37 @@ public class Module_RPG_Stats {
             if(player != null) defenderLevel = defenderRPGStats.calculateGearScore(player);
         }
 
-        // debug info about damage source
-        Damage.Source dmgSource = damage.getSource();
-        if (dmgSource instanceof Damage.ProjectileSource projectileSource) {
-            alertPlayers("Projectile from: " + projectileSource.getRef(), Color.BLUE);
-        } else if (dmgSource instanceof Damage.EntitySource entitySource) {
-            Ref<EntityStore> sourceRef = entitySource.getRef();
-
-            // check if it has an ItemComponent (thrown items have this)
-            ItemComponent itemComponent = store.getComponent(sourceRef, ItemComponent.getComponentType());
-            if (itemComponent != null) {
-                ItemStack itemStack = itemComponent.getItemStack();
-                alertPlayers("Source item: " + itemStack.getItemId(), Color.BLUE);
-            }
-        } else if (dmgSource instanceof Damage.EnvironmentSource envSource) {
-            alertPlayers("Environment: " + envSource.getType(), Color.BLUE);
-        }
-
-        DamageCause.getAssetMap().getAssetMap().forEach((id, cause) -> {
-            alertPlayers("Cause: " + cause.getId() + " index: " + DamageCause.getAssetMap().getIndex(cause.getId()), Color.BLUE);
-        });
-
-        // Damage cause — index 6 maps to a DamageCause asset, get its ID:
-        DamageCause cause = damage.getCause();
-        if (cause != null) alertPlayers("Cause ID: " + cause.getId(), Color.BLUE);
-        boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
-        alertPlayers("Was a projectile: " + (isProjectile ? "Yes!" : "No!"), Color.BLUE);
-
-        // other stuff
-        Boolean blocked = damage.getMetaStore().getMetaObject(Damage.BLOCKED);
-        KnockbackComponent kb = damage.getMetaStore().getMetaObject(Damage.KNOCKBACK_COMPONENT);
-        alertPlayers("Blocked: " + blocked, Color.BLUE);
+//        // debug info about damage source
+//        Damage.Source dmgSource = damage.getSource();
+//        if (dmgSource instanceof Damage.ProjectileSource projectileSource) {
+//            alertPlayers("Projectile from: " + projectileSource.getRef(), Color.BLUE);
+//        } else if (dmgSource instanceof Damage.EntitySource entitySource) {
+//            Ref<EntityStore> sourceRef = entitySource.getRef();
+//
+//            // check if it has an ItemComponent (thrown items have this)
+//            ItemComponent itemComponent = store.getComponent(sourceRef, ItemComponent.getComponentType());
+//            if (itemComponent != null) {
+//                ItemStack itemStack = itemComponent.getItemStack();
+//                alertPlayers("Source item: " + itemStack.getItemId(), Color.BLUE);
+//            }
+//        } else if (dmgSource instanceof Damage.EnvironmentSource envSource) {
+//            alertPlayers("Environment: " + envSource.getType(), Color.BLUE);
+//        }
+//
+//        DamageCause.getAssetMap().getAssetMap().forEach((id, cause) -> {
+//            alertPlayers("Cause: " + cause.getId() + " index: " + DamageCause.getAssetMap().getIndex(cause.getId()), Color.BLUE);
+//        });
+//
+//        // Damage cause — index 6 maps to a DamageCause asset, get its ID:
+//        DamageCause cause = damage.getCause();
+//        if (cause != null) alertPlayers("Cause ID: " + cause.getId(), Color.BLUE);
+//        boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
+//        alertPlayers("Was a projectile: " + (isProjectile ? "Yes!" : "No!"), Color.BLUE);
+//
+//        // other stuff
+//        Boolean blocked = damage.getMetaStore().getMetaObject(Damage.BLOCKED);
+//        KnockbackComponent kb = damage.getMetaStore().getMetaObject(Damage.KNOCKBACK_COMPONENT);
+//        alertPlayers("Blocked: " + blocked, Color.BLUE);
 
         // adjust damage based player/enemy level
         adjustDamageBasedOnLevel(attackerLevel, attackerRarity, defenderLevel, defenderRarity, damage);
@@ -301,8 +318,11 @@ public class Module_RPG_Stats {
             filteredDrops.add(drop);
         }
 
-        // add mod drops
-        filteredDrops = rollLoot(ref, store, commandBuffer, filteredDrops);
+        // get a list of players that attacked the enemy in the last 30 seconds
+        List<Ref<EntityStore>> players = getAttackingPlayers(ref, store);
+
+        // add drops to the pool
+        rollLoot(ref, store, players, filteredDrops);
 
         // spawn filtered drops
         if (!filteredDrops.isEmpty()) {
@@ -529,48 +549,184 @@ public class Module_RPG_Stats {
         damage.setAmount((int) scaledDamage);
 
         // loop over all players and broadcast the message
-        for (PlayerRef player : Universe.get().getPlayers()) {
-            player.sendMessage(Message.raw(
-                "Initial Damage: " + damage.getInitialAmount() +
-                " Final Damage: " + damage.getAmount()
-            ).color(Color.GRAY));
-            player.sendMessage(Message.raw(
-                "Level Delta: " + levelDelta +
-                " Rarity Delta: " + rarityDelta
-            ).color(Color.GRAY));
-            player.sendMessage(Message.raw(
-                "Level Scale: " + levelScale +
-                " Rarity Scale: " + rarityScale
-            ).color(Color.GRAY));
-        }
+//        for (PlayerRef player : Universe.get().getPlayers()) {
+//            player.sendMessage(Message.raw(
+//                "Initial Damage: " + damage.getInitialAmount() +
+//                " Final Damage: " + damage.getAmount()
+//            ).color(Color.GRAY));
+//            player.sendMessage(Message.raw(
+//                "Level Delta: " + levelDelta +
+//                " Rarity Delta: " + rarityDelta
+//            ).color(Color.GRAY));
+//            player.sendMessage(Message.raw(
+//                "Level Scale: " + levelScale +
+//                " Rarity Scale: " + rarityScale
+//            ).color(Color.GRAY));
+//        }
     }
 
     // function for spawning loot drops
-    private List<ItemStack> rollLoot(Ref<EntityStore> defender, Store<EntityStore> store, CommandBuffer<EntityStore> commandBuffer, List<ItemStack> dropPool){
+    private void rollLoot(Ref<EntityStore> defender, Store<EntityStore> store, List<Ref<EntityStore>> players, List<ItemStack> dropPool) {
+        // Get the killed enemies rpg component
+        Component_RPG_Enemy rpgEnemy = store.getComponent(defender, componentTypeRPGEnemy);
+        if(rpgEnemy == null) return;
+
+        // get the enemies level and rarity
+        String rarity = rpgEnemy.getRarityString();
+        int level = rpgEnemy.level;
+
+        // roll to see if gear or recipes should drop
+        boolean shouldLootDrop = shouldLootDrop(rarity);
+        boolean shouldRecipeDrop = shouldLootDrop(rarity);
+
+        // use ThreadLocalRandom for efficient RNG in game loops
+        ThreadLocalRandom rng = ThreadLocalRandom.current();
+
         // loop over all players who damaged the defender in the last 30 seconds
-        List<Ref<EntityStore>> players = getAttackingPlayers(defender, store);
         for (Ref<EntityStore> ref : players) {
-            // get the players unlocked recipes
+            // resolve the player component
             Player player = store.getComponent(ref, Player.getComponentType());
+
+            // add a recipe if applicable
+            if(shouldRecipeDrop) {
+                // roll recipe rarity and add it to the drop pool
+                String recipeRarity = rollRarity();
+                String recipeID = "Recipe_Page_" + recipeRarity;
+                dropPool.add(new ItemStack(recipeID, 1));
+
+                // notify players of the roll
+                Color color = colorUtils.getRarityColor(recipeRarity);
+                alertPlayers(player.getDisplayName() + " rolled a " + recipeID.replace("_", " "), color);
+            }
+
+            // bail now if loot should not drop
+            if(!shouldLootDrop) continue;
+
+            // get the player's crafting knowledge component or bail
             Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
             if (craftingKnowledge == null) continue;
 
-            // bail if the players recipes are empty
-            if (craftingKnowledge.discoveredDroppableRecipes.isEmpty()) continue;
+            // bail if the player's recipes are empty
+            Set<String> recipes = craftingKnowledge.discoveredDroppableRecipes;
+            int recipeCount = recipes.size();
+            if (recipeCount == 0) continue;
 
-            // pick a random item from the players discovered recipes
-            Set<String> itemIds = craftingKnowledge.discoveredDroppableRecipes;
-            String[] itemIdsArray = itemIds.toArray(new String[0]);
-            String randomItemId = itemIdsArray[ThreadLocalRandom.current().nextInt(itemIdsArray.length)];
+            // get the rarity the random item should be
+            String rolledRarity = rollRarity();
 
-            // add the item stack to the pool
-            dropPool.add(new ItemStack(randomItemId, 1));
-            String itemName = randomItemId.replace("Weapon_", "").replace("Armor_", "").replace("_", " ");
-            alertPlayers(player.getDisplayName() + " rolled a " + itemName, Color.GREEN);
+            // get a random item based on the rarity rolled (falling down rarity order otherwise)
+            String randomItemId = rollItemForRarity(recipes, rolledRarity, rng);
+            if (randomItemId == null) continue;
+
+            // assign gear score based on enemy level and then add the item stack to the drop pool
+            ItemStack newStack = new ItemStack(randomItemId, 1);
+            ItemStack leveled = newStack.withMetadata("GearScore", Codec.INTEGER, level);
+            dropPool.add(leveled);
+
+            // resolve the player component for messaging and alert players of the roll
+            if (player != null) {
+                // get rarity of the item actually returned
+                String[] parts = randomItemId.split("_");
+                String actualRarity = parts[parts.length - 1];
+
+                // format item name for display
+                String itemName = randomItemId
+                        .replace("Weapon_", "")
+                        .replace("Armor_", "")
+                        .replace("_", " ");
+
+                // notify players of the roll
+                Color color = colorUtils.getRarityColor(actualRarity);
+                alertPlayers(player.getDisplayName() + " rolled a " + itemName, color);
+            }
+        }
+    }
+
+    // Returns true if the modifier application succeeds
+    private boolean shouldLootDrop(String rarity) {
+        // Defensive default (treat unknown rarity as worst case)
+        if (rarity == null) return false;
+
+        // make a random roll between 0 and 1
+        double roll = ThreadLocalRandom.current().nextDouble(); // 0.0 <= roll < 1.0
+        double failChance;
+
+        switch (rarity) {
+            case "Common":
+                failChance = 0.95; // 95% fail → 5% success
+                break;
+
+            case "Uncommon":
+                failChance = 0.85; // 85% fail → 15% success
+                break;
+
+            case "Rare":
+                failChance = 0.65; // 65% fail → 35% success
+                break;
+
+            case "Epic":
+                failChance = 0.40; // 40% fail → 60% success
+                break;
+
+            case "Legendary":
+                failChance = 0.10; // 10% fail → 90% success
+                break;
+
+            default:
+                failChance = 0.95; // Safe fallback
+                break;
         }
 
-        // return the list of items
-        return dropPool;
+        // Success occurs when roll exceeds failure probability
+        return roll > failChance;
+    }
+
+    // Rolls a rarity tier based on fixed probabilities
+    private String rollRarity() {
+        double roll = ThreadLocalRandom.current().nextDouble(); // 0.0 <= roll < 1.0
+
+        // Cumulative probability bands (must sum to 1.0)
+        if (roll < 0.03) return "Legendary";   // 3%
+        else if (roll < 0.10) return "Epic";   // 7% (0.10 total)
+        else if (roll < 0.25) return "Rare";   // 15% (0.25 total)
+        else return "Uncommon";                // 75% (0.70 total)
+    }
+
+    // Rolls a random item based on the passed rarity/recipes
+    private String rollItemForRarity(Set<String> recipes, String rolledRarity, Random rng) {
+        // Define fallback order (highest → lowest)
+        String[] rarityOrder = { "Legendary", "Epic", "Rare", "Uncommon", "Common" };
+
+        // Find starting rarity order index based on rolled rarity
+        int startIndex = -1;
+        for (int i = 0; i < rarityOrder.length; i++) {
+            if (rarityOrder[i].equals(rolledRarity)) {
+                startIndex = i;
+                break;
+            }
+        }
+        if (startIndex == -1) return null;
+
+        // loop over rarity order and try to get a random item or fall down the chain
+        for (int r = startIndex; r < rarityOrder.length; r++) {
+            String rarity = rarityOrder[r];
+
+            // Collect matching recipes
+            List<String> matches = new ArrayList<>();
+            for (String id : recipes) {
+                if (id.endsWith("_" + rarity)) {
+                    matches.add(id);
+                }
+            }
+
+            // If matches exist → roll one
+            if (!matches.isEmpty()) {
+                return matches.get(rng.nextInt(matches.size()));
+            }
+        }
+
+        // Should never occur if Common recipes exist
+        return null;
     }
 
     // function to calculate stats on tick

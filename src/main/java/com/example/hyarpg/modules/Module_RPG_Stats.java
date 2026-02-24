@@ -13,12 +13,17 @@ import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffec
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.knockback.KnockbackComponent;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.meta.IMetaStore;
+import com.hypixel.hytale.server.core.meta.IMetaStoreImpl;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
@@ -223,6 +228,38 @@ public class Module_RPG_Stats {
             if(player != null) defenderLevel = defenderRPGStats.calculateGearScore(player);
         }
 
+        // debug info about damage source
+        Damage.Source dmgSource = damage.getSource();
+        if (dmgSource instanceof Damage.ProjectileSource projectileSource) {
+            alertPlayers("Projectile from: " + projectileSource.getRef(), Color.BLUE);
+        } else if (dmgSource instanceof Damage.EntitySource entitySource) {
+            Ref<EntityStore> sourceRef = entitySource.getRef();
+
+            // check if it has an ItemComponent (thrown items have this)
+            ItemComponent itemComponent = store.getComponent(sourceRef, ItemComponent.getComponentType());
+            if (itemComponent != null) {
+                ItemStack itemStack = itemComponent.getItemStack();
+                alertPlayers("Source item: " + itemStack.getItemId(), Color.BLUE);
+            }
+        } else if (dmgSource instanceof Damage.EnvironmentSource envSource) {
+            alertPlayers("Environment: " + envSource.getType(), Color.BLUE);
+        }
+
+        DamageCause.getAssetMap().getAssetMap().forEach((id, cause) -> {
+            alertPlayers("Cause: " + cause.getId() + " index: " + DamageCause.getAssetMap().getIndex(cause.getId()), Color.BLUE);
+        });
+
+        // Damage cause — index 6 maps to a DamageCause asset, get its ID:
+        DamageCause cause = damage.getCause();
+        if (cause != null) alertPlayers("Cause ID: " + cause.getId(), Color.BLUE);
+        boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
+        alertPlayers("Was a projectile: " + (isProjectile ? "Yes!" : "No!"), Color.BLUE);
+
+        // other stuff
+        Boolean blocked = damage.getMetaStore().getMetaObject(Damage.BLOCKED);
+        KnockbackComponent kb = damage.getMetaStore().getMetaObject(Damage.KNOCKBACK_COMPONENT);
+        alertPlayers("Blocked: " + blocked, Color.BLUE);
+
         // adjust damage based player/enemy level
         adjustDamageBasedOnLevel(attackerLevel, attackerRarity, defenderLevel, defenderRarity, damage);
     }
@@ -340,7 +377,10 @@ public class Module_RPG_Stats {
     private void swapVanillaItem(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
         // get the item from the stack
         Item item = stack.getItem();
-        if (Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")) return;
+        if (
+            Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")
+            || item.getId().contains("Weapon_Arrow_Crude")
+        ) return;
 
         // get the players crafting knowledge
         Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
@@ -493,15 +533,15 @@ public class Module_RPG_Stats {
             player.sendMessage(Message.raw(
                 "Initial Damage: " + damage.getInitialAmount() +
                 " Final Damage: " + damage.getAmount()
-            ).color(Color.YELLOW));
+            ).color(Color.GRAY));
             player.sendMessage(Message.raw(
                 "Level Delta: " + levelDelta +
                 " Rarity Delta: " + rarityDelta
-            ).color(Color.YELLOW));
+            ).color(Color.GRAY));
             player.sendMessage(Message.raw(
                 "Level Scale: " + levelScale +
                 " Rarity Scale: " + rarityScale
-            ).color(Color.YELLOW));
+            ).color(Color.GRAY));
         }
     }
 
@@ -525,6 +565,8 @@ public class Module_RPG_Stats {
 
             // add the item stack to the pool
             dropPool.add(new ItemStack(randomItemId, 1));
+            String itemName = randomItemId.replace("Weapon_", "").replace("Armor_", "").replace("_", " ");
+            alertPlayers(player.getDisplayName() + " rolled a " + itemName, Color.GREEN);
         }
 
         // return the list of items

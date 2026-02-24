@@ -88,24 +88,20 @@
       "Id": "Armor_Bench_HyARPG",
       "TierLevels": [
         {
-          "CraftingTimeReductionModifier": 0,
+          "CraftingTimeReductionModifier": 0.15,
           "UpgradeRequirement": {
             "Material": [
               {
                 "ItemId": "Ingredient_Bar_Copper",
-                "Quantity": 20
+                "Quantity": 50
               },
               {
-                "ItemId": "Ingredient_Bone_Fragment",
-                "Quantity": 20
+                "Quantity": 100,
+                "ResourceTypeId": "Wood_Trunk"
               },
               {
-                "ItemId": "Ingredient_Leather_Medium",
-                "Quantity": 20
-              },
-              {
-                "ItemId": "Wood_Azure_Trunk",
-                "Quantity": 100
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 25
               }
             ],
             "TimeSeconds": 3
@@ -115,24 +111,20 @@
           "UpgradeRequirement": {
             "Material": [
               {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 100
+              },
+              {
+                "Quantity": 200,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 50
+              },
+              {
                 "ItemId": "Ingredient_Bar_Thorium",
                 "Quantity": 25
-              },
-              {
-                "ItemId": "Ingredient_Bar_Cobalt",
-                "Quantity": 25
-              },
-              {
-                "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-                "Quantity": 40
-              },
-              {
-                "ItemId": "Ingredient_Chitin_Sturdy",
-                "Quantity": 40
-              },
-              {
-                "ItemId": "Ingredient_Voidheart",
-                "Quantity": 3
               }
             ],
             "TimeSeconds": 3
@@ -140,7 +132,60 @@
           "CraftingTimeReductionModifier": 0.15
         },
         {
-          "CraftingTimeReductionModifier": 0.3
+          "CraftingTimeReductionModifier": 0.15,
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 200
+              },
+              {
+                "Quantity": 400,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 100
+              },
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 50
+              },
+              {
+                "ItemId": "Ingredient_Bar_Adamantite",
+                "Quantity": 25
+              }
+            ],
+            "TimeSeconds": 3
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "Quantity": 800,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 200
+              },
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 100
+              },
+              {
+                "ItemId": "Ingredient_Bar_Adamantite",
+                "Quantity": 50
+              },
+              {
+                "ItemId": "Ingredient_Bar_Mithril",
+                "Quantity": 25
+              }
+            ],
+            "TimeSeconds": 3
+          },
+          "CraftingTimeReductionModifier": 0.15
         }
       ]
     },

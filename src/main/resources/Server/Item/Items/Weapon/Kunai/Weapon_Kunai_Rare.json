@@ -1,0 +1,93 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Kunai_Iron.name",
+    "Description": "server.items.Weapon_Kunai_Iron.description"
+  },
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "Icon": "Icons/ItemsGenerated/Weapon_Kunai.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      315,
+      270,
+      0
+    ],
+    "Translation": [
+      -21,
+      -22
+    ]
+  },
+  "Quality": "Rare",
+  "ItemLevel": 20,
+  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Texture.png",
+  "PlayerAnimationsId": "Throwing_Knife",
+  "Utility": {
+    "Usable": true
+  },
+  "Weapon": {},
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        "Kunai_Throw"
+      ],
+      "Cooldown": {
+        "Cooldown": 0.25,
+        "Charges": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "InterruptRecharge": true,
+        "ClickBypass": false
+      }
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ]
+  },
+  "Recipe": {
+    "TimeSeconds": 0,
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Daggers"
+        ],
+        "Id": "Weapon_Bench_HyARPG_HyARPG",
+        "RequiredTierLevel": 2
+      }
+    ],
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 160
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 80
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 120
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "MaxDurability": 0,
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
+  ]
+}

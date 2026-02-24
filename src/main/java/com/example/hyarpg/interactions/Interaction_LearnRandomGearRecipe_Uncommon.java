@@ -62,7 +62,7 @@ public class Interaction_LearnRandomGearRecipe_Uncommon extends SimpleInstantInt
 
         // if there are no items that can be unlocked, notify
         if(commonRecipes.isEmpty()) {
-            player.sendMessage(Message.raw("There are no more recipes you can unlock of this tier at this time.").color(Color.GRAY));
+            player.sendMessage(Message.raw("There are no more recipes you can unlock of this tier at this time.").color(Color.LIGHT_GRAY));
             context.getState().state = InteractionState.Failed;
             return;
         }

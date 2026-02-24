@@ -1,0 +1,100 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Kunai_Bone.name",
+    "Description": "server.items.Weapon_Sword_Crude.description"
+  },
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "Icon": "Icons/ItemsGenerated/Kunai/Bone_Kunai_Icon.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      315,
+      270,
+      0
+    ],
+    "Translation": [
+      -21,
+      -22
+    ]
+  },
+  "Quality": "Rare",
+  "ItemLevel": 3,
+  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Bone_Kunai.png",
+  "PlayerAnimationsId": "Throwing_Knife",
+  "Utility": {
+    "Usable": true
+  },
+  "Weapon": {},
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        "Bone_Kunai_Throw"
+      ],
+      "Cooldown": {
+        "Cooldown": 0.25,
+        "Charges": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "InterruptRecharge": true,
+        "ClickBypass": false
+      }
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ]
+  },
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ResourceTypeId": "",
+        "Quantity": 12,
+        "ItemId": "Ingredient_Bone_Fragment"
+      },
+      {
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 12
+      },
+      {
+        "ItemId": "Ingredient_Stick",
+        "Quantity": 12
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": [
+          "Tools"
+        ]
+      },
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Survival"
+        ]
+      }
+    ]
+  },
+  "MaxDurability": 0,
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
+  ]
+}

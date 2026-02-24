@@ -221,13 +221,6 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
         }
     }
 
-    public void alertPlayer(String msg) {
-        // loop over all players and broadcast the message
-        for (PlayerRef player : Universe.get().getPlayers()) {
-            player.sendMessage(Message.raw(msg));
-        }
-    }
-
     // required for Hytale ECS system
     @Override
     public Component<EntityStore> clone() {

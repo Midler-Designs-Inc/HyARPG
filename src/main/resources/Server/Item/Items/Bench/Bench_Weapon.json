@@ -92,24 +92,20 @@
       "Id": "Weapon_Bench",
       "TierLevels": [
         {
-          "CraftingTimeReductionModifier": 0,
+          "CraftingTimeReductionModifier": 0.15,
           "UpgradeRequirement": {
             "Material": [
               {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 50
+              },
+              {
+                "Quantity": 100,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
                 "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 20
-              },
-              {
-                "ItemId": "Ingredient_Leather_Light",
-                "Quantity": 30
-              },
-              {
-                "ItemId": "Ingredient_Fabric_Scrap_Linen",
-                "Quantity": 30
-              },
-              {
-                "ItemId": "Ingredient_Sac_Venom",
-                "Quantity": 15
+                "Quantity": 25
               }
             ],
             "TimeSeconds": 3
@@ -119,24 +115,20 @@
           "UpgradeRequirement": {
             "Material": [
               {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 100
+              },
+              {
+                "Quantity": 200,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 50
+              },
+              {
                 "ItemId": "Ingredient_Bar_Thorium",
                 "Quantity": 25
-              },
-              {
-                "ItemId": "Ingredient_Bar_Cobalt",
-                "Quantity": 25
-              },
-              {
-                "ItemId": "Ingredient_Fire_Essence",
-                "Quantity": 20
-              },
-              {
-                "ItemId": "Ingredient_Ice_Essence",
-                "Quantity": 40
-              },
-              {
-                "ItemId": "Ingredient_Void_Essence",
-                "Quantity": 100
               }
             ],
             "TimeSeconds": 3
@@ -144,7 +136,60 @@
           "CraftingTimeReductionModifier": 0.15
         },
         {
-          "CraftingTimeReductionModifier": 0.3
+          "CraftingTimeReductionModifier": 0.15,
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 200
+              },
+              {
+                "Quantity": 400,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 100
+              },
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 50
+              },
+              {
+                "ItemId": "Ingredient_Bar_Adamantite",
+                "Quantity": 25
+              }
+            ],
+            "TimeSeconds": 3
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "Quantity": 800,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 200
+              },
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 100
+              },
+              {
+                "ItemId": "Ingredient_Bar_Adamantite",
+                "Quantity": 50
+              },
+              {
+                "ItemId": "Ingredient_Bar_Mithril",
+                "Quantity": 25
+              }
+            ],
+            "TimeSeconds": 3
+          },
+          "CraftingTimeReductionModifier": 0.15
         }
       ]
     },

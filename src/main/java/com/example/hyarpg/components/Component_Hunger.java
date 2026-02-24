@@ -25,14 +25,14 @@ public class Component_Hunger implements Component<EntityStore> {
 
     // Default no-arg constructor (required for component registration)
     public Component_Hunger() {
-        this(100f, 100f, 0.5f);  // Default values
+        this(100f, 100f);  // Default values
     }
 
     // Constructor
-    public Component_Hunger(float max, float initialValue, float drainRate) {
+    public Component_Hunger(float max, float initialValue) {
         this.max = max;
         this.value = initialValue;
-        this.drainRate = drainRate;
+        this.drainRate = 0.1f;
         this.accumulator = 0f;
     }
 
@@ -64,7 +64,7 @@ public class Component_Hunger implements Component<EntityStore> {
     // required for Hytale ECS system
     @Override
     public Component<EntityStore> clone() {
-        Component_Hunger copy = new Component_Hunger(max, value, drainRate);
+        Component_Hunger copy = new Component_Hunger(max, value);
         copy.accumulator = this.accumulator;
         return copy;
     }

@@ -56,7 +56,7 @@
     "TimeSeconds": 0,
     "BenchRequirement": [
       {
-        "Id": "Weapon_Bench_HyARPG_HyARPG",
+        "Id": "Weapon_Bench_HyARPG",
         "Type": "Crafting",
         "Categories": [
           "Weapon_Daggers"

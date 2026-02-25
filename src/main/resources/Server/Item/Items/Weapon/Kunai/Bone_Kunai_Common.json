@@ -57,7 +57,6 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ResourceTypeId": "",
         "Quantity": 12,
         "ItemId": "Ingredient_Bone_Fragment"
       },

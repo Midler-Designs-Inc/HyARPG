@@ -2,29 +2,29 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.interactions.*;
-import com.hypixel.hytale.builtin.crafting.state.ProcessingBenchState;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.protocol.GameMode;
+import com.hypixel.hytale.protocol.ItemBase;
+import com.hypixel.hytale.protocol.UpdateType;
+import com.hypixel.hytale.protocol.packets.assets.UpdateItems;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.blocktype.config.bench.ProcessingBench;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.entity.knockback.KnockbackComponent;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
-import com.hypixel.hytale.server.core.meta.IMetaStore;
-import com.hypixel.hytale.server.core.meta.IMetaStoreImpl;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.StaticModifier;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -48,7 +48,7 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
-
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class Module_RPG_Stats {
@@ -96,12 +96,13 @@ public class Module_RPG_Stats {
         componentTypeCraftingKnowledge = plugin.getEntityStoreRegistry()
                 .registerComponent(Component_CraftingKnowledge.class, "CraftingKnowledgeComponent", Component_CraftingKnowledge.CODEC);
 
-        // Get the interaction registry and register the RestoreHunger interaction
+        // Get the interaction registry and register the custom interactions
         final var interactionRegistry = plugin.getCodecRegistry(Interaction.CODEC);
         interactionRegistry.register("LearnRandomGearRecipe_Uncommon", Interaction_LearnRandomGearRecipe_Uncommon.class, Interaction_LearnRandomGearRecipe_Uncommon.CODEC);
         interactionRegistry.register("LearnRandomGearRecipe_Rare", Interaction_LearnRandomGearRecipe_Rare.class, Interaction_LearnRandomGearRecipe_Rare.CODEC);
         interactionRegistry.register("LearnRandomGearRecipe_Epic", Interaction_LearnRandomGearRecipe_Epic.class, Interaction_LearnRandomGearRecipe_Epic.CODEC);
         interactionRegistry.register("LearnRandomGearRecipe_Legendary", Interaction_LearnRandomGearRecipe_Legendary.class, Interaction_LearnRandomGearRecipe_Legendary.CODEC);
+        interactionRegistry.register("ShowRPGStats", Interaction_ShowRPGStats.class, Interaction_ShowRPGStats.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
@@ -311,10 +312,7 @@ public class Module_RPG_Stats {
         List<ItemStack> filteredDrops = new ObjectArrayList();
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
-            if (item.getWeapon() != null || item.getArmor() != null) {
-                alertPlayers("Filtered out: " + item.getId(), Color.WHITE);
-                continue;
-            }
+            if (item.getWeapon() != null || item.getArmor() != null)  continue;
             filteredDrops.add(drop);
         }
 
@@ -395,12 +393,13 @@ public class Module_RPG_Stats {
 
     // assign a gear score to an item a player picked up
     private void swapVanillaItem(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
+        // if in creative mode let it happen
+        Player player = store.getComponent(ref, Player.getComponentType());
+        if (player.getGameMode() == GameMode.Creative) return;
+
         // get the item from the stack
         Item item = stack.getItem();
-        if (
-            Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")
-            || item.getId().contains("Weapon_Arrow_Crude")
-        ) return;
+        if (Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")) return;
 
         // get the players crafting knowledge
         Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);

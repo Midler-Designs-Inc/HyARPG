@@ -59,34 +59,8 @@
       "Pants",
       "Shoes"
     ],
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 13,
-          "CalculationType": "Additive"
-        }
-      ],
-      "Mana": [
-        {
-          "Amount": 16,
-          "CalculationType": "Additive"
-        }
-      ]
-    },
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.07,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.07,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    }
+    "StatModifiers": {},
+    "DamageResistance": {}
   },
   "Tags": {
     "Type": [

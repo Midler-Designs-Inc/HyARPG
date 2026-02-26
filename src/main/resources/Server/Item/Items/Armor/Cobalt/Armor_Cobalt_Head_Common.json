@@ -58,36 +58,9 @@
       "Haircut",
       "HeadAccessory"
     ],
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.064,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.064,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    },
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 12,
-          "CalculationType": "Additive"
-        }
-      ]
-    },
-    "DamageClassEnhancement": {
-      "Signature": [
-        {
-          "Amount": 0.03,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    }
+    "DamageResistance": {},
+    "StatModifiers": {},
+    "DamageClassEnhancement": {}
   },
   "MaxDurability": 0,
   "Tags": {

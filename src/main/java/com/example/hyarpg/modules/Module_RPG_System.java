@@ -2,14 +2,14 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.interactions.*;
+import com.example.hyarpg.utils.Affix;
+import com.example.hyarpg.utils.AffixPool;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.GameMode;
-import com.hypixel.hytale.protocol.ItemBase;
-import com.hypixel.hytale.protocol.UpdateType;
-import com.hypixel.hytale.protocol.packets.assets.UpdateItems;
+import com.hypixel.hytale.protocol.ItemQuality;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
@@ -22,9 +22,6 @@ import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
-import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
-import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
-import com.hypixel.hytale.server.core.modules.entitystats.modifier.StaticModifier;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -39,23 +36,24 @@ import com.example.hyarpg.components.Component_CraftingKnowledge;
 import com.example.hyarpg.events.*;
 import com.example.hyarpg.HyARPGPlugin;
 import com.example.hyarpg.ModEventBus;
-import com.example.hyarpg.components.Component_RPG_Stats;
+import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.components.Component_RPG_Enemy;
 
 // Java Imports
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
-public class Module_RPG_Stats {
+public class Module_RPG_System {
 
     private final HyARPGPlugin plugin;
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
-    public static ComponentType<EntityStore, Component_RPG_Stats> componentTypeRPGStats;
+    public static ComponentType<EntityStore, Component_RPG_Player> componentTypeRPGPlayer;
     public static ComponentType<EntityStore, Component_RPG_Enemy> componentTypeRPGEnemy;
     public static ComponentType<EntityStore, Component_CraftingKnowledge> componentTypeCraftingKnowledge;
 
@@ -81,16 +79,34 @@ public class Module_RPG_Stats {
         }
     }
 
+    // Create a map to match a rarity string to number of affixes
+    public class rarityToAffixMap {
+        // simple JS-style lookup map
+        private static final Map<String, Integer> AFFIX_COUNT = Map.of(
+            "Common", 0,
+            "Uncommon", 1,
+            "Rare", 2,
+            "Epic", 3,
+            "Legendary", 4
+        );
+
+        // usage
+        public static int getAffixCount(String rarity) {
+            if (rarity == null) return 0;
+            return AFFIX_COUNT.getOrDefault(rarity, 0);
+        }
+    }
+
     // Map<defender_ref, Map<attacker_ref, timestamp>
     private final ConcurrentHashMap<Ref<EntityStore>, ConcurrentHashMap<Ref<EntityStore>, Long>> damageRegistry = new ConcurrentHashMap<>();
 
     // initialize this module
-    public Module_RPG_Stats(HyARPGPlugin plugin) {
+    public Module_RPG_System(HyARPGPlugin plugin) {
         this.plugin = plugin;
 
         // Register the component type using EntityStoreRegistry
-        componentTypeRPGStats = plugin.getEntityStoreRegistry()
-                .registerComponent(Component_RPG_Stats.class, "RPGStatsComponent", Component_RPG_Stats.CODEC);
+        componentTypeRPGPlayer = plugin.getEntityStoreRegistry()
+                .registerComponent(Component_RPG_Player.class, "RPGStatsComponent", Component_RPG_Player.CODEC);
         componentTypeRPGEnemy = plugin.getEntityStoreRegistry()
                 .registerComponent(Component_RPG_Enemy.class, "RPGEnemyComponent", Component_RPG_Enemy.CODEC);
         componentTypeCraftingKnowledge = plugin.getEntityStoreRegistry()
@@ -128,7 +144,7 @@ public class Module_RPG_Stats {
         if (entityRef == null) return;
 
         // ensure the RPG Stats component exists, add it if it doesn't
-        store.ensureAndGetComponent(entityRef, componentTypeRPGStats);
+        store.ensureAndGetComponent(entityRef, componentTypeRPGPlayer);
         store.ensureAndGetComponent(entityRef, componentTypeCraftingKnowledge);
     }
 
@@ -200,7 +216,7 @@ public class Module_RPG_Stats {
         Damage damage = event.getDamage();
 
         // get attacker components
-        Component_RPG_Stats attackerRPGStats = store.getComponent(attacker, componentTypeRPGStats);
+        Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
         Component_RPG_Enemy attackerRPGEnemy = store.getComponent(attacker, componentTypeRPGEnemy);
 
         // default attacker values
@@ -215,7 +231,7 @@ public class Module_RPG_Stats {
         };
 
         // check if the defender is a player or NPC
-        Component_RPG_Stats defenderRPGStats = store.getComponent(defender, componentTypeRPGStats);
+        Component_RPG_Player defenderRPGStats = store.getComponent(defender, componentTypeRPGPlayer);
         Component_RPG_Enemy defenderRPGEnemy = store.getComponent(defender, componentTypeRPGEnemy);
 
         // default defender values
@@ -312,7 +328,9 @@ public class Module_RPG_Stats {
         List<ItemStack> filteredDrops = new ObjectArrayList();
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
-            if (item.getWeapon() != null || item.getArmor() != null)  continue;
+            if (item.getWeapon() != null || item.getArmor() != null) {
+                alertPlayers("Filtered out: " + item.getId(), Color.GRAY);
+            };
             filteredDrops.add(drop);
         }
 
@@ -351,18 +369,27 @@ public class Module_RPG_Stats {
         ItemContainer container = changeEvent.container();
 
         // gear score only for weapons/armor
-        if (item.getWeapon() != null || item.getArmor() != null) {
-            // swap vanilla items if applicable and then test if teh stack got a new item
+        if ((item.getWeapon() != null || item.getArmor() != null)) {
+            // swap vanilla items if applicable, this will replace the itemstack or empty it
             swapVanillaItem(ref, store, stack, container, slot);
-            if(stack.isEmpty()) return;
+            stack = container.getItemStack(slot);
+            if(stack == null || stack.isEmpty()) return;
+
+            // get the players level
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+            int level = rpgPlayer == null ? 1 : rpgPlayer.level;
 
             // assign a gear score to the item
-            item = stack.getItem();
-            assignGearScore(ref, store, stack, container, slot);
+            ItemStack newStack = assignGearScoreAndAffixes(stack, level);
+            if(newStack == null || newStack.isEmpty()) return;
+
+            // swap out the old stack for the new stack, then update refernce for down stream
+            container.replaceItemStackInSlot(slot, stack, newStack);
+            stack = newStack;
         }
 
         // register discovery for ALL items
-        registerDiscoveredItem(ref, store, item);
+        registerDiscoveredItem(ref, store, stack.getItem());
     }
 
     // capture when an item is removed from a players inventory
@@ -394,29 +421,28 @@ public class Module_RPG_Stats {
     // assign a gear score to an item a player picked up
     private void swapVanillaItem(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
         // if in creative mode let it happen
-        Player player = store.getComponent(ref, Player.getComponentType());
-        if (player.getGameMode() == GameMode.Creative) return;
+//        Player player = store.getComponent(ref, Player.getComponentType());
+//        if (player.getGameMode() == GameMode.Creative) return;
 
         // get the item from the stack
         Item item = stack.getItem();
         if (Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")) return;
 
-        // get the players crafting knowledge
+        // get the players crafting knowledge or remove the item and bail
         Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
-        if (craftingKnowledge == null) return;
-
-        // get the players list of discovered recipes
-        Set<String> dropPoolItemIds = craftingKnowledge.discoveredDroppableRecipes;
-
-        // nothing discovered that can drop yet, just remove the item
-        if (dropPoolItemIds.isEmpty()) {
+        if (craftingKnowledge == null) {
             container.removeItemStackFromSlot(slot);
             return;
         }
 
-        // pick a random item from the drop pool
-        String[] dropPool = dropPoolItemIds.toArray(new String[0]);
-        String randomItemId = dropPool[ThreadLocalRandom.current().nextInt(dropPool.length)];
+        // get teh players known recipes, roll a rarity and then roll an item or empty container and bail if none returned
+        Set<String> recipes = craftingKnowledge.discoveredDroppableRecipes;
+        String rarityRoll = rollRarity();
+        String randomItemId = rollItemForRarity(recipes, rarityRoll);
+        if (randomItemId == null ) {
+            container.removeItemStackFromSlot(slot);
+            return;
+        }
 
         // create a new item stack and swap it in
         ItemStack newStack = new ItemStack(randomItemId, 1);
@@ -424,16 +450,38 @@ public class Module_RPG_Stats {
     }
 
     // assign a gear score to an item a player picked up
-    private void assignGearScore(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
-        // Already has a gear score
-        if (stack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) return;
+    private ItemStack assignGearScoreAndAffixes(ItemStack stack, int gearScore) {
+        // If it already has a gear score, bail
+        if (stack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) return null;
 
-        // Get the level of the player who picked up the item
-        Component_RPG_Stats stats = store.getComponent(ref, componentTypeRPGStats);
-        if (stats == null) return;
+        // If we can't get an item id bail
+        Item item = stack.getItem();
+        String itemId = item.getId();
+        if(itemId == null) return null;
 
-        ItemStack leveled = stack.withMetadata("GearScore", Codec.INTEGER, stats.level);
-        container.replaceItemStackInSlot(slot, stack, leveled);
+        // create a new item stack
+        ItemStack returnStack = new ItemStack(itemId, 1);
+
+        // determine the item rarity from its id ex: Weapon_Copper_Sword_Uncommon
+        String rarity = itemId.substring(itemId.lastIndexOf('_') + 1);
+
+        // get affixes
+        int affixCount = rarityToAffixMap.getAffixCount(rarity);
+        List<Affix> affixes = new AffixPool().randomAffixes(affixCount);
+
+        // loop over affixes
+        List<String> affixStrings = new ArrayList<>();
+        for (Affix affix : affixes) {
+            String affixEncoded = affix.stat() + "|" + affix.value();
+            affixStrings.add(affixEncoded);
+        }
+        returnStack = returnStack.withMetadata("affixes", Codec.STRING_ARRAY, affixStrings.toArray(new String[0]));
+
+        // assign the gear store and replace the old stack with the new one
+        returnStack = returnStack.withMetadata("GearScore", Codec.INTEGER, gearScore);
+
+        // return the new item stack
+        return returnStack;
     }
 
     // get valid attackers from the damage registry
@@ -487,7 +535,7 @@ public class Module_RPG_Stats {
                 int enemyRarity = (rpgEnemy != null) ? rpgEnemy.monsterRarity : 0;
 
                 // award XP to the player
-                Component_RPG_Stats attackerRPGStats = store.getComponent(attacker, componentTypeRPGStats);
+                Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
                 attackerRPGStats.awardXP(enemyLevel, enemyRarity, playerRef);
             });
         });
@@ -578,9 +626,6 @@ public class Module_RPG_Stats {
         boolean shouldLootDrop = shouldLootDrop(rarity);
         boolean shouldRecipeDrop = shouldLootDrop(rarity);
 
-        // use ThreadLocalRandom for efficient RNG in game loops
-        ThreadLocalRandom rng = ThreadLocalRandom.current();
-
         // loop over all players who damaged the defender in the last 30 seconds
         for (Ref<EntityStore> ref : players) {
             // resolve the player component
@@ -614,13 +659,13 @@ public class Module_RPG_Stats {
             String rolledRarity = rollRarity();
 
             // get a random item based on the rarity rolled (falling down rarity order otherwise)
-            String randomItemId = rollItemForRarity(recipes, rolledRarity, rng);
+            String randomItemId = rollItemForRarity(recipes, rolledRarity);
             if (randomItemId == null) continue;
 
             // assign gear score based on enemy level and then add the item stack to the drop pool
             ItemStack newStack = new ItemStack(randomItemId, 1);
-            ItemStack leveled = newStack.withMetadata("GearScore", Codec.INTEGER, level);
-            dropPool.add(leveled);
+            newStack = assignGearScoreAndAffixes(newStack, level);
+            dropPool.add(newStack);
 
             // resolve the player component for messaging and alert players of the roll
             if (player != null) {
@@ -630,9 +675,9 @@ public class Module_RPG_Stats {
 
                 // format item name for display
                 String itemName = randomItemId
-                        .replace("Weapon_", "")
-                        .replace("Armor_", "")
-                        .replace("_", " ");
+                    .replace("Weapon_", "")
+                    .replace("Armor_", "")
+                    .replace("_", " ");
 
                 // notify players of the roll
                 Color color = colorUtils.getRarityColor(actualRarity);
@@ -692,7 +737,10 @@ public class Module_RPG_Stats {
     }
 
     // Rolls a random item based on the passed rarity/recipes
-    private String rollItemForRarity(Set<String> recipes, String rolledRarity, Random rng) {
+    private String rollItemForRarity(Set<String> recipes, String rolledRarity) {
+        // use ThreadLocalRandom for efficient RNG in game loops
+        ThreadLocalRandom rng = ThreadLocalRandom.current();
+
         // Define fallback order (highest → lowest)
         String[] rarityOrder = { "Legendary", "Epic", "Rare", "Uncommon", "Common" };
 

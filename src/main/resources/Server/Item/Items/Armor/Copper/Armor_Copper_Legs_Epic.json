@@ -54,28 +54,8 @@
       "Pants",
       "Shoes"
     ],
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.0504,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.0504,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    },
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 7,
-          "CalculationType": "Additive"
-        }
-      ]
-    }
+    "DamageResistance": {},
+    "StatModifiers": {}
   },
   "MaxDurability": 0,
   "Tags": {

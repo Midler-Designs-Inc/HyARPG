@@ -20,7 +20,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.example.hyarpg.modules.Module_RPG_Stats.componentTypeCraftingKnowledge;
+import static com.example.hyarpg.modules.Module_RPG_System.componentTypeCraftingKnowledge;
 
 public class Interaction_LearnRandomGearRecipe_Legendary extends SimpleInstantInteraction {
     // Create the CODEC - this is required for serialization

@@ -15,9 +15,9 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 
 // Java Imports
-import java.util.Random;
 
-public class Component_RPG_Stats implements Component<EntityStore> {
+
+public class Component_RPG_Player implements Component<EntityStore> {
     // Constructor properties
     public int level;
     public double xp;
@@ -29,8 +29,8 @@ public class Component_RPG_Stats implements Component<EntityStore> {
     public final int xpGainedFromEqualLevelMonster = 1;
 
     // Register properties that needs to be persisted
-    public static final BuilderCodec<Component_RPG_Stats> CODEC = BuilderCodec.builder(
-            Component_RPG_Stats.class, Component_RPG_Stats::new
+    public static final BuilderCodec<Component_RPG_Player> CODEC = BuilderCodec.builder(
+            Component_RPG_Player.class, Component_RPG_Player::new
         )
         .append(new KeyedCodec<>("RPGStatsLevel", Codec.INTEGER),
             ((comp, value) -> comp.level = value),
@@ -47,10 +47,10 @@ public class Component_RPG_Stats implements Component<EntityStore> {
         .build();
 
     // Default no-arg constructor (required for component registration)
-    public Component_RPG_Stats() { this(1, 0, 0); }
+    public Component_RPG_Player() { this(1, 0, 0); }
 
     // Constructor
-    public Component_RPG_Stats(
+    public Component_RPG_Player(
         int level, double xp, int skillPoints
     ) {
         this.level = level;
@@ -189,7 +189,7 @@ public class Component_RPG_Stats implements Component<EntityStore> {
     // required for Hytale ECS system
     @Override
     public Component<EntityStore> clone() {
-        Component_RPG_Stats copy = new Component_RPG_Stats(level, xp, skillPoints);
+        Component_RPG_Player copy = new Component_RPG_Player(level, xp, skillPoints);
         return copy;
     }
 }

@@ -36,34 +36,8 @@
     "CosmeticsToHide": [
       "Overtop"
     ],
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.09,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.09,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    },
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 17,
-          "CalculationType": "Additive"
-        }
-      ],
-      "Mana": [
-        {
-          "Amount": 20,
-          "CalculationType": "Additive"
-        }
-      ]
-    }
+    "DamageResistance": {},
+    "StatModifiers": {}
   },
   "MaxDurability": 0,
   "Tags": {

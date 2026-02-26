@@ -52,34 +52,8 @@
   "Armor": {
     "ArmorSlot": "Hands",
     "BaseDamageResistance": 0,
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 7,
-          "CalculationType": "Additive"
-        }
-      ],
-      "Mana": [
-        {
-          "Amount": 10,
-          "CalculationType": "Additive"
-        }
-      ]
-    },
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.04,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.04,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    }
+    "StatModifiers": {},
+    "DamageResistance": {}
   },
   "Tags": {
     "Type": [

@@ -61,34 +61,8 @@
       "Haircut",
       "HeadAccessory"
     ],
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 9,
-          "CalculationType": "Additive"
-        }
-      ],
-      "Mana": [
-        {
-          "Amount": 20,
-          "CalculationType": "Additive"
-        }
-      ]
-    },
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.05,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.05,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    }
+    "StatModifiers": {},
+    "DamageResistance": {}
   },
   "Tags": {
     "Type": [

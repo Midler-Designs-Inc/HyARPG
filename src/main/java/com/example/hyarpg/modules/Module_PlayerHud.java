@@ -2,11 +2,10 @@ package com.example.hyarpg.modules;
 
 // Hytale imports
 import com.example.hyarpg.components.Component_Hunger;
-import com.example.hyarpg.components.Component_RPG_Stats;
+import com.example.hyarpg.components.Component_RPG_Player;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -22,10 +21,8 @@ import com.example.hyarpg.components.Component_Thirst;
 import au.ellie.hyui.builders.*;
 import au.ellie.hyui.types.ProgressBarDirection;
 
-import java.awt.*;
-
 import static com.example.hyarpg.modules.Module_Hunger.componentTypeHunger;
-import static com.example.hyarpg.modules.Module_RPG_Stats.componentTypeRPGStats;
+import static com.example.hyarpg.modules.Module_RPG_System.componentTypeRPGPlayer;
 import static com.example.hyarpg.modules.Module_Thirst.componentTypeThirst;
 
 public class Module_PlayerHud {
@@ -77,7 +74,7 @@ public class Module_PlayerHud {
             world.execute(() -> {
                 Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
                 Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
-                Component_RPG_Stats RPGStats = store.getComponent(entityRef, componentTypeRPGStats);
+                Component_RPG_Player RPGStats = store.getComponent(entityRef, componentTypeRPGPlayer);
                 Player player = store.getComponent(entityRef, Player.getComponentType());
                 if (hunger == null || thirst == null || RPGStats == null || player == null);
 

@@ -27,36 +27,9 @@
   "Armor": {
     "ArmorSlot": "Hands",
     "BaseDamageResistance": 0,
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 7,
-          "CalculationType": "Additive"
-        }
-      ]
-    },
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.04,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.04,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    },
-    "DamageClassEnhancement": {
-      "Charged": [
-        {
-          "Amount": 0.03,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    }
+    "StatModifiers": {},
+    "DamageResistance": {},
+    "DamageClassEnhancement": {}
   },
   "Tags": {
     "Type": [

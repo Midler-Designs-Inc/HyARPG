@@ -1,8 +1,6 @@
 package com.example.hyarpg;
 
 // Hytale Imports
-import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.event.EventRegistry;
@@ -11,10 +9,6 @@ import com.hypixel.hytale.logger.HytaleLogger;
 // Mod Imports
 import com.example.hyarpg.listeners.*;
 import com.example.hyarpg.modules.*;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
-import com.hypixel.hytale.server.core.universe.world.World;
-import com.hypixel.hytale.server.core.universe.world.meta.state.ItemContainerState;
 
 // Java Imports
 import javax.annotation.Nonnull;
@@ -82,7 +76,7 @@ public class HyARPGPlugin extends JavaPlugin {
             new Module_Greeter();
             new Module_Hunger(this);
             new Module_Thirst(this);
-            new Module_RPG_Stats(this);
+            new Module_RPG_System(this);
             new Module_PlayerHud(this);
 
             // log the instantiation

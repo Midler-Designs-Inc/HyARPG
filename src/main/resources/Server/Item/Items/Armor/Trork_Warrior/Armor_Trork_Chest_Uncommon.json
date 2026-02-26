@@ -35,36 +35,9 @@
     "CosmeticsToHide": [
       "Overtop"
     ],
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 17,
-          "CalculationType": "Additive"
-        }
-      ]
-    },
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.09,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.09,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    },
-    "DamageClassEnhancement": {
-      "Charged": [
-        {
-          "Amount": 0.06,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    }
+    "StatModifiers": {},
+    "DamageResistance": {},
+    "DamageClassEnhancement": {}
   },
   "Tags": {
     "Type": [

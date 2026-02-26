@@ -208,7 +208,7 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
 
                 // Show the discovered notification
                 PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
-                String itemName = itemId.replace("Weapon_", "").replace("Armor_", "").replace("_", " ");
+                String itemName = recipeId.replace("Weapon_", "").replace("Armor_", "").replace("_", " ");
                 NotificationUtil.sendNotification(
                     playerRef.getPacketHandler(),
                     Message.translation("server.hyarpg.notifications.learned_recipe").param("item", Message.translation(itemName)),

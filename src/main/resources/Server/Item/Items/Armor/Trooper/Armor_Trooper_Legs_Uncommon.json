@@ -33,32 +33,12 @@
   "Armor": {
     "ArmorSlot": "Legs",
     "BaseDamageResistance": 0,
-    "DamageResistance": {
-      "Physical": [
-        {
-          "Amount": 0.07,
-          "CalculationType": "Multiplicative"
-        }
-      ],
-      "Projectile": [
-        {
-          "Amount": 0.07,
-          "CalculationType": "Multiplicative"
-        }
-      ]
-    },
+    "DamageResistance": {},
     "CosmeticsToHide": [
       "Shoes",
       "Pants"
     ],
-    "StatModifiers": {
-      "Health": [
-        {
-          "Amount": 13,
-          "CalculationType": "Additive"
-        }
-      ]
-    }
+    "StatModifiers": {}
   },
   "Tags": {
     "Type": [

@@ -8,10 +8,9 @@ import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 public class Component_Thirst implements Component<EntityStore> {
-    public float value;        // Current thirst
-    public float max;          // Max thirst
-    public float drainRate;    // Thirst lost per second
-    public float accumulator;  // Internal timer for tick accumulation
+    public float value = 120f;        // Current thirst
+    public float max = 120f;          // Max thirst
+    public float drainRate = 0.02f;    // Thirst lost per second
 
     public static final BuilderCodec<Component_Thirst> CODEC = BuilderCodec.builder(
         Component_Thirst.class, Component_Thirst::new
@@ -23,18 +22,8 @@ public class Component_Thirst implements Component<EntityStore> {
         .add()
         .build();
 
-    // Default no-arg constructor (required for component registration)
-    public Component_Thirst() {
-        this(100f, 100f);  // Default values
-    }
-
     // Constructor
-    public Component_Thirst(float max, float initialValue) {
-        this.max = max;
-        this.value = initialValue;
-        this.drainRate = 0.1f;
-        this.accumulator = 0f;
-    }
+    public Component_Thirst() {}
 
     // get current thirst percent of max thirst
     public float getPercentage() {
@@ -64,8 +53,7 @@ public class Component_Thirst implements Component<EntityStore> {
     // required for Hytale ECS system
     @Override
     public Component<EntityStore> clone() {
-        Component_Thirst copy = new Component_Thirst(max, value);
-        copy.accumulator = this.accumulator;
+        Component_Thirst copy = new Component_Thirst();
         return copy;
     }
 }

@@ -74,15 +74,15 @@ public class Module_PlayerHud {
             world.execute(() -> {
                 Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
                 Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
-                Component_RPG_Player RPGStats = store.getComponent(entityRef, componentTypeRPGPlayer);
+                Component_RPG_Player rpgPlayer = store.getComponent(entityRef, componentTypeRPGPlayer);
                 Player player = store.getComponent(entityRef, Player.getComponentType());
-                if (hunger == null || thirst == null || RPGStats == null || player == null);
+                if (hunger == null || thirst == null || rpgPlayer == null || player == null);
 
                 float thirstPercent = thirst.getPercentage();
                 float hungerPercent = hunger.getPercentage();
-                float levelPercent = RPGStats.calculateLevelProgress();
-                int playerLevel = RPGStats.level;
-                int gearScore = RPGStats.calculateGearScore(player);
+                float levelPercent = rpgPlayer.calculateLevelProgress();
+                int playerLevel = rpgPlayer.level;
+                int gearScore = rpgPlayer.gearScore;
 
                 // Update UI back on the HyUI/render thread
                 hudRef.getById("thirstBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(thirstPercent));

@@ -8,10 +8,9 @@ import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 public class Component_Hunger implements Component<EntityStore> {
-    public float value;        // Current hunger
-    public float max;          // Max hunger
-    public float drainRate;    // Hunger lost per second
-    public float accumulator;  // Internal timer for tick accumulation
+    public float value = 120f;        // Current hunger
+    public float max = 120f;          // Max hunger
+    public float drainRate = 0.02f;    // Hunger lost per second
 
     public static final BuilderCodec<Component_Hunger> CODEC = BuilderCodec.builder(
         Component_Hunger.class, Component_Hunger::new
@@ -23,18 +22,8 @@ public class Component_Hunger implements Component<EntityStore> {
     .add()
     .build();
 
-    // Default no-arg constructor (required for component registration)
-    public Component_Hunger() {
-        this(100f, 100f);  // Default values
-    }
-
     // Constructor
-    public Component_Hunger(float max, float initialValue) {
-        this.max = max;
-        this.value = initialValue;
-        this.drainRate = 0.1f;
-        this.accumulator = 0f;
-    }
+    public Component_Hunger() {}
 
     // get current hunger percent of max hunger
     public float getPercentage() {
@@ -64,8 +53,7 @@ public class Component_Hunger implements Component<EntityStore> {
     // required for Hytale ECS system
     @Override
     public Component<EntityStore> clone() {
-        Component_Hunger copy = new Component_Hunger(max, value);
-        copy.accumulator = this.accumulator;
+        Component_Hunger copy = new Component_Hunger();
         return copy;
     }
 }

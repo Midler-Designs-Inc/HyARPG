@@ -1,6 +1,7 @@
 package com.example.hyarpg;
 
 // Hytale Imports
+import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.event.EventRegistry;
@@ -78,6 +79,9 @@ public class HyARPGPlugin extends JavaPlugin {
             new Module_Thirst(this);
             new Module_RPG_System(this);
             new Module_PlayerHud(this);
+
+            // create an instance of our global tick event (not OOP but better for processing I guess)
+            new Module_ModTickLoop(this, HytaleServer.SCHEDULED_EXECUTOR).start();
 
             // log the instantiation
             LOGGER.at(Level.INFO).log("[HyARPG] Instantiated modules");

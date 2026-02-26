@@ -14,6 +14,9 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 
+// Mod Imports
+import com.example.hyarpg.utils.PlayerStats;
+
 // Java Imports
 
 
@@ -27,6 +30,14 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public final int xpToFirstLevel = 10;
     public final float xpPerLevelModifier = 0.1f;
     public final int xpGainedFromEqualLevelMonster = 1;
+
+    // players gear score (average of gear score on equipped items)
+    public int gearScore = 0;
+    public ItemStack mainHandItem;
+    public ItemStack offHandItem;
+
+    // stat class to hold affix stats
+    public PlayerStats stats = new PlayerStats();
 
     // Register properties that needs to be persisted
     public static final BuilderCodec<Component_RPG_Player> CODEC = BuilderCodec.builder(
@@ -100,7 +111,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
     }
 
     // Calculate the players gear score
-    public int calculateGearScore(Player player) {
+    public void calculateGearScore(Player player) {
         Inventory inventory = player.getInventory();
         int totalLevel = 0;
         int count = 6;
@@ -130,7 +141,12 @@ public class Component_RPG_Player implements Component<EntityStore> {
         }
 
         // return value or 0, whichever is higher
-        return Math.max(0, totalLevel / count);
+        this.gearScore = Math.max(0, totalLevel / count);
+    }
+
+    // Calculate the players stats based on gear affixes
+    public void calculateAffixStats(Player player) {
+
     }
 
     // Method to award XP

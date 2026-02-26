@@ -2,13 +2,13 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.interactions.*;
-import com.example.hyarpg.utils.Affix;
-import com.example.hyarpg.utils.AffixPool;
+import com.example.hyarpg.utils.*;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.GameMode;
+import com.hypixel.hytale.protocol.ItemArmorSlot;
 import com.hypixel.hytale.protocol.ItemQuality;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
@@ -16,6 +16,7 @@ import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
@@ -254,12 +255,12 @@ public class Module_RPG_System {
 
             // adjust attack stats to gear score instead of level
             Player player = store.getComponent(attacker, Player.getComponentType());
-            if(player != null) attackerLevel = attackerRPGStats.calculateGearScore(player);
+            if(player != null) attackerLevel = attackerRPGStats.gearScore;
         }
         else if(defenderRPGStats != null && attackerRPGEnemy != null) {
             // adjust attack stats to gear score instead of level
             Player player = store.getComponent(defender, Player.getComponentType());
-            if(player != null) defenderLevel = defenderRPGStats.calculateGearScore(player);
+            if(player != null) defenderLevel = defenderRPGStats.gearScore;
         }
 
 //        // debug info about damage source
@@ -397,12 +398,36 @@ public class Module_RPG_System {
 
     // method for when a player equips an item
     private void onPlayerInventoryItemEquip(Event_PlayerInventoryItemEquip event) {
-//        alertPlayer("You equipped something");
+        alertPlayers("You equipped", Color.WHITE);
+        // get entity ref and entity store
+        Ref<EntityStore> ref = event.getRef();
+        Store<EntityStore> store = event.getStore();
+
+        //get the rpg player comp and player comp
+        Player player = store.getComponent(ref, Player.getComponentType());
+        Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+        if(rpgPlayer == null || player == null) return;
+
+        // refresh gear score
+        rpgPlayer.calculateGearScore(player);
+        rpgPlayer.calculateAffixStats(player);
     }
 
     // method for when a player unequips an item
     private void onPlayerInventoryItemUnEquip(Event_PlayerInventoryItemUnEquip event) {
-//        alertPlayer("You unequipped something");
+        alertPlayers("You unequipped something", Color.WHITE);
+        // get entity ref and entity store
+        Ref<EntityStore> ref = event.getRef();
+        Store<EntityStore> store = event.getStore();
+
+        //get the rpg player comp and player comp
+        Player player = store.getComponent(ref, Player.getComponentType());
+        Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+        if(rpgPlayer == null || player == null) return;
+
+        // refresh gear score and affix stats
+        rpgPlayer.calculateGearScore(player);
+        rpgPlayer.calculateAffixStats(player);
     }
 
     // register an item a player picked up to their discovered list
@@ -774,6 +799,61 @@ public class Module_RPG_System {
 
         // Should never occur if Common recipes exist
         return null;
+    }
+
+    // Calculate the players stats
+    public static PlayerStats calculatePlayerStats(Player player) {
+        // create a new instance of player stats
+        PlayerStats stats = new PlayerStats();
+
+        // get the players inventory and armor slots
+        Inventory inventory = player.getInventory();
+        ItemContainer armor = inventory.getArmor();
+
+        //  Armor Slots
+        applyStack(stats, armor.getItemStack((short) ItemArmorSlot.Head.ordinal()));
+        applyStack(stats, armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()));
+        applyStack(stats, armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()));
+        applyStack(stats, armor.getItemStack((short) ItemArmorSlot.Legs.ordinal()));
+
+        // Weapons / Utility
+        applyStack(stats, inventory.getItemInHand());
+        applyStack(stats, inventory.getUtilityItem());
+
+        // return instance of stats
+        return stats;
+    }
+
+    // get the item from the stack and try to apply it's affixes
+    private static void applyStack(PlayerStats stats, ItemStack stack) {
+        // if stack is null bail
+        if (stack == null) return;
+
+        // get the affixes or bail
+        String[] affixes = stack.getFromMetadataOrNull("affixes", Codec.STRING_ARRAY);
+        if (affixes == null) return;
+
+        // loop over the returned affixes and set the stats
+        for (String affixData : affixes) {
+            // Expected format assumption (important): "Stat_Flat_Life|25" "Stat_Increased_Fire_Damage|10"
+            String[] parts = affixData.split("\\|");
+            if (parts.length != 2) continue; // fail-safe against bad data
+
+            // extract the affix id and prep a value var
+            String affixId = parts[0];
+            float value;
+
+            // try to get the value or bail if it fails
+            try {
+                value = Float.parseFloat(parts[1]);
+            } catch (NumberFormatException e) {
+                continue; // ignore malformed values safely
+            }
+
+            // map the id to a stat and update it's value
+            StatType type = StatMapper.fromAffixId(affixId);
+            stats.add(type, value);
+        }
     }
 
     // function to calculate stats on tick

@@ -89,8 +89,7 @@ public class Module_PlayerHud {
                 hudRef.getById("hungerBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(hungerPercent));
                 hudRef.getById("xpBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(levelPercent));
                 hudRef.getById("xpLevelCurrent", LabelBuilder.class).ifPresent(l -> l.withText(
-                    "Ip " + String.valueOf(gearScore)
-                    + "  |  Lv " + String.valueOf(playerLevel)
+                    "GS " + String.valueOf(gearScore) + "  |  Lv " + String.valueOf(playerLevel)
                 ));
             });
         });

@@ -110,12 +110,6 @@ public final class PlayerStats {
                 getRaw(StatType.MAGICAL_DAMAGE_PERCENT)
         );
     }
-    public float getProjectileDamage() {
-        return applyIncreased(
-                getRaw(StatType.PROJECTILE_DAMAGE_FLAT),
-                getRaw(StatType.PROJECTILE_DAMAGE_PERCENT)
-        );
-    }
 
     /* Crit */
     public float getCriticalStrikeChance() {

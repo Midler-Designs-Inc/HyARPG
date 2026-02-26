@@ -1,10 +1,13 @@
 package com.example.hyarpg.components;
 
 // Hytale Imports
+import com.example.hyarpg.utils.StatMapper;
+import com.example.hyarpg.utils.StatType;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
+import com.hypixel.hytale.protocol.ItemArmorSlot;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.Inventory;
@@ -146,7 +149,67 @@ public class Component_RPG_Player implements Component<EntityStore> {
 
     // Calculate the players stats based on gear affixes
     public void calculateAffixStats(Player player) {
+        try {
+            // create a new instance of player stats
+            PlayerStats newStats = new PlayerStats();
 
+            // get the players inventory and armor slots
+            Inventory inventory = player.getInventory();
+            ItemContainer armor = inventory.getArmor();
+            player.sendMessage(Message.raw("I am here first"));
+
+            //  Armor Slots
+            applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Head.ordinal()));
+            player.sendMessage(Message.raw("I am here1"));
+            applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()));
+            player.sendMessage(Message.raw("I am here2"));
+            applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()));
+            applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Legs.ordinal()));
+            player.sendMessage(Message.raw("I am here3"));
+
+            // Weapons / Utility
+            applyStack(newStats, inventory.getItemInHand());
+            applyStack(newStats, inventory.getUtilityItem());
+            player.sendMessage(Message.raw("I am here4"));
+
+            // set the new instance of stats
+            player.sendMessage(Message.raw("I am here5"));
+            stats = newStats;
+        } catch (Exception e) {}
+    }
+
+    // get the item from the stack and try to apply its affixes
+    private static void applyStack(PlayerStats stats, ItemStack stack) {
+        try {
+            // if stack is null bail
+            if (stack == null) return;
+
+            // get the affixes or bail
+            String[] affixes = stack.getFromMetadataOrNull("affixes", Codec.STRING_ARRAY);
+            if (affixes == null) return;
+
+            // loop over the returned affixes and set the stats
+            for (String affixData : affixes) {
+                // Expected format assumption (important): "Stat_Flat_Life|25" "Stat_Increased_Fire_Damage|10"
+                String[] parts = affixData.split("\\|");
+                if (parts.length != 2) continue; // fail-safe against bad data
+
+                // extract the affix id and prep a value var
+                String affixId = parts[0];
+                float value;
+
+                // try to get the value or bail if it fails
+                try {
+                    value = Float.parseFloat(parts[1]);
+                } catch (NumberFormatException e) {
+                    continue; // ignore malformed values safely
+                }
+
+                // map the id to a stat and update it's value
+                StatType type = StatMapper.fromAffixId(affixId);
+                stats.add(type, value);
+            }
+        } catch (Exception e) {}
     }
 
     // Method to award XP

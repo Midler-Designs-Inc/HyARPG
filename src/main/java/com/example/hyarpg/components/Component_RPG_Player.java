@@ -1,27 +1,34 @@
 package com.example.hyarpg.components;
 
 // Hytale Imports
-import com.example.hyarpg.utils.StatMapper;
-import com.example.hyarpg.utils.StatType;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
+import com.hypixel.hytale.component.ComponentType;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.ItemArmorSlot;
+import com.hypixel.hytale.protocol.MovementSettings;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.entities.player.movement.MovementManager;
 import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.StaticModifier;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 
 // Mod Imports
-import com.example.hyarpg.utils.PlayerStats;
-
-// Java Imports
-
+import com.example.hyarpg.utils.affixes.EntityStats;
+import com.example.hyarpg.utils.affixes.StatMapper;
+import com.example.hyarpg.utils.affixes.StatType;
 
 public class Component_RPG_Player implements Component<EntityStore> {
     // Constructor properties
@@ -40,7 +47,10 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public ItemStack offHandItem;
 
     // stat class to hold affix stats
-    public PlayerStats stats = new PlayerStats();
+    public EntityStats stats = new EntityStats();
+
+    // combat trackers
+    public long blockStart = System.nanoTime();
 
     // Register properties that needs to be persisted
     public static final BuilderCodec<Component_RPG_Player> CODEC = BuilderCodec.builder(
@@ -151,35 +161,82 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public void calculateAffixStats(Player player) {
         try {
             // create a new instance of player stats
-            PlayerStats newStats = new PlayerStats();
+            EntityStats newStats = new EntityStats();
 
             // get the players inventory and armor slots
             Inventory inventory = player.getInventory();
             ItemContainer armor = inventory.getArmor();
-            player.sendMessage(Message.raw("I am here first"));
 
             //  Armor Slots
             applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Head.ordinal()));
-            player.sendMessage(Message.raw("I am here1"));
             applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()));
-            player.sendMessage(Message.raw("I am here2"));
             applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()));
             applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Legs.ordinal()));
-            player.sendMessage(Message.raw("I am here3"));
 
             // Weapons / Utility
             applyStack(newStats, inventory.getItemInHand());
             applyStack(newStats, inventory.getUtilityItem());
-            player.sendMessage(Message.raw("I am here4"));
 
             // set the new instance of stats
-            player.sendMessage(Message.raw("I am here5"));
             stats = newStats;
+
+            // Update the player resource values as necessary
+            applyStatsToPlayer(player);
+        } catch (Exception e) {}
+    }
+
+    // apply the stats instance to the player as applicable
+    private void applyStatsToPlayer(Player player) {
+        try {
+            // Get ref and store from player
+            Ref<EntityStore> ref = player.getReference();
+            Store<EntityStore> store = player.getReference().getStore();
+
+            // get the stat map component from the player
+            ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
+            EntityStatMap statMap = store.getComponent(ref, statMapType);
+
+            // Get the health stat from the stat map
+            int healthIndex = DefaultEntityStatTypes.getHealth();
+            int staminaIndex = DefaultEntityStatTypes.getStamina();
+            int manaIndex = DefaultEntityStatTypes.getMana();
+
+            // set players max resources to original values (reconciles issues)
+            statMap.putModifier(healthIndex, "BASE_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, 0f));
+            statMap.putModifier(staminaIndex, "BASE_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, 0f));
+            statMap.putModifier(manaIndex, "BASE_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, 25f));
+
+            // calculate difference in current max vs expected start max (reconciles issues)
+            float healthOffset = 100f - statMap.get(healthIndex).getMax();
+            float staminaOffset = 10f - statMap.get(staminaIndex).getMax();
+            float manaOffset = 25f - statMap.get(manaIndex).getMax();
+
+            // set players max resources based on gear
+            statMap.putModifier(healthIndex, "BASE_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getLife() + healthOffset));
+            statMap.putModifier(staminaIndex, "BASE_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getStamina() + staminaOffset));
+            statMap.putModifier(manaIndex, "BASE_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getMana() + manaOffset));
+
+            // get the movement speed manager from player
+            MovementManager movementManager = store.getComponent(ref, MovementManager.getComponentType());
+
+            // reset to base speed
+            movementManager.applyDefaultSettings();
+
+            // get the current settings
+            MovementSettings movementSettings = movementManager.getSettings();
+
+            // Apply RPG modifier
+            float speedBonus = 1.0f + (stats.getRunSpeedMultiplier() * 0.01f);
+            movementSettings.forwardSprintSpeedMultiplier *= speedBonus;
+
+            // Push to client
+            PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+            movementManager.update(playerRef.getPacketHandler());
         } catch (Exception e) {}
     }
 
     // get the item from the stack and try to apply its affixes
-    private static void applyStack(PlayerStats stats, ItemStack stack) {
+    private static void applyStack(EntityStats stats, ItemStack stack) {
         try {
             // if stack is null bail
             if (stack == null) return;

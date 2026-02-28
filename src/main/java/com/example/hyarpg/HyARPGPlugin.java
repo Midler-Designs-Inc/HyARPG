@@ -25,6 +25,7 @@ public class HyARPGPlugin extends JavaPlugin {
     public HyARPGPlugin(@Nonnull JavaPluginInit init) {
         super(init);
         instance = this;
+
     }
 
     // Get the plugin instance.
@@ -51,6 +52,7 @@ public class HyARPGPlugin extends JavaPlugin {
         try {
             // register these listeners which have their own logic
             new Listeners_PlayerInventory();
+            new Listeners_PlayerInteractions().register();
 
             // register these listeners with the main event bus
             new Listeners_Player().register(eventBus, this);

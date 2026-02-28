@@ -1,4 +1,4 @@
-package com.example.hyarpg.utils;
+package com.example.hyarpg.utils.affixes;
 
 public final class StatMapper {
 

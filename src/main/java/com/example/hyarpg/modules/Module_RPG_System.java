@@ -2,33 +2,52 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.interactions.*;
-import com.example.hyarpg.utils.*;
+import com.example.hyarpg.utils.affixes.Affix;
+import com.example.hyarpg.utils.affixes.AffixPool;
+import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.protocol.GameMode;
-import com.hypixel.hytale.protocol.ItemArmorSlot;
-import com.hypixel.hytale.protocol.ItemQuality;
+import com.hypixel.hytale.protocol.ChangeVelocityType;
+import com.hypixel.hytale.protocol.CombatTextUpdate;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
+import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.knockback.KnockbackComponent;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
-import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entity.player.PlayerInput;
+import com.hypixel.hytale.server.core.modules.entity.tracker.EntityTrackerSystems;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entityui.EntityUIModule;
+import com.hypixel.hytale.server.core.modules.entityui.UIComponentList;
+import com.hypixel.hytale.server.core.modules.entityui.UIComponentSystems;
+import com.hypixel.hytale.server.core.modules.entityui.asset.CombatTextUIComponent;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.server.combat.DamageClass;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
+import com.hypixel.hytale.server.core.modules.physics.component.Velocity;
+import com.hypixel.hytale.server.core.modules.splitvelocity.VelocityConfig;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.npc.blackboard.view.event.EventView;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.npc.role.Role;
 
@@ -42,12 +61,13 @@ import com.example.hyarpg.components.Component_RPG_Enemy;
 
 // Java Imports
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.hypixel.hytale.server.npc.systems.NPCDamageSystems;
+import com.hypixel.hytale.server.npc.systems.NPCDeathSystems;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class Module_RPG_System {
@@ -62,6 +82,9 @@ public class Module_RPG_System {
     private static final double LEVEL_DISTANCE_THRESHOLD = 500.0;
     private static final int LEVEL_VARIANCE = 5;
     private static final Random random = new Random();
+
+    // sets a delta time for secondary action to assist with parry mechanics
+    private static final long parryWindow = 100_000_000L; // 0.1 seconds default window
 
     // Create a map to match a rarity string to a java utils color
     public class colorUtils {
@@ -120,6 +143,7 @@ public class Module_RPG_System {
         interactionRegistry.register("LearnRandomGearRecipe_Epic", Interaction_LearnRandomGearRecipe_Epic.class, Interaction_LearnRandomGearRecipe_Epic.CODEC);
         interactionRegistry.register("LearnRandomGearRecipe_Legendary", Interaction_LearnRandomGearRecipe_Legendary.class, Interaction_LearnRandomGearRecipe_Legendary.CODEC);
         interactionRegistry.register("ShowRPGStats", Interaction_ShowRPGStats.class, Interaction_ShowRPGStats.CODEC);
+        interactionRegistry.register("ChangeItemState", Interaction_ChangeItemStateInteraction.class, Interaction_ChangeItemStateInteraction.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
@@ -131,6 +155,7 @@ public class Module_RPG_System {
         ModEventBus.register(Event_PlayerInventoryItemRemoved.class, this::onPlayerInventoryItemRemoved);
         ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onPlayerInventoryItemEquip);
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
+        ModEventBus.register(Event_PlayerInteraction.class, this::onPlayerInteraction);
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -143,6 +168,8 @@ public class Module_RPG_System {
         Ref<EntityStore> entityRef = player.getReference();
         Store<EntityStore> store = world.getEntityStore().getStore();
         if (entityRef == null) return;
+
+        PlayerInput playerInput = store.getComponent(entityRef, PlayerInput.getComponentType());
 
         // ensure the RPG Stats component exists, add it if it doesn't
         store.ensureAndGetComponent(entityRef, componentTypeRPGPlayer);
@@ -214,21 +241,35 @@ public class Module_RPG_System {
         Ref<EntityStore> attacker = event.getAttacker();
         Ref<EntityStore> defender = event.getDefender();
         Store<EntityStore> store = event.getStore();
+
+        // get the damage object and prep a rolling damage number
         Damage damage = event.getDamage();
+        double rollingDamage = damage.getInitialAmount();
 
         // get attacker components
         Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
         Component_RPG_Enemy attackerRPGEnemy = store.getComponent(attacker, componentTypeRPGEnemy);
 
+        // get damage stats
+        DamageCause cause = damage.getCause();
+        boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
+        Boolean blocked = damage.getMetaStore().getMetaObject(Damage.BLOCKED);
+        KnockbackComponent knockbackComponent = damage.getMetaStore().getMetaObject(Damage.KNOCKBACK_COMPONENT);
+
         // default attacker values
         int attackerLevel = 1;
         int attackerRarity = 0;
+        EntityStats attackerStats = new EntityStats();
 
         // determine attacker values
-        if(attackerRPGStats != null) attackerLevel = attackerRPGStats.level;
+        if (attackerRPGStats != null) {
+            attackerLevel = attackerRPGStats.gearScore;
+            attackerStats = attackerRPGStats.stats;
+        }
         else if(attackerRPGEnemy != null) {
             attackerLevel = attackerRPGEnemy.level;
             attackerRarity = attackerRPGEnemy.monsterRarity;
+            attackerStats = attackerRPGEnemy.stats;
         };
 
         // check if the defender is a player or NPC
@@ -238,29 +279,143 @@ public class Module_RPG_System {
         // default defender values
         int defenderLevel = 1;
         int defenderRarity = 0;
+        EntityStats defenderStats = new EntityStats();
 
         // determine defender values
-        if(defenderRPGStats != null) defenderLevel = defenderRPGStats.level;
+        if(defenderRPGStats != null) {
+            defenderLevel = defenderRPGStats.gearScore;
+            defenderStats = defenderRPGStats.stats;
+        }
         else if(defenderRPGEnemy != null) {
             defenderLevel = defenderRPGEnemy.level;
             defenderRarity = defenderRPGEnemy.monsterRarity;
+            defenderStats = defenderRPGEnemy.stats;
         };
 
-        // if attacker is a player and defender is an enemy register the damage and adjust based on gear score
-        if(attackerRPGStats != null && defenderRPGEnemy != null) {
-            // register the player damage to the enemy in the damage registry
-            damageRegistry
-                .computeIfAbsent(defender, k -> new ConcurrentHashMap<>())
-                .put(attacker, System.currentTimeMillis());
+        // if attacker is a player and defender is an enemy register the damage for XP awarding
+        if(attackerRPGStats != null && defenderRPGEnemy != null)
+            damageRegistry.computeIfAbsent(defender, k -> new ConcurrentHashMap<>()).put(attacker, System.currentTimeMillis());
 
-            // adjust attack stats to gear score instead of level
-            Player player = store.getComponent(attacker, Player.getComponentType());
-            if(player != null) attackerLevel = attackerRPGStats.gearScore;
+        // adjust damage based player/enemy level
+        rollingDamage = adjustDamageBasedOnLevel(attackerLevel, attackerRarity, defenderLevel, defenderRarity, rollingDamage);
+
+        // roll for crit and adjust damage if success
+        float critChance = attackerStats.getCriticalStrikeChance();
+        float critRoll = (float) (Math.random() * 100.0) ;
+        if (critRoll < critChance) {
+            // multiply damage based on crit damage
+            rollingDamage *= attackerStats.getCriticalStrikeDamage();
         }
-        else if(defenderRPGStats != null && attackerRPGEnemy != null) {
-            // adjust attack stats to gear score instead of level
-            Player player = store.getComponent(defender, Player.getComponentType());
-            if(player != null) defenderLevel = defenderRPGStats.gearScore;
+
+        // check if the conditions were met to try to parry
+        if (!isProjectile && blocked && defenderRPGStats != null) {
+            try {
+                // check if was within timing window
+                long blockStart = defenderRPGStats.blockStart;
+                long parryWindowModified = parryWindow + (long) (defenderStats.getParryWindow() * 1_000_000_000L);
+
+                if(System.nanoTime() - blockStart <= parryWindowModified) {
+                    // set the damage threshold for parrying based on stability
+                    double damageThreshold = rollingDamage * (1f - (defenderStats.getStabilityPercent() / 100));
+
+                    // get the stat map component from the player
+                    ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
+                    EntityStatMap statMap = store.getComponent(defender, statMapType);
+
+                    // Get the stamina stat from the stat map
+                    int staminaIndex = DefaultEntityStatTypes.getStamina();
+
+                    // get the stats by index
+                    EntityStatValue staminaStat = statMap.get(staminaIndex);
+
+                    if (damageThreshold <= staminaStat.get()) {
+                        // get the effect controller for the attacker to set stun effect
+                        EffectControllerComponent effectController = store.getComponent(attacker, EffectControllerComponent.getComponentType());
+                        EntityEffect effect = EntityEffect.getAssetMap().getAsset("ParryStun");
+                        effectController.addEffect(attacker, effect, 2, OverlapBehavior.OVERWRITE, store);
+
+                        // reduce the damage to 0
+                        damage.setAmount(0);
+
+                        // get attacker/defender transform components
+                        TransformComponent attackerTransform = store.getComponent(attacker, TransformComponent.getComponentType());
+                        TransformComponent defenderTransform = store.getComponent(defender, TransformComponent.getComponentType());
+
+                        // get attacker/defender positions
+                        Vector3d attackerPos = attackerTransform.getPosition();
+                        Vector3d defenderPos = defenderTransform.getPosition();
+
+                        // Direction from defender to attacker
+                        Vector3d direction = new Vector3d(attackerPos.x - defenderPos.x, 0, attackerPos.z - defenderPos.z);
+
+                        // Normalize and scale the direction
+                        direction.normalize();
+                        direction.scale(50); // strength
+
+                        // apply the knockback
+                        applyKnockback(attacker, store, direction);
+                    }
+                }
+            } catch (Exception e) {}
+        }
+
+        // now handle blocking
+        if(blocked) {
+            // set the damage threshold for blocking based on stability
+            double damageThreshold = rollingDamage * (1f - (defenderStats.getStabilityPercent() / 100));
+
+            // get the stat map component from the player
+            ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
+            EntityStatMap statMap = store.getComponent(defender, statMapType);
+
+            // Get the stamina stat from the stat map
+            int staminaIndex = DefaultEntityStatTypes.getStamina();
+
+            // get the defenders current stamina
+            EntityStatValue staminaStat = statMap.get(staminaIndex);
+            float staminaValue = staminaStat.get();
+
+            // subtract the stamina from the damage
+            double remainingDmg = damageThreshold - staminaValue;
+            double remainingStamina = staminaValue - damageThreshold;
+
+            // set stamina to the new value ceiled to 0
+            statMap.setStatValue(staminaIndex, Math.max(0, (float) remainingStamina));
+
+            // set remaining amount of damage ceiled to 0
+            damage.setAmount(Math.max(0, (float) remainingDmg));
+        }
+
+        // now handle dodging
+        if(rollingDamage > 0f && defenderStats.getDodgeChance() > 0f) {
+            // get teh players dodge chance and roll a random number between 0 and 100
+            float dodgeChance = defenderStats.getDodgeChance();
+            float dodgeRoll = (float) (Math.random() * 100.0) ;
+
+            // if the roll is under the dodge chance the player dodged so negate the damage
+            if (dodgeRoll < dodgeChance) {
+                // successful dodge
+                rollingDamage = 0f;
+            }
+        }
+
+        // update the value on the damage object
+        damage.setAmount((float) rollingDamage);
+
+        // loop over all players and broadcast the message
+        for (PlayerRef player : Universe.get().getPlayers()) {
+            player.sendMessage(Message.raw(
+                "Initial Damage: " + damage.getInitialAmount() +
+                " Final Damage: " + rollingDamage
+            ).color(Color.GRAY));
+//            player.sendMessage(Message.raw(
+//                    "Level Delta: " + levelDelta +
+//                            " Rarity Delta: " + rarityDelta
+//            ).color(Color.GRAY));
+//            player.sendMessage(Message.raw(
+//                    "Level Scale: " + levelScale +
+//                            " Rarity Scale: " + rarityScale
+//            ).color(Color.GRAY));
         }
 
 //        // debug info about damage source
@@ -279,24 +434,13 @@ public class Module_RPG_System {
 //        } else if (dmgSource instanceof Damage.EnvironmentSource envSource) {
 //            alertPlayers("Environment: " + envSource.getType(), Color.BLUE);
 //        }
-//
-//        DamageCause.getAssetMap().getAssetMap().forEach((id, cause) -> {
-//            alertPlayers("Cause: " + cause.getId() + " index: " + DamageCause.getAssetMap().getIndex(cause.getId()), Color.BLUE);
+
+//        DamageCause.getAssetMap().getAssetMap().forEach((id, cause2) -> {
+//            alertPlayers("Cause: " + cause2.getId() + " index: " + DamageCause.getAssetMap().getIndex(cause2.getId()), Color.BLUE);
 //        });
 //
-//        // Damage cause — index 6 maps to a DamageCause asset, get its ID:
-//        DamageCause cause = damage.getCause();
-//        if (cause != null) alertPlayers("Cause ID: " + cause.getId(), Color.BLUE);
-//        boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
-//        alertPlayers("Was a projectile: " + (isProjectile ? "Yes!" : "No!"), Color.BLUE);
-//
-//        // other stuff
-//        Boolean blocked = damage.getMetaStore().getMetaObject(Damage.BLOCKED);
-//        KnockbackComponent kb = damage.getMetaStore().getMetaObject(Damage.KNOCKBACK_COMPONENT);
-//        alertPlayers("Blocked: " + blocked, Color.BLUE);
-
-        // adjust damage based player/enemy level
-        adjustDamageBasedOnLevel(attackerLevel, attackerRarity, defenderLevel, defenderRarity, damage);
+        // Damage cause — index 6 maps to a DamageCause asset, get its ID:
+        if (cause != null) alertPlayers("Cause ID: " + cause.getId(), Color.BLUE);
     }
 
     // This function fires when an enemy dies to award XP and modify loot
@@ -428,6 +572,23 @@ public class Module_RPG_System {
         // refresh gear score and affix stats
         rpgPlayer.calculateGearScore(player);
         rpgPlayer.calculateAffixStats(player);
+    }
+
+    // method for when the player performs an interaction
+    private void onPlayerInteraction(Event_PlayerInteraction event){
+        // if secondary action possibly blocking so timestamp it (we will check for this in damage pipeline if there is blocked damage)
+        if(Objects.equals(event.getInteractionID(), "Secondary")) {
+            // get ref and store reference
+            Ref<EntityStore> ref = event.getRef();
+            Store<EntityStore> store = event.getStore();
+
+            // validate the ref has an rpg player comp
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+            if(rpgPlayer == null) return;
+
+            // set the block start
+            rpgPlayer.blockStart = System.nanoTime();
+        }
     }
 
     // register an item a player picked up to their discovered list
@@ -596,7 +757,7 @@ public class Module_RPG_System {
     }
 
     // adjust damage packets based on the enemies level
-    private void adjustDamageBasedOnLevel(int attackerLevel, int attackerRarity, int defenderLevel, int defenderRarity, Damage damage) {
+    private double adjustDamageBasedOnLevel(int attackerLevel, int attackerRarity, int defenderLevel, int defenderRarity, double damage) {
         // Tunable constants (safe for infinite scaling)
         final double LEVEL_MULTIPLIER = 1.15;   // 15% per level
         final double RARITY_MULTIPLIER = 1.33;  // 33% per rarity tier
@@ -610,31 +771,14 @@ public class Module_RPG_System {
         double rarityScale = Math.pow(RARITY_MULTIPLIER, rarityDelta);
 
         // apply the damage scales to the damage amount
-        double scaledDamage = damage.getAmount();
-        scaledDamage *= levelScale;
-        scaledDamage *= rarityScale;
+        damage *= levelScale;
+        damage *= rarityScale;
 
         // Clamp result to prevent degenerate damage
-        scaledDamage = Math.max(1.0, scaledDamage);
+        damage = Math.max(1.0, damage);
 
-        // update the value on the damage object
-        damage.setAmount((int) scaledDamage);
-
-        // loop over all players and broadcast the message
-//        for (PlayerRef player : Universe.get().getPlayers()) {
-//            player.sendMessage(Message.raw(
-//                "Initial Damage: " + damage.getInitialAmount() +
-//                " Final Damage: " + damage.getAmount()
-//            ).color(Color.GRAY));
-//            player.sendMessage(Message.raw(
-//                "Level Delta: " + levelDelta +
-//                " Rarity Delta: " + rarityDelta
-//            ).color(Color.GRAY));
-//            player.sendMessage(Message.raw(
-//                "Level Scale: " + levelScale +
-//                " Rarity Scale: " + rarityScale
-//            ).color(Color.GRAY));
-//        }
+        // return the scaled damage number
+        return damage;
     }
 
     // function for spawning loot drops
@@ -801,6 +945,15 @@ public class Module_RPG_System {
         return null;
     }
 
+    // helper function to apply a knockback to an entity
+    public void applyKnockback(Ref<EntityStore> ref, Store<EntityStore> store, Vector3d direction){
+        // get velocity and transform components from attacker
+        Velocity vc = store.getComponent(ref, Velocity.getComponentType());
+
+        // set the instruction
+        vc.addInstruction(direction, new VelocityConfig(), ChangeVelocityType.Add);
+    }
+
     // helper function for console logging
     public void alertPlayers(String msg, Color color) {
         color = color != null ? color : Color.WHITE;
@@ -809,4 +962,5 @@ public class Module_RPG_System {
             player.sendMessage(Message.raw(msg).color(color));
         }
     }
+
 }

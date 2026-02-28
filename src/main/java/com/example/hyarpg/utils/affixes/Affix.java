@@ -1,6 +1,4 @@
-package com.example.hyarpg.utils;
-
-import javax.annotation.Nullable;
+package com.example.hyarpg.utils.affixes;
 
 public final class Affix {
 

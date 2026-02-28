@@ -1,4 +1,4 @@
-package com.example.hyarpg.utils;
+package com.example.hyarpg.utils.affixes;
 
 public enum StatType {
 
@@ -37,8 +37,8 @@ public enum StatType {
     PHYSICAL_DAMAGE_FLAT,
     PHYSICAL_DAMAGE_PERCENT,
 
-    MAGICAL_DAMAGE_FLAT,
-    MAGICAL_DAMAGE_PERCENT,
+    MAGIC_DAMAGE_FLAT,
+    MAGIC_DAMAGE_PERCENT,
 
     /* Resistances */
     FIRE_RESIST_PERCENT,
@@ -46,7 +46,7 @@ public enum StatType {
     LIGHTNING_RESIST_PERCENT,
     POISON_RESIST_PERCENT,
     PHYSICAL_RESIST_PERCENT,
-    MAGICAL_RESIST_PERCENT,
+    MAGIC_RESIST_PERCENT,
 
     /* Critical */
     CRITICAL_STRIKE_CHANCE_PERCENT,
@@ -55,9 +55,8 @@ public enum StatType {
     /* Utility / Defense */
     DODGE_CHANCE_PERCENT,
     STABILITY_PERCENT,
-    INCREASE_PARRY_WINDOW_FLAT,
+    PARRY_WINDOW_FLAT,
 
     /* Misc */
-    JUMPS_FLAT,
     RUN_SPEED_PERCENT
 }

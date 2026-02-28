@@ -1,8 +1,7 @@
 package com.example.hyarpg.components;
 
 // Hytale Imports
-import com.hypixel.hytale.codec.Codec;
-import com.hypixel.hytale.codec.KeyedCodec;
+import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -16,6 +15,9 @@ public class Component_RPG_Enemy implements Component<EntityStore> {
     // Constructor properties
     public int level;
     public int monsterRarity = 0;
+
+    // stat class to hold affix stats
+    public EntityStats stats = new EntityStats();
 
     // Register properties that needs to get persisted (none, just register codec in this case)
     public static final BuilderCodec<Component_RPG_Enemy> CODEC = BuilderCodec.builder( Component_RPG_Enemy.class, Component_RPG_Enemy::new ).build();

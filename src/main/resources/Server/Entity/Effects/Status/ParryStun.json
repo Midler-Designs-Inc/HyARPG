@@ -1,0 +1,35 @@
+{
+  "Duration": 2,
+  "ApplicationEffects": {
+    "ScreenEffect": "ScreenEffects/Snow.png",
+    "Particles": [
+      {
+        "SystemId": "ParryStunned",
+        "TargetEntityPart": "Entity",
+        "TargetNodeName": "Head"
+      }
+    ],
+    "MovementEffects": {
+      "DisableAll": true
+    },
+    "AbilityEffects": {
+      "Disabled": [
+        "Primary",
+        "Secondary",
+        "Ability1",
+        "Ability3"
+      ]
+    },
+    "HorizontalSpeedMultiplier": 0
+  },
+  "OverlapBehavior": "Overwrite",
+  "Debuff": true,
+  "RawStatModifiers": {
+    "Stamina": [
+      {
+        "CalculationType": "Additive",
+        "Amount": -99
+      }
+    ]
+  }
+}

@@ -1,14 +1,14 @@
-package com.example.hyarpg.utils;
+package com.example.hyarpg.utils.affixes;
 
 // Java Imports
 import java.util.EnumMap;
 import java.util.Map;
 
-public final class PlayerStats {
+public final class EntityStats {
 
     /* Base Stats */
-    private static final float BASE_LIFE = 100f;
-    private static final float BASE_STAMINA = 10f;
+    private static final float BASE_LIFE = 0f;
+    private static final float BASE_STAMINA = 0f;
     private static final float BASE_MANA = 25f;
 
     private static final float BASE_CRIT_DAMAGE = 1.5f;
@@ -17,10 +17,11 @@ public final class PlayerStats {
     private static final float MAX_RESIST = 75f;
     private static final float MAX_DODGE = 75f;
     private static final float MAX_CRIT_CHANCE = 100f;
+    private static final float MAX_STABILITY = 90f;
 
     private final Map<StatType, Float> stats = new EnumMap<>(StatType.class);
 
-    public PlayerStats() {
+    public EntityStats() {
         for (StatType type : StatType.values())
             stats.put(type, 0f);
     }
@@ -104,10 +105,16 @@ public final class PlayerStats {
                 getRaw(StatType.PHYSICAL_DAMAGE_PERCENT)
         );
     }
-    public float getMagicalDamage() {
+    public float getMagicDamage() {
         return applyIncreased(
-                getRaw(StatType.MAGICAL_DAMAGE_FLAT),
-                getRaw(StatType.MAGICAL_DAMAGE_PERCENT)
+                getRaw(StatType.MAGIC_DAMAGE_FLAT),
+                getRaw(StatType.MAGIC_DAMAGE_PERCENT)
+        );
+    }
+    public float getPoisonDamage() {
+        return applyIncreased(
+                getRaw(StatType.POISON_DAMAGE_FLAT),
+                getRaw(StatType.POISON_DAMAGE_PERCENT)
         );
     }
 
@@ -133,6 +140,12 @@ public final class PlayerStats {
     public float getPoisonResistance() {
         return clamp(getRaw(StatType.POISON_RESIST_PERCENT), MAX_RESIST);
     }
+    public float getMagicResistance() {
+        return clamp(getRaw(StatType.MAGIC_RESIST_PERCENT), MAX_RESIST);
+    }
+    public float getPhysicalResistance() {
+        return clamp(getRaw(StatType.PHYSICAL_RESIST_PERCENT), MAX_RESIST);
+    }
 
     /* Utility */
     public float getDodgeChance() {
@@ -141,7 +154,10 @@ public final class PlayerStats {
     public float getRunSpeedMultiplier() {
         return 1f + getRaw(StatType.RUN_SPEED_PERCENT) / 100f;
     }
-    public int getBonusJumps() {
-        return Math.round(getRaw(StatType.JUMPS_FLAT));
+    public float getStabilityPercent() {
+        return clamp(getRaw(StatType.STABILITY_PERCENT), MAX_STABILITY);
+    }
+    public float getParryWindow() {
+        return getRaw(StatType.PARRY_WINDOW_FLAT);
     }
 }

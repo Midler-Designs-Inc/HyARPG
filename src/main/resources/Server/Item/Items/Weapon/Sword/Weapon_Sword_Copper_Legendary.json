@@ -47,7 +47,12 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 8
+              "Physical": 1,
+              "Ice": 1,
+              "Fire": 1,
+              "Lightning": 1,
+              "Poison": 1,
+              "Magic": 1
             }
           },
           "DamageEffects": {

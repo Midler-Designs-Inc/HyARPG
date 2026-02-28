@@ -3,11 +3,9 @@ package com.example.hyarpg.ui;
 // Hytale imports
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.modules.Module_RPG_System;
-import com.example.hyarpg.utils.Affix;
-import com.example.hyarpg.utils.AffixPool;
-import com.example.hyarpg.utils.PlayerStats;
-import com.example.hyarpg.utils.StatMapper;
-import com.example.hyarpg.utils.StatType;
+import com.example.hyarpg.utils.affixes.Affix;
+import com.example.hyarpg.utils.affixes.AffixPool;
+import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -56,7 +54,7 @@ public class Page_RPGStats {
         String offHandAffixHTML  = getAffixSlotHTML(getAffixes(inventory.getUtilityItem()));
 
         // get relevant info
-        PlayerStats playerStats = rpgPlayer.stats;
+        EntityStats playerStats = rpgPlayer.stats;
         int gearScore           = rpgPlayer.gearScore;
         int playerLevel         = rpgPlayer.level;
         String statsHTML        = buildStatsHTML(playerStats, playerLevel, gearScore);
@@ -197,65 +195,79 @@ public class Page_RPGStats {
     // -------------------------------------------------------------------------
     // Stats tab
     // -------------------------------------------------------------------------
-    private static String buildStatsHTML(PlayerStats s, int playerLevel, int gearScore) {
+    private static String buildStatsHTML(EntityStats s, int playerLevel, int gearScore) {
         StringBuilder sb = new StringBuilder();
 
-        // ---- Overview section (full width) ----
-        sb.append("<div style=\"layout-mode: top; anchor-width: 700; margin-left: 15; margin-top: 10; margin-bottom: 20;\">");
-        addSectionHeader(sb, "Overview");
-        addStat(sb, "Player Level", String.valueOf(playerLevel));
-        addStat(sb, "Gear Score",   String.valueOf(gearScore));
-        sb.append("</div>");
-
         // ---- Two-column layout ----
-        sb.append("<div style=\"layout-mode: left; anchor-width: 700; margin-left: 15;\">");
+        sb.append("<div style=\"layout-mode: left; anchor-width: 700;\">");
 
         // Left column
         sb.append("<div style=\"layout-mode: top; anchor-width: 340;\">");
 
-        sb.append("<div style=\"layout-mode: top; margin-bottom: 20;\">");
-        addSectionHeader(sb, "Resources");
-        addStat(sb, "Life",          fmt(s.getLife()));
-        addStat(sb, "Life Regen",    fmt(s.getLifeRegen()));
-        addStat(sb, "Stamina",       fmt(s.getStamina()));
-        addStat(sb, "Stamina Regen", fmt(s.getStaminaRegen()));
-        addStat(sb, "Mana",          fmt(s.getMana()));
-        addStat(sb, "Mana Regen",    fmt(s.getManaRegen()));
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
+        addSectionHeader(sb, "Overview");
+        addStat(sb, "Player Level", String.valueOf(playerLevel));
+        addStat(sb, "Gear Score",   String.valueOf(gearScore));
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
-        sb.append("<div style=\"layout-mode: top; margin-bottom: 20;\">");
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
+        addSectionHeader(sb, "Resources");
+        addStat(sb, "Life",          "+" + fmt(s.getLife()));
+        addStat(sb, "Life Regen",    "+" + fmt(s.getLifeRegen()) + "/s");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Stamina",       "+" + fmt(s.getStamina()));
+        addStat(sb, "Stamina Regen", "+" + fmt(s.getStaminaRegen()) + "/s");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Mana",          "+" + fmt(s.getMana()));
+        addStat(sb, "Mana Regen",    "+" + fmt(s.getManaRegen()) + "/s");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
+        sb.append("</div>");
+
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Offense");
-        addStat(sb, "Physical Dmg",   fmt(s.getPhysicalDamage()));
-        addStat(sb, "Magical Dmg",    fmt(s.getMagicalDamage()));
-        addStat(sb, "Fire Dmg",       fmt(s.getFireDamage()));
-        addStat(sb, "Cold Dmg",       fmt(s.getColdDamage()));
-        addStat(sb, "Lightning Dmg",  fmt(s.getLightningDamage()));
+        addStat(sb, "Physical Dmg",   "+" + fmt(s.getPhysicalDamage()));
+        addStat(sb, "Magic Dmg",    "+" + fmt(s.getMagicDamage()));
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Fire Dmg",       "+" + fmt(s.getFireDamage()));
+        addStat(sb, "Cold Dmg",       "+" + fmt(s.getColdDamage()));
+        addStat(sb, "Lightning Dmg",  "+" + fmt(s.getLightningDamage()));
+        addStat(sb, "Poison Dmg",  "+" + fmt(s.getPoisonDamage()));
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
         addStat(sb, "Crit Chance",    fmt(s.getCriticalStrikeChance()) + "%");
         addStat(sb, "Crit Damage",    fmt(s.getCriticalStrikeDamage()) + "x");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
         sb.append("</div>"); // end left column
 
         // Right column
-        sb.append("<div style=\"layout-mode: top; anchor-width: 340;\">");
+        sb.append("<div style=\"layout-mode: top; anchor-width: 340;margin-left: 15;\">");
 
-        sb.append("<div style=\"layout-mode: top; margin-bottom: 20;\">");
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Resistances");
+        addStat(sb, "Physical Resist",      fmt(s.getPhysicalResistance()) + "%");
+        addStat(sb, "Magic Resist",      fmt(s.getMagicResistance()) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
         addStat(sb, "Fire Resist",      fmt(s.getFireResistance()) + "%");
         addStat(sb, "Cold Resist",      fmt(s.getColdResistance()) + "%");
         addStat(sb, "Lightning Resist", fmt(s.getLightningResistance()) + "%");
         addStat(sb, "Poison Resist",    fmt(s.getPoisonResistance()) + "%");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
-        sb.append("<div style=\"layout-mode: top; margin-bottom: 20;\">");
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Defense");
         addStat(sb, "Dodge Chance", fmt(s.getDodgeChance()) + "%");
+        addStat(sb, "Stability", fmt(s.getStabilityPercent()) + "%");
+        addStat(sb, "Parry Window", "+" + fmt(s.getParryWindow()) + "(s)");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
-        sb.append("<div style=\"layout-mode: top; margin-bottom: 20;\">");
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Utility");
-        addStat(sb, "Run Speed",   fmt(s.getRunSpeedMultiplier()) + "x");
-        addStat(sb, "Bonus Jumps", String.valueOf(s.getBonusJumps()));
+        addStat(sb, "Run Speed",   "+" + fmt(s.getRunSpeedMultiplier()) + "%");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
         sb.append("</div>"); // end right column
@@ -265,14 +277,14 @@ public class Page_RPGStats {
     }
 
     private static void addSectionHeader(StringBuilder sb, String title) {
-        sb.append("<p style=\"margin-bottom: 6;\">")
+        sb.append("<p style=\"font-size: 20;margin-left: 5;margin-top: 3;color: #888888;\">")
                 .append("<span data-hyui-bold=\"true\">")
                 .append(title)
                 .append("</span></p>");
     }
 
     private static void addStat(StringBuilder sb, String label, String value) {
-        sb.append("<p>").append(label).append(": ").append(value).append("</p>");
+        sb.append("<p style=\"margin-left: 15;\">").append(label).append(": ").append(value).append("</p>");
     }
 
     private static String fmt(float value) {

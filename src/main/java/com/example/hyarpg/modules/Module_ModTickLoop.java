@@ -6,10 +6,12 @@ import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.GameMode;
+import com.hypixel.hytale.protocol.MovementStates;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.movement.MovementStatesComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.entity.player.PlayerInput;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -20,12 +22,11 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod imports
-import com.example.hyarpg.ModEventBus;
 import com.example.hyarpg.components.*;
+import com.hypixel.hytale.server.npc.movement.MovementState;
 
 // Java imports
 import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -35,6 +36,7 @@ public final class Module_ModTickLoop {
 
     // set the interval at which this tick loop executes
     private static final long TICK_INTERVAL_MS = 200;
+    private static final long TICK_INTERVALS_PER_SECOND = (1000 / TICK_INTERVAL_MS);
 
     // setup some scheduler props
     private final ScheduledExecutorService scheduler;
@@ -79,6 +81,7 @@ public final class Module_ModTickLoop {
                         tickHunger(ref, store, player);
                         tickThirst(ref, store, player);
                         tickGearRefresh(ref, store, player);
+                        tickResourceRegens(ref, store, player);
                     }
                 });
             }
@@ -206,4 +209,33 @@ public final class Module_ModTickLoop {
         }
     }
 
+    // function to tick resource regen
+    private void tickResourceRegens(Ref<EntityStore> ref, Store<EntityStore> store, Player player) {
+        try {
+            // get the rpg player component
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+            if(rpgPlayer == null) return;
+
+            // get the stat map component from the player
+            ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
+            EntityStatMap statMap = store.getComponent(ref, statMapType);
+            if (statMap == null) return;
+
+            // Get the health stat from the stat map
+            int healthIndex = DefaultEntityStatTypes.getHealth();
+            int staminaIndex = DefaultEntityStatTypes.getStamina();
+            int manaIndex = DefaultEntityStatTypes.getMana();
+
+            // get the stats by index
+            EntityStatValue healthStat = statMap.get(healthIndex);
+            EntityStatValue staminaStat = statMap.get(staminaIndex);
+            EntityStatValue manaStat = statMap.get(manaIndex);
+            MovementStatesComponent movementStateComp = store.getComponent(ref, MovementStatesComponent.getComponentType());
+
+            // add resource flat values for regen
+            statMap.setStatValue(healthIndex, healthStat.get() + (rpgPlayer.stats.getLifeRegen() / TICK_INTERVALS_PER_SECOND));
+            statMap.setStatValue(staminaIndex, staminaStat.get() + (rpgPlayer.stats.getManaRegen() / TICK_INTERVALS_PER_SECOND));
+            statMap.setStatValue(manaIndex, manaStat.get() + (rpgPlayer.stats.getStaminaRegen() / TICK_INTERVALS_PER_SECOND));
+        } catch (Exception e) {}
+    }
 }

@@ -226,13 +226,13 @@ public class Page_RPGStats {
 
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Offense");
-        addStat(sb, "Physical Dmg",   "+" + fmt(s.getPhysicalDamage()));
-        addStat(sb, "Magic Dmg",    "+" + fmt(s.getMagicDamage()));
+        addStat(sb, "Physical Damage",   "+" + fmt(s.getFlatDamage("Physical")) + " / +" + fmt(s.getIncreasedDamage("Physical")) + "%");
+        addStat(sb, "Magic Damage",   "+" + fmt(s.getFlatDamage("Magic")) + " / +" + fmt(s.getIncreasedDamage("Magic")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Fire Dmg",       "+" + fmt(s.getFireDamage()));
-        addStat(sb, "Cold Dmg",       "+" + fmt(s.getColdDamage()));
-        addStat(sb, "Lightning Dmg",  "+" + fmt(s.getLightningDamage()));
-        addStat(sb, "Poison Dmg",  "+" + fmt(s.getPoisonDamage()));
+        addStat(sb, "Fire Damage",   "+" + fmt(s.getFlatDamage("Fire")) + " / +" + fmt(s.getIncreasedDamage("Fire")) + "%");
+        addStat(sb, "Cold Damage",   "+" + fmt(s.getFlatDamage("Cold")) + " / +" + fmt(s.getIncreasedDamage("Cold")) + "%");
+        addStat(sb, "Lightning Damage",   "+" + fmt(s.getFlatDamage("Lightning")) + " / +" + fmt(s.getIncreasedDamage("Lightning")) + "%");
+        addStat(sb, "Poison Damage",   "+" + fmt(s.getFlatDamage("Poison")) + " / +" + fmt(s.getIncreasedDamage("Poison")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
         addStat(sb, "Crit Chance",    fmt(s.getCriticalStrikeChance()) + "%");
         addStat(sb, "Crit Damage",    fmt(s.getCriticalStrikeDamage()) + "x");
@@ -246,13 +246,13 @@ public class Page_RPGStats {
 
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Resistances");
-        addStat(sb, "Physical Resist",      fmt(s.getPhysicalResistance()) + "%");
-        addStat(sb, "Magic Resist",      fmt(s.getMagicResistance()) + "%");
+        addStat(sb, "Physical Resist", fmt(s.getResistance("Physical")) + "%");
+        addStat(sb, "Magic Resist", fmt(s.getResistance("Magic")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Fire Resist",      fmt(s.getFireResistance()) + "%");
-        addStat(sb, "Cold Resist",      fmt(s.getColdResistance()) + "%");
-        addStat(sb, "Lightning Resist", fmt(s.getLightningResistance()) + "%");
-        addStat(sb, "Poison Resist",    fmt(s.getPoisonResistance()) + "%");
+        addStat(sb, "Fire Resist", fmt(s.getResistance("Fire")) + "%");
+        addStat(sb, "Cold Resist", fmt(s.getResistance("Cold")) + "%");
+        addStat(sb, "Lightning Resist", fmt(s.getResistance("Lightning")) + "%");
+        addStat(sb, "Poison Resist", fmt(s.getResistance("Poison")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
@@ -278,9 +278,9 @@ public class Page_RPGStats {
 
     private static void addSectionHeader(StringBuilder sb, String title) {
         sb.append("<p style=\"font-size: 20;margin-left: 5;margin-top: 3;color: #888888;\">")
-                .append("<span data-hyui-bold=\"true\">")
-                .append(title)
-                .append("</span></p>");
+            .append("<span data-hyui-bold=\"true\">")
+            .append(title)
+            .append("</span></p>");
     }
 
     private static void addStat(StringBuilder sb, String label, String value) {
@@ -327,7 +327,7 @@ public class Page_RPGStats {
             Affix affix = AffixPool.getAffixByStatName(id);
             if (affix == null) continue;
             float value = Float.parseFloat(parts[1]);
-            html += "<p>* " + affix.display().formatted(Math.round(value * 10) / 10f) + "</p>";
+            html += "<p>T" + (int) affix.tier()  + " " + affix.display().formatted(Math.round(value * 10) / 10f) + "</p>";
         }
         return html;
     }

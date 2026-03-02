@@ -2,6 +2,9 @@ package com.example.hyarpg.modules;
 
 // Hytale imports
 import com.example.hyarpg.HyARPGPlugin;
+import com.example.hyarpg.ModEventBus;
+import com.example.hyarpg.events.Event_PlayerInventoryItemEquip;
+import com.example.hyarpg.events.Event_PlayerInventoryItemUnEquip;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -63,6 +66,9 @@ public final class Module_ModTickLoop {
                 world.execute(() -> {
                     // get the store for this world
                     Store<EntityStore> store = world.getEntityStore().getStore();
+
+                    // flush ready damage groups
+                    plugin.rpgSystem.tickDamageGroups(store);
 
                     // loop over all players in the world
                     for (PlayerRef playerRef : Universe.get().getPlayers()) {
@@ -199,7 +205,7 @@ public final class Module_ModTickLoop {
 
             // calculate the gear score
             rpgPlayer.calculateGearScore(player);
-            rpgPlayer.calculateAffixStats(player);
+            rpgPlayer.calculateAffixStats(ref, store);
 
             // mark the offhand/utility item so they aren't dirty anymore
             rpgPlayer.mainHandItem = mainHand;

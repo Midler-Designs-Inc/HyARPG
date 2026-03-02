@@ -19,7 +19,9 @@ import java.util.logging.Level;
 public class HyARPGPlugin extends JavaPlugin {
 
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+
     private static HyARPGPlugin instance;
+    public Module_RPG_System rpgSystem;
 
     // required super function??
     public HyARPGPlugin(@Nonnull JavaPluginInit init) {
@@ -79,7 +81,7 @@ public class HyARPGPlugin extends JavaPlugin {
             new Module_Greeter();
             new Module_Hunger(this);
             new Module_Thirst(this);
-            new Module_RPG_System(this);
+            rpgSystem = new Module_RPG_System(this);
             new Module_PlayerHud(this);
 
             // create an instance of our global tick event (not OOP but better for processing I guess)

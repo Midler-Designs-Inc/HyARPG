@@ -1,17 +1,23 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-
-import com.example.hyarpg.ui.Page_RPGStats;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+
+// Mod Imports
+import com.example.hyarpg.ui.Page_RPGStats;
+
+// Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
+
+import java.util.logging.Level;
 
 public class Interaction_ShowRPGStats extends SimpleInstantInteraction {
     // Create the CODEC - this is required for serialization
@@ -31,7 +37,11 @@ public class Interaction_ShowRPGStats extends SimpleInstantInteraction {
         final Ref<EntityStore> entityRef = context.getEntity();
         final Store<EntityStore> store = entityRef.getStore();
 
-        // A custom component to show a page
-        Page_RPGStats.open(entityRef, store);
+        try {
+            Page_RPGStats.open(entityRef, store);
+        } catch (NoClassDefFoundError e) {
+            // Class not yet loaded, retry on next tick or log
+            HytaleLogger.getLogger().at(Level.WARNING).log("Page_RPGStats not loaded yet: %s", e.getMessage());
+        }
     }
 }

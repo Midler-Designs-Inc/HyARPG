@@ -1,6 +1,8 @@
 package com.example.hyarpg.utils.affixes;
 
 // Java Imports
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
+
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -81,41 +83,43 @@ public final class EntityStats {
     }
 
     /* Damage */
-    public float getFireDamage() {
-        return applyIncreased(
-                getRaw(StatType.FIRE_DAMAGE_FLAT),
-                getRaw(StatType.FIRE_DAMAGE_PERCENT)
-        );
+    public float getFlatDamage(String damageCause) {
+        if (damageCause == null) return 0f;
+        switch (damageCause) {
+            case "Fire": return getRaw(StatType.FIRE_DAMAGE_FLAT);
+            case "Ice": return getRaw(StatType.COLD_DAMAGE_FLAT);
+            case "Lightning": return getRaw(StatType.LIGHTNING_DAMAGE_FLAT);
+            case "Poison": return getRaw(StatType.POISON_DAMAGE_FLAT);
+            case "Magic": return getRaw(StatType.MAGIC_DAMAGE_FLAT);
+            case "Physical": return getRaw(StatType.PHYSICAL_DAMAGE_FLAT);
+            default: return 0f;
+        }
     }
-    public float getColdDamage() {
-        return applyIncreased(
-                getRaw(StatType.COLD_DAMAGE_FLAT),
-                getRaw(StatType.COLD_DAMAGE_PERCENT)
-        );
+    public float getIncreasedDamage(String damageCause) {
+        if (damageCause == null) return 0f;
+        switch (damageCause) {
+            case "Fire": return getRaw(StatType.FIRE_DAMAGE_PERCENT);
+            case "Ice": return getRaw(StatType.COLD_DAMAGE_PERCENT);
+            case "Lightning": return getRaw(StatType.LIGHTNING_DAMAGE_PERCENT);
+            case "Poison": return getRaw(StatType.POISON_DAMAGE_PERCENT);
+            case "Magic": return getRaw(StatType.MAGIC_DAMAGE_PERCENT);
+            case "Physical": return getRaw(StatType.PHYSICAL_DAMAGE_PERCENT);
+            default: return 0f;
+        }
     }
-    public float getLightningDamage() {
-        return applyIncreased(
-                getRaw(StatType.LIGHTNING_DAMAGE_FLAT),
-                getRaw(StatType.LIGHTNING_DAMAGE_PERCENT)
-        );
-    }
-    public float getPhysicalDamage() {
-        return applyIncreased(
-                getRaw(StatType.PHYSICAL_DAMAGE_FLAT),
-                getRaw(StatType.PHYSICAL_DAMAGE_PERCENT)
-        );
-    }
-    public float getMagicDamage() {
-        return applyIncreased(
-                getRaw(StatType.MAGIC_DAMAGE_FLAT),
-                getRaw(StatType.MAGIC_DAMAGE_PERCENT)
-        );
-    }
-    public float getPoisonDamage() {
-        return applyIncreased(
-                getRaw(StatType.POISON_DAMAGE_FLAT),
-                getRaw(StatType.POISON_DAMAGE_PERCENT)
-        );
+
+    /* Resistances */
+    public float getResistance(String damageCause) {
+        if (damageCause == null) return 0f;
+        switch (damageCause) {
+            case "Fire": return clamp(getRaw(StatType.FIRE_RESIST_PERCENT), MAX_RESIST);
+            case "Ice": return clamp(getRaw(StatType.COLD_RESIST_PERCENT), MAX_RESIST);
+            case "Lightning": return clamp(getRaw(StatType.LIGHTNING_RESIST_PERCENT), MAX_RESIST);
+            case "Poison": return clamp(getRaw(StatType.POISON_RESIST_PERCENT), MAX_RESIST);
+            case "Magic": return clamp(getRaw(StatType.MAGIC_RESIST_PERCENT), MAX_RESIST);
+            case "Physical": return clamp(getRaw(StatType.PHYSICAL_RESIST_PERCENT), MAX_RESIST);
+            default: return 0f;
+        }
     }
 
     /* Crit */
@@ -125,26 +129,6 @@ public final class EntityStats {
     public float getCriticalStrikeDamage() {
         return BASE_CRIT_DAMAGE * (1f +
                 getRaw(StatType.CRITICAL_STRIKE_DAMAGE_PERCENT) / 100f);
-    }
-
-    /* Resistances */
-    public float getFireResistance() {
-        return clamp(getRaw(StatType.FIRE_RESIST_PERCENT), MAX_RESIST);
-    }
-    public float getColdResistance() {
-        return clamp(getRaw(StatType.COLD_RESIST_PERCENT), MAX_RESIST);
-    }
-    public float getLightningResistance() {
-        return clamp(getRaw(StatType.LIGHTNING_RESIST_PERCENT), MAX_RESIST);
-    }
-    public float getPoisonResistance() {
-        return clamp(getRaw(StatType.POISON_RESIST_PERCENT), MAX_RESIST);
-    }
-    public float getMagicResistance() {
-        return clamp(getRaw(StatType.MAGIC_RESIST_PERCENT), MAX_RESIST);
-    }
-    public float getPhysicalResistance() {
-        return clamp(getRaw(StatType.PHYSICAL_RESIST_PERCENT), MAX_RESIST);
     }
 
     /* Utility */

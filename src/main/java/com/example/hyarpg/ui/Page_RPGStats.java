@@ -230,7 +230,7 @@ public class Page_RPGStats {
         addStat(sb, "Magic Damage",   "+" + fmt(s.getFlatDamage("Magic")) + " / +" + fmt(s.getIncreasedDamage("Magic")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
         addStat(sb, "Fire Damage",   "+" + fmt(s.getFlatDamage("Fire")) + " / +" + fmt(s.getIncreasedDamage("Fire")) + "%");
-        addStat(sb, "Cold Damage",   "+" + fmt(s.getFlatDamage("Cold")) + " / +" + fmt(s.getIncreasedDamage("Cold")) + "%");
+        addStat(sb, "Ice Damage",   "+" + fmt(s.getFlatDamage("Ice")) + " / +" + fmt(s.getIncreasedDamage("Ice")) + "%");
         addStat(sb, "Lightning Damage",   "+" + fmt(s.getFlatDamage("Lightning")) + " / +" + fmt(s.getIncreasedDamage("Lightning")) + "%");
         addStat(sb, "Poison Damage",   "+" + fmt(s.getFlatDamage("Poison")) + " / +" + fmt(s.getIncreasedDamage("Poison")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
@@ -250,7 +250,7 @@ public class Page_RPGStats {
         addStat(sb, "Magic Resist", fmt(s.getResistance("Magic")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
         addStat(sb, "Fire Resist", fmt(s.getResistance("Fire")) + "%");
-        addStat(sb, "Cold Resist", fmt(s.getResistance("Cold")) + "%");
+        addStat(sb, "Ice Resist", fmt(s.getResistance("Ice")) + "%");
         addStat(sb, "Lightning Resist", fmt(s.getResistance("Lightning")) + "%");
         addStat(sb, "Poison Resist", fmt(s.getResistance("Poison")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");

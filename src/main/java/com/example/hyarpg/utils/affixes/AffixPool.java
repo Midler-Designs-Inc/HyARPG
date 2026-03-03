@@ -10,7 +10,7 @@ public final class AffixPool {
     private static final List<Affix> AFFIXES = List.of(
         // Flat Damages
         new Affix("Stat_Flat_Fire_Damage", "Fire Damage: +%s", 0.833f, 2.5f),
-        new Affix("Stat_Flat_Cold_Damage", "Cold Damage: +%s", 0.833f, 2.5f),
+        new Affix("Stat_Flat_Ice_Damage", "Ice Damage: +%s", 0.833f, 2.5f),
         new Affix("Stat_Flat_Lightning_Damage", "Lightning Damage: +%s", 0.833f, 2.5f),
         new Affix("Stat_Flat_Poison_Damage", "Poison Damage: +%s", 0.833f, 2.5f),
         new Affix("Stat_Flat_Physical_Damage", "Physical Damage: +%s", 0.833f, 2.5f),
@@ -18,7 +18,7 @@ public final class AffixPool {
 
         // Increased Damages
         new Affix("Stat_Increased_Fire_Damage", "Fire Damage: +%s%%", 3.33f, 10),
-        new Affix("Stat_Increased_Cold_Damage", "Cold Damage: +%s%%", 3.33f, 10),
+        new Affix("Stat_Increased_Ice_Damage", "Ice Damage: +%s%%", 3.33f, 10),
         new Affix("Stat_Increased_Lightning_Damage", "Lightning Damage: +%s%%", 3.33f, 10),
         new Affix("Stat_Increased_Poison_Damage", "Poison Damage: +%s%%", 3.33f, 10),
         new Affix("Stat_Increased_Physical_Damage", "Physical Damage: +%s%%", 3.33f, 10),
@@ -26,7 +26,7 @@ public final class AffixPool {
 
         // Increased Resistances
         new Affix("Stat_Increased_Fire_Resist", "Fire Resistance: +%s%%", 1.666f, 5),
-        new Affix("Stat_Increased_Cold_Resist", "Cold Resistance: +%s%%", 1.666f, 5),
+        new Affix("Stat_Increased_Ice_Resist", "Ice Resistance: +%s%%", 1.666f, 5),
         new Affix("Stat_Increased_Lightning_Resist", "Lightning Resistance: +%s%%", 1.666f, 5),
         new Affix("Stat_Increased_Poison_Resist", "Poison Resistance: +%s%%", 1.666f, 5),
         new Affix("Stat_Increased_Physical_Resist", "Physical Resistance: +%s%%", 1.666f, 5),

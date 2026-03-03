@@ -553,11 +553,11 @@ public class Module_RPG_System {
         // get the items that are to be dropped
         var drops = itemModule.getRandomItemDrops(dropListId);
 
-        // filter out vanilla weapons and armor
+        // filter out vanilla weapons and armor and ingots
         List<ItemStack> filteredDrops = new ObjectArrayList();
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
-            if (item.getWeapon() != null || item.getArmor() != null) {
+            if (item.getWeapon() != null || item.getArmor() != null || item.getId().contains("Ingredient_Bar") || item.getId().contains("Ore_")) {
                 alertPlayers("Filtered out: " + item.getId(), Color.GRAY);
                 continue; // skip adding to filteredDrops
             };

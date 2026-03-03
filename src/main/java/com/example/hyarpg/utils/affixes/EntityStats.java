@@ -87,7 +87,7 @@ public final class EntityStats {
         if (damageCause == null) return 0f;
         switch (damageCause) {
             case "Fire": return getRaw(StatType.FIRE_DAMAGE_FLAT);
-            case "Ice": return getRaw(StatType.COLD_DAMAGE_FLAT);
+            case "Ice": return getRaw(StatType.ICE_DAMAGE_FLAT);
             case "Lightning": return getRaw(StatType.LIGHTNING_DAMAGE_FLAT);
             case "Poison": return getRaw(StatType.POISON_DAMAGE_FLAT);
             case "Magic": return getRaw(StatType.MAGIC_DAMAGE_FLAT);
@@ -99,7 +99,7 @@ public final class EntityStats {
         if (damageCause == null) return 0f;
         switch (damageCause) {
             case "Fire": return getRaw(StatType.FIRE_DAMAGE_PERCENT);
-            case "Ice": return getRaw(StatType.COLD_DAMAGE_PERCENT);
+            case "Ice": return getRaw(StatType.ICE_DAMAGE_PERCENT);
             case "Lightning": return getRaw(StatType.LIGHTNING_DAMAGE_PERCENT);
             case "Poison": return getRaw(StatType.POISON_DAMAGE_PERCENT);
             case "Magic": return getRaw(StatType.MAGIC_DAMAGE_PERCENT);
@@ -113,7 +113,7 @@ public final class EntityStats {
         if (damageCause == null) return 0f;
         switch (damageCause) {
             case "Fire": return clamp(getRaw(StatType.FIRE_RESIST_PERCENT), MAX_RESIST);
-            case "Ice": return clamp(getRaw(StatType.COLD_RESIST_PERCENT), MAX_RESIST);
+            case "Ice": return clamp(getRaw(StatType.ICE_RESIST_PERCENT), MAX_RESIST);
             case "Lightning": return clamp(getRaw(StatType.LIGHTNING_RESIST_PERCENT), MAX_RESIST);
             case "Poison": return clamp(getRaw(StatType.POISON_RESIST_PERCENT), MAX_RESIST);
             case "Magic": return clamp(getRaw(StatType.MAGIC_RESIST_PERCENT), MAX_RESIST);

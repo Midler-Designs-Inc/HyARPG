@@ -828,12 +828,11 @@ public class Module_RPG_System {
         // Weight the y axis so things get stronger faster going down than they do going up
         double weightedY = position.y < 0 ? position.y * 1.5 : position.y;
 
-        // 3D straight line distance from world origin 0,0,0
-        double distance = Math.sqrt(
-            position.x * position.x +
-            weightedY * weightedY +
-            position.z * position.z
-        );
+        // 3D straight line distance from world origin 0,100,0 (starting height varies but is around 100 blocks
+        double dx = position.x;          // x - 0
+        double dy = weightedY - 100;     // y - 100
+        double dz = position.z;          // z - 0
+        double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
         // get level based on distance
         int baseLevel = Math.max(1, (int)(distance / LEVEL_DISTANCE_THRESHOLD) + 1);

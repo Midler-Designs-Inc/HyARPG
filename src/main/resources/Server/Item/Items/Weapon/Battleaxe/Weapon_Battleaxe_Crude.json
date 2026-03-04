@@ -10,19 +10,19 @@
   "ItemLevel": 7,
   "Recipe": {
     "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 84
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 42
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 56
+        "Quantity": 4
       }
     ],
     "BenchRequirement": []
@@ -175,9 +175,6 @@
       ]
     }
   },
-  "MaxDurability": 0,
-  "DurabilityLossOnHit": 0.45,
-  "Categories": [
-    "Items.HyARPG.Gear"
-  ]
+  "MaxDurability": 80,
+  "DurabilityLossOnHit": 0.45
 }

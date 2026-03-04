@@ -160,7 +160,6 @@ public class Module_RPG_System {
         interactionRegistry.register("ExplodeBetter", Interaction_AOEDamageInteraction.class, Interaction_AOEDamageInteraction.CODEC);
 
         // Listen to applicable events on the mods internal event bus
-        ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
         ModEventBus.register(Event_EntityPreDamaged.class, this::onEntityPreDamage);
         ModEventBus.register(Event_NPCDeath.class, this::onEnemyKilled);
         ModEventBus.register(Event_NPCSpawn.class, this::onNPCSpawn);
@@ -170,6 +169,7 @@ public class Module_RPG_System {
         ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onPlayerInventoryItemEquip);
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
         ModEventBus.register(Event_PlayerInteraction.class, this::onPlayerInteraction);
+        ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -557,7 +557,7 @@ public class Module_RPG_System {
         List<ItemStack> filteredDrops = new ObjectArrayList();
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
-            if (item.getWeapon() != null || item.getArmor() != null || item.getId().contains("Ingredient_Bar") || item.getId().contains("Ore_")) {
+            if (item.getWeapon() != null || item.getArmor() != null || item.getId().contains("Ingredient_Bar") || item.getId().contains("Ore_") || item.getId().contains("Weapon_") || item.getId().contains("Armor_")) {
                 alertPlayers("Filtered out: " + item.getId(), Color.GRAY);
                 continue; // skip adding to filteredDrops
             };
@@ -587,6 +587,7 @@ public class Module_RPG_System {
 
     // capture when an item is added to a players inventory
     private void onPlayerInventoryItemAdded(Event_PlayerInventoryItemAdded event) {
+        alertPlayers("You added", Color.WHITE);
         // entity and store refs
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
@@ -607,15 +608,20 @@ public class Module_RPG_System {
 
             // get the players level
             Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+            Player player = store.getComponent(ref, Player.getComponentType());
             int level = rpgPlayer == null ? 1 : rpgPlayer.level;
 
             // assign a gear score to the item
             ItemStack newStack = assignGearScoreAndAffixes(stack, level);
             if(newStack == null || newStack.isEmpty()) return;
 
-            // swap out the old stack for the new stack, then update refernce for down stream
+            // swap out the old stack for the new stack, then update reference for down stream
             container.replaceItemStackInSlot(slot, stack, newStack);
             stack = newStack;
+
+            // refresh gear score
+            rpgPlayer.calculateGearScore(player);
+            rpgPlayer.calculateAffixStats(ref, store);
         }
 
         // register discovery for ALL items
@@ -623,7 +629,9 @@ public class Module_RPG_System {
     }
 
     // capture when an item is removed from a players inventory
-    private void onPlayerInventoryItemRemoved(Event_PlayerInventoryItemRemoved event) {}
+    private void onPlayerInventoryItemRemoved(Event_PlayerInventoryItemRemoved event) {
+        alertPlayers("You removed", Color.WHITE);
+    }
 
     // method for when a player equips an item
     private void onPlayerInventoryItemEquip(Event_PlayerInventoryItemEquip event) {
@@ -644,7 +652,6 @@ public class Module_RPG_System {
 
     // method for when a player unequips an item
     private void onPlayerInventoryItemUnEquip(Event_PlayerInventoryItemUnEquip event) {
-        alertPlayers("You unequipped something", Color.WHITE);
         // get entity ref and entity store
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
@@ -691,22 +698,21 @@ public class Module_RPG_System {
 
     // assign a gear score to an item a player picked up
     private void swapVanillaItem(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
-        // if in creative mode let it happen
-//        Player player = store.getComponent(ref, Player.getComponentType());
-//        if (player.getGameMode() == GameMode.Creative) return;
-
         // get the item from the stack
         Item item = stack.getItem();
         if (Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")) return;
+        alertPlayers("Going to try to swap: " + item.getId(), Color.WHITE);
 
         // get the players crafting knowledge or remove the item and bail
         Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
         if (craftingKnowledge == null) {
+            alertPlayers("Couldn't find crafting knowledge on vanilla swap, removing item stack: " + item.getId(), Color.WHITE);
             container.removeItemStackFromSlot(slot);
             return;
         }
+        alertPlayers("Going to do swap stuff", Color.WHITE);
 
-        // get teh players known recipes, roll a rarity and then roll an item or empty container and bail if none returned
+        // get the players known recipes, roll a rarity and then roll an item or empty container and bail if none returned
         Set<String> recipes = craftingKnowledge.discoveredDroppableRecipes;
         String rarityRoll = rollRarity();
         String randomItemId = rollItemForRarity(recipes, rarityRoll);

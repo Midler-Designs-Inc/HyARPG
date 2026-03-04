@@ -3,8 +3,7 @@
     "Name": "server.items.Weapon_Longsword_Crude.name"
   },
   "Categories": [
-    "Items.Weapons",
-    "Items.HyARPG.Gear"
+    "Items.Weapons"
   ],
   "Quality": "Common",
   "ItemLevel": 5,
@@ -116,20 +115,20 @@
     }
   },
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 3,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 60
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 20
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 40
+        "Quantity": 4
       }
     ],
     "BenchRequirement": []
@@ -149,7 +148,7 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Longsword_Crude.png",
   "Scale": 1.1,
   "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
-  "MaxDurability": 0,
+  "MaxDurability": 60,
   "DurabilityLossOnHit": 0.52,
   "Tags": {
     "Type": [

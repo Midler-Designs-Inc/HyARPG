@@ -29,10 +29,10 @@ public class Listeners_Crafting extends EntityEventSystem<EntityStore, CraftReci
 
     @Override
     public void handle(int i,
-                       @NonNullDecl ArchetypeChunk<EntityStore> archetypeChunk,
-                       @NonNullDecl Store<EntityStore> store,
-                       @NonNullDecl CommandBuffer<EntityStore> commandBuffer,
-                       @NonNullDecl CraftRecipeEvent.Post event
+       @NonNullDecl ArchetypeChunk<EntityStore> archetypeChunk,
+       @NonNullDecl Store<EntityStore> store,
+       @NonNullDecl CommandBuffer<EntityStore> commandBuffer,
+       @NonNullDecl CraftRecipeEvent.Post event
     ) {
         if (event.isCancelled()) return;
 

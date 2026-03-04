@@ -40,7 +40,7 @@ public class Listeners_Player {
             LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register PlayerDisconnectEvent");
         }
 
-        // Start listening for the PlayerJoinEvent - When a player joins
+        // Start listening for the PlayerReady - When a player joins
         try {
             eventBus.registerGlobal(PlayerReadyEvent.class, this::onPlayerReady);
             LOGGER.at(Level.INFO).log("[HyARPG] Registered PlayerReadyEvent listener");

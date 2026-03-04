@@ -11,19 +11,19 @@
   "ItemLevel": 3,
   "Recipe": {
     "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rubble",
-        "Quantity": 12
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 12
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 12
+        "Quantity": 2
       }
     ],
     "BenchRequirement": []
@@ -199,9 +199,6 @@
       ]
     }
   },
-  "MaxDurability": 0,
-  "DurabilityLossOnHit": 0.21,
-  "Categories": [
-    "Items.HyARPG.Gear"
-  ]
+  "MaxDurability": 80,
+  "DurabilityLossOnHit": 0.21
 }

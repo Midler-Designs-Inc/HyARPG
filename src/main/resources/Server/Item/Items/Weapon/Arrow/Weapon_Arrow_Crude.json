@@ -3,23 +3,22 @@
     "Name": "server.items.Weapon_Arrow_Crude.name"
   },
   "Categories": [
-    "Items.Weapons",
-    "Items.HyARPG.Gear"
+    "Items.Weapons"
   ],
   "Quality": "Common",
   "ItemLevel": 9,
   "PlayerAnimationsId": "Dagger",
   "Recipe": {
     "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "KnowledgeRequired": false,
     "Input": [
       {
-        "Quantity": 72,
+        "Quantity": 4,
         "ItemId": "Ingredient_Stick"
       },
       {
         "ResourceTypeId": "Rubble",
-        "Quantity": 18
+        "Quantity": 1
       }
     ],
     "OutputQuantity": 4,
@@ -182,6 +181,5 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Arrows",
-  "MaxDurability": 0
+  "ItemSoundSetId": "ISS_Weapons_Arrows"
 }

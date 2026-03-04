@@ -209,20 +209,13 @@ public class Component_RPG_Player implements Component<EntityStore> {
             int staminaIndex = DefaultEntityStatTypes.getStamina();
             int manaIndex = DefaultEntityStatTypes.getMana();
 
-            // set players max resources to original values (reconciles issues)
-            statMap.putModifier(healthIndex, "BASE_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, 0f));
-            statMap.putModifier(staminaIndex, "BASE_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, 0f));
-            statMap.putModifier(manaIndex, "BASE_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, 25f));
-
-            // calculate difference in current max vs expected start max (reconciles issues)
-            float healthOffset = 100f - statMap.get(healthIndex).getMax();
-            float staminaOffset = 10f - statMap.get(staminaIndex).getMax();
-            float manaOffset = 25f - statMap.get(manaIndex).getMax();
-
             // set players max resources based on gear
-            statMap.putModifier(healthIndex, "BASE_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, (float)(stats.getLife() + healthOffset)));
-            statMap.putModifier(staminaIndex, "BASE_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getStamina() + staminaOffset));
-            statMap.putModifier(manaIndex, "BASE_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getMana() + manaOffset));
+            statMap.putModifier(healthIndex, "BASE_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getLife()));
+            statMap.putModifier(staminaIndex, "BASE_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getStamina()));
+            statMap.putModifier(manaIndex, "BASE_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getMana()));
+
+            // update the entity stats
+            statMap.update();
 
             // get the movement speed manager from player
             MovementManager movementManager = store.getComponent(ref, MovementManager.getComponentType());
@@ -240,7 +233,6 @@ public class Component_RPG_Player implements Component<EntityStore> {
             // Push the updates to the client
             PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
             movementManager.update(playerRef.getPacketHandler());
-            statMap.update();
 
         } catch (Exception e) {}
     }

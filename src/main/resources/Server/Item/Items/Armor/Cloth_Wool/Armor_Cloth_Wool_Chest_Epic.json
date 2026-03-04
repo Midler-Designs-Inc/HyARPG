@@ -42,7 +42,7 @@
     ],
     "BenchRequirement": [
       {
-        "Id": "TODO_HyARPG",
+        "Id": "Leatherworking_Bench_HyARPG",
         "Type": "Crafting",
         "Categories": [
           "Armor_Chest"

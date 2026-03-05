@@ -31,10 +31,6 @@ public class Listeners_UtilitySlot extends EntityEventSystem<EntityStore, Switch
         @NonNullDecl CommandBuffer<EntityStore> commandBuffer,
         @NonNullDecl SwitchActiveSlotEvent event
     ) {
-        // loop over all players and broadcast the message
-        for (PlayerRef player : Universe.get().getPlayers()) {
-            player.sendMessage(Message.raw("utility action"));
-        }
         Ref<EntityStore> ref = archetypeChunk.getReferenceTo(i);
         ModEventBus.post(new Event_PlayerUtilitySwitch(ref, store, commandBuffer, event));
     }

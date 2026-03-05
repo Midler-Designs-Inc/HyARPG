@@ -30,7 +30,7 @@
           "Parent": "DamageEntityParent",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 6
+              "Physical": 1
             }
           },
           "DamageEffects": {

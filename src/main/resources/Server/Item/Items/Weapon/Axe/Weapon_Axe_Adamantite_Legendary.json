@@ -16,15 +16,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 320
+        "Quantity": 604
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 240
+        "Quantity": 603
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 320
+        "Quantity": 604
       },
       {
         "ItemId": "Legendary_Shards",
@@ -67,9 +67,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 52
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 16
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Special_Impact"
@@ -94,9 +93,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 52
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 16
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Special_Impact"
@@ -120,10 +118,9 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 104
+              "Physical": 16
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.2
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Special_Impact"

@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 600
+        "Quantity": 56
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 300
+        "Quantity": 53
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 100
+        "Quantity": 51
       }
     ],
     "BenchRequirement": [
@@ -56,7 +56,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 18
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -72,7 +72,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 18
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -88,7 +88,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 34
+              "Physical": 18
             }
           },
           "DamageEffects": {
@@ -104,7 +104,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 51
+              "Physical": 30
             }
           },
           "EntityStatsOnHit": [
@@ -126,7 +126,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 37
+              "Physical": 18
             }
           },
           "EntityStatsOnHit": [],
@@ -143,7 +143,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 110
+              "Physical": 30
             }
           },
           "EntityStatsOnHit": [],
@@ -169,6 +169,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.21,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

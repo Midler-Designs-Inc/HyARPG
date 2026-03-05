@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 300
+        "Quantity": 95
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 180
+        "Quantity": 93
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 180
+        "Quantity": 93
       },
       {
         "ItemId": "Uncommon_Shards",
@@ -55,6 +55,7 @@
   },
   "MaxDurability": 0,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
   "ResourceTypes": [

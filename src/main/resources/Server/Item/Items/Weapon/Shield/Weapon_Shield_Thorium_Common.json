@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 300
+        "Quantity": 35
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 180
+        "Quantity": 33
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 180
+        "Quantity": 33
       }
     ],
     "BenchRequirement": [
@@ -52,6 +52,7 @@
   },
   "MaxDurability": 0,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

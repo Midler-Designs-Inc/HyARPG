@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Wool",
-        "Quantity": 80
+        "Quantity": 14
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 40
+        "Quantity": 12
       },
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 60
+        "Quantity": 13
       }
     ],
     "BenchRequirement": [

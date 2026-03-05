@@ -17,15 +17,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 480
+        "Quantity": 126
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 240
+        "Quantity": 123
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 320
+        "Quantity": 124
       },
       {
         "ItemId": "Uncommon_Shards",
@@ -65,9 +65,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 48
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -92,9 +91,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 48
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -119,9 +117,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 48
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 16
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -136,10 +133,9 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 144
+              "Physical": 24
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.15
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"

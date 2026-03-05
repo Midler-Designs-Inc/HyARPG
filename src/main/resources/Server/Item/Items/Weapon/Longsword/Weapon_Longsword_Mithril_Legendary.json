@@ -32,9 +32,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 70
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 15
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -59,9 +58,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 70
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 15
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -86,9 +84,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 70
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 20
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -103,10 +100,9 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 210
+              "Physical": 30
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.15
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -147,15 +143,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 1000
+        "Quantity": 760
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 500
+        "Quantity": 755
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 100
+        "Quantity": 751
       },
       {
         "ItemId": "Legendary_Shards",

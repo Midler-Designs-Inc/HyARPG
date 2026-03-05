@@ -15,15 +15,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 240
+        "Quantity": 34
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 180
+        "Quantity": 33
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 240
+        "Quantity": 34
       }
     ],
     "BenchRequirement": [
@@ -74,9 +74,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 24
-            },
-            "RandomPercentageModifier": 0.1
+              "Physical": 9
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"
@@ -101,9 +100,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 24
-            },
-            "RandomPercentageModifier": 0.1
+              "Physical": 9
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"
@@ -118,10 +116,9 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 48
+              "Physical": 18
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.1
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"

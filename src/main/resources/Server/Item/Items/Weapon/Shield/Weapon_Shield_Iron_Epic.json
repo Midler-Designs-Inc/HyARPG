@@ -27,15 +27,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 160
+        "Quantity": 204
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 120
+        "Quantity": 203
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 120
+        "Quantity": 203
       },
       {
         "ItemId": "Epic_Shards",
@@ -55,6 +55,7 @@
   },
   "MaxDurability": 0,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
   "ResourceTypes": [

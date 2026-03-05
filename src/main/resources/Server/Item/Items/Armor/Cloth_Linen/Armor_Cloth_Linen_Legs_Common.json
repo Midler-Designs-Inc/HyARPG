@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 120
+        "Quantity": 19
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 60
+        "Quantity": 17
       },
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 90
+        "Quantity": 18
       }
     ],
     "BenchRequirement": [

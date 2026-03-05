@@ -15,15 +15,15 @@
     "Input": [
       {
         "ResourceTypeId": "Rubble",
-        "Quantity": 12
+        "Quantity": 5
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 12
+        "Quantity": 5
       },
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 12
+        "Quantity": 5
       }
     ],
     "BenchRequirement": [
@@ -92,7 +92,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 6
+              "Physical": 2
             }
           }
         }
@@ -108,7 +108,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 6
+              "Physical": 2
             }
           }
         }
@@ -124,7 +124,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 11
+              "Physical": 3
             }
           }
         }
@@ -151,7 +151,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 16
+              "Physical": 5
             }
           },
           "EntityStatsOnHit": [
@@ -173,7 +173,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 12
+              "Physical": 3
             }
           },
           "EntityStatsOnHit": []
@@ -190,7 +190,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 35
+              "Physical": 5
             }
           },
           "EntityStatsOnHit": []
@@ -219,6 +219,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.21,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

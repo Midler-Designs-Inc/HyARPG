@@ -15,15 +15,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 160
+        "Quantity": 24
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 120
+        "Quantity": 23
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 160
+        "Quantity": 24
       }
     ],
     "BenchRequirement": [
@@ -65,9 +65,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 17
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 8
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Iron_Impact"
@@ -92,9 +91,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 17
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 8
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Iron_Impact"
@@ -118,10 +116,9 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 34
+              "Physical": 8
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.2
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Iron_Impact"

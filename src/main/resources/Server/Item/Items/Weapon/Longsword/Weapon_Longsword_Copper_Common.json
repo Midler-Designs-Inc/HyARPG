@@ -17,15 +17,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 120
+        "Quantity": 16
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 40
+        "Quantity": 12
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 80
+        "Quantity": 14
       }
     ],
     "BenchRequirement": [
@@ -62,9 +62,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 11
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 3
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -89,9 +88,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 11
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 3
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -116,9 +114,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 11
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 4
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -133,10 +130,9 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 33
+              "Physical": 6
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.15
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"

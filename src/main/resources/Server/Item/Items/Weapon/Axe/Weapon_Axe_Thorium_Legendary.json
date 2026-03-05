@@ -15,15 +15,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 240
+        "Quantity": 454
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 180
+        "Quantity": 453
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 240
+        "Quantity": 454
       },
       {
         "ItemId": "Legendary_Shards",
@@ -62,9 +62,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 24
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Crude_Impact"
@@ -89,9 +88,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 24
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Crude_Impact"
@@ -115,10 +113,9 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 48
+              "Physical": 12
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.2
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Crude_Impact"

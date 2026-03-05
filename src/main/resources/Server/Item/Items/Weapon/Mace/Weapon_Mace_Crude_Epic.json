@@ -14,15 +14,15 @@
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 96
+        "Quantity": 86
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 48
+        "Quantity": 83
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 64
+        "Quantity": 84
       },
       {
         "ItemId": "Epic_Shards",
@@ -83,7 +83,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 19
+              "Physical": 4
             }
           }
         }
@@ -99,7 +99,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 19
+              "Physical": 4
             }
           }
         }
@@ -115,7 +115,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 19
+              "Physical": 6
             }
           }
         }
@@ -142,7 +142,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 26
+              "Physical": 10
             }
           },
           "EntityStatsOnHit": [
@@ -175,7 +175,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 26
+              "Physical": 10
             }
           },
           "EntityStatsOnHit": [
@@ -208,7 +208,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 26
+              "Physical": 12
             }
           },
           "EntityStatsOnHit": [
@@ -245,7 +245,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 59
+              "Physical": 18
             }
           },
           "EntityStatsOnHit": [],
@@ -260,6 +260,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.5,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
   "ResourceTypes": [

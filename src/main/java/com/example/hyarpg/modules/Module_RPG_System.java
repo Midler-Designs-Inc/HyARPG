@@ -314,7 +314,7 @@ public class Module_RPG_System {
         group.add(cause, damage.getInitialAmount());
 
         // Zero out the packet — real damage applied during consumeSwingGroup
-        damage.setAmount(0);
+        damage.setAmount(0.001f);
     }
 
     // Consume grouped damage into a single hit and apply it to the target
@@ -587,7 +587,6 @@ public class Module_RPG_System {
 
     // capture when an item is added to a players inventory
     private void onPlayerInventoryItemAdded(Event_PlayerInventoryItemAdded event) {
-        alertPlayers("You added", Color.WHITE);
         // entity and store refs
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
@@ -629,13 +628,10 @@ public class Module_RPG_System {
     }
 
     // capture when an item is removed from a players inventory
-    private void onPlayerInventoryItemRemoved(Event_PlayerInventoryItemRemoved event) {
-        alertPlayers("You removed", Color.WHITE);
-    }
+    private void onPlayerInventoryItemRemoved(Event_PlayerInventoryItemRemoved event) {}
 
     // method for when a player equips an item
     private void onPlayerInventoryItemEquip(Event_PlayerInventoryItemEquip event) {
-        alertPlayers("You equipped", Color.WHITE);
         // get entity ref and entity store
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
@@ -701,16 +697,13 @@ public class Module_RPG_System {
         // get the item from the stack
         Item item = stack.getItem();
         if (Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")) return;
-        alertPlayers("Going to try to swap: " + item.getId(), Color.WHITE);
 
         // get the players crafting knowledge or remove the item and bail
         Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
         if (craftingKnowledge == null) {
-            alertPlayers("Couldn't find crafting knowledge on vanilla swap, removing item stack: " + item.getId(), Color.WHITE);
             container.removeItemStackFromSlot(slot);
             return;
         }
-        alertPlayers("Going to do swap stuff", Color.WHITE);
 
         // get the players known recipes, roll a rarity and then roll an item or empty container and bail if none returned
         Set<String> recipes = craftingKnowledge.discoveredDroppableRecipes;

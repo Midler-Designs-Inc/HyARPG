@@ -14,15 +14,15 @@
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 84
+        "Quantity": 27
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 42
+        "Quantity": 24
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 56
+        "Quantity": 25
       },
       {
         "ItemId": "Uncommon_Shards",
@@ -83,7 +83,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 11
+              "Physical": 6
             }
           }
         }
@@ -99,7 +99,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 14
+              "Physical": 6
             }
           }
         }
@@ -115,7 +115,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 23
+              "Physical": 8
             }
           }
         }
@@ -131,7 +131,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 18
+              "Physical": 10
             }
           },
           "EntityStatsOnHit": [
@@ -164,7 +164,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 9
+              "Physical": 15
             }
           },
           "EntityStatsOnHit": []
@@ -190,6 +190,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.45,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
   "ResourceTypes": [

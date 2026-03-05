@@ -29,15 +29,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 640
+        "Quantity": 36
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 280
+        "Quantity": 27
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 240
+        "Quantity": 26
       }
     ],
     "BenchRequirement": [

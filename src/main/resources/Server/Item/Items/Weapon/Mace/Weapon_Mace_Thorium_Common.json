@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 720
+        "Quantity": 42
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 240
+        "Quantity": 34
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 180
+        "Quantity": 33
       }
     ],
     "BenchRequirement": [
@@ -53,7 +53,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 36
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -69,7 +69,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 36
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -85,7 +85,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 36
+              "Physical": 18
             }
           },
           "DamageEffects": {
@@ -101,7 +101,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 52
+              "Physical": 30
             }
           },
           "EntityStatsOnHit": [
@@ -123,7 +123,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 52
+              "Physical": 30
             }
           },
           "EntityStatsOnHit": [
@@ -145,7 +145,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 52
+              "Physical": 36
             }
           },
           "EntityStatsOnHit": [
@@ -167,7 +167,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 116
+              "Physical": 54
             }
           },
           "EntityStatsOnHit": [],
@@ -193,6 +193,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.5,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

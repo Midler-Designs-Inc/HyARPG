@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Wool",
-        "Quantity": 60
+        "Quantity": 103
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 40
+        "Quantity": 102
       },
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 40
+        "Quantity": 102
       },
       {
         "ItemId": "Epic_Shards",

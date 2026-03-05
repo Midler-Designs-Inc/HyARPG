@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 720
+        "Quantity": 462
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 240
+        "Quantity": 454
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 180
+        "Quantity": 453
       },
       {
         "ItemId": "Legendary_Shards",
@@ -47,7 +47,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 46
+              "Physical": 24
             }
           },
           "DamageEffects": {
@@ -63,7 +63,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 22
+              "Physical": 18
             }
           },
           "DamageEffects": {
@@ -79,7 +79,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 28
+              "Physical": 18
             }
           },
           "DamageEffects": {
@@ -95,7 +95,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Downstrike_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 36
+              "Physical": 30
             }
           },
           "EntityStatsOnHit": [
@@ -117,7 +117,7 @@
           "Parent": "Weapon_Battleaxe_Signature_Whirlwind_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 18
+              "Physical": 45
             }
           },
           "EntityStatsOnHit": [],
@@ -143,6 +143,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.45,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
   "ResourceTypes": [

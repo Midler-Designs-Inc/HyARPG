@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 120
+        "Quantity": 49
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 60
+        "Quantity": 47
       },
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 90
+        "Quantity": 48
       },
       {
         "ItemId": "Uncommon_Shards",

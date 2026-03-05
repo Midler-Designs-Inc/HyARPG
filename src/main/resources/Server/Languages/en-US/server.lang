@@ -38,4 +38,6 @@ items.Weapon_Kunai_Bone.name=Bone Kunai
 items.Tool_Stat_Viewer.name=RPG Stat Viewer
 items.Tool_Stat_Viewer.description=Use this item to view your RPG stats from equipped gear.
 items.Statue_Of_Knowledge.name=Statue of Knowledge
-server.items.Statue_Of_Knowledge.description=The Statue can help you gain knowledge on the gear that you find.
+items.Statue_Of_Knowledge.description=The Statue can help you gain knowledge on the gear that you find.
+items.Bench_Leatherworking.name=Tailoring Bench
+items.Bench_Leatherworking.description=Useful for making leather and cloth armor.

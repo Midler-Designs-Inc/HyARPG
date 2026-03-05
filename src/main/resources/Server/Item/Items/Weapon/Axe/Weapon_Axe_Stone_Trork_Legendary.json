@@ -13,15 +13,15 @@
     "Input": [
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 100
+        "Quantity": 377
       },
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 300
+        "Quantity": 381
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 50
+        "Quantity": 376
       },
       {
         "ItemId": "Legendary_Shards",
@@ -73,9 +73,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 10
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Crude_Impact"
@@ -100,9 +99,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 10
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Crude_Impact"
@@ -126,10 +124,9 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 20
+              "Physical": 12
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.2
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Crude_Impact"

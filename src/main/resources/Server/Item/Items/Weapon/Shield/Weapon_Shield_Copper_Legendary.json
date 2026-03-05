@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 40
+        "Quantity": 152
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 20
+        "Quantity": 151
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 60
+        "Quantity": 153
       },
       {
         "ItemId": "Legendary_Shards",
@@ -90,6 +90,7 @@
   },
   "MaxDurability": 0,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
   "ResourceTypes": [

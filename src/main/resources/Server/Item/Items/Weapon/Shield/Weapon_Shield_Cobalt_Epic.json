@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 420
+        "Quantity": 356
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 210
+        "Quantity": 353
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 210
+        "Quantity": 353
       },
       {
         "ItemId": "Epic_Shards",
@@ -55,6 +55,7 @@
   },
   "MaxDurability": 0,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
   "ResourceTypes": [

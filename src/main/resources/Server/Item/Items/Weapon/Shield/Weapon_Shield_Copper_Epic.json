@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 40
+        "Quantity": 102
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 20
+        "Quantity": 101
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 60
+        "Quantity": 103
       },
       {
         "ItemId": "Epic_Shards",
@@ -90,6 +90,7 @@
   },
   "MaxDurability": 0,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
   "ResourceTypes": [

@@ -58,7 +58,56 @@
       "CompletedSoundEventId": "SFX_Furnace_Bench_Processing_Complete",
       "EndSoundEventId": "SFX_Furnace_Bench_Processing_End",
       "FailedSoundEventId": "SFX_Generic_Crafting_Failed",
-      "Id": "Salvagebench"
+      "Id": "Salvagebench",
+      "TierLevels": [
+        {
+          "CraftingTimeReductionModifier": 0.2,
+          "ExtraInputSlot": 0,
+          "ExtraOutputSlot": 0,
+          "UpgradeRequirement": {
+            "TimeSeconds": 3,
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 25
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 25
+              },
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 25
+              }
+            ]
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "TimeSeconds": 3,
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 50
+              },
+              {
+                "ItemId": "Ingredient_Bar_Adamantite",
+                "Quantity": 25
+              },
+              {
+                "ItemId": "Ingredient_Bar_Mithril",
+                "Quantity": 25
+              }
+            ]
+          },
+          "ExtraInputSlot": 2,
+          "ExtraOutputSlot": 2
+        },
+        {
+          "ExtraInputSlot": 5,
+          "ExtraOutputSlot": 2
+        }
+      ]
     },
     "State": {
       "Id": "processingBench",

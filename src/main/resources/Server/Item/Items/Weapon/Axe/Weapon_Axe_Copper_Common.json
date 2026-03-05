@@ -15,15 +15,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 80
+        "Quantity": 14
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 40
+        "Quantity": 12
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 80
+        "Quantity": 14
       }
     ],
     "BenchRequirement": [
@@ -65,9 +65,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 12
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 4
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Iron_Impact"
@@ -92,9 +91,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 12
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 4
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Iron_Impact"
@@ -118,10 +116,9 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 24
+              "Physical": 4
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.2
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Iron_Impact"

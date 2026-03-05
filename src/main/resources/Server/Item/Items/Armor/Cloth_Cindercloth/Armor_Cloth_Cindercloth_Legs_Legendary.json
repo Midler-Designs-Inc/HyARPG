@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 360
+        "Quantity": 679
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 180
+        "Quantity": 677
       },
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 270
+        "Quantity": 678
       },
       {
         "ItemId": "Legendary_Shards",

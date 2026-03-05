@@ -32,9 +32,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 8
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 3
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -59,9 +58,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 8
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 3
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -86,9 +84,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 8
-            },
-            "RandomPercentageModifier": 0.15
+              "Physical": 4
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -103,10 +100,9 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 24
+              "Physical": 6
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.15
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Longsword_Special_Impact"
@@ -121,15 +117,15 @@
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 60
+        "Quantity": 21
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 20
+        "Quantity": 17
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 40
+        "Quantity": 19
       },
       {
         "ItemId": "Uncommon_Shards",

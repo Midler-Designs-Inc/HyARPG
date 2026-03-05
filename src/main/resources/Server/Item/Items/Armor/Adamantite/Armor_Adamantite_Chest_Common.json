@@ -24,15 +24,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 2240
+        "Quantity": 68
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 640
+        "Quantity": 48
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 560
+        "Quantity": 47
       }
     ],
     "BenchRequirement": [

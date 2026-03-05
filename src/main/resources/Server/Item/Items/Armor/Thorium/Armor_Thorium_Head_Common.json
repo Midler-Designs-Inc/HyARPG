@@ -12,19 +12,19 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 660
+        "Quantity": 41
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 240
+        "Quantity": 34
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 240
+        "Quantity": 34
       },
       {
         "ItemId": "Ingredient_Sac_Venom",
-        "Quantity": 120
+        "Quantity": 32
       }
     ],
     "BenchRequirement": [

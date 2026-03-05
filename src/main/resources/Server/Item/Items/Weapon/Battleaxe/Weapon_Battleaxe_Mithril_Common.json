@@ -12,15 +12,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 1000
+        "Quantity": 60
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 400
+        "Quantity": 54
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 100
+        "Quantity": 51
       }
     ],
     "BenchRequirement": [
@@ -44,7 +44,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 73
+              "Physical": 40
             }
           },
           "DamageEffects": {
@@ -60,7 +60,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 36
+              "Physical": 30
             }
           },
           "DamageEffects": {
@@ -76,7 +76,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 44
+              "Physical": 30
             }
           },
           "DamageEffects": {
@@ -92,7 +92,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Downstrike_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 57
+              "Physical": 50
             }
           },
           "EntityStatsOnHit": [
@@ -114,7 +114,7 @@
           "Parent": "Weapon_Battleaxe_Signature_Whirlwind_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 29
+              "Physical": 75
             }
           },
           "EntityStatsOnHit": [],
@@ -140,6 +140,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.45,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

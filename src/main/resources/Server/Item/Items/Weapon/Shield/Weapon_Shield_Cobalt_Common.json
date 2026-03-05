@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 420
+        "Quantity": 41
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 210
+        "Quantity": 38
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 210
+        "Quantity": 38
       }
     ],
     "BenchRequirement": [
@@ -52,6 +52,7 @@
   },
   "MaxDurability": 0,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

@@ -12,15 +12,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 1000
+        "Quantity": 60
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 300
+        "Quantity": 53
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 100
+        "Quantity": 51
       }
     ],
     "BenchRequirement": [
@@ -44,7 +44,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 8
+              "Physical": 5
             }
           },
           "DamageEffects": {
@@ -61,7 +61,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 8
+              "Physical": 5
             }
           },
           "DamageEffects": {
@@ -78,7 +78,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 15
+              "Physical": 7.5
             }
           },
           "DamageEffects": {
@@ -95,7 +95,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 25
+              "Physical": 7.5
             }
           },
           "DamageEffects": {
@@ -112,7 +112,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 61
+              "Physical": 10
             }
           },
           "EntityStatsOnHit": [
@@ -178,7 +178,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 76
+              "Physical": 10
             }
           },
           "EntityStatsOnHit": [
@@ -244,7 +244,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Slash_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 49
+              "Physical": 10
             }
           },
           "EntityStatsOnHit": [],
@@ -305,7 +305,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 61
+              "Physical": 10
             }
           },
           "EntityStatsOnHit": [],
@@ -366,7 +366,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Lunge_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 73
+              "Physical": 10
             }
           },
           "EntityStatsOnHit": [],
@@ -436,6 +436,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.1,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

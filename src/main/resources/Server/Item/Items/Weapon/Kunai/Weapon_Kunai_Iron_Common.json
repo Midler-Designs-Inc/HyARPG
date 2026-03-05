@@ -1,0 +1,81 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Kunai.name"
+  },
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "Icon": "Icons/ItemsGenerated/Weapon_Kunai.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      315,
+      270,
+      0
+    ],
+    "Translation": [
+      -21,
+      -22
+    ]
+  },
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 26
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 24
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Daggers",
+          "Discoverable",
+          "Discoverable"
+        ],
+        "Id": "Weapon_Bench_HyARPG_HyARPG",
+        "RequiredTierLevel": 2
+      }
+    ]
+  },
+  "Quality": "Common",
+  "ItemLevel": 20,
+  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Texture.png",
+  "PlayerAnimationsId": "Throwing_Knife",
+  "Utility": {
+    "Usable": true
+  },
+  "Weapon": {},
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        "Iron_Kunai_Throw"
+      ],
+      "Cooldown": {
+        "Cooldown": 0.25,
+        "Charges": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "InterruptRecharge": true,
+        "ClickBypass": false
+      }
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ]
+  },
+  "MaxDurability": 0
+}

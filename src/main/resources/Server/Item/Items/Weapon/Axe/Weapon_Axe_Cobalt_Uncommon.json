@@ -15,15 +15,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 280
+        "Quantity": 109
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 210
+        "Quantity": 108
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 280
+        "Quantity": 109
       },
       {
         "ItemId": "Uncommon_Shards",
@@ -68,9 +68,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 36
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 16
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Special_Impact"
@@ -95,9 +94,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 36
-            },
-            "RandomPercentageModifier": 0.2
+              "Physical": 16
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Special_Impact"
@@ -121,10 +119,9 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 72
+              "Physical": 16
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.2
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Axe_Special_Impact"

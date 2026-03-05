@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 400
+        "Quantity": 54
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 300
+        "Quantity": 53
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Stormsilk",
-        "Quantity": 300
+        "Quantity": 53
       }
     ],
     "BenchRequirement": [
@@ -52,6 +52,7 @@
   },
   "MaxDurability": 0,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

@@ -24,19 +24,19 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 1200
+        "Quantity": 320
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 420
+        "Quantity": 307
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 420
+        "Quantity": 307
       },
       {
         "ItemId": "Ingredient_Sac_Venom",
-        "Quantity": 240
+        "Quantity": 304
       },
       {
         "ItemId": "Epic_Shards",

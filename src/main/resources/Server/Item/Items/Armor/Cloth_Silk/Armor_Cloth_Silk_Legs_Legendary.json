@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 280
+        "Quantity": 529
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 140
+        "Quantity": 527
       },
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 210
+        "Quantity": 528
       },
       {
         "ItemId": "Legendary_Shards",

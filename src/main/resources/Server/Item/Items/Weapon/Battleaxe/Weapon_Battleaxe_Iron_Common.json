@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 400
+        "Quantity": 30
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 160
+        "Quantity": 24
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 120
+        "Quantity": 23
       }
     ],
     "BenchRequirement": [
@@ -44,7 +44,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 36
+              "Physical": 16
             }
           },
           "DamageEffects": {
@@ -60,7 +60,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 18
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -76,7 +76,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 23
+              "Physical": 12
             }
           },
           "DamageEffects": {
@@ -92,7 +92,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Downstrike_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 29
+              "Physical": 20
             }
           },
           "EntityStatsOnHit": [
@@ -114,7 +114,7 @@
           "Parent": "Weapon_Battleaxe_Signature_Whirlwind_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 14
+              "Physical": 30
             }
           },
           "EntityStatsOnHit": [],
@@ -140,6 +140,7 @@
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.45,
   "Categories": [
+    "Items.Weapons",
     "Items.HyARPG.Gear"
   ]
 }

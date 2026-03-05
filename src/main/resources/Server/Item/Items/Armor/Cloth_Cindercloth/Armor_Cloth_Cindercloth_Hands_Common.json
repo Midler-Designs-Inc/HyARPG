@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 180
+        "Quantity": 47
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 90
+        "Quantity": 46
       },
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 180
+        "Quantity": 47
       }
     ],
     "BenchRequirement": [

@@ -18,15 +18,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 320
+        "Quantity": 44
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 240
+        "Quantity": 43
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 320
+        "Quantity": 44
       }
     ],
     "BenchRequirement": [
@@ -71,9 +71,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 52
-            },
-            "RandomPercentageModifier": 0.1
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"
@@ -98,9 +97,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 52
-            },
-            "RandomPercentageModifier": 0.1
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"
@@ -115,10 +113,9 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 104
+              "Physical": 24
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.1
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"

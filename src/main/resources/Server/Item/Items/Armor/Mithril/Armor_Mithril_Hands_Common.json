@@ -24,15 +24,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 800
+        "Quantity": 58
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 200
+        "Quantity": 52
       },
       {
         "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 2000
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [

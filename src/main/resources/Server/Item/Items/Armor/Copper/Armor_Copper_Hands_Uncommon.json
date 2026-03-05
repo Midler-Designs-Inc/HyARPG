@@ -23,11 +23,11 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 100
+        "Quantity": 35
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 20
+        "Quantity": 31
       },
       {
         "ItemId": "Uncommon_Shards",

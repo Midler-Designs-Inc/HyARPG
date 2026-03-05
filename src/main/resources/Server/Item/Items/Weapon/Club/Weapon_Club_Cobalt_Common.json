@@ -15,15 +15,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 280
+        "Quantity": 39
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 210
+        "Quantity": 38
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 280
+        "Quantity": 39
       }
     ],
     "BenchRequirement": [
@@ -74,9 +74,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 36
-            },
-            "RandomPercentageModifier": 0.1
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"
@@ -101,9 +100,8 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 36
-            },
-            "RandomPercentageModifier": 0.1
+              "Physical": 12
+            }
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"
@@ -118,10 +116,9 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 72
+              "Physical": 24
             },
-            "Type": "Absolute",
-            "RandomPercentageModifier": 0.1
+            "Type": "Absolute"
           },
           "DamageEffects": {
             "WorldSoundEventId": "SFX_Club_Special_Impact"

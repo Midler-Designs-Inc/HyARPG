@@ -10,7 +10,6 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 public class Component_Hunger implements Component<EntityStore> {
     public float value = 120f;        // Current hunger
     public float max = 120f;          // Max hunger
-    public float drainRate = 0.02f;    // Hunger lost per second
 
     public static final BuilderCodec<Component_Hunger> CODEC = BuilderCodec.builder(
         Component_Hunger.class, Component_Hunger::new

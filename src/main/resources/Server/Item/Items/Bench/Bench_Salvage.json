@@ -22,7 +22,14 @@
         "Quantity": 5
       }
     ],
-    "BenchRequirement": [],
+    "BenchRequirement": [ {
+      "Type": "Crafting",
+      "Categories": [
+        "Workbench_Crafting"
+      ],
+      "Id": "Workbench",
+      "RequiredTierLevel": 2
+    }],
     "TimeSeconds": 3
   },
   "BlockType": {

@@ -2,6 +2,7 @@ package com.example.hyarpg.interactions;
 
 // Hytale Imports
 import com.example.hyarpg.components.Component_Hunger;
+import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -40,7 +41,7 @@ public class Interaction_RestoreHungerT3 extends SimpleInstantInteraction {
         if (hunger == null) return;
 
         // restore some hunger
-        float value = (float) (hunger.max * 0.66);
+        float value = (float) (hunger.max * ModConfig.get().hunger.restore_t3_percent);
         hunger.restore(value);
     }
 }

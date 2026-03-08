@@ -28,6 +28,8 @@ public class Module_Hunger {
 
     private final HyARPGPlugin plugin;
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+
+    // Component Type References
     public static ComponentType<EntityStore, Component_Hunger> componentTypeHunger;
 
     // initialize this module

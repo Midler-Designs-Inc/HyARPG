@@ -2,6 +2,7 @@ package com.example.hyarpg.interactions;
 
 // Hytale Imports
 import com.example.hyarpg.components.Component_Thirst;
+import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -38,7 +39,7 @@ public class Interaction_RestoreThirstT1 extends SimpleInstantInteraction {
         if (thirst == null) return;
 
         // restore some thirst
-        float value = (float) (thirst.max * 0.10);
+        float value = (float) (thirst.max * ModConfig.get().thirst.restore_t1_percent);
         thirst.restore(value);
     }
 }

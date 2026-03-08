@@ -1,20 +1,14 @@
 package com.example.hyarpg.modules;
 
 // Hytale imports
-import com.example.hyarpg.HyARPGPlugin;
-import com.example.hyarpg.ModEventBus;
-import com.example.hyarpg.events.Event_PlayerInventoryItemEquip;
-import com.example.hyarpg.events.Event_PlayerInventoryItemUnEquip;
+import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.GameMode;
-import com.hypixel.hytale.protocol.MovementStates;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.movement.MovementStatesComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
-import com.hypixel.hytale.server.core.modules.entity.player.PlayerInput;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -26,7 +20,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod imports
 import com.example.hyarpg.components.*;
-import com.hypixel.hytale.server.npc.movement.MovementState;
+import com.example.hyarpg.HyARPGPlugin;
 
 // Java imports
 import java.util.Objects;
@@ -113,13 +107,13 @@ public final class Module_ModTickLoop {
     private void tickHunger(Ref<EntityStore> ref, Store<EntityStore> store, Player player){
         try {
             // if it's creative mode don't interact with hunger and bail
-            if (player.getGameMode() == GameMode.Creative) return;
+            if (player.getGameMode() == GameMode.Creative || !ModConfig.get().hunger.enabled) return;
 
             // get the hunger component
             Component_Hunger hunger = store.getComponent(ref, Module_Hunger.componentTypeHunger);
 
             // do the drain
-            hunger.drain(hunger.drainRate);
+            hunger.drain((float) ModConfig.get().hunger.drain_rate);
 
             // Apply starvation damage if starving
             if (hunger.isStarving()) {
@@ -140,7 +134,7 @@ public final class Module_ModTickLoop {
 
                 // Only damage if health > 1 (don't kill the player)
                 if (currentHealth > 1.0f) {
-                    float healthDMG = maxHealth / 60f; // full drain over 60 seconds
+                    float healthDMG = maxHealth / ((float)ModConfig.get().hunger.seconds_till_death * TICK_INTERVALS_PER_SECOND); // full drain over 60 seconds
                     float newHealth = Math.max(1.0f, currentHealth - healthDMG);
                     statMap.setStatValue(healthIndex, newHealth);
                 }
@@ -154,13 +148,13 @@ public final class Module_ModTickLoop {
     private void tickThirst(Ref<EntityStore> ref, Store<EntityStore> store, Player player){
         try {
             // if it's creative mode don't interact with thirst and bail
-            if (player.getGameMode() == GameMode.Creative) return;
+            if (player.getGameMode() == GameMode.Creative || !ModConfig.get().thirst.enabled) return;
 
             // get the thirst component
             Component_Thirst thirst = store.getComponent(ref, Module_Thirst.componentTypeThirst);
 
             // do the drain
-            thirst.drain(thirst.drainRate);
+            thirst.drain((float) ModConfig.get().thirst.drain_rate);
 
             // Apply starvation damage if starving
             if (thirst.isStarving()) {
@@ -180,7 +174,7 @@ public final class Module_ModTickLoop {
 
                 // Only damage if health > 1 (don't kill the player)
                 if (currentHealth > 1.0f) {
-                    float healthDMG = maxHealth / 60f; // full drain over 60 seconds
+                    float healthDMG = maxHealth / ((float)ModConfig.get().thirst.seconds_till_death * TICK_INTERVALS_PER_SECOND); // full drain over 60 seconds
                     float newHealth = Math.max(1.0f, currentHealth - healthDMG);
                     statMap.setStatValue(healthIndex, newHealth);
                 }

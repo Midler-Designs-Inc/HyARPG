@@ -3,6 +3,7 @@ package com.example.hyarpg.modules;
 // Hytale imports
 import com.example.hyarpg.components.Component_Hunger;
 import com.example.hyarpg.components.Component_RPG_Player;
+import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -56,8 +57,8 @@ public class Module_PlayerHud {
         if (hud == null) hud = HudBuilder.hudForPlayer(playerRef);
 
         // add the applicable hud elements
-        createThirstHud(world, entityRef, store);
-        createHungerHud(world, entityRef, store);
+        if(ModConfig.get().thirst.enabled) createThirstHud(world, entityRef, store);
+        if(ModConfig.get().hunger.enabled) createHungerHud(world, entityRef, store);
         createXPHud(world, entityRef, store);
 
         // create the hud refresh logic

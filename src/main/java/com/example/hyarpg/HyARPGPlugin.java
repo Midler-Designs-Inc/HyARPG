@@ -1,6 +1,7 @@
 package com.example.hyarpg;
 
 // Hytale Imports
+import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
@@ -39,6 +40,9 @@ public class HyARPGPlugin extends JavaPlugin {
     @Override
     protected void setup() {
         LOGGER.at(Level.INFO).log("[HyARPG] Setting up...");
+
+        // Create or Read a Config File
+        ModConfig.load();
 
         // Register event listeners
         registerListeners();

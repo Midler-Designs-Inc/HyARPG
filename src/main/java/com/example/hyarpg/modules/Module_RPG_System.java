@@ -1,6 +1,7 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -63,13 +64,15 @@ public class Module_RPG_System {
 
     private final HyARPGPlugin plugin;
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
+
+    // Component Type references
     public static ComponentType<EntityStore, Component_RPG_Player> componentTypeRPGPlayer;
     public static ComponentType<EntityStore, Component_RPG_Enemy> componentTypeRPGEnemy;
     public static ComponentType<EntityStore, Component_CraftingKnowledge> componentTypeCraftingKnowledge;
 
     // properties that control enemy level as they get further from spawn
-    private static final double LEVEL_DISTANCE_THRESHOLD = 500.0;
-    private static final int LEVEL_VARIANCE = 5;
+    private static final double LEVEL_DISTANCE_THRESHOLD = ModConfig.get().enemies.blocks_per_level_threshold;
+    private static final int LEVEL_VARIANCE = ModConfig.get().enemies.random_level_offset;
     private static final Random random = new Random();
 
     // sets a delta time for secondary action to assist with parry mechanics
@@ -289,10 +292,18 @@ public class Module_RPG_System {
         Store<EntityStore> store = event.getStore();
         Damage damage = event.getDamage();
 
-        // Only intercept damage types our mod manages
+        // get the damage type
         int causeIndex = damage.getDamageCauseIndex();
         DamageCause cause = DamageCause.getAssetMap().getAsset(causeIndex);
-        if (cause == null || !MOD_DAMAGE_TYPES.contains(cause.getId())) return;
+
+        // if the damage type is command or null bail
+        if (cause == null || Objects.equals(cause.getId(), "Command")) return;
+
+        // if the damage type is not command and not a mod type just set it to physical
+        if (!MOD_DAMAGE_TYPES.contains(cause.getId())) {
+            cause = DamageCause.getAssetMap().getAsset("Physical");
+            damage.setDamageCauseIndex(DamageCause.getAssetMap().getIndex("Physical"));
+        }
 
         // check that at least one party was a player, otherwise bail
         Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
@@ -846,14 +857,14 @@ public class Module_RPG_System {
     // adjust damage packets based on the enemies level
     private double adjustDamageBasedOnLevel(int attackerLevel, int attackerRarity, int defenderLevel, int defenderRarity, double damage) {
         // Tunable constants (safe for infinite scaling)
-        final double LEVEL_MULTIPLIER = 1.15;   // 15% per level
-        final double RARITY_MULTIPLIER = 1.33;  // 33% per rarity tier
+        final double LEVEL_MULTIPLIER = ModConfig.get().combat.level_diff_damage_multiplier;
+        final double RARITY_MULTIPLIER = ModConfig.get().combat.rarity_diff_damage_multiplier;
 
         // determine delta based on level/rarity difference
         int levelDelta = attackerLevel - defenderLevel;
         int rarityDelta = attackerRarity - defenderRarity;
 
-        // use the deltas to determen a level/rarity scale
+        // use the deltas to determine a level/rarity scale
         double levelScale = Math.pow(LEVEL_MULTIPLIER, levelDelta);
         double rarityScale = Math.pow(RARITY_MULTIPLIER, rarityDelta);
 

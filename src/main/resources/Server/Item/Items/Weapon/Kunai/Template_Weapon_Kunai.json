@@ -1,0 +1,67 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Template_Weapon_Kunai.name"
+  },
+  "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
+  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Kunai.png",
+  "PlayerAnimationsId": "Throwing_Knife",
+  "Reticle": "DefaultMelee",
+  "Quality": "Template",
+  "ItemLevel": 15,
+  "Categories": [
+    "Items.Weapons"
+  ],
+  "IconProperties": {
+    "Scale": 0.5,
+    "Translation": [
+      -21,
+      -22
+    ],
+    "Rotation": [
+      315,
+      270,
+      0
+    ]
+  },
+  "Utility": {
+    "Compatible": true
+  },
+  "Interactions": {
+    "Secondary": "Root_Weapon_Kunai_Secondary",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ],
+    "Family": [
+      "Kunai"
+    ]
+  },
+  "Weapon": {},
+  "MaxDurability": 80,
+  "DurabilityLossOnHit": 0.21,
+  "ItemAppearanceConditions": {}
+}

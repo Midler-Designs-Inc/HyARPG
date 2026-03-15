@@ -34,6 +34,10 @@ public class ModConfig extends ConfigurablePojo<ModConfig> {
     @Section("combat")
     public Config_Combat combat = new Config_Combat();
 
+    @Key("experience")
+    @Section("experience")
+    public Config_Experience experience = new Config_Experience();
+
     public static void load() {
         Thread.currentThread().setContextClassLoader(ModConfig.class.getClassLoader());
         INSTANCE = ConfigurationLoader.from(CONFIG_PATH)

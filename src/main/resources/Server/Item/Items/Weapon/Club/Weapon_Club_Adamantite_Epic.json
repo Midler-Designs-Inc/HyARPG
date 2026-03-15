@@ -73,7 +73,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 12
+              "Club": 16
             }
           },
           "DamageEffects": {
@@ -99,7 +99,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 12
+              "Club": 16
             }
           },
           "DamageEffects": {
@@ -115,7 +115,7 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 24
+              "Club": 28
             },
             "Type": "Absolute"
           },

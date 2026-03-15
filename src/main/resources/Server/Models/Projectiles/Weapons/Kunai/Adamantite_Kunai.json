@@ -1,0 +1,9 @@
+{
+  "Parent": "Kunai",
+  "DefaultAttachments": [
+    {
+      "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
+      "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Adamantite_Kunai.png"
+    }
+  ]
+}

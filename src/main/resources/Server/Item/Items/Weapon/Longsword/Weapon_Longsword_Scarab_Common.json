@@ -68,7 +68,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 12
+              "Longsword": 16
             }
           },
           "DamageEffects": {
@@ -94,7 +94,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 12
+              "Longsword": 16
             }
           },
           "DamageEffects": {
@@ -120,7 +120,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 16
+              "Longsword": 20
             }
           },
           "DamageEffects": {
@@ -136,7 +136,7 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 24
+              "Longsword": 28
             },
             "Type": "Absolute"
           },
@@ -174,5 +174,10 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blade_Large"
+  "ItemSoundSetId": "ISS_Weapons_Blade_Large",
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
+  ]
 }

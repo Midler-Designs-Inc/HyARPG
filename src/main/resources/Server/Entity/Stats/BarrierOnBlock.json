@@ -1,0 +1,18 @@
+{
+  "InitialValue": 0,
+  "Min": 0,
+  "Max": 0,
+  "Regenerating": [
+    {
+      "Interval": 0.2,
+      "Amount": 0.1,
+      "ClampAtZero": true,
+      "RegenType": "Percentage",
+      "Conditions": [
+        {
+          "Id": "Wielding"
+        }
+      ]
+    }
+  ]
+}

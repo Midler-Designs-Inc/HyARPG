@@ -1,7 +1,7 @@
 package com.example.hyarpg;
 
 // Hytale Imports
-import com.example.hyarpg.configs.ModConfig;
+
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
@@ -12,6 +12,8 @@ import com.hypixel.hytale.logger.HytaleLogger;
 import com.example.hyarpg.listeners.*;
 import com.example.hyarpg.modules.*;
 import com.example.hyarpg.worldgen.*;
+import com.example.hyarpg.commands.*;
+import com.example.hyarpg.configs.ModConfig;
 
 // Java Imports
 import javax.annotation.Nonnull;
@@ -49,6 +51,9 @@ public class HyARPGPlugin extends JavaPlugin {
 
         // Register mod modules
         registerModules();
+
+        // Register mod commands
+        registerCommands();
 
         LOGGER.at(Level.INFO).log("[HyARPG] Setup complete!");
     }
@@ -101,6 +106,19 @@ public class HyARPGPlugin extends JavaPlugin {
             LOGGER.at(Level.INFO).log("[HyARPG] Instantiated modules");
         } catch (Exception e) {
             LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register modules");
+        }
+    }
+
+    // Regist the commends for this mod
+    private void registerCommands(){
+        try {
+            getCommandRegistry().registerCommand(new ShowStats());
+            getCommandRegistry().registerCommand(new ShowSkills());
+
+            // log the instantiation
+            LOGGER.at(Level.INFO).log("[HyARPG] Instantiated commands");
+        } catch (Exception e) {
+            LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register commands");
         }
     }
 

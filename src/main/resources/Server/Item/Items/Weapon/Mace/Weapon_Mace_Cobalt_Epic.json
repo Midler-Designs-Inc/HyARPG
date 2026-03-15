@@ -55,7 +55,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 16
+              "Mace": 20
             }
           },
           "DamageEffects": {
@@ -71,7 +71,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 16
+              "Mace": 20
             }
           },
           "DamageEffects": {
@@ -87,7 +87,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 24
+              "Mace": 28
             }
           },
           "DamageEffects": {
@@ -103,7 +103,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 40
+              "Mace": 44
             }
           },
           "EntityStatsOnHit": [
@@ -125,7 +125,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 40
+              "Mace": 44
             }
           },
           "EntityStatsOnHit": [
@@ -147,7 +147,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 48
+              "Mace": 52
             }
           },
           "EntityStatsOnHit": [
@@ -169,7 +169,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 72
+              "Mace": 76
             }
           },
           "EntityStatsOnHit": [],

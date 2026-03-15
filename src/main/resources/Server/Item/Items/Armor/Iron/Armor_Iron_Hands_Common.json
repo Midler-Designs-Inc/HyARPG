@@ -85,5 +85,10 @@
     "Family": [
       "Iron"
     ]
-  }
+  },
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
+  ]
 }

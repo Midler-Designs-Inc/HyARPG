@@ -67,5 +67,10 @@
   "Quality": "Common",
   "Categories": [
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
   ]
 }

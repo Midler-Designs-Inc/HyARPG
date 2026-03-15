@@ -1,4 +1,5 @@
 {
+  "Parent": "Template_Weapon_Kunai",
   "TranslationProperties": {
     "Name": "server.items.Weapon_Kunai_Thorium.name",
     "Description": "server.items.Weapon_Kunai_Thorium.description"
@@ -29,22 +30,26 @@
     "Usable": true
   },
   "Weapon": {},
-  "Interactions": {
-    "Secondary": {
+  "InteractionVars": {
+    "Kunai_Projectile": {
       "Interactions": [
-        "Thorium_Kunai_Throw"
-      ],
-      "Cooldown": {
-        "Cooldown": 0.25,
-        "Charges": [
-          1,
-          1,
-          1,
-          1
-        ],
-        "InterruptRecharge": true,
-        "ClickBypass": false
-      }
+        {
+          "Type": "Projectile",
+          "Config": "Projectile_Config_Kunai_Thorium"
+        }
+      ]
+    },
+    "Kunai_Hit_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Kunai_Primary_Hit_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Kunai": 6
+            }
+          }
+        }
+      ]
     }
   },
   "Tags": {
@@ -81,5 +86,10 @@
     ],
     "KnowledgeRequired": true
   },
-  "MaxDurability": 0
+  "MaxDurability": 0,
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
+  ]
 }

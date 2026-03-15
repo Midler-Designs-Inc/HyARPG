@@ -1,0 +1,25 @@
+{
+  "Type": "Serial",
+  "Interactions": [
+    {
+      "Type": "Simple",
+      "RunTime": 0.25,
+      "Effects": {
+        "ItemAnimationId": "Throw"
+      }
+    },
+    {
+      "Type": "Replace",
+      "Var": "Kunai_Projectile",
+      "DefaultOk": true,
+      "DefaultValue": {
+        "Interactions": [
+          {
+            "Type": "Projectile",
+            "Config": "Projectile_Config_Kunai_Default"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -8,6 +8,11 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -21,6 +26,9 @@ import com.example.hyarpg.components.Component_Thirst;
 // HyUI Imports
 import au.ellie.hyui.builders.*;
 import au.ellie.hyui.types.ProgressBarDirection;
+import org.jline.jansi.Ansi;
+
+import java.awt.*;
 
 import static com.example.hyarpg.modules.Module_Hunger.componentTypeHunger;
 import static com.example.hyarpg.modules.Module_RPG_System.componentTypeRPGPlayer;
@@ -60,6 +68,7 @@ public class Module_PlayerHud {
         if(ModConfig.get().thirst.enabled) createThirstHud(world, entityRef, store);
         if(ModConfig.get().hunger.enabled) createHungerHud(world, entityRef, store);
         createXPHud(world, entityRef, store);
+        createBarrierBar(world, entityRef, store);
 
         // create the hud refresh logic
         startHUDRefresh(world, entityRef, store);
@@ -76,21 +85,35 @@ public class Module_PlayerHud {
                 Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
                 Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
                 Component_RPG_Player rpgPlayer = store.getComponent(entityRef, componentTypeRPGPlayer);
+                EntityStatMap statMap = store.getComponent(entityRef, EntityStatsModule.get().getEntityStatMapComponentType());
                 Player player = store.getComponent(entityRef, Player.getComponentType());
-                if (hunger == null || thirst == null || rpgPlayer == null || player == null);
+                if (hunger == null || thirst == null || rpgPlayer == null || player == null || statMap == null) return;
 
                 float thirstPercent = thirst.getPercentage();
                 float hungerPercent = hunger.getPercentage();
                 float levelPercent = rpgPlayer.calculateLevelProgress();
+                float barrierOnBlockPercent;
                 int playerLevel = rpgPlayer.level;
                 int gearScore = rpgPlayer.gearScore;
+
+                // check for health and barrier stats
+                int barrierStatIndex = EntityStatType.getAssetMap().getIndex("BarrierOnBlock");
+                int healthIndex = DefaultEntityStatTypes.getHealth();
+                EntityStatValue barrierStat = statMap.get(barrierStatIndex);
+                EntityStatValue healthStat = statMap.get(healthIndex);
+
+                // barrier and health stats found
+                if (barrierStat != null && healthStat != null && barrierStat.getMax() > 0)
+                    barrierOnBlockPercent = (float) barrierStat.get() / (float) healthStat.getMax();
+                else barrierOnBlockPercent = 0f;
 
                 // Update UI back on the HyUI/render thread
                 hudRef.getById("thirstBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(thirstPercent));
                 hudRef.getById("hungerBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(hungerPercent));
+                hudRef.getById("barrierBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(barrierOnBlockPercent));
                 hudRef.getById("xpBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(levelPercent));
                 hudRef.getById("xpLevelCurrent", LabelBuilder.class).ifPresent(l -> l.withText(
-                    "GS " + String.valueOf(gearScore) + "  |  Lv " + String.valueOf(playerLevel)
+                    "SP " + rpgPlayer.skillPoints + "  |  GS " + String.valueOf(gearScore) + "  |  Lv " + String.valueOf(playerLevel)
                 ));
             });
         });
@@ -191,8 +214,28 @@ public class Module_PlayerHud {
                 .setTextColor("#cccccc")
                 .setRenderBold(true)
             )
-            .withPadding(new HyUIPadding().setLeft(-417))
-            .withText("IP 0  |  Lv 1")
+            .withPadding(new HyUIPadding().setLeft(-435))
+            .withText("GS 0  |  Lv 1")
+        );
+    }
+
+    // function to show the barrier bar
+    private void createBarrierBar(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
+        // initialize the hud element with HyUI
+        hud.addElement(new ProgressBarBuilder()
+            .withId("barrierBar")
+            .withOuterAnchor(new HyUIAnchor()
+                .setWidth(0)
+                .setHeight(0)
+                .setBottom(136)
+            )
+            .withAnchor(new HyUIAnchor()
+                .setWidth(309)
+                .setHeight(6)
+                .setLeft(-315)
+            )
+            .withValue(0f)
+            .withBarTexturePath("abd4f9.png")
         );
     }
 }

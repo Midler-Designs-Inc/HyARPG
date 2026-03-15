@@ -83,7 +83,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 4
+              "Mace": 5
             }
           }
         }
@@ -99,7 +99,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 4
+              "Mace": 5
             }
           }
         }
@@ -115,7 +115,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 6
+              "Mace": 7
             }
           }
         }
@@ -142,7 +142,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 10
+              "Mace": 11
             }
           },
           "EntityStatsOnHit": [
@@ -175,7 +175,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 10
+              "Mace": 11
             }
           },
           "EntityStatsOnHit": [
@@ -208,7 +208,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 12
+              "Mace": 13
             }
           },
           "EntityStatsOnHit": [
@@ -245,7 +245,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 18
+              "Mace": 19
             }
           },
           "EntityStatsOnHit": [],

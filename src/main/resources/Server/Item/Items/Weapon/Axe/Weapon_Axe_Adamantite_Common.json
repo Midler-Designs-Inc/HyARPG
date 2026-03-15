@@ -64,7 +64,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 16
+              "Axe": 20
             }
           },
           "DamageEffects": {
@@ -90,7 +90,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 16
+              "Axe": 20
             }
           },
           "DamageEffects": {
@@ -115,7 +115,7 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 16
+              "Axe": 20
             },
             "Type": "Absolute"
           },
@@ -151,5 +151,10 @@
     ]
   },
   "Weapon": {},
-  "ItemSoundSetId": "ISS_Weapons_Blunt_Small"
+  "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
+  ]
 }

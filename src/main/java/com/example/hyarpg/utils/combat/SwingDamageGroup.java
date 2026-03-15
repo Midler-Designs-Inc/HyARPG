@@ -6,6 +6,7 @@ import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Java Imports
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,14 +17,16 @@ public class SwingDamageGroup {
     public final long timestamp = System.currentTimeMillis();
     public final boolean blocked;
     public final boolean isProjectile;
+    public String weaponType = null;
     private final ConcurrentHashMap<DamageCause, Float> totals = new ConcurrentHashMap<>();
     public volatile boolean readyToApply = false;
 
-    public SwingDamageGroup(Ref<EntityStore> attacker, Ref<EntityStore> defender, boolean blocked, boolean isProjectile) {
+    public SwingDamageGroup(Ref<EntityStore> attacker, Ref<EntityStore> defender, boolean blocked, boolean isProjectile, @Nullable  String weaponType) {
         this.attacker = attacker;
         this.defender = defender;
         this.blocked = blocked;
         this.isProjectile = isProjectile;
+        this.weaponType = weaponType;
     }
 
     public void add(DamageCause cause, float amount) {

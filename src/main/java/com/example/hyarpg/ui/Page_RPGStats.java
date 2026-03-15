@@ -57,14 +57,14 @@ public class Page_RPGStats {
         EntityStats playerStats = rpgPlayer.stats;
         int gearScore           = rpgPlayer.gearScore;
         int playerLevel         = rpgPlayer.level;
-        String statsHTML        = buildStatsHTML(playerStats, playerLevel, gearScore);
+        boolean usingShield     = inventory.getUtilityItem() != null && offHandItem.contains("Weapon_Shield");
+        String statsHTML        = buildStatsHTML(playerStats, playerLevel, gearScore, usingShield);
 
         String html = """
         <div class="page-overlay">
             <button id="closeBtn" style="anchor-bottom: 10; anchor-width: 750; anchor-height: 40;">Close</button>
 
             <div class="container"
-                 data-hyui-scrollbar-style="&quot;Common.ui&quot; &quot;DefaultScrollbarStyle&quot;"
                  data-hyui-title="RPG Stats"
                  style="anchor-width: 750; anchor-height: 700;">
 
@@ -80,7 +80,8 @@ public class Page_RPGStats {
                     <div id="gear-content" class="tab-content"
                          data-hyui-tab-id="gear"
                          data-hyui-tab-nav="rpg-tabs">
-                        <div style="layout-mode: topscrolling;">
+                        <div style="layout-mode: topscrolling; anchor-width: 720; anchor-height: 600;"
+                             data-hyui-scrollbar-style="&quot;Common.ui&quot; &quot;DefaultScrollbarStyle&quot;">
                             <div style="layout-mode: top; anchor-width: 700; margin-left: 15; margin-top: 10;">
 
                                 <!-- ROW 1: Head | Chest -->
@@ -157,7 +158,8 @@ public class Page_RPGStats {
                     <div id="stats-content" class="tab-content"
                          data-hyui-tab-id="stats"
                          data-hyui-tab-nav="rpg-tabs">
-                        <div style="layout-mode: topscrolling;">
+                        <div style="layout-mode: topscrolling; anchor-width: 720; anchor-height: 600;"
+                             data-hyui-scrollbar-style="&quot;Common.ui&quot; &quot;DefaultScrollbarStyle&quot;">
                             ${STATS_HTML}
                         </div>
                     </div>
@@ -195,7 +197,7 @@ public class Page_RPGStats {
     // -------------------------------------------------------------------------
     // Stats tab
     // -------------------------------------------------------------------------
-    private static String buildStatsHTML(EntityStats s, int playerLevel, int gearScore) {
+    private static String buildStatsHTML(EntityStats s, int playerLevel, int gearScore, boolean usingShield) {
         StringBuilder sb = new StringBuilder();
 
         // ---- Two-column layout ----
@@ -236,6 +238,16 @@ public class Page_RPGStats {
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
         addStat(sb, "Crit Chance",    fmt(s.getCriticalStrikeChance()) + "%");
         addStat(sb, "Crit Damage",    fmt(s.getCriticalStrikeDamage()) + "x");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Axe Damage",    fmt(s.getIncreasedDamage("Axe")) + "%");
+        addStat(sb, "Battleaxe Damage",    fmt(s.getIncreasedDamage("Battleaxe")) + "%");
+        addStat(sb, "Club Damage",    fmt(s.getIncreasedDamage("Club")) + "%");
+        addStat(sb, "Daggers Damage",    fmt(s.getIncreasedDamage("Daggers")) + "%");
+        addStat(sb, "Kunai Damage",    fmt(s.getIncreasedDamage("Kunai")) + "%");
+        addStat(sb, "Longsword Damage",    fmt(s.getIncreasedDamage("Longsword")) + "%");
+        addStat(sb, "Mace Damage",    fmt(s.getIncreasedDamage("Mace")) + "%");
+        addStat(sb, "Shortbow Damage",    fmt(s.getIncreasedDamage("Shortbow")) + "%");
+        addStat(sb, "Sword Damage",    fmt(s.getIncreasedDamage("Sword")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
@@ -259,8 +271,9 @@ public class Page_RPGStats {
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Defense");
         addStat(sb, "Dodge Chance", fmt(s.getDodgeChance()) + "%");
-        addStat(sb, "Stability", fmt(s.getStabilityPercent()) + "%");
+        addStat(sb, "Stability", fmt(s.getStabilityPercent(usingShield)) + "%");
         addStat(sb, "Parry Window", "+" + fmt(s.getParryWindow()) + "(s)");
+        addStat(sb, "Barrier on Block", fmt(s.getBarrierOnBlock()) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
@@ -278,9 +291,9 @@ public class Page_RPGStats {
 
     private static void addSectionHeader(StringBuilder sb, String title) {
         sb.append("<p style=\"font-size: 20;margin-left: 5;margin-top: 3;color: #888888;\">")
-            .append("<span data-hyui-bold=\"true\">")
-            .append(title)
-            .append("</span></p>");
+                .append("<span data-hyui-bold=\"true\">")
+                .append(title)
+                .append("</span></p>");
     }
 
     private static void addStat(StringBuilder sb, String label, String value) {

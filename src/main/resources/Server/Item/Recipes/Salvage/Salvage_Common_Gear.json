@@ -1,0 +1,25 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Uncommon_Shards",
+      "Quantity": 1
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Uncommon_Shards",
+    "Quantity": 1
+  },
+  "TimeSeconds": 3,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Common_Gear"
+    }
+  ]
+}

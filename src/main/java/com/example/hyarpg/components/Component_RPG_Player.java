@@ -1,6 +1,9 @@
 package com.example.hyarpg.components;
 
 // Hytale Imports
+import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.utils.codecs.Codec_SkillLibrary;
+import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
@@ -9,18 +12,17 @@ import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.*;
-import com.hypixel.hytale.protocol.packets.player.DamageInfo;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.model.config.ModelParticle;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.movement.MovementManager;
 import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
-import com.hypixel.hytale.server.core.modules.entity.tracker.EntityTrackerSystems;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.StaticModifier;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -32,7 +34,8 @@ import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.affixes.StatMapper;
 import com.example.hyarpg.utils.affixes.StatType;
 
-import static com.example.hyarpg.modules.Module_RPG_System.componentTypeRPGPlayer;
+// Java Imports
+import com.google.gson.Gson;
 
 public class Component_RPG_Player implements Component<EntityStore> {
     // Constructor properties
@@ -41,9 +44,9 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public int skillPoints;
 
     // Constant properties
-    public final int xpToFirstLevel = 10;
-    public final float xpPerLevelModifier = 0.1f;
-    public final int xpGainedFromEqualLevelMonster = 1;
+    public final int xpToFirstLevel = ModConfig.get().experience.xp_to_first_level;
+    public final float xpPerLevelModifier = ModConfig.get().experience.xp_increase_per_level_modifier;
+    public final int xpGainedFromEqualLevelMonster = ModConfig.get().experience.xp_gained_from_equal_level_kill;
 
     // players gear score (average of gear score on equipped items)
     public int gearScore = 0;
@@ -56,6 +59,9 @@ public class Component_RPG_Player implements Component<EntityStore> {
     // combat trackers
     public long blockStart = System.nanoTime();
 
+    // store skill trees
+    public SkillLibrary skillLibrary;
+
     // Register properties that needs to be persisted
     public static final BuilderCodec<Component_RPG_Player> CODEC = BuilderCodec.builder(
             Component_RPG_Player.class, Component_RPG_Player::new
@@ -65,12 +71,16 @@ public class Component_RPG_Player implements Component<EntityStore> {
             comp -> comp.level
         ).add()
         .append(new KeyedCodec<>("RPGStatsXP", Codec.DOUBLE),
-                ((comp, value) -> comp.xp = value),
-                comp -> comp.xp
+            ((comp, value) -> comp.xp = value),
+            comp -> comp.xp
         ).add()
         .append(new KeyedCodec<>("RPGStatsSkillPoints", Codec.INTEGER),
-                ((comp, value) -> comp.skillPoints = value),
-                comp -> comp.skillPoints
+            ((comp, value) -> comp.skillPoints = value),
+            comp -> comp.skillPoints
+        ).add()
+        .append(new KeyedCodec<>("SkillLibrary", Codec_SkillLibrary.SKILL_LIBRARY_CODEC),
+            (comp, v) -> comp.skillLibrary = v,
+            comp -> comp.skillLibrary
         ).add()
         .build();
 
@@ -185,6 +195,9 @@ public class Component_RPG_Player implements Component<EntityStore> {
             applyStack(newStats, inventory.getItemInHand());
             applyStack(newStats, inventory.getUtilityItem());
 
+            // Merge skill tree bonuses into the affix stats before applying
+            if (skillLibrary != null) newStats.merge(skillLibrary.getSkillStats());
+
             // set the new instance of stats
             stats = newStats;
 
@@ -208,13 +221,22 @@ public class Component_RPG_Player implements Component<EntityStore> {
             int healthIndex = DefaultEntityStatTypes.getHealth();
             int staminaIndex = DefaultEntityStatTypes.getStamina();
             int manaIndex = DefaultEntityStatTypes.getMana();
+            int barrierOnBlockStatIndex = EntityStatType.getAssetMap().getIndex("BarrierOnBlock");
 
-            // set players max resources based on gear
+            // set players max resources based on stats instance
             statMap.putModifier(healthIndex, "BASE_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getLife()));
             statMap.putModifier(staminaIndex, "BASE_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getStamina()));
             statMap.putModifier(manaIndex, "BASE_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getMana()));
 
-            // update the entity stats
+            // update the entity stats for the resources
+            statMap.update();
+
+            // set players max barrier on block based on stats instance
+            EntityStatValue healthStat = statMap.get(healthIndex);
+            float maxBarrier = healthStat.getMax() * (stats.getBarrierOnBlock() / 100);
+            statMap.putModifier(barrierOnBlockStatIndex, "BASE_BARRIER_ON_BLOCK", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, maxBarrier));
+
+            // update the entity stats for the barrier on block now
             statMap.update();
 
             // get the movement speed manager from player

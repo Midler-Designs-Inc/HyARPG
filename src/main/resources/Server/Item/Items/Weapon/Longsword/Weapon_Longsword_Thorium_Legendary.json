@@ -65,7 +65,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 9
+              "Longsword": 12
             }
           },
           "DamageEffects": {
@@ -91,7 +91,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 9
+              "Longsword": 12
             }
           },
           "DamageEffects": {
@@ -117,7 +117,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 12
+              "Longsword": 15
             }
           },
           "DamageEffects": {
@@ -133,7 +133,7 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 18
+              "Longsword": 21
             },
             "Type": "Absolute"
           },

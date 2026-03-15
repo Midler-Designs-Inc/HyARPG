@@ -92,7 +92,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 2
+              "Sword": 3
             }
           }
         }
@@ -108,7 +108,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 2
+              "Sword": 3
             }
           }
         }
@@ -124,7 +124,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 3
+              "Sword": 4
             }
           }
         }
@@ -151,7 +151,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 5
+              "Sword": 6
             }
           },
           "EntityStatsOnHit": [
@@ -173,7 +173,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 3
+              "Sword": 4
             }
           },
           "EntityStatsOnHit": []
@@ -190,7 +190,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 5
+              "Sword": 6
             }
           },
           "EntityStatsOnHit": []
@@ -221,5 +221,10 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
   ]
 }

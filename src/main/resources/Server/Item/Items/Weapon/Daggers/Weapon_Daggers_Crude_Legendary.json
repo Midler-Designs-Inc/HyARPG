@@ -90,7 +90,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 1
+              "Daggers": 2
             }
           },
           "DamageEffects": {
@@ -107,7 +107,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 1
+              "Daggers": 2
             }
           },
           "DamageEffects": {
@@ -124,7 +124,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 1.5
+              "Daggers": 2.5
             }
           },
           "DamageEffects": {
@@ -141,7 +141,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 1.5
+              "Daggers": 2.5
             }
           },
           "DamageEffects": {
@@ -169,7 +169,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 2
+              "Daggers": 3
             }
           },
           "DamageEffects": {
@@ -246,7 +246,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 2
+              "Daggers": 3
             }
           },
           "DamageEffects": {
@@ -330,7 +330,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Slash_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 2
+              "Daggers": 3
             }
           },
           "EntityStatsOnHit": [],
@@ -391,7 +391,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 2
+              "Daggers": 3
             }
           },
           "EntityStatsOnHit": [],
@@ -452,7 +452,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Lunge_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 2
+              "Daggers": 3
             }
           },
           "EntityStatsOnHit": [],

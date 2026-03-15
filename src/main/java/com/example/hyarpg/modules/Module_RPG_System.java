@@ -1,7 +1,8 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.utils.skills.SkillLibrary;
+import com.example.hyarpg.utils.skills.SkillLibraryMigration;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -22,11 +23,11 @@ import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
-import com.hypixel.hytale.server.core.modules.entity.player.PlayerInput;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.modules.physics.component.Velocity;
@@ -50,14 +51,13 @@ import com.example.hyarpg.utils.affixes.Affix;
 import com.example.hyarpg.utils.affixes.AffixPool;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.combat.SwingDamageGroup;
+import com.example.hyarpg.configs.ModConfig;
 
 // Java Imports
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
-
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class Module_RPG_System {
@@ -76,7 +76,7 @@ public class Module_RPG_System {
     private static final Random random = new Random();
 
     // sets a delta time for secondary action to assist with parry mechanics
-    private static final long parryWindow = 200_000_000L; // 0.2 seconds default window
+    private static final long parryWindow = ModConfig.get().combat.base_parry_window_in_seconds;
 
     // Create a map to match a rarity string to a java utils color
     public class colorUtils {
@@ -95,6 +95,9 @@ public class Module_RPG_System {
         }
     }
 
+    // Skill Tree Version Constant
+    private final String SKILL_TREE_VERSION = "1.0.8";
+
     // Create a map for damage message colors
     public static final Map<String, Color> DAMAGE_COLORS = Map.of(
         "Fire", new Color(249, 146, 32),
@@ -105,9 +108,9 @@ public class Module_RPG_System {
         "Physical",  new Color(175, 175, 175)
     );
 
-    // create a map to use for filtering
+    // create some maps to use for filtering
     private static final Set<String> MOD_DAMAGE_TYPES = Set.of(
-        "Physical", "Fire", "Ice", "Lightning", "Poison", "Magic"
+        "Physical", "Magic", "Poison", "Fire", "Ice", "Lightning"
     );
 
     // Create a map to match a rarity string to number of affixes
@@ -161,6 +164,9 @@ public class Module_RPG_System {
         interactionRegistry.register("ShowRPGStats", Interaction_ShowRPGStats.class, Interaction_ShowRPGStats.CODEC);
         interactionRegistry.register("ChangeItemState", Interaction_ChangeItemStateInteraction.class, Interaction_ChangeItemStateInteraction.CODEC);
         interactionRegistry.register("ExplodeBetter", Interaction_AOEDamageInteraction.class, Interaction_AOEDamageInteraction.CODEC);
+        interactionRegistry.register("Use_Ability_1", Interaction_UseAbility1.class, Interaction_UseAbility1.CODEC);
+        interactionRegistry.register("Use_Ability_2", Interaction_UseAbility2.class, Interaction_UseAbility2.CODEC);
+        interactionRegistry.register("Use_Ability_3", Interaction_UseAbility3.class, Interaction_UseAbility3.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_EntityPreDamaged.class, this::onEntityPreDamage);
@@ -186,9 +192,16 @@ public class Module_RPG_System {
         Store<EntityStore> store = world.getEntityStore().getStore();
         if (entityRef == null) return;
 
-        // ensure the RPG Stats component exists, add it if it doesn't
+        // ensure the player components exists, add them if they don't
         Component_RPG_Player rpgPlayer = store.ensureAndGetComponent(entityRef, componentTypeRPGPlayer);
         store.ensureAndGetComponent(entityRef, componentTypeCraftingKnowledge);
+
+        // load the latest skill library and migrate the player if needed
+        SkillLibrary currentLibrary = new SkillLibrary(SKILL_TREE_VERSION); // fresh instance with latest trees
+        SkillLibraryMigration.migrate(rpgPlayer, currentLibrary);
+
+        // update the skill library state based on current allocations
+        rpgPlayer.skillLibrary.recalculate();
 
         // refresh gear score
         rpgPlayer.calculateGearScore(player);
@@ -262,17 +275,25 @@ public class Module_RPG_System {
         NPCEntity npcEntity = store.getComponent(ref, NPCEntity.getComponentType());
         if (npcEntity == null) return;
 
-        // Get the entity's role name and create the nameplate text
-        String roleName = npcEntity.getRoleName().replace("_", " ");
-        String nameplateText = rarityString + roleName + " (Lv. " + level + ")";
+        // Get the entity's role name and create or clear the nameplate depending on config settings
+        if (ModConfig.get().enemies.clear_enemy_nameplates) {
+            // Nameplate is what actually shows above the head
+            Nameplate nameplate = store.getComponent(ref, Nameplate.getComponentType());
+            if (nameplate != null) nameplate.setText("");
+            else commandBuffer.addComponent(ref, Nameplate.getComponentType(), new Nameplate());
+        }
+        else if (ModConfig.get().enemies.show_enemy_nameplates) {
+            String roleName = npcEntity.getRoleName().replace("_", " ");
+            String nameplateText = rarityString + roleName + " (Lv. " + level + ")";
 
-        // Nameplate is what actually shows above the head
-        Nameplate nameplate = store.getComponent(ref, Nameplate.getComponentType());
-        if (nameplate != null) nameplate.setText(nameplateText);
-        else commandBuffer.addComponent(ref, Nameplate.getComponentType(), new Nameplate(nameplateText));
+            // Nameplate is what actually shows above the head
+            Nameplate nameplate = store.getComponent(ref, Nameplate.getComponentType());
+            if (nameplate != null) nameplate.setText(nameplateText);
+            else commandBuffer.addComponent(ref, Nameplate.getComponentType(), new Nameplate(nameplateText));
+        }
 
         // Add rarity effect if applicable
-        if(rpgEnemy.monsterRarity > 0) {
+        if (rpgEnemy.monsterRarity > 0) {
             String entityEffectStr = rpgEnemy.getRarityString() + "_Glow";
             EntityEffect specialEffect = (EntityEffect) EntityEffect.getAssetMap().getAsset(entityEffectStr);
             if (specialEffect == null) return;
@@ -299,23 +320,28 @@ public class Module_RPG_System {
         // if the damage type is command or null bail
         if (cause == null || Objects.equals(cause.getId(), "Command")) return;
 
-        // if the damage type is not command and not a mod type just set it to physical
-        if (!MOD_DAMAGE_TYPES.contains(cause.getId())) {
-            cause = DamageCause.getAssetMap().getAsset("Physical");
-            damage.setDamageCauseIndex(DamageCause.getAssetMap().getIndex("Physical"));
-        }
-
         // check that at least one party was a player, otherwise bail
         Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
         Component_RPG_Player defenderRPGStats = store.getComponent(defender, componentTypeRPGPlayer);
         if(attackerRPGStats == null && defenderRPGStats == null) return;
+
+        // check if the damage cause has a parent (if it does, it was a weapon type)
+        String weaponType;
+        if (cause.getInherits() != null) weaponType = cause.getId();
+        else weaponType = null;
+
+        // if the damage type is not recognized by the mod (or is a weapon type) just set it to physical
+        if (!MOD_DAMAGE_TYPES.contains(cause.getId())) {
+            cause = DamageCause.getAssetMap().getAsset("Physical");
+            damage.setDamageCauseIndex(DamageCause.getAssetMap().getIndex("Physical"));
+        }
 
         // Intercept and buffer this packet into its swing group
         String key = swingKey(attacker, defender);
         boolean blocked = Boolean.TRUE.equals(damage.getMetaStore().getMetaObject(Damage.BLOCKED));
         boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
         SwingDamageGroup group = swingGroups.computeIfAbsent(key, k -> {
-            SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile);
+            SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, weaponType);
             scheduler.schedule(() -> {
                 SwingDamageGroup pending = swingGroups.get(key);
                 if (pending != null) pending.readyToApply = true;
@@ -367,6 +393,8 @@ public class Module_RPG_System {
         // default defender values
         int defenderLevel = 1;
         int defenderRarity = 0;
+        boolean defenderUsingShield = false;
+        EntityStatMap defenderStatMap = null;
         String defenderName = "Entity";
         EntityStats defenderStats = new EntityStats();
 
@@ -375,6 +403,13 @@ public class Module_RPG_System {
             defenderLevel = defenderRPGStats.gearScore;
             defenderStats = defenderRPGStats.stats;
             defenderName = store.getComponent(defender, Player.getComponentType()).getDisplayName();
+
+            // defender is a player, set some things
+            defenderStatMap = store.getComponent(defender, EntityStatsModule.get().getEntityStatMapComponentType());
+
+            // player had a utility item equipped, check if it was a shield
+            if(defenderRPGStats.offHandItem != null && defenderRPGStats.offHandItem.getItemId().contains("Weapon_Shield"))
+                defenderUsingShield = true;
         }
         else if(defenderRPGEnemy != null) {
             defenderLevel = defenderRPGEnemy.level;
@@ -391,8 +426,9 @@ public class Module_RPG_System {
         damageGroup.add(DamageCause.getAssetMap().getAsset("Fire"), attackerStats.getFlatDamage("Fire"));
         damageGroup.add(DamageCause.getAssetMap().getAsset("Ice"), attackerStats.getFlatDamage("Ice"));
         damageGroup.add(DamageCause.getAssetMap().getAsset("Lightning"), attackerStats.getFlatDamage("Lightning"));
-        damageGroup.add(DamageCause.getAssetMap().getAsset("Magic"), attackerStats.getFlatDamage("Magic"));
         damageGroup.add(DamageCause.getAssetMap().getAsset("Physical"), attackerStats.getFlatDamage("Physical"));
+        damageGroup.add(DamageCause.getAssetMap().getAsset("Elemental"), attackerStats.getFlatDamage("Elemental"));
+        damageGroup.add(DamageCause.getAssetMap().getAsset("Magic"), attackerStats.getFlatDamage("Magic"));
         damageGroup.add(DamageCause.getAssetMap().getAsset("Poison"), attackerStats.getFlatDamage("Poison"));
 
         // roll for crit which applies to all packets
@@ -413,6 +449,9 @@ public class Module_RPG_System {
             // apply increased damages
             totalAmount += totalAmount * (attackerStats.getIncreasedDamage(cause.getId()) / 100);
 
+            // apply increased weapon damage if applicable
+            if (damageGroup.weaponType != null) totalAmount += totalAmount * (attackerStats.getIncreasedDamage(damageGroup.weaponType) / 100);
+
             // adjust the damage based on crit
             if (crit) totalAmount *= attackerStats.getCriticalStrikeDamage();
 
@@ -427,7 +466,7 @@ public class Module_RPG_System {
 
             // ping damage packet to chat for combat analysis
             float truncated = (float) (Math.floor(totalAmount * 10.0) / 10.0);
-            alertPlayers(new Message[]{
+            alertPlayers(new Message[] {
                 Message.raw(attackerName).color("#ffffff").bold(true),
                 Message.raw(" dealt ").color(Color.GRAY),
                 Message.raw(truncated + " (" + cause.getId() + ")").color(DAMAGE_COLORS.getOrDefault(cause.getId(), Color.WHITE)).bold(true),
@@ -445,7 +484,7 @@ public class Module_RPG_System {
 
                 if(System.nanoTime() - blockStart <= parryWindowModified) {
                     // set the damage threshold for parrying based on stability
-                    double damageThreshold = finalDamage * (1f - (defenderStats.getStabilityPercent() / 100));
+                    double damageThreshold = finalDamage * (1f - (defenderStats.getStabilityPercent(defenderUsingShield) / 100));
 
                     // get the stat map component from the player
                     ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
@@ -491,7 +530,7 @@ public class Module_RPG_System {
         // now handle blocking
         if(damageGroup.blocked) {
             // set the damage threshold for blocking based on stability
-            double damageThreshold = finalDamage * (1f - (defenderStats.getStabilityPercent() / 100));
+            double damageThreshold = finalDamage * (1f - (defenderStats.getStabilityPercent(defenderUsingShield) / 100));
 
             // get the stat map component from the player
             ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
@@ -513,6 +552,25 @@ public class Module_RPG_System {
 
             // set remaining amount of damage ceiled to 0
             finalDamage = Math.max(0, (float) remainingDmg);
+        }
+
+        // now handle barrier which absorbs damage after parry/block, before dodge
+        if(defenderStatMap != null && finalDamage > 0) {
+            int barrierOnBlockStatIndex = EntityStatType.getAssetMap().getIndex("BarrierOnBlock");
+            EntityStatValue barrierOnBlockStat = defenderStatMap.get(barrierOnBlockStatIndex);
+
+            if (barrierOnBlockStat != null) {
+                double barrier = barrierOnBlockStat.get();
+
+                if (barrier > 0) {
+                    double absorbed = Math.min(barrier, finalDamage);
+
+                    finalDamage -= absorbed;
+                    barrier -= absorbed;
+
+                    defenderStatMap.setStatValue(barrierOnBlockStatIndex, (float) barrier);
+                }
+            }
         }
 
         // now handle dodging
@@ -675,16 +733,16 @@ public class Module_RPG_System {
 
     // method for when the player performs an interaction
     private void onPlayerInteraction(Event_PlayerInteraction event){
+        // get ref and store reference
+        Ref<EntityStore> ref = event.getRef();
+        Store<EntityStore> store = event.getStore();
+
+        // validate the ref has an rpg player comp
+        Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+        if(rpgPlayer == null) return;
+
         // if secondary action possibly blocking so timestamp it (we will check for this in damage pipeline if there is blocked damage)
         if(Objects.equals(event.getInteractionID(), "Secondary")) {
-            // get ref and store reference
-            Ref<EntityStore> ref = event.getRef();
-            Store<EntityStore> store = event.getStore();
-
-            // validate the ref has an rpg player comp
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
-            if(rpgPlayer == null) return;
-
             // set the block start
             rpgPlayer.blockStart = System.nanoTime();
         }
@@ -1090,5 +1148,4 @@ public class Module_RPG_System {
             player.sendMessage(Message.join(messages));
         }
     }
-
 }

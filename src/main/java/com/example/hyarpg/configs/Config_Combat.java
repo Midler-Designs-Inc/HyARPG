@@ -9,6 +9,10 @@ public class Config_Combat {
     public float level_diff_damage_multiplier = 1.15f;
 
     @Key("rarity_diff_damage_multiplier")
-    @Comment("Damage will scale by this multiplier, per rarity difference, between the attacker and defender Default: 1.33")
+    @Comment("Damage will scale by this multiplier, per rarity difference, between the attacker and defender. Default: 1.33")
     public float rarity_diff_damage_multiplier = 1.33f;
+
+    @Key("base_parry_window_in_seconds")
+    @Comment("Blocking within this time of the hit constitutes a parried hit. Default: 0.2 seconds")
+    public long base_parry_window_in_seconds = 200_000_000L;
 }

@@ -44,7 +44,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 32
+              "Battleaxe": 36
             }
           },
           "DamageEffects": {
@@ -60,7 +60,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 24
+              "Battleaxe": 28
             }
           },
           "DamageEffects": {
@@ -76,7 +76,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 24
+              "Battleaxe": 28
             }
           },
           "DamageEffects": {
@@ -92,7 +92,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Downstrike_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 40
+              "Battleaxe": 44
             }
           },
           "EntityStatsOnHit": [
@@ -114,7 +114,7 @@
           "Parent": "Weapon_Battleaxe_Signature_Whirlwind_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 60
+              "Battleaxe": 64
             }
           },
           "EntityStatsOnHit": [],
@@ -142,5 +142,10 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
   ]
 }

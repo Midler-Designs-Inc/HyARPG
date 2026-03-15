@@ -1,0 +1,63 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Template_Weapon_Battleaxe.name"
+  },
+  "Categories": [
+    "Items.Weapons"
+  ],
+  "Model": "Items/Weapons/Battleaxe/Iron.blockymodel",
+  "Texture": "Items/Weapons/Battleaxe/Iron_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Battleaxe_Iron.png",
+  "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
+  "PlayerAnimationsId": "Battleaxe",
+  "Reticle": "DefaultMelee",
+  "Quality": "Template",
+  "ItemLevel": 15,
+  "Interactions": {
+    "Primary": "Root_Weapon_Battleaxe_Primary",
+    "Secondary": "Root_Weapon_Battleaxe_Secondary_Guard",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
+  },
+  "IconProperties": {
+    "Scale": 0.3,
+    "Translation": [
+      -19.2,
+      -19.8
+    ],
+    "Rotation": [
+      45,
+      90,
+      0
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ]
+  },
+  "Weapon": {},
+  "ItemAppearanceConditions": {},
+  "ItemSoundSetId": "ISS_Weapon_Blunt_Large",
+  "MaxDurability": 80,
+  "DurabilityLossOnHit": 0.45
+}

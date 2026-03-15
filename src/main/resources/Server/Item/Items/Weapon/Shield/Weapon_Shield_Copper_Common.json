@@ -89,5 +89,10 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
   ]
 }

@@ -67,7 +67,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 16
+              "Axe": 20
             }
           },
           "DamageEffects": {
@@ -93,7 +93,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Physical": 16
+              "Axe": 20
             }
           },
           "DamageEffects": {
@@ -118,7 +118,7 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Physical": 16
+              "Axe": 20
             },
             "Type": "Absolute"
           },

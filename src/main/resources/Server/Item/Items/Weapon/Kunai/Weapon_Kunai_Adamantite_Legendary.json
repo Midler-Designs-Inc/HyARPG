@@ -1,0 +1,98 @@
+{
+  "Parent": "Template_Weapon_Kunai",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Kunai_Adamantite.name",
+    "Description": "server.items.Weapon_Kunai_Adamantite.description"
+  },
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "Icon": "Icons/ItemsGenerated/Kunai/Adamantite_Kunai_Icon.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      315,
+      270,
+      0
+    ],
+    "Translation": [
+      -21,
+      -22
+    ]
+  },
+  "Quality": "Legendary",
+  "ItemLevel": 40,
+  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Adamantite_Kunai.png",
+  "PlayerAnimationsId": "Throwing_Knife",
+  "Utility": {
+    "Usable": true
+  },
+  "Weapon": {},
+  "InteractionVars": {
+    "Kunai_Projectile": {
+      "Interactions": [
+        {
+          "Type": "Projectile",
+          "Config": "Projectile_Config_Kunai_Adamantite"
+        }
+      ]
+    },
+    "Kunai_Hit_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Kunai_Primary_Hit_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Kunai": 8
+            }
+          }
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ]
+  },
+  "Recipe": {
+    "TimeSeconds": 0,
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Daggers"
+        ],
+        "RequiredTierLevel": 4
+      }
+    ],
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 609
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 603
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+        "Quantity": 603
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "MaxDurability": 0,
+  "ResourceTypes": [
+    {
+      "Id": "Legendary_Gear"
+    }
+  ]
+}

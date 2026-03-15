@@ -16,10 +16,11 @@ public final class EntityStats {
     private static final float BASE_CRIT_DAMAGE = 1.5f;
 
     /* Caps */
-    private static final float MAX_RESIST = 75f;
-    private static final float MAX_DODGE = 75f;
-    private static final float MAX_CRIT_CHANCE = 100f;
-    private static final float MAX_STABILITY = 90f;
+    public static final float MAX_RESIST = 75f;
+    public static final float MAX_DODGE = 75f;
+    public static final float MAX_CRIT_CHANCE = 100f;
+    public static final float MAX_STABILITY = 90f;
+    public static final float MAX_BARRIER_ON_BLOCK = 100f;
 
     private final Map<StatType, Float> stats = new EnumMap<>(StatType.class);
 
@@ -42,6 +43,14 @@ public final class EntityStats {
 
     private float clamp(float value, float cap) {
         return Math.min(value, cap);
+    }
+
+    // function to merge two entity stat classes together
+    public void merge(EntityStats other) {
+        for (StatType type : StatType.values()) {
+            float otherValue = other.getRaw(type);
+            if (otherValue != 0f) add(type, otherValue);
+        }
     }
 
     /* Resources */
@@ -104,6 +113,17 @@ public final class EntityStats {
             case "Poison": return getRaw(StatType.POISON_DAMAGE_PERCENT);
             case "Magic": return getRaw(StatType.MAGIC_DAMAGE_PERCENT);
             case "Physical": return getRaw(StatType.PHYSICAL_DAMAGE_PERCENT);
+
+            /* Weapon Damages */
+            case "Axe": return getRaw(StatType.AXE_DAMAGE_PERCENT);
+            case "Battleaxe": return getRaw(StatType.BATTLEAXE_DAMAGE_PERCENT);
+            case "Club": return getRaw(StatType.CLUB_DAMAGE_PERCENT);
+            case "Daggers": return getRaw(StatType.DAGGERS_DAMAGE_PERCENT);
+            case "Kunai": return getRaw(StatType.KUNAI_DAMAGE_PERCENT);
+            case "Longsword": return getRaw(StatType.LONGSWORD_DAMAGE_PERCENT);
+            case "Mace": return getRaw(StatType.MACE_DAMAGE_PERCENT);
+            case "Shortbow": return getRaw(StatType.SHORTBOW_DAMAGE_PERCENT);
+            case "Sword": return getRaw(StatType.SWORD_DAMAGE_PERCENT);
             default: return 0f;
         }
     }
@@ -138,10 +158,15 @@ public final class EntityStats {
     public float getRunSpeedMultiplier() {
         return 1f + getRaw(StatType.RUN_SPEED_PERCENT) / 100f;
     }
-    public float getStabilityPercent() {
-        return clamp(getRaw(StatType.STABILITY_PERCENT), MAX_STABILITY);
+    public float getStabilityPercent(boolean shieldEquipped) {
+        // get base stability and apply the shield stability buff if applicable
+        float stabilityBase = getRaw(StatType.STABILITY_PERCENT);
+        if(shieldEquipped) stabilityBase += getRaw(StatType.SHIELD_STABILITY_PERCENT);
+
+        return clamp(stabilityBase, MAX_STABILITY);
     }
     public float getParryWindow() {
         return getRaw(StatType.PARRY_WINDOW_FLAT);
     }
+    public float getBarrierOnBlock() { return clamp(getRaw(StatType.BARRIER_ON_BLOCK), MAX_BARRIER_ON_BLOCK); }
 }

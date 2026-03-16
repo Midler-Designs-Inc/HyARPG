@@ -1,5 +1,5 @@
 {
-  "Duration": 2,
+  "Duration": 3,
   "ApplicationEffects": {
     "ScreenEffect": "ScreenEffects/Snow.png",
     "Particles": [
@@ -8,28 +8,8 @@
         "TargetEntityPart": "Entity",
         "TargetNodeName": "Head"
       }
-    ],
-    "MovementEffects": {
-      "DisableAll": true
-    },
-    "AbilityEffects": {
-      "Disabled": [
-        "Primary",
-        "Secondary",
-        "Ability1",
-        "Ability3"
-      ]
-    },
-    "HorizontalSpeedMultiplier": 0
+    ]
   },
   "OverlapBehavior": "Overwrite",
-  "Debuff": true,
-  "RawStatModifiers": {
-    "Stamina": [
-      {
-        "CalculationType": "Additive",
-        "Amount": -99
-      }
-    ]
-  }
+  "Debuff": true
 }

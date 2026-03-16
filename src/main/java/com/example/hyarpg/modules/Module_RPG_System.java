@@ -8,10 +8,13 @@ import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
+import com.hypixel.hytale.protocol.EntityEffectUpdate;
+import com.hypixel.hytale.protocol.EntityEffectsUpdate;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.entity.Frozen;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
@@ -23,6 +26,7 @@ import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entity.livingentity.LivingEntityEffectSystem;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -36,7 +40,9 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.hypixel.hytale.server.npc.components.StepComponent;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import com.hypixel.hytale.server.npc.movement.controllers.MotionController;
 import com.hypixel.hytale.server.npc.role.Role;
 
 // Mod Imports
@@ -58,6 +64,10 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
+
+import com.hypixel.hytale.server.npc.role.support.CombatSupport;
+import com.hypixel.hytale.server.npc.role.support.MarkedEntitySupport;
+import com.hypixel.hytale.server.npc.systems.RoleSystems;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class Module_RPG_System {
@@ -96,7 +106,7 @@ public class Module_RPG_System {
     }
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.0.8";
+    private final String SKILL_TREE_VERSION = "1.0.87";
 
     // Create a map for damage message colors
     public static final Map<String, Color> DAMAGE_COLORS = Map.of(
@@ -496,7 +506,8 @@ public class Module_RPG_System {
                     // get the stats by index
                     EntityStatValue staminaStat = statMap.get(staminaIndex);
 
-                    if (damageThreshold <= staminaStat.get()) {
+                    // apply the stun and knockback to NPCs
+                    if (damageThreshold <= staminaStat.get() && attackerRPGEnemy != null) {
                         // get the effect controller for the attacker to set stun effect
                         EffectControllerComponent effectController = store.getComponent(attacker, EffectControllerComponent.getComponentType());
                         EntityEffect effect = EntityEffect.getAssetMap().getAsset("ParryStun");
@@ -505,23 +516,20 @@ public class Module_RPG_System {
                         // reduce the damage to 0
                         finalDamage = 0;
 
-                        // get attacker/defender transform components
-                        TransformComponent attackerTransform = store.getComponent(attacker, TransformComponent.getComponentType());
-                        TransformComponent defenderTransform = store.getComponent(defender, TransformComponent.getComponentType());
+                        // freeze the entity and set a scheduler to remove the freeze
+                        World world = attacker.getStore().getExternalData().getWorld();
+                        world.execute(() -> {
+                            // stun via frozen component
+                            store.addComponent(attacker, Frozen.getComponentType(), Frozen.get());
 
-                        // get attacker/defender positions
-                        Vector3d attackerPos = attackerTransform.getPosition();
-                        Vector3d defenderPos = defenderTransform.getPosition();
-
-                        // Direction from defender to attacker
-                        Vector3d direction = new Vector3d(attackerPos.x - defenderPos.x, 0, attackerPos.z - defenderPos.z);
-
-                        // Normalize and scale the direction
-                        direction.normalize();
-                        direction.scale(50); // strength
-
-                        // apply the knockback
-                        applyKnockback(attacker, store, direction);
+                            Executors.newSingleThreadScheduledExecutor().schedule(() -> {
+                                world.execute(() -> {
+                                    if (attacker.isValid()) {
+                                        store.removeComponent(attacker, Frozen.getComponentType());
+                                    }
+                                });
+                            }, (long)(3 * 1000), TimeUnit.MILLISECONDS);
+                        });
                     }
                 }
             } catch (Exception e) {}
@@ -1114,9 +1122,26 @@ public class Module_RPG_System {
     }
 
     // helper function to apply a knockback to an entity
-    public void applyKnockback(Ref<EntityStore> ref, Store<EntityStore> store, Vector3d direction){
+    public void applyKnockbackFromEntity(Ref<EntityStore> originRef, Ref<EntityStore> targetRef, int strength){
+        Store<EntityStore> store = originRef.getStore();
+
+        // get transform components
+        TransformComponent targetTransform = store.getComponent(targetRef, TransformComponent.getComponentType());
+        TransformComponent originTransform = store.getComponent(originRef, TransformComponent.getComponentType());
+
+        // get attacker/defender positions
+        Vector3d originPos = originTransform.getPosition();
+        Vector3d targetPos = targetTransform.getPosition();
+
+        // Direction from origin to target
+        Vector3d direction = new Vector3d(targetPos.x - originPos.x, 0, targetPos.z - originPos.z);
+
+        // Normalize and scale the direction
+        direction.normalize();
+        direction.scale(strength);
+
         // get velocity and transform components from attacker
-        Velocity vc = store.getComponent(ref, Velocity.getComponentType());
+        Velocity vc = store.getComponent(targetRef, Velocity.getComponentType());
 
         // set the instruction
         vc.addInstruction(direction, new VelocityConfig(), ChangeVelocityType.Add);

@@ -1,0 +1,50 @@
+{
+  "Interactions": [
+    {
+      "Type": "Simple",
+      "RunTime": 0.25,
+      "Effects": {
+        "WorldSoundEventId": "SFX_Emberwulf_Attack_Bite",
+        "LocalSoundEventId": "SFX_Emberwulf_Attack_Bite",
+        "Particles": [
+          {
+            "SystemId": "ShoutFX",
+            "Scale": 5,
+            "DetachedFromModel": false,
+            "Color": "#d20000"
+          }
+        ]
+      },
+      "Next": {
+        "Type": "Selector",
+        "Selector": {
+          "Id": "AOECylinder",
+          "Range": 15,
+          "Height": 5,
+          "Offset": {
+            "Y": -2.5
+          }
+        },
+        "HitEntityRules": [
+          {
+            "Matchers": [
+              {
+                "Type": "Player",
+                "Invert": true
+              }
+            ],
+            "Next": {
+              "Interactions": [
+                {
+                  "Type": "ApplyEffect",
+                  "Entity": "Target",
+                  "EffectId": "TauntFX"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

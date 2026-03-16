@@ -1,0 +1,16 @@
+{
+  "ApplicationEffects": {
+    "Particles": [
+      {
+        "SystemId": "Alerted",
+        "TargetEntityPart": "Entity",
+        "PositionOffset": {
+          "Y": 1.5
+        },
+        "Scale": 2
+      }
+    ],
+    "EntityTopTint": "#ff0000"
+  },
+  "Duration": 1.5
+}

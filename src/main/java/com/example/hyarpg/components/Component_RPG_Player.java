@@ -53,6 +53,16 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public ItemStack mainHandItem;
     public ItemStack offHandItem;
 
+    // equipped abilityIDs
+    public String primaryAbility = null;
+    public String secondaryAbility;
+    public String ultimateAbility;
+
+    // equipped ability icons
+    public String primaryAbilityIcon = null;
+    public String secondaryAbilityIcon;
+    public String ultimateAbilityIcon;
+
     // stat class to hold affix stats
     public EntityStats stats = new EntityStats();
 
@@ -81,6 +91,30 @@ public class Component_RPG_Player implements Component<EntityStore> {
         .append(new KeyedCodec<>("SkillLibrary", Codec_SkillLibrary.SKILL_LIBRARY_CODEC),
             (comp, v) -> comp.skillLibrary = v,
             comp -> comp.skillLibrary
+        ).add()
+        .append(new KeyedCodec<>("UltimateAbilityId", Codec.STRING),
+                (comp, v) -> comp.ultimateAbility = v,
+                comp -> comp.ultimateAbility
+        ).add()
+        .append(new KeyedCodec<>("UltimateAbilityIconId", Codec.STRING),
+                (comp, v) -> comp.ultimateAbilityIcon = v,
+                comp -> comp.ultimateAbilityIcon
+        ).add()
+        .append(new KeyedCodec<>("PrimaryAbilityId", Codec.STRING),
+                (comp, v) -> comp.primaryAbility = v,
+                comp -> comp.primaryAbility
+        ).add()
+        .append(new KeyedCodec<>("PrimaryAbilityIconId", Codec.STRING),
+                (comp, v) -> comp.primaryAbilityIcon = v,
+                comp -> comp.primaryAbilityIcon
+        ).add()
+        .append(new KeyedCodec<>("SecondaryAbilityId", Codec.STRING),
+                (comp, v) -> comp.secondaryAbility = v,
+                comp -> comp.secondaryAbility
+        ).add()
+        .append(new KeyedCodec<>("SecondaryAbilityIconId", Codec.STRING),
+                (comp, v) -> comp.secondaryAbilityIcon = v,
+                comp -> comp.secondaryAbilityIcon
         ).add()
         .build();
 

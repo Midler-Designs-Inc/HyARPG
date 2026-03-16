@@ -26,7 +26,7 @@ public class SkillLibraryMigration {
 
         // Library-level version check, if the whole library version changed, refund everything and replace
         if (!saved.getVersion().equals(current.getVersion())) {
-            comp.skillPoints += saved.refund();
+            comp.skillPoints += saved.refund(comp);
             comp.skillLibrary = current;
             return;
         }
@@ -45,7 +45,7 @@ public class SkillLibraryMigration {
 
             // Tree version changed — refund and replace the whole tree
             if (!savedTree.getVersion().equals(currentTree.getVersion())) {
-                comp.skillPoints += savedTree.refund();
+                comp.skillPoints += savedTree.refund(comp);
                 saved.getRegistry().put(treeId, currentTree);
                 continue;
             }
@@ -64,7 +64,7 @@ public class SkillLibraryMigration {
 
                 // Node version changed — refund and replace
                 if (!savedNode.getVersion().equals(currentNode.getVersion())) {
-                    comp.skillPoints += savedNode.refund();
+                    comp.skillPoints += savedNode.refund(comp);
                     savedTree.getNodes().put(nodeId, currentNode);
                 }
             }
@@ -72,7 +72,7 @@ public class SkillLibraryMigration {
             // Remove nodes from saved tree that no longer exist in current — refund first
             savedTree.getNodes().entrySet().removeIf(entry -> {
                 if (!currentTree.getNodes().containsKey(entry.getKey())) {
-                    comp.skillPoints += entry.getValue().refund();
+                    comp.skillPoints += entry.getValue().refund(comp);
                     return true;
                 }
                 return false;
@@ -82,7 +82,7 @@ public class SkillLibraryMigration {
         // Remove trees from saved library that no longer exist in current — refund first
         saved.getRegistry().entrySet().removeIf(entry -> {
             if (!current.getRegistry().containsKey(entry.getKey())) {
-                comp.skillPoints += entry.getValue().refund();
+                comp.skillPoints += entry.getValue().refund(comp);
                 return true;
             }
             return false;

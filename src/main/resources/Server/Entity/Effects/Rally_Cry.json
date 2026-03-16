@@ -1,0 +1,19 @@
+{
+  "StatModifiers": {
+    "Health": 10,
+    "Stamina": 10,
+    "Mana": 10
+  },
+  "ValueType": "Percent",
+  "OverlapBehavior": "Overwrite",
+  "Duration": 5,
+  "DamageCalculatorCooldown": 1,
+  "ApplicationEffects": {
+    "Particles": [
+      {
+        "SystemId": "Effect_Heal_Duration"
+      }
+    ]
+  },
+  "StatusEffectIcon": "UI/StatusEffects/HealthRegen.png"
+}

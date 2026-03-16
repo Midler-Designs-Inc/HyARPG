@@ -7,6 +7,9 @@ import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.entity.InteractionChain;
+import com.hypixel.hytale.server.core.entity.InteractionContext;
+import com.hypixel.hytale.server.core.entity.InteractionManager;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
@@ -69,6 +72,7 @@ public class Module_PlayerHud {
         if(ModConfig.get().hunger.enabled) createHungerHud(world, entityRef, store);
         createXPHud(world, entityRef, store);
         createBarrierBar(world, entityRef, store);
+        createSkillsBar(world, entityRef, store);
 
         // create the hud refresh logic
         startHUDRefresh(world, entityRef, store);
@@ -115,6 +119,18 @@ public class Module_PlayerHud {
                 hudRef.getById("xpLevelCurrent", LabelBuilder.class).ifPresent(l -> l.withText(
                     "SP " + rpgPlayer.skillPoints + "  |  GS " + String.valueOf(gearScore) + "  |  Lv " + String.valueOf(playerLevel)
                 ));
+                hudRef.getById("skillIcon_Q", ImageBuilder.class).ifPresent(l -> l
+                    .withImage(rpgPlayer.ultimateAbilityIcon == null ? "" : rpgPlayer.ultimateAbilityIcon)
+                    .withVisible(rpgPlayer.ultimateAbilityIcon != null)
+                );
+                hudRef.getById("skillIcon_E", ImageBuilder.class).ifPresent(l -> l
+                    .withImage(rpgPlayer.primaryAbilityIcon == null ? "" : rpgPlayer.primaryAbilityIcon)
+                    .withVisible(rpgPlayer.primaryAbilityIcon != null)
+                );
+                hudRef.getById("skillIcon_R", ImageBuilder.class).ifPresent(l -> l
+                    .withImage(rpgPlayer.secondaryAbilityIcon == null ? "" : rpgPlayer.secondaryAbilityIcon)
+                    .withVisible(rpgPlayer.secondaryAbilityIcon != null)
+                );
             });
         });
     }
@@ -237,5 +253,103 @@ public class Module_PlayerHud {
             .withValue(0f)
             .withBarTexturePath("abd4f9.png")
         );
+    }
+
+    // function to show the skills bar/slots
+    private void createSkillsBar(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
+        // initialize the hud element with HyUI
+        hud.addElement(new ImageBuilder()
+            .withId("skillSlot_R")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(56)
+                .setHeight(56)
+                .setBottom(135)
+                .setRight(80)
+            )
+            .withImage("HyARPG_Texture_EmptySkillSlot.png")
+        )
+        .addElement(new ImageBuilder()
+            .withId("skillIcon_R")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(48)
+                .setHeight(48)
+                .setBottom(139)
+                .setRight(84)
+            )
+            .withVisible(false)
+            .withImage("")
+        )
+        .addElement(new LabelBuilder()
+            .withId("skillSlot_Label_R")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(5)
+                .setHeight(5)
+                .setBottom(143)
+                .setRight(107)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(16)
+                .setTextColor("#FFFFFF")
+                .setRenderBold(true)
+            )
+            .withText("R")
+        )
+        .addElement(new ImageBuilder()
+            .withId("skillSlot_E")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(56)
+                .setHeight(56)
+                .setBottom(135)
+                .setRight(165)
+            )
+            .withImage("HyARPG_Texture_EmptySkillSlot.png")
+        )
+        .addElement(new ImageBuilder()
+            .withId("skillIcon_E")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(48)
+                .setHeight(48)
+                .setBottom(139)
+                .setRight(169)
+            )
+            .withVisible(false)
+            .withImage("")
+        )
+        .addElement(new LabelBuilder()
+            .withId("skillSlot_Label_E")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(5)
+                .setHeight(5)
+                .setBottom(143)
+                .setRight(192)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(16)
+                .setTextColor("#FFFFFF")
+                .setRenderBold(true)
+            )
+            .withText("E")
+        )
+        .addElement(new ImageBuilder()
+            .withId("skillSlot_Q")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(37)
+                .setHeight(37)
+                .setBottom(153)
+                .setRight(269)
+            )
+            .withImage("HyARPG_Texture_EmptySkillSlot.png")
+        )
+        .addElement(new ImageBuilder()
+            .withId("skillIcon_Q")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(31)
+                .setHeight(31)
+                .setBottom(156)
+                .setRight(271)
+            )
+            .withVisible(false)
+            .withImage("")
+        );;
     }
 }

@@ -1,0 +1,31 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "Shout_Big_Shockwave",
+      "PositionOffset": {
+        "X": 0.0,
+        "Z": 0.0
+      }
+    },
+    {
+      "SpawnerId": "Shout_Big_Shockwave2",
+      "PositionOffset": {
+        "Y": 1.0
+      },
+      "FixedRotation": true
+    },
+    {
+      "SpawnerId": "Shout_Big_Shockwave_Ground",
+      "PositionOffset": {
+        "X": 0.0,
+        "Z": 0.0
+      }
+    },
+    {
+      "SpawnerId": "Shout_Big_Star"
+    }
+  ],
+  "BoundingRadius": 100.0,
+  "CullDistance": 100.0,
+  "IsImportant": false
+}

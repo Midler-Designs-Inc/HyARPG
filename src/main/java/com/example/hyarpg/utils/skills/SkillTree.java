@@ -1,6 +1,8 @@
 package com.example.hyarpg.utils.skills;
 
 // Java Imports
+import com.example.hyarpg.components.Component_RPG_Player;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,9 +56,9 @@ public class SkillTree {
     }
 
     // refund all nodes in this tree
-    public int refund() {
+    public int refund(Component_RPG_Player comp) {
         int refundPoints = 0;
-        for (SkillNode node : nodes.values()) refundPoints += node.refund();
+        for (SkillNode node : nodes.values()) refundPoints += node.refund(comp);
         return refundPoints;
     }
 

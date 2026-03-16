@@ -2,8 +2,12 @@ package com.example.hyarpg.utils.skills;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
+import com.example.hyarpg.utils.abilities.Ability;
 import com.example.hyarpg.utils.affixes.StatType;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 
 // Java Imports
 import javax.annotation.Nullable;
@@ -19,26 +23,20 @@ public class SkillNode {
     public final int maxRanks;
     public final List<Requirement> requirements;
     public final String version;
-    public final String abilityId;
-    public final int abilityResourceStatIndex;
-    public final float abilityResourceCost;
-    public final boolean ultimateAbility;
+    public final Ability ability;
     public final StatType statType;
     public final float statValuePerRank;
+    public int allocatedPoints = 0;
+    public int currentRank = 0;
 
     // Internal Class Properties
-    private int allocatedPoints = 0;
-    private int currentRank = 0;
     private boolean isLocked = false;
 
-    public SkillNode(String id, String displayName, String iconId, String abilityId, int abilityResourceStatIndex, float abilityResourceCost, boolean ultimateAbility, int cost, int maxRanks, List<Requirement> requirements, String version) {
+    public SkillNode(String id, String displayName, String iconId, Ability ability, int cost, int maxRanks, List<Requirement> requirements, String version) {
         this.id = id;
         this.displayName = displayName;
         this.iconId = iconId;
-        this.abilityId = abilityId;
-        this.abilityResourceStatIndex = abilityResourceStatIndex;
-        this.abilityResourceCost = abilityResourceCost;
-        this.ultimateAbility = ultimateAbility;
+        this.ability = ability;
         this.statType = null;
         this.statValuePerRank = 0;
         this.cost = cost;
@@ -51,15 +49,12 @@ public class SkillNode {
         this.id = id;
         this.displayName = displayName;
         this.iconId = iconId;
-        this.abilityId = null;
-        this.abilityResourceStatIndex = DefaultEntityStatTypes.getStamina();
-        this.abilityResourceCost = 0;
+        this.ability = null;
         this.statType = statType;
         this.statValuePerRank = statValuePerRank;
         this.cost = cost;
         this.maxRanks = maxRanks;
         this.requirements = requirements;
-        this.ultimateAbility = false;
         this.version = version;
     }
 

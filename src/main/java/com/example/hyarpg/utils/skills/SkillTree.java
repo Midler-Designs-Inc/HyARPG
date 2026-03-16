@@ -2,6 +2,9 @@ package com.example.hyarpg.utils.skills;
 
 // Java Imports
 import com.example.hyarpg.components.Component_RPG_Player;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -57,6 +60,7 @@ public class SkillTree {
 
     // refund all nodes in this tree
     public int refund(Component_RPG_Player comp) {
+        // check if this node is an equipped ability and if so, remove it
         int refundPoints = 0;
         for (SkillNode node : nodes.values()) refundPoints += node.refund(comp);
         return refundPoints;

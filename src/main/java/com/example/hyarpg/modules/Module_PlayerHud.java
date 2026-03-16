@@ -4,6 +4,7 @@ package com.example.hyarpg.modules;
 import com.example.hyarpg.components.Component_Hunger;
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.utils.skills.SkillNode;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -111,6 +112,62 @@ public class Module_PlayerHud {
                     barrierOnBlockPercent = (float) barrierStat.get() / (float) healthStat.getMax();
                 else barrierOnBlockPercent = 0f;
 
+                // get abilities cooldowns if applicable //skillSlotOverlay_Label_R
+                int secondsLeft_E = 0;
+                if(rpgPlayer.primaryAbility != null) {
+                    SkillNode node = rpgPlayer.skillLibrary.findNode(rpgPlayer.primaryAbility);
+
+                    // check if the node exists and has an ability still
+                    if(node !=null && node.ability != null) {
+                        // get the time now and the last use of the ability in nano time
+                        long now = System.nanoTime();
+                        long lastUse = node.ability.getLastUse();
+
+                        // if lastUse was ever set (not zero) do comparison logic
+                        if(lastUse != 0) {
+                            // determine how much nano seconds have passed
+                            long elapsedNanos = now - lastUse;
+
+                            // get the remaining cooldown time in nanos
+                            long cooldownNanos = node.ability.cooldownSeconds * 1_000_000_000L;
+                            long remainingNanos = cooldownNanos - elapsedNanos;
+
+                            // set the remaining nanos into a clamped seconds left value
+                            secondsLeft_E = (int) Math.max(0, (remainingNanos + 999_999_999L) / 1_000_000_000L);
+                        }
+                    }
+                }
+
+                // get abilities cooldowns if applicable //skillSlotOverlay_Label_R
+                int secondsLeft_R = 0;
+                if(rpgPlayer.secondaryAbility != null) {
+                    SkillNode node = rpgPlayer.skillLibrary.findNode(rpgPlayer.secondaryAbility);
+
+                    // check if the node exists and has an ability still
+                    if(node !=null && node.ability != null) {
+                        // get the time now and the last use of the ability in nano time
+                        long now = System.nanoTime();
+                        long lastUse = node.ability.getLastUse();
+
+                        // if lastUse was ever set (not zero) do comparison logic
+                        if(lastUse != 0) {
+                            // determine how much nano seconds have passed
+                            long elapsedNanos = now - lastUse;
+
+                            // get the remaining cooldown time in nanos
+                            long cooldownNanos = node.ability.cooldownSeconds * 1_000_000_000L;
+                            long remainingNanos = cooldownNanos - elapsedNanos;
+
+                            // set the remaining nanos into a clamped seconds left value
+                            secondsLeft_R = (int) Math.max(0, (remainingNanos + 999_999_999L) / 1_000_000_000L);
+                        }
+                    }
+                }
+
+                // convert seconds left to final to shut up lambda error (java is so stupid)
+                int secondsLeft_E_final = secondsLeft_E;
+                int secondsLeft_R_final = secondsLeft_R;
+
                 // Update UI back on the HyUI/render thread
                 hudRef.getById("thirstBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(thirstPercent));
                 hudRef.getById("hungerBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(hungerPercent));
@@ -130,6 +187,20 @@ public class Module_PlayerHud {
                 hudRef.getById("skillIcon_R", ImageBuilder.class).ifPresent(l -> l
                     .withImage(rpgPlayer.secondaryAbilityIcon == null ? "" : rpgPlayer.secondaryAbilityIcon)
                     .withVisible(rpgPlayer.secondaryAbilityIcon != null)
+                );
+                hudRef.getById("skillSlotOverlay_Label_E", LabelBuilder.class).ifPresent(l -> l
+                    .withText(String.valueOf(secondsLeft_E_final))
+                    .withVisible(secondsLeft_E_final > 0)
+                );
+                hudRef.getById("skillIconOverlay_E", ImageBuilder.class).ifPresent(l -> l
+                    .withVisible(secondsLeft_E_final > 0)
+                );
+                hudRef.getById("skillSlotOverlay_Label_R", LabelBuilder.class).ifPresent(l -> l
+                    .withText(String.valueOf(secondsLeft_R_final))
+                    .withVisible(secondsLeft_R_final > 0)
+                );
+                hudRef.getById("skillIconOverlay_R", ImageBuilder.class).ifPresent(l -> l
+                        .withVisible(secondsLeft_R_final > 0)
                 );
             });
         });
@@ -257,44 +328,8 @@ public class Module_PlayerHud {
 
     // function to show the skills bar/slots
     private void createSkillsBar(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
-        // initialize the hud element with HyUI
+        // Skill Slot E
         hud.addElement(new ImageBuilder()
-            .withId("skillSlot_R")
-            .withAnchor(new HyUIAnchor()
-                .setWidth(56)
-                .setHeight(56)
-                .setBottom(135)
-                .setRight(80)
-            )
-            .withImage("HyARPG_Texture_EmptySkillSlot.png")
-        )
-        .addElement(new ImageBuilder()
-            .withId("skillIcon_R")
-            .withAnchor(new HyUIAnchor()
-                .setWidth(48)
-                .setHeight(48)
-                .setBottom(139)
-                .setRight(84)
-            )
-            .withVisible(false)
-            .withImage("")
-        )
-        .addElement(new LabelBuilder()
-            .withId("skillSlot_Label_R")
-            .withAnchor(new HyUIAnchor()
-                .setWidth(5)
-                .setHeight(5)
-                .setBottom(143)
-                .setRight(107)
-            )
-            .withStyle(new HyUIStyle()
-                .setFontSize(16)
-                .setTextColor("#FFFFFF")
-                .setRenderBold(true)
-            )
-            .withText("R")
-        )
-        .addElement(new ImageBuilder()
             .withId("skillSlot_E")
             .withAnchor(new HyUIAnchor()
                 .setWidth(56)
@@ -315,6 +350,35 @@ public class Module_PlayerHud {
             .withVisible(false)
             .withImage("")
         )
+        .addElement(new ImageBuilder()
+            .withId("skillIconOverlay_E")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(48)
+                .setHeight(48)
+                .setBottom(139)
+                .setRight(169)
+            )
+            .withVisible(false)
+            .withImage("Black_Alpha_75.png")
+        )
+        .addElement(new LabelBuilder()
+            .withId("skillSlotOverlay_Label_E")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(48)
+                .setHeight(48)
+                .setBottom(139)
+                .setRight(169)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(18)
+                .setTextColor("#FFFFFF")
+                .setRenderBold(true)
+                .setAlignment(Alignment.Center)
+                .setVerticalAlignment(Alignment.Center)
+            )
+            .withVisible(false)
+            .withText("0")
+        )
         .addElement(new LabelBuilder()
             .withId("skillSlot_Label_E")
             .withAnchor(new HyUIAnchor()
@@ -330,6 +394,75 @@ public class Module_PlayerHud {
             )
             .withText("E")
         )
+
+        // Skill Slot R
+        .addElement(new ImageBuilder()
+            .withId("skillSlot_R")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(56)
+                .setHeight(56)
+                .setBottom(135)
+                .setRight(80)
+            )
+            .withImage("HyARPG_Texture_EmptySkillSlot.png")
+        )
+        .addElement(new ImageBuilder()
+            .withId("skillIcon_R")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(48)
+                .setHeight(48)
+                .setBottom(139)
+                .setRight(84)
+            )
+            .withVisible(false)
+            .withImage("")
+        )
+        .addElement(new ImageBuilder()
+            .withId("skillIconOverlay_R")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(48)
+                .setHeight(48)
+                .setBottom(139)
+                .setRight(84)
+            )
+            .withVisible(false)
+            .withImage("Black_Alpha_75.png")
+        )
+        .addElement(new LabelBuilder()
+            .withId("skillSlotOverlay_Label_R")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(48)
+                .setHeight(48)
+                .setBottom(139)
+                .setRight(84)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(18)
+                .setTextColor("#FFFFFF")
+                .setRenderBold(true)
+                .setAlignment(Alignment.Center)
+                .setVerticalAlignment(Alignment.Center)
+            )
+            .withVisible(false)
+            .withText("0")
+        )
+        .addElement(new LabelBuilder()
+            .withId("skillSlot_Label_R")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(5)
+                .setHeight(5)
+                .setBottom(143)
+                .setRight(107)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(16)
+                .setTextColor("#FFFFFF")
+                .setRenderBold(true)
+            )
+            .withText("R")
+        )
+
+        // Skill Slot Q
         .addElement(new ImageBuilder()
             .withId("skillSlot_Q")
             .withAnchor(new HyUIAnchor()

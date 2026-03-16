@@ -146,6 +146,7 @@ public class Page_SkillTree {
                             <div style="layout-mode: topscrolling;
                                         anchor-width: ${NAV_WIDTH};
                                         anchor-height: ${NAV_SCROLL_H};"
+                                    data-hyui-keep-scroll-position="true"
                                  data-hyui-scrollbar-style="&quot;Common.ui&quot; &quot;DefaultScrollbarStyle&quot;">
                                 <div style="layout-mode: top; margin-left: 8; margin-top: 4;">
                                     ${NAV_HTML}
@@ -168,6 +169,7 @@ public class Page_SkillTree {
                             <div style="layout-mode: topscrolling;
                                         anchor-width: ${GRID_WIDTH};
                                         anchor-height: ${GRID_SCROLL_H};"
+                                        data-hyui-keep-scroll-position="true"
                                  data-hyui-scrollbar-style="&quot;Common.ui&quot; &quot;DefaultScrollbarStyle&quot;">
                                 <div style="layout-mode: top; margin-left: 8; margin-top: 8;">
                                     ${GRID_HTML}
@@ -229,7 +231,7 @@ public class Page_SkillTree {
                     boolean isLocked    = (playerNode != null) && playerNode.getIsLocked();
                     int     currentRank = (playerNode != null) ? playerNode.getCurrentRank() : 0;
                     boolean isMaxed     = currentRank >= structureNode.maxRanks;
-                    boolean hasAbility  = structureNode.abilityId != null;
+                    boolean hasAbility  = structureNode.ability != null;
                     String  nodeId      = structureNode.id;
                     String  finalTreeId = activeTreeId;
 
@@ -240,7 +242,7 @@ public class Page_SkillTree {
                         builder.addEventListener("node_" + nodeId, CustomUIEventBindingType.Activating, (ctx) -> {
                             player.getWorld().execute(() -> onNodeClicked(ref, store, player, rpg, finalTreeId, nodeId));
                         });
-                    } else if (hasAbility && structureNode.ultimateAbility) {
+                    } else if (hasAbility && structureNode.ability.ultimateAbility) {
                         // Q button — equip ultimate
                         builder.addEventListener("equip_ult_" + nodeId, CustomUIEventBindingType.Activating, (ctx) -> {
                             player.getWorld().execute(() -> onEquipUltimateAbility(ref, store, player, rpg, finalTreeId, nodeId));
@@ -358,14 +360,14 @@ public class Page_SkillTree {
 
         StringBuilder sb = new StringBuilder();
 
-        // No tooltip on the outer div — avoids it bleeding onto child buttons
+        // Outer cell div
         sb.append("<div style=\"layout-mode: top;")
                 .append(" anchor-width: ").append(CELL_SIZE).append(";")
                 .append(" anchor-height: ").append(CELL_SIZE + 42).append(";")
                 .append(" margin-right: 6;")
                 .append(" background-color: ").append(bgColor).append(";\">");
 
-        // Plain icon — no tooltip here
+        // Plain icon — no tooltip
         sb.append("<img src=\"").append(structureNode.iconId).append("\"")
                 .append(" width=\"").append(NODE_SIZE).append("\"")
                 .append(" height=\"").append(NODE_SIZE).append("\" />");
@@ -377,27 +379,23 @@ public class Page_SkillTree {
                     .append(" style=\"margin-top: -").append(NODE_SIZE).append(";\" />");
         }
 
-        // Rank label centered
+        // Rank label
         sb.append("<p style=\"color: ").append(rankColor).append("; margin-top: 2; text-align: center;\">")
                 .append(rankLabel).append("</p>");
 
-        boolean hasAbility = structureNode.abilityId != null;
+        boolean hasAbility = structureNode.ability != null;
 
         if (isLocked || !isMaxed) {
+            // + button — locked or not yet maxed
             String rankBtnId = "node_" + structureNode.id;
-            // Build tooltip as inline child of the button
-            String btnOpen;
-            if (!isLocked && !isMaxed) {
-                btnOpen = "<button id=\"" + rankBtnId + "\" class=\"small-tertiary-button\">";
-            } else {
-                btnOpen = "<button disabled class=\"small-tertiary-button\">";
-            }
-            sb.append(btnOpen);
-            sb.append("<tooltip>");
-            sb.append("<span>").append(structureNode.displayName).append("\n</span>");
             if (!isLocked) {
-                sb.append("<span>").append(currentRank).append("/").append(structureNode.maxRanks).append("</span>");
+                sb.append("<button id=\"").append(rankBtnId).append("\" class=\"small-tertiary-button\">");
             } else {
+                sb.append("<button disabled class=\"small-tertiary-button\">");
+            }
+            sb.append("<tooltip>");
+            sb.append("<span data-hyui-bold=\"true\">").append(structureNode.displayName).append("\n</span>");
+            if (isLocked) {
                 sb.append("<span>\nRequires:\n</span>");
                 if (structureNode.requirements.isEmpty()) {
                     sb.append("<span data-hyui-color=\"#ff6666\">  Unknown</span>");
@@ -408,34 +406,63 @@ public class Page_SkillTree {
                                 .append("\n</span>");
                     }
                 }
+            } else {
+                sb.append("<span data-hyui-color=\"#aaaaaa\">").append(currentRank).append("/").append(structureNode.maxRanks).append("</span>");
             }
             sb.append("</tooltip>");
             sb.append("+</button>");
-        } else if (hasAbility && structureNode.ultimateAbility) {
-            // Learned ultimate ability — single Q button
-            String qBtnId = "equip_ult_" + structureNode.id;
-            sb.append("<button id=\"").append(qBtnId).append("\" class=\"small-tertiary-button\"")
-                    .append(" style=\"anchor-width: ").append(CELL_SIZE).append("; anchor-height: 30;\"")
-                    .append(" data-hyui-tooltiptext=\"Equip as Ultimate Ability (Q)\">Q</button>");
+
+        } else if (hasAbility && structureNode.ability.ultimateAbility) {
+            // Q button — equip ultimate
+            sb.append("<button id=\"equip_ult_").append(structureNode.id).append("\" class=\"small-tertiary-button\"")
+                    .append(" style=\"anchor-width: ").append(CELL_SIZE).append("; anchor-height: 30;\">");
+            sb.append("<tooltip>");
+            sb.append("<span data-hyui-bold=\"true\">Equip as Ultimate Ability (Q)\n</span>");
+            sb.append("<span>\n</span>");
+            sb.append("<span>").append(structureNode.displayName).append("\n</span>");
+            sb.append("<span data-hyui-color=\"#c8a84b\">Maxed! ").append(structureNode.maxRanks).append("/").append(structureNode.maxRanks).append("</span>");
+            sb.append("</tooltip>");
+            sb.append("Q</button>");
+
         } else if (hasAbility) {
-            // Learned regular ability — E and R pill buttons side by side, no gap
+            // E and R buttons — equip primary/secondary
             String eBtnId = "equip_pri_" + structureNode.id;
             String rBtnId = "equip_sec_" + structureNode.id;
             sb.append("<div style=\"layout-mode: left; anchor-width: ").append(CELL_SIZE).append(";\">");
+
             sb.append("<button id=\"").append(eBtnId).append("\" class=\"small-tertiary-button\"")
-                    .append(" style=\"anchor-width: ").append(CELL_SIZE / 2).append(";anchor-height: 30;\"")
-                    .append(" data-hyui-tooltiptext=\"Equip as Primary Ability (E)\">E</button>");
+                    .append(" style=\"anchor-width: ").append(CELL_SIZE / 2).append("; anchor-height: 30;\">");
+            sb.append("<tooltip>");
+            sb.append("<span data-hyui-bold=\"true\">Equip as Primary Ability (E)\n</span>");
+            sb.append("<span>\n</span>");
+            sb.append("<span>").append(structureNode.displayName).append("\n</span>");
+            sb.append("<span data-hyui-color=\"#c8a84b\">Maxed! ").append(structureNode.maxRanks).append("/").append(structureNode.maxRanks).append("</span>");
+            sb.append("</tooltip>");
+            sb.append("E</button>");
+
             sb.append("<button id=\"").append(rBtnId).append("\" class=\"small-tertiary-button\"")
-                    .append(" style=\"anchor-width: ").append(CELL_SIZE / 2).append(";anchor-height: 30;\"")
-                    .append(" data-hyui-tooltiptext=\"Equip as Secondary Ability (R)\">R</button>");
+                    .append(" style=\"anchor-width: ").append(CELL_SIZE / 2).append("; anchor-height: 30;\">");
+            sb.append("<tooltip>");
+            sb.append("<span data-hyui-bold=\"true\">Equip as Secondary Ability (R)\n</span>");
+            sb.append("<span>\n</span>");
+            sb.append("<span>").append(structureNode.displayName).append("\n</span>");
+            sb.append("<span data-hyui-color=\"#c8a84b\">Maxed! ").append(structureNode.maxRanks).append("/").append(structureNode.maxRanks).append("</span>");
+            sb.append("</tooltip>");
+            sb.append("R</button>");
+
             sb.append("</div>");
+
         } else {
-            // Maxed stat node, no ability — disabled +
-            sb.append("<button disabled class=\"small-tertiary-button\">+</button>");
+            // Maxed stat node — disabled + with tooltip
+            sb.append("<button disabled class=\"small-tertiary-button\">");
+            sb.append("<tooltip>");
+            sb.append("<span data-hyui-bold=\"true\">").append(structureNode.displayName).append("\n</span>");
+            sb.append("<span data-hyui-color=\"#c8a84b\">Maxed! ").append(structureNode.maxRanks).append("/").append(structureNode.maxRanks).append("</span>");
+            sb.append("</tooltip>");
+            sb.append("+</button>");
         }
 
         sb.append("</div>");
-
         return sb.toString();
     }
 
@@ -481,7 +508,7 @@ public class Page_SkillTree {
 
     private static void onEquipUltimateAbility(Ref<EntityStore> ref, Store<EntityStore> store, Player player, Component_RPG_Player rpg, String treeId, String nodeId) {
         SkillNode node = rpg.skillLibrary.findNode(nodeId);
-        if(node == null || !node.ultimateAbility || node.abilityId == null) return;
+        if(node == null || node.ability == null || !node.ability.ultimateAbility) return;
 
         rpg.ultimateAbility = node.id;
         rpg.ultimateAbilityIcon = node.iconId;
@@ -489,13 +516,13 @@ public class Page_SkillTree {
 
     private static void onEquipPrimaryAbility(Ref<EntityStore> ref, Store<EntityStore> store, Player player, Component_RPG_Player rpg, String treeId, String nodeId) {
         SkillNode node = rpg.skillLibrary.findNode(nodeId);
-        if(node == null || node.ultimateAbility || node.abilityId == null) return;
+        if(node == null || node.ability == null || node.ability.ultimateAbility) return;
 
         rpg.primaryAbility = node.id;
         rpg.primaryAbilityIcon = node.iconId;
 
         // if this ability was in the other slot remove it
-        if(rpg.secondaryAbility != null && Objects.equals(rpg.secondaryAbility, node.abilityId)) {
+        if(rpg.secondaryAbility != null && Objects.equals(rpg.secondaryAbility, node.id)) {
             rpg.secondaryAbility = null;
             rpg.secondaryAbilityIcon = null;
         }
@@ -503,13 +530,13 @@ public class Page_SkillTree {
 
     private static void onEquipSecondaryAbility(Ref<EntityStore> ref, Store<EntityStore> store, Player player, Component_RPG_Player rpg, String treeId, String nodeId) {
         SkillNode node = rpg.skillLibrary.findNode(nodeId);
-        if(node == null || node.ultimateAbility || node.abilityId == null) return;
+        if(node == null || node.ability == null || node.ability.ultimateAbility) return;
 
         rpg.secondaryAbility = node.id;
         rpg.secondaryAbilityIcon = node.iconId;
 
         // if this ability was in the other slot remove it
-        if(rpg.primaryAbility != null && Objects.equals(rpg.primaryAbility, node.abilityId)) {
+        if(rpg.primaryAbility != null && Objects.equals(rpg.primaryAbility, node.id)) {
             rpg.primaryAbility = null;
             rpg.primaryAbilityIcon = null;
         }

@@ -69,7 +69,7 @@ public class Interaction_UseAbility1 extends SimpleInstantInteraction {
             }
 
             // Look up the root interaction and bail if we cant find it
-            String rootInteractionId = "Root_Interaction_" + node.abilityId;
+            String rootInteractionId = "Root_Interaction_" + node.ability.abilityId;
             RootInteraction rootInteraction = RootInteraction.getAssetMap().getAsset(rootInteractionId);
             if (rootInteraction == null) {
                 player.sendMessage(Message.raw("Ability not found: " + rootInteractionId).color(Color.RED));
@@ -77,10 +77,19 @@ public class Interaction_UseAbility1 extends SimpleInstantInteraction {
             }
 
             // validate the player has enough of the resource to file the ability
-            EntityStatValue resourceStat = statMap.get(node.abilityResourceStatIndex);
+            EntityStatValue resourceStat = statMap.get(node.ability.abilityResourceStatIndex);
             float currentValue = resourceStat.get();
-            if (currentValue < node.abilityResourceCost) {
+            if (currentValue < node.ability.abilityResourceCost) {
                 player.sendMessage(Message.raw("You do not have enough " + resourceStat.getId() + " to do that.").color(Color.RED));
+                return;
+            }
+
+            // validate the abilities cooldown
+            long now = System.nanoTime();
+            long cooldownNanos = node.ability.cooldownSeconds * 1_000_000_000L;
+            if (now - node.ability.getLastUse() < cooldownNanos) {
+                long remainingSeconds = (cooldownNanos - (now - node.ability.getLastUse())) / 1_000_000_000L;
+                player.sendMessage(Message.raw("Ability on cooldown for " + remainingSeconds + "s.").color(Color.RED));
                 return;
             }
 
@@ -93,7 +102,7 @@ public class Interaction_UseAbility1 extends SimpleInstantInteraction {
             if (interactionManager == null) return;
 
             // clear the players signature energy
-            statMap.setStatValue(node.abilityResourceStatIndex, Math.max(0, (currentValue - node.abilityResourceCost)));
+            statMap.setStatValue(node.ability.abilityResourceStatIndex, Math.max(0, (currentValue - node.ability.abilityResourceCost)));
 
             // create a new context for the interaction and init a new interaction chain
             InteractionContext newCtx = InteractionContext.forInteraction(interactionManager, entityRef, InteractionType.Use, commandBuffer);
@@ -101,6 +110,10 @@ public class Interaction_UseAbility1 extends SimpleInstantInteraction {
 
             // queue the interaction
             interactionManager.queueExecuteChain(chain);
+
+            // call the ability execute for any additional functionality that is ability dependent
+            node.ability.execute(entityRef);
+            node.ability.setLastUse(now);
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("UseAbility1 failed: %s", e.getMessage());
         }

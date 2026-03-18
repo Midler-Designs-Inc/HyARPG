@@ -8,8 +8,6 @@ import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
-import com.hypixel.hytale.protocol.EntityEffectUpdate;
-import com.hypixel.hytale.protocol.EntityEffectsUpdate;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
@@ -26,7 +24,6 @@ import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
-import com.hypixel.hytale.server.core.modules.entity.livingentity.LivingEntityEffectSystem;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -40,9 +37,7 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import com.hypixel.hytale.server.npc.components.StepComponent;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
-import com.hypixel.hytale.server.npc.movement.controllers.MotionController;
 import com.hypixel.hytale.server.npc.role.Role;
 
 // Mod Imports
@@ -64,10 +59,6 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
-
-import com.hypixel.hytale.server.npc.role.support.CombatSupport;
-import com.hypixel.hytale.server.npc.role.support.MarkedEntitySupport;
-import com.hypixel.hytale.server.npc.systems.RoleSystems;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class Module_RPG_System {
@@ -106,7 +97,7 @@ public class Module_RPG_System {
     }
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.0.0";
+    private final String SKILL_TREE_VERSION = "1.1.0";
 
     // Create a map for damage message colors
     public static final Map<String, Color> DAMAGE_COLORS = Map.of(

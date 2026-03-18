@@ -260,6 +260,7 @@ public class Page_RPGStats {
         addSectionHeader(sb, "Resistances");
         addStat(sb, "Physical Resist", fmt(s.getResistance("Physical")) + "%");
         addStat(sb, "Magic Resist", fmt(s.getResistance("Magic")) + "%");
+        addStat(sb, "Elemental Resist", fmt(s.getResistance("Elemental")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
         addStat(sb, "Fire Resist", fmt(s.getResistance("Fire")) + "%");
         addStat(sb, "Ice Resist", fmt(s.getResistance("Ice")) + "%");

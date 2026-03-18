@@ -66,22 +66,24 @@ public final class Module_ModTickLoop {
 
                     // loop over all players in the world
                     for (PlayerRef playerRef : Universe.get().getPlayers()) {
-                        // validate teh player ref
-                        if (!playerRef.isValid()) continue;
+                       try {
+                           // validate teh player ref
+                           if (!playerRef.isValid()) continue;
 
-                        // get the entity ref
-                        Ref<EntityStore> ref = playerRef.getReference();
-                        if (ref == null) continue;
+                           // get the entity ref
+                           Ref<EntityStore> ref = playerRef.getReference();
+                           if (ref == null) continue;
 
-                        // get the player
-                        Player player = store.getComponent(ref, Player.getComponentType());
-                        if (player == null) continue;
+                           // get the player
+                           Player player = store.getComponent(ref, Player.getComponentType());
+                           if (player == null) continue;
 
-                        // do our individual tick concerns
-                        tickHunger(ref, store, player);
-                        tickThirst(ref, store, player);
-                        tickGearRefresh(ref, store, player);
-                        tickResourceRegens(ref, store, player);
+                           // do our individual tick concerns
+                           tickHunger(ref, store, player);
+                           tickThirst(ref, store, player);
+                           tickGearRefresh(ref, store, player);
+                           tickResourceRegens(ref, store, player);
+                       } catch (Exception e) {}
                     }
                 });
             }

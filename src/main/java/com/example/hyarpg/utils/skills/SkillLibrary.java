@@ -2,8 +2,8 @@ package com.example.hyarpg.utils.skills;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.utils.abilities.knight.Rallying_Cry;
-import com.example.hyarpg.utils.abilities.knight.Taunt;
+import com.example.hyarpg.utils.abilities.juggernaut.*;
+import com.example.hyarpg.utils.abilities.knight.*;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.affixes.StatType;
 
@@ -24,6 +24,7 @@ public class SkillLibrary {
     public SkillLibrary(String version) {
         this.version = version;
         registerKnightTree();
+        registerJuggernautTree();
     }
 
     // Gson deserialization only — no tree registration, recalculate() called after load
@@ -77,7 +78,7 @@ public class SkillLibrary {
         layout.put("Knight_Shields_IncreasedStability_3", new SkillTree.GridPosition(6, 2));
 
         // ---- Taunt Ability ---- //
-        nodes.put("Knight_LearnAbility_Taunt", new SkillNode("Knight_LearnAbility_Taunt", "Learn 'Taunt': An activated ability that taunts all nearby enemies to target you.", "Skills_LearnAbility_AoETaunt.png", new Taunt(), 1, 1, List.of(Requirement.treePoints("Knight", 0)), "1.0.0"));
+        nodes.put("Knight_LearnAbility_Taunt", new SkillNode("Knight_LearnAbility_Taunt", "Learn 'Taunt': An activated ability that taunts all nearby enemies to target you.", "Skills_LearnAbility_AoETaunt.png", new Taunt(), 1, 1, List.of(Requirement.treePoints("Knight", 10)), "1.0.0"));
         layout.put("Knight_LearnAbility_Taunt", new SkillTree.GridPosition(8, 0));
 
         // ---- Fortify Ability ---- //
@@ -85,7 +86,7 @@ public class SkillLibrary {
         layout.put("Knight_IncreasedBarrierOnBlock", new SkillTree.GridPosition(8, 2));
 
         // ---- Rallying Cry Ability ---- //
-        nodes.put("Knight_LearnAbility_RallyingCry", new SkillNode("Knight_LearnAbility_RallyingCry", "Learn 'Rallying Cry': An activated ultimate ability that dramatically increases the physical attack and defense of all nearby players for a short period of time.", "Skills_LearnAbility_RallyingCry.png", new Rallying_Cry(), 1, 1, List.of(Requirement.treePoints("Knight", 0)), "1.0.0"));
+        nodes.put("Knight_LearnAbility_RallyingCry", new SkillNode("Knight_LearnAbility_RallyingCry", "Learn 'Rallying Cry': An activated ultimate ability that dramatically increases the physical attack and defense of all nearby players for a short period of time.", "Skills_LearnAbility_RallyingCry.png", new Rallying_Cry(), 1, 1, List.of(Requirement.treePoints("Knight", 30)), "1.0.0"));
         layout.put("Knight_LearnAbility_RallyingCry", new SkillTree.GridPosition(8, 4));
 
         // ---- Increased Physical Resistance Nodes ---- //
@@ -107,6 +108,85 @@ public class SkillLibrary {
 
         // ---- Register the Tree ---- //
         REGISTRY.put("Knight", new SkillTree("Knight", "Knight", "Weapon", List.of(), List.of(), "1.0.0", nodes, layout, 8, 6));
+    }
+    public void registerJuggernautTree() {
+        Map<String, SkillNode> nodes = new LinkedHashMap<>();
+        Map<String, SkillTree.GridPosition> layout = new LinkedHashMap<>();
+
+        // ---- Increased Battleaxe Damage Nodes ---- //
+        nodes.put("Juggernaut_Battleaxes_IncreasedDamage_1", new SkillNode("Juggernaut_Battleaxes_IncreasedDamage_1", "Increase battleaxe damage by 1% per rank.", "Juggernaut_Battleaxes_IncreasedDamage_1.png", StatType.BATTLEAXE_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Juggernaut_Battleaxes_IncreasedDamage_1", new SkillTree.GridPosition(0, 0));
+
+        nodes.put("Juggernaut_Battleaxes_IncreasedDamage_2", new SkillNode("Juggernaut_Battleaxes_IncreasedDamage_2", "Increase battleaxe damage by 3% per rank.", "Juggernaut_Battleaxes_IncreasedDamage_2.png", StatType.BATTLEAXE_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Juggernaut_Battleaxes_IncreasedDamage_1", 10)), "1.0.0"));
+        layout.put("Juggernaut_Battleaxes_IncreasedDamage_2", new SkillTree.GridPosition(0, 1));
+
+        nodes.put("Juggernaut_Battleaxes_IncreasedDamage_3", new SkillNode("Juggernaut_Battleaxes_IncreasedDamage_3", "Increase battleaxe damage by 25% per rank.", "Juggernaut_Battleaxes_IncreasedDamage_3.png", StatType.BATTLEAXE_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Juggernaut_Battleaxes_IncreasedDamage_2", 5)), "1.0.0"));
+        layout.put("Juggernaut_Battleaxes_IncreasedDamage_3", new SkillTree.GridPosition(0, 2));
+
+        // ---- Increased Mace Damage Nodes ---- //
+        nodes.put("Juggernaut_Maces_IncreasedDamage_1", new SkillNode("Juggernaut_Maces_IncreasedDamage_1", "Increase mace damage by 1% per rank.", "Juggernaut_Maces_IncreasedDamage_1.png", StatType.MACE_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Juggernaut_Maces_IncreasedDamage_1", new SkillTree.GridPosition(2, 0));
+
+        nodes.put("Juggernaut_Maces_IncreasedDamage_2", new SkillNode("Juggernaut_Maces_IncreasedDamage_2", "Increase mace damage by 3% per rank.", "Juggernaut_Maces_IncreasedDamage_2.png", StatType.MACE_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Juggernaut_Maces_IncreasedDamage_1", 10)), "1.0.0"));
+        layout.put("Juggernaut_Maces_IncreasedDamage_2", new SkillTree.GridPosition(2, 1));
+
+        nodes.put("Juggernaut_Maces_IncreasedDamage_3", new SkillNode("Juggernaut_Maces_IncreasedDamage_3", "Increase mace damage by 25% per rank.", "Juggernaut_Maces_IncreasedDamage_3.png", StatType.MACE_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Juggernaut_Maces_IncreasedDamage_2", 5)), "1.0.0"));
+        layout.put("Juggernaut_Maces_IncreasedDamage_3", new SkillTree.GridPosition(2, 2));
+
+        // ---- Increased Longsword Damage Nodes ---- //
+        nodes.put("Juggernaut_Longswords_IncreasedDamage_1", new SkillNode("Juggernaut_Longswords_IncreasedDamage_1", "Increase longsword damage by 1% per rank.", "Juggernaut_Longswords_IncreasedDamage_1.png", StatType.LONGSWORD_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Juggernaut_Longswords_IncreasedDamage_1", new SkillTree.GridPosition(4, 0));
+
+        nodes.put("Juggernaut_Longswords_IncreasedDamage_2", new SkillNode("Juggernaut_Longswords_IncreasedDamage_2", "Increase longsword damage by 3% per rank.", "Juggernaut_Longswords_IncreasedDamage_2.png", StatType.LONGSWORD_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Juggernaut_Longswords_IncreasedDamage_1", 10)), "1.0.0"));
+        layout.put("Juggernaut_Longswords_IncreasedDamage_2", new SkillTree.GridPosition(4, 1));
+
+        nodes.put("Juggernaut_Longswords_IncreasedDamage_3", new SkillNode("Juggernaut_Longswords_IncreasedDamage_3", "Increase longsword damage by 25% per rank.", "Juggernaut_Longswords_IncreasedDamage_3.png", StatType.LONGSWORD_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Juggernaut_Longswords_IncreasedDamage_2", 5)), "1.0.0"));
+        layout.put("Juggernaut_Longswords_IncreasedDamage_3", new SkillTree.GridPosition(4, 2));
+
+        // ---- Increased Stability Nodes ---- //
+        nodes.put("Juggernaut_IncreasedStability_1", new SkillNode("Juggernaut_IncreasedStability_1", "Increase stability by 1% per rank.", "Juggernaut_IncreasedStability_1.png", StatType.STABILITY_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Juggernaut_IncreasedStability_1", new SkillTree.GridPosition(6, 0));
+
+        nodes.put("Juggernaut_IncreasedStability_2", new SkillNode("Juggernaut_IncreasedStability_2", "Increase stability by 3% per rank.", "Juggernaut_IncreasedStability_2.png", StatType.STABILITY_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Juggernaut_IncreasedStability_1", 10)), "1.0.0"));
+        layout.put("Juggernaut_IncreasedStability_2", new SkillTree.GridPosition(6, 1));
+
+        nodes.put("Juggernaut_IncreasedStability_3", new SkillNode("Juggernaut_IncreasedStability_3", "Increase stability by 25% per rank.", "Juggernaut_IncreasedStability_3.png", StatType.STABILITY_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Juggernaut_IncreasedStability_2", 3)), "1.0.0"));
+        layout.put("Juggernaut_IncreasedStability_3", new SkillTree.GridPosition(6, 2));
+
+        // ---- Cyclone Ability ---- //
+        nodes.put("Juggernaut_LearnAbility_Cyclone", new SkillNode("Juggernaut_LearnAbility_Cyclone", "Learn 'Cyclone': A channeled ability causing the user to spin in a circle damaging all nearby enemies with their equipped weapon.", "Juggernaut_Ability_Cyclone.png", new Cyclone(), 1, 1, List.of(Requirement.treePoints("Juggernaut", 0)), "1.0.0"));
+        layout.put("Juggernaut_LearnAbility_Cyclone", new SkillTree.GridPosition(8, 0));
+
+        // ---- Chain Pull Ability ---- //
+        nodes.put("Juggernaut_LearnAbility_Chain_Pull", new SkillNode("Juggernaut_LearnAbility_Chain_Pull", "Learn 'Chain Pull': An activated ability that launches out chains that then pull in all nearby enemies.", "Juggernaut_Ability_ChainPull.png", new Chain_Pull(), 1, 1, List.of(Requirement.treePoints("Juggernaut", 0)), "1.0.0"));
+        layout.put("Juggernaut_LearnAbility_Chain_Pull", new SkillTree.GridPosition(8, 2));
+
+        // ---- Leap Slam Ability ---- //
+        nodes.put("Juggernaut_LearnAbility_Leap_Slam", new SkillNode("Juggernaut_LearnAbility_Leap_Slam", "Learn 'Leap Slam': An activated ultimate ability that causes the user to leap into the air and then slam down with their weapon causing massive AoE damage and stun.", "Juggernaut_Ability_LeapSlam.png", new Leap_Slam(), 1, 1, List.of(Requirement.treePoints("Juggernaut", 0)), "1.0.0"));
+        layout.put("Juggernaut_LearnAbility_Leap_Slam", new SkillTree.GridPosition(8, 4));
+
+        // ---- Increased Physical Resistance Nodes ---- //
+        nodes.put("Juggernaut_Physical_IncreasedResistance_1", new SkillNode("Juggernaut_Physical_IncreasedResistance_1", "Increase physical damage resistance by 1% per rank.", "Juggernaut_Physical_IncreasedResistance_1.png", StatType.PHYSICAL_RESIST_PERCENT, 1f, 1, 10, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
+        layout.put("Juggernaut_Physical_IncreasedResistance_1", new SkillTree.GridPosition(0, 4));
+
+        nodes.put("Juggernaut_Physical_IncreasedResistance_2", new SkillNode("Juggernaut_Physical_IncreasedResistance_2", "Increase physical damage resistance by 3% per rank.", "Juggernaut_Physical_IncreasedResistance_2.png", StatType.PHYSICAL_RESIST_PERCENT, 3f, 1, 5, List.of(Requirement.treePoints("Juggernaut", 15)), "1.0.0"));
+        layout.put("Juggernaut_Physical_IncreasedResistance_2", new SkillTree.GridPosition(0, 5));
+
+        nodes.put("Juggernaut_Physical_IncreasedResistance_3", new SkillNode("Juggernaut_Physical_IncreasedResistance_3", "Increase physical damage resistance by 25% per rank.", "Juggernaut_Physical_IncreasedResistance_3.png", StatType.PHYSICAL_RESIST_PERCENT, 25f, 1, 1, List.of(Requirement.treePoints("Juggernaut", 20)), "1.0.0"));
+        layout.put("Juggernaut_Physical_IncreasedResistance_3", new SkillTree.GridPosition(0, 6));
+
+        // ---- Increased Elemental Resistance Nodes ---- //
+        nodes.put("Juggernaut_Elemental_IncreasedResistance_1", new SkillNode("Juggernaut_Elemental_IncreasedResistance_1", "Increase elemental damage resistance by 1% per rank.", "Juggernaut_Elemental_IncreasedResistance_1.png", StatType.ELEMENTAL_RESIST_PERCENT, 1f, 1, 10, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
+        layout.put("Juggernaut_Elemental_IncreasedResistance_1", new SkillTree.GridPosition(0, 4));
+
+        nodes.put("Juggernaut_Elemental_IncreasedResistance_2", new SkillNode("Juggernaut_Elemental_IncreasedResistance_2", "Increase elemental damage resistance by 3% per rank.", "Juggernaut_Elemental_IncreasedResistance_2.png", StatType.ELEMENTAL_RESIST_PERCENT, 3f, 1, 5, List.of(Requirement.treePoints("Juggernaut", 15)), "1.0.0"));
+        layout.put("Juggernaut_Elemental_IncreasedResistance_2", new SkillTree.GridPosition(0, 5));
+
+        nodes.put("Juggernaut_Elemental_IncreasedResistance_3", new SkillNode("Juggernaut_Elemental_IncreasedResistance_3", "Increase elemental damage resistance by 25% per rank.", "Juggernaut_Elemental_IncreasedResistance_3.png", StatType.ELEMENTAL_RESIST_PERCENT, 25f, 1, 1, List.of(Requirement.treePoints("Juggernaut", 20)), "1.0.0"));
+        layout.put("Juggernaut_Elemental_IncreasedResistance_3", new SkillTree.GridPosition(0, 6));
+
+        // ---- Register the Tree ---- //
+        REGISTRY.put("Juggernaut", new SkillTree("Juggernaut", "Juggernaut", "Weapon", List.of(), List.of(), "1.0.0", nodes, layout, 8, 6));
     }
 
     // Check all requirements for a node or tree — pass the library so cross-tree, node lookups work for NODE_MIN_RANK requirements

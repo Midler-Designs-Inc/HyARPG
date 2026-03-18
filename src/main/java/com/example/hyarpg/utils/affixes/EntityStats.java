@@ -132,12 +132,22 @@ public final class EntityStats {
     public float getResistance(String damageCause) {
         if (damageCause == null) return 0f;
         switch (damageCause) {
-            case "Fire": return clamp(getRaw(StatType.FIRE_RESIST_PERCENT), MAX_RESIST);
-            case "Ice": return clamp(getRaw(StatType.ICE_RESIST_PERCENT), MAX_RESIST);
-            case "Lightning": return clamp(getRaw(StatType.LIGHTNING_RESIST_PERCENT), MAX_RESIST);
+            case "Fire": return clamp(
+                getRaw(StatType.FIRE_RESIST_PERCENT) + getRaw(StatType.ELEMENTAL_RESIST_PERCENT),
+                MAX_RESIST
+            );
+            case "Ice": return clamp(
+                getRaw(StatType.ICE_RESIST_PERCENT) + getRaw(StatType.ELEMENTAL_RESIST_PERCENT),
+                MAX_RESIST
+            );
+            case "Lightning": return clamp(
+                getRaw(StatType.LIGHTNING_RESIST_PERCENT) + getRaw(StatType.ELEMENTAL_RESIST_PERCENT),
+                MAX_RESIST
+            );
             case "Poison": return clamp(getRaw(StatType.POISON_RESIST_PERCENT), MAX_RESIST);
             case "Magic": return clamp(getRaw(StatType.MAGIC_RESIST_PERCENT), MAX_RESIST);
             case "Physical": return clamp(getRaw(StatType.PHYSICAL_RESIST_PERCENT), MAX_RESIST);
+            case "Elemental": return clamp(getRaw(StatType.ELEMENTAL_RESIST_PERCENT), MAX_RESIST);
             default: return 0f;
         }
     }

@@ -28,7 +28,7 @@ public class Chain_Pull extends Ability {
     private static final float PULL_STRENGTH_MULTIPLIER = 5f;
 
     public Chain_Pull() {
-        super("Ability_Chain_Pull", DefaultEntityStatTypes.getStamina(), 5f, false, 0, false, List.of());
+        super("Ability_Chain_Pull", DefaultEntityStatTypes.getStamina(), 5f, false, 3, false, List.of());
     }
 
     @Override

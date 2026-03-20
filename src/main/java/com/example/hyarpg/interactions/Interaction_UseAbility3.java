@@ -13,10 +13,12 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.InteractionChain;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.entity.InteractionManager;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -94,6 +96,31 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
                 return;
             }
 
+            // validate any weapon requirements
+            if (node.ability.requiredWeapons != null && !node.ability.requiredWeapons.isEmpty()) {
+                boolean requirementMet = false;
+
+                for (ItemStack hand : new ItemStack[]{rpgPlayer.mainHandItem, rpgPlayer.offHandItem}) {
+                    if (hand == null) continue;
+                    Item handItem = hand.getItem();
+                    if (handItem.getData() == null) continue;
+                    String[] family = handItem.getData().getRawTags().get("Family");
+                    if (family == null) continue;
+                    for (String tag : family) {
+                        if (node.ability.requiredWeapons.contains(tag)) {
+                            requirementMet = true;
+                            break;
+                        }
+                    }
+                    if (requirementMet) break;
+                }
+
+                if (!requirementMet) {
+                    player.sendMessage(Message.raw("You are not wielding the required weapon to use this ability.").color(Color.RED));
+                    return;
+                }
+            }
+
             // Get commandBuffer from context
             var commandBuffer = context.getCommandBuffer();
             if (commandBuffer == null) return;
@@ -102,8 +129,10 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
             InteractionManager interactionManager = store.getComponent(entityRef, InteractionModule.get().getInteractionManagerComponent());
             if (interactionManager == null) return;
 
-            // clear the players signature energy
-            statMap.setStatValue(node.ability.abilityResourceStatIndex, Math.max(0, (currentValue - node.ability.abilityResourceCost)));
+            // Deduct the resource cost from teh resource if not a channeled ability
+            if (!node.ability.isChanneled) {
+                statMap.setStatValue(node.ability.abilityResourceStatIndex, Math.max(0, (currentValue - node.ability.abilityResourceCost)));
+            }
 
             // create a new context for the interaction and init a new interaction chain
             InteractionContext newCtx = InteractionContext.forInteraction(interactionManager, entityRef, InteractionType.Use, commandBuffer);

@@ -1,8 +1,12 @@
 package com.example.hyarpg.ui;
 
 // Mod imports
+import au.ellie.hyui.builders.HyUIPage;
+import au.ellie.hyui.builders.HyUInterface;
+import au.ellie.hyui.builders.InterfaceBuilder;
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.modules.Module_RPG_System;
+import com.example.hyarpg.utils.abilities.Ability;
 import com.example.hyarpg.utils.skills.Requirement;
 import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.example.hyarpg.utils.skills.SkillNode;
@@ -408,6 +412,13 @@ public class Page_SkillTree {
                 }
             } else {
                 sb.append("<span data-hyui-color=\"#aaaaaa\">").append(currentRank).append("/").append(structureNode.maxRanks).append("</span>");
+                sb.append("<span data-hyui-color=\"#f0c060\">  Cost: ").append(structureNode.cost).append(" point").append(structureNode.cost != 1 ? "s" : "").append("\n</span>");
+                // Weapon requirements from ability if present
+                String weaponReqs = buildWeaponRequirementsText(structureNode);
+                if (weaponReqs != null) {
+                    sb.append("<span>\n</span>");
+                    sb.append("<span data-hyui-color=\"#ff9944\">Requires: ").append(weaponReqs).append("</span>");
+                }
             }
             sb.append("</tooltip>");
             sb.append("+</button>");
@@ -421,6 +432,11 @@ public class Page_SkillTree {
             sb.append("<span>\n</span>");
             sb.append("<span>").append(structureNode.displayName).append("\n</span>");
             sb.append("<span data-hyui-color=\"#c8a84b\">Maxed! ").append(structureNode.maxRanks).append("/").append(structureNode.maxRanks).append("</span>");
+            String weaponReqsQ = buildWeaponRequirementsText(structureNode);
+            if (weaponReqsQ != null) {
+                sb.append("<span>\n</span>");
+                sb.append("<span data-hyui-color=\"#ff9944\">Requires: ").append(weaponReqsQ).append("</span>");
+            }
             sb.append("</tooltip>");
             sb.append("Q</button>");
 
@@ -428,6 +444,7 @@ public class Page_SkillTree {
             // E and R buttons — equip primary/secondary
             String eBtnId = "equip_pri_" + structureNode.id;
             String rBtnId = "equip_sec_" + structureNode.id;
+            String weaponReqsER = buildWeaponRequirementsText(structureNode);
             sb.append("<div style=\"layout-mode: left; anchor-width: ").append(CELL_SIZE).append(";\">");
 
             sb.append("<button id=\"").append(eBtnId).append("\" class=\"small-tertiary-button\"")
@@ -437,6 +454,10 @@ public class Page_SkillTree {
             sb.append("<span>\n</span>");
             sb.append("<span>").append(structureNode.displayName).append("\n</span>");
             sb.append("<span data-hyui-color=\"#c8a84b\">Maxed! ").append(structureNode.maxRanks).append("/").append(structureNode.maxRanks).append("</span>");
+            if (weaponReqsER != null) {
+                sb.append("<span>\n</span>");
+                sb.append("<span data-hyui-color=\"#ff9944\">Requires: ").append(weaponReqsER).append("</span>");
+            }
             sb.append("</tooltip>");
             sb.append("E</button>");
 
@@ -447,6 +468,10 @@ public class Page_SkillTree {
             sb.append("<span>\n</span>");
             sb.append("<span>").append(structureNode.displayName).append("\n</span>");
             sb.append("<span data-hyui-color=\"#c8a84b\">Maxed! ").append(structureNode.maxRanks).append("/").append(structureNode.maxRanks).append("</span>");
+            if (weaponReqsER != null) {
+                sb.append("<span>\n</span>");
+                sb.append("<span data-hyui-color=\"#ff9944\">Requires: ").append(weaponReqsER).append("</span>");
+            }
             sb.append("</tooltip>");
             sb.append("R</button>");
 
@@ -469,6 +494,16 @@ public class Page_SkillTree {
     // -------------------------------------------------------------------------
     // Tooltip builder
     // -------------------------------------------------------------------------
+
+    // Returns a formatted weapon requirement string, or null if no weapon requirements
+    private static String buildWeaponRequirementsText(SkillNode node) {
+        if (node.ability == null
+                || node.ability.requiredWeapons == null
+                || node.ability.requiredWeapons.isEmpty()) {
+            return null;
+        }
+        return String.join(", ", node.ability.requiredWeapons);
+    }
 
     private static String buildRequirementText(Requirement req, SkillLibrary structureLibrary) {
         switch (req.type()) {

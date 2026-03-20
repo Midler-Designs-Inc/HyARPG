@@ -53,6 +53,9 @@
   "Tags": {
     "Type": [
       "Weapon"
+    ],
+    "Family": [
+      "Battleaxe"
     ]
   },
   "Weapon": {},

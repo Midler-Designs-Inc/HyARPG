@@ -359,6 +359,15 @@ public class Component_RPG_Player implements Component<EntityStore> {
             levelUp(playerRef);
         }
     }
+    public void awardXP(PlayerRef playerRef, double xpGained) {
+        // apply the XP
+        xp += xpGained;
+
+        // while xp required to level up is 0 then level up
+        while (calculateXPRequiredToLevelUp() <= 0) {
+            levelUp(playerRef);
+        }
+    }
 
     // Method to level up
     public void levelUp(PlayerRef playerRef) {

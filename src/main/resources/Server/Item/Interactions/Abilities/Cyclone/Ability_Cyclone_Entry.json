@@ -1,0 +1,11 @@
+{
+  "Type": "Chaining",
+  "ChainingAllowance": 0.75,
+  "Next": [
+    "Ability_Cyclone_Spin"
+  ],
+  "Effects": {
+    "WorldSoundEventId": "SFX_Light_Melee_T1_Swing",
+    "LocalSoundEventId": "SFX_Light_Melee_T1_Swing"
+  }
+}

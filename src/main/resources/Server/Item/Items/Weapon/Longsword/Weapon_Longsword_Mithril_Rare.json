@@ -12,7 +12,28 @@
   "Texture": "Items/Weapons/Longsword/Mithril_Texture.png",
   "PlayerAnimationsId": "Longsword",
   "Interactions": {
-    "Primary": "Longsword_Attack"
+    "Primary": "Longsword_Attack",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
   },
   "InteractionVars": {
     "Longsword_Swing_Left_Effect": {
@@ -130,7 +151,8 @@
       "Weapon"
     ],
     "Family": [
-      "Longsword"
+      "Longsword",
+      "Mithril"
     ]
   },
   "MaxDurability": 0,
@@ -169,6 +191,7 @@
       }
     ]
   },
+  "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {
       "Id": "Rare_Gear"

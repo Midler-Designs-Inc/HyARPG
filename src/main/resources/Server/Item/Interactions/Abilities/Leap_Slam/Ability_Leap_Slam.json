@@ -1,0 +1,8 @@
+{
+  "Type": "Simple",
+  "RunTime": 0.5,
+  "Effects": {
+    "WorldSoundEventId": "SFX_Mace_T2_Signature_Launch"
+  },
+  "Next": "Ability_Leap_Slam_Jump_Force"
+}

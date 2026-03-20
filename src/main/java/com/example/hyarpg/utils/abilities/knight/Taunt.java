@@ -14,13 +14,15 @@ import com.hypixel.hytale.server.core.util.TargetUtil;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.npc.role.Role;
 
+import java.util.List;
+
 public class Taunt extends Ability {
 
     private static final float RANGE = 15f;
     private static final float HEIGHT = 5f;
 
     public Taunt() {
-        super("Ability_Taunt", DefaultEntityStatTypes.getStamina(), 5f, false, 3);
+        super("Ability_Taunt", DefaultEntityStatTypes.getStamina(), 5f, false, 3, false, List.of());
     }
 
     @Override

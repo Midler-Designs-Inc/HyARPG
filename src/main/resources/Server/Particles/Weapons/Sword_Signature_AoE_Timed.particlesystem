@@ -1,0 +1,20 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "Sword_Signature_AoE_Bright"
+    },
+    {
+      "SpawnerId": "Sword_Signature_AoE_Alpha"
+    },
+    {
+      "SpawnerId": "Sword_Signature_AoE_Sparks",
+      "FixedRotation": false
+    },
+    {
+      "SpawnerId": "Sword_Signature_AoE_Bright2"
+    }
+  ],
+  "BoundingRadius": 10,
+  "IsImportant": false,
+  "LifeSpan": 0.7
+}

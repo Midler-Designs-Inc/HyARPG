@@ -19,7 +19,10 @@
         "Selector": {
           "Id": "AOECylinder",
           "Range": 15,
-          "Height": 5
+          "Height": 5,
+          "Offset": {
+            "Y": -2.5
+          }
         },
         "HitEntityRules": [
           {

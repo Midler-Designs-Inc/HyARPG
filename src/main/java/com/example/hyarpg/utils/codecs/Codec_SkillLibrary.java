@@ -1,25 +1,24 @@
 package com.example.hyarpg.utils.codecs;
 
 // Hytale Imports
-import com.example.hyarpg.utils.abilities.Ability;
-import com.example.hyarpg.utils.abilities.knight.Rallying_Cry;
-import com.example.hyarpg.utils.abilities.knight.Taunt;
-import com.example.hyarpg.utils.affixes.StatType;
-import com.example.hyarpg.utils.skills.Requirement;
-import com.example.hyarpg.utils.skills.SkillNode;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.function.FunctionCodec;
 
 // Mod Imports
 import com.example.hyarpg.utils.skills.SkillLibrary;
+import com.example.hyarpg.utils.abilities.Ability;
+import com.example.hyarpg.utils.abilities.knight.*;
+import com.example.hyarpg.utils.abilities.juggernaut.*;
+import com.example.hyarpg.utils.affixes.StatType;
+import com.example.hyarpg.utils.skills.Requirement;
+import com.example.hyarpg.utils.skills.SkillNode;
 
 // Java Imports
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 import java.util.Map;
@@ -30,8 +29,11 @@ public class Codec_SkillLibrary {
     private static Map<String, Ability> getAbilityRegistry() {
         if (abilityRegistry == null) {
             abilityRegistry = Map.of(
-                    "Ability_Taunt", new Taunt(),
-                    "Ability_Rallying_Cry", new Rallying_Cry()
+                "Ability_Taunt", new Taunt(),
+                "Ability_Rallying_Cry", new Rallying_Cry(),
+                "Ability_Chain_Pull", new Chain_Pull(),
+                "Ability_Cyclone", new Cyclone(),
+                "Ability_Leap_Slam", new Leap_Slam()
             );
         }
         return abilityRegistry;

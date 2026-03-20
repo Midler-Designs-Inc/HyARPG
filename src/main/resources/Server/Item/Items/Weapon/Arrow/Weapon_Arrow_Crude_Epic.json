@@ -62,7 +62,28 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Arrow_Crude.png",
   "Interactions": {
     "Primary": "Knife_Attack",
-    "Secondary": "Knife_Block"
+    "Secondary": "Knife_Block",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
   },
   "InteractionVars": {
     "Knife_Block_Damage": "Knife_Block_Damage",
@@ -198,12 +219,14 @@
       "Weapon"
     ],
     "Family": [
-      "Arrow"
+      "Arrow",
+      "Crude"
     ]
   },
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Arrows",
   "MaxDurability": 0,
+  "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {
       "Id": "Epic_Gear"

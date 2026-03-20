@@ -82,7 +82,7 @@ public class Module_PlayerHud {
         hud.show(playerRef);
     }
 
-    // function to implment and start the hud refreshing
+    // function to implement and start the hud refreshing
     private void startHUDRefresh(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
         hud.withRefreshRate(250).onRefresh(hudRef -> {
             // Schedule component reads on the world thread
@@ -301,7 +301,7 @@ public class Module_PlayerHud {
                 .setTextColor("#cccccc")
                 .setRenderBold(true)
             )
-            .withPadding(new HyUIPadding().setLeft(-435))
+            .withPadding(new HyUIPadding().setLeft(-440))
             .withText("GS 0  |  Lv 1")
         );
     }

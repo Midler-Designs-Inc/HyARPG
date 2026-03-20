@@ -56,7 +56,28 @@
     "Compatible": true
   },
   "Interactions": {
-    "Primary": "Club_Attack"
+    "Primary": "Club_Attack",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
   },
   "InteractionVars": {
     "Club_Swing_Left_Effect": {
@@ -149,11 +170,13 @@
       "Weapon"
     ],
     "Family": [
-      "Club"
+      "Club",
+      "Copper"
     ]
   },
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {
       "Id": "Epic_Gear"

@@ -59,7 +59,8 @@
       "Weapon"
     ],
     "Family": [
-      "Dagger"
+      "Dagger",
+      "Daggers"
     ]
   },
   "Weapon": {},

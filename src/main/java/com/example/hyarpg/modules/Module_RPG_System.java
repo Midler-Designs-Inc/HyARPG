@@ -1,29 +1,34 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import com.example.hyarpg.utils.skills.SkillLibrary;
-import com.example.hyarpg.utils.skills.SkillLibraryMigration;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
+import com.hypixel.hytale.protocol.ParticleAttractor;
+import com.hypixel.hytale.protocol.ParticleSystem;
+import com.hypixel.hytale.protocol.packets.world.SpawnParticleSystem;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.asset.type.particle.config.Particle;
 import com.hypixel.hytale.server.core.entity.Frozen;
+import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.io.handlers.IWorldPacketHandler;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entity.tracker.EntityTrackerSystems;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -53,6 +58,8 @@ import com.example.hyarpg.utils.affixes.AffixPool;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.combat.SwingDamageGroup;
 import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.utils.skills.SkillLibrary;
+import com.example.hyarpg.utils.skills.SkillLibraryMigration;
 
 // Java Imports
 import java.awt.*;
@@ -60,6 +67,13 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.logging.Level;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class Module_RPG_System {
 
@@ -97,7 +111,7 @@ public class Module_RPG_System {
     }
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.1.0";
+    private final String SKILL_TREE_VERSION = "2.1.0";
 
     // Create a map for damage message colors
     public static final Map<String, Color> DAMAGE_COLORS = Map.of(
@@ -144,6 +158,16 @@ public class Module_RPG_System {
         return attacker + "->" + defender + "@" + (System.currentTimeMillis() / BUCKET_MS);
     }
 
+    // Used for weapon damage swap
+    private static class ResolvedDamage {
+        final DamageCause cause;
+        final float amount;
+        ResolvedDamage(DamageCause cause, float amount) {
+            this.cause = cause;
+            this.amount = amount;
+        }
+    }
+
     // initialize this module
     public Module_RPG_System(HyARPGPlugin plugin) {
         this.plugin = plugin;
@@ -168,6 +192,7 @@ public class Module_RPG_System {
         interactionRegistry.register("Use_Ability_1", Interaction_UseAbility1.class, Interaction_UseAbility1.CODEC);
         interactionRegistry.register("Use_Ability_2", Interaction_UseAbility2.class, Interaction_UseAbility2.CODEC);
         interactionRegistry.register("Use_Ability_3", Interaction_UseAbility3.class, Interaction_UseAbility3.CODEC);
+        interactionRegistry.register("Beam_Particle", Interaction_BeamParticle.class, Interaction_BeamParticle.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_EntityPreDamaged.class, this::onEntityPreDamage);
@@ -326,6 +351,14 @@ public class Module_RPG_System {
         Component_RPG_Player defenderRPGStats = store.getComponent(defender, componentTypeRPGPlayer);
         if(attackerRPGStats == null && defenderRPGStats == null) return;
 
+        // if damage type is "Weapon", resolve the real damage type from the attacker's main hand
+        float damageAmount = damage.getInitialAmount();
+        if (Objects.equals(cause.getId(), "Weapon")) {
+            ResolvedDamage resolved = resolveWeaponDamageType(attacker, store, cause, damageAmount, damage);
+            cause = resolved.cause;
+            damageAmount = resolved.amount;
+        }
+
         // check if the damage cause has a parent (if it does, it was a weapon type)
         String weaponType;
         if (cause.getInherits() != null) weaponType = cause.getId();
@@ -349,7 +382,7 @@ public class Module_RPG_System {
             }, FLUSH_DELAY_MS, TimeUnit.MILLISECONDS);
             return g;
         });
-        group.add(cause, damage.getInitialAmount());
+        group.add(cause, damageAmount);
 
         // Zero out the packet — real damage applied during consumeSwingGroup
         damage.setAmount(0.001f);
@@ -443,6 +476,10 @@ public class Module_RPG_System {
             // get the damage cause and total value
             DamageCause cause = entry.getKey();
             double totalAmount = entry.getValue();
+
+            // adjust based on config settings for damage multipliers
+            if(attackerRPGStats != null) totalAmount *= ModConfig.get().combat.damage_from_player_multiplier;
+            if(defenderRPGStats != null) totalAmount *= ModConfig.get().combat.damage_to_player_multiplier;
 
             // adjust damage based on player/enemy level
             totalAmount = adjustDamageBasedOnLevel(attackerLevel, attackerRarity, defenderLevel, defenderRarity, totalAmount);
@@ -626,8 +663,7 @@ public class Module_RPG_System {
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
             if (item.getWeapon() != null || item.getArmor() != null || item.getId().contains("Ingredient_Bar") || item.getId().contains("Ore_") || item.getId().contains("Weapon_") || item.getId().contains("Armor_")) {
-                alertPlayers("Filtered out: " + item.getId(), Color.GRAY);
-                continue; // skip adding to filteredDrops
+                continue;
             };
             filteredDrops.add(drop);
         }
@@ -947,8 +983,8 @@ public class Module_RPG_System {
         int level = rpgEnemy.level;
 
         // roll to see if gear or recipes should drop
-        boolean shouldLootDrop = shouldLootDrop(rarity);
-        boolean shouldRecipeDrop = shouldLootDrop(rarity);
+        boolean shouldLootDrop = shouldLootDrop(rarity, ModConfig.get().loot.loot_drop_chance_modifier);
+        boolean shouldRecipeDrop = shouldLootDrop(rarity, ModConfig.get().loot.recipe_drop_chance_modifier);
 
         // loop over all players who damaged the defender in the last 30 seconds
         for (Ref<EntityStore> ref : players) {
@@ -1023,7 +1059,7 @@ public class Module_RPG_System {
     }
 
     // Returns true if the modifier application succeeds
-    private boolean shouldLootDrop(String rarity) {
+    private boolean shouldLootDrop(String rarity, float modifier) {
         // Defensive default (treat unknown rarity as worst case)
         if (rarity == null) return false;
 
@@ -1057,8 +1093,16 @@ public class Module_RPG_System {
                 break;
         }
 
+        // get the success chance and apply the passed modifier
+        double successChance = 1.0 - failChance;
+        successChance *= modifier;
+
+        // Clamp to [0, 1]
+        successChance = Math.max(0.0, Math.min(1.0, successChance));
+
+
         // Success occurs when roll exceeds failure probability
-        return roll > failChance;
+        return roll < successChance;
     }
 
     // Rolls a rarity tier based on fixed probabilities
@@ -1162,6 +1206,61 @@ public class Module_RPG_System {
         // loop over all players and broadcast the message
         for (PlayerRef player : Universe.get().getPlayers()) {
             player.sendMessage(Message.join(messages));
+        }
+    }
+
+    // helper function to swap damage type "Weapon" for a damage interaction var from the main hand weapon item
+    private ResolvedDamage resolveWeaponDamageType(Ref<EntityStore> attacker, Store<EntityStore> store, DamageCause fallback, float fallbackAmount, Damage damage) {
+        try {
+            Player player = store.getComponent(attacker, Player.getComponentType());
+            if (player == null) return new ResolvedDamage(fallback, fallbackAmount);
+
+            ItemStack mainHand = player.getInventory().getItemInHand();
+            if (mainHand == null) return new ResolvedDamage(fallback, fallbackAmount);
+
+            Item item = mainHand.getItem();
+            if (item.getData() == null) return new ResolvedDamage(fallback, fallbackAmount);
+
+            Path itemPath = Item.getAssetStore().getAssetMap().getPath(item.getId());
+            if (itemPath == null) return new ResolvedDamage(fallback, fallbackAmount);
+
+            String rawJson = Files.readString(itemPath);
+            JsonObject itemJson = JsonParser.parseString(rawJson).getAsJsonObject();
+
+            if (!itemJson.has("InteractionVars")) return new ResolvedDamage(fallback, fallbackAmount);
+            JsonObject interactionVars = itemJson.getAsJsonObject("InteractionVars");
+
+            JsonObject damageVar = null;
+            for (Map.Entry<String, JsonElement> entry : interactionVars.entrySet()) {
+                if (entry.getKey().endsWith("_Damage")) {
+                    damageVar = entry.getValue().getAsJsonObject();
+                    break;
+                }
+            }
+            if (damageVar == null) return new ResolvedDamage(fallback, fallbackAmount);
+
+            JsonObject interaction = damageVar
+                    .getAsJsonArray("Interactions")
+                    .get(0).getAsJsonObject();
+            if (!interaction.has("DamageCalculator")) return new ResolvedDamage(fallback, fallbackAmount);
+
+            JsonObject baseDamage = interaction
+                    .getAsJsonObject("DamageCalculator")
+                    .getAsJsonObject("BaseDamage");
+
+            Map.Entry<String, JsonElement> damageEntry = baseDamage.entrySet().iterator().next();
+            String damageType = damageEntry.getKey();
+            float damageValue = damageEntry.getValue().getAsFloat();
+
+            DamageCause resolvedCause = DamageCause.getAssetMap().getAsset(damageType);
+            if (resolvedCause == null) return new ResolvedDamage(fallback, fallbackAmount);
+
+            damage.setDamageCauseIndex(DamageCause.getAssetMap().getIndex(damageType));
+            return new ResolvedDamage(resolvedCause, damageValue);
+
+        } catch (Exception e) {
+            HytaleLogger.getLogger().at(Level.WARNING).log("resolveWeaponDamageType error: %s", e.getMessage());
+            return new ResolvedDamage(fallback, fallbackAmount);
         }
     }
 }

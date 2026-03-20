@@ -44,7 +44,28 @@
     ]
   },
   "Interactions": {
-    "Primary": "Longsword_Attack"
+    "Primary": "Longsword_Attack",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
   },
   "InteractionVars": {
     "Longsword_Block_Damage": "Longsword_Block_Damage",
@@ -165,11 +186,13 @@
       "Weapon"
     ],
     "Family": [
-      "Longsword"
+      "Longsword",
+      "Adamantite"
     ]
   },
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
+  "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {
       "Id": "Rare_Gear"

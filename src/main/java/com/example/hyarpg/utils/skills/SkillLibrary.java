@@ -78,15 +78,15 @@ public class SkillLibrary {
         layout.put("Knight_Shields_IncreasedStability_3", new SkillTree.GridPosition(6, 2));
 
         // ---- Taunt Ability ---- //
-        nodes.put("Knight_LearnAbility_Taunt", new SkillNode("Knight_LearnAbility_Taunt", "Learn 'Taunt': An activated ability that taunts all nearby enemies to target you.", "Skills_LearnAbility_AoETaunt.png", new Taunt(), 1, 1, List.of(Requirement.treePoints("Knight", 10)), "1.0.0"));
+        nodes.put("Knight_LearnAbility_Taunt", new SkillNode("Knight_LearnAbility_Taunt", "Learn 'Taunt': An activated ability that taunts all nearby enemies to target you.", "Skills_LearnAbility_AoETaunt.png", new Taunt(), 4, 1, List.of(Requirement.treePoints("Knight", 10)), "1.0.0"));
         layout.put("Knight_LearnAbility_Taunt", new SkillTree.GridPosition(8, 0));
 
         // ---- Fortify Ability ---- //
-        nodes.put("Knight_IncreasedBarrierOnBlock", new SkillNode("Knight_IncreasedBarrierOnBlock", "Learn 'Fortify': A passive ability that causes a barrier equal to 1% of your max life (per rank) to generate while blocking. Combat damage will be applied to the barrier before life.", "Skills_IncreasedBarrierOnBlock.png", StatType.BARRIER_ON_BLOCK, 2, 1, 5, List.of(Requirement.treePoints("Knight", 20)), "1.0.0"));
+        nodes.put("Knight_IncreasedBarrierOnBlock", new SkillNode("Knight_IncreasedBarrierOnBlock", "Learn 'Fortify': A passive ability that causes a barrier equal to 1% of your max life (per rank) to generate while blocking. Combat damage will be applied to the barrier before life.", "Skills_IncreasedBarrierOnBlock.png", StatType.BARRIER_ON_BLOCK, 2, 1, 5, List.of(Requirement.treePoints("Knight", 10)), "1.0.0"));
         layout.put("Knight_IncreasedBarrierOnBlock", new SkillTree.GridPosition(8, 2));
 
         // ---- Rallying Cry Ability ---- //
-        nodes.put("Knight_LearnAbility_RallyingCry", new SkillNode("Knight_LearnAbility_RallyingCry", "Learn 'Rallying Cry': An activated ultimate ability that dramatically increases the physical attack and defense of all nearby players for a short period of time.", "Skills_LearnAbility_RallyingCry.png", new Rallying_Cry(), 1, 1, List.of(Requirement.treePoints("Knight", 30)), "1.0.0"));
+        nodes.put("Knight_LearnAbility_RallyingCry", new SkillNode("Knight_LearnAbility_RallyingCry", "Learn 'Rallying Cry': An activated ultimate ability that dramatically increases the physical attack and defense of all nearby players for a short period of time.", "Skills_LearnAbility_RallyingCry.png", new Rallying_Cry(), 6, 1, List.of(Requirement.treePoints("Knight", 10)), "1.0.0"));
         layout.put("Knight_LearnAbility_RallyingCry", new SkillTree.GridPosition(8, 4));
 
         // ---- Increased Physical Resistance Nodes ---- //
@@ -154,15 +154,15 @@ public class SkillLibrary {
         layout.put("Juggernaut_IncreasedStability_3", new SkillTree.GridPosition(6, 2));
 
         // ---- Cyclone Ability ---- //
-        nodes.put("Juggernaut_LearnAbility_Cyclone", new SkillNode("Juggernaut_LearnAbility_Cyclone", "Learn 'Cyclone': A channeled ability causing the user to spin in a circle damaging all nearby enemies with their equipped weapon.", "Juggernaut_Ability_Cyclone.png", new Cyclone(), 1, 1, List.of(Requirement.treePoints("Juggernaut", 0)), "1.0.0"));
+        nodes.put("Juggernaut_LearnAbility_Cyclone", new SkillNode("Juggernaut_LearnAbility_Cyclone", "Learn 'Cyclone': A channeled ability causing the user to spin in a circle damaging all nearby enemies with their equipped weapon.", "Juggernaut_Ability_Cyclone.png", new Cyclone(), 2, 1, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
         layout.put("Juggernaut_LearnAbility_Cyclone", new SkillTree.GridPosition(8, 0));
 
         // ---- Chain Pull Ability ---- //
-        nodes.put("Juggernaut_LearnAbility_Chain_Pull", new SkillNode("Juggernaut_LearnAbility_Chain_Pull", "Learn 'Chain Pull': An activated ability that launches out chains that then pull in all nearby enemies.", "Juggernaut_Ability_ChainPull.png", new Chain_Pull(), 1, 1, List.of(Requirement.treePoints("Juggernaut", 0)), "1.0.0"));
+        nodes.put("Juggernaut_LearnAbility_Chain_Pull", new SkillNode("Juggernaut_LearnAbility_Chain_Pull", "Learn 'Chain Pull': An activated ability that launches out chains that then pull in all nearby enemies.", "Juggernaut_Ability_ChainPull.png", new Chain_Pull(), 4, 1, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
         layout.put("Juggernaut_LearnAbility_Chain_Pull", new SkillTree.GridPosition(8, 2));
 
         // ---- Leap Slam Ability ---- //
-        nodes.put("Juggernaut_LearnAbility_Leap_Slam", new SkillNode("Juggernaut_LearnAbility_Leap_Slam", "Learn 'Leap Slam': An activated ultimate ability that causes the user to leap into the air and then slam down with their weapon causing massive AoE damage and stun.", "Juggernaut_Ability_LeapSlam.png", new Leap_Slam(), 1, 1, List.of(Requirement.treePoints("Juggernaut", 0)), "1.0.0"));
+        nodes.put("Juggernaut_LearnAbility_Leap_Slam", new SkillNode("Juggernaut_LearnAbility_Leap_Slam", "Learn 'Leap Slam': An activated ultimate ability that causes the user to leap into the air and then slam down with their weapon causing massive AoE damage and stun.", "Juggernaut_Ability_LeapSlam.png", new Leap_Slam(), 6, 1, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
         layout.put("Juggernaut_LearnAbility_Leap_Slam", new SkillTree.GridPosition(8, 4));
 
         // ---- Increased Physical Resistance Nodes ---- //
@@ -177,13 +177,13 @@ public class SkillLibrary {
 
         // ---- Increased Elemental Resistance Nodes ---- //
         nodes.put("Juggernaut_Elemental_IncreasedResistance_1", new SkillNode("Juggernaut_Elemental_IncreasedResistance_1", "Increase elemental damage resistance by 1% per rank.", "Juggernaut_Elemental_IncreasedResistance_1.png", StatType.ELEMENTAL_RESIST_PERCENT, 1f, 1, 10, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
-        layout.put("Juggernaut_Elemental_IncreasedResistance_1", new SkillTree.GridPosition(0, 4));
+        layout.put("Juggernaut_Elemental_IncreasedResistance_1", new SkillTree.GridPosition(2, 4));
 
         nodes.put("Juggernaut_Elemental_IncreasedResistance_2", new SkillNode("Juggernaut_Elemental_IncreasedResistance_2", "Increase elemental damage resistance by 3% per rank.", "Juggernaut_Elemental_IncreasedResistance_2.png", StatType.ELEMENTAL_RESIST_PERCENT, 3f, 1, 5, List.of(Requirement.treePoints("Juggernaut", 15)), "1.0.0"));
-        layout.put("Juggernaut_Elemental_IncreasedResistance_2", new SkillTree.GridPosition(0, 5));
+        layout.put("Juggernaut_Elemental_IncreasedResistance_2", new SkillTree.GridPosition(2, 5));
 
         nodes.put("Juggernaut_Elemental_IncreasedResistance_3", new SkillNode("Juggernaut_Elemental_IncreasedResistance_3", "Increase elemental damage resistance by 25% per rank.", "Juggernaut_Elemental_IncreasedResistance_3.png", StatType.ELEMENTAL_RESIST_PERCENT, 25f, 1, 1, List.of(Requirement.treePoints("Juggernaut", 20)), "1.0.0"));
-        layout.put("Juggernaut_Elemental_IncreasedResistance_3", new SkillTree.GridPosition(0, 6));
+        layout.put("Juggernaut_Elemental_IncreasedResistance_3", new SkillTree.GridPosition(2, 6));
 
         // ---- Register the Tree ---- //
         REGISTRY.put("Juggernaut", new SkillTree("Juggernaut", "Juggernaut", "Weapon", List.of(), List.of(), "1.0.0", nodes, layout, 8, 6));

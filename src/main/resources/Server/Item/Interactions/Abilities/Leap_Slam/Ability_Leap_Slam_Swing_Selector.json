@@ -1,0 +1,27 @@
+{
+  "Type": "Selector",
+  "RunTime": 0.05,
+  "Effects": {
+    "ItemAnimationId": "SwingDownCharged",
+    "WorldSoundEventId": "SFX_Mace_T2_Signature_Impact",
+    "LocalSoundEventId": "SFX_Mace_T2_Signature_Impact_Local"
+  },
+  "Selector": {
+    "Id": "AOECircle",
+    "Offset": {
+      "Z": -1.5
+    },
+    "Range": 2.5
+  },
+  "HitBlock": {
+    "Interactions": [
+      "Block_Break_Adventure"
+    ]
+  },
+  "HitEntity": {
+    "Interactions": [
+      "Ability_Leap_Slam_Damage"
+    ]
+  },
+  "Next": "Ability_Leap_Slam_Explosion"
+}

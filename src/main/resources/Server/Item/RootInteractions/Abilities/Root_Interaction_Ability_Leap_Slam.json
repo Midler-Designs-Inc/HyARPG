@@ -1,0 +1,12 @@
+{
+  "Interactions": [
+    "Ability_Leap_Slam",
+    "Stamina_Delay_Helper"
+  ],
+  "Tags": {
+    "Attack": [
+      "Melee"
+    ]
+  },
+  "RequireNewClick": true
+}

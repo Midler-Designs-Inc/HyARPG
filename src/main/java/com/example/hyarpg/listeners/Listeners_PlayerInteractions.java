@@ -19,8 +19,8 @@ public class Listeners_PlayerInteractions {
     public void register() {
         PacketAdapters.registerInbound((PlayerPacketWatcher) (playerRef, packet) -> {
             if (packet.getId() != 290 && packet.getId() != 108) return;
+            if (!(packet instanceof SyncInteractionChains chains)) return;
 
-            SyncInteractionChains chains = (SyncInteractionChains) packet;
             for (SyncInteractionChain chain : chains.updates) {
                 handleInteraction(playerRef, chain);
             }

@@ -53,7 +53,28 @@
     "Compatible": true
   },
   "Interactions": {
-    "Primary": "Axe_Attack"
+    "Primary": "Axe_Attack",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
   },
   "InteractionVars": {
     "Axe_Swing_Down_Left_Effect": {
@@ -153,7 +174,8 @@
   "DurabilityLossOnHit": 0.56,
   "Tags": {
     "Family": [
-      "Axe"
+      "Axe",
+      "Stone"
     ],
     "Type": [
       "Weapon"
@@ -162,6 +184,7 @@
   "Weapon": {},
   "Quality": "Uncommon",
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {
       "Id": "Uncommon_Gear"

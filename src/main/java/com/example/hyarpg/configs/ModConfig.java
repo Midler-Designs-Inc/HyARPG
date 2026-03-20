@@ -38,6 +38,10 @@ public class ModConfig extends ConfigurablePojo<ModConfig> {
     @Section("experience")
     public Config_Experience experience = new Config_Experience();
 
+    @Key("loot")
+    @Section("loot")
+    public Config_Loot loot = new Config_Loot();
+
     public static void load() {
         Thread.currentThread().setContextClassLoader(ModConfig.class.getClassLoader());
         INSTANCE = ConfigurationLoader.from(CONFIG_PATH)
@@ -50,4 +54,5 @@ public class ModConfig extends ConfigurablePojo<ModConfig> {
         if (INSTANCE == null) throw new IllegalStateException("ModConfig not loaded yet");
         return INSTANCE;
     }
+
 }

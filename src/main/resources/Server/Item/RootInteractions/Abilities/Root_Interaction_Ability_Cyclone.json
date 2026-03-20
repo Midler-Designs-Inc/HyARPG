@@ -1,0 +1,7 @@
+{
+  "RequireNewClick": true,
+  "Interactions": [
+    "Stamina_Delay_Helper",
+    "Ability_Cyclone_Entry"
+  ]
+}

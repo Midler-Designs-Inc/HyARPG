@@ -111,7 +111,7 @@ public class Module_RPG_System {
     }
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "2.1.0";
+    private final String SKILL_TREE_VERSION = "1.1.0"; // 1.3.0
 
     // Create a map for damage message colors
     public static final Map<String, Color> DAMAGE_COLORS = Map.of(
@@ -188,7 +188,6 @@ public class Module_RPG_System {
         interactionRegistry.register("LearnRandomGearRecipe_Legendary", Interaction_LearnRandomGearRecipe_Legendary.class, Interaction_LearnRandomGearRecipe_Legendary.CODEC);
         interactionRegistry.register("ShowRPGStats", Interaction_ShowRPGStats.class, Interaction_ShowRPGStats.CODEC);
         interactionRegistry.register("ChangeItemState", Interaction_ChangeItemStateInteraction.class, Interaction_ChangeItemStateInteraction.CODEC);
-        interactionRegistry.register("ExplodeBetter", Interaction_AOEDamageInteraction.class, Interaction_AOEDamageInteraction.CODEC);
         interactionRegistry.register("Use_Ability_1", Interaction_UseAbility1.class, Interaction_UseAbility1.CODEC);
         interactionRegistry.register("Use_Ability_2", Interaction_UseAbility2.class, Interaction_UseAbility2.CODEC);
         interactionRegistry.register("Use_Ability_3", Interaction_UseAbility3.class, Interaction_UseAbility3.CODEC);

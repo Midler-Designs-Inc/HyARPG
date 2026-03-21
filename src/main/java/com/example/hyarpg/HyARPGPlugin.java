@@ -2,6 +2,8 @@ package com.example.hyarpg;
 
 // Hytale Imports
 
+import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
+import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
@@ -54,6 +56,9 @@ public class HyARPGPlugin extends JavaPlugin {
 
         // Register mod commands
         registerCommands();
+
+        // Register codec
+        registerCodecs();
 
         LOGGER.at(Level.INFO).log("[HyARPG] Setup complete!");
     }
@@ -109,7 +114,7 @@ public class HyARPGPlugin extends JavaPlugin {
         }
     }
 
-    // Regist the commends for this mod
+    // Register the commends for this mod
     private void registerCommands(){
         try {
             getCommandRegistry().registerCommand(new ShowStats());
@@ -119,12 +124,18 @@ public class HyARPGPlugin extends JavaPlugin {
             getCommandRegistry().registerCommand(new RefundSkillLibrary());
             getCommandRegistry().registerCommand(new SetSkillPoints());
             getCommandRegistry().registerCommand(new AddPlayerLevels());
+            getCommandRegistry().registerCommand(new ResetDiscoveredIngredients());
 
             // log the instantiation
             LOGGER.at(Level.INFO).log("[HyARPG] Instantiated commands");
         } catch (Exception e) {
             LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register commands");
         }
+    }
+
+    // Register codecs for this mod
+    private void registerCodecs(){
+        getCodecRegistry(DeployableConfig.CODEC).register("FixedTurret", FixedDeployableTurretConfig.class, FixedDeployableTurretConfig.CODEC);
     }
 
     @Override

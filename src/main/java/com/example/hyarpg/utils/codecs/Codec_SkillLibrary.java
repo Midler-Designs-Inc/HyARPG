@@ -1,6 +1,9 @@
 package com.example.hyarpg.utils.codecs;
 
 // Hytale Imports
+import com.example.hyarpg.utils.abilities.ranger.Aerial_Maneuver;
+import com.example.hyarpg.utils.abilities.ranger.Rain_of_Arrows;
+import com.example.hyarpg.utils.abilities.ranger.Summon_Crossbow_Turret;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.function.FunctionCodec;
 
@@ -33,7 +36,10 @@ public class Codec_SkillLibrary {
                 "Ability_Rallying_Cry", new Rallying_Cry(),
                 "Ability_Chain_Pull", new Chain_Pull(),
                 "Ability_Cyclone", new Cyclone(),
-                "Ability_Leap_Slam", new Leap_Slam()
+                "Ability_Leap_Slam", new Leap_Slam(),
+                "Ability_Rain_of_Arrows", new Rain_of_Arrows(),
+                "Ability_Summon_Crossbow_Turret", new Summon_Crossbow_Turret(),
+                "Ability_Aerial_Maneuver", new Aerial_Maneuver()
             );
         }
         return abilityRegistry;

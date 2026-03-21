@@ -123,6 +123,7 @@ public final class EntityStats {
             case "Longsword": return getRaw(StatType.LONGSWORD_DAMAGE_PERCENT);
             case "Mace": return getRaw(StatType.MACE_DAMAGE_PERCENT);
             case "Shortbow": return getRaw(StatType.SHORTBOW_DAMAGE_PERCENT);
+            case "Crossbow": return getRaw(StatType.CROSSBOW_DAMAGE_PERCENT);
             case "Sword": return getRaw(StatType.SWORD_DAMAGE_PERCENT);
             default: return 0f;
         }

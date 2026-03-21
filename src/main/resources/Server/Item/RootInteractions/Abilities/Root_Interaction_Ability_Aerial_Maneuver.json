@@ -4,8 +4,8 @@
       "Type": "Simple",
       "RunTime": 0.25,
       "Effects": {
-        "WorldSoundEventId": "SFX_Flail_Swing",
-        "LocalSoundEventId": "SFX_Flail_Swing"
+        "WorldSoundEventId": "SFX_Cloth_Land",
+        "LocalSoundEventId": "SFX_Cloth_Land"
       }
     },
     "Stamina_Delay_Helper"

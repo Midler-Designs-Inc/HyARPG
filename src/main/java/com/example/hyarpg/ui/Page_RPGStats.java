@@ -247,6 +247,7 @@ public class Page_RPGStats {
         addStat(sb, "Longsword Damage",    fmt(s.getIncreasedDamage("Longsword")) + "%");
         addStat(sb, "Mace Damage",    fmt(s.getIncreasedDamage("Mace")) + "%");
         addStat(sb, "Shortbow Damage",    fmt(s.getIncreasedDamage("Shortbow")) + "%");
+        addStat(sb, "Crossbow Damage",    fmt(s.getIncreasedDamage("Crossbow")) + "%");
         addStat(sb, "Sword Damage",    fmt(s.getIncreasedDamage("Sword")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");

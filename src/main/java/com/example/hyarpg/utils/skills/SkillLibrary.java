@@ -3,9 +3,19 @@ package com.example.hyarpg.utils.skills;
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.utils.abilities.juggernaut.*;
+import com.example.hyarpg.utils.abilities.ranger.*;
 import com.example.hyarpg.utils.abilities.knight.*;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.affixes.StatType;
+import com.hypixel.hytale.builtin.deployables.DeployablesUtils;
+import com.hypixel.hytale.builtin.deployables.component.DeployableProjectileComponent;
+import com.hypixel.hytale.builtin.deployables.component.DeployableProjectileShooterComponent;
+import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
+import com.hypixel.hytale.builtin.deployables.config.DeployableSpawner;
+import com.hypixel.hytale.builtin.deployables.config.DeployableTurretConfig;
+import com.hypixel.hytale.builtin.deployables.interaction.SpawnDeployableAtHitLocationInteraction;
+import com.hypixel.hytale.server.core.modules.projectile.config.ProjectileConfig;
+import com.hypixel.hytale.server.core.modules.projectile.interaction.ProjectileInteraction;
 
 // Java Imports
 import java.util.LinkedHashMap;
@@ -25,6 +35,7 @@ public class SkillLibrary {
         this.version = version;
         registerKnightTree();
         registerJuggernautTree();
+        registerRangerTree();
     }
 
     // Gson deserialization only — no tree registration, recalculate() called after load
@@ -187,6 +198,85 @@ public class SkillLibrary {
 
         // ---- Register the Tree ---- //
         REGISTRY.put("Juggernaut", new SkillTree("Juggernaut", "Juggernaut", "Weapon", List.of(), List.of(), "1.0.0", nodes, layout, 8, 6));
+    }
+    public void registerRangerTree() {
+        Map<String, SkillNode> nodes = new LinkedHashMap<>();
+        Map<String, SkillTree.GridPosition> layout = new LinkedHashMap<>();
+
+        // ---- Increased Shortbow Damage Nodes ---- //
+        nodes.put("Ranger_Shortbow_IncreasedDamage_1", new SkillNode("Ranger_Shortbow_IncreasedDamage_1", "Increase shortbow damage by 1% per rank.", "Ranger_Shortbow_IncreasedDamage_1.png", StatType.SHORTBOW_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Ranger_Shortbow_IncreasedDamage_1", new SkillTree.GridPosition(0, 0));
+
+        nodes.put("Ranger_Shortbow_IncreasedDamage_2", new SkillNode("Ranger_Shortbow_IncreasedDamage_2", "Increase shortbow damage by 3% per rank.", "Ranger_Shortbow_IncreasedDamage_2.png", StatType.SHORTBOW_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Ranger_Shortbow_IncreasedDamage_1", 10)), "1.0.0"));
+        layout.put("Ranger_Shortbow_IncreasedDamage_2", new SkillTree.GridPosition(0, 1));
+
+        nodes.put("Ranger_Shortbow_IncreasedDamage_3", new SkillNode("Ranger_Shortbow_IncreasedDamage_3", "Increase shortbow damage by 25% per rank.", "Ranger_Shortbow_IncreasedDamage_3.png", StatType.SHORTBOW_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Ranger_Shortbow_IncreasedDamage_2", 5)), "1.0.0"));
+        layout.put("Ranger_Shortbow_IncreasedDamage_3", new SkillTree.GridPosition(0, 2));
+
+        // ---- Increased Crossbow Damage Nodes ---- //
+        nodes.put("Ranger_Crossbow_IncreasedDamage_1", new SkillNode("Ranger_Crossbow_IncreasedDamage_1", "Increase crossbow damage by 1% per rank.", "Ranger_Crossbow_IncreasedDamage_1.png", StatType.CROSSBOW_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Ranger_Crossbow_IncreasedDamage_1", new SkillTree.GridPosition(2, 0));
+
+        nodes.put("Ranger_Crossbow_IncreasedDamage_2", new SkillNode("Ranger_Crossbow_IncreasedDamage_2", "Increase crossbow damage by 3% per rank.", "Ranger_Crossbow_IncreasedDamage_2.png", StatType.CROSSBOW_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Ranger_Crossbow_IncreasedDamage_1", 10)), "1.0.0"));
+        layout.put("Ranger_Crossbow_IncreasedDamage_2", new SkillTree.GridPosition(2, 1));
+
+        nodes.put("Ranger_Crossbow_IncreasedDamage_3", new SkillNode("Ranger_Crossbow_IncreasedDamage_3", "Increase crossbow damage by 25% per rank.", "Ranger_Crossbow_IncreasedDamage_3.png", StatType.CROSSBOW_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Ranger_Crossbow_IncreasedDamage_2", 5)), "1.0.0"));
+        layout.put("Ranger_Crossbow_IncreasedDamage_3", new SkillTree.GridPosition(2, 2));
+
+//        // ---- Increased Longbow Damage Nodes ---- //
+//        nodes.put("Ranger_Longbow_IncreasedDamage_1", new SkillNode("Ranger_Longbow_IncreasedDamage_1", "Increase longbow damage by 1% per rank.", "Ranger_Longbow_IncreasedDamage_1.png", StatType.LONGBOW_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+//        layout.put("Ranger_Longbow_IncreasedDamage_1", new SkillTree.GridPosition(4, 0));
+//
+//        nodes.put("Ranger_Longbow_IncreasedDamage_2", new SkillNode("Ranger_Longbow_IncreasedDamage_2", "Increase longbow damage by 3% per rank.", "Ranger_Longbow_IncreasedDamage_2.png", StatType.LONGBOW_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Ranger_Longbow_IncreasedDamage_1", 10)), "1.0.0"));
+//        layout.put("Ranger_Longbow_IncreasedDamage_2", new SkillTree.GridPosition(4, 1));
+//
+//        nodes.put("Ranger_Longbow_IncreasedDamage_3", new SkillNode("Ranger_Longbow_IncreasedDamage_3", "Increase longbow damage by 25% per rank.", "Ranger_Longbow_IncreasedDamage_3.png", StatType.LONGBOW_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Ranger_Longbow_IncreasedDamage_2", 5)), "1.0.0"));
+//        layout.put("Ranger_Longbow_IncreasedDamage_3", new SkillTree.GridPosition(4, 2));
+
+        // ---- Increased Run Speed Nodes ---- //
+        nodes.put("Ranger_RunSpeed_IncreasedAmount_1", new SkillNode("Ranger_RunSpeed_IncreasedAmount_1", "Increase run speed by 2% per rank.", "Ranger_RunSpeed_IncreasedAmount_1.png", StatType.RUN_SPEED_PERCENT, 2f, 4, 1, List.of(), "1.0.0"));
+        layout.put("Ranger_RunSpeed_IncreasedAmount_1", new SkillTree.GridPosition(6, 0));
+
+        nodes.put("Ranger_RunSpeed_IncreasedAmount_2", new SkillNode("Ranger_RunSpeed_IncreasedAmount_2", "Increase run speed by 3% per rank.", "Ranger_RunSpeed_IncreasedAmount_2.png", StatType.RUN_SPEED_PERCENT, 3f, 6, 1, List.of(Requirement.nodeRank("Ranger_RunSpeed_IncreasedAmount_1", 1)), "1.0.0"));
+        layout.put("Ranger_RunSpeed_IncreasedAmount_2", new SkillTree.GridPosition(6, 1));
+
+        nodes.put("Ranger_RunSpeed_IncreasedAmount_3", new SkillNode("Ranger_RunSpeed_IncreasedAmount_3", "Increase run speed by 5% per rank.", "Ranger_RunSpeed_IncreasedAmount_3.png", StatType.RUN_SPEED_PERCENT, 5f, 8, 1, List.of(Requirement.nodeRank("Ranger_RunSpeed_IncreasedAmount_2", 1)), "1.0.0"));
+        layout.put("Ranger_RunSpeed_IncreasedAmount_3", new SkillTree.GridPosition(6, 2));
+
+        // ---- Aerial Maneuver Ability ---- //
+        nodes.put("Ranger_LearnAbility_AerialManeuver", new SkillNode("Ranger_LearnAbility_AerialManeuver", "Learn 'Aerial Maneuver': An activated ability causing the user to gain a surge of velocity.", "Ranger_LearnAbility_AerialManeuver.png", new Aerial_Maneuver(), 2, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
+        layout.put("Ranger_LearnAbility_AerialManeuver", new SkillTree.GridPosition(8, 0));
+
+        // ---- Summon Crossbow Turret Ability ---- //
+        nodes.put("Ranger_LearnAbility_SummonCrossbowTurret", new SkillNode("Ranger_LearnAbility_SummonCrossbowTurret", "Learn 'Summon Crossbow Turret': An activated ability that summons a crossbow turret that will fire at enemies for a period of time.", "Ranger_LearnAbility_SummonCrossbowTurret.png", new Summon_Crossbow_Turret(), 4, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
+        layout.put("Ranger_LearnAbility_SummonCrossbowTurret", new SkillTree.GridPosition(8, 2));
+
+        // ---- Rain of Arrows Ability ---- //
+        nodes.put("Ranger_LearnAbility_RainOfArrows", new SkillNode("Ranger_LearnAbility_RainOfArrows", "Learn 'Rain of Arrows': An activated ultimate ability that causes arrows to rain down on all nearby enemies damaging them and pinning them in place for the duration.", "Ranger_LearnAbility_RainOfArrows.png", new Rain_of_Arrows(), 6, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
+        layout.put("Ranger_LearnAbility_RainOfArrows", new SkillTree.GridPosition(8, 4));
+
+        // ---- Increased Critical Strike Chance Nodes ---- //
+        nodes.put("Ranger_CriticalStrikeChance_IncreasedAmount_1", new SkillNode("Ranger_CriticalStrikeChance_IncreasedAmount_1", "Increase critical strike chance by 1% per rank.", "Ranger_CriticalStrikeChance_IncreasedAmount_1.png", StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 1f, 1, 5, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
+        layout.put("Ranger_CriticalStrikeChance_IncreasedAmount_1", new SkillTree.GridPosition(0, 4));
+
+        nodes.put("Ranger_CriticalStrikeChance_IncreasedAmount_2", new SkillNode("Ranger_CriticalStrikeChance_IncreasedAmount_2", "Increase critical strike chance by 2% per rank.", "Ranger_CriticalStrikeChance_IncreasedAmount_2.png", StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 2f, 1, 5, List.of(Requirement.treePoints("Ranger", 15)), "1.0.0"));
+        layout.put("Ranger_CriticalStrikeChance_IncreasedAmount_2", new SkillTree.GridPosition(0, 5));
+
+        nodes.put("Ranger_CriticalStrikeChance_IncreasedAmount_3", new SkillNode("Ranger_CriticalStrikeChance_IncreasedAmount_3", "Increase critical strike chance by 25% per rank.", "Ranger_CriticalStrikeChance_IncreasedAmount_3.png", StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 25f, 10, 1, List.of(Requirement.treePoints("Ranger", 20)), "1.0.0"));
+        layout.put("Ranger_CriticalStrikeChance_IncreasedAmount_3", new SkillTree.GridPosition(0, 6));
+
+        // ---- Increased Elemental Resistance Nodes ---- //
+        nodes.put("Ranger_Elemental_IncreasedResistance_1", new SkillNode("Ranger_Elemental_IncreasedResistance_1", "Increase elemental damage resistance by 1% per rank.", "Ranger_Elemental_IncreasedResistance_1.png", StatType.ELEMENTAL_RESIST_PERCENT, 1f, 1, 10, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
+        layout.put("Ranger_Elemental_IncreasedResistance_1", new SkillTree.GridPosition(2, 4));
+
+        nodes.put("Ranger_Elemental_IncreasedResistance_2", new SkillNode("Ranger_Elemental_IncreasedResistance_2", "Increase elemental damage resistance by 3% per rank.", "Ranger_Elemental_IncreasedResistance_2.png", StatType.ELEMENTAL_RESIST_PERCENT, 3f, 1, 5, List.of(Requirement.treePoints("Ranger", 15)), "1.0.0"));
+        layout.put("Ranger_Elemental_IncreasedResistance_2", new SkillTree.GridPosition(2, 5));
+
+        nodes.put("Ranger_Elemental_IncreasedResistance_3", new SkillNode("Ranger_Elemental_IncreasedResistance_3", "Increase elemental damage resistance by 25% per rank.", "Ranger_Elemental_IncreasedResistance_3.png", StatType.ELEMENTAL_RESIST_PERCENT, 25f, 1, 1, List.of(Requirement.treePoints("Ranger", 20)), "1.0.0"));
+        layout.put("Ranger_Elemental_IncreasedResistance_3", new SkillTree.GridPosition(2, 6));
+
+        // ---- Register the Tree ---- //
+        REGISTRY.put("Ranger", new SkillTree("Ranger", "Ranger", "Weapon", List.of(), List.of(), "1.0.0", nodes, layout, 8, 6));
     }
 
     // Check all requirements for a node or tree — pass the library so cross-tree, node lookups work for NODE_MIN_RANK requirements

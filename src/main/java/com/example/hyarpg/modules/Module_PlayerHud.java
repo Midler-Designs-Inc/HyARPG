@@ -301,7 +301,7 @@ public class Module_PlayerHud {
                 .setTextColor("#cccccc")
                 .setRenderBold(true)
             )
-            .withPadding(new HyUIPadding().setLeft(-440))
+            .withPadding(new HyUIPadding().setLeft(-460))
             .withText("GS 0  |  Lv 1")
         );
     }

@@ -5,6 +5,7 @@ import com.hypixel.hytale.builtin.crafting.CraftingPlugin;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
+import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -219,6 +220,15 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
                 discoveredDroppableRecipesRaw = String.join(",", discoveredDroppableRecipes);
             } catch (Exception e) {}
         }
+    }
+
+    // reset discovered items
+    public void resetDiscoveredItems() {
+        // clear the discovered items list
+        discoveredItems.clear();
+
+        // update the serialized value of discovered map
+        discoveredItemsRaw = String.join(",", discoveredItems);
     }
 
     // required for Hytale ECS system

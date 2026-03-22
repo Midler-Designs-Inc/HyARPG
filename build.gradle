@@ -17,6 +17,9 @@ repositories {
         name = 'hytale-pre-release'
         url = 'https://maven.hytale.com/pre-release'
     }
+    maven {
+        url "https://www.cursemaven.com"
+    }
 }
 
 dependencies {
@@ -27,7 +30,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'de.bsommerfeld.jshepherd:core:4.0.2'
     implementation 'de.bsommerfeld.jshepherd:toml:4.0.2'
-    implementation(files("server/HyUI-0.8.8-2026-02-18.jar"))
+    implementation "curse.maven:hyui-1431415:7731691"
 }
 
 java {

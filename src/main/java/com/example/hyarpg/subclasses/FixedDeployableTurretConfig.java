@@ -1,36 +1,31 @@
 package com.example.hyarpg.subclasses;
 
 // Hytale Imports
-import com.hypixel.hytale.builtin.deployables.DeployablesUtils;
 import com.hypixel.hytale.builtin.deployables.component.DeployableComponent;
 import com.hypixel.hytale.builtin.deployables.component.DeployableComponent.DeployableFlag;
-import com.hypixel.hytale.builtin.deployables.component.DeployableProjectileComponent;
 import com.hypixel.hytale.builtin.deployables.component.DeployableProjectileShooterComponent;
 import com.hypixel.hytale.builtin.deployables.config.DeployableTurretConfig;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
-import com.hypixel.hytale.component.RemoveReason;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.BlockMaterial;
+import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.protocol.Opacity;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.entity.*;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.entity.knockback.KnockbackComponent;
 import com.hypixel.hytale.server.core.modules.debug.DebugUtils;
 import com.hypixel.hytale.server.core.modules.entity.DespawnComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
-import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
+import com.hypixel.hytale.server.core.modules.interaction.InteractionModule;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.RootInteraction;
 import com.hypixel.hytale.server.core.modules.projectile.ProjectileModule;
-import com.hypixel.hytale.server.core.modules.projectile.config.StandardPhysicsProvider;
-import com.hypixel.hytale.server.core.modules.projectile.config.StandardPhysicsProvider.STATE;
 import com.hypixel.hytale.server.core.modules.time.TimeResource;
 import com.hypixel.hytale.server.core.modules.time.WorldTimeResource;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -41,9 +36,6 @@ import com.hypixel.hytale.server.npc.entities.NPCEntity;
 // Java Imports
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import javax.annotation.Nonnull;
 
 public class FixedDeployableTurretConfig extends DeployableTurretConfig {
@@ -114,11 +106,8 @@ public class FixedDeployableTurretConfig extends DeployableTurretConfig {
         HeadRotation headRotationComponent = store.getComponent(ref, HeadRotation.getComponentType());
         assert headRotationComponent != null;
 
-        // Tick and clean up active projectiles
-        Vector3d pos = Vector3d.add(spawnPos, transformComponent.getPosition());
-        updateProjectiles(ref, store, commandBuffer, shooterComponent);
-
         // Check if current active target is still valid and in range
+        Vector3d pos = Vector3d.add(spawnPos, transformComponent.getPosition());
         boolean hasTarget = false;
         Ref<EntityStore> target = shooterComponent.getActiveTarget();
         if (target != null && target.isValid()) {
@@ -151,14 +140,16 @@ public class FixedDeployableTurretConfig extends DeployableTurretConfig {
             }
         }
 
-        // Rotate head toward target
+        // Rotate head toward target using exact look-at rotation
         Vector3f lookRotation = Vector3f.ZERO;
+        Vector3f firingRotation = Vector3f.ZERO;
         if (hasTarget) {
             TransformComponent targetTransform = store.getComponent(target, TransformComponent.getComponentType());
             assert targetTransform != null;
             Vector3d targetPos = calculatedTargetPosition(targetTransform.getPosition().clone());
             Vector3d relativeOffset = new Vector3d(pos.x - targetPos.x, pos.y - targetPos.y, pos.z - targetPos.z);
-            lookRotation = Vector3f.lerpAngle(headRotationComponent.getRotation(), Vector3f.lookAt(relativeOffset.negate()), rotationSpeed * dt);
+            firingRotation = Vector3f.lookAt(relativeOffset.negate());
+            lookRotation = Vector3f.lerpAngle(headRotationComponent.getRotation(), firingRotation, rotationSpeed * dt);
         }
         headRotationComponent.setRotation(lookRotation);
 
@@ -169,26 +160,24 @@ public class FixedDeployableTurretConfig extends DeployableTurretConfig {
         if (shotsFired < burstCount && timeSinceLastAttack >= shotInterval) {
             component.setFlag(DeployableFlag.BURST_SHOTS, shotsFired + 1);
             canFire = true;
-        } else if (shotsFired >= burstCount && timeSinceLastAttack >= burstCooldown) {
+        }
+        else if (shotsFired >= burstCount && timeSinceLastAttack >= burstCooldown) {
             component.setFlag(DeployableFlag.BURST_SHOTS, 1);
             canFire = true;
         }
 
-        // Spawn projectile toward target, null creator avoids cross-store player component lookup crash
+        // Spawn projectile with owner (player) as creator so ProjectileHit/Miss interactions
+        // fire via the player's LivingEntity context — ownerRef retrieved before lambda,
+        // used inside world.execute where the world thread store context is correct
         if (canFire && hasTarget) {
-            Vector3d fwdDirection = new Vector3d().assign((double) lookRotation.getYaw(), (double) lookRotation.getPitch());
+            Vector3d fwdDirection = new Vector3d().assign((double) firingRotation.getYaw(), (double) firingRotation.getPitch());
             Vector3d projectileSpawnPos = transformComponent.getPosition().clone();
             projectileSpawnPos.y += 0.5;
             projectileSpawnPos.add(fwdDirection.clone().normalize());
 
-            world.execute(() -> {
-                Ref<EntityStore> projectileRef = ProjectileModule.get().spawnProjectile(null, null, commandBuffer, projectileConfig, projectileSpawnPos, fwdDirection.clone());
-                System.out.println("[Turret] fired in world.execute, projectileRef null=" + (projectileRef == null) + " valid=" + (projectileRef != null && projectileRef.isValid()));
-                if (projectileRef != null) {
-                    commandBuffer.addComponent(projectileRef, DeployableProjectileComponent.getComponentType(), new DeployableProjectileComponent(projectileSpawnPos));
-                    shooterComponent.getProjectiles().add(projectileRef);
-                }
-            });
+            DeployableComponent dc = commandBuffer.getComponent(ref, DeployableComponent.getComponentType());
+//            ProjectileModule.get().spawnProjectile(null, ref, commandBuffer, projectileConfig, projectileSpawnPos, fwdDirection.clone());
+            ProjectileModule.get().spawnProjectile(null, dc.getOwner(), commandBuffer, projectileConfig, projectileSpawnPos, fwdDirection.clone());
 
             playAnimation(store, ref, this, "Shoot");
             component.setTimeSinceLastAttack(0.0F);
@@ -244,89 +233,5 @@ public class FixedDeployableTurretConfig extends DeployableTurretConfig {
         double entityDistance = attackerPos.distanceSquaredTo(targetPos);
         double blockDistance = attackerPos.distanceSquaredTo((double) blockPosition.x + 0.5, (double) blockPosition.y + 0.5, (double) blockPosition.z + 0.5);
         return entityDistance < blockDistance;
-    }
-
-    // Tick all tracked projectiles and process removals
-    // in updateProjectiles, add ref parameter
-    private void updateProjectiles(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer, @Nonnull DeployableProjectileShooterComponent shooterComponent) {
-        List<Ref<EntityStore>> projectiles = shooterComponent.getProjectiles();
-        List<Ref<EntityStore>> projectilesForRemoval = shooterComponent.getProjectilesForRemoval();
-        projectiles.removeAll(Collections.singleton(null));
-        for (Ref<EntityStore> projectile : projectiles) updateProjectile(ref, projectile, shooterComponent, store, commandBuffer);
-        for (Ref<EntityStore> projectile : projectilesForRemoval) {
-            if (projectile.isValid()) commandBuffer.removeEntity(projectile, RemoveReason.REMOVE);
-            projectiles.remove(projectile);
-        }
-        projectilesForRemoval.clear();
-    }
-
-    // Scan projectile path for entity hits and flag inactive projectiles for removal
-    private void updateProjectile(@Nonnull Ref<EntityStore> ref, @Nonnull Ref<EntityStore> projectileRef, @Nonnull DeployableProjectileShooterComponent shooterComponent, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
-        if (!projectileRef.isValid()) { shooterComponent.getProjectilesForRemoval().add(projectileRef); return; }
-
-        TransformComponent projTransform = store.getComponent(projectileRef, TransformComponent.getComponentType());
-        if (projTransform == null) { shooterComponent.getProjectilesForRemoval().add(projectileRef); return; }
-
-        DeployableProjectileComponent deployableProjectileComponent = store.getComponent(projectileRef, DeployableProjectileComponent.getComponentType());
-        if (deployableProjectileComponent == null) { shooterComponent.getProjectilesForRemoval().add(projectileRef); return; }
-
-        Vector3d projPos = projTransform.getPosition();
-        Vector3d prevPos = deployableProjectileComponent.getPreviousTickPosition();
-        Vector3d increment = new Vector3d((projPos.x - prevPos.x) * 0.1, (projPos.y - prevPos.y) * 0.1, (projPos.z - prevPos.z) * 0.1);
-        AtomicReference<Boolean> hit = new AtomicReference<>(Boolean.FALSE);
-
-        for (int j = 0; j < 10; ++j) {
-            if (hit.get()) break;
-            Vector3d scanPos = deployableProjectileComponent.getPreviousTickPosition().clone();
-            scanPos.x += increment.x * j;
-            scanPos.y += increment.y * j;
-            scanPos.z += increment.z * j;
-            if (getDebugVisuals()) DebugUtils.addSphere(store.getExternalData().getWorld(), scanPos, new Vector3f(1.0F, 1.0F, 1.0F), 0.1, 5.0F);
-            for (Ref<EntityStore> targetEntityRef : TargetUtil.getAllEntitiesInSphere(scanPos, 0.1, store)) {
-                if (hit.get()) return;
-                if (targetEntityRef.equals(ref)) continue; // skip the turret itself
-                if (!isValidTarget(ref, store, targetEntityRef)) continue; // skip invalid targets
-                projectileHit(targetEntityRef, projectileRef, shooterComponent, store, commandBuffer);
-                hit.set(Boolean.TRUE);
-            }
-        }
-
-        deployableProjectileComponent.setPreviousTickPosition(projPos);
-
-        // Remove projectile if it has stopped moving
-        if (!hit.get()) {
-            StandardPhysicsProvider physicsComponent = store.getComponent(projectileRef, StandardPhysicsProvider.getComponentType());
-            if (physicsComponent != null && physicsComponent.getState() != STATE.ACTIVE) shooterComponent.getProjectilesForRemoval().add(projectileRef);
-        }
-    }
-
-    // Apply damage, knockback, and sound on entity hit then flag projectile for removal
-    private void projectileHit(@Nonnull Ref<EntityStore> ref, @Nonnull Ref<EntityStore> projectileRef, @Nonnull DeployableProjectileShooterComponent shooterComponent, @Nonnull Store<EntityStore> store, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
-        DamageSystems.executeDamage(ref, commandBuffer, new Damage(new Damage.EntitySource(ref), DamageCause.PHYSICAL, projectileDamage));
-
-        TransformComponent projectileTransform = store.getComponent(projectileRef, TransformComponent.getComponentType());
-        assert projectileTransform != null;
-        Vector3d projectilePosition = projectileTransform.getPosition().clone();
-
-        if (projectileKnockback != null) {
-            float projectileRotationYaw = projectileTransform.getRotation().getYaw();
-            store.getExternalData().getWorld().execute(() -> {
-                if (ref.isValid()) applyKnockback(ref, projectilePosition, projectileRotationYaw, store);
-            });
-        }
-
-        DeployablesUtils.playSoundEventsAtEntity(ref, commandBuffer, projectileHitLocalSoundEventIndex, projectileHitWorldSoundEventIndex, projectilePosition);
-        shooterComponent.getProjectilesForRemoval().add(projectileRef);
-    }
-
-    // Calculate and apply knockback velocity to the hit entity
-    private void applyKnockback(@Nonnull Ref<EntityStore> targetRef, @Nonnull Vector3d attackerPos, float attackerYaw, @Nonnull Store<EntityStore> store) {
-        KnockbackComponent knockbackComponent = store.ensureAndGetComponent(targetRef, KnockbackComponent.getComponentType());
-        TransformComponent transformComponent = store.getComponent(targetRef, TransformComponent.getComponentType());
-        assert transformComponent != null;
-        knockbackComponent.setVelocity(projectileKnockback.calculateVector(attackerPos, attackerYaw, transformComponent.getPosition()));
-        knockbackComponent.setVelocityType(projectileKnockback.getVelocityType());
-        knockbackComponent.setVelocityConfig(projectileKnockback.getVelocityConfig());
-        knockbackComponent.setDuration(projectileKnockback.getDuration());
     }
 }

@@ -1,0 +1,18 @@
+{
+  "Type": "Serial",
+  "Interactions": [
+    {
+      "Type": "Replace",
+      "Var": "Turret_Projectile",
+      "DefaultOk": true,
+      "DefaultValue": {
+        "Interactions": [
+          {
+            "Type": "Projectile",
+            "Config": "Projectile_Config_Turret_Fire"
+          }
+        ]
+      }
+    }
+  ]
+}

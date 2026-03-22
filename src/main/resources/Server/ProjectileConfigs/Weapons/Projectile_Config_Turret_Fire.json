@@ -1,0 +1,47 @@
+{
+  "Model": "Arrow_Crude",
+  "Physics": {
+    "Type": "Standard",
+    "TerminalVelocityAir": 100,
+    "TerminalVelocityWater": 15,
+    "RotationMode": "VelocityDamped",
+    "Bounciness": 0.0,
+    "SticksVertically": true
+  },
+  "LaunchForce": 30,
+  "SpawnRotationOffset": {
+    "Pitch": -5.0,
+    "Yaw": 0,
+    "Roll": 0
+  },
+  "Interactions": {
+    "ProjectileHit": {
+      "Interactions": [
+        {
+          "Type": "DamageEntity",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Physical": 5
+            }
+          }
+        },
+        {
+          "Type": "RemoveEntity",
+          "Entity": "User"
+        }
+      ]
+    },
+    "ProjectileMiss": {
+      "Interactions": [
+        {
+          "Type": "Simple",
+          "RunTime": 5
+        },
+        {
+          "Type": "RemoveEntity",
+          "Entity": "User"
+        }
+      ]
+    }
+  }
+}

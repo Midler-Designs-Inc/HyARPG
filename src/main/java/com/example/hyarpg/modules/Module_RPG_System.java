@@ -6,29 +6,22 @@ import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
-import com.hypixel.hytale.protocol.ParticleAttractor;
-import com.hypixel.hytale.protocol.ParticleSystem;
-import com.hypixel.hytale.protocol.packets.world.SpawnParticleSystem;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
-import com.hypixel.hytale.server.core.asset.type.particle.config.Particle;
 import com.hypixel.hytale.server.core.entity.Frozen;
-import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
-import com.hypixel.hytale.server.core.io.handlers.IWorldPacketHandler;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
-import com.hypixel.hytale.server.core.modules.entity.tracker.EntityTrackerSystems;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -173,12 +166,9 @@ public class Module_RPG_System {
         this.plugin = plugin;
 
         // Register the component type using EntityStoreRegistry
-        componentTypeRPGPlayer = plugin.getEntityStoreRegistry()
-                .registerComponent(Component_RPG_Player.class, "RPGStatsComponent", Component_RPG_Player.CODEC);
-        componentTypeRPGEnemy = plugin.getEntityStoreRegistry()
-                .registerComponent(Component_RPG_Enemy.class, "RPGEnemyComponent", Component_RPG_Enemy.CODEC);
-        componentTypeCraftingKnowledge = plugin.getEntityStoreRegistry()
-                .registerComponent(Component_CraftingKnowledge.class, "CraftingKnowledgeComponent", Component_CraftingKnowledge.CODEC);
+        componentTypeRPGPlayer = plugin.getEntityStoreRegistry().registerComponent(Component_RPG_Player.class, "RPGStatsComponent", Component_RPG_Player.CODEC);
+        componentTypeRPGEnemy = plugin.getEntityStoreRegistry().registerComponent(Component_RPG_Enemy.class, "RPGEnemyComponent", Component_RPG_Enemy.CODEC);
+        componentTypeCraftingKnowledge = plugin.getEntityStoreRegistry().registerComponent(Component_CraftingKnowledge.class, "CraftingKnowledgeComponent", Component_CraftingKnowledge.CODEC);
 
         // Get the interaction registry and register the custom interactions
         final var interactionRegistry = plugin.getCodecRegistry(Interaction.CODEC);
@@ -192,6 +182,8 @@ public class Module_RPG_System {
         interactionRegistry.register("Use_Ability_2", Interaction_UseAbility2.class, Interaction_UseAbility2.CODEC);
         interactionRegistry.register("Use_Ability_3", Interaction_UseAbility3.class, Interaction_UseAbility3.CODEC);
         interactionRegistry.register("Beam_Particle", Interaction_BeamParticle.class, Interaction_BeamParticle.CODEC);
+        interactionRegistry.register("Beam_Particle", Interaction_BeamParticle.class, Interaction_BeamParticle.CODEC);
+        interactionRegistry.register("SpawnDeployableAtHitLocationFixed", Interaction_SpawnDeployableAtHitLocation.class, Interaction_SpawnDeployableAtHitLocation.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_EntityPreDamaged.class, this::onEntityPreDamage);

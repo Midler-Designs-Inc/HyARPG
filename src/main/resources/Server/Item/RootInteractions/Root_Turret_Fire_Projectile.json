@@ -1,0 +1,11 @@
+{
+  "RequireNewClick": false,
+  "Interactions": [
+    "Turret_Fire_Projectile"
+  ],
+  "Tags": {
+    "Attack": [
+      "Ranged"
+    ]
+  }
+}

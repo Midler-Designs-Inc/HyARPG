@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 
 public class ToggleHunger extends CommandBase {
 
-    private final DefaultArg<Boolean> ENABLED;
+    private final RequiredArg<Boolean> ENABLED;
 
     public ToggleHunger() {
         // Name, Description, Requires OP
         super("HyARPG_Hunger_TickEnabled", "Turn the hunger system on or off. You will need to relog for the HUD to show/hide the bar.", false);
 
-        this.ENABLED = this.withDefaultArg("ENABLED", "Rather or not the hunger tick is enabled.", ArgTypes.BOOLEAN, true, "Default: true");
+        this.ENABLED = this.withRequiredArg("ENABLED", "Rather or not the hunger tick is enabled.", ArgTypes.BOOLEAN);
 
         // make sure this command can only be used by admins
         requirePermission(HytalePermissions.fromCommand("admin"));

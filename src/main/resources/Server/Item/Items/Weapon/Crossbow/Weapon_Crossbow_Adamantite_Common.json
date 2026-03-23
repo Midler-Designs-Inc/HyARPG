@@ -1,0 +1,60 @@
+{
+  "Parent": "Template_Weapon_Crossbow",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Crossbow_Adamantite.name"
+  },
+  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
+  "Texture": "Items/Weapons/Crossbow/Adamantite_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Adamantite.png",
+  "Quality": "Common",
+  "ItemLevel": 40,
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 43
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 44
+      },
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 46
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Bow",
+          "Discoverable"
+        ],
+        "Id": "Weapon_Bench_HyARPG",
+        "RequiredTierLevel": 4
+      },
+      {
+        "Type": "DiagramCrafting",
+        "Categories": [
+          "Weapons.Bow",
+          "Discoverable"
+        ],
+        "Id": "Armory_HyARPG",
+        "RequiredTierLevel": 4
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "MaxDurability": 0,
+  "DurabilityLossOnHit": 0.28,
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Common_Gear"
+    }
+  ]
+}

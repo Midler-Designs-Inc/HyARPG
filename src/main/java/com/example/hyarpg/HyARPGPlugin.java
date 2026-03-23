@@ -156,77 +156,89 @@ public class HyARPGPlugin extends JavaPlugin {
         // All stone types across all biome zones — ensures every ore can generate
         // regardless of which vanilla zone the distance ring falls in
         String[] allStones = new String[]{
-                "Rock_Stone", "Rock_Basalt", "Rock_Marble", "Rock_Quartzite",
-                "Rock_Sandstone", "Rock_Sandstone_White", "Rock_Sandstone_Red",
-                "Rock_Volcanic", "Rock_Shale", "Rock_Slate", "Rock_Magma_Cooled",
-                "Soil_Dirt_Dry", "Soil_Mud_Dry", "Soil_Dirt_Cold", "Soil_Gravel"
+            "Rock_Stone", "Rock_Basalt", "Rock_Marble", "Rock_Quartzite",
+            "Rock_Sandstone", "Rock_Sandstone_White", "Rock_Sandstone_Red",
+            "Rock_Volcanic", "Rock_Shale", "Rock_Slate", "Rock_Magma_Cooled",
+            "Soil_Dirt_Dry", "Soil_Mud_Dry", "Soil_Dirt_Cold", "Soil_Gravel"
         };
 
         return new OreDistanceConfig(
-                0, 100, 0, // spawnX, spawnY, spawnZ
+                ModConfig.get().world.origin_spawn_point_x,
+                ModConfig.get().world.origin_spawn_point_y,
+                ModConfig.get().world.origin_spawn_point_z,
                 List.of(
-                        // ── Copper: 0k–20k, peaks at 10k ─────────────────────────────
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Copper_Stone", allStones,
-                                0, 20_000,
-                                8, 3, 8, 10, 80
-                        ),
+                    // ── Copper: 0k–20k, peaks at 10k ─────────────────────────────
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Copper_Stone", allStones,
+                        ModConfig.get().world.min_distance_for_copper_spawn,
+                        ModConfig.get().world.max_distance_for_copper_spawn,
+                        8, 3, 8, 10, 80
+                    ),
 
-                        // ── Iron: 10k–30k, peaks at 20k ──────────────────────────────
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Iron_Basalt", allStones,
-                                10_000, 30_000,
-                                6, 3, 7, 5, 60
-                        ),
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Iron_Basalt_Cracked", allStones,
-                                10_000, 30_000,
-                                3, 2, 5, 5, 60
-                        ),
+                    // ── Iron: 10k–30k, peaks at 20k ──────────────────────────────
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Iron_Basalt", allStones,
+                        ModConfig.get().world.min_distance_for_iron_spawn,
+                        ModConfig.get().world.max_distance_for_iron_spawn,
+                        6, 3, 7, 5, 60
+                    ),
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Iron_Basalt_Cracked", allStones,
+                        ModConfig.get().world.min_distance_for_iron_spawn,
+                        ModConfig.get().world.max_distance_for_iron_spawn,
+                        3, 2, 5, 5, 60
+                    ),
 
-                        // ── Thorium: 20k–40k, peaks at 30k ──────────────────────────
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Thorium_Mud", allStones,
-                                20_000, 40_000,
-                                5, 3, 7, 5, 70
-                        ),
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Thorium_Mud_Cracked", allStones,
-                                20_000, 40_000,
-                                3, 2, 5, 5, 70
-                        ),
+                    // ── Thorium: 20k–40k, peaks at 30k ──────────────────────────
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Thorium_Mud", allStones,
+                        ModConfig.get().world.min_distance_for_thorium_spawn,
+                        ModConfig.get().world.max_distance_for_thorium_spawn,
+                        5, 3, 7, 5, 70
+                    ),
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Thorium_Mud_Cracked", allStones,
+                        ModConfig.get().world.min_distance_for_thorium_spawn,
+                        ModConfig.get().world.max_distance_for_thorium_spawn,
+                        3, 2, 5, 5, 70
+                    ),
 
-                        // ── Cobalt: 20k–40k, peaks at 30k ───────────────────────────
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Cobalt_Slate", allStones,
-                                20_000, 40_000,
-                                5, 3, 7, 5, 60
-                        ),
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Cobalt_Slate_Cracked", allStones,
-                                20_000, 40_000,
-                                3, 2, 5, 5, 60
-                        ),
+                    // ── Cobalt: 20k–40k, peaks at 30k ───────────────────────────
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Cobalt_Slate", allStones,
+                        ModConfig.get().world.min_distance_for_cobalt_spawn,
+                        ModConfig.get().world.max_distance_for_cobalt_spawn,
+                        5, 3, 7, 5, 60
+                    ),
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Cobalt_Slate_Cracked", allStones,
+                        ModConfig.get().world.min_distance_for_cobalt_spawn,
+                        ModConfig.get().world.max_distance_for_cobalt_spawn,
+                        3, 2, 5, 5, 60
+                    ),
 
-                        // ── Adamantite: 30k–50k, peaks at 40k ───────────────────────
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Adamantite_Magma", allStones,
-                                30_000, 50_000,
-                                4, 3, 7, 1, 50
-                        ),
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Adamantite_Magma_Cracked", allStones,
-                                30_000, 50_000,
-                                3, 2, 5, 1, 50
-                        ),
+                    // ── Adamantite: 30k–50k, peaks at 40k ───────────────────────
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Adamantite_Magma", allStones,
+                        ModConfig.get().world.min_distance_for_adamantite_spawn,
+                        ModConfig.get().world.max_distance_for_adamantite_spawn,
+                        4, 3, 7, 1, 50
+                    ),
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Adamantite_Magma_Cracked", allStones,
+                        ModConfig.get().world.min_distance_for_adamantite_spawn,
+                        ModConfig.get().world.max_distance_for_adamantite_spawn,
+                        3, 2, 5, 1, 50
+                    ),
 
-                        // ── Mithril: 40k–60k, peaks at 50k ──────────────────────────
-                        // Rarest tier — small veins, deep only
-                        new OreDistanceConfig.OreZone(
-                                "Ore_Mithril_Stone", allStones,
-                                40_000, 60_000,
-                                3, 2, 5, 1, 30
-                        )
+                    // ── Mithril: 40k–60k, peaks at 50k ──────────────────────────
+                    // Rarest tier — small veins, deep only
+                    new OreDistanceConfig.OreZone(
+                        "Ore_Mithril_Stone", allStones,
+                        ModConfig.get().world.min_distance_for_mithril_spawn,
+                        ModConfig.get().world.max_distance_for_mithril_spawn,
+                        3, 2, 5, 1, 30
+                    )
                 )
         );
     }

@@ -1,0 +1,62 @@
+{
+  "Parent": "Template_Weapon_Crossbow",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Crossbow_Mithril.name"
+  },
+  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
+  "Texture": "Items/Weapons/Crossbow/Mythril_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Mythril.png",
+  "Quality": "Rare",
+  "ItemLevel": 50,
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 303
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 304
+      },
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 306
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Bow"
+        ],
+        "Id": "Weapon_Bench_HyARPG",
+        "RequiredTierLevel": 5
+      },
+      {
+        "Type": "DiagramCrafting",
+        "Categories": [
+          "Weapons.Bow"
+        ],
+        "Id": "Armory_HyARPG",
+        "RequiredTierLevel": 5
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "MaxDurability": 0,
+  "DurabilityLossOnHit": 0.28,
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Rare_Gear"
+    }
+  ]
+}

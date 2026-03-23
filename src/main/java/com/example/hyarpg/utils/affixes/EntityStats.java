@@ -167,7 +167,7 @@ public final class EntityStats {
         return clamp(getRaw(StatType.DODGE_CHANCE_PERCENT), MAX_DODGE);
     }
     public float getRunSpeedMultiplier() {
-        return 1f + getRaw(StatType.RUN_SPEED_PERCENT) / 100f;
+        return getRaw(StatType.RUN_SPEED_PERCENT);
     }
     public float getStabilityPercent(boolean shieldEquipped) {
         // get base stability and apply the shield stability buff if applicable

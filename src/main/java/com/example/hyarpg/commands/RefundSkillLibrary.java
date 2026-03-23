@@ -58,13 +58,22 @@ public class RefundSkillLibrary extends CommandBase {
 
         // get the players world and execute command on next world tick
         World world = Universe.get().getWorld(targetedPlayer.getWorldUuid());
+        if (world == null) return;
+
         world.execute(() -> {
             // get RPG player component
             Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
             if (rpgPlayer == null) return;
 
+            Player player = store.getComponent(ref, Player.getComponentType());
+            if (player == null) return;
+
             // Refund the players library
             rpgPlayer.skillPoints += rpgPlayer.skillLibrary.refund(rpgPlayer);
+
+            // Refresh player stats
+            rpgPlayer.calculateGearScore(player);
+            rpgPlayer.calculateAffixStats(ref, store);
         });
     }
 }

@@ -443,9 +443,9 @@
       "Shortbow"
     ]
   },
-  "Weapon": {},
-  "ItemAppearanceConditions": {},
   "ItemSoundSetId": "ISS_Weapons_Wood",
   "MaxDurability": 80,
-  "DurabilityLossOnHit": 0.58
+  "DurabilityLossOnHit": 0.58,
+  "Weapon": {},
+  "ItemAppearanceConditions": {}
 }

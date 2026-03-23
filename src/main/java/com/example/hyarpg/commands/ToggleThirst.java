@@ -4,7 +4,7 @@ package com.example.hyarpg.commands;
 
 import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
-import com.hypixel.hytale.server.core.command.system.arguments.system.DefaultArg;
+import com.hypixel.hytale.server.core.command.system.arguments.system.RequiredArg;
 import com.hypixel.hytale.server.core.command.system.arguments.types.ArgTypes;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import com.hypixel.hytale.server.core.permissions.HytalePermissions;
@@ -13,13 +13,13 @@ import javax.annotation.Nonnull;
 
 public class ToggleThirst extends CommandBase {
 
-    private final DefaultArg<Boolean> ENABLED;
+    private final RequiredArg<Boolean> ENABLED;
 
     public ToggleThirst() {
         // Name, Description, Requires OP
         super("HyARPG_Thirst_TickEnabled", "Turn the thirst system on or off. You will need to relog for the HUD to show/hide the bar.", false);
 
-        this.ENABLED = this.withDefaultArg("ENABLED", "Rather or not the thirst tick is enabled.", ArgTypes.BOOLEAN, true, "Default: true");
+        this.ENABLED = this.withRequiredArg("ENABLED", "Rather or not the thirst tick is enabled.", ArgTypes.BOOLEAN);
 
         // make sure this command can only be used by admins
         requirePermission(HytalePermissions.fromCommand("admin"));

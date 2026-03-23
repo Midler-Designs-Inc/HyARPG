@@ -22,6 +22,8 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.interaction.InteractionModule;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.RootInteraction;
@@ -30,6 +32,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 import java.awt.*;
+import java.util.Objects;
 import java.util.logging.Level;
 
 public class Interaction_UseAbility3 extends SimpleInstantInteraction {
@@ -129,9 +132,15 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
             InteractionManager interactionManager = store.getComponent(entityRef, InteractionModule.get().getInteractionManagerComponent());
             if (interactionManager == null) return;
 
-            // Deduct the resource cost from teh resource if not a channeled ability
-            if (!node.ability.isChanneled) {
+            // Deduct the resource cost from teh resource
+            if (node.ability.abilityResourceCost > 0) {
                 statMap.setStatValue(node.ability.abilityResourceStatIndex, Math.max(0, (currentValue - node.ability.abilityResourceCost)));
+
+                // if ability costs stamina, set the stamina regen delay
+                if (node.ability.abilityResourceStatIndex == DefaultEntityStatTypes.getStamina()) {
+                    int staminaRegenDelayStatIndex = EntityStatType.getAssetMap().getIndex("StaminaRegenDelay");
+                    statMap.setStatValue(staminaRegenDelayStatIndex, -1);
+                }
             }
 
             // create a new context for the interaction and init a new interaction chain

@@ -1,0 +1,62 @@
+{
+  "Parent": "Template_Weapon_Crossbow",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Crossbow_Copper.name"
+  },
+  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
+  "Texture": "Items/Weapons/Crossbow/Copper_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Copper.png",
+  "Quality": "Uncommon",
+  "ItemLevel": 10,
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 33
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 34
+      },
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 36
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Bow"
+        ],
+        "Id": "Weapon_Bench_HyARPG",
+        "RequiredTierLevel": 1
+      },
+      {
+        "Type": "DiagramCrafting",
+        "Categories": [
+          "Weapons.Bow"
+        ],
+        "Id": "Armory_HyARPG",
+        "RequiredTierLevel": 1
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "MaxDurability": 0,
+  "DurabilityLossOnHit": 0.28,
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Uncommon_Gear"
+    }
+  ]
+}

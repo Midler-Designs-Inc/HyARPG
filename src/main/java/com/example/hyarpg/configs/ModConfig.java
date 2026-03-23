@@ -42,6 +42,10 @@ public class ModConfig extends ConfigurablePojo<ModConfig> {
     @Section("loot")
     public Config_Loot loot = new Config_Loot();
 
+    @Key("world")
+    @Section("world")
+    public Config_World world = new Config_World();
+
     public static void load() {
         Thread.currentThread().setContextClassLoader(ModConfig.class.getClassLoader());
         INSTANCE = ConfigurationLoader.from(CONFIG_PATH)

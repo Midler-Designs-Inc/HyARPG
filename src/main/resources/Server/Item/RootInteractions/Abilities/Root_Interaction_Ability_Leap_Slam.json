@@ -1,7 +1,6 @@
 {
   "Interactions": [
-    "Ability_Leap_Slam",
-    "Stamina_Delay_Helper"
+    "Ability_Leap_Slam"
   ],
   "Tags": {
     "Attack": [

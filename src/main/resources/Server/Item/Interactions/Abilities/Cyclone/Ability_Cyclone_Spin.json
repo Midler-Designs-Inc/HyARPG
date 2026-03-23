@@ -1,63 +1,51 @@
 {
-  "Type": "StatsCondition",
-  "Costs": {
-    "Stamina": 1
-  },
-  "Next": {
-    "Type": "Serial",
-    "Interactions": [
-      {
-        "Type": "ChangeStat",
-        "StatModifiers": {
-          "Stamina": -1
-        }
-      },
-      {
-        "Type": "Simple",
-        "RunTime": 0.49,
-        "HorizontalSpeedMultiplier": 0.4,
-        "Effects": {
-          "Trails": [
-            {
-              "PositionOffset": {
-                "X": 0.8,
-                "Y": 0,
-                "Z": 0
-              },
-              "RotationOffset": {
-                "Pitch": 0,
-                "Roll": 90,
-                "Yaw": 0
-              },
-              "TargetNodeName": "Handle",
-              "TrailId": "Medium_Signature"
+  "Type": "Serial",
+  "Interactions": [
+    {
+      "Type": "Simple",
+      "RunTime": 0.49,
+      "HorizontalSpeedMultiplier": 0.4,
+      "Effects": {
+        "Trails": [
+          {
+            "PositionOffset": {
+              "X": 0.8,
+              "Y": 0,
+              "Z": 0
+            },
+            "RotationOffset": {
+              "Pitch": 0,
+              "Roll": 90,
+              "Yaw": 0
+            },
+            "TargetNodeName": "Handle",
+            "TrailId": "Medium_Signature"
+          }
+        ],
+        "WaitForAnimationToFinish": false,
+        "Particles": [
+          {
+            "SystemId": "Sword_Signature_AoE_Timed",
+            "Scale": 1,
+            "TargetNodeName": "Hip",
+            "TargetEntityPart": "Entity",
+            "PositionOffset": {
+              "Y": 1.0
             }
-          ],
-          "WaitForAnimationToFinish": false,
-          "Particles": [
-            {
-              "SystemId": "Sword_Signature_AoE_Timed",
-              "Scale": 1,
-              "TargetNodeName": "Hip",
-              "TargetEntityPart": "Entity",
-              "PositionOffset": {
-                "Y": 1.0
-              }
-            }
-          ],
-          "CameraEffect": "Sword_Spin"
-        }
-      },
-      {
-        "Type": "Replace",
-        "Var": "Cyclone_Spin_Selector",
-        "DefaultOk": true,
-        "DefaultValue": {
-          "Interactions": [
-            "Ability_Cyclone_Spin_Selector"
-          ]
-        }
+          }
+        ],
+        "CameraEffect": "Sword_Spin"
       }
-    ]
-  }
+    },
+    {
+      "Type": "Replace",
+      "Var": "Cyclone_Spin_Selector",
+      "DefaultOk": true,
+      "DefaultValue": {
+        "Interactions": [
+          "Ability_Cyclone_Spin_Selector"
+        ]
+      }
+    }
+  ]
 }

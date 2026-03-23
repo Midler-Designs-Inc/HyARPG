@@ -1,7 +1,0 @@
-{
-  "Type": "ChangeStat",
-  "Behaviour": "Set",
-  "StatModifiers": {
-    "StaminaRegenDelay": -1
-  }
-}

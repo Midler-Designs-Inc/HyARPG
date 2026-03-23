@@ -2,6 +2,7 @@ package com.example.hyarpg;
 
 // Hytale Imports
 
+import com.example.hyarpg.subclasses.FixedDeployableAoeConfig;
 import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
 import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
 import com.hypixel.hytale.server.core.HytaleServer;
@@ -136,6 +137,7 @@ public class HyARPGPlugin extends JavaPlugin {
     // Register codecs for this mod
     private void registerCodecs(){
         getCodecRegistry(DeployableConfig.CODEC).register("FixedTurret", FixedDeployableTurretConfig.class, FixedDeployableTurretConfig.CODEC);
+        getCodecRegistry(DeployableConfig.CODEC).register("FixedAoe", FixedDeployableAoeConfig.class, FixedDeployableAoeConfig.CODEC);
     }
 
     @Override

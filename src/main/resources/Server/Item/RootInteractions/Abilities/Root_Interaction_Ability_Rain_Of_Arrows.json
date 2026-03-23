@@ -1,0 +1,15 @@
+{
+  "RequireNewClick": true,
+  "Interactions": [
+    "Stamina_Delay_Helper",
+    {
+      "Type": "Projectile",
+      "Config": "Projectile_Config_Rain_Of_Arrows"
+    }
+  ],
+  "Tags": {
+    "Attack": [
+      "Ranged"
+    ]
+  }
+}

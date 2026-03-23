@@ -1,0 +1,15 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "Arrow_Rain_FX1",
+      "PositionOffset": {
+        "Y": 1
+      },
+      "RotationOffset": {
+        "Pitch": -60
+      }
+    }
+  ],
+  "IsImportant": false,
+  "LifeSpan": 10
+}

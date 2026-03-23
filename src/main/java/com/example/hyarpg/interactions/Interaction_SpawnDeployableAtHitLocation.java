@@ -1,5 +1,6 @@
 package com.example.hyarpg.interactions;
 
+// Hytale Imports
 import com.hypixel.hytale.builtin.deployables.DeployablesUtils;
 import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
 import com.hypixel.hytale.codec.KeyedCodec;
@@ -11,14 +12,13 @@ import com.hypixel.hytale.math.util.MathUtil;
 import com.hypixel.hytale.protocol.InteractionChainData;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.protocol.Vector3f;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.InteractionChain;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+
+// Java Imports
 import javax.annotation.Nonnull;
 
 public class Interaction_SpawnDeployableAtHitLocation extends SimpleInstantInteraction {
@@ -41,7 +41,7 @@ public class Interaction_SpawnDeployableAtHitLocation extends SimpleInstantInter
             assert contextChain != null;
             InteractionChainData chainData = contextChain.getChainData();
             Vector3f hitLocation = chainData.hitLocation;
-            log("[SpawnFixed] hitLocation null=" + (hitLocation == null) + " owningEntity null=" + (context.getOwningEntity() == null));
+
             if (hitLocation != null) {
                 CommandBuffer<EntityStore> commandBuffer = context.getCommandBuffer();
                 assert commandBuffer != null;
@@ -52,17 +52,9 @@ public class Interaction_SpawnDeployableAtHitLocation extends SimpleInstantInter
                         new com.hypixel.hytale.math.vector.Vector3f(hitLocation.x, hitLocation.y, hitLocation.z),
                         MathUtil.getRotationForHitNormal(hitNormalVec),
                         MathUtil.getNameForHitNormal(hitNormalVec));
-                log("[SpawnFixed] spawnDeployable called successfully");
             }
         } catch (Exception e) {
-            log("[SpawnFixed] exception: " + e.getMessage());
             e.printStackTrace();
-        }
-    }
-
-    private static void log(String message) {
-        for (PlayerRef player : Universe.get().getPlayers()) {
-            player.sendMessage(Message.raw("[Turret] " + message));
         }
     }
 }

@@ -1,0 +1,82 @@
+{
+  "Model": "Projectile",
+  "Physics": {
+    "Type": "Standard",
+    "RotationMode": "VelocityDamped",
+    "SticksVertically": true
+  },
+  "LaunchForce": 200,
+  "SpawnOffset": {
+    "X": 0.2,
+    "Y": 0.2,
+    "Z": 0.0
+  },
+  "Interactions": {
+    "ProjectileHit": {
+      "Interactions": [
+        {
+          "Type": "SpawnDeployableAtHitLocationFixed",
+          "Config": {
+            "Type": "FixedAoe",
+            "Invulnerable": true,
+            "LiveDuration": 10,
+            "DeploySoundEventId": "SFX_Arrow_Whistle",
+            "SpawnParticles": [
+              {
+                "TargetEntityPart": "Entity",
+                "SystemId": "Arrow_Rain_PS"
+              }
+            ],
+            "HitboxCollisionConfig": "SoftCollision",
+            "StartRadius": 8,
+            "EndRadius": 8,
+            "Height": 8,
+            "DamageAmount": 1,
+            "AttackEnemies": true,
+            "AttackTeam": false,
+            "AttackOwner": false,
+            "DamageCause": "Weapon",
+            "Model": "Projectile"
+          }
+        },
+        {
+          "Type": "RemoveEntity",
+          "Entity": "User"
+        }
+      ]
+    },
+    "ProjectileMiss": {
+      "Interactions": [
+        {
+          "Type": "SpawnDeployableAtHitLocationFixed",
+          "Config": {
+            "Type": "FixedAoe",
+            "Invulnerable": true,
+            "LiveDuration": 10,
+            "DeploySoundEventId": "SFX_Arrow_Whistle",
+            "SpawnParticles": [
+              {
+                "TargetEntityPart": "Entity",
+                "SystemId": "Arrow_Rain_PS"
+              }
+            ],
+            "HitboxCollisionConfig": "SoftCollision",
+            "StartRadius": 8,
+            "EndRadius": 8,
+            "Height": 8,
+            "DamageAmount": 1,
+            "AttackEnemies": true,
+            "AttackTeam": false,
+            "AttackOwner": false,
+            "DamageCause": "Weapon",
+            "Model": "Projectile"
+          }
+        },
+        {
+          "Type": "RemoveEntity",
+          "Entity": "User"
+        }
+      ]
+    }
+  }
+}

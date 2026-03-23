@@ -7,15 +7,6 @@ import com.example.hyarpg.utils.abilities.ranger.*;
 import com.example.hyarpg.utils.abilities.knight.*;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.affixes.StatType;
-import com.hypixel.hytale.builtin.deployables.DeployablesUtils;
-import com.hypixel.hytale.builtin.deployables.component.DeployableProjectileComponent;
-import com.hypixel.hytale.builtin.deployables.component.DeployableProjectileShooterComponent;
-import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
-import com.hypixel.hytale.builtin.deployables.config.DeployableSpawner;
-import com.hypixel.hytale.builtin.deployables.config.DeployableTurretConfig;
-import com.hypixel.hytale.builtin.deployables.interaction.SpawnDeployableAtHitLocationInteraction;
-import com.hypixel.hytale.server.core.modules.projectile.config.ProjectileConfig;
-import com.hypixel.hytale.server.core.modules.projectile.interaction.ProjectileInteraction;
 
 // Java Imports
 import java.util.LinkedHashMap;
@@ -252,7 +243,7 @@ public class SkillLibrary {
         layout.put("Ranger_LearnAbility_SummonCrossbowTurret", new SkillTree.GridPosition(8, 2));
 
         // ---- Rain of Arrows Ability ---- //
-        nodes.put("Ranger_LearnAbility_RainOfArrows", new SkillNode("Ranger_LearnAbility_RainOfArrows", "Learn 'Rain of Arrows': An activated ultimate ability that causes arrows to rain down on all nearby enemies damaging them and pinning them in place for the duration.", "Ranger_LearnAbility_RainOfArrows.png", new Rain_of_Arrows(), 6, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
+        nodes.put("Ranger_LearnAbility_RainOfArrows", new SkillNode("Ranger_LearnAbility_RainOfArrows", "Learn 'Rain of Arrows': An activated ultimate ability that causes arrows to rain down on all nearby enemies damaging them and pinning them in place for the duration.", "Ranger_LearnAbility_RainOfArrows.png", new Rain_Of_Arrows(), 6, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
         layout.put("Ranger_LearnAbility_RainOfArrows", new SkillTree.GridPosition(8, 4));
 
         // ---- Increased Critical Strike Chance Nodes ---- //

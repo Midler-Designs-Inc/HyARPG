@@ -32,15 +32,7 @@
     "Secondary": {
       "Parent": "Root_Weapon_Kunai_Secondary",
       "Cooldown": {
-        "Cooldown": 0.5,
-        "Charges": [
-          1,
-          1,
-          1,
-          1
-        ],
-        "InterruptRecharge": true,
-        "ClickBypass": false
+        "Cooldown": 0.5
       }
     },
     "Ability1": {

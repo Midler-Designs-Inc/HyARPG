@@ -1,8 +1,6 @@
 package com.example.hyarpg.utils.affixes;
 
 // Java Imports
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
-
 import java.util.EnumMap;
 import java.util.Map;
 

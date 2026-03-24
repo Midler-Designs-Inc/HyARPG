@@ -1,0 +1,71 @@
+{
+  "InitialValue": 10,
+  "Min": -4,
+  "Max": 10,
+  "Shared": false,
+  "Regenerating": [
+    {
+      "$Comment": "Player in creative mode",
+      "Interval": 0.5,
+      "Amount": 1.0,
+      "RegenType": "Percentage",
+      "Conditions": [
+        {
+          "Id": "Alive"
+        },
+        {
+          "Id": "Player",
+          "GameMode": "Creative"
+        }
+      ]
+    },
+    {
+      "Interval": 0.1,
+      "Amount": -0.1,
+      "ClampAtZero": true,
+      "RegenType": "Additive",
+      "Conditions": [
+        {
+          "Id": "Sprinting"
+        }
+      ]
+    },
+    {
+      "Interval": 0.1,
+      "Amount": -0.1,
+      "ClampAtZero": true,
+      "RegenType": "Additive",
+      "Conditions": [
+        {
+          "Id": "Gliding"
+        }
+      ]
+    }
+  ],
+  "MinValueEffects": {
+    "TriggerAtZero": true,
+    "Interactions": {
+      "Interactions": [
+        "Stamina_Bar_Flash",
+        "Stamina_Broken_Check",
+        {
+          "Type": "ChangeStat",
+          "Behaviour": "Set",
+          "StatModifiers": {
+            "StaminaRegenDelay": -0.5
+          }
+        }
+      ]
+    }
+  },
+  "MaxValueEffects": {
+    "Interactions": {
+      "Interactions": [
+        {
+          "Type": "ClearEntityEffect",
+          "EntityEffectId": "Stamina_Broken"
+        }
+      ]
+    }
+  }
+}

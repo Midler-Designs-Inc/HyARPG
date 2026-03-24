@@ -6,13 +6,18 @@ import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.GameMode;
+import com.hypixel.hytale.protocol.MovementStates;
+import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
+import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.movement.MovementStatesComponent;
+import com.hypixel.hytale.server.core.entity.movement.MovementStatesSystems;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -216,28 +221,65 @@ public final class Module_ModTickLoop {
         try {
             // get the rpg player component
             Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
-            if(rpgPlayer == null) return;
+            if (rpgPlayer == null) return;
 
             // get the stat map component from the player
             ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
             EntityStatMap statMap = store.getComponent(ref, statMapType);
             if (statMap == null) return;
 
-            // Get the health stat from the stat map
+            // get stat indices
             int healthIndex = DefaultEntityStatTypes.getHealth();
             int staminaIndex = DefaultEntityStatTypes.getStamina();
             int manaIndex = DefaultEntityStatTypes.getMana();
+            int ammoIndex = DefaultEntityStatTypes.getAmmo();
 
-            // get the stats by index
+            // get current stat values
             EntityStatValue healthStat = statMap.get(healthIndex);
             EntityStatValue staminaStat = statMap.get(staminaIndex);
             EntityStatValue manaStat = statMap.get(manaIndex);
-            MovementStatesComponent movementStateComp = store.getComponent(ref, MovementStatesComponent.getComponentType());
+            EntityStatValue ammoStat = statMap.get(ammoIndex);
+            if (healthStat == null || staminaStat == null || manaStat == null || ammoStat == null) return;
 
-            // add resource flat values for regen
-            statMap.setStatValue(healthIndex, healthStat.get() + (rpgPlayer.stats.getLifeRegen() / TICK_INTERVALS_PER_SECOND));
-            statMap.setStatValue(staminaIndex, staminaStat.get() + (rpgPlayer.stats.getManaRegen() / TICK_INTERVALS_PER_SECOND));
-            statMap.setStatValue(manaIndex, manaStat.get() + (rpgPlayer.stats.getStaminaRegen() / TICK_INTERVALS_PER_SECOND));
+            // get movement states to check regen conditions
+            MovementStatesComponent movementStateComp = store.getComponent(ref, MovementStatesComponent.getComponentType());
+            MovementStates movementStates = movementStateComp != null ? movementStateComp.getMovementStates() : null;
+            boolean isSprinting = movementStates != null && movementStates.sprinting;
+            boolean isGliding = movementStates != null && movementStates.gliding;
+
+            // check if stamina regen is delayed
+            int staminaRegenDelayIndex = EntityStatType.getAssetMap().getIndex("StaminaRegenDelay");
+            EntityStatValue regenDelayStat = statMap.get(staminaRegenDelayIndex);
+            boolean staminaRegenDelayed = regenDelayStat != null && regenDelayStat.get() != 0;
+
+            // compute per-tick scalar (regen values are per second, divide by ticks per second)
+            float tickScalar = 1f / TICK_INTERVALS_PER_SECOND;
+
+            // get base values
+            float healthBaseRegen = ModConfig.get().players.base_health_regen_per_second;
+            float manaBaseRegen = ModConfig.get().players.base_mana_regen_per_second;
+            float staminaBaseRegen = ModConfig.get().players.base_stamina_regen_per_second;
+            float ammoBaseRegen = ModConfig.get().players.base_ammo_regen_per_second;
+
+            // --- HEALTH REGEN ---
+            float healthRegenPerTick = (healthBaseRegen + rpgPlayer.stats.getFlatResourceRegen("Life")) * (1f + rpgPlayer.stats.getIncreasedResourceRegen("Life") / 100f) * tickScalar;
+            if (healthRegenPerTick != 0) statMap.addStatValue(healthIndex, healthRegenPerTick);
+
+            // --- MANA REGEN ---
+            float manaRegenPerTick = (manaBaseRegen + rpgPlayer.stats.getFlatResourceRegen("Mana")) * (1f + rpgPlayer.stats.getIncreasedResourceRegen("Mana") / 100f) * tickScalar;
+            if (manaRegenPerTick != 0) statMap.addStatValue(manaIndex, manaRegenPerTick);
+
+            // --- STAMINA REGEN ---
+            boolean staminaCanRegen = !isSprinting && !isGliding && !staminaRegenDelayed;
+            if (staminaCanRegen) {
+                float staminaRegenPerTick = (staminaBaseRegen + rpgPlayer.stats.getFlatResourceRegen("Stamina")) * (1f + rpgPlayer.stats.getIncreasedResourceRegen("Stamina") / 100f) * tickScalar;
+                if (staminaRegenPerTick != 0) statMap.addStatValue(staminaIndex, staminaRegenPerTick);
+            }
+
+            // --- AMMO REGEN ---
+            float ammoRegenPerTick = ammoBaseRegen * (1f + rpgPlayer.stats.getAmmoRegenPercent() / 100f) * tickScalar;
+            if (ammoRegenPerTick != 0) statMap.addStatValue(ammoIndex, ammoRegenPerTick);
+
         } catch (Exception e) {}
     }
 }

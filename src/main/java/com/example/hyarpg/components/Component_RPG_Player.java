@@ -13,6 +13,8 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.*;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
+import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.movement.MovementManager;
 import com.hypixel.hytale.server.core.inventory.Inventory;
@@ -269,15 +271,6 @@ public class Component_RPG_Player implements Component<EntityStore> {
 
             // update the entity stats for the resources
             statMap.update();
-
-            // set regen fields with reflection
-            Field regenField = EntityStatMap.class.getDeclaredField("tempRegenerationValues");
-            regenField.setAccessible(true);
-            float[] regenValues = (float[]) regenField.get(statMap);
-
-            // scale existing regen by the player's increased regen percent
-            float regenMultiplier = 1f + (stats.getIncreasedRegen("Stamina") / 100f);
-            regenValues[staminaIndex] *= regenMultiplier;
 
             // set players max barrier on block based on stats instance
             EntityStatValue healthStat = statMap.get(healthIndex);

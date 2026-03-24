@@ -1,12 +1,5 @@
 {
   "InitialValue": 0,
   "Min": 0,
-  "Max": 2,
-  "Regenerating": [
-    {
-      "Interval": 1,
-      "Amount": 1,
-      "RegenType": "Additive"
-    }
-  ]
+  "Max": 2
 }

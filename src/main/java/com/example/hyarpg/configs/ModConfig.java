@@ -26,6 +26,10 @@ public class ModConfig extends ConfigurablePojo<ModConfig> {
     @Section("thirst")
     public Config_Thirst thirst = new Config_Thirst();
 
+    @Key("players")
+    @Section("players")
+    public Config_Players players = new Config_Players();
+
     @Key("enemies")
     @Section("enemies")
     public Config_Enemies enemies = new Config_Enemies();

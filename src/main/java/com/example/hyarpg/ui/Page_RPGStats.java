@@ -214,30 +214,24 @@ public class Page_RPGStats {
         sb.append("</div>");
 
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
-        addSectionHeader(sb, "Resources");
-        addStat(sb, "Life",         "+" + fmt(s.getFlatResource("Life")) + " / " + fmt(s.getIncreasedResource("Life")));
-        addStat(sb, "Life Regen",   "+" + fmt(s.getFlatResourceRegen("Life")) + "s / " + fmt(s.getIncreasedResourceRegen("Life")) + "%");
-        sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Stamina",      "+" + fmt(s.getFlatResource("Stamina")) + " / " + fmt(s.getIncreasedResource("Stamina")));
-        addStat(sb, "Stamina Regen","+" + fmt(s.getFlatResourceRegen("Stamina")) + "s / " + fmt(s.getIncreasedResourceRegen("Stamina")) + "%");
-        sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Mana",         "+" + fmt(s.getFlatResource("Mana")) + " / " + fmt(s.getIncreasedResource("Mana")));
-        addStat(sb, "Mana Regen",   "+" + fmt(s.getFlatResourceRegen("Mana")) + "s / " + fmt(s.getIncreasedResourceRegen("Mana")) + "%");
-        sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Ammo",         "+" + fmt(s.getAddedAmmo()));
-        addStat(sb, "Ammo Regen",   "+" + fmt(s.getAmmoRegenPercent()) + "%");
-        sb.append("<div style=\"margin-bottom: 5;\"></div>");
-        sb.append("</div>");
-
-        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Offense");
-        addStat(sb, "Physical Damage",   "+" + fmt(s.getFlatDamage("Physical")) + " / +" + fmt(s.getIncreasedDamage("Physical")) + "%");
-        addStat(sb, "Magic Damage",   "+" + fmt(s.getFlatDamage("Magic")) + " / +" + fmt(s.getIncreasedDamage("Magic")) + "%");
+        addStat(sb, "Physical Damage",   "+" + fmt(s.getFlatDamage("Physical")));
+        addStat(sb, "Physical Damage",   "+" + fmt(s.getIncreasedDamage("Physical")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Fire Damage",   "+" + fmt(s.getFlatDamage("Fire")) + " / +" + fmt(s.getIncreasedDamage("Fire")) + "%");
-        addStat(sb, "Ice Damage",   "+" + fmt(s.getFlatDamage("Ice")) + " / +" + fmt(s.getIncreasedDamage("Ice")) + "%");
-        addStat(sb, "Lightning Damage",   "+" + fmt(s.getFlatDamage("Lightning")) + " / +" + fmt(s.getIncreasedDamage("Lightning")) + "%");
-        addStat(sb, "Poison Damage",   "+" + fmt(s.getFlatDamage("Poison")) + " / +" + fmt(s.getIncreasedDamage("Poison")) + "%");
+        addStat(sb, "Magic Damage",      "+" + fmt(s.getFlatDamage("Magic")));
+        addStat(sb, "Magic Damage",      "+" + fmt(s.getIncreasedDamage("Magic")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Fire Damage",       "+" + fmt(s.getFlatDamage("Fire")));
+        addStat(sb, "Fire Damage",       "+" + fmt(s.getIncreasedDamage("Fire")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Ice Damage",        "+" + fmt(s.getFlatDamage("Ice")));
+        addStat(sb, "Ice Damage",        "+" + fmt(s.getIncreasedDamage("Ice")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Lightning Damage",  "+" + fmt(s.getFlatDamage("Lightning")));
+        addStat(sb, "Lightning Damage",  "+" + fmt(s.getIncreasedDamage("Lightning")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Poison Damage",     "+" + fmt(s.getFlatDamage("Poison")));
+        addStat(sb, "Poison Damage",     "+" + fmt(s.getIncreasedDamage("Poison")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
         addStat(sb, "Crit Chance",    fmt(s.getCriticalStrikeChance()) + "%");
         addStat(sb, "Crit Damage",    fmt(s.getCriticalStrikeDamage()) + "x");
@@ -255,10 +249,45 @@ public class Page_RPGStats {
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
+        addSectionHeader(sb, "Defense");
+        addStat(sb, "Dodge Chance", fmt(s.getDodgeChance()) + "%");
+        addStat(sb, "Stability", fmt(s.getStabilityPercent(usingShield)) + "%");
+        addStat(sb, "Parry Window", "+" + fmt(s.getParryWindow()) + "(s)");
+        addStat(sb, "Barrier on Block", fmt(s.getBarrierOnBlock()) + "%");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
+        sb.append("</div>");
+
         sb.append("</div>"); // end left column
 
-        // Right column
+        // -- Right column --
         sb.append("<div style=\"layout-mode: top; anchor-width: 340;margin-left: 15;\">");
+
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
+        addSectionHeader(sb, "Resources");
+        addStat(sb, "Life",         "+" + fmt(s.getFlatResource("Life")));
+        addStat(sb, "Life",         "+" + fmt(s.getIncreasedResource("Life")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Stamina",      "+" + fmt(s.getFlatResource("Stamina")));
+        addStat(sb, "Stamina",      "+" + fmt(s.getIncreasedResource("Stamina")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Mana",         "+" + fmt(s.getFlatResource("Mana")));
+        addStat(sb, "Mana",         "+" + fmt(s.getIncreasedResource("Mana")) + "%");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
+        sb.append("</div>");
+
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
+        addSectionHeader(sb, "Regeneration");
+        addStat(sb, "Life Regen",   "+" + fmt(s.getFlatResourceRegen("Life")) + "s");
+        addStat(sb, "Life Regen",   "+" + fmt(s.getIncreasedResourceRegen("Life")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Stamina Regen","+" + fmt(s.getFlatResourceRegen("Stamina")) + "s");
+        addStat(sb, "Stamina Regen","+" + fmt(s.getIncreasedResourceRegen("Stamina")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Mana Regen",   "+" + fmt(s.getFlatResourceRegen("Mana")) + "s");
+        addStat(sb, "Mana Regen",   "+" + fmt(s.getIncreasedResourceRegen("Mana")) + "%");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
+        sb.append("</div>");
 
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Resistances");
@@ -276,17 +305,11 @@ public class Page_RPGStats {
         sb.append("</div>");
 
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
-        addSectionHeader(sb, "Defense");
-        addStat(sb, "Dodge Chance", fmt(s.getDodgeChance()) + "%");
-        addStat(sb, "Stability", fmt(s.getStabilityPercent(usingShield)) + "%");
-        addStat(sb, "Parry Window", "+" + fmt(s.getParryWindow()) + "(s)");
-        addStat(sb, "Barrier on Block", fmt(s.getBarrierOnBlock()) + "%");
-        sb.append("<div style=\"margin-bottom: 5;\"></div>");
-        sb.append("</div>");
-
-        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Utility");
         addStat(sb, "Run Speed",   "+" + fmt(s.getRunSpeedPercent()) + "%");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
+        addStat(sb, "Ammo",         "+" + fmt(s.getAddedAmmo()));
+        addStat(sb, "Ammo Regen",   "+" + fmt(s.getAmmoRegenPercent()) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
@@ -304,7 +327,10 @@ public class Page_RPGStats {
     }
 
     private static void addStat(StringBuilder sb, String label, String value) {
-        sb.append("<p style=\"margin-left: 15;\">").append(label).append(": ").append(value).append("</p>");
+        sb.append("<div style=\"layout-mode: left; anchor-width: 300; margin-left: 10; margin-bottom: 2;\">")
+                .append("<p style=\"anchor-width: 200;\">").append(label).append("</p>")
+                .append("<p style=\"anchor-width: 90; text-align: right;\">").append(value).append("</p>")
+                .append("</div>");
     }
 
     private static String fmt(float value) {

@@ -104,7 +104,7 @@ public class Module_RPG_System {
     }
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.3.0"; // 1.3.0
+    private final String SKILL_TREE_VERSION = "1.99.0"; // 1.3.0
 
     // Create a map for damage message colors
     public static final Map<String, Color> DAMAGE_COLORS = Map.of(
@@ -145,8 +145,8 @@ public class Module_RPG_System {
     // Properties to pool damage ticks that happen in quick succession from the same source
     private final ConcurrentHashMap<String, SwingDamageGroup> swingGroups = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-    private static final long BUCKET_MS = 50;
-    private static final long FLUSH_DELAY_MS = 20;
+    private static final long BUCKET_MS = 10;
+    private static final long FLUSH_DELAY_MS = 5;
     private String swingKey(Ref<EntityStore> attacker, Ref<EntityStore> defender) {
         return attacker + "->" + defender + "@" + (System.currentTimeMillis() / BUCKET_MS);
     }
@@ -334,8 +334,22 @@ public class Module_RPG_System {
         int causeIndex = damage.getDamageCauseIndex();
         DamageCause cause = DamageCause.getAssetMap().getAsset(causeIndex);
 
+        // handle fall damage
+        if(Objects.equals(cause.getId(), "Fall")) {
+            Component_RPG_Player defenderRPGStats = store.getComponent(defender, componentTypeRPGPlayer);
+            if(defenderRPGStats == null) return;
+
+            // Get fall resist multiplier
+            float fallResist = defenderRPGStats.stats.getResistance("Fall");
+            float multiplier = 1f - (Math.max(0f, Math.min(100f, fallResist)) / 100f);
+
+            // adjust the damage amount
+            damage.setAmount(damage.getAmount() * multiplier);
+            return;
+        }
+
         // if the damage type is command or null bail
-        if (cause == null || Objects.equals(cause.getId(), "Command")) return;
+        if (attacker == null || cause == null || Objects.equals(cause.getId(), "Command")) return;
 
         // check that at least one party was a player, otherwise bail
         Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
@@ -448,13 +462,20 @@ public class Module_RPG_System {
             damageRegistry.computeIfAbsent(defender, k -> new ConcurrentHashMap<>()).put(attacker, System.currentTimeMillis());
 
         // apply added flat damage
-        damageGroup.add(DamageCause.getAssetMap().getAsset("Fire"), attackerStats.getFlatDamage("Fire"));
-        damageGroup.add(DamageCause.getAssetMap().getAsset("Ice"), attackerStats.getFlatDamage("Ice"));
-        damageGroup.add(DamageCause.getAssetMap().getAsset("Lightning"), attackerStats.getFlatDamage("Lightning"));
-        damageGroup.add(DamageCause.getAssetMap().getAsset("Physical"), attackerStats.getFlatDamage("Physical"));
-        damageGroup.add(DamageCause.getAssetMap().getAsset("Elemental"), attackerStats.getFlatDamage("Elemental"));
-        damageGroup.add(DamageCause.getAssetMap().getAsset("Magic"), attackerStats.getFlatDamage("Magic"));
-        damageGroup.add(DamageCause.getAssetMap().getAsset("Poison"), attackerStats.getFlatDamage("Poison"));
+        if (attackerStats.getFlatDamage("Fire") > 0)
+            damageGroup.add(DamageCause.getAssetMap().getAsset("Fire"), attackerStats.getFlatDamage("Fire"));
+        if (attackerStats.getFlatDamage("Ice") > 0)
+            damageGroup.add(DamageCause.getAssetMap().getAsset("Ice"), attackerStats.getFlatDamage("Ice"));
+        if (attackerStats.getFlatDamage("Lightning") > 0)
+            damageGroup.add(DamageCause.getAssetMap().getAsset("Lightning"), attackerStats.getFlatDamage("Lightning"));
+        if (attackerStats.getFlatDamage("Physical") > 0)
+            damageGroup.add(DamageCause.getAssetMap().getAsset("Physical"), attackerStats.getFlatDamage("Physical"));
+        if (attackerStats.getFlatDamage("Elemental") > 0)
+            damageGroup.add(DamageCause.getAssetMap().getAsset("Elemental"), attackerStats.getFlatDamage("Elemental"));
+        if (attackerStats.getFlatDamage("Magic") > 0)
+            damageGroup.add(DamageCause.getAssetMap().getAsset("Magic"), attackerStats.getFlatDamage("Magic"));
+        if (attackerStats.getFlatDamage("Poison") > 0)
+            damageGroup.add(DamageCause.getAssetMap().getAsset("Poison"), attackerStats.getFlatDamage("Poison"));
 
         // roll for crit which applies to all packets
         float critChance = attackerStats.getCriticalStrikeChance();

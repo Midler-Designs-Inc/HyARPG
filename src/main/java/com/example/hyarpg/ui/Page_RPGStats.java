@@ -215,14 +215,17 @@ public class Page_RPGStats {
 
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Resources");
-        addStat(sb, "Life",          "+" + fmt(s.getLife()));
-        addStat(sb, "Life Regen",    "+" + fmt(s.getLifeRegen()) + "/s");
+        addStat(sb, "Life",         "+" + fmt(s.getFlatResource("Life")) + " / " + fmt(s.getIncreasedResource("Life")));
+        addStat(sb, "Life Regen",   "+" + fmt(s.getFlatResourceRegen("Life")) + "s / " + fmt(s.getIncreasedResourceRegen("Life")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Stamina",       "+" + fmt(s.getStamina()));
-        addStat(sb, "Stamina Regen", "+" + fmt(s.getStaminaRegen()) + "/s");
+        addStat(sb, "Stamina",      "+" + fmt(s.getFlatResource("Stamina")) + " / " + fmt(s.getIncreasedResource("Stamina")));
+        addStat(sb, "Stamina Regen","+" + fmt(s.getFlatResourceRegen("Stamina")) + "s / " + fmt(s.getIncreasedResourceRegen("Stamina")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Mana",          "+" + fmt(s.getMana()));
-        addStat(sb, "Mana Regen",    "+" + fmt(s.getManaRegen()) + "/s");
+        addStat(sb, "Mana",         "+" + fmt(s.getFlatResource("Mana")) + " / " + fmt(s.getIncreasedResource("Mana")));
+        addStat(sb, "Mana Regen",   "+" + fmt(s.getFlatResourceRegen("Mana")) + "s / " + fmt(s.getIncreasedResourceRegen("Mana")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Ammo",         "+" + fmt(s.getAddedAmmo()));
+        addStat(sb, "Ammo Regen",   "+" + fmt(s.getAmmoRegenPercent()) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
@@ -267,6 +270,8 @@ public class Page_RPGStats {
         addStat(sb, "Ice Resist", fmt(s.getResistance("Ice")) + "%");
         addStat(sb, "Lightning Resist", fmt(s.getResistance("Lightning")) + "%");
         addStat(sb, "Poison Resist", fmt(s.getResistance("Poison")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Fall Resist", fmt(s.getResistance("Fall")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
@@ -281,7 +286,7 @@ public class Page_RPGStats {
 
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Utility");
-        addStat(sb, "Run Speed",   "+" + fmt(s.getRunSpeedMultiplier()) + "%");
+        addStat(sb, "Run Speed",   "+" + fmt(s.getRunSpeedPercent()) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 

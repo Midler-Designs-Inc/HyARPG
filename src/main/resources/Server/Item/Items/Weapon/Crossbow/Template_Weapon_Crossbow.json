@@ -1,0 +1,93 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Template_Weapon_Crossbow.name"
+  },
+  "PlayerAnimationsId": "Crossbow",
+  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
+  "Texture": "Items/Weapons/Crossbow/Iron_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Iron.png",
+  "Reticle": "DefaultMelee",
+  "Quality": "Template",
+  "Categories": [
+    "Items.Weapons"
+  ],
+  "Utility": {
+    "Compatible": true
+  },
+  "IconProperties": {
+    "Scale": 0.5,
+    "Translation": [
+      -4.11,
+      -15.51
+    ],
+    "Rotation": [
+      330,
+      90,
+      45
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ],
+    "Family": [
+      "Crossbow"
+    ]
+  },
+  "Interactions": {
+    "Primary": {
+      "Interactions": [
+        {
+          "Type": "StatsCondition",
+          "Costs": {
+            "Ammo": 1
+          },
+          "Next": {
+            "Type": "Serial",
+            "Interactions": [
+              "Weapon_Crossbow_Primary_Shoot",
+              {
+                "Type": "ChangeStat",
+                "StatModifiers": {
+                  "Ammo": -1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "Secondary": "Root_Weapon_Crossbow_Secondary_Guard",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
+  },
+  "DisplayEntityStatsHUD": [
+    "Ammo"
+  ],
+  "ClipsGeometry": false,
+  "Consumable": false,
+  "ItemSoundSetId": "ISS_Weapons_Wood",
+  "MaxDurability": 80,
+  "DurabilityLossOnHit": 0.28,
+  "Weapon": {},
+  "ItemAppearanceConditions": {}
+}

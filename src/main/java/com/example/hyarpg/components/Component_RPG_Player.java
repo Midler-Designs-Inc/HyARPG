@@ -37,6 +37,8 @@ import com.example.hyarpg.utils.affixes.StatType;
 // Java Imports
 import com.google.gson.Gson;
 
+import java.lang.reflect.Field;
+
 public class Component_RPG_Player implements Component<EntityStore> {
     // Constructor properties
     public int level;
@@ -122,9 +124,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public Component_RPG_Player() { this(1, 0, 0); }
 
     // Constructor
-    public Component_RPG_Player(
-        int level, double xp, int skillPoints
-    ) {
+    public Component_RPG_Player(int level, double xp, int skillPoints) {
         this.level = level;
         this.xp = xp;
         this.skillPoints = skillPoints;
@@ -255,15 +255,29 @@ public class Component_RPG_Player implements Component<EntityStore> {
             int healthIndex = DefaultEntityStatTypes.getHealth();
             int staminaIndex = DefaultEntityStatTypes.getStamina();
             int manaIndex = DefaultEntityStatTypes.getMana();
+            int ammoIndex = DefaultEntityStatTypes.getAmmo();
             int barrierOnBlockStatIndex = EntityStatType.getAssetMap().getIndex("BarrierOnBlock");
 
             // set players max resources based on stats instance
-            statMap.putModifier(healthIndex, "BASE_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getLife()));
-            statMap.putModifier(staminaIndex, "BASE_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getStamina()));
-            statMap.putModifier(manaIndex, "BASE_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getMana()));
+            statMap.putModifier(healthIndex, "FLAT_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getFlatResource("Life")));
+            statMap.putModifier(healthIndex, "INCREASED_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.MULTIPLICATIVE, 1f + (stats.getIncreasedResource("Life") / 100f)));
+            statMap.putModifier(manaIndex, "FLAT_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getFlatResource("Mana")));
+            statMap.putModifier(manaIndex, "INCREASED_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.MULTIPLICATIVE, 1f + (stats.getIncreasedResource("Mana") / 100f)));
+            statMap.putModifier(staminaIndex, "FLAT_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getFlatResource("Stamina")));
+            statMap.putModifier(staminaIndex, "INCREASED_STAMINA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.MULTIPLICATIVE, 1f + (stats.getIncreasedResource("Stamina") / 100f)));
+            statMap.putModifier(ammoIndex, "ADDED_AMMO", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getAddedAmmo()));
 
             // update the entity stats for the resources
             statMap.update();
+
+            // set regen fields with reflection
+            Field regenField = EntityStatMap.class.getDeclaredField("tempRegenerationValues");
+            regenField.setAccessible(true);
+            float[] regenValues = (float[]) regenField.get(statMap);
+
+            // scale existing regen by the player's increased regen percent
+            float regenMultiplier = 1f + (stats.getIncreasedRegen("Stamina") / 100f);
+            regenValues[staminaIndex] *= regenMultiplier;
 
             // set players max barrier on block based on stats instance
             EntityStatValue healthStat = statMap.get(healthIndex);
@@ -283,7 +297,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
             MovementSettings movementSettings = movementManager.getSettings();
 
             // Apply RPG modifier
-            float speedBonus = 1.0f + (stats.getRunSpeedMultiplier() * 0.01f);
+            float speedBonus = 1.0f + (stats.getRunSpeedPercent() * 0.01f);
             movementSettings.forwardSprintSpeedMultiplier *= speedBonus;
 
             // Push the updates to the client

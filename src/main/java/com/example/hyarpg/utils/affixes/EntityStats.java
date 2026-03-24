@@ -9,10 +9,6 @@ import java.util.Map;
 public final class EntityStats {
 
     /* Base Stats */
-    private static final float BASE_LIFE = 0f;
-    private static final float BASE_STAMINA = 0f;
-    private static final float BASE_MANA = 25f;
-
     private static final float BASE_CRIT_DAMAGE = 1.5f;
 
     /* Caps */
@@ -37,10 +33,6 @@ public final class EntityStats {
         return stats.get(type);
     }
 
-    private float applyIncreased(float basePlusFlat, float percent) {
-        return basePlusFlat * (1f + percent / 100f);
-    }
-
     private float clamp(float value, float cap) {
         return Math.min(value, cap);
     }
@@ -54,41 +46,43 @@ public final class EntityStats {
     }
 
     /* Resources */
-    public float getLife() {
-        return applyIncreased(
-                BASE_LIFE + getRaw(StatType.LIFE_FLAT),
-                getRaw(StatType.LIFE_PERCENT)
-        );
+    public float getFlatResource(String resourceId) {
+        if (resourceId == null) return 0f;
+        switch (resourceId) {
+            case "Life": return getRaw(StatType.LIFE_FLAT);
+            case "Mana": return getRaw(StatType.MANA_FLAT);
+            case "Stamina": return getRaw(StatType.STAMINA_FLAT);
+            default: return 0f;
+        }
     }
-    public float getLifeRegen() {
-        return applyIncreased(
-                getRaw(StatType.LIFE_REGEN_FLAT),
-                getRaw(StatType.LIFE_REGEN_PERCENT)
-        );
+    public float getIncreasedResource(String resourceId) {
+        if (resourceId == null) return 0f;
+        switch (resourceId) {
+            case "Life": return getRaw(StatType.LIFE_PERCENT);
+            case "Mana": return getRaw(StatType.MANA_PERCENT);
+            case "Stamina": return getRaw(StatType.STAMINA_PERCENT);
+            default: return 0f;
+        }
     }
-    public float getMana() {
-        return applyIncreased(
-                BASE_MANA + getRaw(StatType.MANA_FLAT),
-                getRaw(StatType.MANA_PERCENT)
-        );
+
+    /* Resource Regens */
+    public float getFlatResourceRegen(String resourceId) {
+        if (resourceId == null) return 0f;
+        switch (resourceId) {
+            case "Life": return getRaw(StatType.LIFE_REGEN_FLAT);
+            case "Mana": return getRaw(StatType.MANA_REGEN_FLAT);
+            case "Stamina": return getRaw(StatType.STAMINA_REGEN_FLAT);
+            default: return 0f;
+        }
     }
-    public float getManaRegen() {
-        return applyIncreased(
-                getRaw(StatType.MANA_REGEN_FLAT),
-                getRaw(StatType.MANA_REGEN_PERCENT)
-        );
-    }
-    public float getStamina() {
-        return applyIncreased(
-                BASE_STAMINA + getRaw(StatType.STAMINA_FLAT),
-                getRaw(StatType.STAMINA_PERCENT)
-        );
-    }
-    public float getStaminaRegen() {
-        return applyIncreased(
-                getRaw(StatType.STAMINA_REGEN_FLAT),
-                getRaw(StatType.STAMINA_REGEN_PERCENT)
-        );
+    public float getIncreasedResourceRegen(String resourceId) {
+        if (resourceId == null) return 0f;
+        switch (resourceId) {
+            case "Life": return getRaw(StatType.LIFE_REGEN_PERCENT);
+            case "Mana": return getRaw(StatType.MANA_REGEN_PERCENT);
+            case "Stamina": return getRaw(StatType.STAMINA_REGEN_PERCENT);
+            default: return 0f;
+        }
     }
 
     /* Damage */
@@ -149,6 +143,7 @@ public final class EntityStats {
             case "Magic": return clamp(getRaw(StatType.MAGIC_RESIST_PERCENT), MAX_RESIST);
             case "Physical": return clamp(getRaw(StatType.PHYSICAL_RESIST_PERCENT), MAX_RESIST);
             case "Elemental": return clamp(getRaw(StatType.ELEMENTAL_RESIST_PERCENT), MAX_RESIST);
+            case "Fall": return clamp(getRaw(StatType.FALL_RESIST_PERCENT), 100);
             default: return 0f;
         }
     }
@@ -162,11 +157,19 @@ public final class EntityStats {
                 getRaw(StatType.CRITICAL_STRIKE_DAMAGE_PERCENT) / 100f);
     }
 
+    /* Ammo */
+    public float getAddedAmmo() {
+        return getRaw(StatType.AMMO_FLAT);
+    }
+    public float getAmmoRegenPercent() {
+        return getRaw(StatType.AMMO_REGEN_PERCENT);
+    }
+
     /* Utility */
     public float getDodgeChance() {
         return clamp(getRaw(StatType.DODGE_CHANCE_PERCENT), MAX_DODGE);
     }
-    public float getRunSpeedMultiplier() {
+    public float getRunSpeedPercent() {
         return getRaw(StatType.RUN_SPEED_PERCENT);
     }
     public float getStabilityPercent(boolean shieldEquipped) {

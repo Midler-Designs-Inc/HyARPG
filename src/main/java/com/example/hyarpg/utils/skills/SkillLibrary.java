@@ -214,15 +214,12 @@ public class SkillLibrary {
         nodes.put("Ranger_Crossbow_IncreasedDamage_3", new SkillNode("Ranger_Crossbow_IncreasedDamage_3", "Increase crossbow damage by 25% per rank.", "Ranger_Crossbow_IncreasedDamage_3.png", StatType.CROSSBOW_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Ranger_Crossbow_IncreasedDamage_2", 5)), "1.0.0"));
         layout.put("Ranger_Crossbow_IncreasedDamage_3", new SkillTree.GridPosition(2, 2));
 
-//        // ---- Increased Longbow Damage Nodes ---- //
-//        nodes.put("Ranger_Longbow_IncreasedDamage_1", new SkillNode("Ranger_Longbow_IncreasedDamage_1", "Increase longbow damage by 1% per rank.", "Ranger_Longbow_IncreasedDamage_1.png", StatType.LONGBOW_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
-//        layout.put("Ranger_Longbow_IncreasedDamage_1", new SkillTree.GridPosition(4, 0));
-//
-//        nodes.put("Ranger_Longbow_IncreasedDamage_2", new SkillNode("Ranger_Longbow_IncreasedDamage_2", "Increase longbow damage by 3% per rank.", "Ranger_Longbow_IncreasedDamage_2.png", StatType.LONGBOW_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Ranger_Longbow_IncreasedDamage_1", 10)), "1.0.0"));
-//        layout.put("Ranger_Longbow_IncreasedDamage_2", new SkillTree.GridPosition(4, 1));
-//
-//        nodes.put("Ranger_Longbow_IncreasedDamage_3", new SkillNode("Ranger_Longbow_IncreasedDamage_3", "Increase longbow damage by 25% per rank.", "Ranger_Longbow_IncreasedDamage_3.png", StatType.LONGBOW_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Ranger_Longbow_IncreasedDamage_2", 5)), "1.0.0"));
-//        layout.put("Ranger_Longbow_IncreasedDamage_3", new SkillTree.GridPosition(4, 2));
+        // ---- Increased Ammo Nodes ---- //
+        nodes.put("Ranger_Ammo_IncreasedFlat_1", new SkillNode("Ranger_Ammo_IncreasedFlat_1", "Increases ammo charges by +1 per rank.", "Ranger_Ammo_IncreasedFlat_1.png", StatType.AMMO_FLAT, 1f, 5, 2, List.of(), "1.0.0"));
+        layout.put("Ranger_Ammo_IncreasedFlat_1", new SkillTree.GridPosition(4, 0));
+
+        nodes.put("Ranger_AmmoRegen_IncreasedAmount_1", new SkillNode("Ranger_AmmoRegen_IncreasedAmount_1", "Increase ammo regeneration speed by 10% per rank.", "Ranger_AmmoRegen_IncreasedAmount_1.png", StatType.AMMO_REGEN_PERCENT, 10f, 2, 5, List.of(Requirement.nodeRank("Ranger_Ammo_IncreasedFlat_1", 2)), "1.0.0"));
+        layout.put("Ranger_AmmoRegen_IncreasedAmount_1", new SkillTree.GridPosition(4, 1));
 
         // ---- Increased Run Speed Nodes ---- //
         nodes.put("Ranger_RunSpeed_IncreasedAmount_1", new SkillNode("Ranger_RunSpeed_IncreasedAmount_1", "Increase run speed by 2% per rank.", "Ranger_RunSpeed_IncreasedAmount_1.png", StatType.RUN_SPEED_PERCENT, 2f, 4, 1, List.of(), "1.0.0"));
@@ -238,13 +235,20 @@ public class SkillLibrary {
         nodes.put("Ranger_LearnAbility_AerialManeuver", new SkillNode("Ranger_LearnAbility_AerialManeuver", "Learn 'Aerial Maneuver': An activated ability causing the user to gain a surge of velocity.", "Ranger_LearnAbility_AerialManeuver.png", new Aerial_Maneuver(), 2, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
         layout.put("Ranger_LearnAbility_AerialManeuver", new SkillTree.GridPosition(8, 0));
 
-        // ---- Summon Crossbow Turret Ability ---- //
-        nodes.put("Ranger_LearnAbility_SummonCrossbowTurret", new SkillNode("Ranger_LearnAbility_SummonCrossbowTurret", "Learn 'Summon Crossbow Turret': An activated ability that summons a crossbow turret that will fire at enemies for a period of time.", "Ranger_LearnAbility_SummonCrossbowTurret.png", new Summon_Crossbow_Turret(), 4, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
-        layout.put("Ranger_LearnAbility_SummonCrossbowTurret", new SkillTree.GridPosition(8, 2));
+        // ---- Reduced Fall Damage Nodes ---- //
+        nodes.put("Ranger_FallDamage_IncreasedResistance_1", new SkillNode("Ranger_FallDamage_IncreasedResistance_1", "Increase fall damage resistance by 25% per rank.", "Ranger_FallDamage_IncreasedResistance_1.png", StatType.FALL_RESIST_PERCENT, 25f, 2, 2, List.of(), "1.0.0"));
+        layout.put("Ranger_FallDamage_IncreasedResistance_1", new SkillTree.GridPosition(8, 2));
+
+        nodes.put("Ranger_FallDamage_IncreasedResistance_2", new SkillNode("Ranger_FallDamage_IncreasedResistance_2", "Increase fall damage resistance by 50% per rank.", "Ranger_FallDamage_IncreasedResistance_2.png", StatType.FALL_RESIST_PERCENT, 50f, 4, 1, List.of(Requirement.nodeRank("Ranger_FallDamage_IncreasedResistance_1", 2)), "1.0.0"));
+        layout.put("Ranger_FallDamage_IncreasedResistance_2", new SkillTree.GridPosition(8, 3));
+
+//        // ---- Summon Crossbow Turret Ability ---- //
+//        nodes.put("Ranger_LearnAbility_SummonCrossbowTurret", new SkillNode("Ranger_LearnAbility_SummonCrossbowTurret", "Learn 'Summon Crossbow Turret': An activated ability that summons a crossbow turret that will fire at enemies for a period of time.", "Ranger_LearnAbility_SummonCrossbowTurret.png", new Summon_Crossbow_Turret(), 4, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
+//        layout.put("Ranger_LearnAbility_SummonCrossbowTurret", new SkillTree.GridPosition(8, 2));
 
         // ---- Rain of Arrows Ability ---- //
         nodes.put("Ranger_LearnAbility_RainOfArrows", new SkillNode("Ranger_LearnAbility_RainOfArrows", "Learn 'Rain of Arrows': An activated ultimate ability that causes arrows to rain down on all nearby enemies damaging them and pinning them in place for the duration.", "Ranger_LearnAbility_RainOfArrows.png", new Rain_Of_Arrows(), 6, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
-        layout.put("Ranger_LearnAbility_RainOfArrows", new SkillTree.GridPosition(8, 4));
+        layout.put("Ranger_LearnAbility_RainOfArrows", new SkillTree.GridPosition(8, 5));
 
         // ---- Increased Critical Strike Chance Nodes ---- //
         nodes.put("Ranger_CriticalStrikeChance_IncreasedAmount_1", new SkillNode("Ranger_CriticalStrikeChance_IncreasedAmount_1", "Increase critical strike chance by 1% per rank.", "Ranger_CriticalStrikeChance_IncreasedAmount_1.png", StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 1f, 1, 5, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));

@@ -28,20 +28,25 @@
   "Interactions": {
     "Primary": {
       "Interactions": [
-        "Weapon_Shortbow_Primary_Shoot"
-      ],
-      "Cooldown": {
-        "Charges": [
-          1.2,
-          1.2,
-          1.2,
-          1.2,
-          1.2
-        ],
-        "Cooldown": 0.5,
-        "InterruptRecharge": true,
-        "ClickBypass": false
-      }
+        {
+          "Type": "StatsCondition",
+          "Costs": {
+            "Ammo": 1
+          },
+          "Next": {
+            "Type": "Serial",
+            "Interactions": [
+              "Weapon_Shortbow_Primary_Shoot_Charge",
+              {
+                "Type": "ChangeStat",
+                "StatModifiers": {
+                  "Ammo": -1
+                }
+              }
+            ]
+          }
+        }
+      ]
     },
     "Secondary": "Root_Weapon_Shortbow_Secondary_Guard",
     "Ability1": {
@@ -443,6 +448,9 @@
       "Shortbow"
     ]
   },
+  "DisplayEntityStatsHUD": [
+    "Ammo"
+  ],
   "ItemSoundSetId": "ISS_Weapons_Wood",
   "MaxDurability": 80,
   "DurabilityLossOnHit": 0.58,

@@ -63,6 +63,7 @@ public enum StatType {
     PHYSICAL_RESIST_PERCENT,
     MAGIC_RESIST_PERCENT,
     ELEMENTAL_RESIST_PERCENT,
+    FALL_RESIST_PERCENT,
 
     /* Critical */
     CRITICAL_STRIKE_CHANCE_PERCENT,
@@ -73,6 +74,10 @@ public enum StatType {
     STABILITY_PERCENT,
     PARRY_WINDOW_FLAT,
     BARRIER_ON_BLOCK,
+
+    /* Ammo Modifiers */
+    AMMO_FLAT,
+    AMMO_REGEN_PERCENT,
 
     /* Misc */
     RUN_SPEED_PERCENT

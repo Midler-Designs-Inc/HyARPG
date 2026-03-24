@@ -49,6 +49,31 @@
     "KnowledgeRequired": true
   },
   "MaxDurability": 0,
+  "InteractionVars": {
+    "Standard_Projectile_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Crossbow": 2
+            }
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Crossbow_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 10,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  },
   "DurabilityLossOnHit": 0.28,
   "Categories": [
     "Items.Weapons",

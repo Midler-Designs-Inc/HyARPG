@@ -1,24 +1,32 @@
 {
   "Parent": "Projectile_Config_Arrow_Base",
-  "Model": "Arrow_Crossbow_Signature",
-  "LaunchForce": 100,
+  "LaunchForce": 40,
   "Physics": {
     "Type": "Standard",
-    "Gravity": 40,
-    "TerminalVelocityAir": 100,
+    "Gravity": 10,
+    "TerminalVelocityAir": 50,
     "TerminalVelocityWater": 15,
     "RotationMode": "VelocityDamped",
     "Bounciness": 0.0,
     "SticksVertically": true
   },
-  "LaunchLocalSoundEventId": "SFX_Bow_T2_Signature_Shoot_Local",
-  "LaunchWorldSoundEventId": "SFX_Bow_T2_Signature_Shoot",
+  "LaunchLocalSoundEventId": "SFX_Bow_T2_Shoot_Local",
+  "LaunchWorldSoundEventId": "SFX_Bow_T2_Shoot",
   "Interactions": {
     "ProjectileHit": {
       "Interactions": [
         {
           "Type": "Replace",
-          "Var": "Signature_BigArrow_Damage",
+          "Var": "Standard_Projectile_Impact",
+          "DefaultValue": {
+            "Interactions": [
+              "Weapon_Crossbow_Effects_Standard_Projectile_Impact"
+            ]
+          }
+        },
+        {
+          "Type": "Replace",
+          "Var": "Standard_Projectile_Damage",
           "DefaultValue": {
             "Interactions": [
               "Weapon_Crossbow_Damage_Standard_Projectile"
@@ -32,7 +40,7 @@
       "Interactions": [
         {
           "Type": "Replace",
-          "Var": "Signature_BigArrow_Miss",
+          "Var": "Standard_Projectile_Miss",
           "DefaultValue": {
             "Interactions": [
               "Common_Projectile_Miss"

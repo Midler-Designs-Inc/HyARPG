@@ -3,11 +3,13 @@ package com.example.hyarpg.listeners;
 // Hytale Imports
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageEventSystem;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageModule;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.server.EquipItemInteraction;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
@@ -35,6 +37,7 @@ public class Listeners_Damage extends DamageEventSystem {
 
             ModEventBus.post(new Event_EntityPreDamaged(attacker, defender, store, commandBuffer, damage));
         }
+        else ModEventBus.post(new Event_EntityPreDamaged(null, defender, store, commandBuffer, damage));
     }
 
     // determines what entities get picked up, (filtering for NPCs and Players)

@@ -21,6 +21,8 @@ public class Config_World {
     @Comment("Sets the z coordinate of the origin point. Origin point is used when determining distance from start/spawn. Default: 0")
     public int origin_spawn_point_z = 0;
 
+    // ── Copper ────────────────────────────────────────────────────────────────
+
     @Key("min_distance_for_copper_spawn")
     @Comment("Determines the minimum distance from origin before copper starts spawning. Default: 0")
     public double min_distance_for_copper_spawn = 0;
@@ -28,6 +30,28 @@ public class Config_World {
     @Key("max_distance_for_copper_spawn")
     @Comment("Determines the maximum distance from origin before copper stops spawning. Default: 20000")
     public double max_distance_for_copper_spawn = 20_000;
+
+    @Key("copper_veins_per_chunk")
+    @Comment("Number of copper veins that can generate per chunk. Default: 8")
+    public int copper_veins_per_chunk = 8;
+
+    @Key("copper_min_vein_size")
+    @Comment("Minimum number of blocks in a single copper vein. Default: 3")
+    public int copper_min_vein_size = 3;
+
+    @Key("copper_max_vein_size")
+    @Comment("Maximum number of blocks in a single copper vein. Default: 8")
+    public int copper_max_vein_size = 8;
+
+    @Key("copper_min_y")
+    @Comment("Minimum Y level copper can spawn at. Default: 10")
+    public int copper_min_y = 10;
+
+    @Key("copper_max_y")
+    @Comment("Maximum Y level copper can spawn at. Default: 80")
+    public int copper_max_y = 80;
+
+    // ── Iron ──────────────────────────────────────────────────────────────────
 
     @Key("min_distance_for_iron_spawn")
     @Comment("Determines the minimum distance from origin before iron starts spawning. Default: 10000")
@@ -37,6 +61,48 @@ public class Config_World {
     @Comment("Determines the maximum distance from origin before iron stops spawning. Default: 30000")
     public double max_distance_for_iron_spawn = 30_000;
 
+    @Key("iron_veins_per_chunk")
+    @Comment("Number of iron veins that can generate per chunk. Default: 6")
+    public int iron_veins_per_chunk = 6;
+
+    @Key("iron_min_vein_size")
+    @Comment("Minimum number of blocks in a single iron vein. Default: 3")
+    public int iron_min_vein_size = 3;
+
+    @Key("iron_max_vein_size")
+    @Comment("Maximum number of blocks in a single iron vein. Default: 7")
+    public int iron_max_vein_size = 7;
+
+    @Key("iron_min_y")
+    @Comment("Minimum Y level iron can spawn at. Default: 5")
+    public int iron_min_y = 5;
+
+    @Key("iron_max_y")
+    @Comment("Maximum Y level iron can spawn at. Default: 60")
+    public int iron_max_y = 60;
+
+    @Key("iron_cracked_veins_per_chunk")
+    @Comment("Number of cracked iron veins that can generate per chunk. Default: 3")
+    public int iron_cracked_veins_per_chunk = 3;
+
+    @Key("iron_cracked_min_vein_size")
+    @Comment("Minimum number of blocks in a single cracked iron vein. Default: 2")
+    public int iron_cracked_min_vein_size = 2;
+
+    @Key("iron_cracked_max_vein_size")
+    @Comment("Maximum number of blocks in a single cracked iron vein. Default: 5")
+    public int iron_cracked_max_vein_size = 5;
+
+    @Key("iron_cracked_min_y")
+    @Comment("Minimum Y level cracked iron can spawn at. Default: 5")
+    public int iron_cracked_min_y = 5;
+
+    @Key("iron_cracked_max_y")
+    @Comment("Maximum Y level cracked iron can spawn at. Default: 60")
+    public int iron_cracked_max_y = 60;
+
+    // ── Thorium ───────────────────────────────────────────────────────────────
+
     @Key("min_distance_for_thorium_spawn")
     @Comment("Determines the minimum distance from origin before thorium starts spawning. Default: 20000")
     public double min_distance_for_thorium_spawn = 20_000;
@@ -44,6 +110,48 @@ public class Config_World {
     @Key("max_distance_for_thorium_spawn")
     @Comment("Determines the maximum distance from origin before thorium stops spawning. Default: 40000")
     public double max_distance_for_thorium_spawn = 40_000;
+
+    @Key("thorium_veins_per_chunk")
+    @Comment("Number of thorium veins that can generate per chunk. Default: 5")
+    public int thorium_veins_per_chunk = 5;
+
+    @Key("thorium_min_vein_size")
+    @Comment("Minimum number of blocks in a single thorium vein. Default: 3")
+    public int thorium_min_vein_size = 3;
+
+    @Key("thorium_max_vein_size")
+    @Comment("Maximum number of blocks in a single thorium vein. Default: 7")
+    public int thorium_max_vein_size = 7;
+
+    @Key("thorium_min_y")
+    @Comment("Minimum Y level thorium can spawn at. Default: 5")
+    public int thorium_min_y = 5;
+
+    @Key("thorium_max_y")
+    @Comment("Maximum Y level thorium can spawn at. Default: 70")
+    public int thorium_max_y = 70;
+
+    @Key("thorium_cracked_veins_per_chunk")
+    @Comment("Number of cracked thorium veins that can generate per chunk. Default: 3")
+    public int thorium_cracked_veins_per_chunk = 3;
+
+    @Key("thorium_cracked_min_vein_size")
+    @Comment("Minimum number of blocks in a single cracked thorium vein. Default: 2")
+    public int thorium_cracked_min_vein_size = 2;
+
+    @Key("thorium_cracked_max_vein_size")
+    @Comment("Maximum number of blocks in a single cracked thorium vein. Default: 5")
+    public int thorium_cracked_max_vein_size = 5;
+
+    @Key("thorium_cracked_min_y")
+    @Comment("Minimum Y level cracked thorium can spawn at. Default: 5")
+    public int thorium_cracked_min_y = 5;
+
+    @Key("thorium_cracked_max_y")
+    @Comment("Maximum Y level cracked thorium can spawn at. Default: 70")
+    public int thorium_cracked_max_y = 70;
+
+    // ── Cobalt ────────────────────────────────────────────────────────────────
 
     @Key("min_distance_for_cobalt_spawn")
     @Comment("Determines the minimum distance from origin before cobalt starts spawning. Default: 20000")
@@ -53,6 +161,48 @@ public class Config_World {
     @Comment("Determines the maximum distance from origin before cobalt stops spawning. Default: 40000")
     public double max_distance_for_cobalt_spawn = 40_000;
 
+    @Key("cobalt_veins_per_chunk")
+    @Comment("Number of cobalt veins that can generate per chunk. Default: 5")
+    public int cobalt_veins_per_chunk = 5;
+
+    @Key("cobalt_min_vein_size")
+    @Comment("Minimum number of blocks in a single cobalt vein. Default: 3")
+    public int cobalt_min_vein_size = 3;
+
+    @Key("cobalt_max_vein_size")
+    @Comment("Maximum number of blocks in a single cobalt vein. Default: 7")
+    public int cobalt_max_vein_size = 7;
+
+    @Key("cobalt_min_y")
+    @Comment("Minimum Y level cobalt can spawn at. Default: 5")
+    public int cobalt_min_y = 5;
+
+    @Key("cobalt_max_y")
+    @Comment("Maximum Y level cobalt can spawn at. Default: 60")
+    public int cobalt_max_y = 60;
+
+    @Key("cobalt_cracked_veins_per_chunk")
+    @Comment("Number of cracked cobalt veins that can generate per chunk. Default: 3")
+    public int cobalt_cracked_veins_per_chunk = 3;
+
+    @Key("cobalt_cracked_min_vein_size")
+    @Comment("Minimum number of blocks in a single cracked cobalt vein. Default: 2")
+    public int cobalt_cracked_min_vein_size = 2;
+
+    @Key("cobalt_cracked_max_vein_size")
+    @Comment("Maximum number of blocks in a single cracked cobalt vein. Default: 5")
+    public int cobalt_cracked_max_vein_size = 5;
+
+    @Key("cobalt_cracked_min_y")
+    @Comment("Minimum Y level cracked cobalt can spawn at. Default: 5")
+    public int cobalt_cracked_min_y = 5;
+
+    @Key("cobalt_cracked_max_y")
+    @Comment("Maximum Y level cracked cobalt can spawn at. Default: 60")
+    public int cobalt_cracked_max_y = 60;
+
+    // ── Adamantite ────────────────────────────────────────────────────────────
+
     @Key("min_distance_for_adamantite_spawn")
     @Comment("Determines the minimum distance from origin before adamantite starts spawning. Default: 30000")
     public double min_distance_for_adamantite_spawn = 30_000;
@@ -61,6 +211,48 @@ public class Config_World {
     @Comment("Determines the maximum distance from origin before adamantite stops spawning. Default: 50000")
     public double max_distance_for_adamantite_spawn = 50_000;
 
+    @Key("adamantite_veins_per_chunk")
+    @Comment("Number of adamantite veins that can generate per chunk. Default: 4")
+    public int adamantite_veins_per_chunk = 4;
+
+    @Key("adamantite_min_vein_size")
+    @Comment("Minimum number of blocks in a single adamantite vein. Default: 3")
+    public int adamantite_min_vein_size = 3;
+
+    @Key("adamantite_max_vein_size")
+    @Comment("Maximum number of blocks in a single adamantite vein. Default: 7")
+    public int adamantite_max_vein_size = 7;
+
+    @Key("adamantite_min_y")
+    @Comment("Minimum Y level adamantite can spawn at. Default: 1")
+    public int adamantite_min_y = 1;
+
+    @Key("adamantite_max_y")
+    @Comment("Maximum Y level adamantite can spawn at. Default: 50")
+    public int adamantite_max_y = 50;
+
+    @Key("adamantite_cracked_veins_per_chunk")
+    @Comment("Number of cracked adamantite veins that can generate per chunk. Default: 3")
+    public int adamantite_cracked_veins_per_chunk = 3;
+
+    @Key("adamantite_cracked_min_vein_size")
+    @Comment("Minimum number of blocks in a single cracked adamantite vein. Default: 2")
+    public int adamantite_cracked_min_vein_size = 2;
+
+    @Key("adamantite_cracked_max_vein_size")
+    @Comment("Maximum number of blocks in a single cracked adamantite vein. Default: 5")
+    public int adamantite_cracked_max_vein_size = 5;
+
+    @Key("adamantite_cracked_min_y")
+    @Comment("Minimum Y level cracked adamantite can spawn at. Default: 1")
+    public int adamantite_cracked_min_y = 1;
+
+    @Key("adamantite_cracked_max_y")
+    @Comment("Maximum Y level cracked adamantite can spawn at. Default: 50")
+    public int adamantite_cracked_max_y = 50;
+
+    // ── Mithril ───────────────────────────────────────────────────────────────
+
     @Key("min_distance_for_mithril_spawn")
     @Comment("Determines the minimum distance from origin before mithril starts spawning. Default: 40000")
     public double min_distance_for_mithril_spawn = 40_000;
@@ -68,5 +260,25 @@ public class Config_World {
     @Key("max_distance_for_mithril_spawn")
     @Comment("Determines the maximum distance from origin before mithril stops spawning. Default: 60000")
     public double max_distance_for_mithril_spawn = 60_000;
+
+    @Key("mithril_veins_per_chunk")
+    @Comment("Number of mithril veins that can generate per chunk. Default: 3")
+    public int mithril_veins_per_chunk = 3;
+
+    @Key("mithril_min_vein_size")
+    @Comment("Minimum number of blocks in a single mithril vein. Default: 2")
+    public int mithril_min_vein_size = 2;
+
+    @Key("mithril_max_vein_size")
+    @Comment("Maximum number of blocks in a single mithril vein. Default: 5")
+    public int mithril_max_vein_size = 5;
+
+    @Key("mithril_min_y")
+    @Comment("Minimum Y level mithril can spawn at. Default: 1")
+    public int mithril_min_y = 1;
+
+    @Key("mithril_max_y")
+    @Comment("Maximum Y level mithril can spawn at. Default: 30")
+    public int mithril_max_y = 30;
 
 }

@@ -26,7 +26,18 @@
         "Quantity": 2
       }
     ],
-    "BenchRequirement": []
+    "BenchRequirement": [
+      {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": []
+      },
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": []
+      }
+    ]
   },
   "PlayerAnimationsId": "Club",
   "Utility": {

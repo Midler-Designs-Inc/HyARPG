@@ -131,7 +131,18 @@
         "Quantity": 4
       }
     ],
-    "BenchRequirement": []
+    "BenchRequirement": [
+      {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": []
+      },
+      {
+        "Type": "Crafting",
+        "Categories": [],
+        "Id": "Weapon_Bench"
+      }
+    ]
   },
   "IconProperties": {
     "Scale": 0.33,

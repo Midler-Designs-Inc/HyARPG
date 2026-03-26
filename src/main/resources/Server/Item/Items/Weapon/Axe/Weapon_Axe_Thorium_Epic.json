@@ -34,7 +34,7 @@
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Axe"
+          "Weapon_Battleaxe"
         ],
         "Id": "Weapon_Bench_HyARPG",
         "RequiredTierLevel": 3

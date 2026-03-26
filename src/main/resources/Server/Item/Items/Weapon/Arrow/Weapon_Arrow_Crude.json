@@ -22,7 +22,18 @@
       }
     ],
     "OutputQuantity": 4,
-    "BenchRequirement": []
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [],
+        "Id": "Workbench"
+      },
+      {
+        "Type": "Crafting",
+        "Categories": [],
+        "Id": "Weapon_Bench"
+      }
+    ]
   },
   "IconProperties": {
     "Scale": 0.5,

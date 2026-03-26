@@ -27,6 +27,15 @@
     ],
     "BenchRequirement": [
       {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": [
+          "Tools",
+          "Discoverable",
+          "Discoverable"
+        ]
+      },
+      {
         "Type": "Crafting",
         "Categories": [
           "Workbench_Survival",

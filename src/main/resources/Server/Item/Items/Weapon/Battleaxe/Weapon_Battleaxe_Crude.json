@@ -25,7 +25,18 @@
         "Quantity": 4
       }
     ],
-    "BenchRequirement": []
+    "BenchRequirement": [
+      {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": []
+      },
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": []
+      }
+    ]
   },
   "InteractionVars": {
     "Swing_Down_Left": {

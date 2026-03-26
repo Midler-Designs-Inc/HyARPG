@@ -46,8 +46,12 @@
     ],
     "VariantRotation": "NESW",
     "HitboxType": "Bench_Weapon",
+    "BlockEntity": {
+      "Components": {
+        "BenchBlock": {}
+      }
+    },
     "State": {
-      "Id": "crafting",
       "Definitions": {
         "CraftCompleted": {
           "CustomModelAnimation": "Blocks/Benches/Weapon_Crafting.blockyanim",

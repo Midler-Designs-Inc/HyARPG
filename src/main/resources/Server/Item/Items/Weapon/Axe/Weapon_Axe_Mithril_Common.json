@@ -31,7 +31,7 @@
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Axe",
+          "Weapon_Battleaxe",
           "Discoverable"
         ],
         "Id": "Weapon_Bench_HyARPG",

@@ -155,9 +155,17 @@
     ],
     "BenchRequirement": [
       {
+        "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Longsword"
+          "Tools",
+          "Discoverable"
+        ]
+      },
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Sword"
         ],
         "Id": "Weapon_Bench_HyARPG",
         "RequiredTierLevel": 1

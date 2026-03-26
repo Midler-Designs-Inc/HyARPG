@@ -80,7 +80,7 @@
       "Id": "Armor_Bench",
       "TierLevels": [
         {
-          "CraftingTimeReductionModifier": 0,
+          "CraftingTimeReductionModifier": 0.0,
           "UpgradeRequirement": {
             "Material": [
               {
@@ -136,8 +136,12 @@
         }
       ]
     },
+    "BlockEntity": {
+      "Components": {
+        "BenchBlock": {}
+      }
+    },
     "State": {
-      "Id": "crafting",
       "Definitions": {
         "CraftCompleted": {
           "CustomModelAnimation": "Blocks/Benches/Armor_Crafting.blockyanim",

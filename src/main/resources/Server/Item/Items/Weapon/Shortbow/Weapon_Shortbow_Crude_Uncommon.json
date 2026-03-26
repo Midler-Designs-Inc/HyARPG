@@ -26,27 +26,19 @@
     ],
     "BenchRequirement": [
       {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": [
+          "Tools",
+          "Discoverable"
+        ]
+      },
+      {
         "Type": "Crafting",
         "Categories": [
           "Workbench_Survival"
         ],
         "Id": "Workbench"
-      },
-      {
-        "Type": "Crafting",
-        "Categories": [
-          "Weapon_Bow"
-        ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
-      },
-      {
-        "Type": "DiagramCrafting",
-        "Categories": [
-          "Weapons.Bow"
-        ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 1
       }
     ],
     "KnowledgeRequired": true

@@ -20,7 +20,18 @@
         "Quantity": 6
       }
     ],
-    "BenchRequirement": []
+    "BenchRequirement": [
+      {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": []
+      },
+      {
+        "Type": "Crafting",
+        "Categories": [],
+        "Id": "Workbench"
+      }
+    ]
   },
   "InteractionVars": {
     "Primary_Shoot_Charge": {

@@ -32,7 +32,7 @@
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Longsword",
+          "Weapon_Sword",
           "Discoverable"
         ],
         "Id": "Weapon_Bench_HyARPG",

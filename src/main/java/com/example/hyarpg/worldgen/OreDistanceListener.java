@@ -17,13 +17,27 @@ public class OreDistanceListener {
 
     private static final Logger LOGGER = Logger.getLogger(OreDistanceListener.class.getName());
 
-    private static final int CHUNK_SIZE   = 32;
-    private static final int SKIP_PARTICLES = 4; // matches flag used by other mod
+    private static final int CHUNK_SIZE = 32;
+
+    /**
+     * ChunkPreLoadProcessEvent fires BEFORE terrain generation populates the
+     * chunk with stone. Ore placed here gets written into an empty chunk;
+     * terrain gen then fills in stone around the pre-placed ore blocks,
+     * leaving them naturally embedded.
+     *
+     * Because world and reference are null at this stage, we must skip every
+     * setBlock operation that dereferences them:
+     *   0x02 — skip setState        (needs world)
+     *   0x04 — skip particles       (needs world)
+     *   0x08 — skip setFiller       (needs reference)
+     *   0x10 — skip removeFiller    (needs reference)
+     *   0x200 — skip height update  (terrain gen recalculates anyway)
+     */
+    private static final int PLACEMENT_SETTINGS = 0x02 | 0x04 | 0x08 | 0x10 | 0x200;
 
     private final OreDistanceConfig config;
 
-    /** Resolved at first chunk event, once assets are fully loaded. */
-    private List<ResolvedOre> resolvedOres;
+    private List<ResolvedOre> resolvedOres = null;
 
     public OreDistanceListener(OreDistanceConfig config) {
         this.config = config;
@@ -31,7 +45,7 @@ public class OreDistanceListener {
 
     public void register(EventRegistry eventRegistry) {
         eventRegistry.registerGlobal(
-                EventPriority.LATE,
+                EventPriority.LAST,
                 ChunkPreLoadProcessEvent.class,
                 (ChunkPreLoadProcessEvent event) -> onChunkPreLoad(event)
         );
@@ -43,48 +57,35 @@ public class OreDistanceListener {
     private void onChunkPreLoad(ChunkPreLoadProcessEvent event) {
         if (!event.isNewlyGenerated()) return;
 
-        WorldChunk chunk = event.getChunk();
-
-        if (resolvedOres == null) {
+        if (resolvedOres == null || resolvedOres.isEmpty()) {
             resolvedOres = resolveOres();
         }
-        if (resolvedOres.isEmpty()) return;
+        if (resolvedOres == null || resolvedOres.isEmpty()) return;
 
-        // Chunk centre in world block coordinates
+        WorldChunk chunk = event.getChunk();
+
         double centreX = (chunk.getX() * CHUNK_SIZE) + (CHUNK_SIZE / 2.0);
         double centreZ = (chunk.getZ() * CHUNK_SIZE) + (CHUNK_SIZE / 2.0);
-        // Use mid-Y as the vertical component for distance — ore veins span a
-        // narrow Y range so this gives a consistent horizontal-dominant distance
-        double centreY = 155.0;
+        double distance = euclidean2D(centreX, centreZ, config.spawnX, config.spawnZ);
 
-        double distance = euclidean3D(
-                centreX, centreY, centreZ,
-                config.spawnX, config.spawnY, config.spawnZ
-        );
-
-        // Deterministic seed matching the other mod's proven pattern
-        long chunkSeed = (long)chunk.getX() * 341873128712L
-                + (long)chunk.getZ() * 132897987541L;
-        Random random = new Random(chunkSeed);
-
-        int chunkWorldX = chunk.getX() << 5;
-        int chunkWorldZ = chunk.getZ() << 5;
+        int chunkWorldX = chunk.getX() * CHUNK_SIZE;
+        int chunkWorldZ = chunk.getZ() * CHUNK_SIZE;
 
         for (ResolvedOre resolved : resolvedOres) {
             double weight = resolved.zone.weightAt(distance);
-            if (weight <= 0.0) continue; // ore not eligible at this distance
+            if (weight <= 0.0) continue;
 
-            // Attempt veinsPerChunk veins — each attempt gated by spawn chance
-            // which is the triangle-wave weight. At the midpoint every attempt
-            // succeeds; near the edges most fail. This produces the natural
-            // fade-in/fade-out of ore density at zone boundaries.
+            long chunkSeed = (long) chunk.getX() * 341873128712L
+                    + (long) chunk.getZ() * 132897987541L;
+            Random random = new Random(chunkSeed ^ (long) resolved.oreId * 6364136223846793005L);
+
             int attempts = resolved.zone.veinsPerChunk;
             for (int i = 0; i < attempts; i++) {
-                if (random.nextDouble() > weight) continue; // weight gates spawn chance
+                if (random.nextDouble() > weight) continue;
 
-                // Pick a random position within the chunk
-                int x = chunkWorldX + random.nextInt(CHUNK_SIZE);
-                int z = chunkWorldZ + random.nextInt(CHUNK_SIZE);
+                int margin = 4;
+                int x = chunkWorldX + margin + random.nextInt(CHUNK_SIZE - margin * 2);
+                int z = chunkWorldZ + margin + random.nextInt(CHUNK_SIZE - margin * 2);
                 int y = resolved.zone.minY + random.nextInt(
                         Math.max(1, resolved.zone.maxY - resolved.zone.minY + 1));
 
@@ -98,53 +99,53 @@ public class OreDistanceListener {
     }
 
     /**
-     * Places a single ore vein centred at (centerX, centerY, centerZ).
-     * Uses the same spherical scatter algorithm as the other mod so veins
-     * look visually consistent with any other ores on the server.
+     * Places a tight blob of ore centred at (cx, cy, cz).
+     *
+     * Since terrain has not been generated yet, we cannot use isReplaceable —
+     * the chunk is empty. Instead we use a fixed radius of 1, which scatters
+     * each block within a 3x3x3 cube around a short random walk. Terrain gen
+     * fills in stone around these pre-placed blocks, embedding them naturally.
+     *
+     * The walk advances ~1 block per step so the vein has a natural elongated
+     * shape rather than a perfect sphere.
      */
     private void generateVein(WorldChunk chunk, ResolvedOre resolved,
-                              int centerX, int centerY, int centerZ,
+                              int cx, int cy, int cz,
                               int size, Random rand) {
+        float fx = cx;
+        float fy = cy;
+        float fz = cz;
+
         for (int i = 0; i < size; i++) {
-            float progress = (float) i / (float) size;
-            float angle1 = rand.nextFloat() * (float) Math.PI * 2.0f;
-            float angle2 = rand.nextFloat() * (float) Math.PI * 2.0f;
-            int offsetX = (int)(Math.cos(angle1) * progress * 2.0f);
-            int offsetY = (int)(Math.sin(angle1) * Math.cos(angle2) * progress * 2.0f);
-            int offsetZ = (int)(Math.sin(angle2) * progress * 2.0f);
+            // Advance the walk one step in a random direction
+            int axis = rand.nextInt(3);
+            int dir  = rand.nextBoolean() ? 1 : -1;
+            if (axis == 0) fx += dir;
+            else if (axis == 1) fy += dir * 0.5f; // gentler vertical drift
+            else fz += dir;
 
-            int x = centerX + offsetX;
-            int y = centerY + offsetY;
-            int z = centerZ + offsetZ;
+            int x = Math.round(fx);
+            int y = Math.round(fy);
+            int z = Math.round(fz);
 
-            int clusterRadius = 1 + rand.nextInt(2);
+            // Place a small cluster at this step (radius 1 = up to 7 blocks)
+            for (int dx = -1; dx <= 1; dx++) {
+                for (int dy = -1; dy <= 1; dy++) {
+                    for (int dz = -1; dz <= 1; dz++) {
+                        // Skip corners to keep clusters roundish
+                        if (Math.abs(dx) + Math.abs(dy) + Math.abs(dz) > 2) continue;
+                        if (rand.nextFloat() > 0.7f) continue; // thin it out
 
-            for (int dx = -clusterRadius; dx <= clusterRadius; dx++) {
-                for (int dy = -clusterRadius; dy <= clusterRadius; dy++) {
-                    for (int dz = -clusterRadius; dz <= clusterRadius; dz++) {
-                        double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-                        if (dist <= clusterRadius + rand.nextFloat() * 0.5f) {
-                            int bx = x + dx;
-                            int by = y + dy;
-                            int bz = z + dz;
+                        int bx = x + dx;
+                        int by = y + dy;
+                        int bz = z + dz;
 
-                            // Stay within world bounds and within this chunk
-                            if (by < 1 || by > 310) continue;
-                            if ((bx >> 5) != chunk.getX()) continue;
-                            if ((bz >> 5) != chunk.getZ()) continue;
+                        if (by < 1 || by > 310) continue;
+                        if (Math.floorDiv(bx, CHUNK_SIZE) != chunk.getX()) continue;
+                        if (Math.floorDiv(bz, CHUNK_SIZE) != chunk.getZ()) continue;
 
-                            int currentBlock = chunk.getBlock(bx, by, bz);
-                            if (!resolved.isReplaceable(currentBlock)) continue;
-
-                            chunk.setBlock(
-                                    bx, by, bz,
-                                    resolved.oreId,
-                                    resolved.oreType,
-                                    0,
-                                    0,
-                                    SKIP_PARTICLES
-                            );
-                        }
+                        chunk.setBlock(bx, by, bz, resolved.oreId, resolved.oreType,
+                                0, 0, PLACEMENT_SETTINGS);
                     }
                 }
             }
@@ -153,19 +154,28 @@ public class OreDistanceListener {
 
     // -------------------------------------------------------------------------
 
-    /**
-     * Resolves all configured OreZone string names to integer IDs and BlockType
-     * objects. Called once on the first chunk event — assets are fully loaded
-     * by that point. Logs warnings for unresolvable names without crashing.
-     */
     private List<ResolvedOre> resolveOres() {
-        List<ResolvedOre> result = new ArrayList<>();
         var assetMap = BlockType.getAssetMap();
+        if (assetMap == null) {
+            LOGGER.log(Level.INFO, "[HyARPG] OreDistanceListener: asset map not ready yet, will retry");
+            return null;
+        }
+
+        List<ResolvedOre> result = new ArrayList<>();
 
         for (OreZone zone : config.zones) {
-            // Resolve ore block
-            int oreId = assetMap.getIndex(zone.oreBlockName);
-            BlockType oreType = BlockType.fromString(zone.oreBlockName);
+            int oreId;
+            BlockType oreType;
+            try {
+                oreId   = assetMap.getIndex(zone.oreBlockName);
+                oreType = BlockType.fromString(zone.oreBlockName);
+            } catch (Exception e) {
+                LOGGER.log(Level.WARNING,
+                        "[HyARPG] OreDistanceListener: exception resolving ''{0}'': {1}",
+                        new Object[]{zone.oreBlockName, e});
+                continue;
+            }
+
             if (oreId == Integer.MIN_VALUE || oreType == null) {
                 LOGGER.log(Level.WARNING,
                         "[HyARPG] OreDistanceListener: unknown ore block ''{0}'' — skipping",
@@ -173,11 +183,19 @@ public class OreDistanceListener {
                 continue;
             }
 
-            // Resolve each replaceable block
             int[] replaceableIds = new int[zone.replaceableBlocks.length];
             boolean allResolved = true;
             for (int i = 0; i < zone.replaceableBlocks.length; i++) {
-                int id = assetMap.getIndex(zone.replaceableBlocks[i]);
+                int id;
+                try {
+                    id = assetMap.getIndex(zone.replaceableBlocks[i]);
+                } catch (Exception e) {
+                    LOGGER.log(Level.WARNING,
+                            "[HyARPG] OreDistanceListener: exception resolving replaceable ''{0}'' for ''{1}'': {2}",
+                            new Object[]{zone.replaceableBlocks[i], zone.oreBlockName, e});
+                    allResolved = false;
+                    break;
+                }
                 if (id == Integer.MIN_VALUE) {
                     LOGGER.log(Level.WARNING,
                             "[HyARPG] OreDistanceListener: unknown replaceable block ''{0}'' for ore ''{1}'' — skipping zone",
@@ -192,17 +210,16 @@ public class OreDistanceListener {
             result.add(new ResolvedOre(zone, oreId, oreType, replaceableIds));
             LOGGER.log(Level.INFO,
                     "[HyARPG] OreDistanceListener: registered ''{0}'' ({1}–{2} blocks from spawn, {3} veins/chunk)",
-                    new Object[]{zone.oreBlockName, (int)zone.minDistance,
-                            (int)zone.maxDistance, zone.veinsPerChunk});
+                    new Object[]{zone.oreBlockName, (int) zone.minDistance,
+                            (int) zone.maxDistance, zone.veinsPerChunk});
         }
 
         return result;
     }
 
-    private static double euclidean3D(double x1, double y1, double z1,
-                                      double x2, double y2, double z2) {
-        double dx = x1 - x2, dy = y1 - y2, dz = z1 - z2;
-        return Math.sqrt(dx * dx + dy * dy + dz * dz);
+    private static double euclidean2D(double x1, double z1, double x2, double z2) {
+        double dx = x1 - x2, dz = z1 - z2;
+        return Math.sqrt(dx * dx + dz * dz);
     }
 
     // -------------------------------------------------------------------------

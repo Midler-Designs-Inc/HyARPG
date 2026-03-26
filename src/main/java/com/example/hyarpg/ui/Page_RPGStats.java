@@ -1,6 +1,6 @@
 package com.example.hyarpg.ui;
 
-// Hytale imports
+// Hytale Imports
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.modules.Module_RPG_System;
 import com.example.hyarpg.utils.affixes.Affix;
@@ -13,15 +13,16 @@ import com.hypixel.hytale.protocol.ItemArmorSlot;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
 import com.hypixel.hytale.protocol.packets.interface_.Page;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.inventory.Inventory;
+import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
-// HyUI imports
+// HyUI Imports
 import au.ellie.hyui.builders.PageBuilder;
 
+// Java Imports
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,33 +32,39 @@ import java.util.Map;
 public class Page_RPGStats {
 
     public static void open(Ref<EntityStore> ref, Store<EntityStore> store) {
-        // get the player and their armor slots
-        Player player = store.getComponent(ref, Player.getComponentType());
+        // get rpg player component
         Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
-        Inventory inventory = player.getInventory();
-        ItemContainer armor = inventory.getArmor();
+
+        // get armor container directly from component
+        InventoryComponent.Armor armorComp = store.getComponent(ref, InventoryComponent.Armor.getComponentType());
+        ItemContainer armor = armorComp != null ? armorComp.getInventory() : null;
+
+        // get main hand and off hand
+        ItemStack mainHandStack = InventoryComponent.getItemInHand(store, ref);
+        InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
+        ItemStack offHandStack = utilityComp != null ? utilityComp.getActiveItem() : null;
 
         // --- Gear tab: item IDs ---
-        String headItem     = getItemId(armor.getItemStack((short) ItemArmorSlot.Head.ordinal()));
-        String chestItem    = getItemId(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()));
-        String handsItem    = getItemId(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()));
-        String legsItem     = getItemId(armor.getItemStack((short) ItemArmorSlot.Legs.ordinal()));
-        String mainHandItem = getItemId(inventory.getItemInHand());
-        String offHandItem  = getItemId(inventory.getUtilityItem());
+        String headItem     = armor != null ? getItemId(armor.getItemStack((short) ItemArmorSlot.Head.ordinal()))  : "";
+        String chestItem    = armor != null ? getItemId(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal())) : "";
+        String handsItem    = armor != null ? getItemId(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal())) : "";
+        String legsItem     = armor != null ? getItemId(armor.getItemStack((short) ItemArmorSlot.Legs.ordinal()))  : "";
+        String mainHandItem = getItemId(mainHandStack);
+        String offHandItem  = getItemId(offHandStack);
 
         // --- Gear tab: affix HTML ---
-        String headAffixHTML     = getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Head.ordinal())));
-        String chestAffixHTML    = getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal())));
-        String handsAffixHTML    = getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal())));
-        String legsAffixHTML     = getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Legs.ordinal())));
-        String mainHandAffixHTML = getAffixSlotHTML(getAffixes(inventory.getItemInHand()));
-        String offHandAffixHTML  = getAffixSlotHTML(getAffixes(inventory.getUtilityItem()));
+        String headAffixHTML     = armor != null ? getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Head.ordinal())))  : "";
+        String chestAffixHTML    = armor != null ? getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()))) : "";
+        String handsAffixHTML    = armor != null ? getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()))) : "";
+        String legsAffixHTML     = armor != null ? getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Legs.ordinal())))  : "";
+        String mainHandAffixHTML = getAffixSlotHTML(getAffixes(mainHandStack));
+        String offHandAffixHTML  = getAffixSlotHTML(getAffixes(offHandStack));
 
         // get relevant info
         EntityStats playerStats = rpgPlayer.stats;
         int gearScore           = rpgPlayer.gearScore;
         int playerLevel         = rpgPlayer.level;
-        boolean usingShield     = inventory.getUtilityItem() != null && offHandItem.contains("Weapon_Shield");
+        boolean usingShield     = !ItemStack.isEmpty(offHandStack) && offHandItem.contains("Weapon_Shield");
         String statsHTML        = buildStatsHTML(playerStats, playerLevel, gearScore, usingShield);
 
         String html = """
@@ -185,6 +192,8 @@ public class Page_RPGStats {
                 Map.entry("STATS_HTML",       statsHTML)
         ));
 
+        // Player is still needed here solely for getPageManager()
+        Player player = store.getComponent(ref, Player.getComponentType());
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
         PageBuilder.pageForPlayer(playerRef)
                 .fromHtml(html)

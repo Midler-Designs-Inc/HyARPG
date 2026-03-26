@@ -10,18 +10,19 @@
   "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
-      {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 53
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 54
-      },
       {
         "ItemId": "Ingredient_Bar_Mithril",
         "Quantity": 56
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 52
+      },
+      {
+        "ItemId": "Ingredient_Voidheart",
+        "Quantity": 51
       }
     ],
     "BenchRequirement": [
@@ -33,18 +34,8 @@
         ],
         "Id": "Weapon_Bench_HyARPG",
         "RequiredTierLevel": 5
-      },
-      {
-        "Type": "DiagramCrafting",
-        "Categories": [
-          "Weapons.Bow",
-          "Discoverable"
-        ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 5
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "MaxDurability": 0,
   "InteractionVars": {
@@ -79,7 +70,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Mithril_Common"
     }
   ]
 }

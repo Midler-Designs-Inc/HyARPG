@@ -22,14 +22,16 @@
         "Quantity": 5
       }
     ],
-    "BenchRequirement": [ {
-      "Type": "Crafting",
-      "Categories": [
-        "Workbench_Crafting"
-      ],
-      "Id": "Workbench",
-      "RequiredTierLevel": 2
-    }],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Crafting"
+        ],
+        "Id": "Workbench",
+        "RequiredTierLevel": 2
+      }
+    ],
     "TimeSeconds": 3
   },
   "BlockType": {
@@ -116,8 +118,13 @@
         }
       ]
     },
+    "BlockEntity": {
+      "Components": {
+        "BenchBlock": {},
+        "ProcessingBenchBlock": {}
+      }
+    },
     "State": {
-      "Id": "processingBench",
       "Definitions": {
         "Processing": {
           "Looping": true,

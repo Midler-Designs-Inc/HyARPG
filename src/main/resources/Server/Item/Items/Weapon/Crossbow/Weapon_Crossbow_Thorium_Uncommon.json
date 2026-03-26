@@ -12,16 +12,16 @@
     "TimeSeconds": 0,
     "Input": [
       {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 98
+      },
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 92
+      },
+      {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 93
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 94
-      },
-      {
-        "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 96
       },
       {
         "ItemId": "Uncommon_Shards",
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Uncommon_Gear"
+      "Id": "Gear_Thorium_Uncommon"
     }
   ]
 }

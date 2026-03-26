@@ -10,18 +10,19 @@
   "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
-      {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 503
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 504
-      },
       {
         "ItemId": "Ingredient_Bar_Mithril",
         "Quantity": 506
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 502
+      },
+      {
+        "ItemId": "Ingredient_Voidheart",
+        "Quantity": 501
       },
       {
         "ItemId": "Epic_Shards",
@@ -36,17 +37,8 @@
         ],
         "Id": "Weapon_Bench_HyARPG",
         "RequiredTierLevel": 5
-      },
-      {
-        "Type": "DiagramCrafting",
-        "Categories": [
-          "Weapons.Bow"
-        ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 5
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "MaxDurability": 0,
   "InteractionVars": {
@@ -81,7 +73,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Epic_Gear"
+      "Id": "Gear_Mithril_Epic"
     }
   ]
 }

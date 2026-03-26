@@ -12,16 +12,16 @@
     "TimeSeconds": 0,
     "Input": [
       {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 38
+      },
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 32
+      },
+      {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 33
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 34
-      },
-      {
-        "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 36
       }
     ],
     "BenchRequirement": [
@@ -79,7 +79,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Thorium_Common"
     }
   ]
 }

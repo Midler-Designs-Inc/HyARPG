@@ -1,23 +1,29 @@
 package com.example.hyarpg.commands;
 
 // Hytale Imports
-
-import com.example.hyarpg.ui.Page_SkillTree;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+// Mod imports
+import com.example.hyarpg.ui.Page_SkillTree;
+
+// Java imports
 import javax.annotation.Nonnull;
 
 public class ShowSkills extends CommandBase {
 
     public ShowSkills() {
-        // Name, Description, Requires OP
+        // Name, Description
         super("skills", "Show the available skill trees.", false);
+    }
+
+    @Override
+    protected boolean canGeneratePermission() {
+        return false;
     }
 
     @Override

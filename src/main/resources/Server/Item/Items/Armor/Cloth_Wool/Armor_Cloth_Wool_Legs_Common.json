@@ -74,7 +74,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Wool_Common"
     }
   ]
 }

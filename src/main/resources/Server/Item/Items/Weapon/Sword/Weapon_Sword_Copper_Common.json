@@ -162,7 +162,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Copper_Common"
     }
   ]
 }

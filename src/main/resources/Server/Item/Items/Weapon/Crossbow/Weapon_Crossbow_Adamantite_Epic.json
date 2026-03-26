@@ -10,18 +10,19 @@
   "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 411
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 403
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 404
-      },
-      {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 406
+        "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+        "Quantity": 403
       },
       {
         "ItemId": "Epic_Shards",
@@ -45,8 +46,7 @@
         "Id": "Armory_HyARPG",
         "RequiredTierLevel": 4
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "InteractionVars": {
     "Standard_Projectile_Damage": {
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Epic_Gear"
+      "Id": "Gear_Adamantite_Epic"
     }
   ]
 }

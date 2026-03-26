@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Ingredient_Bolt_Cindercloth",
+      "Quantity": 25
+    },
+    {
+      "ItemId": "Uncommon_Shards",
+      "Quantity": 1
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Uncommon_Shards",
+    "Quantity": 1
+  },
+  "TimeSeconds": 5,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Cindercloth_Common"
+    }
+  ]
+}

@@ -96,7 +96,7 @@
   "MaxDurability": 0,
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Bone_Common"
     }
   ]
 }

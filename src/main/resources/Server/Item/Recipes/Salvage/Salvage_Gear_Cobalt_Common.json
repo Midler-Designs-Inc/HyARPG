@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Ingredient_Bar_Cobalt",
+      "Quantity": 22
+    },
+    {
+      "ItemId": "Uncommon_Shards",
+      "Quantity": 1
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Uncommon_Shards",
+    "Quantity": 1
+  },
+  "TimeSeconds": 4,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Cobalt_Common"
+    }
+  ]
+}

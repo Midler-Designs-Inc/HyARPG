@@ -1,0 +1,98 @@
+{
+  "Parent": "Template_Weapon_Kunai",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Kunai_Mythril.name",
+    "Description": "server.items.Weapon_Kunai_Mythril.description"
+  },
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "Icon": "Icons/ItemsGenerated/Kunai/Mythril_Kunai_Icon.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      315,
+      270,
+      0
+    ],
+    "Translation": [
+      -21,
+      -22
+    ]
+  },
+  "Quality": "Uncommon",
+  "ItemLevel": 50,
+  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Mythril_Kunai.png",
+  "PlayerAnimationsId": "Throwing_Knife",
+  "Utility": {
+    "Usable": true
+  },
+  "Weapon": {},
+  "InteractionVars": {
+    "Kunai_Projectile": {
+      "Interactions": [
+        {
+          "Type": "Projectile",
+          "Config": "Projectile_Config_Kunai_Mythril"
+        }
+      ]
+    },
+    "Kunai_Hit_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Kunai_Primary_Hit_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Kunai": 10
+            }
+          }
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ]
+  },
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 160
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 153
+      },
+      {
+        "ItemId": "Ingredient_Voidheart",
+        "Quantity": 151
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Daggers"
+        ],
+        "Id": "Weapon_Bench_HyARPG",
+        "RequiredTierLevel": 5
+      }
+    ]
+  },
+  "MaxDurability": 0,
+  "ResourceTypes": [
+    {
+      "Id": "Gear_Mithril_Uncommon"
+    }
+  ]
+}

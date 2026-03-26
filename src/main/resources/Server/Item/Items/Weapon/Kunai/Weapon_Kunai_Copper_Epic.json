@@ -92,7 +92,7 @@
   "MaxDurability": 0,
   "ResourceTypes": [
     {
-      "Id": "Epic_Gear"
+      "Id": "Gear_Copper_Epic"
     }
   ]
 }

@@ -3,18 +3,18 @@ package com.example.hyarpg.events;
 // Hytale Imports
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.server.core.inventory.InventoryChangeEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
-import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 public class Event_PlayerInventoryItemEquip {
     private final Ref<EntityStore> ref;
     private final Store<EntityStore> store;
-    private final ItemContainer.ItemContainerChangeEvent changeEvent;
+    private final InventoryChangeEvent changeEvent;
     private final short slot;
     private final ItemStack stack;
 
-    public Event_PlayerInventoryItemEquip(Ref<EntityStore> ref, Store<EntityStore> store, ItemContainer.ItemContainerChangeEvent changeEvent, short slot, ItemStack stack) {
+    public Event_PlayerInventoryItemEquip(Ref<EntityStore> ref, Store<EntityStore> store, InventoryChangeEvent changeEvent, short slot, ItemStack stack) {
         this.ref = ref;
         this.store = store;
         this.changeEvent = changeEvent;
@@ -26,7 +26,7 @@ public class Event_PlayerInventoryItemEquip {
 
     public Store<EntityStore> getStore() { return store; }
 
-    public ItemContainer.ItemContainerChangeEvent getChangeEvent() { return changeEvent; }
+    public InventoryChangeEvent getChangeEvent() { return changeEvent; }
 
     public short getSlot() { return slot; }
 

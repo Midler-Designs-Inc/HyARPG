@@ -1,0 +1,750 @@
+{
+  "Container": {
+    "Type": "Multiple",
+    "MaxCount": 5,
+    "Containers": [
+      {
+        "Type": "Choice",
+        "Containers": [
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Chest_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Chest_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Chest_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Chest_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Chest_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Hands_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Hands_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Hands_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Hands_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Hands_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Head_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Head_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Head_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Head_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Head_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Legs_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Legs_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Legs_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Legs_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cotton_Legs_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Iron_Chest_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Iron_Chest_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Iron_Chest_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Iron_Chest_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Iron_Chest_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Iron_Hands_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Iron_Hands_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Iron_Hands_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Iron_Hands_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Iron_Hands_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Iron_Head_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Iron_Head_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Iron_Head_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Iron_Head_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Iron_Head_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Iron_Legs_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Iron_Legs_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Iron_Legs_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Iron_Legs_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Iron_Legs_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Axe_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Axe_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Axe_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Axe_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Axe_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Club_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Club_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Club_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Club_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Club_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Mace_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Mace_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Mace_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Mace_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Mace_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shield_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shield_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shield_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shield_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shield_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Sword_Iron_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Sword_Iron_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Sword_Iron_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Sword_Iron_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Sword_Iron_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ore_Copper",
+              "QuantityMax": 200
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ore_Iron",
+              "QuantityMax": 100
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Fibre",
+              "QuantityMax": 50
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Plant_Fruit_Apple",
+              "QuantityMax": 10
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Plant_Fruit_Berries_Red",
+              "QuantityMax": 20
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Rock_Stone",
+              "QuantityMax": 70
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Wood_Beech_Trunk",
+              "QuantityMax": 70
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Leather_Light",
+              "QuantityMax": 20
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Fabric_Scrap_Linen",
+              "QuantityMax": 20
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

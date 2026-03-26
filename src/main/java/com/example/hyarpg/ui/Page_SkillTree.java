@@ -532,7 +532,7 @@ public class Page_SkillTree {
             rpg.skillLibrary.recalculate();
 
             // refresh gear score
-            rpg.calculateGearScore(player);
+            rpg.calculateGearScore(player.getReference(), store);
             rpg.calculateAffixStats(player.getReference(), store);
 
             Page_SkillTree.open(ref, store, treeId);

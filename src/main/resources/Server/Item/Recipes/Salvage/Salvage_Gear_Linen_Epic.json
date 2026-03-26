@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Ingredient_Bolt_Linen",
+      "Quantity": 40
+    },
+    {
+      "ItemId": "Epic_Shards",
+      "Quantity": 2
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Epic_Shards",
+    "Quantity": 2
+  },
+  "TimeSeconds": 8,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Linen_Epic"
+    }
+  ]
+}

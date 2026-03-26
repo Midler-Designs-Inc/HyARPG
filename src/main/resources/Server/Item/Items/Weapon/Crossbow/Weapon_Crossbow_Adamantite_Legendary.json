@@ -10,18 +10,19 @@
   "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 611
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 603
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 604
-      },
-      {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 606
+        "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+        "Quantity": 603
       },
       {
         "ItemId": "Legendary_Shards",
@@ -45,8 +46,7 @@
         "Id": "Armory_HyARPG",
         "RequiredTierLevel": 4
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "InteractionVars": {
     "Standard_Projectile_Damage": {
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Legendary_Gear"
+      "Id": "Gear_Adamantite_Legendary"
     }
   ]
 }

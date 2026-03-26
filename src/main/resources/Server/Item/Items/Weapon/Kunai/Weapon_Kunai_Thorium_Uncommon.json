@@ -92,7 +92,7 @@
   "MaxDurability": 0,
   "ResourceTypes": [
     {
-      "Id": "Uncommon_Gear"
+      "Id": "Gear_Thorium_Uncommon"
     }
   ]
 }

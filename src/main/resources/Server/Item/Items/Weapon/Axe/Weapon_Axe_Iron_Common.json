@@ -177,7 +177,7 @@
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Iron_Common"
     }
   ]
 }

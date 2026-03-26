@@ -194,7 +194,7 @@
   "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {
-      "Id": "Epic_Gear"
+      "Id": "Gear_Copper_Epic"
     }
   ]
 }

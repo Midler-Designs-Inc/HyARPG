@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Wood_Trunk",
+      "Quantity": 15
+    },
+    {
+      "ItemId": "Rare_Shards",
+      "Quantity": 3
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Rare_Shards",
+    "Quantity": 3
+  },
+  "TimeSeconds": 3,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Wood_Rare"
+    }
+  ]
+}

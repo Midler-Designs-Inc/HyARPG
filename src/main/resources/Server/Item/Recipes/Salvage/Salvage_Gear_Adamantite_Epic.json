@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Ingredient_Bar_Adamantite",
+      "Quantity": 100
+    },
+    {
+      "ItemId": "Epic_Shards",
+      "Quantity": 2
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Epic_Shards",
+    "Quantity": 2
+  },
+  "TimeSeconds": 20,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Adamantite_Epic"
+    }
+  ]
+}

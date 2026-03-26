@@ -10,17 +10,18 @@
   "ItemLevel": 10,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 153
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
+        "ItemId": "Ingredient_Bar_Copper",
         "Quantity": 154
       },
       {
-        "ItemId": "Ingredient_Bar_Copper",
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 154
+      },
+      {
+        "ItemId": "Ingredient_Fibre",
         "Quantity": 156
       },
       {
@@ -45,8 +46,7 @@
         "Id": "Armory_HyARPG",
         "RequiredTierLevel": 1
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "MaxDurability": 0,
   "InteractionVars": {
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Legendary_Gear"
+      "Id": "Gear_Copper_Legendary"
     }
   ]
 }

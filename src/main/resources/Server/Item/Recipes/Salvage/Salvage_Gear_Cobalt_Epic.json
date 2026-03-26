@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Ingredient_Bar_Cobalt",
+      "Quantity": 88
+    },
+    {
+      "ItemId": "Epic_Shards",
+      "Quantity": 2
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Epic_Shards",
+    "Quantity": 2
+  },
+  "TimeSeconds": 16,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Cobalt_Epic"
+    }
+  ]
+}

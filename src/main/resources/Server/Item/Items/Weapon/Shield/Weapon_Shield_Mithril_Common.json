@@ -57,7 +57,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Mithril_Common"
     }
   ]
 }

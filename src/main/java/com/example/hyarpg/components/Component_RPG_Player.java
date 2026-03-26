@@ -2,6 +2,7 @@ package com.example.hyarpg.components;
 
 // Hytale Imports
 import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.modules.Module_RPG_System;
 import com.example.hyarpg.utils.codecs.Codec_SkillLibrary;
 import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.hypixel.hytale.codec.Codec;
@@ -13,11 +14,9 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.protocol.*;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
-import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.movement.MovementManager;
-import com.hypixel.hytale.server.core.inventory.Inventory;
+import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
@@ -174,62 +173,61 @@ public class Component_RPG_Player implements Component<EntityStore> {
     }
 
     // Calculate the players gear score
-    public void calculateGearScore(Player player) {
-        Inventory inventory = player.getInventory();
+    public void calculateGearScore(Ref<EntityStore> ref, Store<EntityStore> store) {
         int totalLevel = 0;
         int count = 6;
 
-        // Active hand item (weapon)
-        ItemStack inHand = inventory.getItemInHand();
+        // Active hand item (weapon) — checks Tool first, falls back to Hotbar
+        ItemStack inHand = InventoryComponent.getItemInHand(store, ref);
         if (!ItemStack.isEmpty(inHand)) {
             Integer level = inHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
             if (level != null) totalLevel += level;
         }
 
-        // Off hand item
-        ItemStack offHand = inventory.getUtilityItem();
+        // Off hand (utility active slot)
+        InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
+        ItemStack offHand = utilityComp != null ? utilityComp.getActiveItem() : null;
         if (!ItemStack.isEmpty(offHand)) {
             Integer level = offHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
             if (level != null) totalLevel += level;
-        }
-        else count--;
+        } else count--;
 
         // Armor slots
-        ItemContainer armor = inventory.getArmor();
-        for (short i = 0; i < armor.getCapacity(); i++) {
-            ItemStack armorPiece = armor.getItemStack(i);
-            if (ItemStack.isEmpty(armorPiece)) continue;
-            Integer level = armorPiece.getFromMetadataOrNull("GearScore", Codec.INTEGER);
-            if (level != null) totalLevel += level;
+        InventoryComponent.Armor armorComp = store.getComponent(ref, InventoryComponent.Armor.getComponentType());
+        if (armorComp != null) {
+            ItemContainer armor = armorComp.getInventory();
+            for (short i = 0; i < armor.getCapacity(); i++) {
+                ItemStack armorPiece = armor.getItemStack(i);
+                if (ItemStack.isEmpty(armorPiece)) continue;
+                Integer level = armorPiece.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+                if (level != null) totalLevel += level;
+            }
         }
 
-        // return value or 0, whichever is higher
         this.gearScore = Math.max(0, totalLevel / count);
     }
 
     // Calculate the players stats based on gear affixes
     public void calculateAffixStats(Ref<EntityStore> ref, Store<EntityStore> store) {
         try {
-            //get the rpg player comp and player comp
-            Player player = store.getComponent(ref, Player.getComponentType());
-            if(player == null) return;
-
             // create a new instance of player stats
             EntityStats newStats = new EntityStats();
 
-            // get the players inventory and armor slots
-            Inventory inventory = player.getInventory();
-            ItemContainer armor = inventory.getArmor();
+            // Armor slots
+            InventoryComponent.Armor armorComp = store.getComponent(ref, InventoryComponent.Armor.getComponentType());
+            if (armorComp != null) {
+                ItemContainer armor = armorComp.getInventory();
+                applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Head.ordinal()));
+                applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()));
+                applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()));
+                applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Legs.ordinal()));
+            }
 
-            //  Armor Slots
-            applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Head.ordinal()));
-            applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()));
-            applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()));
-            applyStack(newStats, armor.getItemStack((short) ItemArmorSlot.Legs.ordinal()));
+            // Weapon / Utility
+            applyStack(newStats, InventoryComponent.getItemInHand(store, ref));
 
-            // Weapons / Utility
-            applyStack(newStats, inventory.getItemInHand());
-            applyStack(newStats, inventory.getUtilityItem());
+            InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
+            applyStack(newStats, utilityComp != null ? utilityComp.getActiveItem() : null);
 
             // Merge skill tree bonuses into the affix stats before applying
             if (skillLibrary != null) newStats.merge(skillLibrary.getSkillStats());

@@ -83,7 +83,7 @@
   },
   "ResourceTypes": [
     {
-      "Id": "Rare_Gear"
+      "Id": "Gear_Iron_Rare"
     }
   ]
 }

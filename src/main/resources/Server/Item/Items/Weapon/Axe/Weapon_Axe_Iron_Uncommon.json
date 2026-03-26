@@ -180,7 +180,7 @@
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "ResourceTypes": [
     {
-      "Id": "Uncommon_Gear"
+      "Id": "Gear_Iron_Uncommon"
     }
   ]
 }

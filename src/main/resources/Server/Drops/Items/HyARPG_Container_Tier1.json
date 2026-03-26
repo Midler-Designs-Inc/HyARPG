@@ -1,0 +1,1240 @@
+{
+  "Container": {
+    "Type": "Multiple",
+    "MaxCount": 5,
+    "Containers": [
+      {
+        "Type": "Choice",
+        "Containers": [
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Chest_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Chest_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Chest_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Chest_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Chest_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Hands_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Hands_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Hands_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Hands_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Hands_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Head_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Head_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Head_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Head_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Head_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Legs_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Legs_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Legs_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Legs_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Linen_Legs_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Chest_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Chest_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Chest_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Chest_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Chest_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Hands_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Hands_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Hands_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Hands_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Hands_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Head_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Head_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Head_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Head_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Head_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Legs_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Legs_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Legs_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Legs_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Wool_Legs_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Copper_Chest_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Copper_Chest_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Copper_Chest_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Copper_Chest_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Copper_Chest_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Copper_Hands_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Copper_Hands_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Copper_Hands_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Copper_Hands_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Copper_Hands_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Copper_Head_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Copper_Head_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Copper_Head_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Copper_Head_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Copper_Head_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Copper_Legs_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Copper_Legs_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Copper_Legs_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Copper_Legs_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Copper_Legs_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Axe_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Axe_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Axe_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Axe_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Axe_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Axe_Crude_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Axe_Crude_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Axe_Crude_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Axe_Crude_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Axe_Crude_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Crude_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Crude_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Crude_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Crude_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Crude_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Club_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Club_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Club_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Club_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Club_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Club_Crude_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Club_Crude_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Club_Crude_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Club_Crude_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Club_Crude_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Crude_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Crude_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Crude_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Crude_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Crude_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Bone_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Bone_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Bone_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Bone_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Bone_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Crude_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Crude_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Crude_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Crude_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Crude_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Mace_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Mace_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Mace_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Mace_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Mace_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Mace_Crude_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Mace_Crude_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Mace_Crude_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Mace_Crude_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Mace_Crude_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shield_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shield_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shield_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shield_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shield_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shield_Wood_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shield_Wood_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shield_Wood_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shield_Wood_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shield_Wood_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Crude_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Crude_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Crude_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Crude_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Crude_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Sword_Copper_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Sword_Copper_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Sword_Copper_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Sword_Copper_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Sword_Copper_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Sword_Crude_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Sword_Crude_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Sword_Crude_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Sword_Crude_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Sword_Crude_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ore_Copper",
+              "QuantityMax": 100
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Stick",
+              "QuantityMax": 50
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Fibre",
+              "QuantityMax": 50
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Plant_Fruit_Apple",
+              "QuantityMax": 10
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Plant_Fruit_Berries_Red",
+              "QuantityMax": 20
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Rock_Stone",
+              "QuantityMax": 70
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Wood_Beech_Trunk",
+              "QuantityMax": 70
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Leather_Light",
+              "QuantityMax": 20
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Fabric_Scrap_Linen",
+              "QuantityMax": 20
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

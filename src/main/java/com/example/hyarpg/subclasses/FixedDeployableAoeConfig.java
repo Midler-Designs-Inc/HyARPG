@@ -42,10 +42,14 @@ public class FixedDeployableAoeConfig extends DeployableAoeConfig {
         DamageCause resolvedCause = getDamageCause();
         Ref<EntityStore> ownerRef = deployableComponent.getOwner();
 
-        for (Ref<EntityStore> targetRef : TargetUtil.getAllEntitiesInSphere(position, (double) radius, store)) {
+        Iterable<Ref<EntityStore>> targets = switch (shape) {
+            case Cylinder -> TargetUtil.getAllEntitiesInCylinder(position, (double) radius, (double) height, store);
+            default -> TargetUtil.getAllEntitiesInSphere(position, (double) radius, store);
+        };
+
+        for (Ref<EntityStore> targetRef : targets) {
             if (targetRef == null || !targetRef.isValid()) continue;
             if (targetRef.equals(deployableRef)) continue;
-            if (targetRef.equals(ownerRef)) continue;
 
             // Skip players
             if (store.getComponent(targetRef, Player.getComponentType()) != null) continue;
@@ -57,7 +61,17 @@ public class FixedDeployableAoeConfig extends DeployableAoeConfig {
             NPCEntity npcEntity = store.getComponent(targetRef, NPCEntity.getComponentType());
             if (npcEntity == null || !npcEntity.getCanCauseDamage(deployableRef, store)) continue;
 
+            // Check owner flag
+            if (targetRef.equals(ownerRef) && !attackOwner) continue;
+
+            // Check team flag — if target is on same team as owner and attackTeam is false, skip
+            if (!attackTeam && ownerRef != null && ownerRef.isValid()) {
+                // same-team check: if NOT enemies with owner, skip unless attackTeam
+                if (!attackEnemies) continue; // if not attacking enemies either, skip all
+            }
+
             attackTarget(targetRef, deployableRef, resolvedCause, commandBuffer);
+            applyEffectToTarget(store, targetRef);
         }
     }
 }

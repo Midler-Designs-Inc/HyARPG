@@ -2,6 +2,7 @@ package com.example.hyarpg.modules;
 
 // Hytale imports
 import com.example.hyarpg.configs.ModConfig;
+import com.hypixel.hytale.common.plugin.PluginManifest;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -12,6 +13,7 @@ import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.movement.MovementStatesComponent;
 import com.hypixel.hytale.server.core.entity.movement.MovementStatesSystems;
+import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
@@ -26,6 +28,10 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Mod imports
 import com.example.hyarpg.components.*;
 import com.example.hyarpg.HyARPGPlugin;
+import com.hypixel.hytale.server.npc.corecomponents.lifecycle.builders.BuilderActionDespawn;
+import com.hypixel.hytale.server.npc.instructions.Action;
+import com.hypixel.hytale.server.npc.role.Role;
+import com.hypixel.hytale.server.npc.systems.RoleSystems;
 
 // Java imports
 import java.util.Objects;
@@ -196,16 +202,17 @@ public final class Module_ModTickLoop {
         try {
             // get the RPG Player component
             Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+            InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
             if(rpgPlayer == null) return;
 
             // get the players current mainhand/offhand item and see if it's any different, if not we can skip
             // because we already do this when they equip/unequip something, we just can't fire those for mainhad/offhand changes
-            ItemStack mainHand = player.getInventory().getItemInHand();
-            ItemStack offHand = player.getInventory().getUtilityItem();
+            ItemStack mainHand = InventoryComponent.getItemInHand(store, ref);
+            ItemStack offHand = utilityComp != null ? utilityComp.getActiveItem() : null;
             if(Objects.equals(rpgPlayer.mainHandItem, mainHand) && Objects.equals(rpgPlayer.offHandItem, offHand)) return;
 
             // calculate the gear score
-            rpgPlayer.calculateGearScore(player);
+            rpgPlayer.calculateGearScore(ref, store);
             rpgPlayer.calculateAffixStats(ref, store);
 
             // mark the offhand/utility item so they aren't dirty anymore

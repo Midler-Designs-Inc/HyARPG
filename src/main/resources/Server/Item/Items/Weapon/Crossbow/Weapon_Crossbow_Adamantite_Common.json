@@ -10,18 +10,19 @@
   "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 51
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 43
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 44
-      },
-      {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 46
+        "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+        "Quantity": 43
       }
     ],
     "BenchRequirement": [
@@ -43,8 +44,7 @@
         "Id": "Armory_HyARPG",
         "RequiredTierLevel": 4
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "InteractionVars": {
     "Standard_Projectile_Damage": {
@@ -79,7 +79,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Adamantite_Common"
     }
   ]
 }

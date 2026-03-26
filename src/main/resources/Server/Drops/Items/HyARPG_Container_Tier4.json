@@ -1,0 +1,742 @@
+{
+  "Container": {
+    "Type": "Multiple",
+    "MaxCount": 5,
+    "Containers": [
+      {
+        "Type": "Choice",
+        "Containers": [
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Chest_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Chest_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Chest_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Chest_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Chest_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Hands_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Hands_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Hands_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Hands_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Hands_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Head_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Head_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Head_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Head_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Head_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Legs_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Legs_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Legs_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Legs_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Adamantite_Legs_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Chest_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Chest_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Chest_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Chest_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Chest_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Hands_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Hands_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Hands_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Hands_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Hands_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Head_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Head_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Head_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Head_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Head_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Legs_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Legs_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Legs_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Legs_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Cloth_Cindercloth_Legs_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Axe_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Axe_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Axe_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Axe_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Axe_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Club_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Club_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Club_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Club_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Club_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Mace_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Mace_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Mace_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Mace_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Mace_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shield_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shield_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shield_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shield_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shield_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Sword_Adamantite_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Sword_Adamantite_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Sword_Adamantite_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Sword_Adamantite_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Sword_Adamantite_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ore_Thorium",
+              "QuantityMax": 200
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ore_Cobalt",
+              "QuantityMax": 200
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ore_Adamantite",
+              "QuantityMax": 100
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Food_Bread",
+              "QuantityMax": 10
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Rock_Lime",
+              "QuantityMax": 70
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Wood_Fir_Trunk",
+              "QuantityMax": 70
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Leather_Heavy",
+              "QuantityMax": 20
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+              "QuantityMax": 10
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

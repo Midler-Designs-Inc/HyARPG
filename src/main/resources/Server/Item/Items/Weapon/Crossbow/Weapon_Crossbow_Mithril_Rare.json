@@ -10,18 +10,19 @@
   "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
-      {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 303
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 304
-      },
       {
         "ItemId": "Ingredient_Bar_Mithril",
         "Quantity": 306
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 302
+      },
+      {
+        "ItemId": "Ingredient_Voidheart",
+        "Quantity": 301
       },
       {
         "ItemId": "Rare_Shards",
@@ -36,17 +37,8 @@
         ],
         "Id": "Weapon_Bench_HyARPG",
         "RequiredTierLevel": 5
-      },
-      {
-        "Type": "DiagramCrafting",
-        "Categories": [
-          "Weapons.Bow"
-        ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 5
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "MaxDurability": 0,
   "InteractionVars": {
@@ -81,7 +73,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Rare_Gear"
+      "Id": "Gear_Mithril_Rare"
     }
   ]
 }

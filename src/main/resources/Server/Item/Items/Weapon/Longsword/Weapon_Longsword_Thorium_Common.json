@@ -191,7 +191,7 @@
   "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Thorium_Common"
     }
   ]
 }

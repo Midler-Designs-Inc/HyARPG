@@ -12,16 +12,16 @@
     "TimeSeconds": 0,
     "Input": [
       {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 188
+      },
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 182
+      },
+      {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 183
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 184
-      },
-      {
-        "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 186
       },
       {
         "ItemId": "Rare_Shards",
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Rare_Gear"
+      "Id": "Gear_Thorium_Rare"
     }
   ]
 }

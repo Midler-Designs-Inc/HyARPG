@@ -1,0 +1,594 @@
+{
+  "Container": {
+    "Type": "Multiple",
+    "MaxCount": 5,
+    "Containers": [
+      {
+        "Type": "Choice",
+        "Containers": [
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Mithril_Chest_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Mithril_Chest_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Mithril_Chest_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Mithril_Chest_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Mithril_Chest_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Mithril_Hands_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Mithril_Hands_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Mithril_Hands_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Mithril_Hands_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Mithril_Hands_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Mithril_Head_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Mithril_Head_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Mithril_Head_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Mithril_Head_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Mithril_Head_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Armor_Mithril_Legs_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Armor_Mithril_Legs_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Armor_Mithril_Legs_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Armor_Mithril_Legs_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Armor_Mithril_Legs_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Axe_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Axe_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Axe_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Axe_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Axe_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Battleaxe_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Club_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Club_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Club_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Club_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Club_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Crossbow_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Daggers_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Kunai_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Longsword_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Mace_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Mace_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Mace_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Mace_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Mace_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shield_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shield_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shield_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shield_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shield_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Shortbow_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 100,
+            "Item": {
+              "ItemId": "Weapon_Sword_Mithril_Common"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Weapon_Sword_Mithril_Uncommon"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 15,
+            "Item": {
+              "ItemId": "Weapon_Sword_Mithril_Rare"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 7,
+            "Item": {
+              "ItemId": "Weapon_Sword_Mithril_Epic"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 3,
+            "Item": {
+              "ItemId": "Weapon_Sword_Mithril_Legendary"
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ore_Adamantite",
+              "QuantityMax": 200
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ore_Mithril",
+              "QuantityMax": 100
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Food_Cheese",
+              "QuantityMax": 10
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Rock_Marble",
+              "QuantityMax": 70
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Wood_Dry_Trunk",
+              "QuantityMax": 70
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Leather_Storm",
+              "QuantityMax": 20
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 200,
+            "Item": {
+              "ItemId": "Ingredient_Fabric_Scrap_Stormsilk",
+              "QuantityMax": 10
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

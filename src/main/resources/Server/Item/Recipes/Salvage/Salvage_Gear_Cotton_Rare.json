@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Ingredient_Bolt_Cotton",
+      "Quantity": 45
+    },
+    {
+      "ItemId": "Rare_Shards",
+      "Quantity": 3
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Rare_Shards",
+    "Quantity": 3
+  },
+  "TimeSeconds": 9,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Cotton_Rare"
+    }
+  ]
+}

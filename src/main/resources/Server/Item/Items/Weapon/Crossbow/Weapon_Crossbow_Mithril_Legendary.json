@@ -10,18 +10,19 @@
   "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
-      {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 753
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 754
-      },
       {
         "ItemId": "Ingredient_Bar_Mithril",
         "Quantity": 756
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 752
+      },
+      {
+        "ItemId": "Ingredient_Voidheart",
+        "Quantity": 751
       },
       {
         "ItemId": "Legendary_Shards",
@@ -36,17 +37,8 @@
         ],
         "Id": "Weapon_Bench_HyARPG",
         "RequiredTierLevel": 5
-      },
-      {
-        "Type": "DiagramCrafting",
-        "Categories": [
-          "Weapons.Bow"
-        ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 5
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "MaxDurability": 0,
   "InteractionVars": {
@@ -81,7 +73,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Legendary_Gear"
+      "Id": "Gear_Mithril_Legendary"
     }
   ]
 }

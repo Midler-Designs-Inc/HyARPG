@@ -12,16 +12,16 @@
     "TimeSeconds": 0,
     "Input": [
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 63
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 66
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 64
+        "Quantity": 62
       },
       {
-        "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 66
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 63
       },
       {
         "ItemId": "Uncommon_Shards",
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Uncommon_Gear"
+      "Id": "Gear_Iron_Uncommon"
     }
   ]
 }

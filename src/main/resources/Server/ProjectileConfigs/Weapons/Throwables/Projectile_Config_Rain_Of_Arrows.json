@@ -36,7 +36,15 @@
             "AttackTeam": false,
             "AttackOwner": false,
             "DamageCause": "Weapon",
-            "Model": "Projectile"
+            "Model": "Projectile",
+            "ApplyEffects": [
+              {
+                "ApplicationEffects": {
+                  "HorizontalSpeedMultiplier": 0.1
+                },
+                "Duration": 2
+              }
+            ]
           }
         },
         {
@@ -69,7 +77,15 @@
             "AttackTeam": false,
             "AttackOwner": false,
             "DamageCause": "Weapon",
-            "Model": "Projectile"
+            "Model": "Projectile",
+            "ApplyEffects": [
+              {
+                "ApplicationEffects": {
+                  "HorizontalSpeedMultiplier": 0.1
+                },
+                "Duration": 2
+              }
+            ]
           }
         },
         {

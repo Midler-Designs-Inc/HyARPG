@@ -224,7 +224,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Crude_Common"
     }
   ]
 }

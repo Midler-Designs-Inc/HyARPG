@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Ingredient_Bar_Iron",
+      "Quantity": 65
+    },
+    {
+      "ItemId": "Legendary_Shards",
+      "Quantity": 1
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Legendary_Shards",
+    "Quantity": 1
+  },
+  "TimeSeconds": 15,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Iron_Legendary"
+    }
+  ]
+}

@@ -86,7 +86,7 @@
   "MaxDurability": 0,
   "ResourceTypes": [
     {
-      "Id": "Common_Gear"
+      "Id": "Gear_Iron_Common"
     }
   ]
 }

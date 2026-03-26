@@ -1,21 +1,31 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.configs.Config_World;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemDropList;
+import com.hypixel.hytale.server.core.asset.type.item.config.container.ItemDropContainer;
+import com.hypixel.hytale.server.core.asset.type.item.config.container.MultipleItemDropContainer;
+import com.hypixel.hytale.server.core.asset.type.item.config.container.SingleItemDropContainer;
 import com.hypixel.hytale.server.core.entity.Frozen;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.entities.player.windows.*;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.inventory.InventoryChangeEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
+import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
@@ -34,9 +44,12 @@ import com.hypixel.hytale.server.core.modules.splitvelocity.VelocityConfig;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
+import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.npc.role.Role;
+import com.hypixel.hytale.server.core.modules.block.components.ItemContainerBlock;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_CraftingKnowledge;
@@ -63,7 +76,6 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -104,7 +116,7 @@ public class Module_RPG_System {
     }
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.202.0"; // 1.3.0
+    private final String SKILL_TREE_VERSION = "1.4.0"; // 1.4.0
 
     // Create a map for damage message colors
     public static final Map<String, Color> DAMAGE_COLORS = Map.of(
@@ -196,6 +208,7 @@ public class Module_RPG_System {
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
         ModEventBus.register(Event_PlayerInteraction.class, this::onPlayerInteraction);
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
+        ModEventBus.register(Event_ContainerSpawned.class, this::onContainerSpawned);
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -221,7 +234,7 @@ public class Module_RPG_System {
         rpgPlayer.skillLibrary.recalculate();
 
         // refresh gear score
-        rpgPlayer.calculateGearScore(player);
+        rpgPlayer.calculateGearScore(entityRef, store);
         rpgPlayer.calculateAffixStats(player.getReference(), store);
     }
 
@@ -675,8 +688,10 @@ public class Module_RPG_System {
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
             if (item.getWeapon() != null || item.getArmor() != null || item.getId().contains("Ingredient_Bar") || item.getId().contains("Ore_") || item.getId().contains("Weapon_") || item.getId().contains("Armor_")) {
+                alertPlayers("Filtering out " + item.getId(), Color.DARK_GRAY);
                 continue;
             };
+            alertPlayers("Not Filtering out " + item.getId(), Color.DARK_GRAY);
             filteredDrops.add(drop);
         }
 
@@ -711,31 +726,25 @@ public class Module_RPG_System {
         ItemStack stack = event.getStack();
         Item item = stack.getItem();
         short slot = event.getSlot();
-        ItemContainer.ItemContainerChangeEvent changeEvent = event.getChangeEvent();
-        ItemContainer container = changeEvent.container();
+        InventoryChangeEvent changeEvent = event.getChangeEvent();
+        ItemContainer container = changeEvent.getItemContainer(); // was: changeEvent.container()
 
         // gear score only for weapons/armor
         if ((item.getWeapon() != null || item.getArmor() != null)) {
-            // swap vanilla items if applicable, this will replace the itemstack or empty it
-            swapVanillaItem(ref, store, stack, container, slot);
-            stack = container.getItemStack(slot);
-            if(stack == null || stack.isEmpty()) return;
-
             // get the players level
             Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
-            Player player = store.getComponent(ref, Player.getComponentType());
             int level = rpgPlayer == null ? 1 : rpgPlayer.level;
 
             // assign a gear score to the item
             ItemStack newStack = assignGearScoreAndAffixes(stack, level);
-            if(newStack == null || newStack.isEmpty()) return;
+            if (newStack == null || newStack.isEmpty()) return;
 
             // swap out the old stack for the new stack, then update reference for down stream
             container.replaceItemStackInSlot(slot, stack, newStack);
             stack = newStack;
 
             // refresh gear score
-            rpgPlayer.calculateGearScore(player);
+            rpgPlayer.calculateGearScore(ref, store);
             rpgPlayer.calculateAffixStats(ref, store);
         }
 
@@ -745,6 +754,45 @@ public class Module_RPG_System {
 
     // capture when an item is removed from a players inventory
     private void onPlayerInventoryItemRemoved(Event_PlayerInventoryItemRemoved event) {}
+
+    // capture when a container spawns
+    private void onContainerSpawned(Event_ContainerSpawned event) {
+        ItemContainerBlock containerBlock = event.containerBlock();
+        BlockStateInfo blockStateInfo = event.blockStateInfo();
+
+        // getIndex() returns indexBlockInColumn — full column-relative coords
+        int index = blockStateInfo.getIndex();
+        int localX = ChunkUtil.xFromBlockInColumn(index);
+        int localY = ChunkUtil.yFromBlockInColumn(index); // full Y within column, not section-local
+        int localZ = ChunkUtil.zFromBlockInColumn(index);
+
+        // Get chunk X/Z from the WorldChunk component on the chunk ref
+        Ref<ChunkStore> chunkRef = blockStateInfo.getChunkRef();
+        Store<ChunkStore> store = chunkRef.getStore();
+        WorldChunk worldChunk = (WorldChunk) store.getComponent(chunkRef, WorldChunk.getComponentType());
+        int chunkX = worldChunk.getX();
+        int chunkZ = worldChunk.getZ();
+
+        // Reconstruct world coordinates — no sectionY needed, localY is already full column Y
+        int worldX = ChunkUtil.worldCoordFromLocalCoord(chunkX, localX);
+        int worldY = localY; // Y is absolute within the column (MIN_Y = 0)
+        int worldZ = ChunkUtil.worldCoordFromLocalCoord(chunkZ, localZ);
+
+        // Compute distance from config origin
+        double dx = worldX - ModConfig.get().world.origin_spawn_point_x;
+        double dy = worldY - ModConfig.get().world.origin_spawn_point_y;
+        double dz = worldZ - ModConfig.get().world.origin_spawn_point_z;
+        double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+        // Determine tier based on ore spawn distance ranges
+        int tier = 1;
+        if (distance >= ModConfig.get().world.min_distance_for_mithril_spawn) tier = 5;
+        else if (distance >= ModConfig.get().world.min_distance_for_adamantite_spawn) tier = 4;
+        else if (distance >= ModConfig.get().world.min_distance_for_thorium_spawn) tier = 3;
+        else if (distance >= ModConfig.get().world.min_distance_for_iron_spawn) tier = 2;
+
+        containerBlock.setDroplist("HyARPG_Container_Tier" + tier);
+    }
 
     // method for when a player equips an item
     private void onPlayerInventoryItemEquip(Event_PlayerInventoryItemEquip event) {
@@ -758,7 +806,7 @@ public class Module_RPG_System {
         if(rpgPlayer == null || player == null) return;
 
         // refresh gear score
-        rpgPlayer.calculateGearScore(player);
+        rpgPlayer.calculateGearScore(ref, store);
         rpgPlayer.calculateAffixStats(ref, store);
     }
 
@@ -774,7 +822,7 @@ public class Module_RPG_System {
         if(rpgPlayer == null || player == null) return;
 
         // refresh gear score and affix stats
-        rpgPlayer.calculateGearScore(player);
+        rpgPlayer.calculateGearScore(ref, store);
         rpgPlayer.calculateAffixStats(ref, store);
     }
 
@@ -806,33 +854,6 @@ public class Module_RPG_System {
             boolean discoveredNew = craftingKnowledge.addDiscoveredItem(playerRef, query);
             if (discoveredNew) craftingKnowledge.discoverRecipes(ref, store, query);
         } catch (Exception e) {}
-    }
-
-    // assign a gear score to an item a player picked up
-    private void swapVanillaItem(Ref<EntityStore> ref, Store<EntityStore> store, ItemStack stack, ItemContainer container, short slot) {
-        // get the item from the stack
-        Item item = stack.getItem();
-        if (Arrays.asList(item.getCategories()).contains("Items.HyARPG.Gear")) return;
-
-        // get the players crafting knowledge or remove the item and bail
-        Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
-        if (craftingKnowledge == null) {
-            container.removeItemStackFromSlot(slot);
-            return;
-        }
-
-        // get the players known recipes, roll a rarity and then roll an item or empty container and bail if none returned
-        Set<String> recipes = craftingKnowledge.discoveredDroppableRecipes;
-        String rarityRoll = rollRarity();
-        String randomItemId = rollItemForRarity(recipes, rarityRoll);
-        if (randomItemId == null ) {
-            container.removeItemStackFromSlot(slot);
-            return;
-        }
-
-        // create a new item stack and swap it in
-        ItemStack newStack = new ItemStack(randomItemId, 1);
-        container.replaceItemStackInSlot(slot, stack, newStack);
     }
 
     // assign a gear score to an item a player picked up
@@ -1224,10 +1245,10 @@ public class Module_RPG_System {
     // helper function to swap damage type "Weapon" for a damage interaction var from the main hand weapon item
     private ResolvedDamage resolveWeaponDamageType(Ref<EntityStore> attacker, Store<EntityStore> store, DamageCause fallback, float fallbackAmount, Damage damage) {
         try {
-            Player player = store.getComponent(attacker, Player.getComponentType());
-            if (player == null) return new ResolvedDamage(fallback, fallbackAmount);
+            Component_RPG_Player rpgPlayer = store.getComponent(attacker, componentTypeRPGPlayer);
+            if (rpgPlayer == null) return new ResolvedDamage(fallback, fallbackAmount);
 
-            ItemStack mainHand = player.getInventory().getItemInHand();
+            ItemStack mainHand = rpgPlayer.mainHandItem;
             if (mainHand == null) return new ResolvedDamage(fallback, fallbackAmount);
 
             Item item = mainHand.getItem();

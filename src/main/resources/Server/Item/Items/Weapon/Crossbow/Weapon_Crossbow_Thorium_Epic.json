@@ -12,16 +12,16 @@
     "TimeSeconds": 0,
     "Input": [
       {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 308
+      },
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 302
+      },
+      {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 303
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 304
-      },
-      {
-        "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 306
       },
       {
         "ItemId": "Epic_Shards",
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Epic_Gear"
+      "Id": "Gear_Thorium_Epic"
     }
   ]
 }

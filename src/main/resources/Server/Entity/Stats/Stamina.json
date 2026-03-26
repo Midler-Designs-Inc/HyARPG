@@ -14,7 +14,7 @@
           "Id": "Alive"
         },
         {
-          "Id": "Player",
+          "Id": "CheckPlayerGameMode",
           "GameMode": "Creative"
         }
       ]

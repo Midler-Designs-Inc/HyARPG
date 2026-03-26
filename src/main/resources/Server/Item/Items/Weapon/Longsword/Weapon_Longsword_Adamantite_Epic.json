@@ -195,7 +195,7 @@
   "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {
-      "Id": "Epic_Gear"
+      "Id": "Gear_Adamantite_Epic"
     }
   ]
 }

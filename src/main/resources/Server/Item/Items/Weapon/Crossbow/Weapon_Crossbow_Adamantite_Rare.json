@@ -10,18 +10,19 @@
   "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 0,
+    "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 251
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 243
       },
       {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 244
-      },
-      {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 246
+        "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+        "Quantity": 243
       },
       {
         "ItemId": "Rare_Shards",
@@ -45,8 +46,7 @@
         "Id": "Armory_HyARPG",
         "RequiredTierLevel": 4
       }
-    ],
-    "KnowledgeRequired": true
+    ]
   },
   "InteractionVars": {
     "Standard_Projectile_Damage": {
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Rare_Gear"
+      "Id": "Gear_Adamantite_Rare"
     }
   ]
 }

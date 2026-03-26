@@ -12,16 +12,16 @@
     "TimeSeconds": 0,
     "Input": [
       {
-        "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 303
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 306
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 304
+        "Quantity": 302
       },
       {
-        "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 306
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 303
       },
       {
         "ItemId": "Legendary_Shards",
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Legendary_Gear"
+      "Id": "Gear_Iron_Legendary"
     }
   ]
 }

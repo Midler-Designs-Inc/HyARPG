@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Wood_Trunk",
+      "Quantity": 20
+    },
+    {
+      "ItemId": "Epic_Shards",
+      "Quantity": 2
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Epic_Shards",
+    "Quantity": 2
+  },
+  "TimeSeconds": 4,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Wood_Epic"
+    }
+  ]
+}

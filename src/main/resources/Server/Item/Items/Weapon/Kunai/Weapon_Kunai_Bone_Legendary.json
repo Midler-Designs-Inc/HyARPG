@@ -98,7 +98,7 @@
   "MaxDurability": 0,
   "ResourceTypes": [
     {
-      "Id": "Legendary_Gear"
+      "Id": "Gear_Bone_Legendary"
     }
   ]
 }

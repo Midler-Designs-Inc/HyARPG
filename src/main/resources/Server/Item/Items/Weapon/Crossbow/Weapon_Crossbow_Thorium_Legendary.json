@@ -12,16 +12,16 @@
     "TimeSeconds": 0,
     "Input": [
       {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 458
+      },
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 452
+      },
+      {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 453
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 454
-      },
-      {
-        "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 456
       },
       {
         "ItemId": "Legendary_Shards",
@@ -81,7 +81,7 @@
   ],
   "ResourceTypes": [
     {
-      "Id": "Legendary_Gear"
+      "Id": "Gear_Thorium_Legendary"
     }
   ]
 }

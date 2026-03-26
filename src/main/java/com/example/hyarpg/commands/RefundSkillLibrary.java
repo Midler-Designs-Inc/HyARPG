@@ -72,7 +72,7 @@ public class RefundSkillLibrary extends CommandBase {
             rpgPlayer.skillPoints += rpgPlayer.skillLibrary.refund(rpgPlayer);
 
             // Refresh player stats
-            rpgPlayer.calculateGearScore(player);
+            rpgPlayer.calculateGearScore(ref, store);
             rpgPlayer.calculateAffixStats(ref, store);
         });
     }

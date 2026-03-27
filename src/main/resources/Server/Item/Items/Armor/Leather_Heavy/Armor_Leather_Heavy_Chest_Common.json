@@ -1,0 +1,79 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Heavy_Chest.name"
+  },
+  "Parent": "Armor_Iron_Chest",
+  "Quality": "Common",
+  "ItemLevel": 40,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Heavy_Chest.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.405,
+    "Translation": [
+      0,
+      -6.6
+    ]
+  },
+  "Model": "Items/Armors/Leather_Heavy/Chest.blockymodel",
+  "Texture": "Items/Armors/Leather_Heavy/Chest_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 46
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 42
+      },
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 43
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Leatherworking_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Chest",
+          "Discoverable"
+        ],
+        "RequiredTierLevel": 4
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Chest",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Overtop"
+    ],
+    "StatModifiers": {},
+    "DamageResistance": {}
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Leather",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Gear_Leather_Heavy_Common"
+    }
+  ]
+}

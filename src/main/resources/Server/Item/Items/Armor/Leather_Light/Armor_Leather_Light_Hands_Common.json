@@ -1,0 +1,76 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Light_Hands.name"
+  },
+  "Parent": "Armor_Iron_Hands",
+  "Quality": "Common",
+  "ItemLevel": 20,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Light_Hands.png",
+  "IconProperties": {
+    "Rotation": [
+      29.815,
+      45.565,
+      25.315
+    ],
+    "Scale": 0.645,
+    "Translation": [
+      0.9,
+      -0.9
+    ]
+  },
+  "Model": "Items/Armors/Leather_Light/Hands.blockymodel",
+  "Texture": "Items/Armors/Leather_Light/Hands_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 22
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 21
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 22
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Leatherworking_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Hands",
+          "Discoverable"
+        ],
+        "RequiredTierLevel": 2
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Hands",
+    "BaseDamageResistance": 0,
+    "StatModifiers": {},
+    "DamageResistance": {}
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Leather",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Gear_Leather_Light_Common"
+    }
+  ]
+}

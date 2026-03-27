@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Hands",
   "Quality": "Uncommon",
-  "ItemLevel": 25,
+  "ItemLevel": 30,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Cotton_Hands.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cotton",
-        "Quantity": 77
+        "Quantity": 62
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 76
+        "Quantity": 61
       },
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 77
+        "Quantity": 62
       },
       {
         "ItemId": "Uncommon_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Hands"
         ],
-        "RequiredTierLevel": 2
+        "RequiredTierLevel": 3
       }
     ],
     "KnowledgeRequired": true

@@ -15,15 +15,15 @@
     "Input": [
       {
         "ResourceTypeId": "Rubble",
-        "Quantity": 32
+        "Quantity": 14
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 32
+        "Quantity": 14
       },
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 32
+        "Quantity": 14
       },
       {
         "ItemId": "Epic_Shards",

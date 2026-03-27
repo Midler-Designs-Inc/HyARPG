@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Quality": "Common",
-  "ItemLevel": 45,
+  "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Cindercloth_Legs.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 49
+        "Quantity": 54
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 47
+        "Quantity": 52
       },
       {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 48
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 53
       }
     ],
     "BenchRequirement": [
@@ -44,7 +44,7 @@
           "Armor_Legs",
           "Discoverable"
         ],
-        "RequiredTierLevel": 4
+        "RequiredTierLevel": 5
       }
     ],
     "KnowledgeRequired": true

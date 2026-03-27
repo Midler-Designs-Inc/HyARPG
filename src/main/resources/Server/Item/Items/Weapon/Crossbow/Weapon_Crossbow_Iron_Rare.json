@@ -13,15 +13,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 126
+        "Quantity": 66
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 122
+        "Quantity": 62
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 123
+        "Quantity": 63
       },
       {
         "ItemId": "Rare_Shards",

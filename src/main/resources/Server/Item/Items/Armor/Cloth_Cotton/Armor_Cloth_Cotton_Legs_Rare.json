@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Quality": "Rare",
-  "ItemLevel": 25,
+  "ItemLevel": 30,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Cotton_Legs.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cotton",
-        "Quantity": 154
+        "Quantity": 94
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 152
+        "Quantity": 92
       },
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 153
+        "Quantity": 93
       },
       {
         "ItemId": "Rare_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Legs"
         ],
-        "RequiredTierLevel": 2
+        "RequiredTierLevel": 3
       }
     ],
     "KnowledgeRequired": true

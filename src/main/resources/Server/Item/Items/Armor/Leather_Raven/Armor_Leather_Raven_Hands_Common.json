@@ -1,0 +1,76 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Raven_Hands.name"
+  },
+  "Parent": "Armor_Iron_Hands",
+  "ItemLevel": 50,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Raven_Hands.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.8,
+    "Translation": [
+      3.6,
+      5.4
+    ]
+  },
+  "Model": "Items/Armors/Leather_Raven/Hands.blockymodel",
+  "Texture": "Items/Armors/Leather_Raven/Hands_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 52
+      },
+      {
+        "ItemId": "Ingredient_Feathers_Dark",
+        "Quantity": 51
+      },
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 53
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Leatherworking_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Hands",
+          "Discoverable"
+        ],
+        "RequiredTierLevel": 5
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Hands",
+    "BaseDamageResistance": 0,
+    "DamageResistance": {},
+    "StatModifiers": {}
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Leather",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ],
+  "Quality": "Common",
+  "ResourceTypes": [
+    {
+      "Id": "Gear_Leather_Raven_Common"
+    }
+  ]
+}

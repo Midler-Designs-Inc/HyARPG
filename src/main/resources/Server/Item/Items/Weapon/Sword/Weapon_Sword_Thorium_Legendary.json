@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 458
+        "Quantity": 158
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 453
+        "Quantity": 153
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 453
+        "Quantity": 153
       },
       {
         "ItemId": "Legendary_Shards",

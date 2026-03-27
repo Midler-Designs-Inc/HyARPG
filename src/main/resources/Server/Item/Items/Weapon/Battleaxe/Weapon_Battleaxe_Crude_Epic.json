@@ -14,15 +14,15 @@
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 76
+        "Quantity": 34
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 73
+        "Quantity": 31
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 74
+        "Quantity": 32
       },
       {
         "ItemId": "Epic_Shards",

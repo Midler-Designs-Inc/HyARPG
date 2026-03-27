@@ -17,19 +17,19 @@
     "Input": [
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 52
+        "Quantity": 22
       },
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 53
+        "Quantity": 23
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 53
+        "Quantity": 23
       },
       {
         "ItemId": "Ingredient_Tree_Sap",
-        "Quantity": 52
+        "Quantity": 22
       },
       {
         "ItemId": "Epic_Shards",

@@ -5,6 +5,7 @@ import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.modules.Module_RPG_System;
 import com.example.hyarpg.utils.affixes.Affix;
 import com.example.hyarpg.utils.affixes.AffixPool;
+import com.example.hyarpg.utils.affixes.ImplicitAffixPool;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.Ref;
@@ -52,13 +53,13 @@ public class Page_RPGStats {
         String mainHandItem = getItemId(mainHandStack);
         String offHandItem  = getItemId(offHandStack);
 
-        // --- Gear tab: affix HTML ---
-        String headAffixHTML     = armor != null ? getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Head.ordinal())))  : "";
-        String chestAffixHTML    = armor != null ? getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()))) : "";
-        String handsAffixHTML    = armor != null ? getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()))) : "";
-        String legsAffixHTML     = armor != null ? getAffixSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Legs.ordinal())))  : "";
-        String mainHandAffixHTML = getAffixSlotHTML(getAffixes(mainHandStack));
-        String offHandAffixHTML  = getAffixSlotHTML(getAffixes(offHandStack));
+        // --- Gear tab: affix + implicit HTML ---
+        String headAffixHTML     = armor != null ? getGearSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Head.ordinal())),  getImplicits(armor.getItemStack((short) ItemArmorSlot.Head.ordinal())))  : "";
+        String chestAffixHTML    = armor != null ? getGearSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal())), getImplicits(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()))) : "";
+        String handsAffixHTML    = armor != null ? getGearSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal())), getImplicits(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()))) : "";
+        String legsAffixHTML     = armor != null ? getGearSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Legs.ordinal())),  getImplicits(armor.getItemStack((short) ItemArmorSlot.Legs.ordinal())))  : "";
+        String mainHandAffixHTML = getGearSlotHTML(getAffixes(mainHandStack), getImplicits(mainHandStack));
+        String offHandAffixHTML  = getGearSlotHTML(getAffixes(offHandStack),  getImplicits(offHandStack));
 
         // get relevant info
         EntityStats playerStats = rpgPlayer.stats;
@@ -69,11 +70,11 @@ public class Page_RPGStats {
 
         String html = """
         <div class="page-overlay">
-            <button id="closeBtn" style="anchor-bottom: 10; anchor-width: 750; anchor-height: 40;">Close</button>
+            <button id="closeBtn" style="anchor-bottom: 10; anchor-width: 900; anchor-height: 40;">Close</button>
 
             <div class="container"
                  data-hyui-title="RPG Stats"
-                 style="anchor-width: 750; anchor-height: 700;">
+                 style="anchor-width: 900; anchor-height: 700;">
 
                 <div class="container-contents" style="layout-mode: top; padding: 6;">
 
@@ -87,71 +88,71 @@ public class Page_RPGStats {
                     <div id="gear-content" class="tab-content"
                          data-hyui-tab-id="gear"
                          data-hyui-tab-nav="rpg-tabs">
-                        <div style="layout-mode: topscrolling; anchor-width: 720; anchor-height: 600;"
+                        <div style="layout-mode: topscrolling; anchor-width: 870; anchor-height: 600;"
                              data-hyui-scrollbar-style="&quot;Common.ui&quot; &quot;DefaultScrollbarStyle&quot;">
-                            <div style="layout-mode: top; anchor-width: 700; margin-left: 15; margin-top: 10;">
+                            <div style="layout-mode: top; anchor-width: 850; margin-left: 15; margin-top: 10;">
 
                                 <!-- ROW 1: Head | Chest -->
-                                <div style="layout-mode: left; anchor-width: 700; margin-bottom: 20;">
-                                    <div style="layout-mode: left; anchor-width: 350; padding: 10;">
+                                <div style="layout-mode: left; anchor-width: 850; margin-bottom: 20;">
+                                    <div style="layout-mode: left; anchor-width: 425; padding: 10;">
                                         <span class="item-slot" data-hyui-item-id="${HEAD_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="false"
-                                              style="anchor-width: 80; anchor-height: 80;"></span>
-                                        <div style="layout-mode: top; anchor-width: 240; margin-left: 10;">
+                                              style="anchor-width: 96; anchor-height: 96;"></span>
+                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
                                             ${HEAD_AFFIXES}
                                         </div>
                                     </div>
-                                    <div style="layout-mode: left; anchor-width: 350; padding: 10;">
+                                    <div style="layout-mode: left; anchor-width: 425; padding: 10;">
                                         <span class="item-slot" data-hyui-item-id="${CHEST_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="false"
-                                              style="anchor-width: 80; anchor-height: 80;"></span>
-                                        <div style="layout-mode: top; anchor-width: 240; margin-left: 10;">
+                                              style="anchor-width: 96; anchor-height: 96;"></span>
+                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
                                             ${CHEST_AFFIXES}
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- ROW 2: Hands | Legs -->
-                                <div style="layout-mode: left; anchor-width: 700; margin-bottom: 20;">
-                                    <div style="layout-mode: left; anchor-width: 350; padding: 10;">
+                                <div style="layout-mode: left; anchor-width: 850; margin-bottom: 20;">
+                                    <div style="layout-mode: left; anchor-width: 425; padding: 10;">
                                         <span class="item-slot" data-hyui-item-id="${HANDS_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="false"
-                                              style="anchor-width: 80; anchor-height: 80;"></span>
-                                        <div style="layout-mode: top; anchor-width: 240; margin-left: 10;">
+                                              style="anchor-width: 96; anchor-height: 96;"></span>
+                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
                                             ${HANDS_AFFIXES}
                                         </div>
                                     </div>
-                                    <div style="layout-mode: left; anchor-width: 350; padding: 10;">
+                                    <div style="layout-mode: left; anchor-width: 425; padding: 10;">
                                         <span class="item-slot" data-hyui-item-id="${LEGS_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="false"
-                                              style="anchor-width: 80; anchor-height: 80;"></span>
-                                        <div style="layout-mode: top; anchor-width: 240; margin-left: 10;">
+                                              style="anchor-width: 96; anchor-height: 96;"></span>
+                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
                                             ${LEGS_AFFIXES}
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- ROW 3: Main Hand | Off Hand -->
-                                <div style="layout-mode: left; anchor-width: 700; margin-bottom: 20;">
-                                    <div style="layout-mode: left; anchor-width: 350; padding: 10;">
+                                <div style="layout-mode: left; anchor-width: 850; margin-bottom: 20;">
+                                    <div style="layout-mode: left; anchor-width: 425; padding: 10;">
                                         <span class="item-slot" data-hyui-item-id="${MAINHAND_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="true"
-                                              style="anchor-width: 80; anchor-height: 80;"></span>
-                                        <div style="layout-mode: top; anchor-width: 240; margin-left: 10;">
+                                              style="anchor-width: 96; anchor-height: 96;"></span>
+                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
                                             ${MAINHAND_AFFIXES}
                                         </div>
                                     </div>
-                                    <div style="layout-mode: left; anchor-width: 350; padding: 10;">
+                                    <div style="layout-mode: left; anchor-width: 425; padding: 10;">
                                         <span class="item-slot" data-hyui-item-id="${OFFHAND_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="true"
-                                              style="anchor-width: 80; anchor-height: 80;"></span>
-                                        <div style="layout-mode: top; anchor-width: 240; margin-left: 10;">
+                                              style="anchor-width: 96; anchor-height: 96;"></span>
+                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
                                             ${OFFHAND_AFFIXES}
                                         </div>
                                     </div>
@@ -165,7 +166,7 @@ public class Page_RPGStats {
                     <div id="stats-content" class="tab-content"
                          data-hyui-tab-id="stats"
                          data-hyui-tab-nav="rpg-tabs">
-                        <div style="layout-mode: topscrolling; anchor-width: 720; anchor-height: 600;"
+                        <div style="layout-mode: topscrolling; anchor-width: 870; anchor-height: 600;"
                              data-hyui-scrollbar-style="&quot;Common.ui&quot; &quot;DefaultScrollbarStyle&quot;">
                             ${STATS_HTML}
                         </div>
@@ -373,8 +374,33 @@ public class Page_RPGStats {
         return affixes == null ? empty : Arrays.asList(affixes);
     }
 
-    private static String getAffixSlotHTML(List<String> affixes) {
-        String html = "";
+    private static List<String> getImplicits(@Nullable ItemStack stack) {
+        List<String> empty = new ArrayList<>();
+        if (stack == null) return empty;
+        String[] implicits = stack.getFromMetadataOrNull("implicits", Codec.STRING_ARRAY);
+        return implicits == null ? empty : Arrays.asList(implicits);
+    }
+
+    private static String getGearSlotHTML(List<String> affixes, List<String> implicits) {
+        StringBuilder html = new StringBuilder();
+
+        // implicits — format: "Stat_Increased_Stamina|4.4|display:Stamina: +%s%%"
+        for (String str : implicits) {
+            String[] parts = str.split("\\|");
+            if (parts.length < 3) continue;
+            float value = Float.parseFloat(parts[1]);
+            String display = parts[2];
+            html.append("<p style=\"font-size: 11; color: #c8a84b;\">")
+                    .append(display.formatted(Math.round(value * 10) / 10f))
+                    .append("</p>");
+        }
+
+        // divider — only shown when there are both implicits and affixes
+        if (!implicits.isEmpty() && !affixes.isEmpty()) {
+            html.append("<div style=\"anchor-width: 260; anchor-height: 1; margin-top: 3; margin-bottom: 3; background-color: #444444;\"></div>");
+        }
+
+        // affixes
         for (String str : affixes) {
             String[] parts = str.split("\\|");
             if (parts.length < 2) continue;
@@ -382,8 +408,11 @@ public class Page_RPGStats {
             Affix affix = AffixPool.getAffixByStatName(id);
             if (affix == null) continue;
             float value = Float.parseFloat(parts[1]);
-            html += "<p>T" + (int) affix.tier()  + " " + affix.display().formatted(Math.round(value * 10) / 10f) + "</p>";
+            html.append("<p style=\"font-size: 11;\">T").append((int) affix.tier())
+                    .append(" ").append(affix.display().formatted(Math.round(value * 10) / 10f))
+                    .append("</p>");
         }
-        return html;
+
+        return html.toString();
     }
 }

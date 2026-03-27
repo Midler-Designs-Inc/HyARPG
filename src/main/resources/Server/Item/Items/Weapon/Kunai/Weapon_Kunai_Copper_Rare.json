@@ -71,16 +71,16 @@
     ],
     "Input": [
       {
-        "Quantity": 63,
+        "Quantity": 33,
         "ItemId": "Ingredient_Fibre"
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 63
+        "Quantity": 33
       },
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 64
+        "Quantity": 34
       },
       {
         "ItemId": "Rare_Shards",

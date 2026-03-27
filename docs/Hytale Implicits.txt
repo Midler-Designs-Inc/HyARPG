@@ -1,0 +1,52 @@
+ARMOR
+	+1-4% increased physical damage resistance per tier
+	+1-4% increased health per tier
+
+ARMOR_LEATHER
+	+1-4% increased elemental damage resistance per tier
+	+1-4% increased stamina per tier
+
+ARMOR_CLOTH
+	+1-4% increased magic damage resistance per tier
+	+1-4% increased mana per tier
+
+WEAPON_AXE
+	+1-3% increased dodge chance per tier
+	+1-2 added flat physical damage at tier 5 and 4, +3-4 added flat physical damage at tier 3, +4-6 added flat physical damage at tier 2, +5-10 added flat physical damage tier 1
+
+WEAPON_BATTLEAXE
+	+5-20% increased critical strike damage per tier
+
+WEAPON_CLUB
+	+2-5% increased physical damage per tier
+
+WEAPON_CROSSBOW
+	+1 increased ammo at tier 5 and tier 4, +2 increased ammo at tier 3 and tier 2, +2-3 increased ammo at tier 1
+
+WEAPON_DAGGER
+	+5-20% increased critical strike chance per tier
+	+1-5% increased critical strike damage per tier
+
+WEAPON_KUNAI
+	+1-3% increased poison damage per tier
+
+WEAPON_LONGSWORD
+	+2-5 added flat stamina per tier
+	+1-3 added flat physical damage per tier
+
+WEAPON_MACE
+	+1-4% increased stamina regeneration per tier
+	+1 added flat life regen at tier 5 and 4, +2 added flat life regen at tier 3 and 2, +2-4 added life regen at tier 1
+
+SHIELD
+	+5-10% increased stability per tier
+
+WEAPON_SHORTBOW
+	+2-5% increased critical strike chance per tier 
+	+0.1-1% increased run speed per tier
+
+WEAPON_SWORD
+	+0.05-0.1 added parry window flat per tier
+	+1-2 added flat fire damage at tier 5 and 4, +3-4 added flat fire damage at tier 3, +4-6 added flat fire damage at tier 2, +5-10 added flat fire damage tier 1
+	
+	

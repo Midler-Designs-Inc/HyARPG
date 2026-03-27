@@ -1,1167 +1,1379 @@
 {
   "Container": {
     "Type": "Multiple",
-    "MaxCount": 5,
+    "MinCount": 4,
+    "MaxCount": 6,
     "Containers": [
       {
         "Type": "Choice",
         "Containers": [
           {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Chest_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Chest_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Chest_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Chest_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Chest_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Hands_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Hands_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Hands_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Hands_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Hands_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Head_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Head_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Head_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Head_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Head_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Legs_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Legs_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Legs_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Legs_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Cloth_Silk_Legs_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Chest_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Chest_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Chest_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Chest_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Chest_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Hands_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Hands_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Hands_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Hands_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Hands_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Head_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Head_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Head_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Head_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Head_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Legs_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Legs_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Legs_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Legs_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Cobalt_Legs_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Thorium_Chest_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Thorium_Chest_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Thorium_Chest_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Thorium_Chest_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Thorium_Chest_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Thorium_Hands_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Thorium_Hands_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Thorium_Hands_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Thorium_Hands_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Thorium_Hands_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Thorium_Head_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Thorium_Head_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Thorium_Head_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Thorium_Head_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Thorium_Head_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Armor_Thorium_Legs_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Armor_Thorium_Legs_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Armor_Thorium_Legs_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Armor_Thorium_Legs_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Armor_Thorium_Legs_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Axe_Cobalt_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Axe_Cobalt_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Axe_Cobalt_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Axe_Cobalt_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Axe_Cobalt_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Axe_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Axe_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Axe_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Axe_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Axe_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Cobalt_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Cobalt_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Cobalt_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Cobalt_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Cobalt_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Battleaxe_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Club_Cobalt_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Club_Cobalt_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Club_Cobalt_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Club_Cobalt_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Club_Cobalt_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Club_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Club_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Club_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Club_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Club_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Crossbow_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Crossbow_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Crossbow_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Crossbow_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Crossbow_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Cobalt_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Cobalt_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Cobalt_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Cobalt_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Cobalt_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Daggers_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Kunai_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Kunai_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Kunai_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Kunai_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Kunai_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Cobalt_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Cobalt_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Cobalt_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Cobalt_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Cobalt_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Longsword_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Mace_Cobalt_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Mace_Cobalt_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Mace_Cobalt_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Mace_Cobalt_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Mace_Cobalt_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Mace_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Mace_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Mace_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Mace_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Mace_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Shield_Cobalt_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Shield_Cobalt_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Shield_Cobalt_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Shield_Cobalt_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Shield_Cobalt_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Shield_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Shield_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Shield_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Shield_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Shield_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Shortbow_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Shortbow_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Shortbow_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Shortbow_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Shortbow_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Sword_Cobalt_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Sword_Cobalt_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Sword_Cobalt_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Sword_Cobalt_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Sword_Cobalt_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 100,
-            "Item": {
-              "ItemId": "Weapon_Sword_Thorium_Common"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 75,
-            "Item": {
-              "ItemId": "Weapon_Sword_Thorium_Uncommon"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 15,
-            "Item": {
-              "ItemId": "Weapon_Sword_Thorium_Rare"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 7,
-            "Item": {
-              "ItemId": "Weapon_Sword_Thorium_Epic"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 3,
-            "Item": {
-              "ItemId": "Weapon_Sword_Thorium_Legendary"
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Ore_Iron",
-              "QuantityMax": 200
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Ore_Thorium",
-              "QuantityMax": 100
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Ore_Cobalt",
-              "QuantityMax": 100
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Food_Bread",
-              "QuantityMax": 10
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Soil_Sand",
-              "QuantityMax": 70
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Wood_Beech_Trunk",
-              "QuantityMax": 70
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Ingredient_Leather_Medium",
-              "QuantityMax": 20
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Ingredient_Leather_Heavy",
-              "QuantityMax": 10
-            }
-          },
-          {
-            "Type": "Single",
-            "Weight": 200,
-            "Item": {
-              "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-              "QuantityMax": 10
-            }
+            "Type": "Choice",
+            "Weight": 50,
+            "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ore_Iron",
+                  "QuantityMax": 200
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ore_Thorium",
+                  "QuantityMax": 100
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ore_Cobalt",
+                  "QuantityMax": 100
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Food_Bread",
+                  "QuantityMax": 10
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Soil_Sand",
+                  "QuantityMax": 70
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Wood_Beech_Trunk",
+                  "QuantityMax": 70
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Leather_Medium",
+                  "QuantityMax": 20
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Leather_Heavy",
+                  "QuantityMax": 10
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
+                  "QuantityMax": 10
+                }
+              }
+            ]
+          },
+          {
+            "Type": "Choice",
+            "Weight": 25,
+            "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Chest_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Hands_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Head_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Legs_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Chest_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Hands_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Head_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Legs_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Chest_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Hands_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Head_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Legs_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Crossbow_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Kunai_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shortbow_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Thorium_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 1,
+                "Item": {
+                  "ItemId": "PLACEHOLDER_COMMON"
+                }
+              }
+            ]
+          },
+          {
+            "Type": "Choice",
+            "Weight": 11,
+            "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Chest_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Hands_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Head_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Legs_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Chest_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Hands_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Head_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Legs_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Chest_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Hands_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Head_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Legs_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Crossbow_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Kunai_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shortbow_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Thorium_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 1,
+                "Item": {
+                  "ItemId": "PLACEHOLDER_UNCOMMON"
+                }
+              }
+            ]
+          },
+          {
+            "Type": "Choice",
+            "Weight": 8,
+            "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Chest_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Hands_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Head_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Legs_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Chest_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Hands_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Head_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Legs_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Chest_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Hands_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Head_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Legs_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Crossbow_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Kunai_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shortbow_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Thorium_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 1,
+                "Item": {
+                  "ItemId": "PLACEHOLDER_RARE"
+                }
+              }
+            ]
+          },
+          {
+            "Type": "Choice",
+            "Weight": 4,
+            "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Chest_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Hands_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Head_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Legs_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Chest_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Hands_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Head_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Legs_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Chest_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Hands_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Head_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Legs_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Crossbow_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Kunai_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shortbow_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Thorium_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 1,
+                "Item": {
+                  "ItemId": "PLACEHOLDER_EPIC"
+                }
+              }
+            ]
+          },
+          {
+            "Type": "Choice",
+            "Weight": 2,
+            "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Chest_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Hands_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Head_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cloth_Cotton_Legs_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Chest_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Hands_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Head_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Leather_Medium_Legs_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Chest_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Hands_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Head_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Thorium_Legs_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Axe_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Battleaxe_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Club_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Crossbow_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Daggers_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Kunai_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Longsword_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Mace_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shield_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Shortbow_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Sword_Thorium_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 1,
+                "Item": {
+                  "ItemId": "PLACEHOLDER_LEGENDARY"
+                }
+              }
+            ]
           }
         ]
       }

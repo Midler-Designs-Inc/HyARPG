@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Quality": "Legendary",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Silk_Legs.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 529
+        "Quantity": 204
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 527
+        "Quantity": 202
       },
       {
-        "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 528
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 203
       },
       {
         "ItemId": "Legendary_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Legs"
         ],
-        "RequiredTierLevel": 3
+        "RequiredTierLevel": 4
       }
     ],
     "KnowledgeRequired": true

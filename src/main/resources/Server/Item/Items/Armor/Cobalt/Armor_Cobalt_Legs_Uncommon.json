@@ -24,15 +24,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 123
+        "Quantity": 88
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 111
+        "Quantity": 76
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 111
+        "Quantity": 76
       },
       {
         "ItemId": "Uncommon_Shards",

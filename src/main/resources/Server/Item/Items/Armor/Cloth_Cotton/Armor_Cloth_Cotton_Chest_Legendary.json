@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Quality": "Legendary",
-  "ItemLevel": 25,
+  "ItemLevel": 30,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Cotton_Chest.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cotton",
-        "Quantity": 381
+        "Quantity": 156
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 377
+        "Quantity": 152
       },
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 377
+        "Quantity": 152
       },
       {
         "ItemId": "Legendary_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Chest"
         ],
-        "RequiredTierLevel": 2
+        "RequiredTierLevel": 3
       }
     ],
     "KnowledgeRequired": true

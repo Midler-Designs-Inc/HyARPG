@@ -39,6 +39,8 @@ import com.example.hyarpg.utils.affixes.StatType;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class Component_RPG_Player implements Component<EntityStore> {
     // Constructor properties
@@ -298,36 +300,33 @@ public class Component_RPG_Player implements Component<EntityStore> {
         } catch (Exception e) {}
     }
 
-    // get the item from the stack and try to apply its affixes
     private static void applyStack(EntityStats stats, ItemStack stack) {
         try {
-            // if stack is null bail
             if (stack == null) return;
 
-            // get the affixes or bail
-            String[] affixes = stack.getFromMetadataOrNull("affixes", Codec.STRING_ARRAY);
-            if (affixes == null) return;
+            // get the affixes and implicits
+            String[] affixes  = stack.getFromMetadataOrNull("affixes",   Codec.STRING_ARRAY);
+            String[] implicits = stack.getFromMetadataOrNull("implicits", Codec.STRING_ARRAY);
 
-            // loop over the returned affixes and set the stats
-            for (String affixData : affixes) {
-                // Expected format assumption (important): "Stat_Flat_Life|25|T5" "Stat_Increased_Fire_Damage|10|T5"
+            // combine into one array to process together
+            if (affixes == null && implicits == null) return;
+            String[] combined = Stream.concat(affixes  != null
+                    ? Arrays.stream(affixes)
+                    : Stream.empty(), implicits != null
+                        ? Arrays.stream(implicits)
+                        : Stream.empty()).toArray(String[]::new);
+
+            // loop over the returned affixes/implicits and set the stats
+            for (String affixData : combined) {
                 String[] parts = affixData.split("\\|");
                 if (parts.length != 3) continue; // fail-safe against bad data
 
                 // extract the affix id and prep a value var
                 String affixId = parts[0];
-                float value;
 
-                // try to get the value or bail if it fails
-                try {
-                    value = Float.parseFloat(parts[1]);
-                } catch (NumberFormatException e) {
-                    continue; // ignore malformed values safely
-                }
-
-                // map the id to a stat and update it's value
+                // map the id to a stat and update its value
                 StatType type = StatMapper.fromAffixId(affixId);
-                stats.add(type, value);
+                stats.add(type, Float.parseFloat(parts[1]));
             }
         } catch (Exception e) {}
     }

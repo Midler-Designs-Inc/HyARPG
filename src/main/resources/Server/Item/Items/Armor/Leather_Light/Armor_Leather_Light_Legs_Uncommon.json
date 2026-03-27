@@ -1,0 +1,83 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Light_Legs.name"
+  },
+  "Parent": "Armor_Iron_Legs",
+  "Quality": "Uncommon",
+  "ItemLevel": 20,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Light_Legs.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.445,
+    "Translation": [
+      0.6,
+      -22.8
+    ]
+  },
+  "Model": "Items/Armors/Leather_Light/Legs.blockymodel",
+  "Texture": "Items/Armors/Leather_Light/Legs_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 44
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 42
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 42
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Leatherworking_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Legs"
+        ],
+        "RequiredTierLevel": 2
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Legs",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Shoes",
+      "Pants"
+    ],
+    "StatModifiers": {},
+    "DamageResistance": {}
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Leather",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Gear_Leather_Light_Uncommon"
+    }
+  ]
+}

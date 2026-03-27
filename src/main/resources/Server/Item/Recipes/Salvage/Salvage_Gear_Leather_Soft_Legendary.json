@@ -1,0 +1,29 @@
+{
+  "BenchRequirement": [
+    {
+      "Type": "Processing",
+      "Id": "Salvagebench"
+    }
+  ],
+  "Output": [
+    {
+      "ItemId": "Ingredient_Leather_Light",
+      "Quantity": 40
+    },
+    {
+      "ItemId": "Legendary_Shards",
+      "Quantity": 1
+    }
+  ],
+  "PrimaryOutput": {
+    "ItemId": "Legendary_Shards",
+    "Quantity": 1
+  },
+  "TimeSeconds": 10,
+  "Input": [
+    {
+      "Quantity": 1,
+      "ResourceTypeId": "Gear_Leather_Soft_Legendary"
+    }
+  ]
+}

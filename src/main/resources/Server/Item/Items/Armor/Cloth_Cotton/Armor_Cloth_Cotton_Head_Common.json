@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Head",
   "Quality": "Common",
-  "ItemLevel": 25,
+  "ItemLevel": 30,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Cotton_Head.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cotton",
-        "Quantity": 28
+        "Quantity": 33
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 27
+        "Quantity": 32
       },
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 27
+        "Quantity": 32
       }
     ],
     "BenchRequirement": [
@@ -44,7 +44,7 @@
           "Armor_Head",
           "Discoverable"
         ],
-        "RequiredTierLevel": 2
+        "RequiredTierLevel": 3
       }
     ],
     "KnowledgeRequired": true

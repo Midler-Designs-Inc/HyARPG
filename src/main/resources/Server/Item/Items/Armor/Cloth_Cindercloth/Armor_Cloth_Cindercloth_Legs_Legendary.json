@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Quality": "Legendary",
-  "ItemLevel": 45,
+  "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Cindercloth_Legs.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 679
+        "Quantity": 254
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 677
+        "Quantity": 252
       },
       {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 678
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 253
       },
       {
         "ItemId": "Legendary_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Legs"
         ],
-        "RequiredTierLevel": 4
+        "RequiredTierLevel": 5
       }
     ],
     "KnowledgeRequired": true

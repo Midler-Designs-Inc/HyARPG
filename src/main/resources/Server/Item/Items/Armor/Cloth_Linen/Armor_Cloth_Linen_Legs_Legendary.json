@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Quality": "Legendary",
-  "ItemLevel": 15,
+  "ItemLevel": 20,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Linen_Legs.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 229
+        "Quantity": 104
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 227
+        "Quantity": 102
       },
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 228
+        "Quantity": 103
       },
       {
         "ItemId": "Legendary_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Legs"
         ],
-        "RequiredTierLevel": 1
+        "RequiredTierLevel": 2
       }
     ],
     "KnowledgeRequired": true

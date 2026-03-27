@@ -8,11 +8,13 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.inventory.InventoryChangeEvent;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.transaction.*;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
@@ -54,16 +56,31 @@ public class Listeners_PlayerInventory extends EntityEventSystem<EntityStore, In
     // ── Armor change handler ─────────────────────────────────────────────────────
     private void handleArmorChange(Ref<EntityStore> ref, Store<EntityStore> store, InventoryChangeEvent changeEvent, Transaction transaction) {
         if (transaction instanceof MoveTransaction<?> moveTx) {
-            SlotTransaction removeTx = moveTx.getRemoveTransaction();
-            if (!(removeTx instanceof ItemStackSlotTransaction removeSlotTx)) return;
 
-            short slot = removeSlotTx.getSlot();
-            ItemStack movedItem = removeSlotTx.getSlotBefore();
+            if (moveTx.getMoveType() == MoveType.MOVE_TO_SELF) {
+                Transaction rawAddTx = moveTx.getAddTransaction();
+                if (!(rawAddTx instanceof SlotTransaction addTx)) return;
 
-            if (moveTx.getMoveType() == MoveType.MOVE_FROM_SELF)
-                ModEventBus.post(new Event_PlayerInventoryItemUnEquip(ref, store, changeEvent, slot, movedItem));
-            else if (moveTx.getMoveType() == MoveType.MOVE_TO_SELF)
-                ModEventBus.post(new Event_PlayerInventoryItemEquip(ref, store, changeEvent, slot, movedItem));
+                short slot       = addTx.getSlot();
+                ItemStack before = addTx.getSlotBefore();
+                ItemStack after  = addTx.getSlotAfter();
+
+                if (!ItemStack.isEmpty(before))
+                    ModEventBus.post(new Event_PlayerInventoryItemUnEquip(ref, store, changeEvent, slot, before));
+                if (!ItemStack.isEmpty(after))
+                    ModEventBus.post(new Event_PlayerInventoryItemEquip(ref, store, changeEvent, slot, after));
+
+            } else if (moveTx.getMoveType() == MoveType.MOVE_FROM_SELF) {
+                SlotTransaction removeTx = moveTx.getRemoveTransaction();
+                short slot       = removeTx.getSlot();
+                ItemStack before = removeTx.getSlotBefore();
+                ItemStack after  = removeTx.getSlotAfter();
+
+                if (!ItemStack.isEmpty(before))
+                    ModEventBus.post(new Event_PlayerInventoryItemUnEquip(ref, store, changeEvent, slot, before));
+                if (!ItemStack.isEmpty(after))
+                    ModEventBus.post(new Event_PlayerInventoryItemEquip(ref, store, changeEvent, slot, after));
+            }
 
         } else if (transaction instanceof ItemStackSlotTransaction slotTx) {
             ItemStack before = slotTx.getSlotBefore();
@@ -74,6 +91,10 @@ public class Listeners_PlayerInventory extends EntityEventSystem<EntityStore, In
                 ModEventBus.post(new Event_PlayerInventoryItemUnEquip(ref, store, changeEvent, slot, before));
             else if (ItemStack.isEmpty(before) && !ItemStack.isEmpty(after))
                 ModEventBus.post(new Event_PlayerInventoryItemEquip(ref, store, changeEvent, slot, after));
+            else if (!ItemStack.isEmpty(before) && !ItemStack.isEmpty(after)) {
+                ModEventBus.post(new Event_PlayerInventoryItemUnEquip(ref, store, changeEvent, slot, before));
+                ModEventBus.post(new Event_PlayerInventoryItemEquip(ref, store, changeEvent, slot, after));
+            }
         }
     }
 

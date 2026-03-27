@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 104
+        "Quantity": 44
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 104
+        "Quantity": 44
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 106
+        "Quantity": 46
       },
       {
         "ItemId": "Epic_Shards",

@@ -1,0 +1,79 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Heavy_Hands.name"
+  },
+  "Parent": "Armor_Iron_Hands",
+  "Quality": "Legendary",
+  "ItemLevel": 40,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Heavy_Hands.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.545,
+    "Translation": [
+      0.6,
+      -1.2
+    ]
+  },
+  "Model": "Items/Armors/Leather_Heavy/Hands.blockymodel",
+  "Texture": "Items/Armors/Leather_Heavy/Hands_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 202
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 201
+      },
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 203
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Leatherworking_Bench_HyARPG",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Hands"
+        ],
+        "RequiredTierLevel": 4
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Hands",
+    "BaseDamageResistance": 0,
+    "StatModifiers": {},
+    "DamageResistance": {}
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Leather",
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ],
+  "ResourceTypes": [
+    {
+      "Id": "Gear_Leather_Heavy_Legendary"
+    }
+  ]
+}

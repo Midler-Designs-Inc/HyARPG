@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Head",
   "Quality": "Common",
-  "ItemLevel": 15,
+  "ItemLevel": 20,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Linen_Head.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 18
+        "Quantity": 23
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 17
+        "Quantity": 22
       },
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 17
+        "Quantity": 22
       }
     ],
     "BenchRequirement": [
@@ -44,7 +44,7 @@
           "Armor_Head",
           "Discoverable"
         ],
-        "RequiredTierLevel": 1
+        "RequiredTierLevel": 2
       }
     ],
     "KnowledgeRequired": true

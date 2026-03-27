@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Head",
   "Quality": "Epic",
-  "ItemLevel": 15,
+  "ItemLevel": 20,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Linen_Head.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 153
+        "Quantity": 83
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 152
+        "Quantity": 82
       },
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 152
+        "Quantity": 82
       },
       {
         "ItemId": "Epic_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Head"
         ],
-        "RequiredTierLevel": 1
+        "RequiredTierLevel": 2
       }
     ],
     "KnowledgeRequired": true

@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Quality": "Epic",
-  "ItemLevel": 45,
+  "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Cindercloth_Chest.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 456
+        "Quantity": 206
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 452
+        "Quantity": 202
       },
       {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 452
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 202
       },
       {
         "ItemId": "Epic_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Chest"
         ],
-        "RequiredTierLevel": 4
+        "RequiredTierLevel": 5
       }
     ],
     "KnowledgeRequired": true

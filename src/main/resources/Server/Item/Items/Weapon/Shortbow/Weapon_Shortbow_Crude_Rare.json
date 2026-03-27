@@ -13,11 +13,11 @@
     "Input": [
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 58
+        "Quantity": 31
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 60
+        "Quantity": 33
       },
       {
         "ItemId": "Rare_Shards",

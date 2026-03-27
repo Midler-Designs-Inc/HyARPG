@@ -13,16 +13,16 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "Quantity": 21,
+        "Quantity": 16,
         "ResourceTypeId": "Wood_Trunk"
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 19
+        "Quantity": 14
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 16
+        "Quantity": 11
       },
       {
         "ItemId": "Uncommon_Shards",

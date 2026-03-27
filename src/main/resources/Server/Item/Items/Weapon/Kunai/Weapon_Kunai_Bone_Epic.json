@@ -62,16 +62,16 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "Quantity": 32,
+        "Quantity": 14,
         "ItemId": "Ingredient_Bone_Fragment"
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 32
+        "Quantity": 14
       },
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 32
+        "Quantity": 14
       },
       {
         "ItemId": "Epic_Shards",

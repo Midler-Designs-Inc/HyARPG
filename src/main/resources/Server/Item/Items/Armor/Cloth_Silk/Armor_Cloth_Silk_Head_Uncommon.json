@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Head",
   "Quality": "Uncommon",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Silk_Head.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 108
+        "Quantity": 83
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 107
+        "Quantity": 82
       },
       {
-        "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 107
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 82
       },
       {
         "ItemId": "Uncommon_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Head"
         ],
-        "RequiredTierLevel": 3
+        "RequiredTierLevel": 4
       }
     ],
     "KnowledgeRequired": true

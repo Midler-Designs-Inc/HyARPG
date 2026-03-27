@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Head",
   "Quality": "Rare",
-  "ItemLevel": 45,
+  "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Cindercloth_Head.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 273
+        "Quantity": 153
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 272
+        "Quantity": 152
       },
       {
-        "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 272
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 152
       },
       {
         "ItemId": "Rare_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Head"
         ],
-        "RequiredTierLevel": 4
+        "RequiredTierLevel": 5
       }
     ],
     "KnowledgeRequired": true

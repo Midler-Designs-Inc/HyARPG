@@ -1,7 +1,7 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import com.example.hyarpg.configs.Config_World;
+import com.example.hyarpg.utils.affixes.ImplicitAffixPool;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -12,7 +12,7 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
-import com.hypixel.hytale.server.core.asset.type.item.config.ItemDropList;
+import com.hypixel.hytale.server.core.asset.type.item.config.container.ChoiceItemDropContainer;
 import com.hypixel.hytale.server.core.asset.type.item.config.container.ItemDropContainer;
 import com.hypixel.hytale.server.core.asset.type.item.config.container.MultipleItemDropContainer;
 import com.hypixel.hytale.server.core.asset.type.item.config.container.SingleItemDropContainer;
@@ -24,8 +24,8 @@ import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.InventoryChangeEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
-import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
+import com.hypixel.hytale.server.core.modules.block.system.ItemContainerSystems;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
@@ -691,7 +691,7 @@ public class Module_RPG_System {
                 alertPlayers("Filtering out " + item.getId(), Color.DARK_GRAY);
                 continue;
             };
-            alertPlayers("Not Filtering out " + item.getId(), Color.DARK_GRAY);
+//            alertPlayers("Not Filtering out " + item.getId(), Color.DARK_GRAY);
             filteredDrops.add(drop);
         }
 
@@ -866,11 +866,23 @@ public class Module_RPG_System {
         String itemId = item.getId();
         if(itemId == null) return null;
 
-        // create a new item stack
-        ItemStack returnStack = new ItemStack(itemId, 1);
-
-        // determine the item rarity from its id ex: Weapon_Copper_Sword_Uncommon
+        // determine the item rarity and type from its id ex: Weapon_Sword_Copper_Uncommon -> Uncommon / Weapon_Sword
         String rarity = itemId.substring(itemId.lastIndexOf('_') + 1);
+        String itemType = itemId.substring(0, itemId.indexOf('_', itemId.indexOf('_') + 1));
+        int itemLevel = item.getItemLevel();
+        int itemTier = Math.clamp(6 - (itemLevel / 10), 1, 5);
+
+        // String fix for pure armors
+        if(itemType.contains("Armor") && !itemType.contains("Cloth") && !itemType.contains("Leather")) itemType = "Armor";
+
+        // apply implicits
+        List<Affix> implicits = ImplicitAffixPool.getImplicits(itemType, itemTier);
+        List<String> implicitStrings = new ArrayList<>();
+        for (Affix implicit : implicits) {
+            String implicitEncoded = implicit.stat() + "|" + implicit.value() + "|" + implicit.display();
+            implicitStrings.add(implicitEncoded);
+        }
+        stack = stack.withMetadata("implicits", Codec.STRING_ARRAY, implicitStrings.toArray(new String[0]));
 
         // get affixes
         int affixCount = rarityToAffixMap.getAffixCount(rarity);
@@ -886,13 +898,13 @@ public class Module_RPG_System {
             String affixEncoded = affix.stat() + "|" + affix.value() + "|" + affix.tier();
             affixStrings.add(affixEncoded);
         }
-        returnStack = returnStack.withMetadata("affixes", Codec.STRING_ARRAY, affixStrings.toArray(new String[0]));
+        stack = stack.withMetadata("affixes", Codec.STRING_ARRAY, affixStrings.toArray(new String[0]));
 
         // assign the gear store and replace the old stack with the new one
-        returnStack = returnStack.withMetadata("GearScore", Codec.INTEGER, gearScore);
+        stack = stack.withMetadata("GearScore", Codec.INTEGER, gearScore);
 
         // return the new item stack
-        return returnStack;
+        return stack;
     }
 
     // get valid attackers from the damage registry

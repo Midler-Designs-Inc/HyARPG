@@ -14,15 +14,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 506
+        "Quantity": 206
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 502
+        "Quantity": 202
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 501
+        "Quantity": 201
       },
       {
         "ItemId": "Epic_Shards",

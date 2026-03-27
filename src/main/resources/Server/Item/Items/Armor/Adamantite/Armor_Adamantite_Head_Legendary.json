@@ -24,15 +24,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 615
+        "Quantity": 215
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 605
+        "Quantity": 205
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 604
+        "Quantity": 204
       },
       {
         "ItemId": "Legendary_Shards",

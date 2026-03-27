@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Hands",
   "Quality": "Epic",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Icon": "Icons/ItemsGenerated/Armor_Cloth_Silk_Hands.png",
   "IconProperties": {
     "Rotation": [
@@ -25,15 +25,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 352
+        "Quantity": 162
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 351
+        "Quantity": 161
       },
       {
-        "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 352
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 162
       },
       {
         "ItemId": "Epic_Shards",
@@ -47,7 +47,7 @@
         "Categories": [
           "Armor_Hands"
         ],
-        "RequiredTierLevel": 3
+        "RequiredTierLevel": 4
       }
     ],
     "KnowledgeRequired": true

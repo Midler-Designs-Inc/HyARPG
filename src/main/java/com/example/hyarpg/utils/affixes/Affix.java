@@ -27,10 +27,7 @@ public final class Affix {
 
     // roll a random value between the min and max values (inclusive)
     private float rollValue() {
-        ThreadLocalRandom r = ThreadLocalRandom.current();
-
-        float value = minValue + r.nextFloat() * (maxValue - minValue);
-        return r.nextBoolean() ? value : maxValue;
+        return minValue + ThreadLocalRandom.current().nextFloat(0f, maxValue - minValue + 1f);
     }
 
     // roll the tier for this affix based on the item/enemy level passed in, 25% chance for T1 rolls to become T0 rolls

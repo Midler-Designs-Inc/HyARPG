@@ -24,15 +24,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 158
+        "Quantity": 108
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 152
+        "Quantity": 102
       },
       {
         "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 170
+        "Quantity": 120
       },
       {
         "ItemId": "Uncommon_Shards",

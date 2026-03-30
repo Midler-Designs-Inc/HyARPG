@@ -2,12 +2,17 @@ package com.example.hyarpg.modules;
 
 // Hytale imports
 import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.utils.rooms.RoomData;
+import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 import com.hypixel.hytale.common.plugin.PluginManifest;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.protocol.MovementStates;
+import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
@@ -15,6 +20,7 @@ import com.hypixel.hytale.server.core.entity.movement.MovementStatesComponent;
 import com.hypixel.hytale.server.core.entity.movement.MovementStatesSystems;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
@@ -28,6 +34,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Mod imports
 import com.example.hyarpg.components.*;
 import com.example.hyarpg.HyARPGPlugin;
+import com.hypixel.hytale.server.core.util.NotificationUtil;
 import com.hypixel.hytale.server.npc.corecomponents.lifecycle.builders.BuilderActionDespawn;
 import com.hypixel.hytale.server.npc.instructions.Action;
 import com.hypixel.hytale.server.npc.role.Role;
@@ -94,6 +101,7 @@ public final class Module_ModTickLoop {
                            tickThirst(ref, store, player);
                            tickGearRefresh(ref, store, player);
                            tickResourceRegens(ref, store, player);
+                           tickRoomCheck(ref, store, player, playerRef);
                        } catch (Exception e) {}
                     }
                 });
@@ -288,5 +296,54 @@ public final class Module_ModTickLoop {
             if (ammoRegenPerTick != 0) statMap.addStatValue(ammoIndex, ammoRegenPerTick);
 
         } catch (Exception e) {}
+    }
+
+    // function to check if the player is inside a room or not
+    private void tickRoomCheck(Ref<EntityStore> ref, Store<EntityStore> store, Player player, PlayerRef playerRef) {
+        try {
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+            TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
+            World world = player.getWorld();
+
+            Vector3d pos = transformComponent.getPosition();
+            int x = (int) Math.floor(pos.getX());
+            int y = (int) Math.floor(pos.getY());
+            int z = (int) Math.floor(pos.getZ());
+
+            WorldRoomRegistry registry = WorldRoomRegistry.get(world);
+            RoomData currentRoom = registry != null ? registry.getRoomAt(x, y, z) : null;
+            RoomData lastRoom = rpgPlayer.room;
+
+            // Compare by identity (center + size) not by object reference
+            boolean sameRoom = currentRoom == null && lastRoom == null
+                    || currentRoom != null && lastRoom != null
+                    && currentRoom.getCenterX() == lastRoom.getCenterX()
+                    && currentRoom.getCenterY() == lastRoom.getCenterY()
+                    && currentRoom.getCenterZ() == lastRoom.getCenterZ()
+                    && currentRoom.getInteriorSizeX() == lastRoom.getInteriorSizeX()
+                    && currentRoom.getInteriorSizeY() == lastRoom.getInteriorSizeY()
+                    && currentRoom.getInteriorSizeZ() == lastRoom.getInteriorSizeZ();
+
+            if (!sameRoom) {
+                if (lastRoom != null) {
+                    NotificationUtil.sendNotification(
+                        playerRef.getPacketHandler(),
+                        Message.translation("server.hyarpg.notifications.leave_room").param("room", Message.translation(lastRoom.getDesignatedRoomType())),
+                        NotificationStyle.Default
+                    );
+                }
+                if (currentRoom != null) {
+                    NotificationUtil.sendNotification(
+                        playerRef.getPacketHandler(),
+                        Message.translation("server.hyarpg.notifications.enter_room").param("room", Message.translation(currentRoom.getDesignatedRoomType())),
+                        NotificationStyle.Default
+                    );
+                }
+                rpgPlayer.room = currentRoom;
+            }
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

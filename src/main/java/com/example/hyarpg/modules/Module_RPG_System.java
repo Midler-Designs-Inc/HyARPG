@@ -2,13 +2,20 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.utils.affixes.ImplicitAffixPool;
+import com.hypixel.hytale.builtin.adventure.objectives.config.triggercondition.ObjectiveLocationTriggerCondition;
+import com.hypixel.hytale.builtin.hytalegenerator.scanners.deprecated.AreaScanner;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
+import com.hypixel.hytale.component.spatial.SpatialResource;
+import com.hypixel.hytale.component.spatial.SpatialStructure;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
+import com.hypixel.hytale.protocol.PlaceBlockInteraction;
+import com.hypixel.hytale.protocol.packets.player.SetBlockPlacementOverride;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockPlacementSettings;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
@@ -17,27 +24,33 @@ import com.hypixel.hytale.server.core.asset.type.item.config.container.ItemDropC
 import com.hypixel.hytale.server.core.asset.type.item.config.container.MultipleItemDropContainer;
 import com.hypixel.hytale.server.core.asset.type.item.config.container.SingleItemDropContainer;
 import com.hypixel.hytale.server.core.entity.Frozen;
+import com.hypixel.hytale.server.core.entity.InteractionManager;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.windows.*;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.inventory.InventoryChangeEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
 import com.hypixel.hytale.server.core.modules.block.system.ItemContainerSystems;
+import com.hypixel.hytale.server.core.modules.blockhealth.BlockHealthModule;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entity.system.PlayerSpatialSystem;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInteraction;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.client.SimpleBlockInteraction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.modules.physics.component.Velocity;
 import com.hypixel.hytale.server.core.modules.splitvelocity.VelocityConfig;
@@ -72,6 +85,8 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
+
+import com.hypixel.hytale.server.worldgen.loader.prefab.BlockPlacementMaskRegistry;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -91,12 +106,7 @@ public class Module_RPG_System {
     public static ComponentType<EntityStore, Component_CraftingKnowledge> componentTypeCraftingKnowledge;
 
     // properties that control enemy level as they get further from spawn
-    private static final double LEVEL_DISTANCE_THRESHOLD = ModConfig.get().enemies.blocks_per_level_threshold;
-    private static final int LEVEL_VARIANCE = ModConfig.get().enemies.random_level_offset;
     private static final Random random = new Random();
-
-    // sets a delta time for secondary action to assist with parry mechanics
-    private static final long parryWindow = ModConfig.get().combat.base_parry_window_in_seconds;
 
     // Create a map to match a rarity string to a java utils color
     public class colorUtils {
@@ -209,6 +219,7 @@ public class Module_RPG_System {
         ModEventBus.register(Event_PlayerInteraction.class, this::onPlayerInteraction);
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
         ModEventBus.register(Event_ContainerSpawned.class, this::onContainerSpawned);
+        ModEventBus.register(Event_PlaceBlock.class, this::onPlaceBlock);
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -543,7 +554,7 @@ public class Module_RPG_System {
             try {
                 // check if was within timing window
                 long blockStart = defenderRPGStats.blockStart;
-                long parryWindowModified = parryWindow + (long) (defenderStats.getParryWindow() * 1_000_000_000L);
+                long parryWindowModified = ModConfig.get().combat.base_parry_window_in_seconds + (long) (defenderStats.getParryWindow() * 1_000_000_000L);
 
                 if(System.nanoTime() - blockStart <= parryWindowModified) {
                     // set the damage threshold for parrying based on stability
@@ -688,7 +699,7 @@ public class Module_RPG_System {
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
             if (item.getWeapon() != null || item.getArmor() != null || item.getId().contains("Ingredient_Bar") || item.getId().contains("Ore_") || item.getId().contains("Weapon_") || item.getId().contains("Armor_")) {
-                alertPlayers("Filtering out " + item.getId(), Color.DARK_GRAY);
+//                alertPlayers("Filtering out " + item.getId(), Color.DARK_GRAY);
                 continue;
             };
 //            alertPlayers("Not Filtering out " + item.getId(), Color.DARK_GRAY);
@@ -843,6 +854,22 @@ public class Module_RPG_System {
         }
     }
 
+    // method for when a player tries to place a block
+    private void onPlaceBlock(Event_PlaceBlock event) {
+       try {
+           PlaceBlockEvent origEvent = event.event();
+
+           ItemStack stack = origEvent.getItemInHand();
+           Item item = stack.getItem();
+           String[] categories = item.getCategories();
+
+//           if (Arrays.asList(categories).contains("Furniture.Benches"))
+//               origEvent.setCancelled(true);
+       } catch (Exception e) {
+           HytaleLogger.getLogger().at(Level.WARNING).log("onPlaceBlock interception failed: %s", e.getMessage());
+       }
+    }
+
     // register an item a player picked up to their discovered list
     private void registerDiscoveredItem(Ref<EntityStore> ref, Store<EntityStore> store, Item query) {
         try {
@@ -973,20 +1000,27 @@ public class Module_RPG_System {
         // Extract the entities location
         Vector3d position = transform.getPosition();
 
-        // Weight the y axis so things get stronger faster going down than they do going up
-        double weightedY = position.y < 0 ? position.y * 1.5 : position.y;
+        // Get the configured origin point
+        double originX = ModConfig.get().world.origin_spawn_point_x;
+        double originY = ModConfig.get().world.origin_spawn_point_y;
+        double originZ = ModConfig.get().world.origin_spawn_point_z;
 
-        // 3D straight line distance from world origin 0,100,0 (starting height varies but is around 100 blocks
-        double dx = position.x;          // x - 0
-        double dy = weightedY - 100;     // y - 100
-        double dz = position.z;          // z - 0
-        double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        // Calculate deltas from origin
+        double dx = position.x - originX;
+        double dy = position.y - originY;
+        double dz = position.z - originZ;
+
+        // Weight the y delta so things get stronger faster going down than they do going up
+        double weightedDy = dy < 0 ? dy * 1.5 : dy;
+
+        // 3D straight line distance from origin
+        double distance = Math.sqrt(dx * dx + weightedDy * weightedDy + dz * dz);
 
         // get level based on distance
-        int baseLevel = Math.max(1, (int)(distance / LEVEL_DISTANCE_THRESHOLD) + 1);
+        int baseLevel = Math.max(1, (int)(distance / ModConfig.get().enemies.blocks_per_level_threshold) + 1);
 
         // roll for a random level within variance range of base level
-        int variance = random.nextInt(LEVEL_VARIANCE * 2 + 1) - LEVEL_VARIANCE;
+        int variance = random.nextInt(ModConfig.get().enemies.random_level_offset * 2 + 1) - ModConfig.get().enemies.random_level_offset;
 
         // Minimum level 1 regardless of roll
         return Math.max(1, baseLevel + variance);

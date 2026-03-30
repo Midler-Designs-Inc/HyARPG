@@ -68,17 +68,22 @@ public class HyARPGPlugin extends JavaPlugin {
         EventRegistry eventBus = getEventRegistry();
 
         try {
-            // register these listeners with the main event bus
+            // Register world listeners
+            new Listeners_WorldStart().register(eventBus);
+
+            // Register Player Listeners
             new Listeners_Player().register(eventBus, this);
             new Listeners_PlayerInteractions().register();
 
-            // register these listeners in the entity registry system
+            // Register Module listeners
             getEntityStoreRegistry().registerSystem(new Listeners_PlayerInventory());
             getEntityStoreRegistry().registerSystem(new Listeners_Death());
             getEntityStoreRegistry().registerSystem(new Listeners_Damage());
             getEntityStoreRegistry().registerSystem(new Listeners_Entity_PrePost());
             getEntityStoreRegistry().registerSystem(new Listeners_Entity_PostPre());
             getEntityStoreRegistry().registerSystem(new Listeners_Crafting());
+            getEntityStoreRegistry().registerSystem(new Listeners_PlaceBlock());
+            getEntityStoreRegistry().registerSystem(new Listeners_BreakBlock());
             getEntityStoreRegistry().registerSystem(new Listeners_UtilitySlot());
 
             // Register chunk listeners
@@ -104,6 +109,7 @@ public class HyARPGPlugin extends JavaPlugin {
             new Module_Thirst(this);
             rpgSystem = new Module_RPG_System(this);
             new Module_PlayerHud(this);
+            new Module_RoomSystem();
 
             // create an instance of our global tick event (not OOP but better for processing I guess)
             new Module_ModTickLoop(this, HytaleServer.SCHEDULED_EXECUTOR).start();

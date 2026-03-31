@@ -17,6 +17,7 @@ import com.hypixel.hytale.protocol.*;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.movement.MovementManager;
+import com.hypixel.hytale.server.core.inventory.Inventory;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
@@ -28,6 +29,7 @@ import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
 import com.hypixel.hytale.server.core.modules.entitystats.modifier.StaticModifier;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
 
@@ -193,22 +195,29 @@ public class Component_RPG_Player implements Component<EntityStore> {
     // Calculate the players gear score
     public void calculateGearScore(Ref<EntityStore> ref, Store<EntityStore> store) {
         int totalLevel = 0;
-        int count = 6;
+        int count = 0;
 
         // Active hand item (weapon) — checks Tool first, falls back to Hotbar
-        ItemStack inHand = InventoryComponent.getItemInHand(store, ref);
-        if (!ItemStack.isEmpty(inHand)) {
-            Integer level = inHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
-            if (level != null) totalLevel += level;
+        ItemStack mainHand = InventoryComponent.getItemInHand(store, ref);
+        if (mainHand != null && !mainHand.isEmpty()) {
+            Integer level = mainHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+            if (level != null) {
+                totalLevel += level;
+                count++;
+            };
         }
 
         // Off hand (utility active slot)
         InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
         ItemStack offHand = utilityComp != null ? utilityComp.getActiveItem() : null;
-        if (!ItemStack.isEmpty(offHand)) {
+        boolean applyOffHand = mainHand == null || mainHand.getItem().getUtility().isCompatible();
+        if (offHand != null && !offHand.isEmpty() && applyOffHand) {
             Integer level = offHand.getFromMetadataOrNull("GearScore", Codec.INTEGER);
-            if (level != null) totalLevel += level;
-        } else count--;
+            if (level != null) {
+                totalLevel += level;
+                count++;
+            };
+        }
 
         // Armor slots
         InventoryComponent.Armor armorComp = store.getComponent(ref, InventoryComponent.Armor.getComponentType());
@@ -216,9 +225,13 @@ public class Component_RPG_Player implements Component<EntityStore> {
             ItemContainer armor = armorComp.getInventory();
             for (short i = 0; i < armor.getCapacity(); i++) {
                 ItemStack armorPiece = armor.getItemStack(i);
-                if (ItemStack.isEmpty(armorPiece)) continue;
+                if (armorPiece == null || armorPiece.isEmpty()) continue;
+
                 Integer level = armorPiece.getFromMetadataOrNull("GearScore", Codec.INTEGER);
-                if (level != null) totalLevel += level;
+                if (level != null) {
+                    totalLevel += level;
+                    count++;
+                }
             }
         }
 
@@ -242,10 +255,14 @@ public class Component_RPG_Player implements Component<EntityStore> {
             }
 
             // Weapon / Utility
-            applyStack(newStats, InventoryComponent.getItemInHand(store, ref));
+            ItemStack mainHand = InventoryComponent.getItemInHand(store, ref);
+            if (mainHand != null && !mainHand.isEmpty()) applyStack(newStats, mainHand);
 
             InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
-            applyStack(newStats, utilityComp != null ? utilityComp.getActiveItem() : null);
+            ItemStack offHand = utilityComp != null ? utilityComp.getActiveItem() : null;
+            boolean applyOffHand = mainHand == null || mainHand.getItem().getUtility().isCompatible();
+            if(offHand != null && !offHand.isEmpty() && applyOffHand) applyStack(newStats,  offHand);
+
 
             // Merge skill tree bonuses into the affix stats before applying
             if (skillLibrary != null) newStats.merge(skillLibrary.getSkillStats());

@@ -752,7 +752,6 @@ public class Module_RPG_System {
         short slot = event.getSlot();
         InventoryChangeEvent changeEvent = event.getChangeEvent();
         ItemContainer container = changeEvent.getItemContainer();
-        alertPlayers("I am here", Color.YELLOW);
 
         // gear score only for weapons/armor
         String[] categories = item.getCategories();
@@ -760,12 +759,10 @@ public class Module_RPG_System {
             // get the players level
             Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
             int level = rpgPlayer == null ? 1 : rpgPlayer.level;
-            alertPlayers("I am here 2", Color.YELLOW);
 
             // assign a gear score to the item
             ItemStack newStack = assignGearScoreAndAffixes(stack, level);
             if (newStack == null || newStack.isEmpty()) return;
-            alertPlayers("I am here 3", Color.YELLOW);
 
             // swap out the old stack for the new stack, then update reference for down stream
             container.replaceItemStackInSlot(slot, stack, newStack);
@@ -774,7 +771,6 @@ public class Module_RPG_System {
             // refresh gear score
             rpgPlayer.calculateGearScore(ref, store);
             rpgPlayer.calculateAffixStats(ref, store);
-            alertPlayers("I am here 4", Color.YELLOW);
         }
 
         // register discovery for ALL items

@@ -9,28 +9,37 @@ import com.hypixel.hytale.math.vector.Vector3i;
 
 // Java Imports
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class RoomData {
 
     @SuppressWarnings("unchecked")
     public static final BuilderCodec<RoomData> CODEC = BuilderCodec
-            .builder(RoomData.class, RoomData::new)
-            .append(new KeyedCodec<>("MinX", Codec.INTEGER), (d, v) -> d.minX = v, d -> d.minX).add()
-            .append(new KeyedCodec<>("MinY", Codec.INTEGER), (d, v) -> d.minY = v, d -> d.minY).add()
-            .append(new KeyedCodec<>("MinZ", Codec.INTEGER), (d, v) -> d.minZ = v, d -> d.minZ).add()
-            .append(new KeyedCodec<>("MaxX", Codec.INTEGER), (d, v) -> d.maxX = v, d -> d.maxX).add()
-            .append(new KeyedCodec<>("MaxY", Codec.INTEGER), (d, v) -> d.maxY = v, d -> d.maxY).add()
-            .append(new KeyedCodec<>("MaxZ", Codec.INTEGER), (d, v) -> d.maxZ = v, d -> d.maxZ).add()
-            .append(new KeyedCodec<>("RoomType", Codec.STRING), (d, v) -> d.designatedRoomType = v, d -> d.designatedRoomType).add()
-            .append(
-                    new KeyedCodec<>("BlockKeys", new ArrayCodec(Codec.STRING, String[]::new)),
-                    (d, v) -> d.blockKeysInside = new HashSet<>(Arrays.asList(v)),
-                    d -> d.blockKeysInside.toArray(new String[0])
-            ).add()
-            .build();
+        .builder(RoomData.class, RoomData::new)
+        .append(new KeyedCodec<>("MinX", Codec.INTEGER), (d, v) -> d.minX = v, d -> d.minX).add()
+        .append(new KeyedCodec<>("MinY", Codec.INTEGER), (d, v) -> d.minY = v, d -> d.minY).add()
+        .append(new KeyedCodec<>("MinZ", Codec.INTEGER), (d, v) -> d.minZ = v, d -> d.minZ).add()
+        .append(new KeyedCodec<>("MaxX", Codec.INTEGER), (d, v) -> d.maxX = v, d -> d.maxX).add()
+        .append(new KeyedCodec<>("MaxY", Codec.INTEGER), (d, v) -> d.maxY = v, d -> d.maxY).add()
+        .append(new KeyedCodec<>("MaxZ", Codec.INTEGER), (d, v) -> d.maxZ = v, d -> d.maxZ).add()
+        .append(new KeyedCodec<>("RoomType", Codec.STRING), (d, v) -> d.designatedRoomType = v, d -> d.designatedRoomType).add()
+        .append(
+            // Serialize as flat array where each key appears N times matching its count
+            // e.g. {Bench_Campfire: 2} -> ["Bench_Campfire", "Bench_Campfire"]
+            new KeyedCodec<>("BlockKeys", new ArrayCodec(Codec.STRING, String[]::new)),
+            (d, v) -> {
+                d.blockKeysInside.clear();
+                for (String key : v) d.blockKeysInside.merge(key, 1, Integer::sum);
+            },
+            d -> {
+                List<String> flat = new ArrayList<>();
+                d.blockKeysInside.forEach((key, count) -> {
+                    for (int i = 0; i < count; i++) flat.add(key);
+                });
+                return flat.toArray(new String[0]);
+            }
+        ).add()
+        .build();
 
     private int minX, minY, minZ;
     private int maxX, maxY, maxZ;
@@ -38,7 +47,8 @@ public class RoomData {
     @Nullable
     private String designatedRoomType;
 
-    private Set<String> blockKeysInside = new HashSet<>();
+    // Multiset — tracks how many of each block key are in the room interior
+    private Map<String, Integer> blockKeysInside = new HashMap<>();
 
     // Required for codec deserialization
     private RoomData() {}
@@ -59,7 +69,23 @@ public class RoomData {
     public int getInteriorSizeY() { return maxY - minY + 1; }
     public int getInteriorSizeZ() { return maxZ - minZ + 1; }
 
-    public Set<String> getBlockKeysInside() { return blockKeysInside; }
+    // Returns the full map with counts — used by requirement scoring
+    public Map<String, Integer> getBlockCountsInside() { return blockKeysInside; }
+
+    // Increments the count for a block key
+    public void addBlockKey(String key) {
+        blockKeysInside.merge(key, 1, Integer::sum);
+    }
+
+    // Decrements the count for a block key, removing it entirely when count reaches zero
+    public void removeBlockKey(String key) {
+        blockKeysInside.computeIfPresent(key, (k, count) -> count <= 1 ? null : count - 1);
+    }
+
+    // Clears all block key counts — called before a fresh scan
+    public void clearBlockKeys() {
+        blockKeysInside.clear();
+    }
 
     @Nullable
     public String getDesignatedRoomType() { return designatedRoomType; }

@@ -324,23 +324,8 @@ public final class Module_ModTickLoop {
                     && currentRoom.getInteriorSizeY() == lastRoom.getInteriorSizeY()
                     && currentRoom.getInteriorSizeZ() == lastRoom.getInteriorSizeZ();
 
-            if (!sameRoom) {
-                if (lastRoom != null) {
-                    NotificationUtil.sendNotification(
-                        playerRef.getPacketHandler(),
-                        Message.translation("server.hyarpg.notifications.leave_room").param("room", Message.translation(lastRoom.getDesignatedRoomType())),
-                        NotificationStyle.Default
-                    );
-                }
-                if (currentRoom != null) {
-                    NotificationUtil.sendNotification(
-                        playerRef.getPacketHandler(),
-                        Message.translation("server.hyarpg.notifications.enter_room").param("room", Message.translation(currentRoom.getDesignatedRoomType())),
-                        NotificationStyle.Default
-                    );
-                }
-                rpgPlayer.room = currentRoom;
-            }
+            // update the player component with the new current room
+            if (!sameRoom) rpgPlayer.room = currentRoom;
 
         } catch (Exception e) {
             System.err.println(e.getMessage());

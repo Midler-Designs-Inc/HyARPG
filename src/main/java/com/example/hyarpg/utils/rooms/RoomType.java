@@ -17,7 +17,7 @@ public enum RoomType {
     BASIC_KITCHEN("Simple Kitchen", 1, 3, 3, 3, 15, 15, 15,
         all(
             min(1, blockKeyExact("Bench_Campfire")),
-            min(1, hasCategory("Furniture.Container"))
+            min(1, hasCategory("Furniture.Containers"))
         )
     ),
     ADVANCED_KITCHEN("Advanced Kitchen", 2, 3, 3, 3, 15, 15, 15,
@@ -26,7 +26,7 @@ public enum RoomType {
                 min(1, blockKeyExact("Bench_Campfire")),
                 min(1, blockKeyExact("Bench_Cooking"))
             ),
-            min(1, hasCategory("Furniture.Container"))
+            min(2, hasCategory("Furniture.Containers"))
         )
     ),
     BEDROOM("Simple Bedroom", 1, 3, 3, 3, 9, 9, 9,
@@ -66,15 +66,13 @@ public enum RoomType {
     public int getTier() { return tier; }
 
     public boolean matchesSize(int sizeX, int sizeY, int sizeZ) {
-        return sizeX >= minX && sizeX <= maxX
-                && sizeY >= minY && sizeY <= maxY
-                && sizeZ >= minZ && sizeZ <= maxZ;
+        return sizeX >= minX && sizeX <= maxX && sizeY >= minY && sizeY <= maxY && sizeZ >= minZ && sizeZ <= maxZ;
     }
 
     // Checks requirements met, -1 if requirements are not met (disqualified), 0 if no requirements (size-only match)
-    public int score(Set<String> blockKeysInside) {
+    public int score(Map<String, Integer> blockCounts) {
         if (requirements == null) return 0;
-        return requirements.score(blockKeysInside);
+        return requirements.score(blockCounts);
     }
 
     // --- Classification ---
@@ -88,16 +86,16 @@ public enum RoomType {
     // Returns the best matching room type for the given dimensions and contents.
     // Priority: highest requirement score, then highest tier on tie.
     @Nullable
-    public static RoomType classify(int sizeX, int sizeY, int sizeZ, Set<String> blockKeysInside) {
+    public static RoomType classify(int sizeX, int sizeY, int sizeZ, Map<String, Integer> blockCounts) {
         RoomType best = null;
         int bestScore = -1;
         int bestTier = -1;
 
         for (RoomType type : values()) {
             if (!type.matchesSize(sizeX, sizeY, sizeZ)) continue;
-            int score = type.score(blockKeysInside);
-            if (score < 0) continue; // requirements not met
-
+            int score = type.score(blockCounts);
+            // Debug
+            if (score < 0) continue;
             if (score > bestScore || (score == bestScore && type.tier > bestTier)) {
                 best = type;
                 bestScore = score;
@@ -110,7 +108,7 @@ public enum RoomType {
     // Overload for size-only classification (no decoration context available)
     @Nullable
     public static RoomType classify(int sizeX, int sizeY, int sizeZ) {
-        return classify(sizeX, sizeY, sizeZ, Collections.emptySet());
+        return classify(sizeX, sizeY, sizeZ, Collections.emptyMap());
     }
 
     // =========================================================================
@@ -119,7 +117,7 @@ public enum RoomType {
 
     // A group of requirements combined with ALL or ANY logic.
     public interface RequirementGroup {
-        int score(Set<String> blockKeysInside);
+        int score(Map<String, Integer> blockCounts);
     }
 
     // A single decoration requirement: min N blocks matching a predicate.
@@ -135,10 +133,10 @@ public enum RoomType {
         }
 
         @Override
-        public int score(Set<String> blockKeysInside) {
+        public int score(Map<String, Integer> blockCounts) {
             int count = 0;
-            for (String key : blockKeysInside) {
-                if (predicate.test(key)) count++;
+            for (Map.Entry<String, Integer> entry : blockCounts.entrySet()) {
+                if (predicate.test(entry.getKey())) count += entry.getValue();
             }
             if (count < minCount) return -1; // not met
             return count; // score = how many matched (more = better)
@@ -156,10 +154,10 @@ public enum RoomType {
         }
 
         @Override
-        public int score(Set<String> blockKeysInside) {
+        public int score(Map<String, Integer> blockCounts) {
             int total = 0;
             for (RequirementGroup child : children) {
-                int s = child.score(blockKeysInside);
+                int s = child.score(blockCounts);
                 if (s < 0) return -1; // any failure disqualifies
                 total += s;
             }
@@ -176,10 +174,10 @@ public enum RoomType {
         }
 
         @Override
-        public int score(Set<String> blockKeysInside) {
+        public int score(Map<String, Integer> blockCounts) {
             int best = -1;
             for (RequirementGroup child : children) {
-                int s = child.score(blockKeysInside);
+                int s = child.score(blockCounts);
                 if (s >= 0 && s > best) best = s;
             }
             return best; // -1 if none matched

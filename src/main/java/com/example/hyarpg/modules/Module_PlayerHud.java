@@ -74,6 +74,7 @@ public class Module_PlayerHud {
         createXPHud(world, entityRef, store);
         createBarrierBar(world, entityRef, store);
         createSkillsBar(world, entityRef, store);
+        createRoomHud(world, entityRef, store);
 
         // create the hud refresh logic
         startHUDRefresh(world, entityRef, store);
@@ -201,6 +202,15 @@ public class Module_PlayerHud {
                 );
                 hudRef.getById("skillIconOverlay_R", ImageBuilder.class).ifPresent(l -> l
                         .withVisible(secondsLeft_R_final > 0)
+                );
+
+                // Room text
+                hudRef.getById("currentRoomBorder", ImageBuilder.class).ifPresent(l -> l
+                    .withVisible(rpgPlayer.room != null)
+                );
+                hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
+                    .withVisible(rpgPlayer.room != null)
+                    .withText(rpgPlayer.room == null ? "" : rpgPlayer.room.getDesignatedRoomType())
                 );
             });
         });
@@ -484,5 +494,38 @@ public class Module_PlayerHud {
             .withVisible(false)
             .withImage("")
         );;
+    }
+
+    // function to show the xp bar
+    private void createRoomHud(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
+        // Current Room Decoration
+        hud.addElement(new ImageBuilder()
+            .withId("currentRoomBorder")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(250)
+                .setHeight(15)
+                .setTop(99)
+            )
+            .withVisible(false)
+            .withImage("Common/ContainerDecorationTop@2x.png")
+        );
+
+        // Current Room Label
+        hud.addElement(new LabelBuilder()
+            .withId("currentRoom")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(500)
+                .setHeight(30)
+                .setTop(75)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(18)
+                .setTextColor("#cccccc")
+                .setRenderBold(true)
+                .setAlignment(Alignment.Center)
+            )
+            .withVisible(false)
+            .withText("Simple Kitchen")
+        );
     }
 }

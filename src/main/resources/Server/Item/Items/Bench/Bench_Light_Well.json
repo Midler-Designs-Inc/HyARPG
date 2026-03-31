@@ -1,0 +1,128 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Light_Well.name",
+    "Description": "server.items.Light_Well.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Crystal_Font_Icon.png",
+  "Categories": [
+    "Furniture.Benches"
+  ],
+  "Recipe": {
+    "TimeSeconds": 3,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Life_Essence",
+        "Quantity": 10
+      },
+      {
+        "Quantity": 20,
+        "ResourceTypeId": "Rock"
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Tools"
+        ],
+        "Id": "Fieldcraft"
+      }
+    ]
+  },
+  "BlockType": {
+    "Material": "Solid",
+    "DrawType": "Model",
+    "Opacity": "Transparent",
+    "CustomModel": "Items/Crystal_Font/Crystal_Font.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Items/Crystal_Font/Crystal_Font.png",
+        "Weight": 1
+      }
+    ],
+    "HitboxType": "Light_Well_Hitbox",
+    "VariantRotation": "NESW",
+    "Bench": {
+      "Type": "Crafting",
+      "LocalOpenSoundEventId": "SFX_Crystal_Hit",
+      "LocalCloseSoundEventId": "SFX_Crystal_Break",
+      "CompletedSoundEventId": "SFX_Crystal_Break",
+      "Id": "LightWell",
+      "Categories": [
+        {}
+      ]
+    },
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Benches"
+      }
+    },
+    "BlockParticleSetId": "Crystal",
+    "ParticleColor": "#009cff",
+    "Support": {
+      "Down": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    },
+    "BlockSoundSetId": "Gem",
+    "CustomModelScale": 1.8,
+    "Light": {
+      "Color": "#ccc",
+      "Radius": 1
+    },
+    "Particles": [
+      {
+        "SystemId": "Light_Well_Beam",
+        "TargetEntityPart": "Entity",
+        "TargetNodeName": "Foundation",
+        "Scale": 0.8
+      },
+      {
+        "SystemId": "Light_Well_Square",
+        "DetachedFromModel": false
+      }
+    ],
+    "CustomModelAnimation": "Items/Crystal_Font/Crystal_Rotation.blockyanim",
+    "RequiresAlphaBlending": false,
+    "BlockEntity": {
+      "Components": {
+        "BenchBlock": {}
+      }
+    },
+    "State": {
+      "Definitions": {
+        "CraftCompleted": {
+          "CustomModelAnimation": "Blocks/Benches/Alchemy_Crafting.blockyanim",
+          "Looping": true
+        },
+        "CraftCompletedInstant": {
+          "CustomModelAnimation": "Blocks/Benches/Alchemy_Crafting.blockyanim"
+        }
+      }
+    },
+    "Looping": true
+  },
+  "PlayerAnimationsId": "Block",
+  "IconProperties": {
+    "Scale": 0.35,
+    "Rotation": [
+      22.5,
+      45.0,
+      22.5
+    ],
+    "Translation": [
+      11.4,
+      -18.6
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Bench"
+    ]
+  },
+  "MaxStack": 1,
+  "ItemSoundSetId": "ISS_Items_Gems",
+  "Quality": "Legendary"
+}

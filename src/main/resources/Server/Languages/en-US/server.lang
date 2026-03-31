@@ -46,4 +46,6 @@ items.Bench_Leatherworking.description=Useful for making leather and cloth armor
 items.Weapon_Crossbow_Copper.name=Copper Hand Crossbow
 items.Weapon_Crossbow_Thorium.name=Thorium Hand Crossbow
 items.Weapon_Crossbow_Adamantite.name=Adamantite Hand Crossbow
-items.Weapon_Crossbow_Mythril.name=Mythril Hand Crossbow
+items.Weapon_Crossbow_Mithril.name=Mithril Hand Crossbow
+items.Light_Well.name=Light Well
+items.Light_Well.description=A well of purifying light that creates a pocket of safe space for building a base.\\n\\n[Defines the boundaries of a player base and allows for bench/bed placement.]

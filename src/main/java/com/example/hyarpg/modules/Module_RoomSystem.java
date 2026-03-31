@@ -69,7 +69,6 @@ public class Module_RoomSystem {
             Vector3i pos = event.event().getTargetBlock();
             World world = event.commandBuffer().getExternalData().getWorld();
 
-            // Pass the BlockType so the flood fill knows the full hitbox extent (e.g. doors)
             if (isStructural) onStructuralBlockPlaced(world, pos, placedBlockType);
             else onDecorationBlockPlaced(world, pos, placedBlockType);
 

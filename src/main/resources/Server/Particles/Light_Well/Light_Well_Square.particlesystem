@@ -1,0 +1,27 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "Light_Well_Square",
+      "PositionOffset": {
+        "Z": 0.1,
+        "Y": -0.1
+      }
+    },
+    {
+      "SpawnerId": "Light_Well_Square",
+      "PositionOffset": {
+        "Z": 0.1,
+        "Y": -15.94
+      }
+    },
+    {
+      "SpawnerId": "Light_Well_Square",
+      "PositionOffset": {
+        "Z": 0.1,
+        "Y": 15.73
+      }
+    }
+  ],
+  "IsImportant": true,
+  "CullDistance": 3000.0
+}

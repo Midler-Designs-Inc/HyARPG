@@ -65,6 +65,7 @@
   },
   "ItemSoundSetId": "ISS_Armor_Heavy",
   "Quality": "Common",
+  "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
   ],

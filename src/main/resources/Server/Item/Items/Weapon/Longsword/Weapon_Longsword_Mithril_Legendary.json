@@ -191,6 +191,7 @@
       }
     ]
   },
+  "MaxStack": 1,
   "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {

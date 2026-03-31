@@ -68,5 +68,6 @@
   },
   "ItemAppearanceConditions": {},
   "MaxDurability": 80,
-  "DurabilityLossOnHit": 0.1
+  "DurabilityLossOnHit": 0.1,
+  "MaxStack": 1
 }

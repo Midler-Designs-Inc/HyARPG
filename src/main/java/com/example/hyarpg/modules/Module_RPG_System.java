@@ -539,14 +539,27 @@ public class Module_RPG_System {
             if(totalAmount <= 0) continue;
 
             // ping damage packet to chat for combat analysis
-            float truncated = (float) (Math.floor(totalAmount * 10.0) / 10.0);
-            alertPlayers(new Message[] {
-                Message.raw(attackerName).color("#ffffff").bold(true),
-                Message.raw(" dealt ").color(Color.GRAY),
-                Message.raw(truncated + " (" + cause.getId() + ")").color(DAMAGE_COLORS.getOrDefault(cause.getId(), Color.WHITE)).bold(true),
-                Message.raw(" damage to ").color(Color.GRAY),
-                Message.raw(defenderName).color("#ffffff").bold(true)
-            });
+            if(ModConfig.get().combat.broadcast_combat_logs_in_chat && (attackerRPGStats != null || defenderRPGStats != null)) {
+                PlayerRef playerRef = null;
+
+                // try to get a player ref
+                if (attackerRPGStats != null && attackerRPGStats.showCombatText)
+                    playerRef = store.getComponent(attacker, PlayerRef.getComponentType());
+                else if (defenderRPGStats != null && defenderRPGStats.showCombatText)
+                    playerRef = store.getComponent(defender, PlayerRef.getComponentType());
+
+                // if we found a player ref and they have the setting enabled, broadcast the message
+                if (playerRef != null) {
+                    float truncated = (float) (Math.floor(totalAmount * 10.0) / 10.0);
+                    playerRef.sendMessage(Message.join(
+                        Message.raw(attackerName).color("#ffffff").bold(true),
+                        Message.raw(" dealt ").color(Color.GRAY),
+                        Message.raw(truncated + " (" + cause.getId() + ")").color(DAMAGE_COLORS.getOrDefault(cause.getId(), Color.WHITE)).bold(true),
+                        Message.raw(" damage to ").color(Color.GRAY),
+                        Message.raw(defenderName).color("#ffffff").bold(true))
+                    );
+                }
+            }
         }
 
         // check if the conditions were met to try to parry
@@ -738,17 +751,21 @@ public class Module_RPG_System {
         Item item = stack.getItem();
         short slot = event.getSlot();
         InventoryChangeEvent changeEvent = event.getChangeEvent();
-        ItemContainer container = changeEvent.getItemContainer(); // was: changeEvent.container()
+        ItemContainer container = changeEvent.getItemContainer();
+        alertPlayers("I am here", Color.YELLOW);
 
         // gear score only for weapons/armor
-        if ((item.getWeapon() != null || item.getArmor() != null)) {
+        String[] categories = item.getCategories();
+        if (categories != null && Arrays.asList(categories).contains("Items.HyARPG.Gear")) {
             // get the players level
             Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
             int level = rpgPlayer == null ? 1 : rpgPlayer.level;
+            alertPlayers("I am here 2", Color.YELLOW);
 
             // assign a gear score to the item
             ItemStack newStack = assignGearScoreAndAffixes(stack, level);
             if (newStack == null || newStack.isEmpty()) return;
+            alertPlayers("I am here 3", Color.YELLOW);
 
             // swap out the old stack for the new stack, then update reference for down stream
             container.replaceItemStackInSlot(slot, stack, newStack);
@@ -757,6 +774,7 @@ public class Module_RPG_System {
             // refresh gear score
             rpgPlayer.calculateGearScore(ref, store);
             rpgPlayer.calculateAffixStats(ref, store);
+            alertPlayers("I am here 4", Color.YELLOW);
         }
 
         // register discovery for ALL items
@@ -1066,12 +1084,20 @@ public class Module_RPG_System {
         boolean shouldRecipeDrop = shouldLootDrop(rarity, ModConfig.get().loot.recipe_drop_chance_modifier);
 
         // loop over all players who damaged the defender in the last 30 seconds
+        if (ModConfig.get().loot.broadcast_drops_in_global_chat) {
+
+        }
         for (Ref<EntityStore> ref : players) {
             // resolve the player component
             Player player = store.getComponent(ref, Player.getComponentType());
 
+            // get the player's applicable components or bail
+            Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+            if (craftingKnowledge == null || rpgPlayer == null) continue;
+
             // add a recipe if applicable
-            if(shouldRecipeDrop) {
+            if(shouldRecipeDrop && ModConfig.get().loot.broadcast_drops_in_global_chat && rpgPlayer.showLootDrops) {
                 // roll recipe rarity and add it to the drop pool
                 String recipeRarity = rollRarity();
                 String recipeID = "Recipe_Page_" + recipeRarity;
@@ -1091,10 +1117,6 @@ public class Module_RPG_System {
             // bail now if loot should not drop
             if(!shouldLootDrop) continue;
 
-            // get the player's crafting knowledge component or bail
-            Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
-            if (craftingKnowledge == null) continue;
-
             // bail if the player's recipes are empty
             Set<String> recipes = craftingKnowledge.discoveredDroppableRecipes;
             int recipeCount = recipes.size();
@@ -1113,7 +1135,7 @@ public class Module_RPG_System {
             dropPool.add(newStack);
 
             // resolve the player component for messaging and alert players of the roll
-            if (player != null) {
+            if (player != null && ModConfig.get().loot.broadcast_drops_in_global_chat && rpgPlayer.showLootDrops) {
                 // get rarity of the item actually returned
                 String[] parts = randomItemId.split("_");
                 String actualRarity = parts[parts.length - 1];
@@ -1129,9 +1151,9 @@ public class Module_RPG_System {
 
                 // notify players of the loot roll
                 alertPlayers(new Message[]{
-                        Message.raw(player.getDisplayName()).color("#ffffff").bold(true),
-                        Message.raw(" rolled a ").color(Color.GRAY),
-                        Message.raw(itemName).color(color).bold(true)
+                    Message.raw(player.getDisplayName()).color("#ffffff").bold(true),
+                    Message.raw(" rolled a ").color(Color.GRAY),
+                    Message.raw(itemName).color(color).bold(true)
                 });
             }
         }

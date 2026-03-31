@@ -81,6 +81,10 @@ public class Component_RPG_Player implements Component<EntityStore> {
     // store if the player is inside a room or not
     public RoomData room;
 
+    // player settings
+    public boolean showLootDrops = true;
+    public boolean showCombatText = true;
+
     // Register properties that needs to be persisted
     public static final BuilderCodec<Component_RPG_Player> CODEC = BuilderCodec.builder(
             Component_RPG_Player.class, Component_RPG_Player::new
@@ -124,6 +128,14 @@ public class Component_RPG_Player implements Component<EntityStore> {
         .append(new KeyedCodec<>("SecondaryAbilityIconId", Codec.STRING),
                 (comp, v) -> comp.secondaryAbilityIcon = v,
                 comp -> comp.secondaryAbilityIcon
+        ).add()
+        .append(new KeyedCodec<>("HyARPG_RPGPlayer_ShowLootDrops", Codec.BOOLEAN),
+                ((comp, value) -> comp.showLootDrops = value),
+                comp -> comp.showLootDrops
+        ).add()
+        .append(new KeyedCodec<>("HyARPG_RPGPlayer_ShowCombatText", Codec.BOOLEAN),
+                ((comp, value) -> comp.showCombatText = value),
+                comp -> comp.showCombatText
         ).add()
         .build();
 

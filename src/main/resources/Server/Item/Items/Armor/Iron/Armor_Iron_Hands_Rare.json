@@ -89,6 +89,7 @@
       "Iron"
     ]
   },
+  "MaxStack": 1,
   "ResourceTypes": [
     {
       "Id": "Gear_Iron_Rare"

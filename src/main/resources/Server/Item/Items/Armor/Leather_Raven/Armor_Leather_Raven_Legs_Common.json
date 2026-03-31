@@ -68,6 +68,7 @@
     ]
   },
   "ItemSoundSetId": "ISS_Armor_Leather",
+  "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
   ],

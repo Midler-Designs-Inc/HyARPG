@@ -72,6 +72,7 @@
   },
   "MaxDurability": 0,
   "ItemSoundSetId": "ISS_Armor_Cloth",
+  "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
   ],

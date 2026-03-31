@@ -65,5 +65,6 @@
   "ItemAppearanceConditions": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
   "MaxDurability": 80,
-  "DurabilityLossOnHit": 0.21
+  "DurabilityLossOnHit": 0.21,
+  "MaxStack": 1
 }

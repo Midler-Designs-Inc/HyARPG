@@ -75,6 +75,7 @@
     }
   },
   "DurabilityLossOnHit": 0.28,
+  "MaxStack": 1,
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"

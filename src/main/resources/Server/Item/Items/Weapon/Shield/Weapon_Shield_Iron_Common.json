@@ -51,6 +51,7 @@
     ]
   },
   "MaxDurability": 0,
+  "MaxStack": 1,
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"

@@ -87,6 +87,7 @@
     ]
   },
   "MaxDurability": 0,
+  "MaxStack": 1,
   "ResourceTypes": [
     {
       "Id": "Gear_Iron_Uncommon"

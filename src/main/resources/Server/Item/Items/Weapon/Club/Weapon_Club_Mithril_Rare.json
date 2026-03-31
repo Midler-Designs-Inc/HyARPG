@@ -168,6 +168,7 @@
   "DurabilityLossOnHit": 0.56,
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "MaxStack": 1,
   "ItemAppearanceConditions": {},
   "ResourceTypes": [
     {

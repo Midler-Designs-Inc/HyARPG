@@ -23,4 +23,8 @@ public class Config_Combat {
     @Key("damage_from_player_multiplier")
     @Comment("A multiplier changing how much damage players will deal to enemies. Default: 1.0")
     public float damage_from_player_multiplier = 1.0f;
+
+    @Key("broadcast_combat_logs_in_chat")
+    @Comment("Rather or not to broadcast in chat when an entity damages another entity. Players can turn this off individually as well. Default: true")
+    public boolean broadcast_combat_logs_in_chat = true;
 }

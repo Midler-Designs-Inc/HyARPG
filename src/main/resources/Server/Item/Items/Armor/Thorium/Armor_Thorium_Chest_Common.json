@@ -73,6 +73,7 @@
     ]
   },
   "ItemSoundSetId": "ISS_Armor_Heavy",
+  "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
   ],

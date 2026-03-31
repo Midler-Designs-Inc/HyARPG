@@ -62,5 +62,6 @@
   "Weapon": {},
   "ItemAppearanceConditions": {},
   "MaxDurability": 80,
-  "DurabilityLossOnHit": 0.5
+  "DurabilityLossOnHit": 0.5,
+  "MaxStack": 1
 }

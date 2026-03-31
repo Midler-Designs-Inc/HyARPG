@@ -90,6 +90,7 @@
     "KnowledgeRequired": true
   },
   "MaxDurability": 0,
+  "MaxStack": 1,
   "ResourceTypes": [
     {
       "Id": "Gear_Copper_Legendary"

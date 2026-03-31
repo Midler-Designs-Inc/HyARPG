@@ -133,6 +133,8 @@ public class HyARPGPlugin extends JavaPlugin {
             getCommandRegistry().registerCommand(new SetSkillPoints());
             getCommandRegistry().registerCommand(new AddPlayerLevels());
             getCommandRegistry().registerCommand(new ResetDiscoveredIngredients());
+            getCommandRegistry().registerCommand(new SetShowLootDropsSetting());
+            getCommandRegistry().registerCommand(new SetShowCombatTextSetting());
 
             // log the instantiation
             LOGGER.at(Level.INFO).log("[HyARPG] Instantiated commands");

@@ -65,6 +65,7 @@
   "ItemSoundSetId": "ISS_Armor_Heavy",
   "DurabilityLossOnHit": 0.5,
   "Quality": "Rare",
+  "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
   ],

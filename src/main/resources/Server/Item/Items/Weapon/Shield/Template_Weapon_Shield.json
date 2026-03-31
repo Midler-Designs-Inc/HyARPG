@@ -126,5 +126,6 @@
     ]
   },
   "Weapon": {},
-  "ItemAppearanceConditions": {}
+  "ItemAppearanceConditions": {},
+  "MaxStack": 1
 }

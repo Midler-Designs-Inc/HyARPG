@@ -435,6 +435,7 @@
   },
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.1,
+  "MaxStack": 1,
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"

@@ -178,6 +178,7 @@
   "Weapon": {},
   "ItemAppearanceConditions": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
+  "MaxStack": 1,
   "ResourceTypes": [
     {
       "Id": "Gear_Iron_Rare"

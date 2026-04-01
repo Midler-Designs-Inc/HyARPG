@@ -18,7 +18,7 @@ public class ShowDiscovered extends CommandBase {
 
     public ShowDiscovered() {
         // Name, Description
-        super("discovered", "Show the player's discovered gear recipes.", false);
+        super("discovered", "Show the player's discovered gear & room recipes.", false);
     }
 
     @Override

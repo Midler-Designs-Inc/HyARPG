@@ -8,6 +8,7 @@ import com.hypixel.hytale.protocol.BlockMaterial;
 import com.hypixel.hytale.protocol.DrawType;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 
@@ -179,14 +180,21 @@ public class RoomFloodFill {
         return BlockType.getAssetMap().getAsset(blockId);
     }
 
-    private static boolean isStructural(BlockType bt) {
-        return bt != null
-                && bt.getMaterial() == BlockMaterial.Solid
-                && (
-                bt.getDrawType() == DrawType.Cube
-                        || bt.getHitboxType().contains("Door")
-                        || bt.getHitboxType().contains("Window")
-        );
+    static boolean isStructural(BlockType bt) {
+        if (bt == null) return false;
+        if (bt.getMaterial() != BlockMaterial.Solid) return false;
+
+        if (bt.getDrawType() == DrawType.Cube) return true;
+
+        String hitboxType = bt.getHitboxType();
+        if (hitboxType != null && (hitboxType.contains("Door") || hitboxType.contains("Window"))) return true;
+
+        // Category check for things like trapdoors that aren't caught by hitbox name
+        Item item = bt.getItem();
+        if (item == null) return false;
+        String[] categories = item.getCategories();
+        if (categories == null) return false;
+        return Arrays.stream(categories).anyMatch("Furniture.Doors"::equals);
     }
 
     private static long packPos(int x, int y, int z) {

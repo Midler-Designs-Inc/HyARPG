@@ -3,7 +3,7 @@ package com.example.hyarpg.commands;
 // Hytale Imports
 
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.modules.Module_RPG_System;
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
@@ -58,7 +58,7 @@ public class SetSkillPoints extends CommandBase {
         World world = Universe.get().getWorld(targetedPlayer.getWorldUuid());
         world.execute(() -> {
             // get RPG player component
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             if (rpgPlayer == null) return;
 
             // set the players available skill points

@@ -3,8 +3,7 @@ package com.example.hyarpg.commands;
 // Hytale Imports
 
 import com.example.hyarpg.components.Component_CraftingKnowledge;
-import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.modules.Module_RPG_System;
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
@@ -56,7 +55,7 @@ public class ResetDiscoveredIngredients extends CommandBase {
         World world = Universe.get().getWorld(targetedPlayer.getWorldUuid());
         world.execute(() -> {
             // get RPG player component
-            Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, Module_RPG_System.componentTypeCraftingKnowledge);
+            Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, Module_RPGSystem.componentTypeCraftingKnowledge);
             if (craftingKnowledge == null) return;
 
             // reset the players discovered ingredients

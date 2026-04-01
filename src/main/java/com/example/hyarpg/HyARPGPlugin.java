@@ -29,7 +29,7 @@ public class HyARPGPlugin extends JavaPlugin {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     private static HyARPGPlugin instance;
-    public Module_RPG_System rpgSystem;
+    public Module_RPGSystem rpgSystem;
 
     // required super function??
     public HyARPGPlugin(@Nonnull JavaPluginInit init) {
@@ -107,7 +107,7 @@ public class HyARPGPlugin extends JavaPlugin {
             new Module_Greeter();
             new Module_Hunger(this);
             new Module_Thirst(this);
-            rpgSystem = new Module_RPG_System(this);
+            rpgSystem = new Module_RPGSystem(this);
             new Module_PlayerHud(this);
             new Module_BuildSystem();
 

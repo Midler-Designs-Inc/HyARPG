@@ -25,13 +25,15 @@ import com.hypixel.hytale.server.core.util.NotificationUtil;
 import java.util.*;
 
 public class Component_CraftingKnowledge implements Component<EntityStore> {
-    // List of items and recipes the player has discovered
+    // Recipe lists the player has discovered
     private Set<String> discoveredItems = new HashSet<>();
     public Set<String> discoveredDroppableRecipes = new HashSet<>();
+    public Set<String> discoveredRoomRecipes = new HashSet<>();
 
     // persisted - raw string values from codec because storing a hashset is not practical
     public String discoveredItemsRaw = "";
     public String discoveredDroppableRecipesRaw = "";
+    public String discoveredRoomRecipesRaw = "";
 
     // Persisted component data
     public static final BuilderCodec<Component_CraftingKnowledge> CODEC = BuilderCodec.builder(Component_CraftingKnowledge.class, Component_CraftingKnowledge::new)
@@ -53,6 +55,16 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
                     : new HashSet<>(Arrays.asList(value.split(",")));
             }),
             comp -> comp.discoveredDroppableRecipesRaw
+        )
+        .add()
+        .append(new KeyedCodec<>("DiscoveredRoomRecipes", Codec.STRING),
+            ((comp, value) -> {
+                comp.discoveredRoomRecipesRaw = value;
+                comp.discoveredRoomRecipes = value.isEmpty()
+                        ? new HashSet<>()
+                        : new HashSet<>(Arrays.asList(value.split(",")));
+            }),
+            comp -> comp.discoveredRoomRecipesRaw
         )
         .add()
         .build();
@@ -115,6 +127,21 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
 
             // update the serialized value of discovered map
             discoveredDroppableRecipesRaw = String.join(",", discoveredDroppableRecipes);
+        }
+    }
+    public void addDiscoveredRoomRecipe(Ref<EntityStore> ref, Store<EntityStore> store, String roomTypeValue, String roomTypeDisplay) {
+        // if the add is successful rebuild the raw string
+        if (discoveredRoomRecipes.add(roomTypeValue)) {
+            // Show the discovered notification
+            PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+            NotificationUtil.sendNotification(
+                playerRef.getPacketHandler(),
+                Message.translation("server.hyarpg.notifications.discovered_room").param("room", Message.translation(roomTypeDisplay)),
+                NotificationStyle.Success
+            );
+
+            // update the serialized value of discovered map
+            discoveredRoomRecipesRaw = String.join(",", discoveredRoomRecipes);
         }
     }
 

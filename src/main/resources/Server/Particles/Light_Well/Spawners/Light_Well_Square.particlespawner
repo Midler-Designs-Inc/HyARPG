@@ -1,11 +1,10 @@
 {
-  "$Comment": "replace later with voidy texture",
   "RenderMode": "BlendAdd",
   "LightInfluence": 1,
   "MaxConcurrentParticles": 1,
   "ParticleLifeSpan": {
-    "Min": 5.0,
-    "Max": 5.0
+    "Min": 2.0,
+    "Max": 2.0
   },
   "SpawnRate": {
     "Min": 100.0,

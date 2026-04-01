@@ -2,55 +2,37 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.utils.affixes.ImplicitAffixPool;
-import com.hypixel.hytale.builtin.adventure.objectives.config.triggercondition.ObjectiveLocationTriggerCondition;
-import com.hypixel.hytale.builtin.hytalegenerator.scanners.deprecated.AreaScanner;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
-import com.hypixel.hytale.component.spatial.SpatialResource;
-import com.hypixel.hytale.component.spatial.SpatialStructure;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
-import com.hypixel.hytale.protocol.PlaceBlockInteraction;
-import com.hypixel.hytale.protocol.packets.player.SetBlockPlacementOverride;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockPlacementSettings;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
-import com.hypixel.hytale.server.core.asset.type.item.config.container.ChoiceItemDropContainer;
-import com.hypixel.hytale.server.core.asset.type.item.config.container.ItemDropContainer;
-import com.hypixel.hytale.server.core.asset.type.item.config.container.MultipleItemDropContainer;
-import com.hypixel.hytale.server.core.asset.type.item.config.container.SingleItemDropContainer;
 import com.hypixel.hytale.server.core.entity.Frozen;
-import com.hypixel.hytale.server.core.entity.InteractionManager;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.entity.entities.player.windows.*;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.event.events.ecs.PlaceBlockEvent;
 import com.hypixel.hytale.server.core.inventory.InventoryChangeEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
-import com.hypixel.hytale.server.core.modules.block.system.ItemContainerSystems;
-import com.hypixel.hytale.server.core.modules.blockhealth.BlockHealthModule;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
-import com.hypixel.hytale.server.core.modules.entity.system.PlayerSpatialSystem;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
-import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInteraction;
-import com.hypixel.hytale.server.core.modules.interaction.interaction.config.client.SimpleBlockInteraction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.modules.physics.component.Velocity;
 import com.hypixel.hytale.server.core.modules.splitvelocity.VelocityConfig;
@@ -86,7 +68,6 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
 
-import com.hypixel.hytale.server.worldgen.loader.prefab.BlockPlacementMaskRegistry;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -95,7 +76,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class Module_RPG_System {
+public class Module_RPGSystem {
 
     private final HyARPGPlugin plugin;
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
@@ -184,7 +165,7 @@ public class Module_RPG_System {
     }
 
     // initialize this module
-    public Module_RPG_System(HyARPGPlugin plugin) {
+    public Module_RPGSystem(HyARPGPlugin plugin) {
         this.plugin = plugin;
 
         // Register the component type using EntityStoreRegistry

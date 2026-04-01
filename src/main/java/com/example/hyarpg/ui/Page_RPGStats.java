@@ -2,10 +2,9 @@ package com.example.hyarpg.ui;
 
 // Hytale Imports
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.modules.Module_RPG_System;
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.affixes.Affix;
 import com.example.hyarpg.utils.affixes.AffixPool;
-import com.example.hyarpg.utils.affixes.ImplicitAffixPool;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.Ref;
@@ -34,7 +33,7 @@ public class Page_RPGStats {
 
     public static void open(Ref<EntityStore> ref, Store<EntityStore> store) {
         // get rpg player component
-        Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+        Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
 
         // get armor container directly from component
         InventoryComponent.Armor armorComp = store.getComponent(ref, InventoryComponent.Armor.getComponentType());

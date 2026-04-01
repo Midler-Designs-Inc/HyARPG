@@ -15,7 +15,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_CraftingKnowledge;
-import static com.example.hyarpg.modules.Module_RPG_System.componentTypeCraftingKnowledge;
+import static com.example.hyarpg.modules.Module_RPGSystem.componentTypeCraftingKnowledge;
 
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;

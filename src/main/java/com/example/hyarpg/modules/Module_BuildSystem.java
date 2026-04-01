@@ -1,7 +1,10 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.components.Component_CraftingKnowledge;
 import com.example.hyarpg.configs.ModConfig;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3i;
@@ -9,6 +12,7 @@ import com.hypixel.hytale.protocol.BlockMaterial;
 import com.hypixel.hytale.protocol.DrawType;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -24,6 +28,7 @@ import com.example.hyarpg.events.Event_WorldStart;
 import com.example.hyarpg.utils.rooms.RoomType;
 import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Java Imports
 import java.util.*;
@@ -97,8 +102,8 @@ public class Module_BuildSystem {
             if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
 
             boolean isStructural = isStructural(placedBlockType);
-            if (isStructural) onStructuralBlockPlaced(world, pos, placedBlockType, registry);
-            else onDecorationBlockPlaced(world, pos, placedBlockType, registry);
+            if (isStructural) onStructuralBlockPlaced(world, pos, placedBlockType, registry, event.ref());
+            else onDecorationBlockPlaced(world, pos, placedBlockType, registry, event.ref());
 
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("onPlaceBlock failed: %s", e.getMessage());
@@ -123,8 +128,8 @@ public class Module_BuildSystem {
             if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
 
             boolean isStructural = isStructural(brokenBlockType);
-            if (isStructural) onStructuralBlockBroken(world, pos, brokenBlockType, registry);
-            else onDecorationBlockBroken(world, pos, brokenBlockType, registry);
+            if (isStructural) onStructuralBlockBroken(world, pos, brokenBlockType, registry, event.ref());
+            else onDecorationBlockBroken(world, pos, brokenBlockType, registry, event.ref());
 
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("onBreakBlock failed: %s", e.getMessage());
@@ -170,7 +175,7 @@ public class Module_BuildSystem {
     }
 
     // --- Structural Block Flow --- //
-    private void onStructuralBlockPlaced(World world, Vector3i blockPos, BlockType placedBlockType, WorldRoomRegistry registry) {
+    private void onStructuralBlockPlaced(World world, Vector3i blockPos, BlockType placedBlockType, WorldRoomRegistry registry, Ref ref) {
         RoomData detected = RoomFloodFill.detectRoomFromPlacedBlock(world, blockPos, placedBlockType);
         RoomData existing = registry.getRoomAt(blockPos.x, blockPos.y, blockPos.z);
 
@@ -179,17 +184,17 @@ public class Module_BuildSystem {
             scanRoomContents(world, detected);
             detected.addBlockKey(placedBlockType.getId());
             registry.addRoom(detected);
-            reevaluateRoomType(detected, registry, world);
+            reevaluateRoomType(detected, registry, world, ref);
         } else if (detected != null && existing != null) {
             scanRoomContents(world, existing);
             existing.addBlockKey(placedBlockType.getId());
-            reevaluateRoomType(existing, registry, world);
+            reevaluateRoomType(existing, registry, world, ref);
         } else if (detected == null && existing != null) {
             registry.removeRoom(existing);
             registry.saveAsync(world);
         }
     }
-    private void onStructuralBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry) {
+    private void onStructuralBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry, Ref ref) {
         RoomData detected = RoomFloodFill.detectRoomFromBrokenBlock(world, blockPos);
         RoomData existing = registry.getRoomsNear(blockPos.x, blockPos.y, blockPos.z).stream().findFirst().orElse(null);
 
@@ -198,11 +203,11 @@ public class Module_BuildSystem {
             scanRoomContents(world, detected);
             detected.removeBlockKey(removedBlockType.getId());
             registry.addRoom(detected);
-            reevaluateRoomType(detected, registry, world);
+            reevaluateRoomType(detected, registry, world, ref);
         } else if (detected != null && existing != null) {
             scanRoomContents(world, existing);
             existing.removeBlockKey(removedBlockType.getId());
-            reevaluateRoomType(existing, registry, world);
+            reevaluateRoomType(existing, registry, world, ref);
         } else if (detected == null && existing != null) {
             registry.removeRoom(existing);
             registry.saveAsync(world);
@@ -210,20 +215,20 @@ public class Module_BuildSystem {
     }
 
     // --- Decoration Block Flow --- //
-    private void onDecorationBlockPlaced(World world, Vector3i blockPos, BlockType placedBlockType, WorldRoomRegistry registry) {
+    private void onDecorationBlockPlaced(World world, Vector3i blockPos, BlockType placedBlockType, WorldRoomRegistry registry, Ref ref) {
         RoomData room = registry.getRoomAt(blockPos.x, blockPos.y, blockPos.z);
         if (room != null) {
             scanRoomContents(world, room);
             room.addBlockKey(placedBlockType.getId());
-            reevaluateRoomType(room, registry, world);
+            reevaluateRoomType(room, registry, world, ref);
         }
     }
-    private void onDecorationBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry) {
+    private void onDecorationBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry, Ref ref) {
         RoomData room = registry.getRoomAt(blockPos.x, blockPos.y, blockPos.z);
         if (room != null) {
             scanRoomContents(world, room);
             room.removeBlockKey(removedBlockType.getId());
-            reevaluateRoomType(room, registry, world);
+            reevaluateRoomType(room, registry, world, ref);
         }
     }
 
@@ -286,29 +291,48 @@ public class Module_BuildSystem {
         }
     }
 
-    private void reevaluateRoomType(RoomData room, WorldRoomRegistry registry, World world) {
+    private void reevaluateRoomType(RoomData room, WorldRoomRegistry registry, World world, Ref ref) {
+        // classify the room
         RoomType newType = RoomType.classify(
-                room.getInteriorSizeX(),
-                room.getInteriorSizeY(),
-                room.getInteriorSizeZ(),
-                room.getBlockCountsInside()
+            room.getInteriorSizeX(),
+            room.getInteriorSizeY(),
+            room.getInteriorSizeZ(),
+            room.getBlockCountsInside()
         );
 
+        // get the room name from the fresh scan or bail
         String newTypeName = newType != null ? newType.getDisplayName() : null;
-        String oldTypeName = room.getDesignatedRoomType();
-        if (Objects.equals(newTypeName, oldTypeName)) return;
+        if(newTypeName == null) return;
 
-        room.setDesignatedRoomType(newTypeName);
+        // try to register the new room type with the placing player
+        try {
+            Store<EntityStore> store = ref.getStore();
+            Component_CraftingKnowledge knowledgeComp = store.getComponent(ref, Module_RPGSystem.componentTypeCraftingKnowledge);
+            knowledgeComp.addDiscoveredRoomRecipe(ref, ref.getStore(), newType.name(), newTypeName);
+        } catch (Exception e) {}
+
+        // set the room type if applicable
+        String oldTypeName = room.getDesignatedRoomType();
+        if (!Objects.equals(newTypeName, oldTypeName)) room.setDesignatedRoomType(newTypeName);
+
+        // save the registry either way
         registry.saveAsync(world);
     }
 
     static boolean isStructural(BlockType bt) {
-        return bt != null
-                && bt.getMaterial() == BlockMaterial.Solid
-                && (
-                bt.getDrawType() == DrawType.Cube
-                        || bt.getHitboxType().contains("Door")
-                        || bt.getHitboxType().contains("Window")
-        );
+        if (bt == null) return false;
+        if (bt.getMaterial() != BlockMaterial.Solid) return false;
+
+        if (bt.getDrawType() == DrawType.Cube) return true;
+
+        String hitboxType = bt.getHitboxType();
+        if (hitboxType != null && (hitboxType.contains("Door") || hitboxType.contains("Window"))) return true;
+
+        // Category check for things like trapdoors that aren't caught by hitbox name
+        Item item = bt.getItem();
+        if (item == null) return false;
+        String[] categories = item.getCategories();
+        if (categories == null) return false;
+        return Arrays.stream(categories).anyMatch("Furniture.Doors"::equals);
     }
 }

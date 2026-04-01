@@ -2,9 +2,8 @@ package com.example.hyarpg.interactions;
 
 // Hytale Imports
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.modules.Module_RPG_System;
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.skills.SkillNode;
-import com.hypixel.hytale.builtin.deployables.config.DeployableAoeConfig;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
@@ -21,7 +20,6 @@ import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
-import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.modules.interaction.InteractionModule;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.RootInteraction;
@@ -53,7 +51,7 @@ public class Interaction_UseAbility1 extends SimpleInstantInteraction {
         try {
             // get applicable entity components and validate we got them
             Player player = store.getComponent(entityRef, Player.getComponentType());
-            Component_RPG_Player rpgPlayer = store.getComponent(entityRef, Module_RPG_System.componentTypeRPGPlayer);
+            Component_RPG_Player rpgPlayer = store.getComponent(entityRef, Module_RPGSystem.componentTypeRPGPlayer);
             ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
             EntityStatMap statMap = store.getComponent(entityRef, statMapType);
             if (player == null || rpgPlayer == null || statMap == null) return;

@@ -62,6 +62,18 @@
       "Color": "#ccc",
       "Radius": 1
     },
+    "Particles": [
+      {
+        "SystemId": "Light_Well_Beam",
+        "TargetEntityPart": "Entity",
+        "TargetNodeName": "Foundation",
+        "Scale": 0.8
+      },
+      {
+        "SystemId": "Light_Well_Square",
+        "DetachedFromModel": false
+      }
+    ],
     "CustomModelAnimation": "Items/Crystal_Font/Crystal_Rotation.blockyanim",
     "RequiresAlphaBlending": false,
     "BlockEntity": {

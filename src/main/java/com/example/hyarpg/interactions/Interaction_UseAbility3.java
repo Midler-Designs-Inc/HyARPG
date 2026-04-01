@@ -3,8 +3,7 @@ package com.example.hyarpg.interactions;
 // Hytale Imports
 
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.modules.Module_RPG_System;
-import com.example.hyarpg.ui.Page_RPGStats;
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.skills.SkillNode;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.ComponentType;
@@ -32,7 +31,6 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 import java.awt.*;
-import java.util.Objects;
 import java.util.logging.Level;
 
 public class Interaction_UseAbility3 extends SimpleInstantInteraction {
@@ -56,7 +54,7 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
         try {
             // get applicable entity components and validate we got them
             Player player = store.getComponent(entityRef, Player.getComponentType());
-            Component_RPG_Player rpgPlayer = store.getComponent(entityRef, Module_RPG_System.componentTypeRPGPlayer);
+            Component_RPG_Player rpgPlayer = store.getComponent(entityRef, Module_RPGSystem.componentTypeRPGPlayer);
             ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
             EntityStatMap statMap = store.getComponent(entityRef, statMapType);
             if (player == null || rpgPlayer == null || statMap == null) return;

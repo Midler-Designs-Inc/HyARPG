@@ -5,20 +5,14 @@ import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.utils.rooms.RoomData;
 import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
-import com.hypixel.hytale.common.plugin.PluginManifest;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.protocol.MovementStates;
-import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
-import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
-import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.movement.MovementStatesComponent;
-import com.hypixel.hytale.server.core.entity.movement.MovementStatesSystems;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
@@ -35,11 +29,6 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Mod imports
 import com.example.hyarpg.components.*;
 import com.example.hyarpg.HyARPGPlugin;
-import com.hypixel.hytale.server.core.util.NotificationUtil;
-import com.hypixel.hytale.server.npc.corecomponents.lifecycle.builders.BuilderActionDespawn;
-import com.hypixel.hytale.server.npc.instructions.Action;
-import com.hypixel.hytale.server.npc.role.Role;
-import com.hypixel.hytale.server.npc.systems.RoleSystems;
 
 // Java imports
 import java.util.Objects;
@@ -210,7 +199,7 @@ public final class Module_ModTickLoop {
     private void tickGearRefresh(Ref<EntityStore> ref, Store<EntityStore> store, Player player){
         try {
             // get the RPG Player component
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
             if(rpgPlayer == null) return;
 
@@ -236,7 +225,7 @@ public final class Module_ModTickLoop {
     private void tickResourceRegens(Ref<EntityStore> ref, Store<EntityStore> store, Player player) {
         try {
             // get the rpg player component
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             if (rpgPlayer == null) return;
 
             // get the stat map component from the player
@@ -305,7 +294,7 @@ public final class Module_ModTickLoop {
             // if the light well territory claim is disabled then we don't need to do any of this
             if (!ModConfig.get().building.allow_light_well_territory_claim) return;
 
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
             World world = player.getWorld();
 

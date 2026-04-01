@@ -1,12 +1,8 @@
 package com.example.hyarpg.ui;
 
 // Mod imports
-import au.ellie.hyui.builders.HyUIPage;
-import au.ellie.hyui.builders.HyUInterface;
-import au.ellie.hyui.builders.InterfaceBuilder;
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.modules.Module_RPG_System;
-import com.example.hyarpg.utils.abilities.Ability;
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.skills.Requirement;
 import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.example.hyarpg.utils.skills.SkillNode;
@@ -65,7 +61,7 @@ public class Page_SkillTree {
 
     public static void open(Ref<EntityStore> ref, Store<EntityStore> store, String selectedTreeId) {
         Player player            = store.getComponent(ref, Player.getComponentType());
-        Component_RPG_Player rpg = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+        Component_RPG_Player rpg = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
 
         // Use a fresh SkillLibrary for structure and layout — the Gson-deserialized
         // instance on rpg.skillLibrary has null layout/node maps due to bypassing

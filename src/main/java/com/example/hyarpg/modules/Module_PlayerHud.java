@@ -8,9 +8,6 @@ import com.example.hyarpg.utils.skills.SkillNode;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
-import com.hypixel.hytale.server.core.entity.InteractionChain;
-import com.hypixel.hytale.server.core.entity.InteractionContext;
-import com.hypixel.hytale.server.core.entity.InteractionManager;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
@@ -31,12 +28,9 @@ import com.example.hyarpg.components.Component_Thirst;
 // HyUI Imports
 import au.ellie.hyui.builders.*;
 import au.ellie.hyui.types.ProgressBarDirection;
-import org.jline.jansi.Ansi;
-
-import java.awt.*;
 
 import static com.example.hyarpg.modules.Module_Hunger.componentTypeHunger;
-import static com.example.hyarpg.modules.Module_RPG_System.componentTypeRPGPlayer;
+import static com.example.hyarpg.modules.Module_RPGSystem.componentTypeRPGPlayer;
 import static com.example.hyarpg.modules.Module_Thirst.componentTypeThirst;
 
 public class Module_PlayerHud {

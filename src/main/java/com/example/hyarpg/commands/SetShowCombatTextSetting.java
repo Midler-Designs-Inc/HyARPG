@@ -2,7 +2,7 @@ package com.example.hyarpg.commands;
 
 // Hytale Imports
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.modules.Module_RPG_System;
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
@@ -41,7 +41,7 @@ public class SetShowCombatTextSetting extends CommandBase {
             Store<EntityStore> store = ref.getStore();
 
             // get RPG player component
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             if (rpgPlayer == null) return;
 
             // update the settings

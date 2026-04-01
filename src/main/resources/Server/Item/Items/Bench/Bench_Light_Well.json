@@ -42,16 +42,6 @@
     ],
     "HitboxType": "Light_Well_Hitbox",
     "VariantRotation": "NESW",
-    "Bench": {
-      "Type": "Crafting",
-      "LocalOpenSoundEventId": "SFX_Crystal_Hit",
-      "LocalCloseSoundEventId": "SFX_Crystal_Break",
-      "CompletedSoundEventId": "SFX_Crystal_Break",
-      "Id": "LightWell",
-      "Categories": [
-        {}
-      ]
-    },
     "Gathering": {
       "Breaking": {
         "GatherType": "Benches"
@@ -72,18 +62,6 @@
       "Color": "#ccc",
       "Radius": 1
     },
-    "Particles": [
-      {
-        "SystemId": "Light_Well_Beam",
-        "TargetEntityPart": "Entity",
-        "TargetNodeName": "Foundation",
-        "Scale": 0.8
-      },
-      {
-        "SystemId": "Light_Well_Square",
-        "DetachedFromModel": false
-      }
-    ],
     "CustomModelAnimation": "Items/Crystal_Font/Crystal_Rotation.blockyanim",
     "RequiresAlphaBlending": false,
     "BlockEntity": {

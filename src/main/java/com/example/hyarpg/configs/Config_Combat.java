@@ -14,7 +14,7 @@ public class Config_Combat {
 
     @Key("base_parry_window_in_seconds")
     @Comment("Blocking within this time of the hit constitutes a parried hit. Default: 0.2 seconds")
-    public long base_parry_window_in_seconds = 200_000_000L;
+    public double base_parry_window_in_seconds = 0.2;
 
     @Key("damage_to_player_multiplier")
     @Comment("A multiplier changing how much damage players will take from enemies. Default: 1.0")

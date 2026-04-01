@@ -5,6 +5,7 @@ import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.modules.Module_RPG_System;
 import com.example.hyarpg.utils.codecs.Codec_SkillLibrary;
 import com.example.hyarpg.utils.rooms.RoomData;
+import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
@@ -82,6 +83,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
 
     // store if the player is inside a room or not
     public RoomData room;
+    public TerritoryData territory;
 
     // player settings
     public boolean showLootDrops = true;

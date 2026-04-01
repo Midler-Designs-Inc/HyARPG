@@ -1,17 +1,16 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.BlockMaterial;
 import com.hypixel.hytale.protocol.DrawType;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 
@@ -27,16 +26,14 @@ import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 
 // Java Imports
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.logging.Level;
 
-public class Module_RoomSystem {
+public class Module_BuildSystem {
 
     private static final String LIGHT_WELL_KEY = "Bench_Light_Well";
 
-    public Module_RoomSystem() {
+    public Module_BuildSystem() {
         ModEventBus.register(Event_WorldStart.class, this::onWorldStart);
         ModEventBus.register(Event_PlaceBlock.class, this::onPlaceBlock);
         ModEventBus.register(Event_BreakBlock.class, this::onBreakBlock);
@@ -53,26 +50,35 @@ public class Module_RoomSystem {
                 );
             });
         } catch (Exception e) {
-            HytaleLogger.getLogger().at(Level.WARNING).log("Room System on world start failed: %s", e.getMessage());
+            HytaleLogger.getLogger().at(Level.WARNING).log("Build System on world start failed: %s", e.getMessage());
         }
     }
 
     // --- Event Handlers for Placing/Breaking --- //
     private void onPlaceBlock(Event_PlaceBlock event) {
         try {
+            // if the light well territory claim is disabled then we don't need to do any of this
+            if (!ModConfig.get().building.allow_light_well_territory_claim) return;
+
+            // get the item in the main hand that the player is trying to place
             ItemStack stack = event.event().getItemInHand();
             if (stack == null || stack.getBlockKey() == null) return;
 
+            // get the block key and type from the mainhand item
             String blockKey = stack.getBlockKey();
             BlockType placedBlockType = BlockType.getAssetMap().getAsset(blockKey);
             if (placedBlockType == null) return;
 
+            // get the targeted place position and the world it's in
             Vector3i pos = event.event().getTargetBlock();
             World world = event.commandBuffer().getExternalData().getWorld();
 
+            // get the player that placed the block
+            PlayerRef playerRef = event.store().getComponent(event.ref(), PlayerRef.getComponentType());
+
             // --- Territory terminal ---
             if (blockKey.equals(LIGHT_WELL_KEY)) {
-                onLightWellPlaced(world, pos);
+                onLightWellPlaced(world, pos, playerRef.getUuid());
                 return;
             }
 
@@ -80,7 +86,7 @@ public class Module_RoomSystem {
             if (registry == null) return;
 
             // --- Build restriction: benches and beds require a territory ---
-            if (requiresTerritory(blockKey)) {
+            if (requiresTerritory(placedBlockType)) {
                 if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) {
                     event.event().setCancelled(true);
                     return;
@@ -126,19 +132,19 @@ public class Module_RoomSystem {
     }
 
     // --- Territory Flow --- //
-    private void onLightWellPlaced(World world, Vector3i pos) {
+    private void onLightWellPlaced(World world, Vector3i pos, UUID ownerUuid) {
         WorldRoomRegistry registry = WorldRoomRegistry.get(world);
         if (registry == null) return;
 
-        // Prevent overlapping territories
         if (registry.getTerritoryAt(pos.x, pos.y, pos.z) != null) return;
 
-        TerritoryData territory = new TerritoryData(pos);
+        TerritoryData territory = new TerritoryData(pos, ownerUuid);
         registry.addTerritory(territory);
         registry.saveAsync(world);
 
         HytaleLogger.getLogger().at(Level.INFO).log(
-                "[RoomSystem] Territory registered at (%d, %d, %d)", pos.x, pos.y, pos.z
+                "[BuildSystem] Territory registered at (%d, %d, %d) by %s",
+                pos.x, pos.y, pos.z, ownerUuid
         );
     }
     private void onLightWellBroken(World world, Vector3i pos) {
@@ -210,26 +216,31 @@ public class Module_RoomSystem {
             scanRoomContents(world, room);
             room.addBlockKey(placedBlockType.getId());
             reevaluateRoomType(room, registry, world);
-            for (PlayerRef player : Universe.get().getPlayers())
-                player.sendMessage(Message.raw("Room contents were: " + room.getBlockCountsInside()));
         }
     }
     private void onDecorationBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry) {
         RoomData room = registry.getRoomAt(blockPos.x, blockPos.y, blockPos.z);
         if (room != null) {
             scanRoomContents(world, room);
-            for (PlayerRef player : Universe.get().getPlayers())
-                player.sendMessage(Message.raw("Removing: " + removedBlockType.getId()));
             room.removeBlockKey(removedBlockType.getId());
             reevaluateRoomType(room, registry, world);
-            for (PlayerRef player : Universe.get().getPlayers())
-                player.sendMessage(Message.raw("Room contents were: " + room.getBlockCountsInside()));
         }
     }
 
     // Blocks that require being inside a territory to be placed
-    private static boolean requiresTerritory(String blockKey) {
-        return blockKey.startsWith("Bench_") || blockKey.contains("Bed");
+    private static boolean requiresTerritory(BlockType placedBlockType) {
+        try {
+            String[] categories = placedBlockType.getItem().getCategories();
+
+            // check beds/bench logic
+            if(!ModConfig.get().building.allow_bed_placement_outside_territory && Arrays.stream(categories).anyMatch("Furniture.Beds"::equals))
+                return true;
+            if(!ModConfig.get().building.allow_bench_placement_outside_territory && Arrays.stream(categories).anyMatch("Furniture.Benches"::equals))
+                return true;
+
+        } catch (Exception e) {}
+
+        return false;
     }
 
     private void scanRoomContents(World world, RoomData room) {

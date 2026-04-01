@@ -567,7 +567,8 @@ public class Module_RPG_System {
             try {
                 // check if was within timing window
                 long blockStart = defenderRPGStats.blockStart;
-                long parryWindowModified = ModConfig.get().combat.base_parry_window_in_seconds + (long) (defenderStats.getParryWindow() * 1_000_000_000L);
+                double totalSeconds = ModConfig.get().combat.base_parry_window_in_seconds + defenderStats.getParryWindow();
+                long parryWindowModified = (long)(totalSeconds * 1_000_000_000L);
 
                 if(System.nanoTime() - blockStart <= parryWindowModified) {
                     // set the damage threshold for parrying based on stability

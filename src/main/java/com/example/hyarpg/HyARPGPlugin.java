@@ -109,7 +109,7 @@ public class HyARPGPlugin extends JavaPlugin {
             new Module_Thirst(this);
             rpgSystem = new Module_RPG_System(this);
             new Module_PlayerHud(this);
-            new Module_RoomSystem();
+            new Module_BuildSystem();
 
             // create an instance of our global tick event (not OOP but better for processing I guess)
             new Module_ModTickLoop(this, HytaleServer.SCHEDULED_EXECUTOR).start();

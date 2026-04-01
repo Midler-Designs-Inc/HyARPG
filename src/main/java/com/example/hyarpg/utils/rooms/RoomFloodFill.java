@@ -18,13 +18,6 @@ import java.util.*;
 public class RoomFloodFill {
 
     @Nullable
-    public static RoomData detectRoomFromPlacedBlock(World world, Vector3i placedBlockPos) {
-        List<Vector3i> pendingSolids = new ArrayList<>();
-        pendingSolids.add(placedBlockPos);
-        return detectRoomFromPlacedBlock(world, placedBlockPos, pendingSolids);
-    }
-
-    @Nullable
     public static RoomData detectRoomFromPlacedBlock(World world, Vector3i placedBlockPos, BlockType placingBlockType) {
         List<Vector3i> pendingSolids = buildPendingSolids(placedBlockPos, placingBlockType);
         return detectRoomFromPlacedBlock(world, placedBlockPos, pendingSolids);
@@ -32,22 +25,28 @@ public class RoomFloodFill {
 
     @Nullable
     private static RoomData detectRoomFromPlacedBlock(World world, Vector3i placedBlockPos, List<Vector3i> pendingSolids) {
-        int[][] neighborOffsets = {
-                {1, 0, 0}, {-1, 0, 0},
-                {0, 1, 0}, {0, -1, 0},
-                {0, 0, 1}, {0, 0, -1},
-        };
+        Set<String> attempted = new HashSet<>();
 
-        for (int[] n : neighborOffsets) {
-            int nx = placedBlockPos.x + n[0];
-            int ny = placedBlockPos.y + n[1];
-            int nz = placedBlockPos.z + n[2];
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dy = -1; dy <= 1; dy++) {
+                for (int dz = -1; dz <= 1; dz++) {
+                    if (dx == 0 && dy == 0 && dz == 0) continue;
 
-            BlockType bt = getBlockTypeWithPending(world, nx, ny, nz, pendingSolids);
-            if (bt == null || isStructural(bt)) continue;
+                    int nx = placedBlockPos.x + dx;
+                    int ny = placedBlockPos.y + dy;
+                    int nz = placedBlockPos.z + dz;
 
-            RoomData result = detectRoom(world, new Vector3i(nx, ny, nz), pendingSolids);
-            if (result != null) return result;
+                    BlockType bt = getBlockTypeWithPending(world, nx, ny, nz, pendingSolids);
+                    if (bt == null || isStructural(bt)) continue;
+
+                    // Deduplicate seeds — diagonal neighbors may flood fill the same room
+                    String seedKey = nx + "," + ny + "," + nz;
+                    if (!attempted.add(seedKey)) continue;
+
+                    RoomData result = detectRoom(world, new Vector3i(nx, ny, nz), pendingSolids);
+                    if (result != null) return result;
+                }
+            }
         }
         return null;
     }

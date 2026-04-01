@@ -18,33 +18,41 @@ public class ModConfig extends ConfigurablePojo<ModConfig> {
     // File path
     private static final Path CONFIG_PATH = Paths.get("").toAbsolutePath().resolve("mods/HyARPG/HyARPG_Config.toml");
 
-    @Key("hunger")
-    @Section("hunger")
-    public Config_Hunger hunger = new Config_Hunger();
-
-    @Key("thirst")
-    @Section("thirst")
-    public Config_Thirst thirst = new Config_Thirst();
-
-    @Key("players")
-    @Section("players")
-    public Config_Players players = new Config_Players();
-
-    @Key("enemies")
-    @Section("enemies")
-    public Config_Enemies enemies = new Config_Enemies();
+    @Key("building")
+    @Section("building")
+    public Config_Building building = new Config_Building();
 
     @Key("combat")
     @Section("combat")
     public Config_Combat combat = new Config_Combat();
 
+    @Key("enemies")
+    @Section("enemies")
+    public Config_Enemies enemies = new Config_Enemies();
+
     @Key("experience")
     @Section("experience")
     public Config_Experience experience = new Config_Experience();
 
+    @Key("hunger")
+    @Section("hunger")
+    public Config_Hunger hunger = new Config_Hunger();
+
     @Key("loot")
     @Section("loot")
     public Config_Loot loot = new Config_Loot();
+
+    @Key("players")
+    @Section("players")
+    public Config_Players players = new Config_Players();
+
+    @Key("raids")
+    @Section("raids")
+    public Config_Raids raids = new Config_Raids();
+
+    @Key("thirst")
+    @Section("thirst")
+    public Config_Thirst thirst = new Config_Thirst();
 
     @Key("world")
     @Section("world")

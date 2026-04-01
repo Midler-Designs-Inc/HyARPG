@@ -3,6 +3,7 @@ package com.example.hyarpg.modules;
 // Hytale imports
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.utils.rooms.RoomData;
+import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 import com.hypixel.hytale.common.plugin.PluginManifest;
 import com.hypixel.hytale.component.ComponentType;
@@ -301,6 +302,9 @@ public final class Module_ModTickLoop {
     // function to check if the player is inside a room or not
     private void tickRoomCheck(Ref<EntityStore> ref, Store<EntityStore> store, Player player, PlayerRef playerRef) {
         try {
+            // if the light well territory claim is disabled then we don't need to do any of this
+            if (!ModConfig.get().building.allow_light_well_territory_claim) return;
+
             Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPG_System.componentTypeRPGPlayer);
             TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
             World world = player.getWorld();
@@ -326,6 +330,18 @@ public final class Module_ModTickLoop {
 
             // update the player component with the new current room
             if (!sameRoom) rpgPlayer.room = currentRoom;
+
+            // --- Territory ---
+            TerritoryData currentTerritory = registry != null ? registry.getTerritoryAt(x, y, z) : null;
+            TerritoryData lastTerritory = rpgPlayer.territory;
+
+            boolean sameTerritory = currentTerritory == null && lastTerritory == null
+                    || currentTerritory != null && lastTerritory != null
+                    && currentTerritory.getCenter().x == lastTerritory.getCenter().x
+                    && currentTerritory.getCenter().y == lastTerritory.getCenter().y
+                    && currentTerritory.getCenter().z == lastTerritory.getCenter().z;
+
+            if (!sameTerritory) rpgPlayer.territory = currentTerritory;
 
         } catch (Exception e) {
             System.err.println(e.getMessage());

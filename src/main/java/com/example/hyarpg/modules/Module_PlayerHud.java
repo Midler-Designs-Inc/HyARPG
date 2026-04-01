@@ -18,6 +18,7 @@ import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
@@ -204,13 +205,23 @@ public class Module_PlayerHud {
                         .withVisible(secondsLeft_R_final > 0)
                 );
 
-                // Room text
+                // determine if we should show the room info or not
+                boolean showRoomInfo = ModConfig.get().building.allow_light_well_territory_claim && rpgPlayer.territory != null;
                 hudRef.getById("currentRoomBorder", ImageBuilder.class).ifPresent(l -> l
-                    .withVisible(rpgPlayer.room != null)
+                    .withVisible(showRoomInfo)
                 );
                 hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
-                    .withVisible(rpgPlayer.room != null)
-                    .withText(rpgPlayer.room == null ? "" : rpgPlayer.room.getDesignatedRoomType())
+                    .withVisible(showRoomInfo)
+                );
+                if(!showRoomInfo || rpgPlayer.territory.getOwnerUuid() == null) return;
+
+                // if we are showing the room info, get the info
+                PlayerRef territoryOwner = Universe.get().getPlayer(rpgPlayer.territory.getOwnerUuid());
+                String roomText = rpgPlayer.room != null
+                        ? rpgPlayer.room.getDesignatedRoomType()
+                        : territoryOwner.getUsername() + "'s Territory";
+                hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
+                    .withText(roomText)
                 );
             });
         });
@@ -498,6 +509,9 @@ public class Module_PlayerHud {
 
     // function to show the xp bar
     private void createRoomHud(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
+        // if the light well territory claim is disabled then we don't need to do any of this
+        if (!ModConfig.get().building.allow_light_well_territory_claim) return;
+
         // Current Room Decoration
         hud.addElement(new ImageBuilder()
             .withId("currentRoomBorder")

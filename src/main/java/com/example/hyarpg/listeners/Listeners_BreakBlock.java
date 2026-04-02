@@ -34,6 +34,7 @@ public class Listeners_BreakBlock extends EntityEventSystem<EntityStore, BreakBl
     @NullableDecl
     @Override
     public Query<EntityStore> getQuery() {
-        return PlayerRef.getComponentType();
+        return Query.any();
+//        return PlayerRef.getComponentType();
     }
 }

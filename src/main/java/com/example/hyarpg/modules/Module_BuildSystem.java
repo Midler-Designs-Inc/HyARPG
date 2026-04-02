@@ -10,6 +10,7 @@ import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.BlockMaterial;
 import com.hypixel.hytale.protocol.DrawType;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
@@ -31,6 +32,7 @@ import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Java Imports
+import java.awt.*;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -83,7 +85,7 @@ public class Module_BuildSystem {
 
             // --- Territory terminal ---
             if (blockKey.equals(LIGHT_WELL_KEY)) {
-                onLightWellPlaced(world, pos, playerRef.getUuid());
+                onLightWellPlaced(event, world, pos, playerRef);
                 return;
             }
 
@@ -94,6 +96,7 @@ public class Module_BuildSystem {
             if (requiresTerritory(placedBlockType)) {
                 if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) {
                     event.event().setCancelled(true);
+                    playerRef.sendMessage(Message.raw("You must be inside a territory to place this item. Place a Light Well first to claim one.").color(Color.RED));
                     return;
                 }
             }
@@ -137,19 +140,42 @@ public class Module_BuildSystem {
     }
 
     // --- Territory Flow --- //
-    private void onLightWellPlaced(World world, Vector3i pos, UUID ownerUuid) {
+    private void onLightWellPlaced(Event_PlaceBlock event, World world, Vector3i pos, PlayerRef playerRef) {
         WorldRoomRegistry registry = WorldRoomRegistry.get(world);
         if (registry == null) return;
 
+        UUID ownerUuid = playerRef.getUuid();
+
+        // --- One territory per player ---
+        boolean alreadyOwnsTerritory = registry.getAllTerritories().stream().anyMatch(t -> ownerUuid.equals(t.getOwnerUuid()));
+        if (alreadyOwnsTerritory) {
+            event.event().setCancelled(true);
+            playerRef.sendMessage(Message.raw("You already have an active territory. Break your existing Light Well before placing a new one.").color(Color.RED));
+            return;
+        }
+
         if (registry.getTerritoryAt(pos.x, pos.y, pos.z) != null) return;
 
-        TerritoryData territory = new TerritoryData(pos, ownerUuid);
+        // --- Overlap check: candidate territory must not clip any existing territory ---
+        TerritoryData candidate = new TerritoryData(pos, ownerUuid);
+        boolean overlaps = registry.getAllTerritories().stream().anyMatch(existing ->
+            candidate.getMaxX() >= existing.getMinX() && candidate.getMinX() <= existing.getMaxX() &&
+            candidate.getMaxY() >= existing.getMinY() && candidate.getMinY() <= existing.getMaxY() &&
+            candidate.getMaxZ() >= existing.getMinZ() && candidate.getMinZ() <= existing.getMaxZ()
+        );
+        if (overlaps) {
+            event.event().setCancelled(true);
+            playerRef.sendMessage(Message.raw("You cannot place a Light Well here — it would overlap with another player's territory.").color(Color.RED));
+            return;
+        }
+
+        TerritoryData territory = candidate;
         registry.addTerritory(territory);
         registry.saveAsync(world);
 
         HytaleLogger.getLogger().at(Level.INFO).log(
-                "[BuildSystem] Territory registered at (%d, %d, %d) by %s",
-                pos.x, pos.y, pos.z, ownerUuid
+            "[BuildSystem] Territory registered at (%d, %d, %d) by %s",
+            pos.x, pos.y, pos.z, ownerUuid
         );
     }
     private void onLightWellBroken(World world, Vector3i pos) {
@@ -294,10 +320,10 @@ public class Module_BuildSystem {
     private void reevaluateRoomType(RoomData room, WorldRoomRegistry registry, World world, Ref ref) {
         // classify the room
         RoomType newType = RoomType.classify(
-            room.getInteriorSizeX(),
-            room.getInteriorSizeY(),
-            room.getInteriorSizeZ(),
-            room.getBlockCountsInside()
+                room.getInteriorSizeX(),
+                room.getInteriorSizeY(),
+                room.getInteriorSizeZ(),
+                room.getBlockCountsInside()
         );
 
         // get the room name from the fresh scan or bail

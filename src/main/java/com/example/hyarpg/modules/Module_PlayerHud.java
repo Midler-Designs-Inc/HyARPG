@@ -70,6 +70,7 @@ public class Module_PlayerHud {
         createBarrierBar(world, entityRef, store);
         createSkillsBar(world, entityRef, store);
         createRoomHud(world, entityRef, store);
+        createRaidHud(world, entityRef, store);
 
         // create the hud refresh logic
         startHUDRefresh(world, entityRef, store);
@@ -198,6 +199,45 @@ public class Module_PlayerHud {
                 hudRef.getById("skillIconOverlay_R", ImageBuilder.class).ifPresent(l -> l
                         .withVisible(secondsLeft_R_final > 0)
                 );
+
+                // update raid HUD — only visible during an active raid
+                Module_RaidSystem.RaidHudState raidState = rpgPlayer.activeRaidHudState;
+                boolean raidActive = raidState != null;
+                hudRef.getById("raidHud_Icon", ImageBuilder.class).ifPresent(b -> b.withVisible(raidActive));
+                hudRef.getById("raidHud_WaveStatus", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
+                hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
+                hudRef.getById("raidHud_ExplosionWarning", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive && ModConfig.get().raids.unkilled_raid_enemies_explode));
+
+                if (raidActive) {
+                    long nowMs = System.currentTimeMillis();
+
+                    // determine wave status text and countdown text based on current phase
+                    String waveStatusText;
+                    String countdownText;
+
+                    if (raidState.currentWave == 0) {
+                        // pre-first-wave phase
+                        long secondsUntilFirst = Math.max(0, (raidState.firstWaveSpawnAtMs - nowMs) / 1000L);
+                        waveStatusText = "Incoming...";
+                        countdownText = "First wave in " + secondsUntilFirst + "s";
+                    } else if (raidState.currentWave < raidState.totalWaves) {
+                        // mid-raid — a wave has spawned, more to come
+                        long nextWaveAtMs = raidState.firstWaveSpawnAtMs + ((long) raidState.currentWave * raidState.secondsBetweenWaves * 1000L);
+                        long secondsUntilNext = Math.max(0, (nextWaveAtMs - nowMs) / 1000L);
+                        waveStatusText = "Wave " + raidState.currentWave + " / " + raidState.totalWaves;
+                        countdownText = "Next wave in " + secondsUntilNext + "s";
+                    } else {
+                        // all waves spawned — counting down to raid end
+                        long secondsUntilEnd = Math.max(0, (raidState.raidEndMs - nowMs) / 1000L);
+                        waveStatusText = "Wave " + raidState.totalWaves + " / " + raidState.totalWaves;
+                        countdownText = "Raid ends in " + secondsUntilEnd + "s";
+                    }
+
+                    final String waveStatusFinal = waveStatusText;
+                    final String countdownFinal = countdownText;
+                    hudRef.getById("raidHud_WaveStatus", LabelBuilder.class).ifPresent(b -> b.withText(waveStatusFinal));
+                    hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withText(countdownFinal));
+                }
 
                 // determine if we should show the room info or not
                 boolean showRoomInfo = ModConfig.get().building.allow_light_well_territory_claim && rpgPlayer.territory != null;
@@ -534,6 +574,76 @@ public class Module_PlayerHud {
             )
             .withVisible(false)
             .withText("Simple Kitchen")
+        );
+    }
+
+    // function to create the raid notification hud elements
+    private void createRaidHud(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
+        // Raid icon — middle left, padded ~100px from left
+        hud.addElement(new ImageBuilder()
+            .withId("raidHud_Icon")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(120)
+                .setHeight(50)
+                .setLeft(75)
+                .setTop(200)
+            )
+            .withVisible(false)
+            .withImage("HyARPG_Raid_Notification.png")
+        );
+
+        // Wave status label — e.g. "Wave 1 / 3" or "Incoming..."
+        hud.addElement(new LabelBuilder()
+            .withId("raidHud_WaveStatus")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(200)
+                .setHeight(20)
+                .setLeft(75)
+                .setTop(250)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(13)
+                .setTextColor("#ffffff")
+                .setRenderBold(true)
+            )
+            .withVisible(false)
+            .withText("Wave 1 / 3")
+        );
+
+        // Countdown label — e.g. "First wave in 30s" or "Next wave in 45s" or "Raid ends in 60s"
+        hud.addElement(new LabelBuilder()
+            .withId("raidHud_Countdown")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(200)
+                .setHeight(20)
+                .setLeft(75)
+                .setTop(270)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(13)
+                .setTextColor("#ffaa00")
+                .setRenderBold(true)
+            )
+            .withVisible(false)
+            .withText("")
+    );
+
+        // Explosion warning label — only shown if unkilled_raid_enemies_explode is set
+        hud.addElement(new LabelBuilder()
+            .withId("raidHud_ExplosionWarning")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(200)
+                .setHeight(20)
+                .setLeft(75)
+                .setTop(290)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(12)
+                .setTextColor("#ff4400")
+                .setRenderBold(true)
+            )
+            .withVisible(false)
+            .withText("Survivors will explode!")
         );
     }
 }

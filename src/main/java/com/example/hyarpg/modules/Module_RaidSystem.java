@@ -23,7 +23,6 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.TargetUtil;
 import com.hypixel.hytale.server.npc.NPCPlugin;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
-import com.hypixel.hytale.server.npc.role.Role;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
@@ -38,28 +37,33 @@ import java.util.List;
 import java.util.Random;
 
 public class Module_RaidSystem {
-    // NPC role IDs to spawn for each wave
-    private static final List<List<String>> WAVE_NPC_IDS = List.of(
-            List.of("skeleton", "skeleton", "skeleton", "skeleton"),                        // wave 1: 4 skeletons
-            List.of("skeleton", "skeleton", "skeleton", "skeleton", "skeleton"),            // wave 2: 5 skeletons
-            List.of("skeleton", "skeleton", "skeleton", "skeleton", "skeleton", "skeleton") // wave 3: 6 skeletons
-    );
 
-    // Wave parameters
-    private static final int WAVE_COUNT = WAVE_NPC_IDS.size();
-    private static final int SECONDS_BETWEEN_WAVES = 60;
+    // Small class for defining raids
+    private static class RaidDefinition {
+        final String name;
+        final int weight;
+        final List<List<String>> waves;
+
+        RaidDefinition(String name, int weight, List<List<String>> waves) {
+            this.name = name;
+            this.weight = weight;
+            this.waves = waves;
+        }
+    }
+
+    // Registry of defined raids
+    private static final List<RaidDefinition> RAID_REGISTRY = List.of(
+        new RaidDefinition("skeleton_raid", 100, List.of(
+            List.of("skeleton", "skeleton", "skeleton", "skeleton"),
+            List.of("skeleton", "skeleton", "skeleton", "skeleton", "skeleton"),
+            List.of("skeleton", "skeleton", "skeleton", "skeleton", "skeleton", "skeleton")
+        ))
+    );
 
     // Spawning parameters
     private static final int SPAWN_RING_RADIUS = TerritoryData.TERRITORY_HALF + 8; // ~36 blocks from center
     private static final int SPAWN_SCAN_HEIGHT_OFFSET = TerritoryData.TERRITORY_HALF + 8;
     private static final int SPAWN_SEARCH_ATTEMPTS = 8;
-
-    // Explosion parameters — applied to surviving raid NPCs when the raid ends
-//    private static final int POST_RAID_EXPLOSION_DELAY_SECONDS = 300; // 5 minutes after the final wave spawns
-    private static final int POST_RAID_EXPLOSION_DELAY_SECONDS = 20; // 5 minutes after the final wave spawns
-    private static final int EXPLOSION_BLOCK_RADIUS = 4;
-    private static final float EXPLOSION_ENTITY_RADIUS = 6f;
-    private static final float EXPLOSION_ENTITY_DAMAGE = 80f;
 
     // Inner tick parameters
     private static final int INNER_TICK_INTERVAL_SECONDS = 60;
@@ -75,14 +79,21 @@ public class Module_RaidSystem {
         final World world;
         final List<Ref<EntityStore>> npcRefs = new ArrayList<>();
         final long raidEndMs;
+        final int waveCount;
+        final RaidHudState hudState;
 
-        RaidGroup(Ref<EntityStore> targetPlayerRef, World world) {
+        RaidGroup(Ref<EntityStore> targetPlayerRef, World world, RaidDefinition definition) {
             this.targetPlayerRef = targetPlayerRef;
             this.world = world;
-            // raid ends after all waves have had time to spawn plus the configured explosion delay
+            this.waveCount = definition.waves.size();
+            // raid ends after: pre-first-wave delay + all wave intervals + post-last-wave grace period
             this.raidEndMs = System.currentTimeMillis()
-                    + ((long)(WAVE_COUNT - 1) * SECONDS_BETWEEN_WAVES * 1000L)
-                    + ((long)POST_RAID_EXPLOSION_DELAY_SECONDS * 1000L);
+                    + ((long)ModConfig.get().raids.seconds_before_first_wave * 1000L)
+                    + ((long)(waveCount - 1) * ModConfig.get().raids.seconds_between_waves * 1000L)
+                    + ((long)ModConfig.get().raids.seconds_after_last_wave_before_raid_end * 1000L);
+            long firstWaveSpawnAtMs = System.currentTimeMillis()
+                    + ((long)ModConfig.get().raids.seconds_before_first_wave * 1000L);
+            this.hudState = new RaidHudState(waveCount, firstWaveSpawnAtMs, raidEndMs, ModConfig.get().raids.seconds_between_waves);
         }
 
         void addNpc(Ref<EntityStore> npcRef) {
@@ -103,9 +114,46 @@ public class Module_RaidSystem {
         }
     }
 
+    // Public snapshot of raid state for the HUD to read — set on the player component during an active raid
+    public static class RaidHudState {
+        public final int totalWaves;
+        public final long firstWaveSpawnAtMs;
+        public final long raidEndMs;
+        public final int secondsBetweenWaves;
+        public volatile int currentWave; // 0 = pre-first-wave, 1+ = wave that just spawned
+
+        RaidHudState(int totalWaves, long firstWaveSpawnAtMs, long raidEndMs, int secondsBetweenWaves) {
+            this.totalWaves = totalWaves;
+            this.firstWaveSpawnAtMs = firstWaveSpawnAtMs;
+            this.raidEndMs = raidEndMs;
+            this.secondsBetweenWaves = secondsBetweenWaves;
+            this.currentWave = 0;
+        }
+    }
+
     public Module_RaidSystem() {
         this.random = new Random();
         this.lastInnerTick = Instant.now();
+    }
+
+    // Rolls against the raid registry weights and returns a random RaidDefinition, or null if registry is empty
+    private RaidDefinition rollRaidDefinition() {
+        if (RAID_REGISTRY.isEmpty()) return null;
+
+        // sum all weights
+        int totalWeight = 0;
+        for (RaidDefinition def : RAID_REGISTRY) totalWeight += def.weight;
+
+        // roll a value in range and walk the list until we find the winner
+        int roll = random.nextInt(totalWeight);
+        int accumulated = 0;
+        for (RaidDefinition def : RAID_REGISTRY) {
+            accumulated += def.weight;
+            if (roll < accumulated) return def;
+        }
+
+        // fallback — should never reach here
+        return RAID_REGISTRY.get(0);
     }
 
     // Outer tick — called externally several times per second
@@ -125,7 +173,7 @@ public class Module_RaidSystem {
 
         // get a time stamp and a raider timer seconds for comparison
         long nowEpochSeconds = Instant.now().getEpochSecond();
-        long raidTimerSeconds = ModConfig.get().raids.raid_timer_in_minutes * 60L;
+        long raidTimerSeconds = ModConfig.get().raids.raid_cooldown_in_minutes * 60L;
 
         // loop over each world and then on that worlds next execute loop over players
         for (World world : Universe.get().getWorlds().values().toArray(new World[0])) {
@@ -188,15 +236,25 @@ public class Module_RaidSystem {
             return;
         }
 
+        // roll which raid definition to use
+        RaidDefinition definition = rollRaidDefinition();
+        if (definition == null) {
+            System.err.println("[RaidSystem] No raid definitions in registry — skipping.");
+            return;
+        }
+
         // Spawn center is the territory's light well center
         int cx = territory.getCenter().x;
         int cy = territory.getCenter().y;
         int cz = territory.getCenter().z;
 
-        RaidGroup group = new RaidGroup(ref, world);
-        spawnWaves(world, store, cx, cy, cz, true, group);
+        RaidGroup group = new RaidGroup(ref, world, definition);
+        spawnWaves(world, store, cx, cy, cz, true, group, definition);
         activeRaids.add(group);
-        System.out.println("[RaidSystem] Base raid started for " + playerRef.getUsername() + " at territory (" + cx + ", " + cy + ", " + cz + ")");
+
+        // set the raid HUD state on the player component so the HUD can display raid info
+        setRaidHudState(store, ref, group.hudState);
+        System.out.println("[RaidSystem] Base raid '" + definition.name + "' started for " + playerRef.getUsername() + " at territory (" + cx + ", " + cy + ", " + cz + ")");
     }
 
     // Player raid — targets the player's current position
@@ -210,32 +268,45 @@ public class Module_RaidSystem {
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
         if (transform == null) return;
 
+        // roll which raid definition to use
+        RaidDefinition definition = rollRaidDefinition();
+        if (definition == null) {
+            System.err.println("[RaidSystem] No raid definitions in registry — skipping.");
+            return;
+        }
+
         int cx = (int) Math.floor(transform.getPosition().getX());
         int cy = (int) Math.floor(transform.getPosition().getY());
         int cz = (int) Math.floor(transform.getPosition().getZ());
 
-        RaidGroup group = new RaidGroup(ref, world);
-        spawnWaves(world, store, cx, cy, cz, /* outsideTerritory */ false, group);
+        RaidGroup group = new RaidGroup(ref, world, definition);
+        spawnWaves(world, store, cx, cy, cz, /* outsideTerritory */ false, group, definition);
         activeRaids.add(group);
-        System.out.println("[RaidSystem] Player raid started for " + playerRef.getUsername() + " at (" + cx + ", " + cy + ", " + cz + ")");
+
+        // set the raid HUD state on the player component so the HUD can display raid info
+        setRaidHudState(store, ref, group.hudState);
+        System.out.println("[RaidSystem] Player raid '" + definition.name + "' started for " + playerRef.getUsername() + " at (" + cx + ", " + cy + ", " + cz + ")");
     }
 
-    // Wave scheduling — fires each wave SECONDS_BETWEEN_WAVES apart, then schedules the raid end callback
-    private void spawnWaves(World world, Store<EntityStore> store, int cx, int cy, int cz, boolean spawnOutsideTerritory, RaidGroup group) {
-        for (int waveIndex = 0; waveIndex < WAVE_COUNT; waveIndex++) {
+    // Wave scheduling — fires each wave seconds apart based on config, then schedules the raid end callback
+    private void spawnWaves(World world, Store<EntityStore> store, int cx, int cy, int cz, boolean spawnOutsideTerritory, RaidGroup group, RaidDefinition definition) {
+        long firstWaveDelayMs = (long) ModConfig.get().raids.seconds_before_first_wave * 1000L;
+
+        for (int waveIndex = 0; waveIndex < definition.waves.size(); waveIndex++) {
             final int wave = waveIndex;
-            final long delayMs = (long) wave * SECONDS_BETWEEN_WAVES * 1000L;
+            // first wave is delayed by seconds_before_first_wave, subsequent waves are offset from there
+            final long delayMs = firstWaveDelayMs + ((long) wave * ModConfig.get().raids.seconds_between_waves * 1000L);
 
             // Schedule each wave on a background thread, then re-enter the world executor for the actual spawn
             Thread.ofVirtual().start(() -> {
                 try {
-                    if (delayMs > 0) Thread.sleep(delayMs);
+                    Thread.sleep(delayMs);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     return;
                 }
 
-                world.execute(() -> spawnWave(world, store, cx, cy, cz, wave, spawnOutsideTerritory, group));
+                world.execute(() -> spawnWave(world, store, cx, cy, cz, wave, spawnOutsideTerritory, group, definition));
             });
         }
 
@@ -253,9 +324,9 @@ public class Module_RaidSystem {
     }
 
     // Single wave spawn
-    private void spawnWave(World world, Store<EntityStore> store, int cx, int cy, int cz, int waveIndex, boolean spawnOutsideTerritory, RaidGroup group) {
-        List<String> npcsToSpawn = WAVE_NPC_IDS.get(waveIndex);
-        System.out.println("[RaidSystem] Spawning wave " + (waveIndex + 1) + " (" + npcsToSpawn.size() + " enemies)");
+    private void spawnWave(World world, Store<EntityStore> store, int cx, int cy, int cz, int waveIndex, boolean spawnOutsideTerritory, RaidGroup group, RaidDefinition definition) {
+        List<String> npcsToSpawn = definition.waves.get(waveIndex);
+        System.out.println("[RaidSystem] Spawning wave " + (waveIndex + 1) + " of raid '" + definition.name + "' (" + npcsToSpawn.size() + " enemies)");
 
         for (String npcId : npcsToSpawn) {
             Vector3d spawnPos = findSafeSpawnPosition(world, cx, cy, cz, spawnOutsideTerritory);
@@ -272,6 +343,9 @@ public class Module_RaidSystem {
 
             group.addNpc(npcRef);
         }
+
+        // advance the wave counter on the HUD state so the HUD knows which wave just spawned
+        group.hudState.currentWave = waveIndex + 1;
     }
 
     // Raid end callback — explodes any surviving NPCs and cleans up the group from the active raids list
@@ -294,6 +368,9 @@ public class Module_RaidSystem {
             }
         }
 
+        // clear the raid HUD state from the player component
+        clearRaidHudState(store, group.targetPlayerRef);
+
         // remove this group from the active raids list
         activeRaids.remove(group);
         System.out.println("[RaidSystem] Raid group cleaned up.");
@@ -309,53 +386,56 @@ public class Module_RaidSystem {
         int cy = (int) Math.floor(pos.y);
         int cz = (int) Math.floor(pos.z);
 
-        // damage blocks in a sphere around the NPC
-        for (int x = cx - EXPLOSION_BLOCK_RADIUS; x <= cx + EXPLOSION_BLOCK_RADIUS; x++) {
-            for (int y = cy - EXPLOSION_BLOCK_RADIUS; y <= cy + EXPLOSION_BLOCK_RADIUS; y++) {
-                for (int z = cz - EXPLOSION_BLOCK_RADIUS; z <= cz + EXPLOSION_BLOCK_RADIUS; z++) {
-                    if (Math.sqrt((x-cx)*(x-cx) + (y-cy)*(y-cy) + (z-cz)*(z-cz)) > EXPLOSION_BLOCK_RADIUS) continue;
-                    try {
-                        long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-                        Ref<ChunkStore> chunkRef = ((ChunkStore) chunkStore.getExternalData()).getChunkReference(chunkIndex);
-                        if (chunkRef == null || !chunkRef.isValid()) continue;
+        // if explosion feature is enabled, do the thing
+        if (ModConfig.get().raids.unkilled_raid_enemies_explode) {
+            // damage blocks in a sphere around the NPC
+            for (int x = cx - ModConfig.get().raids.explosion_hit_radius_blocks; x <= cx + ModConfig.get().raids.explosion_hit_radius_blocks; x++) {
+                for (int y = cy - ModConfig.get().raids.explosion_hit_radius_blocks; y <= cy + ModConfig.get().raids.explosion_hit_radius_blocks; y++) {
+                    for (int z = cz - ModConfig.get().raids.explosion_hit_radius_blocks; z <= cz + ModConfig.get().raids.explosion_hit_radius_blocks; z++) {
+                        if (Math.sqrt((x-cx)*(x-cx) + (y-cy)*(y-cy) + (z-cz)*(z-cz)) > ModConfig.get().raids.explosion_hit_radius_blocks) continue;
+                        try {
+                            long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
+                            Ref<ChunkStore> chunkRef = ((ChunkStore) chunkStore.getExternalData()).getChunkReference(chunkIndex);
+                            if (chunkRef == null || !chunkRef.isValid()) continue;
 
-                        WorldChunk worldChunk = (WorldChunk) chunkStore.getComponent(chunkRef, WorldChunk.getComponentType());
-                        if (worldChunk == null) continue;
+                            WorldChunk worldChunk = (WorldChunk) chunkStore.getComponent(chunkRef, WorldChunk.getComponentType());
+                            if (worldChunk == null) continue;
 
-                        int blockId = worldChunk.getBlock(x, y, z);
-                        BlockType bt = BlockType.getAssetMap().getAsset(blockId);
-                        if (bt == null || !RoomFloodFill.isStructural(bt)) continue;
+                            int blockId = worldChunk.getBlock(x, y, z);
+                            BlockType bt = BlockType.getAssetMap().getAsset(blockId);
+                            if (bt == null || !RoomFloodFill.isStructural(bt)) continue;
 
-                        // break the block suppressing drops
-                        BlockHarvestUtils.performBlockBreak(null, null, new Vector3i(x, y, z), 2048, chunkRef, store, chunkStore);
-                    } catch (Exception e) {
-                        System.err.println("[RaidSystem] Error breaking block during explosion: " + e.getMessage());
+                            // break the block suppressing drops
+                            BlockHarvestUtils.performBlockDamage(null, null, new Vector3i(x, y, z), null, null, null, false, ModConfig.get().raids.explosion_hit_damage_blocks, 2048 | 1024, chunkRef, store, chunkStore);
+                        } catch (Exception e) {
+                            System.err.println("[RaidSystem] Error breaking block during explosion: " + e.getMessage());
+                        }
                     }
                 }
             }
-        }
 
-        // damage nearby players only — skip NPCs so they don't hurt each other or drop loot
-        Damage.EnvironmentSource explosionSource = new Damage.EnvironmentSource("explosion");
-        List<Ref<EntityStore>> nearby = TargetUtil.getAllEntitiesInBox(
-                new Vector3d(pos.x - EXPLOSION_ENTITY_RADIUS, pos.y - EXPLOSION_ENTITY_RADIUS, pos.z - EXPLOSION_ENTITY_RADIUS),
-                new Vector3d(pos.x + EXPLOSION_ENTITY_RADIUS, pos.y + EXPLOSION_ENTITY_RADIUS, pos.z + EXPLOSION_ENTITY_RADIUS),
-                store
-        );
-        for (Ref<EntityStore> targetRef : nearby) {
-            if (!targetRef.isValid() || targetRef.equals(npcRef)) continue;
-            // skip NPCs — only damage players
-            if (store.getComponent(targetRef, NPCEntity.getComponentType()) != null) continue;
-            try {
-                TransformComponent targetTransform = store.getComponent(targetRef, TransformComponent.getComponentType());
-                if (targetTransform == null) continue;
-                double distance = pos.distanceTo(targetTransform.getPosition());
-                if (distance > EXPLOSION_ENTITY_RADIUS) continue;
-                // scale damage by distance falloff
-                float damage = EXPLOSION_ENTITY_DAMAGE * (1f - (float)(distance / EXPLOSION_ENTITY_RADIUS));
-                if (damage > 0) DamageSystems.executeDamage(targetRef, store, new Damage(explosionSource, DamageCause.getAssetMap().getAsset("Environment"), damage));
-            } catch (Exception e) {
-                System.err.println("[RaidSystem] Error damaging entity during explosion: " + e.getMessage());
+            // damage nearby players only — skip NPCs so they don't hurt each other or drop loot
+            Damage.EnvironmentSource explosionSource = new Damage.EnvironmentSource("explosion");
+            List<Ref<EntityStore>> nearby = TargetUtil.getAllEntitiesInBox(
+                    new Vector3d(pos.x - ModConfig.get().raids.explosion_hit_radius_entities, pos.y - ModConfig.get().raids.explosion_hit_radius_entities, pos.z - ModConfig.get().raids.explosion_hit_radius_entities),
+                    new Vector3d(pos.x + ModConfig.get().raids.explosion_hit_radius_entities, pos.y + ModConfig.get().raids.explosion_hit_radius_entities, pos.z + ModConfig.get().raids.explosion_hit_radius_entities),
+                    store
+            );
+            for (Ref<EntityStore> targetRef : nearby) {
+                if (!targetRef.isValid() || targetRef.equals(npcRef)) continue;
+                // skip NPCs — only damage players
+                if (store.getComponent(targetRef, NPCEntity.getComponentType()) != null) continue;
+                try {
+                    TransformComponent targetTransform = store.getComponent(targetRef, TransformComponent.getComponentType());
+                    if (targetTransform == null) continue;
+                    double distance = pos.distanceTo(targetTransform.getPosition());
+                    if (distance > ModConfig.get().raids.explosion_hit_radius_entities) continue;
+                    // scale damage by distance falloff
+                    float damage = ModConfig.get().raids.explosion_hit_damage_entities * (1f - (float)(distance / ModConfig.get().raids.explosion_hit_radius_entities));
+                    if (damage > 0) DamageSystems.executeDamage(targetRef, store, new Damage(explosionSource, DamageCause.getAssetMap().getAsset("Environment"), damage));
+                } catch (Exception e) {
+                    System.err.println("[RaidSystem] Error damaging entity during explosion: " + e.getMessage());
+                }
             }
         }
 
@@ -367,9 +447,12 @@ public class Module_RaidSystem {
     private Vector3d findSafeSpawnPosition(World world, int cx, int cy, int cz, boolean spawnOutsideTerritory) {
         int radius = spawnOutsideTerritory ? SPAWN_RING_RADIUS : (SPAWN_RING_RADIUS / 2);
 
+        // randomize the starting angle so spawns aren't always in the same direction
+        double startAngle = random.nextDouble() * 2 * Math.PI;
+
         for (int attempt = 0; attempt < SPAWN_SEARCH_ATTEMPTS; attempt++) {
-            // Spread attempts evenly around the ring, plus a small random jitter
-            double angle = (2 * Math.PI / SPAWN_SEARCH_ATTEMPTS) * attempt + (random.nextDouble() * 0.4);
+            // spread attempts evenly around the ring from a random starting angle
+            double angle = startAngle + (2 * Math.PI / SPAWN_SEARCH_ATTEMPTS) * attempt;
             int offsetX = (int) Math.round(Math.cos(angle) * radius);
             int offsetZ = (int) Math.round(Math.sin(angle) * radius);
 
@@ -404,5 +487,20 @@ public class Module_RaidSystem {
             }
         }
         return Integer.MIN_VALUE;
+    }
+
+    // Sets the raid HUD state on the player's RPG component so the HUD can display raid info
+    private static void setRaidHudState(Store<EntityStore> store, Ref<EntityStore> playerRef, RaidHudState state) {
+        Component_RPG_Player rpgPlayer = store.getComponent(playerRef, Module_RPGSystem.componentTypeRPGPlayer);
+        if (rpgPlayer == null) return;
+        rpgPlayer.activeRaidHudState = state;
+    }
+
+    // Clears the raid HUD state from the player's RPG component when the raid ends
+    private static void clearRaidHudState(Store<EntityStore> store, Ref<EntityStore> playerRef) {
+        if (!playerRef.isValid()) return;
+        Component_RPG_Player rpgPlayer = store.getComponent(playerRef, Module_RPGSystem.componentTypeRPGPlayer);
+        if (rpgPlayer == null) return;
+        rpgPlayer.activeRaidHudState = null;
     }
 }

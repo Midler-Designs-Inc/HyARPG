@@ -2,6 +2,7 @@ package com.example.hyarpg.components;
 
 // Hytale Imports
 import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.modules.Module_RaidSystem.RaidHudState;
 import com.example.hyarpg.utils.codecs.Codec_SkillLibrary;
 import com.example.hyarpg.utils.rooms.RoomData;
 import com.example.hyarpg.utils.rooms.TerritoryData;
@@ -80,9 +81,10 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public RoomData room;
     public TerritoryData territory;
 
-    // player raid timers
+    // player raid parameters
     public long lastBaseRaid;
     public long lastPlayerRaid;
+    public RaidHudState activeRaidHudState = null;
 
     // player settings
     public boolean showLootDrops = true;
@@ -244,7 +246,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
             }
         }
 
-        this.gearScore = Math.max(0, totalLevel / count);
+        this.gearScore = count > 0 ? Math.max(0, totalLevel / count) : 0;
     }
 
     // Calculate the players stats based on gear affixes

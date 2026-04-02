@@ -35,7 +35,7 @@ public class Listeners_Entity_PrePost extends HolderSystem<EntityStore> {
     @Override
     public Query<EntityStore> getQuery() {
         return Query.and(
-                NPCEntity.getComponentType()
+            NPCEntity.getComponentType()
         );
     }
 }

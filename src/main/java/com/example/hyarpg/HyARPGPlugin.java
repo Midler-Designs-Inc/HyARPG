@@ -30,6 +30,7 @@ public class HyARPGPlugin extends JavaPlugin {
 
     private static HyARPGPlugin instance;
     public Module_RPGSystem rpgSystem;
+    public Module_RaidSystem raidSystem;
 
     // required super function??
     public HyARPGPlugin(@Nonnull JavaPluginInit init) {
@@ -110,6 +111,7 @@ public class HyARPGPlugin extends JavaPlugin {
             rpgSystem = new Module_RPGSystem(this);
             new Module_PlayerHud(this);
             new Module_BuildSystem();
+            raidSystem = new Module_RaidSystem();
 
             // create an instance of our global tick event (not OOP but better for processing I guess)
             new Module_ModTickLoop(this, HytaleServer.SCHEDULED_EXECUTOR).start();
@@ -135,6 +137,7 @@ public class HyARPGPlugin extends JavaPlugin {
             getCommandRegistry().registerCommand(new ResetDiscoveredIngredients());
             getCommandRegistry().registerCommand(new SetShowLootDropsSetting());
             getCommandRegistry().registerCommand(new SetShowCombatTextSetting());
+            getCommandRegistry().registerCommand(new TriggerRaid(this));
 
             // log the instantiation
             LOGGER.at(Level.INFO).log("[HyARPG] Instantiated commands");

@@ -63,6 +63,9 @@ public final class Module_ModTickLoop {
         future = scheduler.scheduleAtFixedRate(() -> {
             long start = System.nanoTime();
 
+            // tick the raid system
+            plugin.raidSystem.outerTick();
+
             // loop over all worlds, and queue up our player loop logic
             for (World world : Universe.get().getWorlds().values().toArray(new World[0])) {
                 world.execute(() -> {

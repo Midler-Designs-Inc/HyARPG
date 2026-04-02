@@ -101,7 +101,7 @@ public class Module_BuildSystem {
             // --- Only run room logic if inside a territory ---
             if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
 
-            boolean isStructural = isStructural(placedBlockType);
+            boolean isStructural = RoomFloodFill.isStructural(placedBlockType);
             if (isStructural) onStructuralBlockPlaced(world, pos, placedBlockType, registry, event.ref());
             else onDecorationBlockPlaced(world, pos, placedBlockType, registry, event.ref());
 
@@ -127,7 +127,7 @@ public class Module_BuildSystem {
             // --- Only run room logic if inside a territory ---
             if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
 
-            boolean isStructural = isStructural(brokenBlockType);
+            boolean isStructural = RoomFloodFill.isStructural(brokenBlockType);
             if (isStructural) onStructuralBlockBroken(world, pos, brokenBlockType, registry, event.ref());
             else onDecorationBlockBroken(world, pos, brokenBlockType, registry, event.ref());
 
@@ -317,22 +317,5 @@ public class Module_BuildSystem {
 
         // save the registry either way
         registry.saveAsync(world);
-    }
-
-    static boolean isStructural(BlockType bt) {
-        if (bt == null) return false;
-        if (bt.getMaterial() != BlockMaterial.Solid) return false;
-
-        if (bt.getDrawType() == DrawType.Cube) return true;
-
-        String hitboxType = bt.getHitboxType();
-        if (hitboxType != null && (hitboxType.contains("Door") || hitboxType.contains("Window"))) return true;
-
-        // Category check for things like trapdoors that aren't caught by hitbox name
-        Item item = bt.getItem();
-        if (item == null) return false;
-        String[] categories = item.getCategories();
-        if (categories == null) return false;
-        return Arrays.stream(categories).anyMatch("Furniture.Doors"::equals);
     }
 }

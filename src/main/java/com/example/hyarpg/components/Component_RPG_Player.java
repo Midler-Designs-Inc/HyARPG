@@ -80,6 +80,10 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public RoomData room;
     public TerritoryData territory;
 
+    // player raid timers
+    public long lastBaseRaid;
+    public long lastPlayerRaid;
+
     // player settings
     public boolean showLootDrops = true;
     public boolean showCombatText = true;
@@ -105,36 +109,44 @@ public class Component_RPG_Player implements Component<EntityStore> {
             comp -> comp.skillLibrary
         ).add()
         .append(new KeyedCodec<>("UltimateAbilityId", Codec.STRING),
-                (comp, v) -> comp.ultimateAbility = v,
-                comp -> comp.ultimateAbility
+            (comp, v) -> comp.ultimateAbility = v,
+            comp -> comp.ultimateAbility
         ).add()
         .append(new KeyedCodec<>("UltimateAbilityIconId", Codec.STRING),
-                (comp, v) -> comp.ultimateAbilityIcon = v,
-                comp -> comp.ultimateAbilityIcon
+            (comp, v) -> comp.ultimateAbilityIcon = v,
+            comp -> comp.ultimateAbilityIcon
         ).add()
         .append(new KeyedCodec<>("PrimaryAbilityId", Codec.STRING),
-                (comp, v) -> comp.primaryAbility = v,
-                comp -> comp.primaryAbility
+            (comp, v) -> comp.primaryAbility = v,
+            comp -> comp.primaryAbility
         ).add()
         .append(new KeyedCodec<>("PrimaryAbilityIconId", Codec.STRING),
-                (comp, v) -> comp.primaryAbilityIcon = v,
-                comp -> comp.primaryAbilityIcon
+            (comp, v) -> comp.primaryAbilityIcon = v,
+            comp -> comp.primaryAbilityIcon
         ).add()
         .append(new KeyedCodec<>("SecondaryAbilityId", Codec.STRING),
-                (comp, v) -> comp.secondaryAbility = v,
-                comp -> comp.secondaryAbility
+            (comp, v) -> comp.secondaryAbility = v,
+            comp -> comp.secondaryAbility
         ).add()
         .append(new KeyedCodec<>("SecondaryAbilityIconId", Codec.STRING),
-                (comp, v) -> comp.secondaryAbilityIcon = v,
-                comp -> comp.secondaryAbilityIcon
+            (comp, v) -> comp.secondaryAbilityIcon = v,
+            comp -> comp.secondaryAbilityIcon
         ).add()
         .append(new KeyedCodec<>("HyARPG_RPGPlayer_ShowLootDrops", Codec.BOOLEAN),
-                ((comp, value) -> comp.showLootDrops = value),
-                comp -> comp.showLootDrops
+            ((comp, value) -> comp.showLootDrops = value),
+            comp -> comp.showLootDrops
         ).add()
         .append(new KeyedCodec<>("HyARPG_RPGPlayer_ShowCombatText", Codec.BOOLEAN),
-                ((comp, value) -> comp.showCombatText = value),
-                comp -> comp.showCombatText
+            ((comp, value) -> comp.showCombatText = value),
+            comp -> comp.showCombatText
+        ).add()
+        .append(new KeyedCodec<>("HyARPG_RPGPlayer_LastBaseRaid", Codec.LONG),
+            ((comp, value) -> comp.lastBaseRaid = value),
+            comp -> comp.lastBaseRaid
+        ).add()
+        .append(new KeyedCodec<>("HyARPG_RPGPlayer_LastPlayerRaid", Codec.LONG),
+            ((comp, value) -> comp.lastPlayerRaid = value),
+            comp -> comp.lastPlayerRaid
         ).add()
         .build();
 

@@ -11,6 +11,8 @@ import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
+import com.hypixel.hytale.server.npc.interactions.SpawnNPCInteraction;
+import com.hypixel.hytale.server.spawning.SpawningPlugin;
 
 // Java Import
 import javax.annotation.Nullable;
@@ -180,7 +182,7 @@ public class RoomFloodFill {
         return BlockType.getAssetMap().getAsset(blockId);
     }
 
-    static boolean isStructural(BlockType bt) {
+    public static boolean isStructural(BlockType bt) {
         if (bt == null) return false;
         if (bt.getMaterial() != BlockMaterial.Solid) return false;
 

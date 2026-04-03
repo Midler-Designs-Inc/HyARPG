@@ -64,6 +64,7 @@ import com.example.hyarpg.utils.skills.SkillLibraryMigration;
 
 // Java Imports
 import java.awt.*;
+import java.time.Instant;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
@@ -189,6 +190,8 @@ public class Module_RPGSystem {
         interactionRegistry.register("SpawnDeployableAtHitLocationFixed", Interaction_SpawnDeployableAtHitLocation.class, Interaction_SpawnDeployableAtHitLocation.CODEC);
 
         // Listen to applicable events on the mods internal event bus
+        ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
+        ModEventBus.register(Event_PlayerDisconnect.class, this::onPlayerDisconnect);
         ModEventBus.register(Event_EntityPreDamaged.class, this::onEntityPreDamage);
         ModEventBus.register(Event_NPCDeath.class, this::onEnemyKilled);
         ModEventBus.register(Event_NPCSpawn.class, this::onNPCSpawn);
@@ -198,9 +201,7 @@ public class Module_RPGSystem {
         ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onPlayerInventoryItemEquip);
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
         ModEventBus.register(Event_PlayerInteraction.class, this::onPlayerInteraction);
-        ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
         ModEventBus.register(Event_ContainerSpawned.class, this::onContainerSpawned);
-        ModEventBus.register(Event_PlaceBlock.class, this::onPlaceBlock);
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -228,6 +229,30 @@ public class Module_RPGSystem {
         // refresh gear score
         rpgPlayer.calculateGearScore(entityRef, store);
         rpgPlayer.calculateAffixStats(player.getReference(), store);
+    }
+
+    // This function runs whenever a PlayerDisconnect event is posted
+    private void onPlayerDisconnect(Event_PlayerDisconnect event) {
+        try {
+            PlayerRef playerRef = event.getPlayer();
+            World world = Universe.get().getWorld(playerRef.getWorldUuid());
+            if (world == null) return;
+
+            world.execute(() -> {
+                try {
+                    Ref<EntityStore> ref = playerRef.getReference();
+                    if (ref == null) return;
+                    Store<EntityStore> store = world.getEntityStore().getStore();
+                    Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+                    if (rpgPlayer == null) return;
+                    rpgPlayer.lastLogoutTime = Instant.now().getEpochSecond();
+                } catch (Exception e) {
+                    HytaleLogger.getLogger().at(Level.WARNING).log("HyARPG: Failed to store logout time for: %s. Error: %s", event.getPlayer().getUsername(), e.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            HytaleLogger.getLogger().at(Level.WARNING).log("HyARPG: Failed to perform player disconnect logic for: %s. Error: %s", event.getPlayer().getUsername(), e.getMessage());
+        }
     }
 
     // This function runs whenever an NPCPreSpawn event is posted
@@ -848,22 +873,6 @@ public class Module_RPGSystem {
             // set the block start
             rpgPlayer.blockStart = System.nanoTime();
         }
-    }
-
-    // method for when a player tries to place a block
-    private void onPlaceBlock(Event_PlaceBlock event) {
-       try {
-           PlaceBlockEvent origEvent = event.event();
-
-           ItemStack stack = origEvent.getItemInHand();
-           Item item = stack.getItem();
-           String[] categories = item.getCategories();
-
-//           if (Arrays.asList(categories).contains("Furniture.Benches"))
-//               origEvent.setCancelled(true);
-       } catch (Exception e) {
-           HytaleLogger.getLogger().at(Level.WARNING).log("onPlaceBlock interception failed: %s", e.getMessage());
-       }
     }
 
     // register an item a player picked up to their discovered list

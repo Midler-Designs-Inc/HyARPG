@@ -86,6 +86,9 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public long lastPlayerRaid;
     public RaidHudState activeRaidHudState = null;
 
+    // tracks when the player last logged out so offline time can be excluded from raid cooldowns
+    public long lastLogoutTime;
+
     // player settings
     public boolean showLootDrops = true;
     public boolean showCombatText = true;
@@ -149,6 +152,10 @@ public class Component_RPG_Player implements Component<EntityStore> {
         .append(new KeyedCodec<>("HyARPG_RPGPlayer_LastPlayerRaid", Codec.LONG),
             ((comp, value) -> comp.lastPlayerRaid = value),
             comp -> comp.lastPlayerRaid
+        ).add()
+        .append(new KeyedCodec<>("HyARPG_RPGPlayer_LastLogoutTime", Codec.LONG),
+                ((comp, value) -> comp.lastLogoutTime = value),
+                comp -> comp.lastLogoutTime
         ).add()
         .build();
 

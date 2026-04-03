@@ -251,9 +251,10 @@ public class Module_PlayerHud {
 
                 // if we are showing the room info, get the info
                 PlayerRef territoryOwner = Universe.get().getPlayer(rpgPlayer.territory.getOwnerUuid());
+                String ownerName = territoryOwner != null ? territoryOwner.getUsername() : "Unknown";
                 String roomText = rpgPlayer.room != null
                         ? rpgPlayer.room.getDesignatedRoomType()
-                        : territoryOwner.getUsername() + "'s Territory";
+                        : ownerName + "'s Territory";
                 hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
                     .withText(roomText)
                 );

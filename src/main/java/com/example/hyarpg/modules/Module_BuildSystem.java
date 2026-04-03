@@ -3,17 +3,16 @@ package com.example.hyarpg.modules;
 // Hytale Imports
 import com.example.hyarpg.components.Component_CraftingKnowledge;
 import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.events.Event_RemoveBlock;
+import com.example.hyarpg.utils.HookedNotificationHandler;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3i;
-import com.hypixel.hytale.protocol.BlockMaterial;
-import com.hypixel.hytale.protocol.DrawType;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
-import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -22,7 +21,6 @@ import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 // Mod Imports
 import com.example.hyarpg.ModEventBus;
 import com.example.hyarpg.events.Event_PlaceBlock;
-import com.example.hyarpg.events.Event_BreakBlock;
 import com.example.hyarpg.utils.rooms.RoomData;
 import com.example.hyarpg.utils.rooms.RoomFloodFill;
 import com.example.hyarpg.events.Event_WorldStart;
@@ -43,16 +41,26 @@ public class Module_BuildSystem {
     public Module_BuildSystem() {
         ModEventBus.register(Event_WorldStart.class, this::onWorldStart);
         ModEventBus.register(Event_PlaceBlock.class, this::onPlaceBlock);
-        ModEventBus.register(Event_BreakBlock.class, this::onBreakBlock);
+        ModEventBus.register(Event_RemoveBlock.class, this::onRemoveBlock);
     }
 
     private void onWorldStart(Event_WorldStart event) {
+        World world = event.world();
+
+        // Inject hooked notification handler via reflection
         try {
-            World world = event.world();
+            java.lang.reflect.Field field = World.class.getDeclaredField("notificationHandler");
+            field.setAccessible(true);
+            field.set(world, new HookedNotificationHandler(world));
+        } catch (Exception e) {
+            HytaleLogger.getLogger().at(Level.WARNING).log("Failed to inject HookedNotificationHandler: %s", e.getMessage());
+        }
+
+        try {
             WorldRoomRegistry.load(world).thenAccept(registry -> {
                 WorldRoomRegistry.put(world.getName(), registry);
                 HytaleLogger.getLogger().at(Level.INFO).log(
-                        "[RoomSystem] Initialized registry for world '%s' with %d rooms, %d territories",
+                        "[BuildSystem] Initialized registry for world '%s' with %d rooms, %d territories",
                         world.getName(), registry.getAllRooms().size(), registry.getAllTerritories().size()
                 );
             });
@@ -61,26 +69,20 @@ public class Module_BuildSystem {
         }
     }
 
-    // --- Event Handlers for Placing/Breaking --- //
+    // --- Place Block / Remove Block --- //
     private void onPlaceBlock(Event_PlaceBlock event) {
         try {
-            // if the light well territory claim is disabled then we don't need to do any of this
             if (!ModConfig.get().building.allow_light_well_territory_claim) return;
 
-            // get the item in the main hand that the player is trying to place
             ItemStack stack = event.event().getItemInHand();
             if (stack == null || stack.getBlockKey() == null) return;
 
-            // get the block key and type from the mainhand item
             String blockKey = stack.getBlockKey();
             BlockType placedBlockType = BlockType.getAssetMap().getAsset(blockKey);
             if (placedBlockType == null) return;
 
-            // get the targeted place position and the world it's in
             Vector3i pos = event.event().getTargetBlock();
             World world = event.commandBuffer().getExternalData().getWorld();
-
-            // get the player that placed the block
             PlayerRef playerRef = event.store().getComponent(event.ref(), PlayerRef.getComponentType());
 
             // --- Territory terminal ---
@@ -112,14 +114,16 @@ public class Module_BuildSystem {
             HytaleLogger.getLogger().at(Level.WARNING).log("onPlaceBlock failed: %s", e.getMessage());
         }
     }
-    private void onBreakBlock(Event_BreakBlock event) {
+    private void onRemoveBlock(Event_RemoveBlock event) {
         try {
-            BlockType brokenBlockType = event.event().getBlockType();
-            Vector3i pos = event.event().getTargetBlock();
-            World world = event.commandBuffer().getExternalData().getWorld();
+            BlockType blockType = event.blockType();
+            if (blockType == null) return;
+
+            World world = event.world();
+            Vector3i pos = new Vector3i(event.x(), event.y(), event.z());
 
             // --- Territory terminal ---
-            if (brokenBlockType.getId().equals(LIGHT_WELL_KEY)) {
+            if (LIGHT_WELL_KEY.equals(blockType.getId())) {
                 onLightWellBroken(world, pos);
                 return;
             }
@@ -127,15 +131,14 @@ public class Module_BuildSystem {
             WorldRoomRegistry registry = WorldRoomRegistry.get(world);
             if (registry == null) return;
 
-            // --- Only run room logic if inside a territory ---
             if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
 
-            boolean isStructural = RoomFloodFill.isStructural(brokenBlockType);
-            if (isStructural) onStructuralBlockBroken(world, pos, brokenBlockType, registry, event.ref());
-            else onDecorationBlockBroken(world, pos, brokenBlockType, registry, event.ref());
+            boolean isStructural = RoomFloodFill.isStructural(blockType);
+            if (isStructural) onStructuralBlockBroken(world, pos, blockType, registry);
+            else onDecorationBlockBroken(world, pos, blockType, registry);
 
         } catch (Exception e) {
-            HytaleLogger.getLogger().at(Level.WARNING).log("onBreakBlock failed: %s", e.getMessage());
+            HytaleLogger.getLogger().at(Level.WARNING).log("onRemoveBlock failed: %s", e.getMessage());
         }
     }
 
@@ -146,7 +149,6 @@ public class Module_BuildSystem {
 
         UUID ownerUuid = playerRef.getUuid();
 
-        // --- One territory per player ---
         boolean alreadyOwnsTerritory = registry.getAllTerritories().stream().anyMatch(t -> ownerUuid.equals(t.getOwnerUuid()));
         if (alreadyOwnsTerritory) {
             event.event().setCancelled(true);
@@ -156,12 +158,11 @@ public class Module_BuildSystem {
 
         if (registry.getTerritoryAt(pos.x, pos.y, pos.z) != null) return;
 
-        // --- Overlap check: candidate territory must not clip any existing territory ---
         TerritoryData candidate = new TerritoryData(pos, ownerUuid);
         boolean overlaps = registry.getAllTerritories().stream().anyMatch(existing ->
-            candidate.getMaxX() >= existing.getMinX() && candidate.getMinX() <= existing.getMaxX() &&
-            candidate.getMaxY() >= existing.getMinY() && candidate.getMinY() <= existing.getMaxY() &&
-            candidate.getMaxZ() >= existing.getMinZ() && candidate.getMinZ() <= existing.getMaxZ()
+                candidate.getMaxX() >= existing.getMinX() && candidate.getMinX() <= existing.getMaxX() &&
+                        candidate.getMaxY() >= existing.getMinY() && candidate.getMinY() <= existing.getMaxY() &&
+                        candidate.getMaxZ() >= existing.getMinZ() && candidate.getMinZ() <= existing.getMaxZ()
         );
         if (overlaps) {
             event.event().setCancelled(true);
@@ -169,20 +170,18 @@ public class Module_BuildSystem {
             return;
         }
 
-        TerritoryData territory = candidate;
-        registry.addTerritory(territory);
+        registry.addTerritory(candidate);
         registry.saveAsync(world);
 
         HytaleLogger.getLogger().at(Level.INFO).log(
-            "[BuildSystem] Territory registered at (%d, %d, %d) by %s",
-            pos.x, pos.y, pos.z, ownerUuid
+                "[BuildSystem] Territory registered at (%d, %d, %d) by %s",
+                pos.x, pos.y, pos.z, ownerUuid
         );
     }
     private void onLightWellBroken(World world, Vector3i pos) {
         WorldRoomRegistry registry = WorldRoomRegistry.get(world);
         if (registry == null) return;
 
-        // The light well is 1x3x1 — find the territory whose center matches any of those 3 blocks
         TerritoryData territory = null;
         for (int dy = 0; dy <= 2; dy++) {
             territory = registry.getTerritoryByLightWell(pos.x, pos.y - dy, pos.z);
@@ -190,12 +189,11 @@ public class Module_BuildSystem {
         }
         if (territory == null) return;
 
-//        registry.removeRoomsInTerritory(territory);
         registry.removeTerritory(territory);
         registry.saveAsync(world);
 
         HytaleLogger.getLogger().at(Level.INFO).log(
-                "[RoomSystem] Territory removed at (%d, %d, %d), rooms de-registered",
+                "[BuildSystem] Territory removed at (%d, %d, %d), rooms de-registered",
                 territory.getCenter().x, territory.getCenter().y, territory.getCenter().z
         );
     }
@@ -220,7 +218,7 @@ public class Module_BuildSystem {
             registry.saveAsync(world);
         }
     }
-    private void onStructuralBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry, Ref ref) {
+    private void onStructuralBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry) {
         RoomData detected = RoomFloodFill.detectRoomFromBrokenBlock(world, blockPos);
         RoomData existing = registry.getRoomsNear(blockPos.x, blockPos.y, blockPos.z).stream().findFirst().orElse(null);
 
@@ -229,11 +227,11 @@ public class Module_BuildSystem {
             scanRoomContents(world, detected);
             detected.removeBlockKey(removedBlockType.getId());
             registry.addRoom(detected);
-            reevaluateRoomType(detected, registry, world, ref);
+            reevaluateRoomType(detected, registry, world, null);
         } else if (detected != null && existing != null) {
             scanRoomContents(world, existing);
             existing.removeBlockKey(removedBlockType.getId());
-            reevaluateRoomType(existing, registry, world, ref);
+            reevaluateRoomType(existing, registry, world, null);
         } else if (detected == null && existing != null) {
             registry.removeRoom(existing);
             registry.saveAsync(world);
@@ -249,31 +247,26 @@ public class Module_BuildSystem {
             reevaluateRoomType(room, registry, world, ref);
         }
     }
-    private void onDecorationBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry, Ref ref) {
+    private void onDecorationBlockBroken(World world, Vector3i blockPos, BlockType removedBlockType, WorldRoomRegistry registry) {
         RoomData room = registry.getRoomAt(blockPos.x, blockPos.y, blockPos.z);
         if (room != null) {
             scanRoomContents(world, room);
             room.removeBlockKey(removedBlockType.getId());
-            reevaluateRoomType(room, registry, world, ref);
+            reevaluateRoomType(room, registry, world, null);
         }
     }
 
-    // Blocks that require being inside a territory to be placed
+    // --- Helpers --- //
     private static boolean requiresTerritory(BlockType placedBlockType) {
         try {
             String[] categories = placedBlockType.getItem().getCategories();
-
-            // check beds/bench logic
-            if(!ModConfig.get().building.allow_bed_placement_outside_territory && Arrays.stream(categories).anyMatch("Furniture.Beds"::equals))
+            if (!ModConfig.get().building.allow_bed_placement_outside_territory && Arrays.stream(categories).anyMatch("Furniture.Beds"::equals))
                 return true;
-            if(!ModConfig.get().building.allow_bench_placement_outside_territory && Arrays.stream(categories).anyMatch("Furniture.Benches"::equals))
+            if (!ModConfig.get().building.allow_bench_placement_outside_territory && Arrays.stream(categories).anyMatch("Furniture.Benches"::equals))
                 return true;
-
         } catch (Exception e) {}
-
         return false;
     }
-
     private void scanRoomContents(World world, RoomData room) {
         room.clearBlockKeys();
         Map<String, Integer> rawCounts = new HashMap<>();
@@ -299,7 +292,6 @@ public class Module_BuildSystem {
             for (int i = 0; i < instances; i++) room.addBlockKey(key);
         }
     }
-
     private int getInstanceCount(String blockKey, int rawCount) {
         try {
             BlockType bt = BlockType.getAssetMap().getAsset(blockKey);
@@ -316,9 +308,7 @@ public class Module_BuildSystem {
             return rawCount;
         }
     }
-
     private void reevaluateRoomType(RoomData room, WorldRoomRegistry registry, World world, Ref ref) {
-        // classify the room
         RoomType newType = RoomType.classify(
                 room.getInteriorSizeX(),
                 room.getInteriorSizeY(),
@@ -326,22 +316,19 @@ public class Module_BuildSystem {
                 room.getBlockCountsInside()
         );
 
-        // get the room name from the fresh scan or bail
         String newTypeName = newType != null ? newType.getDisplayName() : null;
-        if(newTypeName == null) return;
+        String oldTypeName = room.getDesignatedRoomType();
 
-        // try to register the new room type with the placing player
+        if (Objects.equals(newTypeName, oldTypeName)) return;
+        room.setDesignatedRoomType(newTypeName);
+        registry.saveAsync(world);
+
+        // Only attempt recipe discovery if there's a new valid type and a player ref
+        if (newTypeName == null || ref == null) return;
         try {
             Store<EntityStore> store = ref.getStore();
             Component_CraftingKnowledge knowledgeComp = store.getComponent(ref, Module_RPGSystem.componentTypeCraftingKnowledge);
-            knowledgeComp.addDiscoveredRoomRecipe(ref, ref.getStore(), newType.name(), newTypeName);
+            knowledgeComp.addDiscoveredRoomRecipe(ref, store, newType.name(), newTypeName);
         } catch (Exception e) {}
-
-        // set the room type if applicable
-        String oldTypeName = room.getDesignatedRoomType();
-        if (!Objects.equals(newTypeName, oldTypeName)) room.setDesignatedRoomType(newTypeName);
-
-        // save the registry either way
-        registry.saveAsync(world);
     }
 }

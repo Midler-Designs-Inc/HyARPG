@@ -1,19 +1,21 @@
 package com.example.hyarpg.listeners;
 
 // Hytale Imports
-import com.example.hyarpg.ModEventBus;
-import com.example.hyarpg.events.Event_PlayerUtilitySwitch;
 import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.EntityEventSystem;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.event.events.ecs.SwitchActiveSlotEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+
+// Mod Imports
+import com.example.hyarpg.ModEventBus;
+import com.example.hyarpg.events.Event_PlayerUtilitySwitch;
+
+// Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
 

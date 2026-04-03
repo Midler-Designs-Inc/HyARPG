@@ -1,6 +1,7 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.RemoveReason;
 import com.hypixel.hytale.component.Store;
@@ -81,11 +82,14 @@ public class Module_RaidSystem {
         final long raidEndMs;
         final int waveCount;
         final RaidHudState hudState;
+        final TerritoryData territory;
 
-        RaidGroup(Ref<EntityStore> targetPlayerRef, World world, RaidDefinition definition) {
+        RaidGroup(Ref<EntityStore> targetPlayerRef, World world, RaidDefinition definition, TerritoryData territory) {
             this.targetPlayerRef = targetPlayerRef;
             this.world = world;
             this.waveCount = definition.waves.size();
+            this.territory = territory;
+
             // raid ends after: pre-first-wave delay + all wave intervals + post-last-wave grace period
             this.raidEndMs = System.currentTimeMillis()
                     + ((long)ModConfig.get().raids.seconds_before_first_wave * 1000L)
@@ -164,6 +168,9 @@ public class Module_RaidSystem {
         // check if the inner tick should fire or not
         long secondsSinceLastTick = Instant.now().getEpochSecond() - lastInnerTick.getEpochSecond();
         if (secondsSinceLastTick >= INNER_TICK_INTERVAL_SECONDS) innerTick();
+
+        // keep raid chunks ticking
+//        tickActiveRaids();
     }
 
     // Inner tick — runs once per minute, evaluates every player independently
@@ -193,6 +200,9 @@ public class Module_RaidSystem {
                         // this player does not have our main mod component ignore them
                         Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
                         if (rpgPlayer == null) continue;
+
+                        // skip this player entirely if they already have an active raid in progress
+                        if (rpgPlayer.activeRaidHudState != null) continue;
 
                         // check if base raiding is enabled and if so, check if the player's base should be raided
                         if (ModConfig.get().raids.allow_base_raids) {
@@ -230,9 +240,23 @@ public class Module_RaidSystem {
         // Stamp the timer immediately regardless of outcome
         rpgPlayer.lastBaseRaid = Instant.now().getEpochSecond();
 
-        TerritoryData territory = rpgPlayer.territory;
+        // look up the player's territory from the registry for this world
+        WorldRoomRegistry registry = WorldRoomRegistry.get(world);
+        if (registry == null) {
+            System.err.println("[RaidSystem] Base raid fired for " + playerRef.getUsername() + " but no registry found for world — skipping.");
+            return;
+        }
+
+        TerritoryData territory = null;
+        for (TerritoryData t : registry.getAllTerritories()) {
+            if (playerRef.getUuid().equals(t.getOwnerUuid())) {
+                territory = t;
+                break;
+            }
+        }
+
         if (territory == null) {
-            System.err.println("[RaidSystem] Base raid fired for " + playerRef.getUsername() + " but they have no territory — skipping.");
+            System.err.println("[RaidSystem] Base raid fired for " + playerRef.getUsername() + " but they have no territory in this world — skipping.");
             return;
         }
 
@@ -248,9 +272,12 @@ public class Module_RaidSystem {
         int cy = territory.getCenter().y;
         int cz = territory.getCenter().z;
 
-        RaidGroup group = new RaidGroup(ref, world, definition);
+        RaidGroup group = new RaidGroup(ref, world, definition, territory);
         spawnWaves(world, store, cx, cy, cz, true, group, definition);
         activeRaids.add(group);
+
+        // load the players base chunks into memory and keep them alive during the raid time
+//        keepTerritoryChunksLoaded(world, territory, true);
 
         // set the raid HUD state on the player component so the HUD can display raid info
         setRaidHudState(store, ref, group.hudState);
@@ -279,7 +306,7 @@ public class Module_RaidSystem {
         int cy = (int) Math.floor(transform.getPosition().getY());
         int cz = (int) Math.floor(transform.getPosition().getZ());
 
-        RaidGroup group = new RaidGroup(ref, world, definition);
+        RaidGroup group = new RaidGroup(ref, world, definition, null);
         spawnWaves(world, store, cx, cy, cz, /* outsideTerritory */ false, group, definition);
         activeRaids.add(group);
 
@@ -367,6 +394,9 @@ public class Module_RaidSystem {
                 }
             }
         }
+
+        // load the players base chunks into memory and keep them alive during the raid time
+//        if (group.territory != null) keepTerritoryChunksLoaded(group.world, group.territory, false);
 
         // clear the raid HUD state from the player component
         clearRaidHudState(store, group.targetPlayerRef);
@@ -502,5 +532,52 @@ public class Module_RaidSystem {
         Component_RPG_Player rpgPlayer = store.getComponent(playerRef, Module_RPGSystem.componentTypeRPGPlayer);
         if (rpgPlayer == null) return;
         rpgPlayer.activeRaidHudState = null;
+    }
+
+    // Method to load and keep loaded chunks of a territory actively being raided
+    private void keepTerritoryChunksLoaded(World world, TerritoryData territory, boolean load) {
+        int minChunkX = ChunkUtil.chunkCoordinate(territory.getMinX());
+        int maxChunkX = ChunkUtil.chunkCoordinate(territory.getMaxX());
+        int minChunkZ = ChunkUtil.chunkCoordinate(territory.getMinZ());
+        int maxChunkZ = ChunkUtil.chunkCoordinate(territory.getMaxZ());
+
+        for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+            for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                long index = ChunkUtil.indexChunk(cx, cz);
+                if (load) {
+                    world.getChunkAsync(index).thenAcceptAsync(chunk -> {
+                        if (chunk != null) {
+                            chunk.addKeepLoaded();
+                            chunk.resetKeepAlive();
+                            chunk.resetActiveTimer(); // prevents TICKING from being cleared
+                            world.loadChunkIfInMemory(index);
+                        }
+                    }, world);
+                } else {
+                    WorldChunk chunk = world.getChunkIfInMemory(index);
+                    if (chunk != null) chunk.removeKeepLoaded();
+                }
+            }
+        }
+    }
+
+    // function to keep chunks ticking to keep them alive during raid
+    private void tickActiveRaids() {
+        for (RaidGroup group : activeRaids) {
+            if (group.territory == null) continue;
+            int minChunkX = ChunkUtil.chunkCoordinate(group.territory.getMinX());
+            int maxChunkX = ChunkUtil.chunkCoordinate(group.territory.getMaxX());
+            int minChunkZ = ChunkUtil.chunkCoordinate(group.territory.getMinZ());
+            int maxChunkZ = ChunkUtil.chunkCoordinate(group.territory.getMaxZ());
+            for (int cx = minChunkX; cx <= maxChunkX; cx++) {
+                for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
+                    WorldChunk chunk = group.world.getChunkIfInMemory(ChunkUtil.indexChunk(cx, cz));
+                    if (chunk != null) {
+                        chunk.resetActiveTimer();
+                        chunk.resetKeepAlive();
+                    }
+                }
+            }
+        }
     }
 }

@@ -75,6 +75,12 @@ public class TriggerRaid extends CommandBase {
             Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             if (rpgPlayer == null) return;
 
+            // bail if a raid is already in progress for this player
+            if (rpgPlayer.activeRaidHudState != null) {
+                sender.sendMessage(Message.raw("[TriggerRaid] Player " + lambdaSafeTargetedPlayer.getUsername() + " already has an active raid in progress."));
+                return;
+            }
+
             if (lambdaSafeRaidType.equals("base")) {
                 plugin.raidSystem.startBaseRaid(lambdaSafeTargetedPlayer, ref, store, world);
             } else {

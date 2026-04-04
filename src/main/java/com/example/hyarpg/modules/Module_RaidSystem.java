@@ -54,11 +54,132 @@ public class Module_RaidSystem {
 
     // Registry of defined raids
     private static final List<RaidDefinition> RAID_REGISTRY = List.of(
-        new RaidDefinition("skeleton_raid", 100, List.of(
-            List.of("skeleton", "skeleton", "skeleton", "skeleton"),
-            List.of("skeleton", "skeleton", "skeleton", "skeleton", "skeleton"),
-            List.of("skeleton", "skeleton", "skeleton", "skeleton", "skeleton", "skeleton")
-        ))
+
+            // === THE RISEN TIDE ===
+            // Undead animals soften you up before the heavy hitters arrive
+            new RaidDefinition("the_risen_tide", 100, List.of(
+                List.of("Chicken_Undead", "Chicken_Undead", "Pig_Undead", "Pig_Undead", "Zombie"),
+                List.of("Cow_Undead", "Cow_Undead", "Zombie", "Zombie", "Ghoul"),
+                List.of("Ghoul", "Ghoul", "Zombie_Aberrant", "Wraith")
+            )),
+
+            // === COLD FRONT ===
+            // A frost-themed ambush that escalates from scouts to siege
+            new RaidDefinition("cold_front", 95, List.of(
+                List.of("Skeleton_Frost_Scout", "Skeleton_Frost_Scout", "Skeleton_Frost_Ranger", "Zombie_Frost"),
+                List.of("Skeleton_Frost_Soldier", "Skeleton_Frost_Fighter", "Skeleton_Frost_Mage", "Spirit_Frost"),
+                List.of("Skeleton_Frost_Knight", "Skeleton_Frost_Archmage", "Golem_Crystal_Frost", "Zombie_Frost", "Spirit_Frost")
+            )),
+
+            // === THE GOBLIN ECONOMY ===
+            // Goblins of every trade — ends with their leadership demanding tribute
+            new RaidDefinition("the_goblin_economy", 110, List.of(
+                List.of("Goblin_Miner", "Goblin_Miner", "Goblin_Scavenger", "Goblin_Hermit"),
+                List.of("Goblin_Lobber", "Goblin_Lobber", "Goblin_Thief", "Goblin_Ogre"),
+                List.of("Goblin_Duke", "Goblin_Ogre", "Goblin_Lobber", "Goblin_Scavenger", "Goblin_Thief")
+            )),
+
+            // === DESERT AWAKENING ===
+            // Ancient sand constructs and their skeletal guardians surge forward
+            new RaidDefinition("desert_awakening", 90, List.of(
+                List.of("Skeleton_Sand_Scout", "Skeleton_Sand_Ranger", "Zombie_Sand", "Zombie_Sand"),
+                List.of("Skeleton_Sand_Guard", "Skeleton_Sand_Mage", "Skeleton_Sand_Archmage", "Golem_Crystal_Sand"),
+                List.of("Golem_Crystal_Sand", "Skeleton_Sand_Archmage", "Zombie_Sand", "Skeleton_Sand_Guard", "Skeleton_Sand_Ranger")
+            )),
+
+            // === SPIRITS OF THE WILD ===
+            // Pure elemental chaos — spirits from every domain converging at once
+            new RaidDefinition("spirits_of_the_wild", 75, List.of(
+                List.of("Spirit_Root", "Spirit_Root", "Spirit_Ember"),
+                List.of("Spirit_Frost", "Spirit_Thunder", "Spirit_Root", "Spirit_Ember"),
+                List.of("Spirit_Thunder", "Spirit_Thunder", "Spirit_Frost", "Spirit_Ember", "Hedera")
+            )),
+
+            // === THE OUTLANDER VANGUARD ===
+            // Starts stealthy with scouts and hunters, ends with a ritual assault
+            new RaidDefinition("the_outlander_vanguard", 85, List.of(
+                List.of("Outlander_Peon", "Outlander_Stalker", "Outlander_Hunter", "Outlander_Hunter"),
+                List.of("Outlander_Marauder", "Outlander_Berserker", "Outlander_Brute", "Outlander_Sorcerer"),
+                List.of("Outlander_Priest", "Outlander_Cultist", "Outlander_Brute", "Outlander_Sorcerer", "Outlander_Berserker")
+            )),
+
+            // === FIRE AND ASH ===
+            // Burnt skeletons backed by scorching golems — a wave of pure heat
+            new RaidDefinition("fire_and_ash", 90, List.of(
+                List.of("Skeleton_Burnt_Archer", "Skeleton_Burnt_Gunner", "Zombie_Burnt", "Zombie_Burnt"),
+                List.of("Skeleton_Burnt_Knight", "Skeleton_Burnt_Lancer", "Skeleton_Burnt_Alchemist", "Spirit_Ember"),
+                List.of("Skeleton_Burnt_Praetorian", "Skeleton_Burnt_Wizard", "Golem_Crystal_Flame", "Skeleton_Burnt_Soldier"),
+                List.of("Golem_Crystal_Flame", "Golem_Firesteel", "Skeleton_Burnt_Praetorian", "Spirit_Ember", "Zombie_Burnt")
+            )),
+
+            // === THE VOID RUPTURE ===
+            // Small void creatures swarm first; then the heavy void beasts tear through
+            new RaidDefinition("the_void_rupture", 70, List.of(
+                List.of("Larva_Void", "Larva_Void", "Larva_Void", "Eye_Void", "Eye_Void"),
+                List.of("Crawler_Void", "Crawler_Void", "Spawn_Void", "Eye_Void"),
+                List.of("Spawn_Void", "Spawn_Void", "Spectre_Void", "Crawler_Void", "Larva_Void"),
+                List.of("Spectre_Void", "Spectre_Void", "Spawn_Void", "Shadow_Knight")
+            )),
+
+            // === BONE CORSAIRS ===
+            // Skeleton pirates raid with a motley mix of support and heavy hitters on horseback
+            new RaidDefinition("bone_corsairs", 95, List.of(
+                List.of("Skeleton_Pirate_Gunner", "Skeleton_Pirate_Gunner", "Skeleton_Pirate_Striker", "Skeleton_Scout"),
+                List.of("Skeleton_Pirate_Captain", "Skeleton_Pirate_Striker", "Horse_Skeleton", "Skeleton_Ranger"),
+                List.of("Skeleton_Pirate_Captain", "Horse_Skeleton_Armored", "Skeleton_Pirate_Gunner", "Skeleton_Pirate_Striker", "Skeleton_Mage")
+            )),
+
+            // === THUNDER AND EARTH ===
+            // A golem clash — earthen and thunder golems supported by their spirit kin
+            new RaidDefinition("thunder_and_earth", 80, List.of(
+                List.of("Golem_Crystal_Earth", "Golem_Crystal_Earth", "Spirit_Thunder"),
+                List.of("Golem_Crystal_Thunder", "Golem_Crystal_Earth", "Spirit_Thunder", "Spirit_Ember"),
+                List.of("Golem_Crystal_Thunder", "Golem_Firesteel", "Golem_Crystal_Earth", "Spirit_Thunder", "Wraith")
+            )),
+
+            // === THE NIGHT HUNT ===
+            // Werewolves and wraiths join rogue undead for a terrifying nocturnal ambush
+            new RaidDefinition("the_night_hunt", 75, List.of(
+                List.of("Hound_Bleached", "Hound_Bleached", "Zombie", "Ghoul", "Ghoul"),
+                List.of("Werewolf", "Ghoul", "Ghoul", "Wraith", "Zombie_Aberrant"),
+                List.of("Werewolf", "Werewolf", "Wraith", "Wraith", "Shadow_Knight")
+            )),
+
+            // === THE INCANDESCENT CRUSADE ===
+            // Glowing incandescent skeletons march in formation — a relentless disciplined assault
+            new RaidDefinition("the_incandescent_crusade", 85, List.of(
+                List.of("Skeleton_Incandescent_Footman", "Skeleton_Incandescent_Footman", "Skeleton_Incandescent_Fighter"),
+                List.of("Skeleton_Incandescent_Fighter", "Skeleton_Incandescent_Mage", "Skeleton_Incandescent_Head", "Skeleton_Soldier"),
+                List.of("Skeleton_Incandescent_Head", "Skeleton_Incandescent_Mage", "Skeleton_Incandescent_Fighter", "Skeleton_Archmage", "Wraith")
+            )),
+
+            // === TRORK WARPATH ===
+            // Trorks charge in waves with healers and shamans disrupting your defense
+            new RaidDefinition("trork_warpath", 100, List.of(
+                List.of("Trork_Brawler", "Trork_Brawler", "Trork_Guard", "Trork_Sentry"),
+                List.of("Trork_Hunter", "Trork_Mauler", "Trork_Doctor_Witch", "Trork_Guard", "Trork_Brawler"),
+                List.of("Trork_Warrior", "Trork_Chieftain", "Trork_Doctor_Witch", "Trork_Mauler", "Trork_Hunter"),
+                List.of("Trork_Chieftain", "Trork_Warrior", "Trork_Doctor_Witch", "Trork_Doctor_Witch", "Trork_Mauler", "Golem_Crystal_Earth")
+            )),
+
+            // === THE GRAND CONVERGENCE ===
+            // The ultimate raid — every faction sends their elites in a chaotic final assault
+            new RaidDefinition("the_grand_convergence", 40, List.of(
+                List.of("Goblin_Ogre", "Outlander_Berserker", "Zombie_Aberrant", "Trork_Warrior", "Skeleton_Burnt_Praetorian"),
+                List.of("Skeleton_Frost_Knight", "Outlander_Brute", "Werewolf", "Ghoul", "Skeleton_Incandescent_Head"),
+                List.of("Golem_Crystal_Thunder", "Golem_Crystal_Flame", "Scarak_Broodmother_Young", "Wraith", "Spawn_Void"),
+                List.of("Shadow_Knight", "Goblin_Duke", "Trork_Chieftain", "Outlander_Cultist", "Skeleton_Archmage", "Spirit_Thunder"),
+                List.of("Hedera", "Werewolf", "Wraith", "Shadow_Knight", "Spectre_Void", "Golem_Firesteel", "Scarak_Broodmother_Young")
+            )),
+
+            // === BROODMOTHER'S CALLING ===
+            // Void swarms protect the Scarak Broodmother — a desperate bug-and-void siege
+            new RaidDefinition("broodmothers_calling", 65, List.of(
+                List.of("Larva_Void", "Larva_Void", "Larva_Void", "Larva_Void", "Eye_Void", "Eye_Void"),
+                List.of("Crawler_Void", "Crawler_Void", "Spawn_Void", "Larva_Void", "Larva_Void"),
+                List.of("Scarak_Broodmother_Young", "Spawn_Void", "Crawler_Void", "Spectre_Void", "Eye_Void", "Larva_Void")
+            ))
+
     );
 
     // Spawning parameters

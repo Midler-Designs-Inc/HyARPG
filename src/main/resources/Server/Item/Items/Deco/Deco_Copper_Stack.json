@@ -1,0 +1,60 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Deco_Copper_Stack.name"
+  },
+  "Icon": "Icons/ItemsGenerated/Deco_Copper_Stack.png",
+  "Categories": [
+    "Blocks.Deco"
+  ],
+  "Set": "Deco_Copper",
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 3
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Id": "Furniture_Bench",
+        "Categories": [
+          "Furniture_Misc"
+        ]
+      }
+    ]
+  },
+  "BlockType": {
+    "Material": "Solid",
+    "DrawType": "Model",
+    "Opacity": "Transparent",
+    "CustomModel": "Blocks/Tinkering/Iron_Ingot_Stack.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Weight": 1,
+        "Texture": "Blocks/Tinkering/Copper_Ingot_Stack_Texture.png"
+      }
+    ],
+    "VariantRotation": "Wall",
+    "Flags": {},
+    "Gathering": {
+      "UseDefaultDropWhenPlaced": true,
+      "Soft": {
+        "ItemId": "Deco_Copper_Stack"
+      }
+    },
+    "BlockParticleSetId": "Metal",
+    "ParticleColor": "#4b4b4b",
+    "BlockSoundSetId": "Metal"
+  },
+  "PlayerAnimationsId": "Block",
+  "Tags": {
+    "Type": [
+      "Deco"
+    ],
+    "Family": [
+      "Iron"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Items_Metal"
+}

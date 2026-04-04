@@ -81,12 +81,7 @@ public class TriggerRaid extends CommandBase {
                 return;
             }
 
-            if (lambdaSafeRaidType.equals("base")) {
-                plugin.raidSystem.startBaseRaid(lambdaSafeTargetedPlayer, ref, store, world);
-            } else {
-                plugin.raidSystem.startPlayerRaid(lambdaSafeTargetedPlayer, ref, store, world);
-            }
-
+            plugin.raidSystem.triggerRaidByCommand(lambdaSafeTargetedPlayer, ref, store, world, lambdaSafeRaidType);
             sender.sendMessage(Message.raw("[TriggerRaid] Manually triggered '" + lambdaSafeRaidType + "' raid for player " + lambdaSafeTargetedPlayer.getUsername()));
         });
     }

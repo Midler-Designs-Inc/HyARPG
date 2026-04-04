@@ -1,7 +1,7 @@
 {
   "Group": "com.example",
   "Name": "HyARPG",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "Description": "A Hytale mod to add a large and deep variety of ARPG elements to the game.",
   "Authors": [{"Name": "Jeffery Midler"}, {"Name": "Michael Midler"}],
   "Main": "com.example.hyarpg.HyARPGPlugin",

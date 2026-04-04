@@ -170,7 +170,7 @@ public class Module_RaidSystem {
         if (secondsSinceLastTick >= INNER_TICK_INTERVAL_SECONDS) innerTick();
 
         // keep raid chunks ticking
-//        tickActiveRaids();
+        tickActiveRaids();
     }
 
     // Inner tick — runs once per minute, evaluates every player independently
@@ -277,7 +277,7 @@ public class Module_RaidSystem {
         activeRaids.add(group);
 
         // load the players base chunks into memory and keep them alive during the raid time
-//        keepTerritoryChunksLoaded(world, territory, true);
+        keepTerritoryChunksLoaded(world, territory, true);
 
         // set the raid HUD state on the player component so the HUD can display raid info
         setRaidHudState(store, ref, group.hudState);
@@ -382,6 +382,9 @@ public class Module_RaidSystem {
 
         group.pruneDeadNpcs();
 
+        // remove this group from the active raids list
+        activeRaids.remove(group);
+
         // explode any NPCs that are still alive
         if (group.isAlive()) {
             System.out.println("[RaidSystem] Raid ended with " + group.npcRefs.size() + " surviving NPCs — detonating.");
@@ -396,13 +399,11 @@ public class Module_RaidSystem {
         }
 
         // load the players base chunks into memory and keep them alive during the raid time
-//        if (group.territory != null) keepTerritoryChunksLoaded(group.world, group.territory, false);
+        if (group.territory != null) keepTerritoryChunksLoaded(group.world, group.territory, false);
 
         // clear the raid HUD state from the player component
         clearRaidHudState(store, group.targetPlayerRef);
 
-        // remove this group from the active raids list
-        activeRaids.remove(group);
         System.out.println("[RaidSystem] Raid group cleaned up.");
     }
 
@@ -549,7 +550,7 @@ public class Module_RaidSystem {
                         if (chunk != null) {
                             chunk.addKeepLoaded();
                             chunk.resetKeepAlive();
-                            chunk.resetActiveTimer(); // prevents TICKING from being cleared
+                            chunk.resetActiveTimer();
                             world.loadChunkIfInMemory(index);
                         }
                     }, world);

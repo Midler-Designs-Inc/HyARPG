@@ -108,7 +108,7 @@ public class Module_RPGSystem {
     }
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.4.0"; // 1.4.0
+    private final String SKILL_TREE_VERSION = "1.5.0"; // 1.4.0
 
     // Create a map for damage message colors
     public static final Map<String, Color> DAMAGE_COLORS = Map.of(

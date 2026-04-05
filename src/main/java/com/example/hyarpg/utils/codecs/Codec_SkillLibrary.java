@@ -1,32 +1,39 @@
 package com.example.hyarpg.utils.codecs;
 
 // Hytale Imports
-import com.example.hyarpg.utils.abilities.ranger.Aerial_Maneuver;
-import com.example.hyarpg.utils.abilities.ranger.Rain_Of_Arrows;
-import com.example.hyarpg.utils.abilities.ranger.Summon_Crossbow_Turret;
 import com.hypixel.hytale.codec.Codec;
-import com.hypixel.hytale.codec.function.FunctionCodec;
+import com.hypixel.hytale.codec.ExtraInfo;
+import com.hypixel.hytale.codec.schema.SchemaContext;
+import com.hypixel.hytale.codec.schema.config.Schema;
+import com.hypixel.hytale.codec.util.RawJsonReader;
+import org.bson.BsonValue;
 
 // Mod Imports
 import com.example.hyarpg.utils.skills.SkillLibrary;
+import com.example.hyarpg.utils.skills.SkillNode;
+import com.example.hyarpg.utils.skills.Requirement;
 import com.example.hyarpg.utils.abilities.Ability;
 import com.example.hyarpg.utils.abilities.knight.*;
 import com.example.hyarpg.utils.abilities.juggernaut.*;
+import com.example.hyarpg.utils.abilities.ranger.Aerial_Maneuver;
+import com.example.hyarpg.utils.abilities.ranger.Rain_Of_Arrows;
+import com.example.hyarpg.utils.abilities.ranger.Summon_Crossbow_Turret;
 import com.example.hyarpg.utils.affixes.StatType;
-import com.example.hyarpg.utils.skills.Requirement;
-import com.example.hyarpg.utils.skills.SkillNode;
 
-// Java Imports
+// Java / Gson Imports
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 public class Codec_SkillLibrary {
+
     private static Map<String, Ability> abilityRegistry;
 
     private static Map<String, Ability> getAbilityRegistry() {
@@ -55,7 +62,7 @@ public class Codec_SkillLibrary {
                 Ability ability = null;
                 if (obj.has("ability") && !obj.get("ability").isJsonNull()) {
                     String abilityId = obj.getAsJsonObject("ability").get("abilityId").getAsString();
-                    ability = getAbilityRegistry().get(abilityId);  // lazy lookup
+                    ability = getAbilityRegistry().get(abilityId);
                 }
 
                 String id = obj.get("id").getAsString();
@@ -81,9 +88,31 @@ public class Codec_SkillLibrary {
             })
             .create();
 
-    public static final Codec<SkillLibrary> SKILL_LIBRARY_CODEC = new FunctionCodec<>(
-            Codec.STRING,
-            json -> GSON.fromJson(json, SkillLibrary.class),
-            lib  -> GSON.toJson(lib)
-    );
+    public static final Codec<SkillLibrary> SKILL_LIBRARY_CODEC = new Codec<SkillLibrary>() {
+
+        @Nonnull
+        @Override
+        public SkillLibrary decode(BsonValue bsonValue, ExtraInfo extraInfo) {
+            String json = Codec.STRING.decode(bsonValue, extraInfo);
+            return GSON.fromJson(json, SkillLibrary.class);
+        }
+
+        @Override
+        public BsonValue encode(SkillLibrary lib, ExtraInfo extraInfo) {
+            return Codec.STRING.encode(GSON.toJson(lib), extraInfo);
+        }
+
+        @Nonnull
+        @Override
+        public SkillLibrary decodeJson(@Nonnull RawJsonReader reader, ExtraInfo extraInfo) throws IOException {
+            String json = Codec.STRING.decodeJson(reader, extraInfo);
+            return GSON.fromJson(json, SkillLibrary.class);
+        }
+
+        @Nonnull
+        @Override
+        public Schema toSchema(@Nonnull SchemaContext context) {
+            return Codec.STRING.toSchema(context);
+        }
+    };
 }

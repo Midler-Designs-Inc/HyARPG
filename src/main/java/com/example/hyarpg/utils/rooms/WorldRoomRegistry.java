@@ -45,7 +45,6 @@ public class WorldRoomRegistry {
     }
 
     // --- Static lifecycle ---
-
     public static void put(String worldName, WorldRoomRegistry registry) {
         REGISTRIES.put(worldName, registry);
     }

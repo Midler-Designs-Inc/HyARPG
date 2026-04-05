@@ -5,16 +5,23 @@ import com.example.hyarpg.components.Component_CraftingKnowledge;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.events.Event_RemoveBlock;
 import com.example.hyarpg.utils.HookedNotificationHandler;
+import com.hypixel.hytale.builtin.crafting.component.BenchBlock;
+import com.hypixel.hytale.component.AddReason;
+import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
+import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 
@@ -27,6 +34,7 @@ import com.example.hyarpg.events.Event_WorldStart;
 import com.example.hyarpg.utils.rooms.RoomType;
 import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
+import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Java Imports
@@ -189,13 +197,20 @@ public class Module_BuildSystem {
         }
         if (territory == null) return;
 
-        registry.removeTerritory(territory);
-        registry.saveAsync(world);
+        final TerritoryData finalTerritory = territory;
 
-        HytaleLogger.getLogger().at(Level.INFO).log(
-                "[BuildSystem] Territory removed at (%d, %d, %d), rooms de-registered",
-                territory.getCenter().x, territory.getCenter().y, territory.getCenter().z
-        );
+        // Defer block breaking to next tick to avoid calling store methods
+        // from within the current event processing pipeline
+        world.execute(() -> {
+            breakRestrictedBlocksInTerritory(world, finalTerritory);
+            registry.removeTerritory(finalTerritory);
+            registry.saveAsync(world);
+
+            HytaleLogger.getLogger().at(Level.INFO).log(
+                    "[BuildSystem] Territory removed at (%d, %d, %d), rooms de-registered",
+                    finalTerritory.getCenter().x, finalTerritory.getCenter().y, finalTerritory.getCenter().z
+            );
+        });
     }
 
     // --- Structural Block Flow --- //
@@ -225,7 +240,6 @@ public class Module_BuildSystem {
         if (detected != null && registry.findMatchingRoom(detected) == null) {
             if (existing != null) registry.removeRoom(existing);
             scanRoomContents(world, detected);
-            detected.removeBlockKey(removedBlockType.getId());
             registry.addRoom(detected);
             reevaluateRoomType(detected, registry, world, null);
         } else if (detected != null && existing != null) {
@@ -251,7 +265,6 @@ public class Module_BuildSystem {
         RoomData room = registry.getRoomAt(blockPos.x, blockPos.y, blockPos.z);
         if (room != null) {
             scanRoomContents(world, room);
-            room.removeBlockKey(removedBlockType.getId());
             reevaluateRoomType(room, registry, world, null);
         }
     }
@@ -310,25 +323,80 @@ public class Module_BuildSystem {
     }
     private void reevaluateRoomType(RoomData room, WorldRoomRegistry registry, World world, Ref ref) {
         RoomType newType = RoomType.classify(
-                room.getInteriorSizeX(),
-                room.getInteriorSizeY(),
-                room.getInteriorSizeZ(),
-                room.getBlockCountsInside()
+            room.getInteriorSizeX(),
+            room.getInteriorSizeY(),
+            room.getInteriorSizeZ(),
+            room.getBlockCountsInside()
         );
 
         String newTypeName = newType != null ? newType.getDisplayName() : null;
-        String oldTypeName = room.getDesignatedRoomType();
-
-        if (Objects.equals(newTypeName, oldTypeName)) return;
+        if(newType == null) return;
+//        String oldTypeName = room.getDesignatedRoomType();
+//
+//        if (Objects.equals(newTypeName, oldTypeName)) return;
         room.setDesignatedRoomType(newTypeName);
         registry.saveAsync(world);
 
         // Only attempt recipe discovery if there's a new valid type and a player ref
-        if (newTypeName == null || ref == null) return;
+        if (ref == null) return;
         try {
             Store<EntityStore> store = ref.getStore();
             Component_CraftingKnowledge knowledgeComp = store.getComponent(ref, Module_RPGSystem.componentTypeCraftingKnowledge);
             knowledgeComp.addDiscoveredRoomRecipe(ref, store, newType.name(), newTypeName);
         } catch (Exception e) {}
+    }
+    private void breakRestrictedBlocksInTerritory(World world, TerritoryData territory) {
+        Store<EntityStore> entityStore = world.getEntityStore().getStore();
+
+        for (int x = territory.getMinX(); x <= territory.getMaxX(); x++) {
+            for (int y = territory.getMinY(); y <= territory.getMaxY(); y++) {
+                for (int z = territory.getMinZ(); z <= territory.getMaxZ(); z++) {
+                    try {
+                        long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
+                        WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
+                        if (chunk == null) continue;
+
+                        int blockId = chunk.getBlock(x, y, z);
+                        BlockType bt = BlockType.getAssetMap().getAsset(blockId);
+                        if (bt == null || !requiresTerritory(bt)) continue;
+                        if (LIGHT_WELL_KEY.equals(bt.getId())) continue;
+
+                        // Determine the item key to drop — use base block type to strip tier state
+                        BlockType baseType = BenchBlock.getBaseBlockType(bt);
+                        String dropKey = baseType.getId();
+
+                        // Check for a bench tier component to drop the correct tiered item
+                        // BenchBlock tierLevel is 1-based; tier 1 = base block key, tier 2+ = key with tier state
+                        try {
+                            Ref<ChunkStore> chunkRef = ((ChunkStore) world.getChunkStore().getStore().getExternalData()).getChunkReference(chunkIndex);
+                            if (chunkRef != null && chunkRef.isValid()) {
+                                BenchBlock benchBlock = world.getChunkStore().getStore().getComponent(chunkRef, BenchBlock.getComponentType());
+                                if (benchBlock != null && benchBlock.getTierLevel() > 1) {
+                                    // Tier 2+ benches use a state key — getTierStateName() returns e.g. "Tier2"
+                                    String tieredKey = bt.getBlockKeyForState(benchBlock.getTierStateName());
+                                    if (tieredKey != null) dropKey = tieredKey;
+                                }
+                            }
+                        } catch (Exception ignored) {}
+
+                        // Spawn the item drop at block center
+                        Vector3d dropPos = new Vector3d(x + 0.5, y + 0.5, z + 0.5);
+                        Holder<EntityStore> holder = ItemComponent.generateItemDrop(entityStore, new ItemStack(dropKey, 1), dropPos, Vector3f.ZERO, 0f, 0f, 0f);
+                        if (holder != null) {
+                            entityStore.addEntities(new Holder[]{holder}, AddReason.SPAWN);
+                        }
+
+                        world.breakBlock(x, y, z, 0);
+                    } catch (Exception e) {
+                        for (PlayerRef player : Universe.get().getPlayers()) {
+                            player.sendMessage(Message.raw(e.getMessage()));
+                        }
+                        HytaleLogger.getLogger().at(Level.WARNING).log(
+                                "[BuildSystem] Failed to eject restricted block at (%d, %d, %d): %s", x, y, z, e.getMessage()
+                        );
+                    }
+                }
+            }
+        }
     }
 }

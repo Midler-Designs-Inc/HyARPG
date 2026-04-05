@@ -135,6 +135,7 @@ public class HyARPGPlugin extends JavaPlugin {
             getCommandRegistry().registerCommand(new SetSkillPoints());
             getCommandRegistry().registerCommand(new AddPlayerLevels());
             getCommandRegistry().registerCommand(new ResetDiscoveredIngredients());
+            getCommandRegistry().registerCommand(new ResetDiscoveredRooms());
             getCommandRegistry().registerCommand(new SetShowLootDropsSetting());
             getCommandRegistry().registerCommand(new SetShowCombatTextSetting());
             getCommandRegistry().registerCommand(new TriggerRaid(this));

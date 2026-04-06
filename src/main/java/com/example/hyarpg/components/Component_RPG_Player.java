@@ -4,6 +4,7 @@ package com.example.hyarpg.components;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.modules.Module_RaidSystem.RaidHudState;
 import com.example.hyarpg.utils.codecs.Codec_SkillLibrary;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
 import com.example.hyarpg.utils.rooms.RoomData;
 import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.skills.SkillLibrary;
@@ -80,6 +81,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
     // store if the player is inside a room or not
     public RoomData room;
     public TerritoryData territory;
+    public OutdoorRoomData outdoorRoom;
 
     // player raid parameters
     public long lastBaseRaid;

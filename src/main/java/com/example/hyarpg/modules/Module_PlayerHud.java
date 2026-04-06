@@ -242,21 +242,25 @@ public class Module_PlayerHud {
                 // determine if we should show the room info or not
                 boolean showRoomInfo = ModConfig.get().building.allow_light_well_territory_claim && rpgPlayer.territory != null;
                 hudRef.getById("currentRoomBorder", ImageBuilder.class).ifPresent(l -> l
-                    .withVisible(showRoomInfo)
+                        .withVisible(showRoomInfo)
                 );
                 hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
-                    .withVisible(showRoomInfo)
+                        .withVisible(showRoomInfo)
                 );
-                if(!showRoomInfo || rpgPlayer.territory.getOwnerUuid() == null) return;
+                if (!showRoomInfo || rpgPlayer.territory.getOwnerUuid() == null) return;
 
-                // if we are showing the room info, get the info
+                // priority: room > outdoor space > territory label
                 PlayerRef territoryOwner = Universe.get().getPlayer(rpgPlayer.territory.getOwnerUuid());
                 String ownerName = territoryOwner != null ? territoryOwner.getUsername() : "Unknown";
-                String roomText = rpgPlayer.room != null
-                        ? rpgPlayer.room.getDesignatedRoomType()
-                        : ownerName + "'s Territory";
+                String roomText;
+                if (rpgPlayer.room != null)
+                    roomText = rpgPlayer.room.getDesignatedRoomType();
+                else if (rpgPlayer.outdoorRoom != null)
+                    roomText = rpgPlayer.outdoorRoom.getDesignatedRoomType();
+                else
+                    roomText = ownerName + "'s Territory";
                 hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
-                    .withText(roomText)
+                        .withText(roomText)
                 );
             });
         });

@@ -1,6 +1,7 @@
 package com.example.hyarpg.utils.rooms;
 
 // Hytale Imports
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
@@ -34,6 +35,10 @@ public class WorldRoomRegistry {
     private final Long2ObjectMap<List<RoomData>> chunkBuckets = new Long2ObjectOpenHashMap<>();
     private final List<RoomData> allRooms = new ArrayList<>();
 
+    // --- Outdoor Rooms ---
+    private final Long2ObjectMap<List<OutdoorRoomData>> outdoorChunkBuckets = new Long2ObjectOpenHashMap<>();
+    private final List<OutdoorRoomData> allOutdoorRooms = new ArrayList<>();
+
     // --- Territories ---
     private final Long2ObjectMap<List<TerritoryData>> territoryChunkBuckets = new Long2ObjectOpenHashMap<>();
     private final List<TerritoryData> allTerritories = new ArrayList<>();
@@ -59,6 +64,10 @@ public class WorldRoomRegistry {
                     if (saved.rooms != null) {
                         for (RoomData room : saved.rooms) registry.addRoom(room);
                         LOGGER.at(Level.INFO).log("Loaded %d rooms for world '%s'", saved.rooms.length, world.getName());
+                    }
+                    if (saved.outdoorRooms != null) {
+                        for (OutdoorRoomData room : saved.outdoorRooms) registry.addOutdoorRoom(room);
+                        LOGGER.at(Level.INFO).log("Loaded %d outdoor rooms for world '%s'", saved.outdoorRooms.length, world.getName());
                     }
                     if (saved.territories != null) {
                         for (TerritoryData territory : saved.territories) registry.addTerritory(territory);
@@ -106,6 +115,26 @@ public class WorldRoomRegistry {
             if (bucket != null) {
                 bucket.remove(room);
                 if (bucket.isEmpty()) chunkBuckets.remove(chunkIndex);
+            }
+        }
+    }
+
+    // --- Outdoor room registration ---
+
+    public void addOutdoorRoom(OutdoorRoomData room) {
+        allOutdoorRooms.add(room);
+        for (long chunkIndex : getOverlappingChunks(room.getMinBound(), room.getMaxBound())) {
+            outdoorChunkBuckets.computeIfAbsent(chunkIndex, k -> new ArrayList<>()).add(room);
+        }
+    }
+
+    public void removeOutdoorRoom(OutdoorRoomData room) {
+        allOutdoorRooms.remove(room);
+        for (long chunkIndex : getOverlappingChunks(room.getMinBound(), room.getMaxBound())) {
+            List<OutdoorRoomData> bucket = outdoorChunkBuckets.get(chunkIndex);
+            if (bucket != null) {
+                bucket.remove(room);
+                if (bucket.isEmpty()) outdoorChunkBuckets.remove(chunkIndex);
             }
         }
     }
@@ -188,6 +217,48 @@ public class WorldRoomRegistry {
         return results;
     }
 
+    // --- Spatial lookup: outdoor rooms ---
+
+    @Nullable
+    public OutdoorRoomData getOutdoorRoomAt(int x, int y, int z) {
+        long centerChunk = ChunkUtil.indexChunkFromBlock(x, z);
+        int chunkX = ChunkUtil.xOfChunkIndex(centerChunk);
+        int chunkZ = ChunkUtil.zOfChunkIndex(centerChunk);
+
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                long neighborIndex = ChunkUtil.indexChunk(chunkX + dx, chunkZ + dz);
+                List<OutdoorRoomData> bucket = outdoorChunkBuckets.get(neighborIndex);
+                if (bucket == null) continue;
+                for (OutdoorRoomData room : bucket) {
+                    if (room.containsInterior(x, y, z)) return room;
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<OutdoorRoomData> getOutdoorRoomsNear(int x, int y, int z) {
+        List<OutdoorRoomData> results = new ArrayList<>();
+        long centerChunk = ChunkUtil.indexChunkFromBlock(x, z);
+        int chunkX = ChunkUtil.xOfChunkIndex(centerChunk);
+        int chunkZ = ChunkUtil.zOfChunkIndex(centerChunk);
+
+        for (int dx = -1; dx <= 1; dx++) {
+            for (int dz = -1; dz <= 1; dz++) {
+                long neighborIndex = ChunkUtil.indexChunk(chunkX + dx, chunkZ + dz);
+                List<OutdoorRoomData> bucket = outdoorChunkBuckets.get(neighborIndex);
+                if (bucket == null) continue;
+                for (OutdoorRoomData room : bucket) {
+                    if (room.containsWithWalls(x, y, z) && !results.contains(room)) {
+                        results.add(room);
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
     // --- Spatial lookup: territories ---
 
     @Nullable
@@ -220,11 +291,14 @@ public class WorldRoomRegistry {
     }
 
     public List<RoomData> getAllRooms() { return allRooms; }
+    public List<OutdoorRoomData> getAllOutdoorRooms() { return allOutdoorRooms; }
     public List<TerritoryData> getAllTerritories() { return allTerritories; }
 
     public void clear() {
         allRooms.clear();
         chunkBuckets.clear();
+        allOutdoorRooms.clear();
+        outdoorChunkBuckets.clear();
         allTerritories.clear();
         territoryChunkBuckets.clear();
     }
@@ -239,13 +313,14 @@ public class WorldRoomRegistry {
         try {
             SaveData saveData = new SaveData();
             saveData.rooms = allRooms.toArray(new RoomData[0]);
+            saveData.outdoorRooms = allOutdoorRooms.toArray(new OutdoorRoomData[0]);
             saveData.territories = allTerritories.toArray(new TerritoryData[0]);
             BsonUtil.writeDocument(
                     world.getSavePath().resolve(SAVE_FILE),
                     SaveData.CODEC.encode(saveData).asDocument()
             );
-            LOGGER.at(Level.INFO).log("Saved %d rooms, %d territories for world '%s'",
-                    allRooms.size(), allTerritories.size(), worldName);
+            LOGGER.at(Level.INFO).log("Saved %d rooms, %d outdoor rooms, %d territories for world '%s'",
+                    allRooms.size(), allOutdoorRooms.size(), allTerritories.size(), worldName);
         } catch (Exception e) {
             LOGGER.at(Level.WARNING).log("Failed to save rooms for world '%s': %s", worldName, e.getMessage());
         }
@@ -289,29 +364,60 @@ public class WorldRoomRegistry {
         return null;
     }
 
+    @Nullable
+    public OutdoorRoomData findMatchingOutdoorRoom(OutdoorRoomData candidate) {
+        int cx = candidate.getCenterX();
+        int cy = candidate.getCenterY();
+        int cz = candidate.getCenterZ();
+        int sx = candidate.getInteriorSizeX();
+        int sz = candidate.getInteriorSizeZ();
+
+        for (OutdoorRoomData room : allOutdoorRooms) {
+            if (room.getCenterX() == cx
+                    && room.getCenterY() == cy
+                    && room.getCenterZ() == cz
+                    && room.getInteriorSizeX() == sx
+                    && room.getInteriorSizeZ() == sz) {
+                return room;
+            }
+        }
+        return null;
+    }
+
     // --- Save data wrapper ---
     public static class SaveData {
         @SuppressWarnings("unchecked")
         public static final BuilderCodec<SaveData> ROOMS_CODEC = BuilderCodec
-                .builder(SaveData.class, SaveData::new)
-                .append(
-                        new KeyedCodec<>("Rooms", new ArrayCodec(RoomData.CODEC, RoomData[]::new)),
-                        (d, v) -> d.rooms = v,
-                        d -> d.rooms
-                ).add()
-                .build();
+            .builder(SaveData.class, SaveData::new)
+            .append(
+                    new KeyedCodec<>("Rooms", new ArrayCodec(RoomData.CODEC, RoomData[]::new)),
+                    (d, v) -> d.rooms = v,
+                    d -> d.rooms
+            ).add()
+            .build();
+
+        @SuppressWarnings("unchecked")
+        public static final BuilderCodec<SaveData> OUTDOOR_ROOMS_CODEC = BuilderCodec
+            .builder(SaveData.class, SaveData::new, ROOMS_CODEC)
+            .append(
+                    new KeyedCodec<>("OutdoorRooms", new ArrayCodec(OutdoorRoomData.CODEC, OutdoorRoomData[]::new)),
+                    (d, v) -> d.outdoorRooms = v,
+                    d -> d.outdoorRooms
+            ).add()
+            .build();
 
         @SuppressWarnings("unchecked")
         public static final BuilderCodec<SaveData> CODEC = BuilderCodec
-                .builder(SaveData.class, SaveData::new, ROOMS_CODEC)
-                .append(
-                        new KeyedCodec<>("Territories", new ArrayCodec(TerritoryData.CODEC, TerritoryData[]::new)),
-                        (d, v) -> d.territories = v,
-                        d -> d.territories
-                ).add()
-                .build();
+            .builder(SaveData.class, SaveData::new, OUTDOOR_ROOMS_CODEC)
+            .append(
+                    new KeyedCodec<>("Territories", new ArrayCodec(TerritoryData.CODEC, TerritoryData[]::new)),
+                    (d, v) -> d.territories = v,
+                    d -> d.territories
+            ).add()
+            .build();
 
         public RoomData[] rooms;
+        public OutdoorRoomData[] outdoorRooms;
         public TerritoryData[] territories;
     }
 }

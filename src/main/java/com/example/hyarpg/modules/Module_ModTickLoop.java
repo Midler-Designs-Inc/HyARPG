@@ -2,6 +2,7 @@ package com.example.hyarpg.modules;
 
 // Hytale imports
 import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
 import com.example.hyarpg.utils.rooms.RoomData;
 import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
@@ -334,6 +335,20 @@ public final class Module_ModTickLoop {
                     && currentTerritory.getCenter().z == lastTerritory.getCenter().z;
 
             if (!sameTerritory) rpgPlayer.territory = currentTerritory;
+
+            // --- Outdoor Room ---
+            OutdoorRoomData currentOutdoorRoom = registry != null ? registry.getOutdoorRoomAt(x, y, z) : null;
+            OutdoorRoomData lastOutdoorRoom = rpgPlayer.outdoorRoom;
+
+            boolean sameOutdoorRoom = currentOutdoorRoom == null && lastOutdoorRoom == null
+                    || currentOutdoorRoom != null && lastOutdoorRoom != null
+                    && currentOutdoorRoom.getCenterX() == lastOutdoorRoom.getCenterX()
+                    && currentOutdoorRoom.getCenterY() == lastOutdoorRoom.getCenterY()
+                    && currentOutdoorRoom.getCenterZ() == lastOutdoorRoom.getCenterZ()
+                    && currentOutdoorRoom.getInteriorSizeX() == lastOutdoorRoom.getInteriorSizeX()
+                    && currentOutdoorRoom.getInteriorSizeZ() == lastOutdoorRoom.getInteriorSizeZ();
+
+            if (!sameOutdoorRoom) rpgPlayer.outdoorRoom = currentOutdoorRoom;
 
         } catch (Exception e) {
             System.err.println(e.getMessage());

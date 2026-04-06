@@ -5,6 +5,9 @@ import com.example.hyarpg.components.Component_CraftingKnowledge;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.events.Event_RemoveBlock;
 import com.example.hyarpg.utils.HookedNotificationHandler;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomFloodFill;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomType;
 import com.hypixel.hytale.builtin.crafting.component.BenchBlock;
 import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.Holder;
@@ -40,6 +43,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Java Imports
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.logging.Level;
 
 public class Module_BuildSystem {
@@ -68,8 +72,8 @@ public class Module_BuildSystem {
             WorldRoomRegistry.load(world).thenAccept(registry -> {
                 WorldRoomRegistry.put(world.getName(), registry);
                 HytaleLogger.getLogger().at(Level.INFO).log(
-                        "[BuildSystem] Initialized registry for world '%s' with %d rooms, %d territories",
-                        world.getName(), registry.getAllRooms().size(), registry.getAllTerritories().size()
+                        "[BuildSystem] Initialized registry for world '%s' with %d rooms, %d outdoor rooms, %d territories",
+                        world.getName(), registry.getAllRooms().size(), registry.getAllOutdoorRooms().size(), registry.getAllTerritories().size()
                 );
             });
         } catch (Exception e) {
@@ -115,9 +119,15 @@ public class Module_BuildSystem {
             if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
 
             boolean isStructural = RoomFloodFill.isStructural(placedBlockType);
+            boolean isBoundary = OutdoorRoomFloodFill.isBoundary(placedBlockType);
+
+            // --- Indoor room flow ---
             if (isStructural) onStructuralBlockPlaced(world, pos, placedBlockType, registry, event.ref());
             else onDecorationBlockPlaced(world, pos, placedBlockType, registry, event.ref());
 
+            // --- Outdoor space flow (runs independently of indoor) ---
+            if (isBoundary) onBoundaryBlockPlaced(world, pos, placedBlockType, registry, event.ref());
+            else onOutdoorDecorationBlockPlaced(world, pos, placedBlockType, registry, event.ref());
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("onPlaceBlock failed: %s", e.getMessage());
         }
@@ -142,8 +152,15 @@ public class Module_BuildSystem {
             if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
 
             boolean isStructural = RoomFloodFill.isStructural(blockType);
+            boolean isBoundary = OutdoorRoomFloodFill.isBoundary(blockType);
+
+            // --- Indoor room flow ---
             if (isStructural) onStructuralBlockBroken(world, pos, blockType, registry);
             else onDecorationBlockBroken(world, pos, blockType, registry);
+
+            // --- Outdoor space flow (runs independently of indoor) ---
+            if (isBoundary) onBoundaryBlockBroken(world, pos, registry);
+            else onOutdoorDecorationBlockBroken(world, pos, registry);
 
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("onRemoveBlock failed: %s", e.getMessage());
@@ -269,6 +286,97 @@ public class Module_BuildSystem {
         }
     }
 
+    // --- Boundary Block Flow --- //
+    private void onBoundaryBlockPlaced(World world, Vector3i blockPos, BlockType placedBlockType, WorldRoomRegistry registry, Ref ref) {
+        List<OutdoorRoomData> detected = OutdoorRoomFloodFill.detectOutdoorSpacesFromPlacedBlock(world, blockPos, placedBlockType);
+
+        // Register or update each detected space
+        for (OutdoorRoomData space : detected) {
+            OutdoorRoomData existing = registry.findMatchingOutdoorRoom(space);
+            if (existing != null) {
+                OutdoorRoomFloodFill.scanOutdoorContents(world, existing);
+                existing.addBlockKey(placedBlockType.getId()); // manually add placed block — fires pre-placement
+                reevaluateOutdoorRoomType(existing, registry, world, ref);
+            } else {
+                OutdoorRoomFloodFill.scanOutdoorContents(world, space);
+                space.addBlockKey(placedBlockType.getId()); // manually add placed block — fires pre-placement
+                registry.addOutdoorRoom(space);
+                reevaluateOutdoorRoomType(space, registry, world, ref);
+            }
+        }
+
+        // Remove any previously registered spaces near this block that are no longer valid
+        List<OutdoorRoomData> nearby = registry.getOutdoorRoomsNear(blockPos.x, blockPos.y, blockPos.z);
+        for (OutdoorRoomData room : new ArrayList<>(nearby)) {
+            boolean stillValid = detected.stream().anyMatch(d ->
+                    d.getCenterX() == room.getCenterX() &&
+                            d.getCenterZ() == room.getCenterZ() &&
+                            d.getInteriorSizeX() == room.getInteriorSizeX() &&
+                            d.getInteriorSizeZ() == room.getInteriorSizeZ()
+            );
+            if (!stillValid) {
+                registry.removeOutdoorRoom(room);
+                registry.saveAsync(world);
+            }
+        }
+    }
+    private void onBoundaryBlockBroken(World world, Vector3i blockPos, WorldRoomRegistry registry) {
+        List<OutdoorRoomData> detected = OutdoorRoomFloodFill.detectOutdoorSpacesFromBrokenBlock(world, blockPos);
+
+        // Register or update each detected space
+        for (OutdoorRoomData space : detected) {
+            OutdoorRoomData existing = registry.findMatchingOutdoorRoom(space);
+            if (existing != null) {
+                OutdoorRoomFloodFill.scanOutdoorContents(world, existing);
+                reevaluateOutdoorRoomType(existing, registry, world, null);
+            } else {
+                OutdoorRoomFloodFill.scanOutdoorContents(world, space);
+                registry.addOutdoorRoom(space);
+                reevaluateOutdoorRoomType(space, registry, world, null);
+            }
+        }
+
+        // Remove any previously registered spaces near this block that are no longer valid
+        List<OutdoorRoomData> nearby = registry.getOutdoorRoomsNear(blockPos.x, blockPos.y, blockPos.z);
+        for (OutdoorRoomData room : new ArrayList<>(nearby)) {
+            boolean stillValid = detected.stream().anyMatch(d ->
+                    d.getCenterX() == room.getCenterX() &&
+                            d.getCenterZ() == room.getCenterZ() &&
+                            d.getInteriorSizeX() == room.getInteriorSizeX() &&
+                            d.getInteriorSizeZ() == room.getInteriorSizeZ()
+            );
+            if (!stillValid) {
+                registry.removeOutdoorRoom(room);
+                registry.saveAsync(world);
+            }
+        }
+    }
+
+    // --- Outdoor Decoration Block Flow --- //
+    private void onOutdoorDecorationBlockPlaced(World world, Vector3i blockPos, BlockType placedBlockType, WorldRoomRegistry registry, Ref ref) {
+        // Attempt re-detection — floor changes can affect structural validity
+        onBoundaryBlockPlaced(world, blockPos, placedBlockType, registry, ref);
+
+        // Also rescan any existing space this block falls inside for decoration counts
+        OutdoorRoomData room = registry.getOutdoorRoomAt(blockPos.x, blockPos.y, blockPos.z);
+        if (room != null) {
+            OutdoorRoomFloodFill.scanOutdoorContents(world, room);
+            room.addBlockKey(placedBlockType.getId());
+            reevaluateOutdoorRoomType(room, registry, world, ref);
+        }
+    }
+    private void onOutdoorDecorationBlockBroken(World world, Vector3i blockPos, WorldRoomRegistry registry) {
+        // Attempt re-detection — floor changes can affect structural validity
+        onBoundaryBlockBroken(world, blockPos, registry);
+
+        // Also rescan any existing space this block falls inside for decoration counts
+        OutdoorRoomData room = registry.getOutdoorRoomAt(blockPos.x, blockPos.y, blockPos.z);
+        if (room != null) {
+            OutdoorRoomFloodFill.scanOutdoorContents(world, room);
+            reevaluateOutdoorRoomType(room, registry, world, null);
+        }
+    }
+
     // --- Helpers --- //
     private static boolean requiresTerritory(BlockType placedBlockType) {
         try {
@@ -323,17 +431,34 @@ public class Module_BuildSystem {
     }
     private void reevaluateRoomType(RoomData room, WorldRoomRegistry registry, World world, Ref ref) {
         RoomType newType = RoomType.classify(
-            room.getInteriorSizeX(),
-            room.getInteriorSizeY(),
-            room.getInteriorSizeZ(),
-            room.getBlockCountsInside()
+                room.getInteriorSizeX(),
+                room.getInteriorSizeY(),
+                room.getInteriorSizeZ(),
+                room.getBlockCountsInside()
         );
 
         String newTypeName = newType != null ? newType.getDisplayName() : null;
-        if(newType == null) return;
-//        String oldTypeName = room.getDesignatedRoomType();
-//
-//        if (Objects.equals(newTypeName, oldTypeName)) return;
+        if (newType == null) return;
+        room.setDesignatedRoomType(newTypeName);
+        registry.saveAsync(world);
+
+        // Only attempt recipe discovery if there's a new valid type and a player ref
+        if (ref == null) return;
+        try {
+            Store<EntityStore> store = ref.getStore();
+            Component_CraftingKnowledge knowledgeComp = store.getComponent(ref, Module_RPGSystem.componentTypeCraftingKnowledge);
+            knowledgeComp.addDiscoveredRoomRecipe(ref, store, newType.name(), newTypeName);
+        } catch (Exception e) {}
+    }
+    private void reevaluateOutdoorRoomType(OutdoorRoomData room, WorldRoomRegistry registry, World world, Ref ref) {
+        OutdoorRoomType newType = OutdoorRoomType.classify(
+                room.getInteriorSizeX(),
+                room.getInteriorSizeZ(),
+                room.getBlockCountsInside()
+        );
+
+        String newTypeName = newType != null ? newType.getDisplayName() : null;
+        if (newType == null) return;
         room.setDesignatedRoomType(newTypeName);
         registry.saveAsync(world);
 

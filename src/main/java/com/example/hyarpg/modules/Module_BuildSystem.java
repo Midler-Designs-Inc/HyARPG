@@ -22,6 +22,7 @@ import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -115,19 +116,27 @@ public class Module_BuildSystem {
                 }
             }
 
-            // --- Only run room logic if inside a territory ---
-            if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
+            // --- Skip entirely if not in a territory and no existing room covers this position ---
+            boolean inTerritory = registry.getTerritoryAt(pos.x, pos.y, pos.z) != null;
+            boolean inExistingRoom = !registry.getRoomsNear(pos.x, pos.y, pos.z).isEmpty();
+            boolean inExistingOutdoorRoom = !registry.getOutdoorRoomsNear(pos.x, pos.y, pos.z).isEmpty();
+            if (!inTerritory && !inExistingRoom && !inExistingOutdoorRoom) return;
 
+            // get structural flag for indoor rooms and boundary check for outdoor rooms
             boolean isStructural = RoomFloodFill.isStructural(placedBlockType);
             boolean isBoundary = OutdoorRoomFloodFill.isBoundary(placedBlockType);
 
-            // --- Indoor room flow ---
-            if (isStructural) onStructuralBlockPlaced(world, pos, placedBlockType, registry, event.ref());
-            else onDecorationBlockPlaced(world, pos, placedBlockType, registry, event.ref());
+            // --- Indoor room flow: always run if in territory, or if existing room covers this position ---
+            if (inTerritory || inExistingRoom) {
+                if (isStructural) onStructuralBlockPlaced(world, pos, placedBlockType, registry, event.ref());
+                else onDecorationBlockPlaced(world, pos, placedBlockType, registry, event.ref());
+            }
 
-            // --- Outdoor space flow (runs independently of indoor) ---
-            if (isBoundary) onBoundaryBlockPlaced(world, pos, placedBlockType, registry, event.ref());
-            else onOutdoorDecorationBlockPlaced(world, pos, placedBlockType, registry, event.ref());
+            // --- Outdoor space flow: always run if in territory, or if existing outdoor room covers this position ---
+//            if (inTerritory || inExistingOutdoorRoom) {
+//                if (isBoundary) onBoundaryBlockPlaced(world, pos, placedBlockType, registry, event.ref());
+//                else onOutdoorDecorationBlockPlaced(world, pos, placedBlockType, registry, event.ref());
+//            }
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("onPlaceBlock failed: %s", e.getMessage());
         }
@@ -149,18 +158,26 @@ public class Module_BuildSystem {
             WorldRoomRegistry registry = WorldRoomRegistry.get(world);
             if (registry == null) return;
 
-            if (registry.getTerritoryAt(pos.x, pos.y, pos.z) == null) return;
+            // --- Skip entirely if not in a territory and no existing room covers this position ---
+            boolean inTerritory = registry.getTerritoryAt(pos.x, pos.y, pos.z) != null;
+            boolean inExistingRoom = !registry.getRoomsNear(pos.x, pos.y, pos.z).isEmpty();
+            boolean inExistingOutdoorRoom = !registry.getOutdoorRoomsNear(pos.x, pos.y, pos.z).isEmpty();
+            if (!inTerritory && !inExistingRoom && !inExistingOutdoorRoom) return;
 
             boolean isStructural = RoomFloodFill.isStructural(blockType);
             boolean isBoundary = OutdoorRoomFloodFill.isBoundary(blockType);
 
-            // --- Indoor room flow ---
-            if (isStructural) onStructuralBlockBroken(world, pos, blockType, registry);
-            else onDecorationBlockBroken(world, pos, blockType, registry);
+            // --- Indoor room flow: always run if in territory, or if existing room covers this position ---
+            if (inTerritory || inExistingRoom) {
+                if (isStructural) onStructuralBlockBroken(world, pos, blockType, registry);
+                else onDecorationBlockBroken(world, pos, blockType, registry);
+            }
 
-            // --- Outdoor space flow (runs independently of indoor) ---
-            if (isBoundary) onBoundaryBlockBroken(world, pos, registry);
-            else onOutdoorDecorationBlockBroken(world, pos, registry);
+            // --- Outdoor space flow: always run if in territory, or if existing outdoor room covers this position ---
+//            if (inTerritory || inExistingOutdoorRoom) {
+//                if (isBoundary) onBoundaryBlockBroken(world, pos, registry);
+//                else onOutdoorDecorationBlockBroken(world, pos, registry);
+//            }
 
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("onRemoveBlock failed: %s", e.getMessage());
@@ -294,12 +311,13 @@ public class Module_BuildSystem {
         for (OutdoorRoomData space : detected) {
             OutdoorRoomData existing = registry.findMatchingOutdoorRoom(space);
             if (existing != null) {
-                OutdoorRoomFloodFill.scanOutdoorContents(world, existing);
-                existing.addBlockKey(placedBlockType.getId()); // manually add placed block — fires pre-placement
+                // Existing room — increment the placed block key and reevaluate, no full rescan needed
+                existing.addBlockKey(placedBlockType.getId());
                 reevaluateOutdoorRoomType(existing, registry, world, ref);
             } else {
+                // New room — full scan to establish baseline counts, then register
                 OutdoorRoomFloodFill.scanOutdoorContents(world, space);
-                space.addBlockKey(placedBlockType.getId()); // manually add placed block — fires pre-placement
+                space.addBlockKey(placedBlockType.getId());
                 registry.addOutdoorRoom(space);
                 reevaluateOutdoorRoomType(space, registry, world, ref);
             }
@@ -327,9 +345,10 @@ public class Module_BuildSystem {
         for (OutdoorRoomData space : detected) {
             OutdoorRoomData existing = registry.findMatchingOutdoorRoom(space);
             if (existing != null) {
-                OutdoorRoomFloodFill.scanOutdoorContents(world, existing);
+                // Existing room — reevaluate as-is, block counts already reflect the removal
                 reevaluateOutdoorRoomType(existing, registry, world, null);
             } else {
+                // New room detected after a break — full scan to establish baseline counts, then register
                 OutdoorRoomFloodFill.scanOutdoorContents(world, space);
                 registry.addOutdoorRoom(space);
                 reevaluateOutdoorRoomType(space, registry, world, null);
@@ -354,9 +373,6 @@ public class Module_BuildSystem {
 
     // --- Outdoor Decoration Block Flow --- //
     private void onOutdoorDecorationBlockPlaced(World world, Vector3i blockPos, BlockType placedBlockType, WorldRoomRegistry registry, Ref ref) {
-        // Attempt re-detection — floor changes can affect structural validity
-        onBoundaryBlockPlaced(world, blockPos, placedBlockType, registry, ref);
-
         // Also rescan any existing space this block falls inside for decoration counts
         OutdoorRoomData room = registry.getOutdoorRoomAt(blockPos.x, blockPos.y, blockPos.z);
         if (room != null) {
@@ -366,9 +382,6 @@ public class Module_BuildSystem {
         }
     }
     private void onOutdoorDecorationBlockBroken(World world, Vector3i blockPos, WorldRoomRegistry registry) {
-        // Attempt re-detection — floor changes can affect structural validity
-        onBoundaryBlockBroken(world, blockPos, registry);
-
         // Also rescan any existing space this block falls inside for decoration counts
         OutdoorRoomData room = registry.getOutdoorRoomAt(blockPos.x, blockPos.y, blockPos.z);
         if (room != null) {

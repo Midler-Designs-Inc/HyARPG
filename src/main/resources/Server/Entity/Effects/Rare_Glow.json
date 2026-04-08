@@ -1,7 +1,7 @@
 {
   "ApplicationEffects": {
-    "EntityBottomTint": "#FFFF00",
-    "EntityTopTint": "#FFFF00"
+    "EntityBottomTint": "#FF00CC",
+    "EntityTopTint": "#FF00CC"
   },
   "Duration": -1,
   "Infinite": true,

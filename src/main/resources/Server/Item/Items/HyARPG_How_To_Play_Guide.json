@@ -1,0 +1,40 @@
+{
+  "Icon": "Icons/ItemsGenerated/Recipe_Book_Magic_Air.png",
+  "Model": "Items/Weapons/Spellbook/Grimoire.blockymodel",
+  "Scale": 1,
+  "Texture": "Items/Weapons/Spellbook/Grimoire_Brown_Texture.png",
+  "TranslationProperties": {
+    "Name": "server.items.HyARPG_How_To_Play_Guide.name",
+    "Description": "server.items.HyARPG_How_To_Play_Guide.description"
+  },
+  "Quality": "Common",
+  "ItemLevel": 1,
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": false,
+    "Input": [
+      {
+        "ResourceTypeId": "Rubble",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Id": "Fieldcraft",
+        "Categories": [
+          "Tools"
+        ]
+      }
+    ]
+  },
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "ShowHowToPlay"
+        }
+      ]
+    }
+  }
+}

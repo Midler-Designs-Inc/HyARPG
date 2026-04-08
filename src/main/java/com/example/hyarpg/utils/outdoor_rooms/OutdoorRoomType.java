@@ -11,18 +11,18 @@ import java.util.*;
 public enum OutdoorRoomType {
 
     // --- Base Outdoor Spaces (structural classification only, no decoration requirements) --- //
-    SMALL_OUTDOOR_SPACE("Small Outdoor Space", 0, 3, 3, 10, 10),
-    OUTDOOR_SPACE("Outdoor Space",             1, 11, 11, 20, 20),
-    LARGE_OUTDOOR_SPACE("Large Outdoor Space", 2, 21, 21, 28, 28);
+    SMALL_OUTDOOR_SPACE("Small Outdoor Space", 0, 3, 3, 7, 7),
+    OUTDOOR_SPACE("Outdoor Space",             1, 8, 8, 13, 13),
+    LARGE_OUTDOOR_SPACE("Large Outdoor Space", 2, 14, 14, 20, 20),
 
-//    // --- Garden --- //
-//    BASIC_GARDEN("Basic Garden", 1, 3, 3, 28, 28,
-//            all(
-//                    min(9, blockKeyExact("Terrain_Farmland"), "9x Tilled Dirt"),
-//                    min(4, blockKeyExact("Terrain_Water"), "4x Water"),
-//                    min(1, hasCategoryContaining("Furniture.Fences"), "1x Fencing")
-//            )
-//    ),
+    // --- Garden --- //
+    BASIC_GARDEN("Small Garden", 1, 3, 3, 7, 7,
+        all(
+            min(9, blockKeyExact("Terrain_Farmland"), "9x Tilled Dirt"),
+            min(4, blockKeyExact("Terrain_Water"), "4x Water"),
+            min(1, hasCategoryContaining("Furniture.Fences"), "1x Fencing")
+        )
+    );
 //    INTERMEDIATE_GARDEN("Intermediate Garden", 2, 3, 3, 28, 28,
 //            all(
 //                    min(16, blockKeyExact("Terrain_Farmland"), "16x Tilled Dirt"),
@@ -57,8 +57,8 @@ public enum OutdoorRoomType {
 //    );
 
     // --- Size caps derived from territory half (28 blocks each side) --- //
-    public static final int MAX_INTERIOR_X = 28;
-    public static final int MAX_INTERIOR_Z = 28;
+    public static final int MAX_INTERIOR_X = 20;
+    public static final int MAX_INTERIOR_Z = 20;
 
     // How many blocks above the fence Y to scan for decorations
     public static final int SCAN_HEIGHT_ABOVE_FENCE = 5;

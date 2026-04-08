@@ -1,6 +1,7 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
+import com.example.hyarpg.ui.Page_HowToPlay;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -19,11 +20,11 @@ import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 import java.util.logging.Level;
 
-public class Interaction_ShowRPGStats extends SimpleInstantInteraction {
+public class Interaction_ShowHowToPlay extends SimpleInstantInteraction {
     // Create the CODEC - this is required for serialization
-    public static final BuilderCodec<Interaction_ShowRPGStats> CODEC = BuilderCodec.builder(
-        Interaction_ShowRPGStats.class,
-        Interaction_ShowRPGStats::new,
+    public static final BuilderCodec<Interaction_ShowHowToPlay> CODEC = BuilderCodec.builder(
+        Interaction_ShowHowToPlay.class,
+        Interaction_ShowHowToPlay::new,
         SimpleInstantInteraction.CODEC
     ).build();
 
@@ -38,7 +39,7 @@ public class Interaction_ShowRPGStats extends SimpleInstantInteraction {
         final Store<EntityStore> store = entityRef.getStore();
 
         try {
-            Page_RPGStats.open(entityRef, store);
+            Page_HowToPlay.open(entityRef, store);
         } catch (NoClassDefFoundError e) {
             // Class not yet loaded, retry on next tick or log
             HytaleLogger.getLogger().at(Level.WARNING).log("Page_RPGStats not loaded yet: %s", e.getMessage());

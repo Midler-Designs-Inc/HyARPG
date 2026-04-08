@@ -20,6 +20,9 @@ import com.example.hyarpg.configs.ModConfig;
 
 // Java Imports
 import javax.annotation.Nonnull;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.jar.JarFile;
 import java.util.logging.Level;
 import java.util.List;
 
@@ -60,6 +63,9 @@ public class HyARPGPlugin extends JavaPlugin {
 
         // Register codec
         registerCodecs();
+
+        // force load my mod classes
+        preloadClasses();
 
         LOGGER.at(Level.INFO).log("[HyARPG] Setup complete!");
     }
@@ -297,5 +303,32 @@ public class HyARPGPlugin extends JavaPlugin {
                 )
             )
         );
+    }
+
+    private void preloadClasses() {
+        String[] packages = {
+            "com/example/hyarpg/"
+        };
+
+        ClassLoader cl = getClass().getClassLoader();
+        URL jarUrl = getClass().getProtectionDomain().getCodeSource().getLocation();
+
+        try (JarFile jar = new JarFile(jarUrl.toURI().getPath())) {
+            jar.stream()
+                    .filter(e -> !e.isDirectory() && e.getName().endsWith(".class"))
+                    .filter(e -> Arrays.stream(packages).anyMatch(p -> e.getName().startsWith(p)))
+                    .forEach(e -> {
+                        String className = e.getName()
+                                .replace('/', '.')
+                                .replace(".class", "");
+                        try {
+                            Class.forName(className, true, cl);
+                        } catch (ClassNotFoundException ex) {
+                            LOGGER.at(Level.WARNING).log("[HyARPG] Failed to preload: " + className);
+                        }
+                    });
+        } catch (Exception e) {
+            LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Class preload scan failed");
+        }
     }
 }

@@ -19,7 +19,6 @@ public class ModEventBus {
     }
 
     // Post an event to all listeners of that type
-    @SuppressWarnings("unchecked")
     public static <T> void post(T event) {
         List<Consumer<?>> eventListeners = listeners.getOrDefault(event.getClass(), Collections.emptyList());
         for (Consumer<?> listener : eventListeners) {

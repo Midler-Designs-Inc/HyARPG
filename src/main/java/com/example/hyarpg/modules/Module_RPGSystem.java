@@ -36,6 +36,7 @@ import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Int
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.modules.physics.component.Velocity;
 import com.hypixel.hytale.server.core.modules.splitvelocity.VelocityConfig;
+import com.hypixel.hytale.server.core.plugin.PluginClassLoader;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -709,7 +710,7 @@ public class Module_RPGSystem {
         ItemModule itemModule = ItemModule.get();
         if (!itemModule.isEnabled()) return;
 
-        // get the items that are to be dropped
+        // get random items to be dropped
         var drops = itemModule.getRandomItemDrops(dropListId);
 
         // filter out vanilla weapons and armor and ingots
@@ -720,7 +721,7 @@ public class Module_RPGSystem {
 //                alertPlayers("Filtering out " + item.getId(), Color.DARK_GRAY);
                 continue;
             };
-//            alertPlayers("Not Filtering out " + item.getId(), Color.DARK_GRAY);
+            alertPlayers("Not Filtering out " + item.getId(), Color.DARK_GRAY);
             filteredDrops.add(drop);
         }
 

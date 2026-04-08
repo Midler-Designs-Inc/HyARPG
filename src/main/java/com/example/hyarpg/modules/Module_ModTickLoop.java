@@ -69,36 +69,40 @@ public final class Module_ModTickLoop {
 
             // loop over all worlds, and queue up our player loop logic
             for (World world : Universe.get().getWorlds().values().toArray(new World[0])) {
-                world.execute(() -> {
-                    // get the store for this world
-                    Store<EntityStore> store = world.getEntityStore().getStore();
+                try {
+                    world.execute(() -> {
+                        // get the store for this world
+                        Store<EntityStore> store = world.getEntityStore().getStore();
 
-                    // flush ready damage groups
-                    plugin.rpgSystem.tickDamageGroups(store);
+                        // flush ready damage groups
+                        plugin.rpgSystem.tickDamageGroups(store);
 
-                    // loop over all players in the world
-                    for (PlayerRef playerRef : Universe.get().getPlayers()) {
-                       try {
-                           // validate teh player ref
-                           if (!playerRef.isValid()) continue;
+                        // loop over all players in the world
+                        for (PlayerRef playerRef : Universe.get().getPlayers()) {
+                            try {
+                                // validate teh player ref
+                                if (!playerRef.isValid()) continue;
 
-                           // get the entity ref
-                           Ref<EntityStore> ref = playerRef.getReference();
-                           if (ref == null) continue;
+                                // get the entity ref
+                                Ref<EntityStore> ref = playerRef.getReference();
+                                if (ref == null) continue;
 
-                           // get the player
-                           Player player = store.getComponent(ref, Player.getComponentType());
-                           if (player == null) continue;
+                                // get the player
+                                Player player = store.getComponent(ref, Player.getComponentType());
+                                if (player == null) continue;
 
-                           // do our individual tick concerns
-                           tickHunger(ref, store, player);
-                           tickThirst(ref, store, player);
-                           tickGearRefresh(ref, store, player);
-                           tickResourceRegens(ref, store, player);
-                           tickRoomCheck(ref, store, player, playerRef);
-                       } catch (Exception e) {}
-                    }
-                });
+                                // do our individual tick concerns
+                                tickHunger(ref, store, player);
+                                tickThirst(ref, store, player);
+                                tickGearRefresh(ref, store, player);
+                                tickResourceRegens(ref, store, player);
+                                tickRoomCheck(ref, store, player, playerRef);
+                            } catch (Exception e) {}
+                        }
+                    });
+                } catch (Exception e) {
+                    // world is shutting down, skip it
+                }
             }
 
             long elapsed = System.nanoTime() - start;

@@ -718,10 +718,8 @@ public class Module_RPGSystem {
         for (ItemStack drop : drops) {
             Item item = drop.getItem();
             if (item.getWeapon() != null || item.getArmor() != null || item.getId().contains("Ingredient_Bar") || item.getId().contains("Ore_") || item.getId().contains("Weapon_") || item.getId().contains("Armor_")) {
-//                alertPlayers("Filtering out " + item.getId(), Color.DARK_GRAY);
                 continue;
             };
-            alertPlayers("Not Filtering out " + item.getId(), Color.DARK_GRAY);
             filteredDrops.add(drop);
         }
 

@@ -1,0 +1,23 @@
+@InputSlotBackground = (TexturePath: "../../DiagramCraftingSlot.png", Border: 4);
+
+@InputSlots = Group {
+    Anchor: (Height: 74, Top: 12, Bottom: 12);
+    LayoutMode: Center;
+
+    Group {
+        LayoutMode: Left;
+
+        Button #InputSlot1 { Anchor: (Width: 74, Height: 74, Right: 6); Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
+            ItemSlot #InputItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; }
+        }
+        Button #InputSlot2 { Anchor: (Width: 74, Height: 74, Right: 6); Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
+            ItemSlot #InputItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; }
+        }
+        Button #InputSlot3 { Anchor: (Width: 74, Height: 74, Right: 6); Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
+            ItemSlot #InputItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; }
+        }
+        Button #InputSlot4 { Anchor: (Width: 74, Height: 74); Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
+            ItemSlot #InputItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; }
+        }
+    }
+};

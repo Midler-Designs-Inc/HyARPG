@@ -1,0 +1,33 @@
+ @ItemIconStyle = (
+   Default: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7)),
+   Hovered: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.8))),
+   Pressed: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.6)))
+ );
+
+ @SubCategoryTabsMagic = Group {
+    LayoutMode: Left;
+    Anchor: (Height: 52, Bottom: 8);
+    Visible: false;
+
+    Button #IconSpellbook {
+        Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
+        TooltipText: "Spellbook";
+
+        Group #IconSpellbookOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: false; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Spellbook_Iron.png"; }
+    }
+    Button #IconStaff {
+        Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
+        TooltipText: "Staff";
+
+        Group #IconStaffOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Staff_Iron.png"; }
+    }
+    Button #IconWand {
+        Anchor: (Width: 44, Height: 44); Style: @ItemIconStyle;
+        TooltipText: "Wand";
+
+        Group #IconWandOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Wand_Iron.png"; }
+    }
+};

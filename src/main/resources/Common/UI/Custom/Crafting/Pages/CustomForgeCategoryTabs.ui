@@ -1,0 +1,89 @@
+@CategoryTabs = Group {
+  Anchor: (Height: 66, Left: 4, Right: 0);
+  LayoutMode: Left;
+  Padding: (Bottom: 0, Top: 0);
+
+  Button #Tab1H {
+    Anchor: (Width: 82, Height: 66);
+    TooltipText: "One-Hand Weapons";
+    Style: (
+      Default: (Background: (TexturePath: "../../Common/Tab.png", Border: 3)),
+      Hovered: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.85))),
+      Pressed: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.6)))
+    );
+    Group { Anchor: (Width: 44, Height: 44); Background: "../Icons/1H_Weapons_Icon.png"; }
+    Group #Tab1HOverlay { Anchor: (Width: 82, Height: 61, Bottom: 0, Left: 0, Right: 0); Background: "../../Common/TabSelectedOverlay.png"; Visible: true; }
+  }
+
+  Button #Tab2H {
+    Anchor: (Width: 82, Height: 66, Left: 2);
+    TooltipText: "Two-Hand Weapons";
+    Style: (
+      Default: (Background: (TexturePath: "../../Common/Tab.png", Border: 3)),
+      Hovered: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.85))),
+      Pressed: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.6)))
+    );
+    Group { Anchor: (Width: 44, Height: 44); Background: "../Icons/2H_Weapons_Icon.png"; }
+    Group #Tab2HOverlay { Anchor: (Width: 82, Height: 61, Bottom: 0, Left: 0, Right: 0); Background: "../../Common/TabSelectedOverlay.png"; Visible: false; }
+  }
+
+  Button #TabRanged {
+    Anchor: (Width: 82, Height: 66, Left: 2);
+    TooltipText: "Ranged Weapons";
+    Style: (
+      Default: (Background: (TexturePath: "../../Common/Tab.png", Border: 3)),
+      Hovered: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.85))),
+      Pressed: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.6)))
+    );
+    Group { Anchor: (Width: 44, Height: 44); Background: "../Icons/Ranged_Weapons_Icon.png"; }
+    Group #TabRangedOverlay { Anchor: (Width: 82, Height: 61, Bottom: 0, Left: 0, Right: 0); Background: "../../Common/TabSelectedOverlay.png"; Visible: false; }
+  }
+
+  Button #TabMagic {
+    Anchor: (Width: 82, Height: 66, Left: 2);
+    TooltipText: "Magic Weapons";
+    Style: (
+      Default: (Background: (TexturePath: "../../Common/Tab.png", Border: 3)),
+      Hovered: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.85))),
+      Pressed: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.6)))
+    );
+    Group { Anchor: (Width: 44, Height: 44); Background: "../Icons/Magic_Weapons_Icon.png"; }
+    Group #TabMagicOverlay { Anchor: (Width: 82, Height: 61, Bottom: 0, Left: 0, Right: 0); Background: "../../Common/TabSelectedOverlay.png"; Visible: false; }
+  }
+
+  Button #TabMetalArmor {
+    Anchor: (Width: 82, Height: 66, Left: 2);
+    TooltipText: "Metal Armor";
+    Style: (
+      Default: (Background: (TexturePath: "../../Common/Tab.png", Border: 3)),
+      Hovered: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.85))),
+      Pressed: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.6)))
+    );
+    Group { Anchor: (Width: 44, Height: 44); Background: "../Icons/Armor_Iron_Chest.png"; }
+    Group #TabMetalArmorOverlay { Anchor: (Width: 82, Height: 61, Bottom: 0, Left: 0, Right: 0); Background: "../../Common/TabSelectedOverlay.png"; Visible: false; }
+  }
+
+  Button #TabLeatherArmor {
+    Anchor: (Width: 82, Height: 66, Left: 2);
+    TooltipText: "Leather Armor";
+    Style: (
+      Default: (Background: (TexturePath: "../../Common/Tab.png", Border: 3)),
+      Hovered: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.85))),
+      Pressed: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.6)))
+    );
+    Group { Anchor: (Width: 44, Height: 44); Background: "../Icons/Armor_Leather_Medium_Chest.png"; }
+    Group #TabLeatherArmorOverlay { Anchor: (Width: 82, Height: 61, Bottom: 0, Left: 0, Right: 0); Background: "../../Common/TabSelectedOverlay.png"; Visible: false; }
+  }
+
+  Button #TabClothArmor {
+    Anchor: (Width: 82, Height: 66, Left: 2);
+    TooltipText: "Cloth Armor";
+    Style: (
+      Default: (Background: (TexturePath: "../../Common/Tab.png", Border: 3)),
+      Hovered: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.85))),
+      Pressed: (Background: (TexturePath: "../../Common/Tab.png", Border: 3, Color: #ffffff(0.6)))
+    );
+    Group { Anchor: (Width: 44, Height: 44); Background: "../Icons/Armor_Cloth_Cotton_Chest.png"; }
+    Group #TabClothArmorOverlay { Anchor: (Width: 82, Height: 61, Bottom: 0, Left: 0, Right: 0); Background: "../../Common/TabSelectedOverlay.png"; Visible: false; }
+  }
+};

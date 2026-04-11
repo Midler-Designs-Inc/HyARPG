@@ -1,0 +1,266 @@
+@ItemDiagramContainer = Group {
+    Anchor: (Height: 310);
+    Background: (TexturePath: "../../DiagramCraftingBackground.png", Border: 8);
+    
+    // ---- 1H outlines ----
+    Group #DiagramAxe { Anchor: (Width: 360, Height: 200); Visible: true;
+        Group #DiagramAxeP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Axe/Crafting_Axe_P1_Default.png"; }
+        Group #DiagramAxeP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Axe/Crafting_Axe_P1_Glow.png"; }
+        Group #DiagramAxeP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Axe/Crafting_Axe_P2_Default.png"; }
+        Group #DiagramAxeP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Axe/Crafting_Axe_P2_Glow.png"; }
+        Group #DiagramAxeP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Axe/Crafting_Axe_P3_Default.png"; }
+        Group #DiagramAxeP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Axe/Crafting_Axe_P3_Glow.png"; }
+    }
+    Group #DiagramClub { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramClubP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Club/Crafting_Club_P1_Default.png"; }
+        Group #DiagramClubP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Club/Crafting_Club_P1_Glow.png"; }
+        Group #DiagramClubP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Club/Crafting_Club_P2_Default.png"; }
+        Group #DiagramClubP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Club/Crafting_Club_P2_Glow.png"; }
+        Group #DiagramClubP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Club/Crafting_Club_P3_Default.png"; }
+        Group #DiagramClubP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Club/Crafting_Club_P3_Glow.png"; }
+    }
+    Group #DiagramShield { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramShieldP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Shield/Crafting_Shield_P1_Default.png"; }
+        Group #DiagramShieldP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Shield/Crafting_Shield_P1_Glow.png"; }
+        Group #DiagramShieldP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Shield/Crafting_Shield_P2_Default.png"; }
+        Group #DiagramShieldP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Shield/Crafting_Shield_P2_Glow.png"; }
+        Group #DiagramShieldP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Shield/Crafting_Shield_P3_Default.png"; }
+        Group #DiagramShieldP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Shield/Crafting_Shield_P3_Glow.png"; }
+    }
+    Group #DiagramSpear { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramSpearP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Spear/Crafting_Spear_P1_Default.png"; }
+        Group #DiagramSpearP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Spear/Crafting_Spear_P1_Glow.png"; }
+        Group #DiagramSpearP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Spear/Crafting_Spear_P2_Default.png"; }
+        Group #DiagramSpearP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Spear/Crafting_Spear_P2_Glow.png"; }
+        Group #DiagramSpearP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Spear/Crafting_Spear_P3_Default.png"; }
+        Group #DiagramSpearP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Spear/Crafting_Spear_P3_Glow.png"; }
+    }
+    Group #DiagramSword { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramSwordP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Sword/Crafting_Sword_P1_Default.png"; }
+        Group #DiagramSwordP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Sword/Crafting_Sword_P1_Glow.png"; }
+        Group #DiagramSwordP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Sword/Crafting_Sword_P2_Default.png"; }
+        Group #DiagramSwordP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Sword/Crafting_Sword_P2_Glow.png"; }
+        Group #DiagramSwordP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Sword/Crafting_Sword_P3_Default.png"; }
+        Group #DiagramSwordP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Sword/Crafting_Sword_P3_Glow.png"; }
+    }
+
+    // ---- 2H outlines ----
+    Group #DiagramBattleaxe { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramBattleaxeP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Battleaxe/Crafting_Battleaxe_P1_Default.png"; }
+        Group #DiagramBattleaxeP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Battleaxe/Crafting_Battleaxe_P1_Glow.png"; }
+        Group #DiagramBattleaxeP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Battleaxe/Crafting_Battleaxe_P2_Default.png"; }
+        Group #DiagramBattleaxeP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Battleaxe/Crafting_Battleaxe_P2_Glow.png"; }
+        Group #DiagramBattleaxeP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Battleaxe/Crafting_Battleaxe_P3_Default.png"; }
+        Group #DiagramBattleaxeP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Battleaxe/Crafting_Battleaxe_P3_Glow.png"; }
+    }
+    Group #DiagramClaws { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramClawsP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Claws/Crafting_Claws_P1_Default.png"; }
+        Group #DiagramClawsP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Claws/Crafting_Claws_P1_Glow.png"; }
+        Group #DiagramClawsP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Claws/Crafting_Claws_P2_Default.png"; }
+        Group #DiagramClawsP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Claws/Crafting_Claws_P2_Glow.png"; }
+        Group #DiagramClawsP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Claws/Crafting_Claws_P3_Default.png"; }
+        Group #DiagramClawsP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Claws/Crafting_Claws_P3_Glow.png"; }
+    }
+    Group #DiagramDaggers { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramDaggersP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Daggers/Crafting_Daggers_P1_Default.png"; }
+        Group #DiagramDaggersP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Daggers/Crafting_Daggers_P1_Glow.png"; }
+        Group #DiagramDaggersP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Daggers/Crafting_Daggers_P2_Default.png"; }
+        Group #DiagramDaggersP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Daggers/Crafting_Daggers_P2_Glow.png"; }
+        Group #DiagramDaggersP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Daggers/Crafting_Daggers_P3_Default.png"; }
+        Group #DiagramDaggersP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Daggers/Crafting_Daggers_P3_Glow.png"; }
+    }
+    Group #DiagramLongsword { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramLongswordP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Longsword/Crafting_Longsword_P1_Default.png"; }
+        Group #DiagramLongswordP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Longsword/Crafting_Longsword_P1_Glow.png"; }
+        Group #DiagramLongswordP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Longsword/Crafting_Longsword_P2_Default.png"; }
+        Group #DiagramLongswordP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Longsword/Crafting_Longsword_P2_Glow.png"; }
+        Group #DiagramLongswordP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Longsword/Crafting_Longsword_P3_Default.png"; }
+        Group #DiagramLongswordP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Longsword/Crafting_Longsword_P3_Glow.png"; }
+    }
+    Group #DiagramMace { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramMaceP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Mace/Crafting_Mace_P1_Default.png"; }
+        Group #DiagramMaceP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Mace/Crafting_Mace_P1_Glow.png"; }
+        Group #DiagramMaceP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Mace/Crafting_Mace_P2_Default.png"; }
+        Group #DiagramMaceP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Mace/Crafting_Mace_P2_Glow.png"; }
+        Group #DiagramMaceP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Mace/Crafting_Mace_P3_Default.png"; }
+        Group #DiagramMaceP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Mace/Crafting_Mace_P3_Glow.png"; }
+    }
+    Group #DiagramScythe { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramScytheP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Scythe/Crafting_Scythe_P1_Default.png"; }
+        Group #DiagramScytheP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Scythe/Crafting_Scythe_P1_Glow.png"; }
+        Group #DiagramScytheP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Scythe/Crafting_Scythe_P2_Default.png"; }
+        Group #DiagramScytheP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Scythe/Crafting_Scythe_P2_Glow.png"; }
+        Group #DiagramScytheP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Scythe/Crafting_Scythe_P3_Default.png"; }
+        Group #DiagramScytheP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Scythe/Crafting_Scythe_P3_Glow.png"; }
+    }
+    Group #DiagramSickles { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramSicklesP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Sickles/Crafting_Sickles_P1_Default.png"; }
+        Group #DiagramSicklesP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Sickles/Crafting_Sickles_P1_Glow.png"; }
+        Group #DiagramSicklesP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Sickles/Crafting_Sickles_P2_Default.png"; }
+        Group #DiagramSicklesP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Sickles/Crafting_Sickles_P2_Glow.png"; }
+        Group #DiagramSicklesP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Sickles/Crafting_Sickles_P3_Default.png"; }
+        Group #DiagramSicklesP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Sickles/Crafting_Sickles_P3_Glow.png"; }
+    }
+
+    // ---- Ranged outlines ----
+    Group #DiagramCrossbow { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramCrossbowP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Crossbow/Crafting_Crossbow_P1_Default.png"; }
+        Group #DiagramCrossbowP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Crossbow/Crafting_Crossbow_P1_Glow.png"; }
+        Group #DiagramCrossbowP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Crossbow/Crafting_Crossbow_P2_Default.png"; }
+        Group #DiagramCrossbowP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Crossbow/Crafting_Crossbow_P2_Glow.png"; }
+        Group #DiagramCrossbowP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Crossbow/Crafting_Crossbow_P3_Default.png"; }
+        Group #DiagramCrossbowP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Crossbow/Crafting_Crossbow_P3_Glow.png"; }
+    }
+    Group #DiagramKunai { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramKunaiP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Kunai/Crafting_Kunai_P1_Default.png"; }
+        Group #DiagramKunaiP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Kunai/Crafting_Kunai_P1_Glow.png"; }
+        Group #DiagramKunaiP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Kunai/Crafting_Kunai_P2_Default.png"; }
+        Group #DiagramKunaiP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Kunai/Crafting_Kunai_P2_Glow.png"; }
+        Group #DiagramKunaiP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Kunai/Crafting_Kunai_P3_Default.png"; }
+        Group #DiagramKunaiP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Kunai/Crafting_Kunai_P3_Glow.png"; }
+    }
+    Group #DiagramLongbow { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramLongbowP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Longbow/Crafting_Longbow_P1_Default.png"; }
+        Group #DiagramLongbowP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Longbow/Crafting_Longbow_P1_Glow.png"; }
+        Group #DiagramLongbowP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Longbow/Crafting_Longbow_P2_Default.png"; }
+        Group #DiagramLongbowP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Longbow/Crafting_Longbow_P2_Glow.png"; }
+        Group #DiagramLongbowP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Longbow/Crafting_Longbow_P3_Default.png"; }
+        Group #DiagramLongbowP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Longbow/Crafting_Longbow_P3_Glow.png"; }
+    }
+    Group #DiagramShortbow { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramShortbowP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Shortbow/Crafting_Shortbow_P1_Default.png"; }
+        Group #DiagramShortbowP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Shortbow/Crafting_Shortbow_P1_Glow.png"; }
+        Group #DiagramShortbowP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Shortbow/Crafting_Shortbow_P2_Default.png"; }
+        Group #DiagramShortbowP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Shortbow/Crafting_Shortbow_P2_Glow.png"; }
+        Group #DiagramShortbowP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Shortbow/Crafting_Shortbow_P3_Default.png"; }
+        Group #DiagramShortbowP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Shortbow/Crafting_Shortbow_P3_Glow.png"; }
+    }
+
+    // ---- Magic outlines ----
+    Group #DiagramSpellbook { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramSpellbookP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Spellbook/Crafting_Spellbook_P1_Default.png"; }
+        Group #DiagramSpellbookP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Spellbook/Crafting_Spellbook_P1_Glow.png"; }
+        Group #DiagramSpellbookP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Spellbook/Crafting_Spellbook_P2_Default.png"; }
+        Group #DiagramSpellbookP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Spellbook/Crafting_Spellbook_P2_Glow.png"; }
+        Group #DiagramSpellbookP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Spellbook/Crafting_Spellbook_P3_Default.png"; }
+        Group #DiagramSpellbookP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Spellbook/Crafting_Spellbook_P3_Glow.png"; }
+    }
+    Group #DiagramStaff { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramStaffP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Staff/Crafting_Staff_P1_Default.png"; }
+        Group #DiagramStaffP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Staff/Crafting_Staff_P1_Glow.png"; }
+        Group #DiagramStaffP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Staff/Crafting_Staff_P2_Default.png"; }
+        Group #DiagramStaffP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Staff/Crafting_Staff_P2_Glow.png"; }
+        Group #DiagramStaffP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Staff/Crafting_Staff_P3_Default.png"; }
+        Group #DiagramStaffP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Staff/Crafting_Staff_P3_Glow.png"; }
+    }
+    Group #DiagramWand { Anchor: (Width: 360, Height: 200); Visible: false;
+        Group #DiagramWandP1Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Wand/Crafting_Wand_P1_Default.png"; }
+        Group #DiagramWandP1Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Wand/Crafting_Wand_P1_Glow.png"; }
+        Group #DiagramWandP2Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Wand/Crafting_Wand_P2_Default.png"; }
+        Group #DiagramWandP2Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Wand/Crafting_Wand_P2_Glow.png"; }
+        Group #DiagramWandP3Default { Anchor: (Width: 360, Height: 200); Visible: true; Background: "../Outlines/Weapons/Wand/Crafting_Wand_P3_Default.png"; }
+        Group #DiagramWandP3Glow { Anchor: (Width: 360, Height: 200); Visible: false; Background: "../Outlines/Weapons/Wand/Crafting_Wand_P3_Glow.png"; }
+    }
+
+    // ---- Metal armor outlines ----
+    Group #DiagramArmorHelmet { Anchor: (Full: 0); Visible: false;
+        Group #DiagramArmorHelmetP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Helmet/Crafting_Helmet_P1_Default.png"; }
+        Group #DiagramArmorHelmetP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Helmet/Crafting_Helmet_P1_Glow.png"; }
+        Group #DiagramArmorHelmetP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Helmet/Crafting_Helmet_P2_Default.png"; }
+        Group #DiagramArmorHelmetP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Helmet/Crafting_Helmet_P2_Glow.png"; }
+        Group #DiagramArmorHelmetP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Helmet/Crafting_Helmet_P3_Default.png"; }
+        Group #DiagramArmorHelmetP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Helmet/Crafting_Helmet_P3_Glow.png"; }
+    }
+    Group #DiagramArmorChest { Anchor: (Full: 0); Visible: false;
+        Group #DiagramArmorChestP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Chest/Crafting_Chest_P1_Default.png"; }
+        Group #DiagramArmorChestP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Chest/Crafting_Chest_P1_Glow.png"; }
+        Group #DiagramArmorChestP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Chest/Crafting_Chest_P2_Default.png"; }
+        Group #DiagramArmorChestP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Chest/Crafting_Chest_P2_Glow.png"; }
+        Group #DiagramArmorChestP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Chest/Crafting_Chest_P3_Default.png"; }
+        Group #DiagramArmorChestP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Chest/Crafting_Chest_P3_Glow.png"; }
+    }
+    Group #DiagramArmorGloves { Anchor: (Full: 0); Visible: false;
+        Group #DiagramArmorGlovesP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Gloves/Crafting_Gloves_P1_Default.png"; }
+        Group #DiagramArmorGlovesP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Gloves/Crafting_Gloves_P1_Glow.png"; }
+        Group #DiagramArmorGlovesP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Gloves/Crafting_Gloves_P2_Default.png"; }
+        Group #DiagramArmorGlovesP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Gloves/Crafting_Gloves_P2_Glow.png"; }
+        Group #DiagramArmorGlovesP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Gloves/Crafting_Gloves_P3_Default.png"; }
+        Group #DiagramArmorGlovesP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Gloves/Crafting_Gloves_P3_Glow.png"; }
+    }
+    Group #DiagramArmorPants { Anchor: (Full: 0); Visible: false;
+        Group #DiagramArmorPantsP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Pants/Crafting_Pants_P1_Default.png"; }
+        Group #DiagramArmorPantsP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Pants/Crafting_Pants_P1_Glow.png"; }
+        Group #DiagramArmorPantsP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Pants/Crafting_Pants_P2_Default.png"; }
+        Group #DiagramArmorPantsP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Pants/Crafting_Pants_P2_Glow.png"; }
+        Group #DiagramArmorPantsP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Metal/Pants/Crafting_Pants_P3_Default.png"; }
+        Group #DiagramArmorPantsP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Metal/Pants/Crafting_Pants_P3_Glow.png"; }
+    }
+
+    // ---- Leather armor outlines ----
+    Group #DiagramLeatherHelmet { Anchor: (Full: 0); Visible: false;
+        Group #DiagramLeatherHelmetP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Helmet/Crafting_Helmet_P1_Default.png"; }
+        Group #DiagramLeatherHelmetP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Helmet/Crafting_Helmet_P1_Glow.png"; }
+        Group #DiagramLeatherHelmetP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Helmet/Crafting_Helmet_P2_Default.png"; }
+        Group #DiagramLeatherHelmetP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Helmet/Crafting_Helmet_P2_Glow.png"; }
+        Group #DiagramLeatherHelmetP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Helmet/Crafting_Helmet_P3_Default.png"; }
+        Group #DiagramLeatherHelmetP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Helmet/Crafting_Helmet_P3_Glow.png"; }
+    }
+    Group #DiagramLeatherChest { Anchor: (Full: 0); Visible: false;
+        Group #DiagramLeatherChestP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Chest/Crafting_Chest_P1_Default.png"; }
+        Group #DiagramLeatherChestP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Chest/Crafting_Chest_P1_Glow.png"; }
+        Group #DiagramLeatherChestP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Chest/Crafting_Chest_P2_Default.png"; }
+        Group #DiagramLeatherChestP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Chest/Crafting_Chest_P2_Glow.png"; }
+        Group #DiagramLeatherChestP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Chest/Crafting_Chest_P3_Default.png"; }
+        Group #DiagramLeatherChestP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Chest/Crafting_Chest_P3_Glow.png"; }
+    }
+    Group #DiagramLeatherGloves { Anchor: (Full: 0); Visible: false;
+        Group #DiagramLeatherGlovesP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Gloves/Crafting_Gloves_P1_Default.png"; }
+        Group #DiagramLeatherGlovesP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Gloves/Crafting_Gloves_P1_Glow.png"; }
+        Group #DiagramLeatherGlovesP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Gloves/Crafting_Gloves_P2_Default.png"; }
+        Group #DiagramLeatherGlovesP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Gloves/Crafting_Gloves_P2_Glow.png"; }
+        Group #DiagramLeatherGlovesP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Gloves/Crafting_Gloves_P3_Default.png"; }
+        Group #DiagramLeatherGlovesP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Gloves/Crafting_Gloves_P3_Glow.png"; }
+    }
+    Group #DiagramLeatherPants { Anchor: (Full: 0); Visible: false;
+        Group #DiagramLeatherPantsP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Pants/Crafting_Pants_P1_Default.png"; }
+        Group #DiagramLeatherPantsP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Pants/Crafting_Pants_P1_Glow.png"; }
+        Group #DiagramLeatherPantsP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Pants/Crafting_Pants_P2_Default.png"; }
+        Group #DiagramLeatherPantsP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Pants/Crafting_Pants_P2_Glow.png"; }
+        Group #DiagramLeatherPantsP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Leather/Pants/Crafting_Pants_P3_Default.png"; }
+        Group #DiagramLeatherPantsP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Leather/Pants/Crafting_Pants_P3_Glow.png"; }
+    }
+
+    // ---- Cloth armor outlines ----
+    Group #DiagramClothHelmet { Anchor: (Full: 0); Visible: false;
+        Group #DiagramClothHelmetP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Helmet/Crafting_Helmet_P1_Default.png"; }
+        Group #DiagramClothHelmetP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Helmet/Crafting_Helmet_P1_Glow.png"; }
+        Group #DiagramClothHelmetP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Helmet/Crafting_Helmet_P2_Default.png"; }
+        Group #DiagramClothHelmetP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Helmet/Crafting_Helmet_P2_Glow.png"; }
+        Group #DiagramClothHelmetP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Helmet/Crafting_Helmet_P3_Default.png"; }
+        Group #DiagramClothHelmetP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Helmet/Crafting_Helmet_P3_Glow.png"; }
+    }
+    Group #DiagramClothChest { Anchor: (Full: 0); Visible: false;
+        Group #DiagramClothChestP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Chest/Crafting_Chest_P1_Default.png"; }
+        Group #DiagramClothChestP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Chest/Crafting_Chest_P1_Glow.png"; }
+        Group #DiagramClothChestP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Chest/Crafting_Chest_P2_Default.png"; }
+        Group #DiagramClothChestP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Chest/Crafting_Chest_P2_Glow.png"; }
+        Group #DiagramClothChestP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Chest/Crafting_Chest_P3_Default.png"; }
+        Group #DiagramClothChestP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Chest/Crafting_Chest_P3_Glow.png"; }
+    }
+    Group #DiagramClothGloves { Anchor: (Full: 0); Visible: false;
+        Group #DiagramClothGlovesP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Gloves/Crafting_Gloves_P1_Default.png"; }
+        Group #DiagramClothGlovesP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Gloves/Crafting_Gloves_P1_Glow.png"; }
+        Group #DiagramClothGlovesP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Gloves/Crafting_Gloves_P2_Default.png"; }
+        Group #DiagramClothGlovesP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Gloves/Crafting_Gloves_P2_Glow.png"; }
+        Group #DiagramClothGlovesP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Gloves/Crafting_Gloves_P3_Default.png"; }
+        Group #DiagramClothGlovesP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Gloves/Crafting_Gloves_P3_Glow.png"; }
+    }
+    Group #DiagramClothPants { Anchor: (Full: 0); Visible: false;
+        Group #DiagramClothPantsP1Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Pants/Crafting_Pants_P1_Default.png"; }
+        Group #DiagramClothPantsP1Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Pants/Crafting_Pants_P1_Glow.png"; }
+        Group #DiagramClothPantsP2Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Pants/Crafting_Pants_P2_Default.png"; }
+        Group #DiagramClothPantsP2Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Pants/Crafting_Pants_P2_Glow.png"; }
+        Group #DiagramClothPantsP3Default { Anchor: (Full: 0); Visible: true; Background: "../Outlines/Armor/Cloth/Pants/Crafting_Pants_P3_Default.png"; }
+        Group #DiagramClothPantsP3Glow { Anchor: (Full: 0); Visible: false; Background: "../Outlines/Armor/Cloth/Pants/Crafting_Pants_P3_Glow.png"; }
+    }
+};

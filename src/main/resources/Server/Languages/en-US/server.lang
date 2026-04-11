@@ -57,3 +57,6 @@ items.Book_Magic_Ice.name=Ice Grimoire
 items.Deco_Copper_Stack.name=Stack of Copper Bars
 items.HyARPG_How_To_Play_Guide.name=HyARPG: How to Play
 items.HyARPG_How_To_Play_Guide.description=A how to play guide for the HyARPG mod.
+benchCategories.components.Heads_and_Blades=Heads & Blades
+benchCategories.components.Handles=Handles
+benchCategories.components.Shafts=Shafts

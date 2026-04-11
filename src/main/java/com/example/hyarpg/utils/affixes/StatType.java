@@ -79,6 +79,15 @@ public enum StatType {
     AMMO_FLAT,
     AMMO_REGEN_PERCENT,
 
+    /* Leech Modifiers */
+    LIFE_LEECH_PERCENT,
+    MANA_LEECH_PERCENT,
+    STAMINA_LEECH_PERCENT,
+
+    /* Damage Taken From Modifiers */
+    DAMAGE_TAKEN_FROM_MANA_PERCENT,
+    DAMAGE_TAKEN_FROM_STAMINA_PERCENT,
+
     /* Misc */
     RUN_SPEED_PERCENT
 }

@@ -76,29 +76,19 @@
       "BenchUpgradeCompletedSoundEventId": "SFX_Workbench_Upgrade_Complete_Default",
       "Categories": [
         {
-          "Id": "Weapon_Sword",
-          "Icon": "Icons/CraftingCategories/Armory/Sword.png",
-          "Name": "server.benchCategories.sword"
+          "Id": "HeadsBlades",
+          "Icon": "Icons/CraftingCategories/Crafting_Axe_Head_T1_Icon.png",
+          "Name": "server.benchCategories.components.Heads_and_Blades"
         },
         {
-          "Id": "Weapon_Mace",
-          "Icon": "Icons/CraftingCategories/Armory/Mace.png",
-          "Name": "server.benchCategories.mace"
+          "Id": "Handles",
+          "Icon": "Icons/CraftingCategories/Crafting_Handle_T1_Icon.png",
+          "Name": "server.benchCategories.components.Handles"
         },
         {
-          "Id": "Weapon_Battleaxe",
-          "Icon": "Icons/CraftingCategories/Armory/Battleaxe.png",
-          "Name": "server.benchCategories.battleaxe"
-        },
-        {
-          "Id": "Weapon_Daggers",
-          "Icon": "Icons/CraftingCategories/Armory/Daggers.png",
-          "Name": "server.benchCategories.daggers"
-        },
-        {
-          "Id": "Weapon_Bow",
-          "Icon": "Icons/CraftingCategories/Armory/Bow.png",
-          "Name": "server.benchCategories.bow"
+          "Id": "Shafts",
+          "Icon": "Icons/CraftingCategories/Crafting_Shaft_T1_Icon.png",
+          "Name": "server.benchCategories.components.Shafts"
         }
       ],
       "Id": "Weapon_Bench_HyARPG",

@@ -1,0 +1,48 @@
+ @ItemIconStyle = (
+   Default: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7)),
+   Hovered: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.8))),
+   Pressed: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.6)))
+ );
+
+ @SubCategoryTabs1H = Group {
+    LayoutMode: Left;
+    Anchor: (Height: 52, Bottom: 8);
+    Visible: true;
+
+    // overlay first so weapon image renders on top, active starts visible for first item
+    Button #IconAxe {
+        Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
+        TooltipText: "Axe";
+
+        Group #IconAxeOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: false; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Axe_Iron.png"; }
+    }
+    Button #IconClub {
+        Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
+        TooltipText: "Club";
+
+        Group #IconClubOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Club_Iron.png"; }
+    }
+    Button #IconShield {
+        Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
+        TooltipText: "Shield";
+
+        Group #IconShieldOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Shield_Iron.png"; }
+    }
+    Button #IconSpear {
+        Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
+        TooltipText: "Spear";
+
+        Group #IconSpearOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Spear_Iron.png"; }
+    }
+    Button #IconSword {
+        Anchor: (Width: 44, Height: 44); Style: @ItemIconStyle;
+        TooltipText: "Sword";
+
+        Group #IconSwordOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Sword_Iron.png"; }
+    }
+};

@@ -1,0 +1,101 @@
+$Common = "../../Common.ui";
+
+@InventorySlotBackground = (TexturePath: "../../Common/ContainerPanelPatch.png", Border: 4);
+
+@InventoryPanel = Group {
+    LayoutMode: Top;
+    Anchor: (Top: 8);
+
+    $Common.@Container #InventoryPanel {
+        #Title {
+            LayoutMode: Left;
+            Padding: (Left: 14, Top: 0);
+
+            Label {
+                Text: "INVENTORY";
+                Style: (...$Common.@TitleStyle, TextColor: #b4c8c9, VerticalAlignment: Center);
+                Anchor: (Height: 38);
+            }
+
+            Group { FlexWeight: 1; }
+        }
+
+        #Content {
+            LayoutMode: Top;
+
+            // Scrollable storage rows — 36 slots (4 rows x 9 columns)
+            Group #StorageArea {
+                FlexWeight: 1;
+                Anchor: (Top: 0);
+                LayoutMode: Top;
+
+                Group { LayoutMode: Left; Anchor: (Height: 76);
+                    Group #StorageSlot0 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem0 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot1 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot2 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot3 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot4 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot5 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem5 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot6 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem6 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot7 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem7 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot8 { Anchor: (Width: 74, Height: 74); Background: @InventorySlotBackground; ItemSlot #StorageItem8 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                }
+                Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
+                    Group #StorageSlot9  { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem9  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot10 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem10 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot11 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem11 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot12 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem12 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot13 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem13 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot14 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem14 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot15 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem15 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot16 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem16 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot17 { Anchor: (Width: 74, Height: 74); Background: @InventorySlotBackground; ItemSlot #StorageItem17 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                }
+                Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
+                    Group #StorageSlot18 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem18 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot19 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem19 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot20 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem20 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot21 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem21 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot22 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem22 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot23 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem23 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot24 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem24 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot25 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem25 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot26 { Anchor: (Width: 74, Height: 74); Background: @InventorySlotBackground; ItemSlot #StorageItem26 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                }
+                Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
+                    Group #StorageSlot27 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem27 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot28 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem28 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot29 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem29 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot30 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem30 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot31 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem31 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot32 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem32 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot33 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem33 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot34 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #StorageItem34 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                    Group #StorageSlot35 { Anchor: (Width: 74, Height: 74); Background: @InventorySlotBackground; ItemSlot #StorageItem35 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } }
+                }
+            }
+
+            // Separator between storage and hotbar
+            Group {
+                Background: #9c8863(0.15);
+                Anchor: (Height: 2, Top: 6, Bottom: 6);
+            }
+
+            // Fixed hotbar row — 9 slots, no slot numbers
+            Group #HotbarArea {
+                Anchor: (Height: 76, Bottom: 0);
+                LayoutMode: Left;
+
+                Group #HotbarSlot0 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #HotbarItem0 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+                Group #HotbarSlot1 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #HotbarItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+                Group #HotbarSlot2 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #HotbarItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+                Group #HotbarSlot3 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #HotbarItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+                Group #HotbarSlot4 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #HotbarItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+                Group #HotbarSlot5 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #HotbarItem5 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+                Group #HotbarSlot6 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #HotbarItem6 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+                Group #HotbarSlot7 { Anchor: (Width: 74, Height: 74, Right: 2); Background: @InventorySlotBackground; ItemSlot #HotbarItem7 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+                Group #HotbarSlot8 { Anchor: (Width: 74, Height: 74); Background: @InventorySlotBackground; ItemSlot #HotbarItem8 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; } }
+            }
+        }
+    }
+};

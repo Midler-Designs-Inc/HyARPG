@@ -1,0 +1,27 @@
+{
+  "Icon": "Icons/Items/Crafting_Axe_Head_T1_Icon.png",
+  "Model": "Items/Weapons/Components/Crafting_Axe_Head_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/Copper_Texture_Axe.png",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": false,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "HeadsBlades"
+        ],
+        "Id": "Weapon_Bench_HyARPG"
+      }
+    ]
+  },
+  "Categories": [
+    "Weapon.Component.AxeHead.T1"
+  ]
+}

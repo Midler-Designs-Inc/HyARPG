@@ -1,0 +1,123 @@
+$Common = "Common.ui";
+$CategoryTabs = "Crafting/Pages/CustomForgeCategoryTabs.ui";
+$InventoryPanel = "Crafting/Pages/CustomForgeInventoryPanel.ui";
+$OutputPanel = "Crafting/Pages/CustomForgeOutputPanel.ui";
+$SubCategoryTabs1H = "Crafting/Pages/CustomForgeSubCategoryTabs_1H.ui";
+$SubCategoryTabs2H = "Crafting/Pages/CustomForgeSubCategoryTabs_2H.ui";
+$SubCategoryTabsRanged = "Crafting/Pages/CustomForgeSubCategoryTabs_Ranged.ui";
+$SubCategoryTabsMagic = "Crafting/Pages/CustomForgeSubCategoryTabs_Magic.ui";
+$SubCategoryTabsArmor = "Crafting/Pages/CustomForgeSubCategoryTabs_Armor.ui";
+$SubCategoryTabsLeather = "Crafting/Pages/CustomForgeSubCategoryTabs_Leather.ui";
+$SubCategoryTabsCloth = "Crafting/Pages/CustomForgeSubCategoryTabs_Cloth.ui";
+$InputSlots = "Crafting/Pages/CustomForgeInputSlots.ui";
+$ItemDiagramContainer = "Crafting/Pages/CustomForgeItemDiagramContainer.ui";
+
+SceneBlur {}
+
+Group {
+  Background: #000000(0.55);
+}
+
+Group {
+  LayoutMode: Center;
+
+  Group {
+    Anchor: (Width: 720);
+    LayoutMode: Top;
+    Padding: (Top: 15);
+
+    // Top Window - Crafting Panel
+    Group {
+      LayoutMode: Top;
+
+      // Display the 7 category tabs (1H/2H/Ranged/Magic Weapons, Metal/Leather/Cloth Armors)
+      $CategoryTabs.@CategoryTabs {}
+
+      // Forge panel container
+      $Common.@Container #ForgePanel {
+        #Title {
+            LayoutMode: Left;
+            Padding: (Left: 20, Top: 0, Bottom: 0);
+
+            Label #TitleLabel {
+                Text: "CRAFTING";
+                Style: (...$Common.@TitleStyle, TextColor: #5a8ab0, VerticalAlignment: Center);
+                Anchor: (Height: 38);
+            }
+
+            Group {
+                Anchor: (Width: 10, Height: 10, Left: 8, Right: 8);
+                Background: "Common/ContainerTitleArrow.png";
+            }
+
+            Label #CategoryLabel {
+                Text: "1H WEAPONS";
+                Style: (...$Common.@TitleStyle, TextColor: #aaaaaa, VerticalAlignment: Center);
+                Anchor: (Height: 38);
+            }
+
+            Group {
+                Anchor: (Width: 10, Height: 10, Left: 8, Right: 8);
+                Background: "Common/ContainerTitleArrow.png";
+            }
+
+            Label #SubCategoryLabel {
+                Text: "Axe";
+                Style: (...$Common.@TitleStyle, TextColor: #ffffff, VerticalAlignment: Center);
+                Anchor: (Height: 38);
+            }
+
+            Group { FlexWeight: 1; }
+        }
+
+        #Content {
+          LayoutMode: Left;
+          Padding: (Left: 14, Top: 5, Bottom: 5);
+
+          // Left Column - item icons + diagram + input slots
+          Group #Items {
+            Anchor: (Height: 460);
+            FlexWeight: 1;
+            LayoutMode: Top;
+
+            // 1H weapon icon tabs
+            $SubCategoryTabs1H.@SubCategoryTabs1H #ItemCategories1H {}
+
+            // 2H weapon icons
+            $SubCategoryTabs2H.@SubCategoryTabs2H #ItemCategories2H {}
+
+            // Ranged weapon icons
+            $SubCategoryTabsRanged.@SubCategoryTabsRanged #ItemCategoriesRanged {}
+
+            // Magic weapon icons
+            $SubCategoryTabsMagic.@SubCategoryTabsMagic #ItemCategoriesMagic {}
+
+            // Armor icons
+            $SubCategoryTabsArmor.@SubCategoryTabsArmor #ItemCategoriesArmor {}
+
+            // Leather icons
+            $SubCategoryTabsLeather.@SubCategoryTabsLeather #ItemCategoriesLeather {}
+
+            // Cloth icons
+            $SubCategoryTabsCloth.@SubCategoryTabsCloth #ItemCategoriesCloth {}
+
+            // Diagram area — all outlines stacked, java controls which is visible
+            $ItemDiagramContainer.@ItemDiagramContainer #ItemDiagramContainer {}
+
+            // 4 input slots centered below the diagram
+            $InputSlots.@InputSlots #InputSlots {}
+          }
+
+          // Vertical separator
+          $Common.@VerticalSeparator {}
+
+          // Right Column - Craft Button / Timer / Output Slot
+          $OutputPanel.@OutputPanel #ItemInfo {}
+        }
+      }
+    }
+
+    // Bottom Window - Inventory Panel
+    $InventoryPanel.@InventoryPanel {}
+  }
+}

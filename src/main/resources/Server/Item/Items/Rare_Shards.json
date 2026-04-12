@@ -4,7 +4,8 @@
     "Description": "server.items.Rare_Shards.Description"
   },
   "Categories": [
-    "Items.Ingredients"
+    "Items.Ingredients",
+    "Crafting.Component.Shard.Rare"
   ],
   "Model": "Resources/Crystals/Crystal_Fragment.blockymodel",
   "Texture": "Resources/Crystals/Crystal_Fragment_Textures/Blue.png",

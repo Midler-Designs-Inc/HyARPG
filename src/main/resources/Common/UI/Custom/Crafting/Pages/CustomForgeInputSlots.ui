@@ -9,15 +9,19 @@
 
         Button #InputSlot1 { Anchor: (Width: 74, Height: 74, Right: 6); Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
             ItemSlot #InputItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; }
+            Group #InputSlotOverlay1 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); }
         }
         Button #InputSlot2 { Anchor: (Width: 74, Height: 74, Right: 6); Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
             ItemSlot #InputItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; }
+            Group #InputSlotOverlay2 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); }
         }
         Button #InputSlot3 { Anchor: (Width: 74, Height: 74, Right: 6); Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
             ItemSlot #InputItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; }
+            Group #InputSlotOverlay3 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); }
         }
         Button #InputSlot4 { Anchor: (Width: 74, Height: 74); Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
             ItemSlot #InputItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; }
+            Group #InputSlotOverlay4 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); }
         }
     }
 };

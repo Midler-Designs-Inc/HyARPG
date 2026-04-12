@@ -1,7 +1,7 @@
 {
-  "Icon": "Icons/Items/Crafting_Axe_Head_T1_Icon.png",
-  "Model": "Items/Weapons/Components/Crafting_Axe_Head_T1.blockymodel",
-  "Texture": "Items/Weapons/Components/Copper_Texture_Axe.png",
+  "Icon": "Icons/Items/Crafting_Spear_Head_T1_Icon.png",
+  "Model": "Items/Weapons/Components/Crafting_Spear_Head_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/Copper_Texture_Spear.png",
   "Recipe": {
     "TimeSeconds": 0,
     "KnowledgeRequired": false,
@@ -15,13 +15,14 @@
       {
         "Type": "Crafting",
         "Categories": [
-          "HeadsBlades"
+          "Heads_and_Blades"
         ],
         "Id": "Weapon_Bench_HyARPG"
       }
     ]
   },
   "Categories": [
-    "Weapon.Component.AxeHead.T1"
+    "Weapon.Component.DiamondBlade.T1",
+    "ASSET_ID.Weapon_Spear_Copper"
   ]
 }

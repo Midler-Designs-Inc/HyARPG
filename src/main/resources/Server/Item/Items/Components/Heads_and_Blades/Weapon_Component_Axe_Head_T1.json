@@ -1,7 +1,7 @@
 {
-  "Icon": "Icons/Items/Crafting_Spear_Head_T1_Icon.png",
-  "Model": "Items/Weapons/Components/Crafting_Spear_Head_T1.blockymodel",
-  "Texture": "Items/Weapons/Components/Copper_Texture_Spear.png",
+  "Icon": "Icons/Items/Crafting_Axe_Head_T1_Icon.png",
+  "Model": "Items/Weapons/Components/Crafting_Axe_Head_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/Copper_Texture_Axe.png",
   "Recipe": {
     "TimeSeconds": 0,
     "KnowledgeRequired": false,
@@ -22,6 +22,7 @@
     ]
   },
   "Categories": [
-    "Weapon.Component.SpearHead.T1"
+    "Weapon.Component.AxeHead.T1",
+    "ASSET_ID.Weapon_Axe_Copper"
   ]
 }

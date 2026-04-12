@@ -1,7 +1,6 @@
 package com.example.hyarpg;
 
 // Hytale Imports
-
 import com.example.hyarpg.subclasses.FixedDeployableAoeConfig;
 import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
 import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;

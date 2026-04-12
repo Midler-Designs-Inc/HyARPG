@@ -23,7 +23,15 @@
         "Quantity": 5
       }
     ],
-    "BenchRequirement": []
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Crafting"
+        ],
+        "Id": "Workbench"
+      }
+    ]
   },
   "BlockType": {
     "Material": "Solid",
@@ -68,52 +76,48 @@
       "BenchUpgradeCompletedSoundEventId": "SFX_Workbench_Upgrade_Complete_Default",
       "Categories": [
         {
-          "Id": "Weapon_Sword",
-          "Icon": "Icons/CraftingCategories/Armory/Sword.png",
-          "Name": "server.benchCategories.sword"
+          "Id": "Heads_and_Blades",
+          "Icon": "Icons/CraftingCategories/Crafting_Heads_and_Blades.png",
+          "Name": "server.benchCategories.components.Heads_and_Blades"
         },
         {
-          "Id": "Weapon_Mace",
-          "Icon": "Icons/CraftingCategories/Armory/Mace.png",
-          "Name": "server.benchCategories.mace"
+          "Id": "Handles",
+          "Icon": "Icons/CraftingCategories/Crafting_Handles.png",
+          "Name": "server.benchCategories.components.Handles"
         },
         {
-          "Id": "Weapon_Battleaxe",
-          "Icon": "Icons/CraftingCategories/Armory/Battleaxe.png",
-          "Name": "server.benchCategories.battleaxe"
+          "Id": "Shafts_and_Hilts",
+          "Icon": "Icons/CraftingCategories/Crafting_Shafts_and_Hilts.png",
+          "Name": "server.benchCategories.components.Shafts_and_Hilts"
         },
         {
-          "Id": "Weapon_Daggers",
-          "Icon": "Icons/CraftingCategories/Armory/Daggers.png",
-          "Name": "server.benchCategories.daggers"
+          "Id": "Bow_Parts",
+          "Icon": "Icons/CraftingCategories/Crafting_Bow_Parts.png",
+          "Name": "server.benchCategories.components.Bow_Parts"
         },
         {
-          "Id": "Weapon_Bow",
-          "Icon": "Icons/CraftingCategories/Armory/Bow.png",
-          "Name": "server.benchCategories.bow"
+          "Id": "Shield_Parts",
+          "Icon": "Icons/CraftingCategories/Crafting_Shield_Parts.png",
+          "Name": "server.benchCategories.components.Shield_Parts"
         }
       ],
       "Id": "Weapon_Bench",
       "TierLevels": [
         {
-          "CraftingTimeReductionModifier": 0,
+          "CraftingTimeReductionModifier": 0.15,
           "UpgradeRequirement": {
             "Material": [
               {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 50
+              },
+              {
+                "Quantity": 100,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
                 "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 20
-              },
-              {
-                "ItemId": "Ingredient_Leather_Light",
-                "Quantity": 30
-              },
-              {
-                "ItemId": "Ingredient_Fabric_Scrap_Linen",
-                "Quantity": 30
-              },
-              {
-                "ItemId": "Ingredient_Sac_Venom",
-                "Quantity": 15
+                "Quantity": 25
               }
             ],
             "TimeSeconds": 3
@@ -123,24 +127,20 @@
           "UpgradeRequirement": {
             "Material": [
               {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 100
+              },
+              {
+                "Quantity": 200,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 50
+              },
+              {
                 "ItemId": "Ingredient_Bar_Thorium",
                 "Quantity": 25
-              },
-              {
-                "ItemId": "Ingredient_Bar_Cobalt",
-                "Quantity": 25
-              },
-              {
-                "ItemId": "Ingredient_Fire_Essence",
-                "Quantity": 20
-              },
-              {
-                "ItemId": "Ingredient_Ice_Essence",
-                "Quantity": 40
-              },
-              {
-                "ItemId": "Ingredient_Void_Essence",
-                "Quantity": 100
               }
             ],
             "TimeSeconds": 3
@@ -148,7 +148,60 @@
           "CraftingTimeReductionModifier": 0.15
         },
         {
-          "CraftingTimeReductionModifier": 0.3
+          "CraftingTimeReductionModifier": 0.15,
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Copper",
+                "Quantity": 200
+              },
+              {
+                "Quantity": 400,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 100
+              },
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 50
+              },
+              {
+                "ItemId": "Ingredient_Bar_Adamantite",
+                "Quantity": 25
+              }
+            ],
+            "TimeSeconds": 3
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "Quantity": 800,
+                "ResourceTypeId": "Wood_Trunk"
+              },
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 200
+              },
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 100
+              },
+              {
+                "ItemId": "Ingredient_Bar_Adamantite",
+                "Quantity": 50
+              },
+              {
+                "ItemId": "Ingredient_Bar_Mithril",
+                "Quantity": 25
+              }
+            ],
+            "TimeSeconds": 3
+          },
+          "CraftingTimeReductionModifier": 0.15
         }
       ]
     },

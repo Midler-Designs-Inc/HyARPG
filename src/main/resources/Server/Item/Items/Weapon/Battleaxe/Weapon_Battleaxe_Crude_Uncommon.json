@@ -9,24 +9,20 @@
   "Quality": "Uncommon",
   "ItemLevel": 7,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 20
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 17
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 18
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -91,7 +87,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 7
+              "MainHand": 1
             }
           }
         }
@@ -107,7 +103,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 7
+              "MainHand": 1
             }
           }
         }
@@ -123,7 +119,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 9
+              "MainHand": 1.5
             }
           }
         }
@@ -139,7 +135,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 11
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -172,7 +168,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 16
+              "Physical": 9
             }
           },
           "EntityStatsOnHit": []
@@ -201,10 +197,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Crude_Uncommon"
-    }
   ]
 }

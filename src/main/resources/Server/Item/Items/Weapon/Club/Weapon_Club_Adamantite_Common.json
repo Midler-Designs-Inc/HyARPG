@@ -13,40 +13,37 @@
     "Compatible": true
   },
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 44
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 43
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 44
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
         "Type": "DiagramCrafting",
         "Categories": [
-          "Weapons.Club",
-          "Discoverable"
+          "Weapons.Club"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 4
+        "Id": "Armory"
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Mace",
-          "Discoverable"
+          "Weapon_Club"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 4
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -92,7 +89,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 16
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -118,7 +115,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 16
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -134,7 +131,7 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Club": 28
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -175,10 +172,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Common"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

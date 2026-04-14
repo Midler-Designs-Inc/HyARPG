@@ -29,33 +29,28 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 49
+        "Quantity": 9
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 44
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 43
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
           "Armor_Head"
-        ],
-        "RequiredTierLevel": 2
+        ]
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Interactions": {
     "Primary": {
@@ -95,10 +90,5 @@
       "Iron"
     ]
   },
-  "MaxStack": 1,
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Iron_Uncommon"
-    }
-  ]
+  "MaxStack": 1
 }

@@ -24,33 +24,29 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 108
+        "Quantity": 8
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 102
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 120
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
           "Armor_Hands"
         ],
-        "RequiredTierLevel": 5
+        "RequiredTierLevel": 3
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Hands",
@@ -72,10 +68,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Uncommon"
-    }
   ]
 }

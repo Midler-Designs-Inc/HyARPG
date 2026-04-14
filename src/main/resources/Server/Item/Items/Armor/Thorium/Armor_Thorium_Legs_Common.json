@@ -24,34 +24,33 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 45
+        "Quantity": 15
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 36
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 36
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Sac_Venom",
-        "Quantity": 33
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Legs",
-          "Discoverable"
+          "Armor_Legs"
         ],
-        "RequiredTierLevel": 3
+        "RequiredTierLevel": 2
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Legs",
@@ -77,10 +76,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Thorium_Common"
-    }
   ]
 }

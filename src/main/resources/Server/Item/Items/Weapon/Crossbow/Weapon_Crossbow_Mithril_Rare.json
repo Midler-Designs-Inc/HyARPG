@@ -9,23 +9,19 @@
   "Quality": "Rare",
   "ItemLevel": 50,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 156
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 152
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 151
-      },
-      {
-        "ItemId": "Rare_Shards",
         "Quantity": 1
       }
     ],
@@ -35,8 +31,8 @@
         "Categories": [
           "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 5
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -48,7 +44,7 @@
           "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
           "DamageCalculator": {
             "BaseDamage": {
-              "Crossbow": 5
+              "MainHand": 1
             }
           }
         }
@@ -71,10 +67,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Rare"
-    }
   ]
 }

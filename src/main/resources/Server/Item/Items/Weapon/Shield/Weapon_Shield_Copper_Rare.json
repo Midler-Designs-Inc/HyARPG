@@ -9,24 +9,20 @@
   "Quality": "Rare",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 32
+        "Quantity": 2
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 31
+        "Quantity": 1
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 33
-      },
-      {
-        "ItemId": "Rare_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
@@ -35,8 +31,7 @@
         "Categories": [
           "Weapon_Shield"
         ],
-        "Id": "Armor_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Armor_Bench"
       }
     ]
   },
@@ -93,10 +88,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Rare"
-    }
   ]
 }

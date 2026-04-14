@@ -21,33 +21,31 @@
   "Model": "Items/Armors/Leather_Heavy/Chest.blockymodel",
   "Texture": "Items/Armors/Leather_Heavy/Chest_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 46
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 42
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 43
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Chest",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 4
+          "Armor_Chest"
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Chest",
@@ -71,10 +69,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Leather_Heavy_Common"
-    }
   ]
 }

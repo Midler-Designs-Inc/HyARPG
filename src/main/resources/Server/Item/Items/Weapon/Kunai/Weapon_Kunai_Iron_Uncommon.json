@@ -22,20 +22,16 @@
     ]
   },
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 46
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 44
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -45,7 +41,7 @@
           "Weapon_Daggers",
           "Discoverable"
         ],
-        "Id": "Weapon_Bench_HyARPG_HyARPG",
+        "Id": "Weapon_Bench_HyARPG",
         "RequiredTierLevel": 2
       }
     ]
@@ -74,7 +70,7 @@
           "Parent": "Weapon_Kunai_Primary_Hit_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Kunai": 4
+              "OffHand": 1
             }
           }
         }
@@ -87,10 +83,5 @@
     ]
   },
   "MaxDurability": 0,
-  "MaxStack": 1,
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Iron_Uncommon"
-    }
-  ]
+  "MaxStack": 1
 }

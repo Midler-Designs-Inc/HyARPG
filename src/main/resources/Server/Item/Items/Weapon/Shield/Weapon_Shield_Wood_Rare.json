@@ -9,23 +9,19 @@
   "Quality": "Rare",
   "ItemLevel": 5,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
-        "Quantity": 21,
+        "Quantity": 6,
         "ResourceTypeId": "Wood_Trunk"
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 19
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 16
-      },
-      {
-        "ItemId": "Rare_Shards",
         "Quantity": 1
       }
     ],
@@ -52,10 +48,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Wood_Rare"
-    }
   ]
 }

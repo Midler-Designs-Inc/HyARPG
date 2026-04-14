@@ -53,7 +53,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -79,7 +79,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -105,7 +105,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 5
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -121,7 +121,7 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Longsword": 7
+              "MainHand": 2
             },
             "Type": "Absolute"
           },
@@ -133,24 +133,20 @@
     }
   },
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 16
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 12
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -165,10 +161,9 @@
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Sword"
+          "Weapon_Longsword"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       }
     ]
   },
@@ -201,10 +196,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Crude_Uncommon"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

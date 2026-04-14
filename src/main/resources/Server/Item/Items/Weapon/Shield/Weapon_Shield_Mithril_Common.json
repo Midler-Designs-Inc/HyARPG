@@ -9,31 +9,30 @@
   "Quality": "Common",
   "ItemLevel": 50,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 54
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 53
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Stormsilk",
-        "Quantity": 53
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Shield",
-          "Discoverable"
+          "Weapon_Shield"
         ],
-        "RequiredTierLevel": 5,
-        "Id": "Armor_Bench_HyARPG"
+        "RequiredTierLevel": 3,
+        "Id": "Armor_Bench"
       }
     ]
   },
@@ -55,10 +54,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Common"
-    }
   ]
 }

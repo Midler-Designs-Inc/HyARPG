@@ -10,24 +10,20 @@
   "Quality": "Rare",
   "ItemLevel": 20,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 64
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 63
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 64
-      },
-      {
-        "ItemId": "Rare_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -36,16 +32,14 @@
         "Categories": [
           "Weapons.Club"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 2
+        "Id": "Armory"
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Mace"
+          "Weapon_Club"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 2
+        "Id": "Weapon_Bench"
       }
     ]
   },
@@ -97,7 +91,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 8
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -123,7 +117,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 8
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -139,7 +133,7 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Club": 14
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -177,10 +171,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Iron_Rare"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

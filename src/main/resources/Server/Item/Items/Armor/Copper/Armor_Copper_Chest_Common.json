@@ -23,26 +23,24 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 21
+        "Quantity": 11
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 14
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Chest",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 1
+          "Armor_Chest"
+        ]
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Chest",
@@ -68,10 +66,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Common"
-    }
   ]
 }

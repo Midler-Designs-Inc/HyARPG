@@ -10,40 +10,37 @@
   "Quality": "Common",
   "ItemLevel": 30,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 34
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 33
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 34
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
         "Type": "DiagramCrafting",
         "Categories": [
-          "Weapons.Club",
-          "Discoverable"
+          "Weapons.Club"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Armory"
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Mace",
-          "Discoverable"
+          "Weapon_Club"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 2
       }
     ]
   },
@@ -95,7 +92,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 12
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -121,7 +118,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 12
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -137,7 +134,7 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Club": 21
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -175,10 +172,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Thorium_Common"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

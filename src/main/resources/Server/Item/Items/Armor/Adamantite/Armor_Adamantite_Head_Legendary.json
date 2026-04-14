@@ -24,33 +24,29 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 215
+        "Quantity": 15
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 205
+        "Quantity": 5
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 204
-      },
-      {
-        "ItemId": "Legendary_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
           "Armor_Head"
         ],
-        "RequiredTierLevel": 4
+        "RequiredTierLevel": 3
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Head",
@@ -79,10 +75,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Legendary"
-    }
   ]
 }

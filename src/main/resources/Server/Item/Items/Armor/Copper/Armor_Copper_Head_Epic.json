@@ -11,29 +11,24 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 46
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 42
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
           "Armor_Head"
-        ],
-        "RequiredTierLevel": 1
+        ]
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Head",
@@ -62,10 +57,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Epic"
-    }
   ]
 }

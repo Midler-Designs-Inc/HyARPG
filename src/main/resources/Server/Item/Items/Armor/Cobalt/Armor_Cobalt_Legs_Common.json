@@ -24,30 +24,29 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 53
+        "Quantity": 18
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 41
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 41
+        "Quantity": 6
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Legs",
-          "Discoverable"
+          "Armor_Legs"
         ],
-        "RequiredTierLevel": 3
+        "RequiredTierLevel": 2
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Legs",
@@ -74,10 +73,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cobalt_Common"
-    }
   ]
 }

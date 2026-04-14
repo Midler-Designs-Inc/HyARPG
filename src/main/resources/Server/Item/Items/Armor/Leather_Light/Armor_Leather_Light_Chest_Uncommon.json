@@ -21,36 +21,31 @@
   "Model": "Items/Armors/Leather_Light/Chest.blockymodel",
   "Texture": "Items/Armors/Leather_Light/Chest_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 46
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 42
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 42
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
           "Armor_Chest"
-        ],
-        "RequiredTierLevel": 2
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Chest",
@@ -74,10 +69,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Leather_Light_Uncommon"
-    }
   ]
 }

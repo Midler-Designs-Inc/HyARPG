@@ -20,36 +20,31 @@
   "Model": "Items/Armors/Leather_Raven/Legs.blockymodel",
   "Texture": "Items/Armors/Leather_Raven/Legs_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 254
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Feathers_Dark",
-        "Quantity": 253
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 253
-      },
-      {
-        "ItemId": "Legendary_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
           "Armor_Legs"
-        ],
-        "RequiredTierLevel": 5
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Legs",
@@ -75,10 +70,5 @@
   "Categories": [
     "Items.HyARPG.Gear"
   ],
-  "Quality": "Legendary",
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Leather_Raven_Legendary"
-    }
-  ]
+  "Quality": "Legendary"
 }

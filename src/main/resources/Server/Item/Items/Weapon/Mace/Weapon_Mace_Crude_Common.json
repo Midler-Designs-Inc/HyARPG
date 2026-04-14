@@ -9,20 +9,20 @@
   "Quality": "Common",
   "ItemLevel": 8,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 14
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 11
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 12
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -31,15 +31,13 @@
         "Type": "Crafting",
         "Categories": [
           "Tools",
-          "Discoverable",
           "Discoverable"
         ]
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival",
-          "Discoverable"
+          "Workbench_Survival"
         ],
         "Id": "Workbench"
       }
@@ -89,7 +87,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 5
+              "MainHand": 1
             }
           }
         }
@@ -105,7 +103,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 5
+              "MainHand": 1
             }
           }
         }
@@ -121,7 +119,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 7
+              "MainHand": 1.5
             }
           }
         }
@@ -148,7 +146,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 11
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -181,7 +179,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 11
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -214,7 +212,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 13
+              "MainHand": 2.5
             }
           },
           "EntityStatsOnHit": [
@@ -251,7 +249,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 19
+              "Physical": 59
             }
           },
           "EntityStatsOnHit": [],
@@ -269,10 +267,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Crude_Common"
-    }
   ]
 }

@@ -21,36 +21,31 @@
   "Model": "Items/Armors/Leather_Light/Head.blockymodel",
   "Texture": "Items/Armors/Leather_Light/Head_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Wool",
-        "Quantity": 43
+        "Quantity": 3
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 42
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 42
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
           "Armor_Head"
-        ],
-        "RequiredTierLevel": 1
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Head",
@@ -77,10 +72,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Wool_Epic"
-    }
   ]
 }

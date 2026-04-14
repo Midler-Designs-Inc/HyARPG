@@ -9,31 +9,30 @@
   "Quality": "Common",
   "ItemLevel": 50,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 56
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 52
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 51
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Bow",
-          "Discoverable"
+          "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 5
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -45,7 +44,7 @@
           "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
           "DamageCalculator": {
             "BaseDamage": {
-              "Crossbow": 5
+              "MainHand": 1
             }
           }
         }
@@ -68,10 +67,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Common"
-    }
   ]
 }

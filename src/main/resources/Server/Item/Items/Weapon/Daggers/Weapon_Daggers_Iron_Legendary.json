@@ -9,36 +9,31 @@
   "Quality": "Legendary",
   "ItemLevel": 20,
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "BenchRequirement": [
       {
-        "Id": "Weapon_Bench_HyARPG",
+        "Id": "Weapon_Bench",
         "Type": "Crafting",
         "Categories": [
           "Weapon_Daggers"
-        ],
-        "RequiredTierLevel": 2
+        ]
       }
     ],
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 104
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 102
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 103
-      },
-      {
-        "ItemId": "Legendary_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "InteractionVars": {
     "Swing_Left_Damage": {
@@ -47,7 +42,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -64,7 +59,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -81,7 +76,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -98,7 +93,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -115,7 +110,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 6
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -181,7 +176,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 6
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -247,7 +242,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Slash_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 6
+              "Physical": 25
             }
           },
           "EntityStatsOnHit": [],
@@ -308,7 +303,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 6
+              "Physical": 31
             }
           },
           "EntityStatsOnHit": [],
@@ -369,7 +364,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Lunge_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 6
+              "Physical": 37
             }
           },
           "EntityStatsOnHit": [],
@@ -442,10 +437,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Iron_Legendary"
-    }
   ]
 }

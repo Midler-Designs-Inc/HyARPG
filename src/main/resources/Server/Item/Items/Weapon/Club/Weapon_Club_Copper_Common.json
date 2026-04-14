@@ -12,40 +12,36 @@
   "Model": "Items/Weapons/Club/Copper.blockymodel",
   "Texture": "Items/Weapons/Club/Copper_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 14
+        "Quantity": 4
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 16
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 12
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
         "Type": "DiagramCrafting",
         "Categories": [
-          "Weapons.Club",
-          "Discoverable"
+          "Weapons.Club"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Armory"
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Mace",
-          "Discoverable"
+          "Weapon_Club"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       }
     ]
   },
@@ -95,7 +91,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -121,7 +117,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -137,7 +133,7 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Club": 7
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -175,10 +171,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Common"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

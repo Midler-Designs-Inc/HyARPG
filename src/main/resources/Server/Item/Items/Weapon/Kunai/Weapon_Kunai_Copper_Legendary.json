@@ -45,7 +45,7 @@
           "Parent": "Weapon_Kunai_Primary_Hit_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Kunai": 2
+              "OffHand": 1
             }
           }
         }
@@ -58,10 +58,10 @@
     ]
   },
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "BenchRequirement": [
       {
-        "Id": "Weapon_Bench_HyARPG",
+        "Id": "Weapon_Bench",
         "Type": "Crafting",
         "Categories": [
           "Weapon_Daggers"
@@ -71,29 +71,20 @@
     ],
     "Input": [
       {
-        "Quantity": 53,
+        "Quantity": 3,
         "ItemId": "Ingredient_Fibre"
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 53
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 54
-      },
-      {
-        "ItemId": "Legendary_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "MaxDurability": 0,
-  "MaxStack": 1,
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Legendary"
-    }
-  ]
+  "MaxStack": 1
 }

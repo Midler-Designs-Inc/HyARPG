@@ -10,34 +10,30 @@
   "Quality": "Uncommon",
   "ItemLevel": 35,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 76
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 73
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 74
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Sword"
+          "Weapon_Longsword"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 2
       }
     ]
   },
@@ -86,7 +82,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 16
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -112,7 +108,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 16
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -138,7 +134,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 20
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -154,7 +150,7 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Longsword": 28
+              "MainHand": 2
             },
             "Type": "Absolute"
           },
@@ -192,10 +188,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cobalt_Uncommon"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

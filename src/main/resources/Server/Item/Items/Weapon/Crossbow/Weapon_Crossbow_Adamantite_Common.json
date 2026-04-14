@@ -9,40 +9,37 @@
   "Quality": "Common",
   "ItemLevel": 40,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 51
+        "Quantity": 11
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 43
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 43
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Bow",
-          "Discoverable"
+          "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 4
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       },
       {
         "Type": "DiagramCrafting",
         "Categories": [
-          "Weapons.Bow",
-          "Discoverable"
+          "Weapons.Bow"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 4
+        "Id": "Armory"
       }
     ]
   },
@@ -53,7 +50,7 @@
           "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
           "DamageCalculator": {
             "BaseDamage": {
-              "Crossbow": 4
+              "MainHand": 1
             }
           }
         }
@@ -77,10 +74,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Common"
-    }
   ]
 }

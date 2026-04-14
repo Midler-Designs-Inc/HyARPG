@@ -11,31 +11,30 @@
   "Model": "Items/Weapons/Axe/Mithril.blockymodel",
   "Texture": "Items/Weapons/Axe/Mithril_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 56
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 53
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 51
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Battleaxe",
-          "Discoverable"
+          "Weapon_Axe"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 5
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -85,7 +84,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 25
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -111,7 +110,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 25
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -136,7 +135,7 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Axe": 25
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -175,10 +174,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Common"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

@@ -9,31 +9,29 @@
   "Quality": "Common",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 12
+        "Quantity": 2
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 11
+        "Quantity": 1
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 13
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Shield",
-          "Discoverable"
+          "Weapon_Shield"
         ],
-        "Id": "Armor_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Armor_Bench"
       }
     ]
   },
@@ -90,10 +88,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Common"
-    }
   ]
 }

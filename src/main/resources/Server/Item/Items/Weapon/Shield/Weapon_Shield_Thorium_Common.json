@@ -9,31 +9,30 @@
   "Quality": "Common",
   "ItemLevel": 30,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 35
+        "Quantity": 5
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 33
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 33
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Shield",
-          "Discoverable"
+          "Weapon_Shield"
         ],
-        "RequiredTierLevel": 3,
-        "Id": "Armor_Bench_HyARPG"
+        "RequiredTierLevel": 2,
+        "Id": "Armor_Bench"
       }
     ]
   },
@@ -55,10 +54,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Thorium_Common"
-    }
   ]
 }

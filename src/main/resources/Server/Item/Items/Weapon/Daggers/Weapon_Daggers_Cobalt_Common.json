@@ -9,33 +9,32 @@
   "Quality": "Common",
   "ItemLevel": 35,
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "BenchRequirement": [
       {
-        "Id": "Weapon_Bench_HyARPG",
+        "Id": "Weapon_Bench",
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Daggers",
-          "Discoverable"
+          "Weapon_Daggers"
         ],
-        "RequiredTierLevel": 3
+        "RequiredTierLevel": 2
       }
     ],
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 43
+        "Quantity": 8
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 37
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 38
+        "Quantity": 3
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "InteractionVars": {
     "Swing_Left_Damage": {
@@ -44,7 +43,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 8
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -61,7 +60,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 8
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -78,7 +77,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 10
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -95,7 +94,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 10
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -112,7 +111,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 12
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -178,7 +177,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 12
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -244,7 +243,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Slash_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 12
+              "Physical": 31
             }
           },
           "EntityStatsOnHit": [],
@@ -305,7 +304,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 12
+              "Physical": 39
             }
           },
           "EntityStatsOnHit": [],
@@ -366,7 +365,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Lunge_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 12
+              "Physical": 46
             }
           },
           "EntityStatsOnHit": [],
@@ -439,10 +438,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cobalt_Common"
-    }
   ]
 }

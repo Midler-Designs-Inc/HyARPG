@@ -11,20 +11,20 @@
   "Model": "Items/Weapons/Club/Crude.blockymodel",
   "Texture": "Items/Weapons/Club/Crude_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rubble",
-        "Quantity": 7
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 7
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 7
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
@@ -32,16 +32,14 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "Tools"
         ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival",
-          "Discoverable"
+          "Workbench_Survival"
         ]
       }
     ]
@@ -92,7 +90,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -118,7 +116,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -156,10 +154,5 @@
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "Quality": "Common",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Crude_Common"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

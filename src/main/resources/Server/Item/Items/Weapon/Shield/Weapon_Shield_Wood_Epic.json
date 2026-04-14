@@ -9,23 +9,19 @@
   "Quality": "Epic",
   "ItemLevel": 5,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
-        "Quantity": 26,
+        "Quantity": 6,
         "ResourceTypeId": "Wood_Trunk"
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 24
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 21
-      },
-      {
-        "ItemId": "Epic_Shards",
         "Quantity": 1
       }
     ],
@@ -52,10 +48,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Wood_Epic"
-    }
   ]
 }

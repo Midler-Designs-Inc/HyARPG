@@ -11,34 +11,30 @@
   "Model": "Items/Weapons/Axe/Adamantite.blockymodel",
   "Texture": "Items/Weapons/Axe/Adamantite_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 84
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 83
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 84
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Battleaxe"
+          "Weapon_Axe"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 4
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -88,7 +84,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -114,7 +110,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -139,7 +135,7 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Axe": 20
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -178,10 +174,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Uncommon"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

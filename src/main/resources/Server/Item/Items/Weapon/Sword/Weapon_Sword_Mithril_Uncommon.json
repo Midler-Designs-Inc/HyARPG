@@ -9,23 +9,19 @@
   "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Mithril.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 106
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 103
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 101
-      },
-      {
-        "ItemId": "Uncommon_Shards",
         "Quantity": 1
       }
     ],
@@ -35,8 +31,8 @@
         "Categories": [
           "Weapon_Sword"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 5
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -59,7 +55,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 18
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -75,7 +71,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 18
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -91,7 +87,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 24
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -107,7 +103,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 36
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -129,7 +125,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 24
+              "Physical": 37
             }
           },
           "EntityStatsOnHit": [],
@@ -146,7 +142,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 36
+              "Physical": 110
             }
           },
           "EntityStatsOnHit": [],
@@ -175,10 +171,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Uncommon"
-    }
   ]
 }

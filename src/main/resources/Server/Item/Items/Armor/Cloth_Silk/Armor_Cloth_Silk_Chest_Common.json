@@ -21,33 +21,31 @@
   "Model": "Items/Armors/Silk/Chest.blockymodel",
   "Texture": "Items/Armors/Silk/Chest_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 46
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 42
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 42
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Chest",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 4
+          "Armor_Chest"
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Chest",
@@ -71,10 +69,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Silk_Common"
-    }
   ]
 }

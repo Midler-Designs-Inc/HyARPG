@@ -9,23 +9,19 @@
   "Quality": "Epic",
   "ItemLevel": 6,
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ResourceTypeId": "Rubble",
-        "Quantity": 27
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 26
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 26
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
@@ -45,7 +41,7 @@
         "Id": "Workbench"
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "InteractionVars": {
     "Swing_Left_Selector": {
@@ -98,7 +94,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 2
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -115,7 +111,7 @@
           "Parent": "Weapon_Daggers_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 2
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -132,7 +128,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 2.5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -149,7 +145,7 @@
           "Parent": "Weapon_Daggers_Primary_Stab_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 2.5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -177,7 +173,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 3
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -254,7 +250,7 @@
           "Parent": "Weapon_Daggers_Primary_Pounce_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 3
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -338,7 +334,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Slash_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 3
+              "Physical": 16
             }
           },
           "EntityStatsOnHit": [],
@@ -399,7 +395,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Sweep_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 3
+              "Physical": 20
             }
           },
           "EntityStatsOnHit": [],
@@ -460,7 +456,7 @@
           "Parent": "Weapon_Daggers_Signature_Razorstrike_Lunge_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Daggers": 3
+              "Physical": 23
             }
           },
           "EntityStatsOnHit": [],
@@ -522,10 +518,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Crude_Epic"
-    }
   ]
 }

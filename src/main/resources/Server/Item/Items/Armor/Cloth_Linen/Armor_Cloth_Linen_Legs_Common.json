@@ -21,33 +21,31 @@
   "Model": "Items/Armors/Linen/Legs.blockymodel",
   "Texture": "Items/Armors/Linen/Legs_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 24
+        "Quantity": 4
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 22
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 23
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Legs",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 2
+          "Armor_Legs"
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Legs",
@@ -72,10 +70,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Linen_Common"
-    }
   ]
 }

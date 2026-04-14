@@ -21,36 +21,31 @@
   "Model": "Items/Armors/Leather_Medium/Head.blockymodel",
   "Texture": "Items/Armors/Leather_Medium/Head_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 63
+        "Quantity": 3
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 62
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 62
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
           "Armor_Head"
-        ],
-        "RequiredTierLevel": 3
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Head",
@@ -77,10 +72,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Leather_Medium_Uncommon"
-    }
   ]
 }

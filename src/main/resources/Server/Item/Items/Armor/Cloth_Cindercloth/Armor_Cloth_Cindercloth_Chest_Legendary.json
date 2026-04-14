@@ -21,36 +21,31 @@
   "Model": "Items/Armors/Cindercloth/Chest.blockymodel",
   "Texture": "Items/Armors/Cindercloth/Chest_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 256
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 252
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 252
-      },
-      {
-        "ItemId": "Legendary_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
           "Armor_Chest"
-        ],
-        "RequiredTierLevel": 5
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Chest",
@@ -71,10 +66,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cindercloth_Legendary"
-    }
   ]
 }

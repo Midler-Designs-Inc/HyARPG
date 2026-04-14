@@ -9,42 +9,38 @@
   "Quality": "Common",
   "ItemLevel": 20,
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 26
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 22
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 23
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Bow",
-          "Discoverable"
+          "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 2
+        "Id": "Weapon_Bench"
       },
       {
         "Type": "DiagramCrafting",
         "Categories": [
-          "Weapons.Bow",
-          "Discoverable"
+          "Weapons.Bow"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 2
+        "Id": "Armory"
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "MaxDurability": 0,
   "InteractionVars": {
@@ -54,7 +50,7 @@
           "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
           "DamageCalculator": {
             "BaseDamage": {
-              "Crossbow": 2
+              "MainHand": 1
             }
           }
         }
@@ -77,10 +73,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Iron_Common"
-    }
   ]
 }

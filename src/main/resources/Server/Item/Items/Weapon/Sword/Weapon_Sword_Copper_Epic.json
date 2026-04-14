@@ -9,24 +9,20 @@
   "Quality": "Epic",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 44
+        "Quantity": 4
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 44
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 43
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
@@ -35,8 +31,7 @@
         "Categories": [
           "Weapon_Sword"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       }
     ]
   },
@@ -47,7 +42,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 6
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -63,7 +58,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 6
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -79,7 +74,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 8
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -95,7 +90,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 12
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -117,7 +112,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 8
+              "Physical": 15
             }
           },
           "EntityStatsOnHit": [],
@@ -134,7 +129,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 12
+              "Physical": 44
             }
           },
           "EntityStatsOnHit": [],
@@ -163,10 +158,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Epic"
-    }
   ]
 }

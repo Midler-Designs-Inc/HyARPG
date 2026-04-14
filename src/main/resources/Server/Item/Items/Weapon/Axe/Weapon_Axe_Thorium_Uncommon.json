@@ -10,34 +10,30 @@
   "Quality": "Uncommon",
   "ItemLevel": 30,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 64
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 63
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 64
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Battleaxe"
+          "Weapon_Axe"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 2
       }
     ]
   },
@@ -83,7 +79,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 15
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -109,7 +105,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 15
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -134,7 +130,7 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Axe": 15
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -178,10 +174,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Thorium_Uncommon"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

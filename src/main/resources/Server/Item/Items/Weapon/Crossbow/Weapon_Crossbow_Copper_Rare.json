@@ -9,24 +9,20 @@
   "Quality": "Rare",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 34
+        "Quantity": 4
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 34
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 36
-      },
-      {
-        "ItemId": "Rare_Shards",
-        "Quantity": 1
+        "Quantity": 6
       }
     ],
     "BenchRequirement": [
@@ -35,16 +31,14 @@
         "Categories": [
           "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       },
       {
         "Type": "DiagramCrafting",
         "Categories": [
           "Weapons.Bow"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Armory"
       }
     ]
   },
@@ -56,7 +50,7 @@
           "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
           "DamageCalculator": {
             "BaseDamage": {
-              "Crossbow": 1
+              "MainHand": 1
             }
           }
         }
@@ -79,10 +73,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Rare"
-    }
   ]
 }

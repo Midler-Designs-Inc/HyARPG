@@ -11,23 +11,19 @@
   "Model": "Items/Weapons/Club/Mithril.blockymodel",
   "Texture": "Items/Weapons/Club/Mithril_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 156
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 153
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 151
-      },
-      {
-        "ItemId": "Rare_Shards",
         "Quantity": 1
       }
     ],
@@ -37,8 +33,8 @@
         "Categories": [
           "Weapons.Club"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 5
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -88,7 +84,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -114,7 +110,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Club": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -130,7 +126,7 @@
           "Parent": "Club_Swing_Down_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Club": 35
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -169,10 +165,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Rare"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

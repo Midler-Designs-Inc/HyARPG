@@ -9,31 +9,30 @@
   "Texture": "Items/Weapons/Shield/Cobalt_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Shield_Cobalt.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 41
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 38
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 38
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Shield",
-          "Discoverable"
+          "Weapon_Shield"
         ],
-        "RequiredTierLevel": 3,
-        "Id": "Armor_Bench_HyARPG"
+        "RequiredTierLevel": 2,
+        "Id": "Armor_Bench"
       }
     ]
   },
@@ -55,10 +54,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cobalt_Common"
-    }
   ]
 }

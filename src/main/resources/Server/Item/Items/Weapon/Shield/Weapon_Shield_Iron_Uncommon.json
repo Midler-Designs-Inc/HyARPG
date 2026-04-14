@@ -22,24 +22,20 @@
     }
   },
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 44
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 43
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 43
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
@@ -48,8 +44,7 @@
         "Categories": [
           "Weapon_Shield"
         ],
-        "Id": "Armor_Bench_HyARPG",
-        "RequiredTierLevel": 2
+        "Id": "Armor_Bench"
       }
     ]
   },
@@ -58,10 +53,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Iron_Uncommon"
-    }
   ]
 }

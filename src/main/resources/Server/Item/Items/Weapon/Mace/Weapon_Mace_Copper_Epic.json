@@ -9,24 +9,20 @@
   "Quality": "Epic",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 46
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 50
+        "Quantity": 10
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 42
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
@@ -35,16 +31,14 @@
         "Categories": [
           "Weapon_Mace"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       },
       {
         "Type": "DiagramCrafting",
         "Categories": [
           "Weapons.Mace"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Armory"
       }
     ]
   },
@@ -55,7 +49,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -71,7 +65,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -87,7 +81,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 7
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -103,7 +97,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 11
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -125,7 +119,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 11
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -147,7 +141,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 13
+              "MainHand": 2.5
             }
           },
           "EntityStatsOnHit": [
@@ -169,7 +163,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 19
+              "Physical": 74
             }
           },
           "EntityStatsOnHit": [],
@@ -198,10 +192,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Epic"
-    }
   ]
 }

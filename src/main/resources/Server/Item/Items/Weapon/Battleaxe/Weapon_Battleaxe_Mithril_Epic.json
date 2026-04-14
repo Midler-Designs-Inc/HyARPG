@@ -7,23 +7,19 @@
   "Texture": "Items/Weapons/Battleaxe/Mithril_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Battleaxe_Mithril.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 210
+        "Quantity": 10
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 204
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 201
-      },
-      {
-        "ItemId": "Epic_Shards",
         "Quantity": 1
       }
     ],
@@ -33,8 +29,8 @@
         "Categories": [
           "Weapon_Battleaxe"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 5
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -47,7 +43,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 45
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -63,7 +59,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 35
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -79,7 +75,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 35
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -95,7 +91,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Downstrike_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 55
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -117,7 +113,7 @@
           "Parent": "Weapon_Battleaxe_Signature_Whirlwind_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 80
+              "Physical": 29
             }
           },
           "EntityStatsOnHit": [],
@@ -146,10 +142,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Epic"
-    }
   ]
 }

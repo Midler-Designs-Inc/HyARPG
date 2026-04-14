@@ -8,33 +8,31 @@
   "Model": "Items/Armors/Leather_Raven/Head.blockymodel",
   "Texture": "Items/Armors/Leather_Raven/Head_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 53
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Feathers_Dark",
-        "Quantity": 52
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 53
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Head",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 5
+          "Armor_Head"
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Head",
@@ -62,10 +60,5 @@
   "Categories": [
     "Items.HyARPG.Gear"
   ],
-  "Quality": "Common",
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Leather_Raven_Common"
-    }
-  ]
+  "Quality": "Common"
 }

@@ -45,7 +45,7 @@
           "Parent": "Weapon_Kunai_Primary_Hit_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Kunai": 10
+              "OffHand": 1
             }
           }
         }
@@ -58,23 +58,19 @@
     ]
   },
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 110
+        "Quantity": 10
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 103
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 101
-      },
-      {
-        "ItemId": "Uncommon_Shards",
         "Quantity": 1
       }
     ],
@@ -84,16 +80,11 @@
         "Categories": [
           "Weapon_Daggers"
         ],
-        "Id": "Weapon_Bench_HyARPG",
+        "Id": "Weapon_Bench",
         "RequiredTierLevel": 5
       }
     ]
   },
   "MaxDurability": 0,
-  "MaxStack": 1,
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Uncommon"
-    }
-  ]
+  "MaxStack": 1
 }

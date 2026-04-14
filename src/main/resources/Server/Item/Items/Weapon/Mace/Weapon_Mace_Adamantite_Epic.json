@@ -9,24 +9,20 @@
   "Quality": "Epic",
   "ItemLevel": 40,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 176
+        "Quantity": 16
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 165
+        "Quantity": 5
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 163
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
@@ -35,16 +31,15 @@
         "Categories": [
           "Weapon_Mace"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 4
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       },
       {
         "Type": "DiagramCrafting",
         "Categories": [
           "Weapons.Mace"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 4
+        "Id": "Armory"
       }
     ]
   },
@@ -55,7 +50,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -71,7 +66,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -87,7 +82,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 28
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -103,7 +98,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 44
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -125,7 +120,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 44
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -147,7 +142,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 52
+              "MainHand": 2.5
             }
           },
           "EntityStatsOnHit": [
@@ -169,7 +164,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 76
+              "Physical": 146
             }
           },
           "EntityStatsOnHit": [],
@@ -198,10 +193,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Epic"
-    }
   ]
 }

@@ -24,33 +24,29 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 224
+        "Quantity": 24
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 208
+        "Quantity": 8
       },
       {
         "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 280
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 80
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
           "Armor_Chest"
         ],
-        "RequiredTierLevel": 5
+        "RequiredTierLevel": 3
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Chest",
@@ -75,10 +71,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Epic"
-    }
   ]
 }

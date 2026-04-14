@@ -9,24 +9,20 @@
   "Quality": "Epic",
   "ItemLevel": 30,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 132
+        "Quantity": 12
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 124
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 123
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
@@ -35,8 +31,8 @@
         "Categories": [
           "Weapon_Battleaxe"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 2
       }
     ]
   },
@@ -47,7 +43,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 27
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -63,7 +59,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 21
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -79,7 +75,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 21
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -95,7 +91,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Downstrike_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 33
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -117,7 +113,7 @@
           "Parent": "Weapon_Battleaxe_Signature_Whirlwind_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 48
+              "Physical": 18
             }
           },
           "EntityStatsOnHit": [],
@@ -146,10 +142,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Thorium_Epic"
-    }
   ]
 }

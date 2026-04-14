@@ -29,30 +29,28 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 27
+        "Quantity": 7
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 23
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 23
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Hands",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 2
+          "Armor_Hands"
+        ]
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Interactions": {
     "Primary": {
@@ -86,10 +84,5 @@
       "Iron"
     ]
   },
-  "MaxStack": 1,
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Iron_Common"
-    }
-  ]
+  "MaxStack": 1
 }

@@ -12,37 +12,33 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 71
+        "Quantity": 11
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 64
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 64
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Sac_Venom",
-        "Quantity": 62
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
           "Armor_Head"
         ],
-        "RequiredTierLevel": 3
+        "RequiredTierLevel": 2
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Head",
@@ -70,10 +66,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Thorium_Uncommon"
-    }
   ]
 }

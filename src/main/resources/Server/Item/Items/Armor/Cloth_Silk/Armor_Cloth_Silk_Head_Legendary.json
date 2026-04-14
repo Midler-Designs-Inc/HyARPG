@@ -21,36 +21,31 @@
   "Model": "Items/Armors/Silk/Head.blockymodel",
   "Texture": "Items/Armors/Silk/Head_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 203
+        "Quantity": 3
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 202
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 202
-      },
-      {
-        "ItemId": "Legendary_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
           "Armor_Head"
-        ],
-        "RequiredTierLevel": 4
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Head",
@@ -77,10 +72,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Silk_Legendary"
-    }
   ]
 }

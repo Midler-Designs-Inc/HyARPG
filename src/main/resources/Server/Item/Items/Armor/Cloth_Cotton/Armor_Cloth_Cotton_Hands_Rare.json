@@ -21,36 +21,31 @@
   "Model": "Items/Armors/Cotton/Hands.blockymodel",
   "Texture": "Items/Armors/Cotton/Hands_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cotton",
-        "Quantity": 92
+        "Quantity": 2
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 91
+        "Quantity": 1
       },
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 92
-      },
-      {
-        "ItemId": "Rare_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
           "Armor_Hands"
-        ],
-        "RequiredTierLevel": 3
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Hands",
@@ -71,10 +66,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cotton_Rare"
-    }
   ]
 }

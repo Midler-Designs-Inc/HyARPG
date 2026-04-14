@@ -10,31 +10,29 @@
   "Quality": "Common",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 14
+        "Quantity": 4
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 12
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 14
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Battleaxe",
-          "Discoverable"
+          "Weapon_Axe"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       }
     ]
   },
@@ -86,7 +84,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -112,7 +110,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -137,7 +135,7 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Axe": 5
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -175,10 +173,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Common"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

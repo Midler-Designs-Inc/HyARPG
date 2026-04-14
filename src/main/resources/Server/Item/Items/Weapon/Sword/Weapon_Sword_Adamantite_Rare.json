@@ -9,23 +9,19 @@
   "Quality": "Rare",
   "ItemLevel": 40,
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 131
+        "Quantity": 11
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 124
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 123
-      },
-      {
-        "ItemId": "Rare_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
@@ -34,11 +30,11 @@
         "Categories": [
           "Weapon_Sword"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 4
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "InteractionVars": {
     "Swing_Left_Damage": {
@@ -47,7 +43,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 15
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -63,7 +59,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 15
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -79,7 +75,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 20
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -95,7 +91,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 30
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -117,7 +113,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 20
+              "Physical": 29
             }
           },
           "EntityStatsOnHit": [],
@@ -134,7 +130,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 30
+              "Physical": 87
             }
           },
           "EntityStatsOnHit": [],
@@ -163,10 +159,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Rare"
-    }
   ]
 }

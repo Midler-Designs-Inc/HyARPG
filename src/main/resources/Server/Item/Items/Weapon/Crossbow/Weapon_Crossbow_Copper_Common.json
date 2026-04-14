@@ -9,40 +9,36 @@
   "Quality": "Common",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 14
+        "Quantity": 4
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 14
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 16
+        "Quantity": 6
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Bow",
-          "Discoverable"
+          "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       },
       {
         "Type": "DiagramCrafting",
         "Categories": [
-          "Weapons.Bow",
-          "Discoverable"
+          "Weapons.Bow"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Armory"
       }
     ]
   },
@@ -54,7 +50,7 @@
           "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
           "DamageCalculator": {
             "BaseDamage": {
-              "Crossbow": 1
+              "MainHand": 1
             }
           }
         }
@@ -77,10 +73,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Common"
-    }
   ]
 }

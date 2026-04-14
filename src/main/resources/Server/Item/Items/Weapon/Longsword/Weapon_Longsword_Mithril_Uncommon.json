@@ -53,7 +53,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -79,7 +79,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -105,7 +105,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 25
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -121,7 +121,7 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Longsword": 35
+              "MainHand": 2
             },
             "Type": "Absolute"
           },
@@ -160,23 +160,19 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 110
+        "Quantity": 10
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 105
+        "Quantity": 5
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 101
-      },
-      {
-        "ItemId": "Uncommon_Shards",
         "Quantity": 1
       }
     ],
@@ -186,16 +182,11 @@
         "Categories": [
           "Weapon_Sword"
         ],
-        "Id": "Weapon_Bench_HyARPG_HyARPG",
+        "Id": "Weapon_Bench_HyARPG",
         "RequiredTierLevel": 5
       }
     ]
   },
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Uncommon"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

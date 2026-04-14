@@ -9,42 +9,39 @@
   "Quality": "Common",
   "ItemLevel": 30,
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 38
+        "Quantity": 8
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 32
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 33
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Bow",
-          "Discoverable"
+          "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 2
       },
       {
         "Type": "DiagramCrafting",
         "Categories": [
-          "Weapons.Bow",
-          "Discoverable"
+          "Weapons.Bow"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Armory"
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "MaxDurability": 0,
   "InteractionVars": {
@@ -54,7 +51,7 @@
           "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
           "DamageCalculator": {
             "BaseDamage": {
-              "Crossbow": 3
+              "MainHand": 1
             }
           }
         }
@@ -77,10 +74,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Thorium_Common"
-    }
   ]
 }

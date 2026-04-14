@@ -9,40 +9,36 @@
   "Quality": "Common",
   "ItemLevel": 20,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 30
+        "Quantity": 10
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 24
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 23
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Mace",
-          "Discoverable"
+          "Weapon_Mace"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 2
+        "Id": "Weapon_Bench"
       },
       {
         "Type": "DiagramCrafting",
         "Categories": [
-          "Weapons.Mace",
-          "Discoverable"
+          "Weapons.Mace"
         ],
-        "Id": "Armory_HyARPG",
-        "RequiredTierLevel": 2
+        "Id": "Armory"
       }
     ]
   },
@@ -53,7 +49,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 10
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -69,7 +65,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 10
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -85,7 +81,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 14
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -101,7 +97,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 22
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -123,7 +119,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Right_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 22
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -145,7 +141,7 @@
           "Parent": "Weapon_Mace_Primary_Swing_Up_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 26
+              "MainHand": 2.5
             }
           },
           "EntityStatsOnHit": [
@@ -167,7 +163,7 @@
           "Parent": "Weapon_Mace_Signature_Groundslam_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Mace": 38
+              "Physical": 93
             }
           },
           "EntityStatsOnHit": [],
@@ -196,10 +192,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Iron_Common"
-    }
   ]
 }

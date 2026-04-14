@@ -9,23 +9,19 @@
   "Texture": "Items/Weapons/Bow/Mithril_Texture.png",
   "ItemLevel": 50,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 156
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 152
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Voidheart",
-        "Quantity": 151
-      },
-      {
-        "ItemId": "Rare_Shards",
         "Quantity": 1
       }
     ],
@@ -35,8 +31,8 @@
         "Categories": [
           "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 5
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 3
       }
     ]
   },
@@ -47,47 +43,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_0",
           "DamageCalculator": {
             "BaseDamage": {
-              "Shortbow": 20
-            }
-          },
-          "TargetedDamage": {
-            "Head": {
-              "DamageCalculator": {
-                "BaseDamage": {
-                  "Shortbow": 30
-                }
-              },
-              "DamageEffects": {
-                "Knockback": {
-                  "Type": "Force",
-                  "VelocityConfig": {
-                    "AirResistance": 0.99,
-                    "AirResistanceMax": 0.98,
-                    "GroundResistance": 0.94,
-                    "GroundResistanceMax": 0.3,
-                    "Threshold": 3,
-                    "Style": "Linear"
-                  },
-                  "Direction": {
-                    "X": 0,
-                    "Y": 0.5,
-                    "Z": -1
-                  },
-                  "Force": 8,
-                  "VelocityType": "Set"
-                },
-                "WorldParticles": [
-                  {
-                    "SystemId": "Impact_Critical",
-                    "Scale": 1,
-                    "RotationOffset": {
-                      "Yaw": 180,
-                      "Pitch": 0,
-                      "Roll": 0
-                    }
-                  }
-                ]
-              }
+              "MainHand": 1
             }
           }
         }
@@ -99,47 +55,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_1",
           "DamageCalculator": {
             "BaseDamage": {
-              "Shortbow": 30
-            }
-          },
-          "TargetedDamage": {
-            "Head": {
-              "DamageCalculator": {
-                "BaseDamage": {
-                  "Shortbow": 45
-                }
-              },
-              "DamageEffects": {
-                "Knockback": {
-                  "Type": "Force",
-                  "VelocityConfig": {
-                    "AirResistance": 0.99,
-                    "AirResistanceMax": 0.98,
-                    "GroundResistance": 0.94,
-                    "GroundResistanceMax": 0.3,
-                    "Threshold": 3,
-                    "Style": "Linear"
-                  },
-                  "Direction": {
-                    "X": 0,
-                    "Y": 0.5,
-                    "Z": -1
-                  },
-                  "Force": 8,
-                  "VelocityType": "Set"
-                },
-                "WorldParticles": [
-                  {
-                    "SystemId": "Impact_Critical",
-                    "Scale": 1,
-                    "RotationOffset": {
-                      "Yaw": 180,
-                      "Pitch": 0,
-                      "Roll": 0
-                    }
-                  }
-                ]
-              }
+              "MainHand": 1.25
             }
           }
         }
@@ -151,47 +67,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_2",
           "DamageCalculator": {
             "BaseDamage": {
-              "Shortbow": 40
-            }
-          },
-          "TargetedDamage": {
-            "Head": {
-              "DamageCalculator": {
-                "BaseDamage": {
-                  "Shortbow": 60
-                }
-              },
-              "DamageEffects": {
-                "Knockback": {
-                  "Type": "Force",
-                  "VelocityConfig": {
-                    "AirResistance": 0.99,
-                    "AirResistanceMax": 0.98,
-                    "GroundResistance": 0.94,
-                    "GroundResistanceMax": 0.3,
-                    "Threshold": 3,
-                    "Style": "Linear"
-                  },
-                  "Direction": {
-                    "X": 0,
-                    "Y": 0.5,
-                    "Z": -1
-                  },
-                  "Force": 8,
-                  "VelocityType": "Set"
-                },
-                "WorldParticles": [
-                  {
-                    "SystemId": "Impact_Critical",
-                    "Scale": 1,
-                    "RotationOffset": {
-                      "Yaw": 180,
-                      "Pitch": 0,
-                      "Roll": 0
-                    }
-                  }
-                ]
-              }
+              "MainHand": 1.5
             }
           }
         }
@@ -203,47 +79,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_3",
           "DamageCalculator": {
             "BaseDamage": {
-              "Shortbow": 50
-            }
-          },
-          "TargetedDamage": {
-            "Head": {
-              "DamageCalculator": {
-                "BaseDamage": {
-                  "Shortbow": 75
-                }
-              },
-              "DamageEffects": {
-                "Knockback": {
-                  "Type": "Force",
-                  "VelocityConfig": {
-                    "AirResistance": 0.99,
-                    "AirResistanceMax": 0.98,
-                    "GroundResistance": 0.94,
-                    "GroundResistanceMax": 0.3,
-                    "Threshold": 3,
-                    "Style": "Linear"
-                  },
-                  "Direction": {
-                    "X": 0,
-                    "Y": 0.5,
-                    "Z": -1
-                  },
-                  "Force": 8,
-                  "VelocityType": "Set"
-                },
-                "WorldParticles": [
-                  {
-                    "SystemId": "Impact_Critical",
-                    "Scale": 1,
-                    "RotationOffset": {
-                      "Yaw": 180,
-                      "Pitch": 0,
-                      "Roll": 0
-                    }
-                  }
-                ]
-              }
+              "MainHand": 1.75
             }
           }
         }
@@ -255,47 +91,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_4",
           "DamageCalculator": {
             "BaseDamage": {
-              "Shortbow": 60
-            }
-          },
-          "TargetedDamage": {
-            "Head": {
-              "DamageCalculator": {
-                "BaseDamage": {
-                  "Shortbow": 90
-                }
-              },
-              "DamageEffects": {
-                "Knockback": {
-                  "Type": "Force",
-                  "VelocityConfig": {
-                    "AirResistance": 0.99,
-                    "AirResistanceMax": 0.98,
-                    "GroundResistance": 0.94,
-                    "GroundResistanceMax": 0.3,
-                    "Threshold": 3,
-                    "Style": "Linear"
-                  },
-                  "Direction": {
-                    "X": 0,
-                    "Y": 0.5,
-                    "Z": -1
-                  },
-                  "Force": 8,
-                  "VelocityType": "Set"
-                },
-                "WorldParticles": [
-                  {
-                    "SystemId": "Impact_Critical",
-                    "Scale": 1,
-                    "RotationOffset": {
-                      "Yaw": 180,
-                      "Pitch": 0,
-                      "Roll": 0
-                    }
-                  }
-                ]
-              }
+              "MainHand": 2
             }
           }
         }
@@ -331,10 +127,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Mithril_Rare"
-    }
   ]
 }

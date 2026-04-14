@@ -9,20 +9,20 @@
   "Quality": "Common",
   "ItemLevel": 7,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 13
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 10
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 11
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -31,7 +31,6 @@
         "Type": "Crafting",
         "Categories": [
           "Tools",
-          "Discoverable",
           "Discoverable"
         ]
       },
@@ -39,8 +38,7 @@
         "Id": "Workbench",
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival",
-          "Discoverable"
+          "Workbench_Survival"
         ]
       }
     ]
@@ -89,7 +87,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 7
+              "MainHand": 1
             }
           }
         }
@@ -105,7 +103,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 7
+              "MainHand": 1
             }
           }
         }
@@ -121,7 +119,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 9
+              "MainHand": 1.5
             }
           }
         }
@@ -137,7 +135,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 11
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -170,7 +168,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 16
+              "Physical": 9
             }
           },
           "EntityStatsOnHit": []
@@ -199,10 +197,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Crude_Common"
-    }
   ]
 }

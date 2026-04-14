@@ -45,7 +45,7 @@
           "Parent": "Weapon_Kunai_Primary_Hit_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Kunai": 6
+              "OffHand": 1
             }
           }
         }
@@ -58,14 +58,13 @@
     ]
   },
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "BenchRequirement": [
       {
-        "Id": "Weapon_Bench_HyARPG",
+        "Id": "Weapon_Bench",
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Daggers",
-          "Discoverable"
+          "Weapon_Daggers"
         ],
         "RequiredTierLevel": 3
       }
@@ -73,24 +72,19 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 36
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 32
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
-        "Quantity": 33
+        "Quantity": 3
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "MaxDurability": 0,
-  "MaxStack": 1,
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Thorium_Common"
-    }
-  ]
+  "MaxStack": 1
 }

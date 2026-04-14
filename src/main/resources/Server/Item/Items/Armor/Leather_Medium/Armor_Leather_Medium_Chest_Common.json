@@ -21,33 +21,31 @@
   "Model": "Items/Armors/Leather_Medium/Chest.blockymodel",
   "Texture": "Items/Armors/Leather_Medium/Chest_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 36
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 32
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 32
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Chest",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 3
+          "Armor_Chest"
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Chest",
@@ -71,10 +69,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Leather_Medium_Common"
-    }
   ]
 }

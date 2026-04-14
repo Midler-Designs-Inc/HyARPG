@@ -12,24 +12,24 @@
   "Model": "Items/Weapons/Axe/Crude.blockymodel",
   "Texture": "Items/Weapons/Axe/Crude_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 7
+        "Quantity": 2
       },
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 8
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 8
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Tree_Sap",
-        "Quantity": 7
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
@@ -37,16 +37,14 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "Tools"
         ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival",
-          "Discoverable"
+          "Workbench_Survival"
         ]
       }
     ]
@@ -97,7 +95,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -123,7 +121,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 5
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -148,7 +146,7 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Axe": 5
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -186,10 +184,5 @@
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxDurability": 0,
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Crude_Common"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

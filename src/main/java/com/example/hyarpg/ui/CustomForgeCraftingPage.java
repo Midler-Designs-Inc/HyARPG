@@ -106,9 +106,9 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         "Battleaxe", "Claws", "Daggers", "Longsword", "Mace", "Scythe", "Sickles",
         "Crossbow", "Kunai", "Longbow", "Shortbow",
         "Spellbook", "Staff", "Wand",
-        "Helmet", "Chest", "Gloves", "Pants",
-        "Helmet", "Chest", "Gloves", "Pants",
-        "Helmet", "Chest", "Gloves", "Pants"
+        "Metal Helmet", "Metal Chest", "Metal Gloves", "Metal Pants",
+        "Leather Hood", "Leather Vest", "Leather Gloves", "Leather Pants",
+        "Cloth Hood", "Cloth Tunic", "Cloth Gloves", "Cloth Pants"
     };
 
     // containers backing the input and output item slots
@@ -158,7 +158,25 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         // magic weapons
         Map.entry("Spellbook", List.of("Book Binding", "Book Pages", "Magic Core", "Shard")),
         Map.entry("Staff",     List.of("Staff Head", "Shaft", "Magic Core", "Shard")),
-        Map.entry("Wand",      List.of("Wand Body", "Handle", "Magic Core", "Shard"))
+        Map.entry("Wand",      List.of("Wand Body", "Handle", "Magic Core", "Shard")),
+
+        // metal armor
+        Map.entry("Metal Helmet",    List.of("Metal Helmet Shell", "Straps & Buckles", "Liner", "Shard")),
+        Map.entry("Metal Chest",   List.of("Metal Chest Shell", "Straps & Buckles", "Liner", "Shard")),
+        Map.entry("Metal Gloves",  List.of("Metal Gloves Shell", "Straps & Buckles", "Liner", "Shard")),
+        Map.entry("Metal Pants",   List.of("Metal Pants Shell", "Straps & Buckles", "Liner", "Shard")),
+
+        // leather armor
+        Map.entry("Leather Hood",     List.of("Leather Hood Panel", "Straps & Buckles", "Stitching", "Shard")),
+        Map.entry("Leather Vest",    List.of("Leather Vest Panel", "Straps & Buckles", "Stitching", "Shard")),
+        Map.entry("Leather Gloves",   List.of("Leather Glove Panel", "Straps & Buckles", "Stitching", "Shard")),
+        Map.entry("Leather Pants",    List.of("Leather Pants Panel", "Straps & Buckles", "Stitching", "Shard")),
+
+        // cloth armor
+        Map.entry("Cloth Hood",    List.of("Cloth Hood Panel", "Stitching", "Embellishments", "Shard")),
+        Map.entry("Cloth Tunic",   List.of("Cloth Tunic Panel", "Stitching", "Embellishments", "Shard")),
+        Map.entry("Cloth Gloves",  List.of("Cloth Glove Panel", "Stitching", "Embellishments", "Shard")),
+        Map.entry("Cloth Pants",   List.of("Cloth Pants Panel", "Stitching", "Embellishments", "Shard"))
     );
 
     public CustomForgeCraftingPage(@Nonnull PlayerRef playerRef) {

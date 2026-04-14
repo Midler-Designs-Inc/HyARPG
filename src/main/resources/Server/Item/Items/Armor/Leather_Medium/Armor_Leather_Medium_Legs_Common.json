@@ -21,33 +21,31 @@
   "Model": "Items/Armors/Leather_Medium/Legs.blockymodel",
   "Texture": "Items/Armors/Leather_Medium/Legs_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 34
+        "Quantity": 4
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 32
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 32
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Legs",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 3
+          "Armor_Legs"
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Legs",
@@ -72,10 +70,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Leather_Medium_Common"
-    }
   ]
 }

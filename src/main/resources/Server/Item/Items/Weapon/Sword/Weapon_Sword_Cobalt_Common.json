@@ -9,31 +9,30 @@
   "Quality": "Common",
   "ItemLevel": 35,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 45
+        "Quantity": 10
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 38
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 38
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Sword",
-          "Discoverable"
+          "Weapon_Sword"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 2
       }
     ]
   },
@@ -44,7 +43,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 15
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -60,7 +59,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 15
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -76,7 +75,7 @@
           "Parent": "Weapon_Sword_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 20
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -92,7 +91,7 @@
           "Parent": "Weapon_Sword_Primary_Thrust_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 30
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -114,7 +113,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Spin_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 20
+              "Physical": 23
             }
           },
           "EntityStatsOnHit": [],
@@ -131,7 +130,7 @@
           "Parent": "Weapon_Sword_Signature_Vortexstrike_Stab_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 30
+              "Physical": 70
             }
           },
           "EntityStatsOnHit": [],
@@ -160,10 +159,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cobalt_Common"
-    }
   ]
 }

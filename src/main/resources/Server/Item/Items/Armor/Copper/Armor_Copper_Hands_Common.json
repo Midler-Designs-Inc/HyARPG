@@ -23,26 +23,24 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 15
+        "Quantity": 5
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 11
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Hands",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 1
+          "Armor_Hands"
+        ]
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Hands",
@@ -65,10 +63,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Common"
-    }
   ]
 }

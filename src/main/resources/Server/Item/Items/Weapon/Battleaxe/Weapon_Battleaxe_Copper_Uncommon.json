@@ -9,24 +9,20 @@
   "Quality": "Uncommon",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 26
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 26
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 24
-      },
-      {
-        "ItemId": "Uncommon_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -35,8 +31,7 @@
         "Categories": [
           "Weapon_Battleaxe"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       }
     ]
   },
@@ -47,7 +42,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 9
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -63,7 +58,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Left_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 7
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -79,7 +74,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Swing_Down_Right_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 7
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -95,7 +90,7 @@
           "Parent": "Weapon_Battleaxe_Primary_Downstrike_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 11
+              "MainHand": 2
             }
           },
           "EntityStatsOnHit": [
@@ -117,7 +112,7 @@
           "Parent": "Weapon_Battleaxe_Signature_Whirlwind_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Battleaxe": 16
+              "Physical": 11
             }
           },
           "EntityStatsOnHit": [],
@@ -146,10 +141,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Uncommon"
-    }
   ]
 }

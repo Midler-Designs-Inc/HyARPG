@@ -10,34 +10,30 @@
   "Quality": "Legendary",
   "ItemLevel": 35,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 179
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
-        "Quantity": 178
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 179
-      },
-      {
-        "ItemId": "Legendary_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Battleaxe"
+          "Weapon_Axe"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 3
+        "Id": "Weapon_Bench",
+        "RequiredTierLevel": 2
       }
     ]
   },
@@ -89,7 +85,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -115,7 +111,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Axe": 20
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -140,7 +136,7 @@
           "Parent": "Axe_Swing_Left_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Axe": 20
+              "MainHand": 1.5
             },
             "Type": "Absolute"
           },
@@ -178,10 +174,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blunt_Small",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cobalt_Legendary"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

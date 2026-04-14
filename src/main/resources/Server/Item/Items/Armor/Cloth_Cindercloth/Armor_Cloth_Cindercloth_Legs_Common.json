@@ -21,33 +21,31 @@
   "Model": "Items/Armors/Cindercloth/Legs.blockymodel",
   "Texture": "Items/Armors/Cindercloth/Legs_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 54
+        "Quantity": 4
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 52
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 53
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Legs",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 5
+          "Armor_Legs"
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Legs",
@@ -69,10 +67,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Cindercloth_Common"
-    }
   ]
 }

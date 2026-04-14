@@ -24,30 +24,29 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 62
+        "Quantity": 22
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 47
+        "Quantity": 7
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 46
+        "Quantity": 6
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Legs",
-          "Discoverable"
+          "Armor_Legs"
         ],
-        "RequiredTierLevel": 4
+        "RequiredTierLevel": 3
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Legs",
@@ -74,10 +73,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Common"
-    }
   ]
 }

@@ -23,29 +23,24 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 55
+        "Quantity": 5
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 51
-      },
-      {
-        "ItemId": "Legendary_Shards",
         "Quantity": 1
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Armor_Bench_HyARPG",
+        "Id": "Armor_Bench",
         "Type": "Crafting",
         "Categories": [
           "Armor_Hands"
-        ],
-        "RequiredTierLevel": 1
+        ]
       }
     ],
-    "KnowledgeRequired": true,
-    "TimeSeconds": 0
+    "KnowledgeRequired": false,
+    "TimeSeconds": 2
   },
   "Armor": {
     "ArmorSlot": "Hands",
@@ -68,10 +63,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Legendary"
-    }
   ]
 }

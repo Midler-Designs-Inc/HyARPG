@@ -20,36 +20,31 @@
   "Model": "Items/Armors/Leather_Raven/Chest.blockymodel",
   "Texture": "Items/Armors/Leather_Raven/Chest_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 156
+        "Quantity": 6
       },
       {
         "ItemId": "Ingredient_Feathers_Dark",
-        "Quantity": 153
+        "Quantity": 3
       },
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 153
-      },
-      {
-        "ItemId": "Rare_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
           "Armor_Chest"
-        ],
-        "RequiredTierLevel": 5
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Chest",
@@ -74,10 +69,5 @@
   "Categories": [
     "Items.HyARPG.Gear"
   ],
-  "Quality": "Rare",
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Leather_Raven_Rare"
-    }
-  ]
+  "Quality": "Rare"
 }

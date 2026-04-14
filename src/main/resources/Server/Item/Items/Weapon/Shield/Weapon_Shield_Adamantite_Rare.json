@@ -9,24 +9,20 @@
   "Quality": "Rare",
   "ItemLevel": 40,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 128
+        "Quantity": 8
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 124
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 123
-      },
-      {
-        "ItemId": "Rare_Shards",
-        "Quantity": 1
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
@@ -35,8 +31,8 @@
         "Categories": [
           "Weapon_Shield"
         ],
-        "RequiredTierLevel": 4,
-        "Id": "Armor_Bench_HyARPG"
+        "RequiredTierLevel": 3,
+        "Id": "Armor_Bench"
       }
     ]
   },
@@ -58,10 +54,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Rare"
-    }
   ]
 }

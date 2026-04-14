@@ -9,31 +9,30 @@
   "Quality": "Common",
   "ItemLevel": 40,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 48
+        "Quantity": 8
       },
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 44
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-        "Quantity": 43
+        "Quantity": 3
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Shield",
-          "Discoverable"
+          "Weapon_Shield"
         ],
-        "RequiredTierLevel": 4,
-        "Id": "Armor_Bench_HyARPG"
+        "RequiredTierLevel": 3,
+        "Id": "Armor_Bench"
       }
     ]
   },
@@ -55,10 +54,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Adamantite_Common"
-    }
   ]
 }

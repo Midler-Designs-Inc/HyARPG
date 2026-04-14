@@ -10,24 +10,20 @@
   "Quality": "Epic",
   "ItemLevel": 3,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ResourceTypeId": "Rubble",
-        "Quantity": 14
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 14
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Epic_Shards",
-        "Quantity": 1
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
@@ -94,7 +90,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 3
+              "MainHand": 1
             }
           }
         }
@@ -110,7 +106,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 3
+              "MainHand": 1
             }
           }
         }
@@ -126,7 +122,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 4
+              "MainHand": 1.5
             }
           }
         }
@@ -153,7 +149,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 6
+              "MainHand": 1.5
             }
           },
           "EntityStatsOnHit": [
@@ -175,7 +171,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 4
+              "Physical": 12
             }
           },
           "EntityStatsOnHit": []
@@ -192,7 +188,7 @@
           },
           "DamageCalculator": {
             "BaseDamage": {
-              "Sword": 6
+              "Physical": 35
             }
           },
           "EntityStatsOnHit": []
@@ -224,10 +220,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Crude_Epic"
-    }
   ]
 }

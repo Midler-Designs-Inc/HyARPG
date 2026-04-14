@@ -21,33 +21,31 @@
   "Model": "Items/Armors/Leather_Light/Hands.blockymodel",
   "Texture": "Items/Armors/Leather_Light/Hands_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
+    "TimeSeconds": 2,
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Wool",
-        "Quantity": 12
+        "Quantity": 2
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 11
+        "Quantity": 1
       },
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 12
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
       {
-        "Id": "Leatherworking_Bench_HyARPG",
+        "Id": "TODO",
         "Type": "Crafting",
         "Categories": [
-          "Armor_Hands",
-          "Discoverable"
-        ],
-        "RequiredTierLevel": 1
+          "Armor_Hands"
+        ]
       }
     ],
-    "KnowledgeRequired": true
+    "KnowledgeRequired": false
   },
   "Armor": {
     "ArmorSlot": "Hands",
@@ -68,10 +66,5 @@
   "MaxStack": 1,
   "Categories": [
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Wool_Common"
-    }
   ]
 }

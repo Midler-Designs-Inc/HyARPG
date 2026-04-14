@@ -12,34 +12,29 @@
   "Model": "Items/Weapons/Longsword/Copper.blockymodel",
   "Texture": "Items/Weapons/Longsword/Copper_Texture.png",
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 56
+        "Quantity": 6
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 52
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 54
-      },
-      {
-        "ItemId": "Legendary_Shards",
-        "Quantity": 1
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Sword"
+          "Weapon_Longsword"
         ],
-        "Id": "Weapon_Bench_HyARPG",
-        "RequiredTierLevel": 1
+        "Id": "Weapon_Bench"
       }
     ]
   },
@@ -86,7 +81,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -112,7 +107,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 4
+              "MainHand": 1
             }
           },
           "DamageEffects": {
@@ -138,7 +133,7 @@
           "DamageCalculator": {
             "Type": "Absolute",
             "BaseDamage": {
-              "Longsword": 5
+              "MainHand": 1.5
             }
           },
           "DamageEffects": {
@@ -154,7 +149,7 @@
           "Parent": "Longsword_Stab_Charged_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Longsword": 7
+              "MainHand": 2
             },
             "Type": "Absolute"
           },
@@ -192,10 +187,5 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
   "MaxStack": 1,
-  "ItemAppearanceConditions": {},
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Copper_Legendary"
-    }
-  ]
+  "ItemAppearanceConditions": {}
 }

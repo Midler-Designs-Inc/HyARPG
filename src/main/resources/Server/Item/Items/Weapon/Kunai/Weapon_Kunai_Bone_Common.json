@@ -45,7 +45,7 @@
           "Parent": "Weapon_Kunai_Primary_Hit_Damage",
           "DamageCalculator": {
             "BaseDamage": {
-              "Kunai": 1
+              "OffHand": 1
             }
           }
         }
@@ -58,20 +58,20 @@
     ]
   },
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
-        "Quantity": 5,
+        "Quantity": 2,
         "ItemId": "Ingredient_Bone_Fragment"
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 5
+        "Quantity": 2
       },
       {
         "ItemId": "Ingredient_Stick",
-        "Quantity": 5
+        "Quantity": 2
       }
     ],
     "BenchRequirement": [
@@ -79,25 +79,18 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "Tools"
         ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival",
-          "Discoverable"
+          "Workbench_Survival"
         ]
       }
     ]
   },
   "MaxDurability": 0,
-  "MaxStack": 1,
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Bone_Common"
-    }
-  ]
+  "MaxStack": 1
 }

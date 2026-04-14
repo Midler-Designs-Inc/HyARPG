@@ -9,20 +9,20 @@
   "Quality": "Common",
   "ItemLevel": 5,
   "Recipe": {
-    "TimeSeconds": 0,
-    "KnowledgeRequired": true,
+    "TimeSeconds": 2,
+    "KnowledgeRequired": false,
     "Input": [
       {
-        "Quantity": 11,
+        "Quantity": 6,
         "ResourceTypeId": "Wood_Trunk"
       },
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 9
+        "Quantity": 4
       },
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 6
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -30,16 +30,14 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "Tools"
         ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival",
-          "Discoverable"
+          "Workbench_Survival"
         ]
       }
     ]
@@ -50,10 +48,5 @@
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"
-  ],
-  "ResourceTypes": [
-    {
-      "Id": "Gear_Wood_Common"
-    }
   ]
 }

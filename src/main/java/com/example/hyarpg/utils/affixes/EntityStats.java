@@ -163,6 +163,27 @@ public final class EntityStats {
         return getRaw(StatType.AMMO_REGEN_PERCENT);
     }
 
+    // Leech
+    public float getLeech(String resource) {
+        if (resource == null) return 0f;
+        return switch (resource) {
+            case "Life"    -> getRaw(StatType.LIFE_LEECH_PERCENT);
+            case "Mana"    -> getRaw(StatType.MANA_LEECH_PERCENT);
+            case "Stamina" -> getRaw(StatType.STAMINA_LEECH_PERCENT);
+            default -> 0f;
+        };
+    }
+
+    // Damage taken from
+    public float getDamageTakenFrom(String resource) {
+        if (resource == null) return 0f;
+        return switch (resource) {
+            case "Mana"    -> getRaw(StatType.DAMAGE_TAKEN_FROM_MANA_PERCENT);
+            case "Stamina" -> getRaw(StatType.DAMAGE_TAKEN_FROM_STAMINA_PERCENT);
+            default -> 0f;
+        };
+    }
+
     /* Utility */
     public float getDodgeChance() {
         return clamp(getRaw(StatType.DODGE_CHANCE_PERCENT), MAX_DODGE);

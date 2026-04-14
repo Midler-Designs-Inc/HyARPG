@@ -26,8 +26,8 @@ $Common = "../../Common.ui";
                 LayoutMode: Center;
 
                 Group #OutputSlot {
-                Anchor: (Width: 74, Height: 74);
-                Background: @OutputSlotBackground;
+                    Anchor: (Width: 74, Height: 74);
+                    Background: @OutputSlotBackground;
 
                     ItemSlot #OutputItem {
                         Anchor: (Width: 64, Height: 64);
@@ -37,42 +37,53 @@ $Common = "../../Common.ui";
                 }
             }
 
-            Group {
-                LayoutMode: Left;
-                Anchor: (Horizontal: 8, Top: 12);
+           // weapon stats — only visible when output slot has an item
+           Group #WeaponStats {
+               Visible: false;
+               LayoutMode: Top;
+               Anchor: (Horizontal: 8, Top: 10);
 
-                Label #WeaponDamage { Text: ""; Style: (FontSize: 17, RenderBold: true, TextColor: #bca57a); }
-                Label #WeaponDPS { Anchor: (Left: 4); Text: ""; Style: (FontSize: 10, TextColor: #5f5440, VerticalAlignment: End); Padding: (Bottom: 2); }
-                Group { FlexWeight: 1; }
-                Label #WeaponSpeed { Style: (FontSize: 10, TextColor: #5f5440, VerticalAlignment: End); Padding: (Bottom: 2); }
-            }
+               // separator
+               Group {
+                   Background: #9c8863(0.2);
+                   Anchor: (Height: 1, Bottom: 6);
+               }
 
-            Group {
-                Background: #9c8863(0.1);
-                Anchor: (Height: 1, Horizontal: 8, Top: 6);
-            }
+               // weapon type and hand requirement e.g. "Axe (1H)"
+               Label #WeaponType {
+                   Anchor: (Top: 6);
+                   Style: (FontSize: 11, TextColor: #ffffff, RenderBold: true, RenderUppercase: true);
+               }
 
-            Group {
-                LayoutMode: Left;
-                Anchor: (Horizontal: 8, Top: 6);
-                Label #WeaponType { Style: (FontSize: 10, TextColor: #a8946f); }
-                Group { FlexWeight: 1; }
-                Label #WeaponRating { Style: (FontSize: 10, TextColor: #a8946f); }
-            }
+               // base weapon damage from primary slot e.g. "5 Physical Damage"
+               Label #WeaponDamage {
+                   Anchor: (Top: 2);
+                   Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true);
+               }
 
-            Label #Description {
-                Anchor: (Horizontal: 8, Top: 6);
-                FlexWeight: 1;
-                Style: (FontSize: 10, TextColor: #696969, Wrap: true, RenderItalics: true);
-            }
+               // separator before implicits
+               Group {
+                   Background: #9c8863(0.1);
+                   Anchor: (Height: 1, Top: 8, Bottom: 4);
+               }
 
-            Group { FlexWeight: 1; }
+               // implicit stat lines — max 5 (slot 0 remaining + slot 1 + slot 2)
+               Label #ImplicitLine1 { Anchor: (Top: 4); Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); }
+               Label #ImplicitLine2 { Anchor: (Top: 3); Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); }
+               Label #ImplicitLine3 { Anchor: (Top: 3); Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); }
+               Label #ImplicitLine4 { Anchor: (Top: 3); Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); }
+               Label #ImplicitLine5 { Anchor: (Top: 3); Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); }
+               Label #ImplicitLine5Empty { Anchor: (Top: 3); Style: (FontSize: 12, TextColor: #8a9bb0, Wrap: true); }
+               Label #AffixCount { Anchor: (Top: 3); Style: (FontSize: 12, TextColor: #bca57a, Wrap: true, RenderBold: true); }
+           }
 
-            $Common.@TextButton #CraftButton {
-                @Text = "CRAFT";
-                @Anchor = (Horizontal: 8, Bottom: 8);
-                Disabled: true;
-            }
+           Group { FlexWeight: 1; }
+
+           $Common.@TextButton #CraftButton {
+               @Text = "CRAFT";
+               @Anchor = (Horizontal: 8, Bottom: 8);
+               Disabled: true;
+           }
 
             Group #ProgressBarContainer {
                 Anchor: (Height: 4, Horizontal: 8, Bottom: 8);

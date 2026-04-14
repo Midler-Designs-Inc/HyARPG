@@ -64,14 +64,19 @@
     },
     "Particles": [
       {
-        "SystemId": "Light_Well_Beam",
+        "SystemId": "Light_Well_Square",
+        "DetachedFromModel": false,
         "TargetEntityPart": "Entity",
         "TargetNodeName": "Foundation",
-        "Scale": 0.8
+        "PositionOffset": {
+          "Y": 0.2,
+          "Z": -0.1
+        }
       },
       {
-        "SystemId": "Light_Well_Square",
-        "DetachedFromModel": false
+        "SystemId": "Light_Well_Beam",
+        "TargetEntityPart": "Entity",
+        "TargetNodeName": "Foundation"
       }
     ],
     "CustomModelAnimation": "Items/Crystal_Font/Crystal_Rotation.blockyanim",

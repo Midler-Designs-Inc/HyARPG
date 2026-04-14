@@ -14,13 +14,18 @@ import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.item.config.CraftingRecipe;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerConfigData;
 import com.hypixel.hytale.server.core.inventory.MaterialQuantity;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.NotificationUtil;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 // Java Imports
 import java.util.*;
+
+import static com.hypixel.hytale.builtin.crafting.CraftingPlugin.sendKnownRecipes;
 
 public class Component_CraftingKnowledge implements Component<EntityStore> {
     // Recipe lists the player has discovered
@@ -149,26 +154,17 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
 
         // loop over all recipes
         List<CraftingRecipe> recipes = new ArrayList<>(
-                CraftingRecipe.getAssetMap().getAssetMap().values()
+            CraftingRecipe.getAssetMap().getAssetMap().values()
         );
         for (CraftingRecipe recipe : recipes) {
             try {
                 // check if the recipe has bench reqs and bail if not
                 BenchRequirement[] requirements = recipe.getBenchRequirement();
-                if (requirements == null) continue;
+                if (!recipe.isKnowledgeRequired() || requirements == null) continue;
 
-                // check if this recipe is discoverable
-                boolean isHyARPGRecipe = false;
-                for (BenchRequirement req : requirements) {
-                    if(req.categories == null) continue;
-                    for (String category : req.categories) {
-                        if (Objects.equals(category, "Discoverable")) {
-                            isHyARPGRecipe = true;
-                            break;
-                        }
-                    }
-                }
-                if (!isHyARPGRecipe) continue;
+                // check if this recipe is a component
+                boolean isDiscoverableComponent = recipe.getId().contains("Weapon_Component") || recipe.getId().contains("Armor_Component");
+                if (!isDiscoverableComponent) continue;
 
                 // skip if player already knows this recipe
                 String recipeId = recipe.getId().replace("_Recipe_Generated_0", "");
@@ -201,7 +197,6 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
 
                 // check if player knows ALL ingredients for this recipe
                 boolean knowsAllIngredients = true;
-                String ingr = "";
                 for (MaterialQuantity input : recipe.getInput()) {
                     String ingrID = input.getItemId();
                     String ingrTypeID = input.getResourceTypeId();
@@ -212,17 +207,11 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
                             knowsAllIngredients = false;
                             break;
                         }
-                        else {
-                            ingr += ingrID + ", ";
-                        }
                     }
                     else if (ingrTypeID != null) {
                         if (!discoveredItems.contains(ingrTypeID)) {
                             knowsAllIngredients = false;
                             break;
-                        }
-                        else {
-                            ingr += ingrTypeID + ", ";
                         }
                     }
                 }
@@ -247,13 +236,30 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
         }
     }
 
-    // reset discovered items
+    // reset discovered lists
     public void resetDiscoveredItems() {
         // clear the discovered items list
         discoveredItems.clear();
 
         // update the serialized value of discovered map
         discoveredItemsRaw = String.join(",", discoveredItems);
+    }
+    public void resetDiscoveredRecipes(Ref<EntityStore> ref) {
+        // get player refs
+        Player playerComponent = ref.getStore().getComponent(ref, Player.getComponentType());
+        PlayerConfigData playerConfigData = playerComponent.getPlayerConfigData();
+        Set<String> knownRecipes = new ObjectOpenHashSet(playerConfigData.getKnownRecipes());
+
+        // remove the recipes form the player data
+        for (String itemId : discoveredDroppableRecipes) knownRecipes.remove(itemId);
+        playerConfigData.setKnownRecipes(knownRecipes);
+        sendKnownRecipes(ref, ref.getStore());
+
+        // clear the discovered items list from mod component
+        discoveredDroppableRecipes.clear();
+
+        // update the serialized value of discovered map to mod component
+        discoveredDroppableRecipesRaw = String.join(",", discoveredDroppableRecipes);
     }
 
     // required for Hytale ECS system

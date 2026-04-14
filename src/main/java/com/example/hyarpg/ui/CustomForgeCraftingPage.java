@@ -1,6 +1,10 @@
 package com.example.hyarpg.ui;
 
 // Hytale Imports
+import com.example.hyarpg.components.Component_RPG_Player;
+import com.example.hyarpg.utils.StatTypeInfo;
+import com.example.hyarpg.utils.affixes.StatType;
+import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
@@ -24,17 +28,33 @@ import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import org.bson.BsonDocument;
+import org.bson.BsonValue;
 
 // Java Imports
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.awt.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.hyarpg.modules.Module_RPGSystem.componentTypeRPGPlayer;
+
 public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForgeCraftingPage.PageData> implements ItemContainerWindow {
+
+    // cache of item id to raw CraftingComponent bson document — populated lazily, never changes at runtime
+    private static final Map<String, BsonDocument> CRAFTING_COMPONENT_CACHE = new java.util.concurrent.ConcurrentHashMap<>();
+
+    // known shard item ids — identified by asset id rather than CraftingComponent block
+    private static final java.util.Set<String> SHARD_IDS = java.util.Set.of(
+        "Uncommon_Shards", "Rare_Shards", "Epic_Shards", "Legendary_Shards"
+    );
 
     // category tab id constants
     public static final String CAT_1H = "1h";
@@ -114,31 +134,31 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
     // maps each item sub-category name to the set of component types valid in slots 1-4
     private static final Map<String, List<String>> ALLOWED_COMPONENTS = Map.ofEntries(
         // 1H weapons
-        Map.entry("Axe",       List.of("AxeHead", "Shaft", "Handle", "Shard")),
-        Map.entry("Club",      List.of("ClubHead", "Shaft", "Handle", "Shard")),
-        Map.entry("Shield",    List.of("ShieldFrame", "ShieldBody", "ShieldCore", "Shard")),
-        Map.entry("Spear",     List.of("DiamondBlade", "Shaft", "Handle", "Shard")),
-        Map.entry("Sword",     List.of("ShortBlade", "Hilt", "Handle", "Shard")),
+        Map.entry("Axe",       List.of("Axe Head", "Shaft", "Handle", "Shard")),
+        Map.entry("Club",      List.of("Club Head", "Shaft", "Handle", "Shard")),
+        Map.entry("Shield",    List.of("Shield Frame", "Shield Body", "Shield Core", "Shard")),
+        Map.entry("Spear",     List.of("Spear Head", "Shaft", "Handle", "Shard")),
+        Map.entry("Sword",     List.of("Blade", "Hilt", "Handle", "Shard")),
 
         // 2H weapons
-        Map.entry("Battleaxe", List.of("BattleaxeHead", "Shaft", "Handle", "Shard")),
-        Map.entry("Claws",     List.of("ProngedBlade", "Hilt", "Handle", "Shard")),
-        Map.entry("Daggers",   List.of("DiamondBlade", "Hilt", "Handle", "Shard")),
-        Map.entry("Longsword", List.of("LongBlade", "Hilt", "Handle", "Shard")),
-        Map.entry("Mace",      List.of("MaceHead", "Shaft", "Handle", "Shard")),
-        Map.entry("Scythe",    List.of("CurvedBlade", "Shaft", "Handle", "Shard")),
-        Map.entry("Sickles",   List.of("CurvedBlade", "Shaft", "Handle", "Shard")),
+        Map.entry("Battleaxe", List.of("Battleaxe Head", "Shaft", "Handle", "Shard")),
+        Map.entry("Claws",     List.of("Claw Blades", "Hilt", "Handle", "Shard")),
+        Map.entry("Daggers",   List.of("Short Blade", "Hilt", "Handle", "Shard")),
+        Map.entry("Longsword", List.of("Long Blade", "Hilt", "Handle", "Shard")),
+        Map.entry("Mace",      List.of("Mace Head", "Shaft", "Handle", "Shard")),
+        Map.entry("Scythe",    List.of("Scythe Blade", "Shaft", "Handle", "Shard")),
+        Map.entry("Sickles",   List.of("Curved Blade", "Shaft", "Handle", "Shard")),
 
         // ranged weapons
-        Map.entry("Crossbow",  List.of("CrossbowHead", "String", "CrossbowStock", "Shard")),
-        Map.entry("Kunai",     List.of("DiamondBlade", "Hilt", "Handle", "Shard")),
-        Map.entry("Longbow",   List.of("LongbowBody", "String", "Handle", "Shard")),
-        Map.entry("Shortbow",  List.of("ShortbowBody", "String", "Handle", "Shard")),
+        Map.entry("Crossbow",  List.of("Crossbow Head", "String", "Crossbow Stock", "Shard")),
+        Map.entry("Kunai",     List.of("Kunai Blade", "Hilt", "Handle", "Shard")),
+        Map.entry("Longbow",   List.of("Longbow Body", "String", "Handle", "Shard")),
+        Map.entry("Shortbow",  List.of("Shortbow Body", "String", "Handle", "Shard")),
 
         // magic weapons
-        Map.entry("Spellbook", List.of("MagicCore", "BookBinding", "BookPages", "Shard")),
-        Map.entry("Staff",     List.of("MagicCore", "StaffHead", "Shaft", "Shard")),
-        Map.entry("Wand",      List.of("MagicCore", "Shaft", "Handle", "Shard"))
+        Map.entry("Spellbook", List.of("Book Binding", "Book Pages", "Magic Core", "Shard")),
+        Map.entry("Staff",     List.of("Staff Head", "Shaft", "Magic Core", "Shard")),
+        Map.entry("Wand",      List.of("Wand Body", "Handle", "Magic Core", "Shard"))
     );
 
     public CustomForgeCraftingPage(@Nonnull PlayerRef playerRef) {
@@ -285,6 +305,9 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         this.activeItem = getDefaultItemForCategory(category);
         this.hoveredSlot = -1;
         UICommandBuilder cmd = new UICommandBuilder();
+        clearSelectedSlot(cmd);
+        clearInputSlots(cmd, false);
+        setOutputSlotState(cmd);
         applyState(cmd);
         applyInventoryUsabilityOverlays(ref, store, cmd);
         sendUpdate(cmd, false);
@@ -295,6 +318,9 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         this.activeItem = item;
         this.hoveredSlot = -1;
         UICommandBuilder cmd = new UICommandBuilder();
+        clearSelectedSlot(cmd);
+        clearInputSlots(cmd, false);
+        setOutputSlotState(cmd);
         applyState(cmd);
         applyInventoryUsabilityOverlays(ref, store, cmd);
         sendUpdate(cmd, false);
@@ -364,8 +390,8 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         }
 
         // if the item is not usable bail
-        String[] categories = stack.getItem().getCategories();
-        if (!Arrays.stream(categories).anyMatch(c -> isComponentAllowed(c, null))) { sendUpdate((UICommandBuilder) null, false); return; }
+        boolean usable = isComponentAllowed(stack.getItem().getId(), null);
+        if (!usable) { sendUpdate((UICommandBuilder) null, false); return; }
 
         // deselect previously selected slot if any
         if (this.selectedSlotId != null) {
@@ -376,7 +402,7 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         if (slotId.equals(this.selectedSlotId)) {
             this.selectedSlotId = null;
             this.selectedItem = null;
-            appendCleaInputSlotOverlayCommands(cmd);
+            clearInputSlots(cmd, true);
             sendUpdate(cmd, false);
             return;
         }
@@ -389,7 +415,7 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         // update the input slots to indicate they can be used
         for (int i = 0; i < inputSlotItems.length; i++) {
             final Integer indx = i;
-            boolean slotValid = Arrays.stream(categories).anyMatch(c -> isComponentAllowed(c, indx));
+            boolean slotValid = isComponentAllowed(stack.getItem().getId(), indx);
             cmd.set("#InputSlotOverlay" + (i + 1) + ".Visible", !slotValid);
         }
 
@@ -404,8 +430,7 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         // if there is a selected item, validate it can go in this slot before any other change
         if (this.selectedItem != null) {
             // check the selected item against this slot type, don't let components go into slots that dont support their type
-            String[] categories = this.selectedItem.getCategories();
-            boolean slotValid = Arrays.stream(categories).anyMatch(c -> isComponentAllowed(c, slot - 1));
+            boolean slotValid = isComponentAllowed(this.selectedItem.getId(), slot - 1);
             if (!slotValid) {
                 sendUpdate(cmd, false);
                 return;
@@ -417,11 +442,16 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
             cmd.set("#" + (isHotbarItem(this.inputSlotItems[slot - 1].slotN) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotItems[slot - 1].slotN) + ".Visible", false);
             cmd.setNull("#InputItem" + slot + ".ItemId");
             this.inputSlotItems[slot - 1] = null;
-            if (slot - 1 < 3) cmd.set("#CraftButton.Disabled", true);
+
+            // if slots 1-3 were cleared
+            if (slot - 1 < 3) {
+                cmd.set("#CraftButton.Disabled", true);
+            }
         }
 
         // if nothing was selected it's just a clear and we are good.
         if (this.selectedItem == null) {
+            setOutputSlotState(cmd);
             sendUpdate(cmd, false);
             return;
         }
@@ -432,28 +462,99 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         // update the clicked input slot with the selected item icon
         cmd.set("#InputItem" + slot + ".ItemId", this.selectedItem.getId());
 
-        // enable the in use overlay for the slotted item and disable it's selected overlay
+        // enable the in use overlay for the slotted item
         cmd.set("#" + (isHotbarItem(this.selectedSlotId) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.selectedSlotId) + ".Visible", true);
-        cmd.set("#" + (isHotbarItem(this.selectedSlotId) ? "Hotbar" : "Storage") + "SelectedOverlay" + getSlotNumber(this.selectedSlotId) + ".Visible", false);
 
-        // clear selection data
-        this.selectedSlotId = null;
-        this.selectedItem = null;
+        // clear the selection overlay and data
+        clearSelectedSlot(cmd);
 
         // clear input hilighting
-        appendCleaInputSlotOverlayCommands(cmd);
+        clearInputSlots(cmd, true);
 
-        // if all input slots have an item enable the craft button
-        if (this.inputSlotItems[0] != null && this.inputSlotItems[1] != null  && this.inputSlotItems[2] != null)
-            cmd.set("#CraftButton.Disabled", false);
+        // toggle the output slot state
+        setOutputSlotState(cmd);
 
         // send the updates
         sendUpdate(cmd, false);
     }
 
     private void handleCraft(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
-        // TODO: read inputSlotItems, verify recipe, consume items, produce output
-        sendUpdate((UICommandBuilder) null, false);
+        UICommandBuilder cmd = new UICommandBuilder();
+
+        // validate player still has all three components in their inventory
+        for (int i = 0; i < 3; i++) {
+            SlotEntry entry = inputSlotItems[i];
+            if (entry == null) { sendUpdate((UICommandBuilder) null, false); return; }
+            ItemContainer inv = isHotbarItem(entry.slotN())
+                    ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
+                    : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
+            if (inv == null) { sendUpdate((UICommandBuilder) null, false); return; }
+            short slot = Short.parseShort(getSlotNumber(entry.slotN()));
+            ItemStack stack = inv.getItemStack(slot);
+            if (stack == null || stack.isEmpty() || !stack.getItem().getId().equals(entry.item().getId())) {
+                sendUpdate((UICommandBuilder) null, false);
+                return;
+            }
+        }
+
+        // determine rarity from shard slot — no shard means Common
+        String rarity = "Common";
+        if (inputSlotItems[3] != null) {
+            String shardId = inputSlotItems[3].item().getId();
+            rarity = shardId.substring(0, shardId.indexOf('_'));
+        }
+
+        // get player level for gear score
+        Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+        int playerLevel = rpgPlayer == null ? 1 : rpgPlayer.level;
+
+        // build the output item via item factory
+        String outputItemId = ItemFactory.readCraftingComponent(inputSlotItems[0].item().getId())
+                .get("outputAssetID").asString().getValue() + "_" + rarity;
+        ItemStack output = ItemFactory.createItem(
+                outputItemId,
+                playerLevel,
+                rarity,
+                inputSlotItems[0].item().getId(),
+                inputSlotItems[1].item().getId(),
+                inputSlotItems[2].item().getId()
+        );
+        if (output == null) { sendUpdate((UICommandBuilder) null, false); return; }
+
+        // remove components from inventory — one of each, last thing before giving item
+        for (int i = 0; i < 3; i++) {
+            SlotEntry entry = inputSlotItems[i];
+            ItemContainer inv = isHotbarItem(entry.slotN())
+                    ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
+                    : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
+            short slot = Short.parseShort(getSlotNumber(entry.slotN()));
+            ItemStack current = inv.getItemStack(slot);
+            inv.replaceItemStackInSlot(slot, current, current.withQuantity(current.getQuantity() - 1));
+        }
+
+        // remove shard if present
+        if (inputSlotItems[3] != null) {
+            SlotEntry shardEntry = inputSlotItems[3];
+            ItemContainer inv = isHotbarItem(shardEntry.slotN())
+                    ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
+                    : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
+            short slot = Short.parseShort(getSlotNumber(shardEntry.slotN()));
+            ItemStack current = inv.getItemStack(slot);
+            inv.replaceItemStackInSlot(slot, current, current.withQuantity(current.getQuantity() - 1));
+        }
+
+        // give the player the crafted item
+        InventoryComponent.Storage storage = (InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        if (storage != null) storage.getInventory().addItemStack(output);
+
+        // clear the UI
+        clearSelectedSlot(cmd);
+        clearInputSlots(cmd, false);
+        setOutputSlotState(cmd);
+        pushInventoryState(ref, store, cmd);
+        applyState(cmd);
+        applyInventoryUsabilityOverlays(ref, store, cmd);
+        sendUpdate(cmd, false);
     }
 
     // send a UI update that bypasses PageManager acknowledgment counter so hover events are never blocked
@@ -572,20 +673,27 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         };
     }
 
-    // extracts the component type from its category string e.g. "Weapon.Component.AxeHead.T1" or "Crafting.Component.Shard.Rare" -> "AxeHead" / "Shard"
-    private String extractComponentType(@Nonnull String categoryString) {
-        String[] parts = categoryString.split("\\.");
-        return parts[parts.length - 2];
+    // extracts the component type from the raw asset json e.g. "Axe Head"
+    private static String extractComponentType(@Nonnull String itemId) {
+        if (SHARD_IDS.contains(itemId)) return "Shard";
+        BsonDocument component = readCraftingComponent(itemId);
+        if (component == null) return null;
+        BsonValue type = component.get("type");
+        return (type != null && type.isString()) ? type.asString().getValue() : null;
     }
 
-    // extracts the components tier/rarity from its category string
-    private String extractComponentTier(@Nonnull String categoryString) {
-        return categoryString.substring(categoryString.lastIndexOf('.') + 1);
+    // extracts the component tier from the raw asset json e.g. 1
+    private static int extractComponentTier(@Nonnull String itemId) {
+        BsonDocument component = readCraftingComponent(itemId);
+        if (component == null) return -1;
+        BsonValue tier = component.get("tier");
+        return (tier != null && tier.isInt32()) ? tier.asInt32().getValue() : -1;
     }
 
-    // checks if this component type is allowed for this item (and/or in this slot as applicable)
-    public boolean isComponentAllowed(@Nonnull String categoryString, @Nullable Integer slot) {
-        String type = extractComponentType(categoryString);
+    // checks if this item is allowed for the active weapon (and/or in this slot as applicable)
+    public boolean isComponentAllowed(@Nonnull String itemId, @Nullable Integer slot) {
+        String type = extractComponentType(itemId);
+        if (type == null) return false;
 
         List<String> allowed = ALLOWED_COMPONENTS.get(this.activeItem);
         if (allowed == null) return false;
@@ -603,8 +711,7 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
             for (short i = 0; i < Math.min(storage.getCapacity(), 36); i++) {
                 ItemStack stack = storage.getItemStack(i);
                 if (stack == null || stack.isEmpty()) continue;
-                String[] categories = stack.getItem().getCategories();
-                boolean usable = categories != null && Arrays.stream(categories).anyMatch(c -> isComponentAllowed(c, null));
+                boolean usable = isComponentAllowed(stack.getItem().getId(), null);
                 cmd.set("#StorageInvalidOverlay" + i + ".Visible", !usable);
             }
         }
@@ -616,8 +723,7 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
             for (short i = 0; i < Math.min(hotbar.getCapacity(), 9); i++) {
                 ItemStack stack = hotbar.getItemStack(i);
                 if (stack == null || stack.isEmpty()) continue;
-                String[] categories = stack.getItem().getCategories();
-                boolean usable = categories != null && Arrays.stream(categories).anyMatch(c -> isComponentAllowed(c, null));
+                boolean usable = isComponentAllowed(stack.getItem().getId(), null);
                 cmd.set("#HotbarInvalidOverlay" + i + ".Visible", !usable);
             }
         }
@@ -638,6 +744,7 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
                 if (itemId != null) {
                     cmd.set("#StorageItem" + i + ".ItemId", itemId);
                 }
+                else cmd.setNull("#StorageItem" + i + ".ItemId");
             }
         }
 
@@ -651,6 +758,7 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
                 if (itemId != null) {
                     cmd.set("#HotbarItem" + i + ".ItemId", itemId);
                 }
+                else cmd.setNull("#HotbarItem" + i + ".ItemId");
             }
         }
 
@@ -658,11 +766,129 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         applyInventoryUsabilityOverlays(ref, store, cmd);
     }
 
-    private void appendCleaInputSlotOverlayCommands(UICommandBuilder cmd) {
+    // clear the selected slot overlays and data
+    private void clearSelectedSlot(UICommandBuilder cmd) {
+        if(this.selectedSlotId == null || this.selectedItem == null) return;
+
+        cmd.set("#" + (isHotbarItem(this.selectedSlotId) ? "Hotbar" : "Storage") + "SelectedOverlay" + getSlotNumber(this.selectedSlotId) + ".Visible", false);
+        this.selectedSlotId = null;
+        this.selectedItem = null;
+    }
+
+    // clear the input slot overlays and data
+    private void clearInputSlots(UICommandBuilder cmd, boolean onlyClearOverlays) {
         // update the input slots to indicate they can be used
         for (int i = 0; i < inputSlotItems.length; i++) {
             cmd.set("#InputSlotOverlay" + (i + 1) + ".Visible", false);
+            if (!onlyClearOverlays && inputSlotItems[i] != null) {
+                cmd.set("#" + (isHotbarItem(this.inputSlotItems[i].slotN) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotItems[i].slotN) + ".Visible", false);
+                cmd.setNull("#InputItem" + (i + 1) + ".ItemId");
+                this.inputSlotItems[i] = null;
+            }
         }
+    }
+
+    // update teh crafting result panel/window
+    private void setOutputSlotState(@Nonnull UICommandBuilder cmd) {
+        if (this.inputSlotItems[0] != null && this.inputSlotItems[1] != null && this.inputSlotItems[2] != null) {
+            cmd.set("#CraftButton.Disabled", false);
+
+            // determine rarity suffix from shard slot — default to Common if empty
+            String rarity = "Common";
+            if (this.inputSlotItems[3] != null) {
+                String shardId = this.inputSlotItems[3].item().getId();
+                rarity = shardId.substring(0, shardId.indexOf('_'));
+            }
+
+            // read output asset id from slot 0's CraftingComponent and set output item
+            BsonDocument slot0Component = readCraftingComponent(this.inputSlotItems[0].item().getId());
+            if (slot0Component != null) {
+                BsonValue outputId = slot0Component.get("outputAssetID");
+                if (outputId != null && outputId.isString()) {
+                    cmd.set("#OutputItem.ItemId", outputId.asString().getValue() + "_" + rarity);
+                }
+            }
+
+            // collect weapon type label e.g. "Axe (1H)"
+            String handedness = List.of(CAT_2H, CAT_RANGED, CAT_MAGIC).contains(this.activeCategory) ? "2H" : "1H";
+            cmd.set("#WeaponType.Text", this.activeItem + " (" + handedness + ")");
+
+            // collect base weapon damage from slot 0 implicits and remaining implicits from all slots
+            String weaponDamageText = "";
+            List<String> implicitLines = new ArrayList<>();
+
+            for (int i = 0; i < 3; i++) {
+                if (this.inputSlotItems[i] == null) continue;
+                BsonDocument comp = readCraftingComponent(this.inputSlotItems[i].item().getId());
+                if (comp == null) continue;
+                BsonValue implicitsVal = comp.get("implicits");
+                if (implicitsVal == null || !implicitsVal.isArray()) continue;
+
+                for (BsonValue entry : implicitsVal.asArray()) {
+                    if (!entry.isDocument()) continue;
+                    BsonDocument implicit = entry.asDocument();
+                    BsonValue statVal = implicit.get("stat");
+                    BsonValue minVal = implicit.get("min");
+                    BsonValue maxVal = implicit.get("max");
+                    if (statVal == null || minVal == null || maxVal == null) continue;
+
+                    StatType stat;
+                    try { stat = StatType.valueOf(statVal.asString().getValue()); }
+                    catch (Exception e) { continue; }
+
+                    float min = minVal.isDouble() ? (float) minVal.asDouble().getValue() : (float) minVal.asInt32().getValue();
+                    float max = maxVal.isDouble() ? (float) maxVal.asDouble().getValue() : (float) maxVal.asInt32().getValue();
+
+                    // slot 0's first main/off hand damage flat is the weapon damage — shown separately
+                    if (i == 0 && weaponDamageText.isEmpty() && StatTypeInfo.isWeaponDamageStat(stat)) {
+                        weaponDamageText = StatTypeInfo.getDisplay(stat, min, max);
+                    } else {
+                        implicitLines.add(StatTypeInfo.getDisplay(stat, min, max));
+                    }
+                }
+            }
+
+            // populate weapon stats section
+            cmd.set("#WeaponDamage.Text", weaponDamageText);
+            cmd.set("#WeaponStats.Visible", true);
+
+            // populate implicit lines 1-5 — clear any beyond what we have
+            for (int i = 0; i < 5; i++) {
+                cmd.set("#ImplicitLine" + (i + 1) + ".Text", i < implicitLines.size() ? implicitLines.get(i) : "");
+            }
+
+            // populate affix count line based on rarity
+            int affixCount = switch (rarity) {
+                case "Uncommon" -> 1;
+                case "Rare" -> 2;
+                case "Epic" -> 3;
+                case "Legendary" -> 4;
+                default -> 0;
+            };
+            cmd.set("#ImplicitLine5Empty.Text", "");
+            cmd.set("#AffixCount.Text", affixCount == 1 ? "+1 random stat" : "+" + affixCount + " random stats");
+
+        } else {
+            // clear output state
+            cmd.setNull("#OutputItem.ItemId");
+            cmd.set("#CraftButton.Disabled", true);
+            cmd.set("#WeaponStats.Visible", false);
+        }
+    }
+
+    // reads and caches the CraftingComponent block from a raw asset json — returns null if not present
+    private static BsonDocument readCraftingComponent(@Nonnull String itemId) {
+        return CRAFTING_COMPONENT_CACHE.computeIfAbsent(itemId, id -> {
+            Path assetPath = Item.getAssetMap().getPath(id);
+            if (assetPath == null) return null;
+            try {
+                BsonDocument doc = BsonDocument.parse(Files.readString(assetPath));
+                BsonValue component = doc.get("CraftingComponent");
+                return (component != null && component.isDocument()) ? component.asDocument() : null;
+            } catch (Exception e) {
+                return null;
+            }
+        });
     }
 
     public static class PageData {

@@ -55,6 +55,22 @@ public enum StatType {
     /* Weapon Specific */
     SHIELD_STABILITY_PERCENT,
 
+    // Main Hand Flat Damages
+    MAIN_HAND_FIRE_DAMAGE_FLAT,
+    MAIN_HAND_ICE_DAMAGE_FLAT,
+    MAIN_HAND_LIGHTNING_DAMAGE_FLAT,
+    MAIN_HAND_POISON_DAMAGE_FLAT,
+    MAIN_HAND_PHYSICAL_DAMAGE_FLAT,
+    MAIN_HAND_MAGIC_DAMAGE_FLAT,
+
+    // Off-Hand Damage Conversion Stats (hidden, does not roll in pools, used on components)
+    OFF_HAND_FIRE_DAMAGE_FLAT,
+    OFF_HAND_ICE_DAMAGE_FLAT,
+    OFF_HAND_LIGHTNING_DAMAGE_FLAT,
+    OFF_HAND_POISON_DAMAGE_FLAT,
+    OFF_HAND_PHYSICAL_DAMAGE_FLAT,
+    OFF_HAND_MAGIC_DAMAGE_FLAT,
+
     /* Resistances */
     FIRE_RESIST_PERCENT,
     ICE_RESIST_PERCENT,

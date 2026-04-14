@@ -11,9 +11,6 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
-// Mod imports
-import com.example.hyarpg.ui.Page_Forge;
-
 // Java imports
 import javax.annotation.Nonnull;
 
@@ -31,13 +28,6 @@ public class ShowCraftingPage extends CommandBase {
 
     @Override
     protected void executeSync(@Nonnull CommandContext commandContext) {
-//        // Ensure the sender is a player before proceeding
-//        commandContext.senderAs(Player.class).getWorld().execute(() -> {
-//            Player player = commandContext.senderAs(Player.class);
-//            Ref<EntityStore> ref = player.getReference();
-//            Store<EntityStore> store = ref.getStore();
-//            Page_Forge.open(ref, store);
-//        });
         Player sender = commandContext.senderAs(Player.class);
         Ref<EntityStore> ref = sender.getReference();
         Store<EntityStore> store = ref.getStore();

@@ -3,6 +3,7 @@ package com.example.hyarpg;
 // Hytale Imports
 import com.example.hyarpg.subclasses.FixedDeployableAoeConfig;
 import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
+import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
 import com.hypixel.hytale.server.core.HytaleServer;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
@@ -140,6 +141,7 @@ public class HyARPGPlugin extends JavaPlugin {
             getCommandRegistry().registerCommand(new SetSkillPoints());
             getCommandRegistry().registerCommand(new AddPlayerLevels());
             getCommandRegistry().registerCommand(new ResetDiscoveredIngredients());
+            getCommandRegistry().registerCommand(new ResetDiscoveredRecipes());
             getCommandRegistry().registerCommand(new ResetDiscoveredRooms());
             getCommandRegistry().registerCommand(new SetShowLootDropsSetting());
             getCommandRegistry().registerCommand(new SetShowCombatTextSetting());
@@ -164,6 +166,7 @@ public class HyARPGPlugin extends JavaPlugin {
 
     @Override
     protected void start() {
+        preLoadCraftingComponents();
         LOGGER.at(Level.INFO).log("[HyARPG] Started!");
         LOGGER.at(Level.INFO).log("[HyARPG] Use /hya help for commands");
     }
@@ -329,6 +332,15 @@ public class HyARPGPlugin extends JavaPlugin {
                     });
         } catch (Exception e) {
             LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Class preload scan failed");
+        }
+    }
+
+    private void preLoadCraftingComponents() {
+        try {
+            // pre-build component index for item factory
+            ItemFactory.buildComponentIndex();
+        } catch (Exception e) {
+            LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Crafting component preload scan failed");
         }
     }
 }

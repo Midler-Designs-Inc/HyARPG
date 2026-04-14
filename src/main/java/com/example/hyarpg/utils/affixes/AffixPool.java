@@ -1,136 +1,118 @@
 package com.example.hyarpg.utils.affixes;
 
-// Java Imports
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public final class AffixPool {
 
-    // global list of applicable affixes
     private static final List<Affix> AFFIXES = List.of(
-        // Flat Damages
-        new Affix("Stat_Flat_Fire_Damage", "Fire Damage: +%s", 0.833f, 2.5f),
-        new Affix("Stat_Flat_Ice_Damage", "Ice Damage: +%s", 0.833f, 2.5f),
-        new Affix("Stat_Flat_Lightning_Damage", "Lightning Damage: +%s", 0.833f, 2.5f),
-        new Affix("Stat_Flat_Poison_Damage", "Poison Damage: +%s", 0.833f, 2.5f),
-        new Affix("Stat_Flat_Physical_Damage", "Physical Damage: +%s", 0.833f, 2.5f),
-        new Affix("Stat_Flat_Magic_Damage", "Magic Damage: +%s", 0.833f, 2.5f),
+            // Flat Damages
+            new Affix("Stat_Flat_Fire_Damage",              "Fire Damage: +%s",               0.833f, 2.5f),
+            new Affix("Stat_Flat_Ice_Damage",               "Ice Damage: +%s",                0.833f, 2.5f),
+            new Affix("Stat_Flat_Lightning_Damage",         "Lightning Damage: +%s",          0.833f, 2.5f),
+            new Affix("Stat_Flat_Poison_Damage",            "Poison Damage: +%s",             0.833f, 2.5f),
+            new Affix("Stat_Flat_Physical_Damage",          "Physical Damage: +%s",           0.833f, 2.5f),
+            new Affix("Stat_Flat_Magic_Damage",             "Magic Damage: +%s",              0.833f, 2.5f),
 
-        // Increased Damages
-        new Affix("Stat_Increased_Fire_Damage", "Fire Damage: +%s%%", 3.33f, 10),
-        new Affix("Stat_Increased_Ice_Damage", "Ice Damage: +%s%%", 3.33f, 10),
-        new Affix("Stat_Increased_Lightning_Damage", "Lightning Damage: +%s%%", 3.33f, 10),
-        new Affix("Stat_Increased_Poison_Damage", "Poison Damage: +%s%%", 3.33f, 10),
-        new Affix("Stat_Increased_Physical_Damage", "Physical Damage: +%s%%", 3.33f, 10),
-        new Affix("Stat_Increased_Magic_Damage", "Magic Damage: +%s%%", 3.33f, 10),
+            // Increased Damages
+            new Affix("Stat_Increased_Fire_Damage",         "Fire Damage: +%s%%",             3.33f,  10f),
+            new Affix("Stat_Increased_Ice_Damage",          "Ice Damage: +%s%%",              3.33f,  10f),
+            new Affix("Stat_Increased_Lightning_Damage",    "Lightning Damage: +%s%%",        3.33f,  10f),
+            new Affix("Stat_Increased_Poison_Damage",       "Poison Damage: +%s%%",           3.33f,  10f),
+            new Affix("Stat_Increased_Physical_Damage",     "Physical Damage: +%s%%",         3.33f,  10f),
+            new Affix("Stat_Increased_Magic_Damage",        "Magic Damage: +%s%%",            3.33f,  10f),
 
-        // Increased Resistances
-        new Affix("Stat_Increased_Fire_Resist", "Fire Resistance: +%s%%", 1.666f, 5),
-        new Affix("Stat_Increased_Ice_Resist", "Ice Resistance: +%s%%", 1.666f, 5),
-        new Affix("Stat_Increased_Lightning_Resist", "Lightning Resistance: +%s%%", 1.666f, 5),
-        new Affix("Stat_Increased_Poison_Resist", "Poison Resistance: +%s%%", 1.666f, 5),
-        new Affix("Stat_Increased_Physical_Resist", "Physical Resistance: +%s%%", 1.666f, 5),
-        new Affix("Stat_Increased_Magic_Resist", "Magic Resistance: +%s%%", 1.666f, 5),
+            // Weapon Type Damages
+            new Affix("Stat_Increased_Axe_Damage",          "Axe Damage: +%s%%",              3.33f,  10f),
+            new Affix("Stat_Increased_Battleaxe_Damage",    "Battleaxe Damage: +%s%%",        3.33f,  10f),
+            new Affix("Stat_Increased_Club_Damage",         "Club Damage: +%s%%",             3.33f,  10f),
+            new Affix("Stat_Increased_Daggers_Damage",      "Daggers Damage: +%s%%",          3.33f,  10f),
+            new Affix("Stat_Increased_Kunai_Damage",        "Kunai Damage: +%s%%",            3.33f,  10f),
+            new Affix("Stat_Increased_Longsword_Damage",    "Longsword Damage: +%s%%",        3.33f,  10f),
+            new Affix("Stat_Increased_Mace_Damage",         "Mace Damage: +%s%%",             3.33f,  10f),
+            new Affix("Stat_Increased_Shortbow_Damage",     "Shortbow Damage: +%s%%",         3.33f,  10f),
+            new Affix("Stat_Increased_Crossbow_Damage",     "Crossbow Damage: +%s%%",         3.33f,  10f),
+            new Affix("Stat_Increased_Sword_Damage",        "Sword Damage: +%s%%",            3.33f,  10f),
 
-        // HP
-        new Affix("Stat_Flat_Life", "Life: +%s", 8.333f, 25),
-        new Affix("Stat_Increased_Life", "Life: +%s%%", 1.666f, 5),
-        new Affix("Stat_Flat_Life_Regen", "Life Regen: +%s", 0.166f, 0.5f),
-        new Affix("Stat_Increased_Life_Regen", "Life Regen: +%s%%", 3.33f, 10),
+            // Increased Resistances
+            new Affix("Stat_Increased_Fire_Resist",         "Fire Resistance: +%s%%",         1.666f, 5f),
+            new Affix("Stat_Increased_Ice_Resist",          "Ice Resistance: +%s%%",          1.666f, 5f),
+            new Affix("Stat_Increased_Lightning_Resist",    "Lightning Resistance: +%s%%",    1.666f, 5f),
+            new Affix("Stat_Increased_Poison_Resist",       "Poison Resistance: +%s%%",       1.666f, 5f),
+            new Affix("Stat_Increased_Physical_Resist",     "Physical Resistance: +%s%%",     1.666f, 5f),
+            new Affix("Stat_Increased_Magic_Resist",        "Magic Resistance: +%s%%",        1.666f, 5f),
+            new Affix("Stat_Increased_Elemental_Resist",    "Elemental Resistance: +%s%%",    1.0f,   3f),
+            new Affix("Stat_Increased_Fall_Resist",         "Fall Resistance: +%s%%",         1.666f, 5f),
 
-        // Stamina
-        new Affix("Stat_Flat_Stamina", "Stamina: +%s", 0.833f, 2.5f),
-        new Affix("Stat_Increased_Stamina", "Stamina: +%s%%", 1.666f, 5),
-        new Affix("Stat_Flat_Stamina_Regen", "Stamina Regen: +%s", 0.166f, 0.5f),
-        new Affix("Stat_Increased_Stamina_Regen", "Stamina Regen: +%s%%", 3.33f, 10),
+            // Life
+            new Affix("Stat_Flat_Life",                     "Life: +%s",                      8.333f, 25f),
+            new Affix("Stat_Increased_Life",                "Life: +%s%%",                    1.666f, 5f),
+            new Affix("Stat_Flat_Life_Regen",               "Life Regen: +%s",                0.166f, 0.5f),
+            new Affix("Stat_Increased_Life_Regen",          "Life Regen: +%s%%",              3.33f,  10f),
 
-        // Mana
-        new Affix("Stat_Flat_Mana", "Mana: +%s", 2.083f, 6.25f),
-        new Affix("Stat_Increased_Mana", "Mana: +%s%%", 1.666f, 5),
-        new Affix("Stat_Flat_Mana_Regen", "Mana Regen: +%s", 0.166f, 0.5f),
-        new Affix("Stat_Increased_Mana_Regen", "Mana Regen: +%s%%", 3.33f, 10),
+            // Stamina
+            new Affix("Stat_Flat_Stamina",                  "Stamina: +%s",                   0.833f, 2.5f),
+            new Affix("Stat_Increased_Stamina",             "Stamina: +%s%%",                 1.666f, 5f),
+            new Affix("Stat_Flat_Stamina_Regen",            "Stamina Regen: +%s",             0.166f, 0.5f),
+            new Affix("Stat_Increased_Stamina_Regen",       "Stamina Regen: +%s%%",           3.33f,  10f),
 
-        // Critical Strikes
-        new Affix("Stat_Increased_Critical_Strike_Chance", "Critical Strike Chance: +%s%%", 1.666f, 5),
-        new Affix("Stat_Increased_Critical_Strike_Damage", "Critical Strike Damage: +%s%%", 6.66f, 20),
+            // Mana
+            new Affix("Stat_Flat_Mana",                     "Mana: +%s",                      2.083f, 6.25f),
+            new Affix("Stat_Increased_Mana",                "Mana: +%s%%",                    1.666f, 5f),
+            new Affix("Stat_Flat_Mana_Regen",               "Mana Regen: +%s",                0.166f, 0.5f),
+            new Affix("Stat_Increased_Mana_Regen",          "Mana Regen: +%s%%",              3.33f,  10f),
 
-        // Dodging
-        new Affix("Stat_Increased_Dodge_Chance", "Dodge Chance: +%s%%", 1.666f, 5),
+            // Critical Strikes
+            new Affix("Stat_Increased_Critical_Strike_Chance", "Critical Strike Chance: +%s%%", 1.666f, 5f),
+            new Affix("Stat_Increased_Critical_Strike_Damage", "Critical Strike Damage: +%s%%", 6.66f,  20f),
 
-        // Parrying & Blocking
-        new Affix("Stat_Increased_Stability", "Stability: +%s%%", 2.2f, 6.7f),
-        new Affix("Stat_Flat_Parry_Window", "Parry Window: +%s", 0.033f, .1f),
+            // Defense
+            new Affix("Stat_Increased_Dodge_Chance",        "Dodge Chance: +%s%%",            1.666f, 5f),
+            new Affix("Stat_Increased_Stability",           "Stability: +%s%%",               2.2f,   6.7f),
+//            new Affix("Stat_Flat_Parry_Window",             "Parry Window: +%s",              0.033f, 0.1f),
+//            new Affix("Stat_Increased_Barrier_On_Block",    "Barrier on Block: +%s%%",        1.666f, 5f),
+//            new Affix("Stat_Increased_Shield_Stability",    "Shield Stability: +%s%%",        2.2f,   6.7f),
 
-        // Misc
-        new Affix("Stat_Increased_Run_Speed", "Run Speed: +%s%%", 0.2f, 0.6f)
-    ); // Affixes are T0-T5. Things are balanced around T1-T5, T0 will be a rare random 6th level of stat increase
-    // Affix tiers increase every 100 levels on monsters/gear
+            // Leech — very tight, 6x T0 on 4 pieces would be ~2.4-7.2% which is still very strong
+            new Affix("Stat_Increased_Life_Leech",          "Life Leech: +%s%%",              0.1f,   0.3f),
+            new Affix("Stat_Increased_Mana_Leech",          "Mana Leech: +%s%%",              0.1f,   0.3f),
+            new Affix("Stat_Increased_Stamina_Leech",       "Stamina Leech: +%s%%",           0.1f,   0.3f),
 
-    // get a single random affix
-    public static Affix randomAffix() {
-        return AFFIXES.get(
-                ThreadLocalRandom.current().nextInt(AFFIXES.size())
-        );
-    }
+            // Damage taken from — conversion mechanics, tight range, 6x T0 max ~9-18%
+            new Affix("Stat_Increased_Damage_Taken_From_Mana",    "Damage from Mana: +%s%%",    0.25f,  0.75f),
+            new Affix("Stat_Increased_Damage_Taken_From_Stamina", "Damage from Stamina: +%s%%", 0.25f,  0.75f),
 
-    // get a single random flat damage affix
+            // Ammo
+            new Affix("Stat_Flat_Ammo",                     "Ammo: +%s",                      0.5f,   1.5f),
+            new Affix("Stat_Increased_Ammo_Regen",          "Ammo Regen: +%s%%",              1.666f, 5f),
+
+            // Misc
+            new Affix("Stat_Increased_Run_Speed",           "Run Speed: +%s%%",               0.2f,   0.6f)
+    );
+
+    public static Affix randomAffix() { return AFFIXES.get(ThreadLocalRandom.current().nextInt(AFFIXES.size())); }
+
     public static Affix randomFlatDamageAffix() {
-        ThreadLocalRandom r = ThreadLocalRandom.current();
-
-        // Filter to flat damage affixes
-        List<Affix> flatDamageAffixes = AFFIXES.stream()
-            .filter(a -> a.stat().startsWith("Stat_Flat_") && a.stat().endsWith("_Damage"))
-            .toList();
-
-        // If none found, bail
-        if (flatDamageAffixes.isEmpty()) return null;
-
-        // Return the randomly selected flat damage affix
-        return flatDamageAffixes.get(r.nextInt(flatDamageAffixes.size()));
+        List<Affix> filtered = AFFIXES.stream().filter(a -> a.stat().startsWith("Stat_Flat_") && a.stat().endsWith("_Damage")).toList();
+        return filtered.isEmpty() ? null : filtered.get(ThreadLocalRandom.current().nextInt(filtered.size()));
     }
 
-    // get a single random flat resistance affix
     public static Affix randomResistanceAffix() {
-        ThreadLocalRandom r = ThreadLocalRandom.current();
-
-        // Filter to resistance affixes
-        List<Affix> resistAffixes = AFFIXES.stream()
-            .filter(a -> a.stat().startsWith("Stat_Increased_") && a.stat().endsWith("_Resist"))
-            .toList();
-
-        // If none found, bail
-        if (resistAffixes.isEmpty()) return null;
-
-        // return the randomly selected resistance affix
-        return resistAffixes.get(ThreadLocalRandom.current().nextInt(resistAffixes.size()));
+        List<Affix> filtered = AFFIXES.stream().filter(a -> a.stat().startsWith("Stat_Increased_") && a.stat().endsWith("_Resist")).toList();
+        return filtered.isEmpty() ? null : filtered.get(ThreadLocalRandom.current().nextInt(filtered.size()));
     }
 
-    // get n random affixes
     public static List<Affix> randomAffixes(int count) {
-        // Obtain the thread-local random number generator (fast, thread-safe RNG)
         ThreadLocalRandom r = ThreadLocalRandom.current();
-
-        // Track randomly chosen indices; Set ensures uniqueness (no duplicates)
         Set<Integer> indices = new HashSet<>();
-
-        // Keep sampling random indices until we have the requested number of unique entries
-        while (indices.size() < count) {
-            indices.add(r.nextInt(AFFIXES.size()));
-        }
-
-        // Build result list from sampled indices
+        while (indices.size() < count) indices.add(r.nextInt(AFFIXES.size()));
         List<Affix> result = new ArrayList<>(count);
         for (int idx : indices) result.add(AFFIXES.get(idx));
-
-        // return the result
         return result;
     }
 
-    // get affix by name
     public static Affix getAffixByStatName(String statName) {
-        for (Affix affix : AFFIXES) {
-            if (affix.stat().equals(statName)) return affix;
-        }
+        for (Affix affix : AFFIXES) if (affix.stat().equals(statName)) return affix;
         return null;
     }
 }

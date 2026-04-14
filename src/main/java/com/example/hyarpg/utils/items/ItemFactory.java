@@ -1,0 +1,279 @@
+package com.example.hyarpg.utils.items;
+
+import com.example.hyarpg.utils.StatTypeInfo;
+import com.example.hyarpg.utils.affixes.Affix;
+import com.example.hyarpg.utils.affixes.AffixPool;
+import com.example.hyarpg.utils.affixes.StatType;
+import com.hypixel.hytale.codec.Codec;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import org.bson.BsonDocument;
+import org.bson.BsonValue;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class ItemFactory {
+
+    // rarity to affix count mapping
+    private static final Map<String, Integer> RARITY_TO_AFFIX_COUNT = Map.of(
+        "Common", 0,
+        "Uncommon", 1,
+        "Rare", 2,
+        "Epic", 3,
+        "Legendary", 4
+    );
+
+    // weighted rarity roll — used when rarity is not explicitly provided
+    private static final String[] RARITY_POOL;
+    static {
+        // Common: 50, Uncommon: 25, Rare: 15, Epic: 7, Legendary: 3 = 100 entries
+        List<String> pool = new ArrayList<>(100);
+        for (int i = 0; i < 50; i++) pool.add("Common");
+        for (int i = 0; i < 25; i++) pool.add("Uncommon");
+        for (int i = 0; i < 15; i++) pool.add("Rare");
+        for (int i = 0; i < 7; i++) pool.add("Epic");
+        for (int i = 0; i < 3; i++) pool.add("Legendary");
+        RARITY_POOL = pool.toArray(new String[0]);
+    }
+
+    // maps each weapon/armor sub-type to its ordered slot component types (index 0-2, slot 4 is always shard)
+    public static final Map<String, List<String>> ALLOWED_COMPONENTS = Map.ofEntries(
+        // 1H weapons
+        Map.entry("Axe",       List.of("Axe Head", "Shaft", "Handle")),
+        Map.entry("Club",      List.of("Club Head", "Shaft", "Handle")),
+        Map.entry("Shield",    List.of("Shield Frame", "Shield Body", "Shield Core")),
+        Map.entry("Spear",     List.of("Spear Head", "Shaft", "Handle")),
+        Map.entry("Sword",     List.of("Blade", "Hilt", "Handle")),
+
+        // 2H weapons
+        Map.entry("Battleaxe", List.of("Battleaxe Head", "Shaft", "Handle")),
+        Map.entry("Claws",     List.of("Claw Blades", "Hilt", "Handle")),
+        Map.entry("Daggers",   List.of("Short Blade", "Hilt", "Handle")),
+        Map.entry("Longsword", List.of("Long Blade", "Hilt", "Handle")),
+        Map.entry("Mace",      List.of("Mace Head", "Shaft", "Handle")),
+        Map.entry("Scythe",    List.of("Scythe Blade", "Shaft", "Handle")),
+        Map.entry("Sickles",   List.of("Curved Blade", "Shaft", "Handle")),
+
+        // ranged weapons
+        Map.entry("Crossbow",  List.of("Crossbow Head", "String", "Crossbow Stock")),
+        Map.entry("Kunai",     List.of("Kunai Blade", "Hilt", "Handle")),
+        Map.entry("Longbow",   List.of("Longbow Body", "String", "Handle")),
+        Map.entry("Shortbow",  List.of("Shortbow Body", "String", "Handle")),
+
+        // magic weapons
+        Map.entry("Spellbook", List.of("Book Binding", "Book Pages", "Magic Core")),
+        Map.entry("Staff",     List.of("Staff Head", "Shaft", "Magic Core")),
+        Map.entry("Wand",      List.of("Wand Body", "Handle", "Magic Core"))
+    );
+
+    // pre-built component index: type -> tier -> list of item ids, populated once on server start via buildComponentIndex()
+    public static final Map<String, Map<Integer, List<String>>> COMPONENT_INDEX = new ConcurrentHashMap<>();
+
+    // cache of item id to raw CraftingComponent bson — shared with crafting page
+    private static final Map<String, BsonDocument> CRAFTING_COMPONENT_CACHE = new ConcurrentHashMap<>();
+
+    // category string -> display name e.g. "Heads_and_Blades" -> "Heads & Blades"
+    private static final Map<String, String> COMPONENT_CATEGORY_DISPLAY = new ConcurrentHashMap<>();
+
+    // itemId -> crafting category string e.g. "Weapon_Component_Axe_Head_T1" -> "Heads & Blades"
+    public static final Map<String, String> COMPONENT_CATEGORY_INDEX = new ConcurrentHashMap<>();
+
+    // itemId -> list of ingredient display strings e.g. ["4x Ingredient_Bar_Copper"]
+    public static final Map<String, List<String>> COMPONENT_RECIPE_INDEX = new ConcurrentHashMap<>();
+
+    // converts a bench category string to a display name e.g. "Heads_and_Blades" -> "Heads & Blades"
+    private static String categoryToDisplay(@Nonnull String raw) {
+        return COMPONENT_CATEGORY_DISPLAY.computeIfAbsent(raw, k -> k.replace("_and_", " & ").replace("_", " "));
+    }
+
+    // builds the component index by scanning all Weapon_Component_ and Armor_Component_ assets
+    public static void buildComponentIndex() {
+        Map<String, Item> allItems = Item.getAssetMap().getAssetMap();
+        for (Map.Entry<String, Item> entry : allItems.entrySet()) {
+            String id = entry.getKey();
+            if (!id.startsWith("Weapon_Component_") && !id.startsWith("Armor_Component_")) continue;
+
+            Path assetPath = Item.getAssetMap().getPath(id);
+            if (assetPath == null) continue;
+
+            BsonDocument doc;
+            try { doc = BsonDocument.parse(Files.readString(assetPath)); } catch (Exception e) { continue; }
+
+            // cache CraftingComponent block
+            BsonValue componentVal = doc.get("CraftingComponent");
+            if (componentVal == null || !componentVal.isDocument()) continue;
+            BsonDocument component = componentVal.asDocument();
+            CRAFTING_COMPONENT_CACHE.put(id, component);
+
+            BsonValue typeVal = component.get("type");
+            BsonValue tierVal = component.get("tier");
+            if (typeVal == null || !typeVal.isString()) continue;
+            if (tierVal == null || !tierVal.isInt32()) continue;
+
+            String type = typeVal.asString().getValue();
+            int tier = tierVal.asInt32().getValue();
+
+            COMPONENT_INDEX.computeIfAbsent(type, k -> new ConcurrentHashMap<>())
+                    .computeIfAbsent(tier, k -> Collections.synchronizedList(new ArrayList<>()))
+                    .add(id);
+
+            // index crafting category from BenchRequirement[0].Categories[0] — stored as raw e.g. "Heads_and_Blades"
+            try {
+                BsonValue recipeVal = doc.get("Recipe");
+                if (recipeVal != null && recipeVal.isDocument()) {
+                    BsonValue benchVal = recipeVal.asDocument().get("BenchRequirement");
+                    if (benchVal != null && benchVal.isArray() && !benchVal.asArray().isEmpty()) {
+                        BsonDocument benchReq = benchVal.asArray().get(0).asDocument();
+                        BsonValue catsVal = benchReq.get("Categories");
+                        if (catsVal != null && catsVal.isArray() && !catsVal.asArray().isEmpty()) {
+                            COMPONENT_CATEGORY_INDEX.put(id, catsVal.asArray().get(0).asString().getValue());
+                        }
+                    }
+                }
+            } catch (Exception ignored) {}
+
+            // index recipe inputs
+            try {
+                BsonDocument recipe = doc.get("Recipe").asDocument();
+                List<String> inputs = new ArrayList<>();
+                for (BsonValue inputVal : recipe.getArray("Input")) {
+                    BsonDocument input = inputVal.asDocument();
+                    String itemInputId = input.getString("ItemId").getValue();
+                    int quantity = input.getInt32("Quantity").getValue();
+                    String displayName = itemInputId.replace("Ingredient_", "").replace("_", " ");
+                    inputs.add(quantity + "x " + displayName);
+                }
+                COMPONENT_RECIPE_INDEX.put(id, inputs);
+            } catch (Exception ignored) {}
+        }
+    }
+
+    // creates a fully built item stack with components, implicits, affixes and gear score. any null component will be randomly selected from the index for that slot type and tier
+    @Nullable
+    public static ItemStack createItem(@Nonnull String itemId, int playerLevel, @Nullable String rarity, @Nullable String comp1, @Nullable String comp2, @Nullable String comp3) {
+        // get the base item asset
+        Item item = Item.getAssetMap().getAsset(itemId);
+        if (item == null) return null;
+
+        // derive weapon type from item id e.g. "Weapon_Axe_Copper_Common" -> "Axe"
+        String weaponType = deriveWeaponType(itemId);
+        if (weaponType == null) return null;
+
+        // derive tier from item level e.g. item level 15 -> tier 1
+        int tier = Math.max(1, item.getItemLevel() / 10);
+
+        // get the slot type list for this weapon type
+        List<String> slotTypes = ALLOWED_COMPONENTS.get(weaponType);
+        if (slotTypes == null) return null;
+
+        // roll rarity if not provided
+        if (rarity == null) rarity = RARITY_POOL[ThreadLocalRandom.current().nextInt(RARITY_POOL.length)];
+
+        // resolve any missing components randomly from the index
+        String[] components = {comp1, comp2, comp3};
+        for (int i = 0; i < 3; i++) {
+            if (components[i] == null) {
+                components[i] = randomComponent(slotTypes.get(i), tier);
+                if (components[i] == null) return null;
+            }
+        }
+
+        // start building the stack
+        ItemStack stack = new ItemStack(itemId);
+
+        // encode components into metadata as ordered array
+        stack = stack.withMetadata("components", Codec.STRING_ARRAY, components);
+
+        // read implicits from each component and apply them
+        List<String> implicitStrings = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            BsonDocument comp = readCraftingComponent(components[i]);
+            if (comp == null) continue;
+            BsonValue implicitsVal = comp.get("implicits");
+            if (implicitsVal == null || !implicitsVal.isArray()) continue;
+
+            for (BsonValue entry : implicitsVal.asArray()) {
+                if (!entry.isDocument()) continue;
+                BsonDocument implicit = entry.asDocument();
+                BsonValue statVal = implicit.get("stat");
+                BsonValue minVal = implicit.get("min");
+                BsonValue maxVal = implicit.get("max");
+                if (statVal == null || minVal == null || maxVal == null) continue;
+
+                float min = minVal.isDouble() ? (float) minVal.asDouble().getValue() : (float) minVal.asInt32().getValue();
+                float max = maxVal.isDouble() ? (float) maxVal.asDouble().getValue() : (float) maxVal.asInt32().getValue();
+                float value = StatTypeInfo.rollValue(min, max);
+
+                String display = statVal.asString().getValue();
+                try {
+                    StatType stat = StatType.valueOf(statVal.asString().getValue());
+                    display = StatTypeInfo.getDisplay(stat, value, value);
+                } catch (Exception ignored) {}
+
+                implicitStrings.add(statVal.asString().getValue() + "|" + value + "|" + display);
+            }
+        }
+        stack = stack.withMetadata("implicits", Codec.STRING_ARRAY, implicitStrings.toArray(new String[0]));
+
+        // roll and apply affixes based on rarity
+        int affixCount = RARITY_TO_AFFIX_COUNT.getOrDefault(rarity, 0);
+        List<String> affixStrings = new ArrayList<>();
+        if (affixCount > 0) {
+            List<Affix> affixes = AffixPool.randomAffixes(affixCount);
+            for (Affix affix : affixes) {
+                affix.rollTier(playerLevel);
+                affixStrings.add(affix.stat() + "|" + affix.value() + "|" + affix.tier());
+            }
+        }
+        stack = stack.withMetadata("affixes", Codec.STRING_ARRAY, affixStrings.toArray(new String[0]));
+
+        // apply gear score from player level
+        stack = stack.withMetadata("GearScore", Codec.INTEGER, playerLevel);
+
+        return stack;
+    }
+
+    // derives the weapon type string from an item id e.g. "Weapon_Axe_Copper_Common" -> "Axe"
+    @Nullable
+    private static String deriveWeaponType(@Nonnull String itemId) {
+        // strip Weapon_ or Armor_ prefix then take the next segment
+        String stripped = itemId.startsWith("Weapon_") ? itemId.substring("Weapon_".length())
+                : itemId.startsWith("Armor_")  ? itemId.substring("Armor_".length())
+                : null;
+        if (stripped == null) return null;
+        int nextUnderscore = stripped.indexOf('_');
+        return nextUnderscore > 0 ? stripped.substring(0, nextUnderscore) : stripped;
+    }
+
+    // picks a random component item id from the index for the given type and tier
+    @Nullable
+    private static String randomComponent(@Nonnull String type, int tier) {
+        Map<Integer, List<String>> tierMap = COMPONENT_INDEX.get(type);
+        if (tierMap == null) return null;
+        List<String> candidates = tierMap.get(tier);
+        if (candidates == null || candidates.isEmpty()) return null;
+        return candidates.get(ThreadLocalRandom.current().nextInt(candidates.size()));
+    }
+
+    // reads and caches the CraftingComponent block from a raw asset json
+    @Nullable
+    public static BsonDocument readCraftingComponent(@Nonnull String itemId) {
+        return CRAFTING_COMPONENT_CACHE.computeIfAbsent(itemId, id -> {
+            Path assetPath = Item.getAssetMap().getPath(id);
+            if (assetPath == null) return null;
+            try {
+                BsonDocument doc = BsonDocument.parse(Files.readString(assetPath));
+                BsonValue component = doc.get("CraftingComponent");
+                return (component != null && component.isDocument()) ? component.asDocument() : null;
+            } catch (Exception e) {
+                return null;
+            }
+        });
+    }
+}

@@ -1,11 +1,6 @@
 package com.example.hyarpg.ui;
 
 // Hytale Imports
-import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.modules.Module_RPGSystem;
-import com.example.hyarpg.utils.affixes.Affix;
-import com.example.hyarpg.utils.affixes.AffixPool;
-import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -19,10 +14,20 @@ import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+// Mod Imports
+import com.example.hyarpg.components.Component_RPG_Player;
+import com.example.hyarpg.modules.Module_RPGSystem;
+import com.example.hyarpg.utils.affixes.Affix;
+import com.example.hyarpg.utils.affixes.AffixPool;
+import com.example.hyarpg.utils.affixes.EntityStats;
+import com.example.hyarpg.utils.affixes.StatType;
+import com.example.hyarpg.utils.StatTypeInfo;
+
 // HyUI Imports
 import au.ellie.hyui.builders.PageBuilder;
 
 // Java Imports
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +35,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Page_RPGStats {
+
+    // damage type colors
+    private static final Map<String, String> DAMAGE_COLORS = Map.of(
+            "Fire",     "#e8472a",
+            "Lightning","#2a6be8",
+            "Ice",      "#a8d8ea",
+            "Poison",   "#4caf50",
+            "Physical", "#ffffff",
+            "Magic",    "#cc44cc"
+    );
 
     public static void open(Ref<EntityStore> ref, Store<EntityStore> store) {
         // get rpg player component
@@ -44,7 +59,7 @@ public class Page_RPGStats {
         InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
         ItemStack offHandStack = utilityComp != null ? utilityComp.getActiveItem() : null;
 
-        // --- Gear tab: item IDs ---
+        // gear tab item ids
         String headItem     = armor != null ? getItemId(armor.getItemStack((short) ItemArmorSlot.Head.ordinal()))  : "";
         String chestItem    = armor != null ? getItemId(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal())) : "";
         String handsItem    = armor != null ? getItemId(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal())) : "";
@@ -52,7 +67,7 @@ public class Page_RPGStats {
         String mainHandItem = getItemId(mainHandStack);
         String offHandItem  = getItemId(offHandStack);
 
-        // --- Gear tab: affix + implicit HTML ---
+        // gear tab affix + implicit html
         String headAffixHTML     = armor != null ? getGearSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Head.ordinal())),  getImplicits(armor.getItemStack((short) ItemArmorSlot.Head.ordinal())))  : "";
         String chestAffixHTML    = armor != null ? getGearSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal())), getImplicits(armor.getItemStack((short) ItemArmorSlot.Chest.ordinal()))) : "";
         String handsAffixHTML    = armor != null ? getGearSlotHTML(getAffixes(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal())), getImplicits(armor.getItemStack((short) ItemArmorSlot.Hands.ordinal()))) : "";
@@ -65,7 +80,7 @@ public class Page_RPGStats {
         int gearScore           = rpgPlayer.gearScore;
         int playerLevel         = rpgPlayer.level;
         boolean usingShield     = !ItemStack.isEmpty(offHandStack) && offHandItem.contains("Weapon_Shield");
-        String statsHTML        = buildStatsHTML(playerStats, playerLevel, gearScore, usingShield);
+        String statsHTML        = buildStatsHTML(playerStats, playerLevel, gearScore, usingShield, mainHandStack, offHandStack);
 
         String html = """
         <div class="page-overlay">
@@ -97,8 +112,8 @@ public class Page_RPGStats {
                                         <span class="item-slot" data-hyui-item-id="${HEAD_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="false"
-                                              style="anchor-width: 96; anchor-height: 96;"></span>
-                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
+                                              style="anchor-width: 160; anchor-height: 160;"></span>
+                                        <div style="layout-mode: top; anchor-width: 230; margin-left: 10;">
                                             ${HEAD_AFFIXES}
                                         </div>
                                     </div>
@@ -106,8 +121,8 @@ public class Page_RPGStats {
                                         <span class="item-slot" data-hyui-item-id="${CHEST_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="false"
-                                              style="anchor-width: 96; anchor-height: 96;"></span>
-                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
+                                              style="anchor-width: 160; anchor-height: 160;"></span>
+                                        <div style="layout-mode: top; anchor-width: 230; margin-left: 10;">
                                             ${CHEST_AFFIXES}
                                         </div>
                                     </div>
@@ -119,8 +134,8 @@ public class Page_RPGStats {
                                         <span class="item-slot" data-hyui-item-id="${HANDS_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="false"
-                                              style="anchor-width: 96; anchor-height: 96;"></span>
-                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
+                                              style="anchor-width: 160; anchor-height: 160;"></span>
+                                        <div style="layout-mode: top; anchor-width: 230; margin-left: 10;">
                                             ${HANDS_AFFIXES}
                                         </div>
                                     </div>
@@ -128,8 +143,8 @@ public class Page_RPGStats {
                                         <span class="item-slot" data-hyui-item-id="${LEGS_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="false"
-                                              style="anchor-width: 96; anchor-height: 96;"></span>
-                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
+                                              style="anchor-width: 160; anchor-height: 160;"></span>
+                                        <div style="layout-mode: top; anchor-width: 230; margin-left: 10;">
                                             ${LEGS_AFFIXES}
                                         </div>
                                     </div>
@@ -141,8 +156,8 @@ public class Page_RPGStats {
                                         <span class="item-slot" data-hyui-item-id="${MAINHAND_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="true"
-                                              style="anchor-width: 96; anchor-height: 96;"></span>
-                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
+                                              style="anchor-width: 160; anchor-height: 160;"></span>
+                                        <div style="layout-mode: top; anchor-width: 230; margin-left: 10;">
                                             ${MAINHAND_AFFIXES}
                                         </div>
                                     </div>
@@ -150,8 +165,8 @@ public class Page_RPGStats {
                                         <span class="item-slot" data-hyui-item-id="${OFFHAND_ITEM}"
                                               data-hyui-show-quality-background="true"
                                               data-hyui-show-quantity="true"
-                                              style="anchor-width: 96; anchor-height: 96;"></span>
-                                        <div style="layout-mode: top; anchor-width: 295; margin-left: 10;">
+                                              style="anchor-width: 160; anchor-height: 160;"></span>
+                                        <div style="layout-mode: top; anchor-width: 230; margin-left: 10;">
                                             ${OFFHAND_AFFIXES}
                                         </div>
                                     </div>
@@ -192,7 +207,6 @@ public class Page_RPGStats {
                 Map.entry("STATS_HTML",       statsHTML)
         ));
 
-        // Player is still needed here solely for getPageManager()
         Player player = store.getComponent(ref, Player.getComponentType());
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
         PageBuilder.pageForPlayer(playerRef)
@@ -203,18 +217,28 @@ public class Page_RPGStats {
                 .open(store);
     }
 
+    // returns the hex color for a damage type
+    private static String getDamageTypeColor(@Nonnull StatType stat) {
+        if (stat == StatType.MAIN_HAND_FIRE_DAMAGE_FLAT || stat == StatType.OFF_HAND_FIRE_DAMAGE_FLAT) return DAMAGE_COLORS.get("Fire");
+        if (stat == StatType.MAIN_HAND_LIGHTNING_DAMAGE_FLAT || stat == StatType.OFF_HAND_LIGHTNING_DAMAGE_FLAT) return DAMAGE_COLORS.get("Lightning");
+        if (stat == StatType.MAIN_HAND_ICE_DAMAGE_FLAT || stat == StatType.OFF_HAND_ICE_DAMAGE_FLAT) return DAMAGE_COLORS.get("Ice");
+        if (stat == StatType.MAIN_HAND_POISON_DAMAGE_FLAT || stat == StatType.OFF_HAND_POISON_DAMAGE_FLAT) return DAMAGE_COLORS.get("Poison");
+        if (stat == StatType.MAIN_HAND_MAGIC_DAMAGE_FLAT || stat == StatType.OFF_HAND_MAGIC_DAMAGE_FLAT) return DAMAGE_COLORS.get("Magic");
+        return DAMAGE_COLORS.get("Physical");
+    }
+
     // -------------------------------------------------------------------------
     // Stats tab
     // -------------------------------------------------------------------------
-    private static String buildStatsHTML(EntityStats s, int playerLevel, int gearScore, boolean usingShield) {
+    private static String buildStatsHTML(EntityStats s, int playerLevel, int gearScore, boolean usingShield, @Nullable ItemStack mainHandStack, @Nullable ItemStack offHandStack) {
         StringBuilder sb = new StringBuilder();
 
-        // ---- Two-column layout ----
         sb.append("<div style=\"layout-mode: left; anchor-width: 700;\">");
 
-        // Left column
+        // left column
         sb.append("<div style=\"layout-mode: top; anchor-width: 340;\">");
 
+        // overview
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Overview");
         addStat(sb, "Player Level", String.valueOf(playerLevel));
@@ -222,6 +246,17 @@ public class Page_RPGStats {
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
+        // weapon damage section — only show non-zero damage stats from main/off hand
+        String weaponDamageHTML = buildWeaponDamageHTML(mainHandStack, offHandStack);
+        if (!weaponDamageHTML.isEmpty()) {
+            sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
+            addSectionHeader(sb, "Weapon Damage");
+            sb.append(weaponDamageHTML);
+            sb.append("<div style=\"margin-bottom: 5;\"></div>");
+            sb.append("</div>");
+        }
+
+        // offense
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Offense");
         addStat(sb, "Physical Damage",   "+" + fmt(s.getFlatDamage("Physical")));
@@ -245,80 +280,97 @@ public class Page_RPGStats {
         addStat(sb, "Crit Chance",    fmt(s.getCriticalStrikeChance()) + "%");
         addStat(sb, "Crit Damage",    fmt(s.getCriticalStrikeDamage()) + "x");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Axe Damage",    fmt(s.getIncreasedDamage("Axe")) + "%");
-        addStat(sb, "Battleaxe Damage",    fmt(s.getIncreasedDamage("Battleaxe")) + "%");
-        addStat(sb, "Club Damage",    fmt(s.getIncreasedDamage("Club")) + "%");
+        addStat(sb, "Axe Damage",        fmt(s.getIncreasedDamage("Axe")) + "%");
+        addStat(sb, "Battleaxe Damage",  fmt(s.getIncreasedDamage("Battleaxe")) + "%");
+        addStat(sb, "Club Damage",       fmt(s.getIncreasedDamage("Club")) + "%");
         addStat(sb, "Daggers Damage",    fmt(s.getIncreasedDamage("Daggers")) + "%");
-        addStat(sb, "Kunai Damage",    fmt(s.getIncreasedDamage("Kunai")) + "%");
-        addStat(sb, "Longsword Damage",    fmt(s.getIncreasedDamage("Longsword")) + "%");
-        addStat(sb, "Mace Damage",    fmt(s.getIncreasedDamage("Mace")) + "%");
-        addStat(sb, "Shortbow Damage",    fmt(s.getIncreasedDamage("Shortbow")) + "%");
-        addStat(sb, "Crossbow Damage",    fmt(s.getIncreasedDamage("Crossbow")) + "%");
-        addStat(sb, "Sword Damage",    fmt(s.getIncreasedDamage("Sword")) + "%");
+        addStat(sb, "Kunai Damage",      fmt(s.getIncreasedDamage("Kunai")) + "%");
+        addStat(sb, "Longsword Damage",  fmt(s.getIncreasedDamage("Longsword")) + "%");
+        addStat(sb, "Mace Damage",       fmt(s.getIncreasedDamage("Mace")) + "%");
+        addStat(sb, "Shortbow Damage",   fmt(s.getIncreasedDamage("Shortbow")) + "%");
+        addStat(sb, "Crossbow Damage",   fmt(s.getIncreasedDamage("Crossbow")) + "%");
+        addStat(sb, "Sword Damage",      fmt(s.getIncreasedDamage("Sword")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
+        // defense
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Defense");
-        addStat(sb, "Dodge Chance", fmt(s.getDodgeChance()) + "%");
-        addStat(sb, "Stability", fmt(s.getStabilityPercent(usingShield)) + "%");
-        addStat(sb, "Parry Window", "+" + fmt(s.getParryWindow()) + "(s)");
+        addStat(sb, "Dodge Chance",     fmt(s.getDodgeChance()) + "%");
+        addStat(sb, "Stability",        fmt(s.getStabilityPercent(usingShield)) + "%");
+        addStat(sb, "Parry Window",     "+" + fmt(s.getParryWindow()) + "(s)");
         addStat(sb, "Barrier on Block", fmt(s.getBarrierOnBlock()) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
         sb.append("</div>"); // end left column
 
-        // -- Right column --
+        // right column
         sb.append("<div style=\"layout-mode: top; anchor-width: 340;margin-left: 15;\">");
 
+        // resources
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Resources");
-        addStat(sb, "Life",         "+" + fmt(s.getFlatResource("Life")));
-        addStat(sb, "Life",         "+" + fmt(s.getIncreasedResource("Life")) + "%");
+        addStat(sb, "Life",    "+" + fmt(s.getFlatResource("Life")));
+        addStat(sb, "Life",    "+" + fmt(s.getIncreasedResource("Life")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Stamina",      "+" + fmt(s.getFlatResource("Stamina")));
-        addStat(sb, "Stamina",      "+" + fmt(s.getIncreasedResource("Stamina")) + "%");
+        addStat(sb, "Stamina", "+" + fmt(s.getFlatResource("Stamina")));
+        addStat(sb, "Stamina", "+" + fmt(s.getIncreasedResource("Stamina")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Mana",         "+" + fmt(s.getFlatResource("Mana")));
-        addStat(sb, "Mana",         "+" + fmt(s.getIncreasedResource("Mana")) + "%");
+        addStat(sb, "Mana",    "+" + fmt(s.getFlatResource("Mana")));
+        addStat(sb, "Mana",    "+" + fmt(s.getIncreasedResource("Mana")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
+        // regeneration
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Regeneration");
-        addStat(sb, "Life Regen",   "+" + fmt(s.getFlatResourceRegen("Life")) + "s");
-        addStat(sb, "Life Regen",   "+" + fmt(s.getIncreasedResourceRegen("Life")) + "%");
+        addStat(sb, "Life Regen",    "+" + fmt(s.getFlatResourceRegen("Life")) + "s");
+        addStat(sb, "Life Regen",    "+" + fmt(s.getIncreasedResourceRegen("Life")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Stamina Regen","+" + fmt(s.getFlatResourceRegen("Stamina")) + "s");
-        addStat(sb, "Stamina Regen","+" + fmt(s.getIncreasedResourceRegen("Stamina")) + "%");
+        addStat(sb, "Stamina Regen", "+" + fmt(s.getFlatResourceRegen("Stamina")) + "s");
+        addStat(sb, "Stamina Regen", "+" + fmt(s.getIncreasedResourceRegen("Stamina")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Mana Regen",   "+" + fmt(s.getFlatResourceRegen("Mana")) + "s");
-        addStat(sb, "Mana Regen",   "+" + fmt(s.getIncreasedResourceRegen("Mana")) + "%");
+        addStat(sb, "Mana Regen",    "+" + fmt(s.getFlatResourceRegen("Mana")) + "s");
+        addStat(sb, "Mana Regen",    "+" + fmt(s.getIncreasedResourceRegen("Mana")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
+        // resistances
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Resistances");
-        addStat(sb, "Physical Resist", fmt(s.getResistance("Physical")) + "%");
-        addStat(sb, "Magic Resist", fmt(s.getResistance("Magic")) + "%");
+        addStat(sb, "Physical Resist",  fmt(s.getResistance("Physical")) + "%");
+        addStat(sb, "Magic Resist",     fmt(s.getResistance("Magic")) + "%");
         addStat(sb, "Elemental Resist", fmt(s.getResistance("Elemental")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Fire Resist", fmt(s.getResistance("Fire")) + "%");
-        addStat(sb, "Ice Resist", fmt(s.getResistance("Ice")) + "%");
+        addStat(sb, "Fire Resist",      fmt(s.getResistance("Fire")) + "%");
+        addStat(sb, "Ice Resist",       fmt(s.getResistance("Ice")) + "%");
         addStat(sb, "Lightning Resist", fmt(s.getResistance("Lightning")) + "%");
-        addStat(sb, "Poison Resist", fmt(s.getResistance("Poison")) + "%");
+        addStat(sb, "Poison Resist",    fmt(s.getResistance("Poison")) + "%");
         sb.append("<div style=\"margin-bottom: 10;\"></div>");
-        addStat(sb, "Fall Resist", fmt(s.getResistance("Fall")) + "%");
+        addStat(sb, "Fall Resist",      fmt(s.getResistance("Fall")) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
+        // Advanced
+        sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
+        addSectionHeader(sb, "Advanced");
+        addStat(sb, "Life Leech",              fmt(s.getLeech("Life")) + "%");
+        addStat(sb, "Mana Leech",              fmt(s.getLeech("Mana")) + "%");
+        addStat(sb, "Stamina Leech",           fmt(s.getLeech("Stamina")) + "%");
+        sb.append("<div style=\"margin-bottom: 10;\"></div>");
+        addStat(sb, "Damage from Mana",        fmt(s.getDamageTakenFrom("Mana")) + "%");
+        addStat(sb, "Damage from Stamina",     fmt(s.getDamageTakenFrom("Stamina")) + "%");
+        sb.append("<div style=\"margin-bottom: 5;\"></div>");
+        sb.append("</div>");
+
+        // utility
         sb.append("<div style=\"layout-mode: top; margin-top: 10;margin-bottom: 20;background-color: #111a24;margin-left: 15;anchor-width: 310;\">");
         addSectionHeader(sb, "Utility");
-        addStat(sb, "Run Speed",   "+" + fmt(s.getRunSpeedPercent()) + "%");
+        addStat(sb, "Run Speed",  "+" + fmt(s.getRunSpeedPercent()) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
-        addStat(sb, "Ammo",         "+" + fmt(s.getAddedAmmo()));
-        addStat(sb, "Ammo Regen",   "+" + fmt(s.getAmmoRegenPercent()) + "%");
+        addStat(sb, "Ammo",       "+" + fmt(s.getAddedAmmo()));
+        addStat(sb, "Ammo Regen", "+" + fmt(s.getAmmoRegenPercent()) + "%");
         sb.append("<div style=\"margin-bottom: 5;\"></div>");
         sb.append("</div>");
 
@@ -328,11 +380,52 @@ public class Page_RPGStats {
         return sb.toString();
     }
 
+    // builds weapon damage rows for main and off hand from implicit metadata — only non-zero stats shown
+    private static String buildWeaponDamageHTML(@Nullable ItemStack mainHandStack, @Nullable ItemStack offHandStack) {
+        StringBuilder sb = new StringBuilder();
+
+        appendWeaponDamageRows(sb, mainHandStack, "Main Hand");
+        appendWeaponDamageRows(sb, offHandStack, "Off Hand");
+
+        return sb.toString();
+    }
+
+    // reads implicits from a stack and appends any weapon damage flat stats as colored stat rows
+    private static void appendWeaponDamageRows(StringBuilder sb, @Nullable ItemStack stack, String label) {
+        if (ItemStack.isEmpty(stack)) return;
+        String[] implicits = stack.getFromMetadataOrNull("implicits", Codec.STRING_ARRAY);
+        if (implicits == null) return;
+
+        for (String str : implicits) {
+            String[] parts = str.split("\\|");
+            if (parts.length < 3) continue;
+            StatType stat;
+            try { stat = StatType.valueOf(parts[0]); } catch (Exception e) { continue; }
+            if (!StatTypeInfo.isWeaponDamageStat(stat)) continue;
+            float value = Float.parseFloat(parts[1]);
+            if (value == 0f) continue;
+            String color = getDamageTypeColor(stat);
+            String damageType = getDamageTypeName(stat);
+            sb.append("<div style=\"layout-mode: left; anchor-width: 300; margin-left: 10; margin-bottom: 2;\">")
+                    .append("<p style=\"anchor-width: 200; color: #ffffff;\">").append(label).append("</p>")
+                    .append("<p style=\"anchor-width: 90; text-align: right; color: ").append(color).append(";\"><span data-hyui-bold=\"true\">").append(fmt(value)).append("</span> (").append(damageType).append(")</p>")
+                    .append("</div>");
+        }
+    }
+
+    // returns the display name of the damage type for a weapon damage stat
+    private static String getDamageTypeName(@Nonnull StatType stat) {
+        if (stat == StatType.MAIN_HAND_FIRE_DAMAGE_FLAT      || stat == StatType.OFF_HAND_FIRE_DAMAGE_FLAT)      return "Fire";
+        if (stat == StatType.MAIN_HAND_LIGHTNING_DAMAGE_FLAT || stat == StatType.OFF_HAND_LIGHTNING_DAMAGE_FLAT) return "Lightning";
+        if (stat == StatType.MAIN_HAND_ICE_DAMAGE_FLAT       || stat == StatType.OFF_HAND_ICE_DAMAGE_FLAT)       return "Ice";
+        if (stat == StatType.MAIN_HAND_POISON_DAMAGE_FLAT    || stat == StatType.OFF_HAND_POISON_DAMAGE_FLAT)    return "Poison";
+        if (stat == StatType.MAIN_HAND_MAGIC_DAMAGE_FLAT     || stat == StatType.OFF_HAND_MAGIC_DAMAGE_FLAT)     return "Magic";
+        return "Physical";
+    }
+
     private static void addSectionHeader(StringBuilder sb, String title) {
         sb.append("<p style=\"font-size: 20;margin-left: 5;margin-top: 3;color: #888888;\">")
-                .append("<span data-hyui-bold=\"true\">")
-                .append(title)
-                .append("</span></p>");
+                .append("<span data-hyui-bold=\"true\">").append(title).append("</span></p>");
     }
 
     private static void addStat(StringBuilder sb, String label, String value) {
@@ -344,9 +437,7 @@ public class Page_RPGStats {
 
     private static String fmt(float value) {
         float rounded = Math.round(value * 10) / 10f;
-        return rounded == (int) rounded
-                ? String.valueOf((int) rounded)
-                : String.valueOf(rounded);
+        return rounded == (int) rounded ? String.valueOf((int) rounded) : String.valueOf(rounded);
     }
 
     // -------------------------------------------------------------------------
@@ -360,9 +451,7 @@ public class Page_RPGStats {
 
     private static String replaceStringTokens(String template, Map<String, String> values) {
         String result = template;
-        for (var entry : values.entrySet()) {
-            result = result.replace("${" + entry.getKey() + "}", entry.getValue());
-        }
+        for (var entry : values.entrySet()) result = result.replace("${" + entry.getKey() + "}", entry.getValue());
         return result;
     }
 
@@ -383,31 +472,53 @@ public class Page_RPGStats {
     private static String getGearSlotHTML(List<String> affixes, List<String> implicits) {
         StringBuilder html = new StringBuilder();
 
-        // implicits — format: "Stat_Increased_Stamina|4.4|display:Stamina: +%s%%"
+        // weapon damage line — first implicit from slot 0 that is a weapon damage stat
+        String weaponDamageLine = "";
+        String weaponDamageColor = "#ffffff";
+        List<String> remainingImplicits = new ArrayList<>();
+
         for (String str : implicits) {
             String[] parts = str.split("\\|");
             if (parts.length < 3) continue;
-            float value = Float.parseFloat(parts[1]);
-            String display = parts[2];
-            html.append("<p style=\"font-size: 11; color: #c8a84b;\">")
-                    .append(display.formatted(Math.round(value * 10) / 10f))
-                    .append("</p>");
+            StatType stat;
+            try { stat = StatType.valueOf(parts[0]); } catch (Exception e) { remainingImplicits.add(str); continue; }
+
+            if (weaponDamageLine.isEmpty() && StatTypeInfo.isWeaponDamageStat(stat)) {
+                weaponDamageColor = getDamageTypeColor(stat);
+                weaponDamageLine = parts[2];
+            } else {
+                remainingImplicits.add(str);
+            }
         }
 
-        // divider — only shown when there are both implicits and affixes
-        if (!implicits.isEmpty() && !affixes.isEmpty()) {
-            html.append("<div style=\"anchor-width: 260; anchor-height: 1; margin-top: 3; margin-bottom: 3; background-color: #444444;\"></div>");
+        // weapon damage header + value
+        if (!weaponDamageLine.isEmpty()) {
+            html.append("<p style=\"font-size: 9; color: #888888;\">Weapon Damage</p>");
+            html.append("<p style=\"font-size: 13; color: ").append(weaponDamageColor).append("; font-weight: bold;\">").append(weaponDamageLine).append("</p>");
+            html.append("<div style=\"anchor-width: 200; anchor-height: 1; margin-top: 3; margin-bottom: 3; background-color: #333333;\"></div>");
+        }
+
+        // remaining implicits
+        for (String str : remainingImplicits) {
+            String[] parts = str.split("\\|");
+            if (parts.length < 3) continue;
+            html.append("<p style=\"font-size: 11; color: #c8a84b;\">").append(parts[2]).append("</p>");
+        }
+
+        // separator between implicits and affixes
+        if (!remainingImplicits.isEmpty() && !affixes.isEmpty()) {
+            html.append("<div style=\"anchor-width: 200; anchor-height: 1; margin-top: 3; margin-bottom: 3; background-color: #444444;\"></div>");
         }
 
         // affixes
         for (String str : affixes) {
             String[] parts = str.split("\\|");
-            if (parts.length < 2) continue;
-            String id = parts[0];
-            Affix affix = AffixPool.getAffixByStatName(id);
+            if (parts.length < 3) continue;
+            Affix affix = AffixPool.getAffixByStatName(parts[0]);
             if (affix == null) continue;
             float value = Float.parseFloat(parts[1]);
-            html.append("<p style=\"font-size: 11;\">T").append((int) affix.tier())
+            int tier = (int) Float.parseFloat(parts[2]);
+            html.append("<p style=\"font-size: 11;\">T").append(tier)
                     .append(" ").append(affix.display().formatted(Math.round(value * 10) / 10f))
                     .append("</p>");
         }

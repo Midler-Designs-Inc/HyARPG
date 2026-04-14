@@ -1,7 +1,6 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import com.example.hyarpg.utils.affixes.ImplicitAffixPool;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -198,6 +197,7 @@ public class Module_RPGSystem {
         ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onPlayerInventoryItemEquip);
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
         ModEventBus.register(Event_PlayerInteraction.class, this::onPlayerInteraction);
+        ModEventBus.register(Event_PlayerCrafted.class, this::onPlayerCrafted);
         ModEventBus.register(Event_ContainerSpawned.class, this::onContainerSpawned);
     }
 
@@ -742,6 +742,11 @@ public class Module_RPGSystem {
         awardXPToPlayers(event);
     }
 
+    // capture when an item is crafted
+    private void onPlayerCrafted(Event_PlayerCrafted event) {
+
+    }
+
     // capture when an item is added to a players inventory
     private void onPlayerInventoryItemAdded(Event_PlayerInventoryItemAdded event) {
         // entity and store refs
@@ -885,52 +890,52 @@ public class Module_RPGSystem {
 
     // assign a gear score to an item a player picked up
     private ItemStack assignGearScoreAndAffixes(ItemStack stack, int gearScore) {
-        // If it already has a gear score, bail
-        if (stack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) return null;
-
-        // If we can't get an item id bail
-        Item item = stack.getItem();
-        String itemId = item.getId();
-        if(itemId == null) return null;
-
-        // determine the item rarity and type from its id ex: Weapon_Sword_Copper_Uncommon -> Uncommon / Weapon_Sword
-        String rarity = itemId.substring(itemId.lastIndexOf('_') + 1);
-        String itemType = itemId.substring(0, itemId.indexOf('_', itemId.indexOf('_') + 1));
-        int itemLevel = item.getItemLevel();
-        int itemTier = Math.clamp(6 - (itemLevel / 10), 1, 5);
-
-        // String fix for pure armors
-        if(itemType.contains("Armor") && !itemType.contains("Cloth") && !itemType.contains("Leather")) itemType = "Armor";
-
-        // apply implicits
-        List<Affix> implicits = ImplicitAffixPool.getImplicits(itemType, itemTier);
-        List<String> implicitStrings = new ArrayList<>();
-        for (Affix implicit : implicits) {
-            String implicitEncoded = implicit.stat() + "|" + implicit.value() + "|" + implicit.display();
-            implicitStrings.add(implicitEncoded);
-        }
-        stack = stack.withMetadata("implicits", Codec.STRING_ARRAY, implicitStrings.toArray(new String[0]));
-
-        // get affixes
-        int affixCount = rarityToAffixMap.getAffixCount(rarity);
-        List<Affix> affixes = new AffixPool().randomAffixes(affixCount);
-
-        // loop over affixes
-        List<String> affixStrings = new ArrayList<>();
-        for (Affix affix : affixes) {
-            // roll the affix tier which also adjusts the value
-            affix.rollTier(gearScore);
-
-            // convert the affix to a string value
-            String affixEncoded = affix.stat() + "|" + affix.value() + "|" + affix.tier();
-            affixStrings.add(affixEncoded);
-        }
-        stack = stack.withMetadata("affixes", Codec.STRING_ARRAY, affixStrings.toArray(new String[0]));
-
-        // assign the gear store and replace the old stack with the new one
-        stack = stack.withMetadata("GearScore", Codec.INTEGER, gearScore);
-
-        // return the new item stack
+//        // If it already has a gear score, bail
+//        if (stack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null) return null;
+//
+//        // If we can't get an item id bail
+//        Item item = stack.getItem();
+//        String itemId = item.getId();
+//        if(itemId == null) return null;
+//
+//        // determine the item rarity and type from its id ex: Weapon_Sword_Copper_Uncommon -> Uncommon / Weapon_Sword
+//        String rarity = itemId.substring(itemId.lastIndexOf('_') + 1);
+//        String itemType = itemId.substring(0, itemId.indexOf('_', itemId.indexOf('_') + 1));
+//        int itemLevel = item.getItemLevel();
+//        int itemTier = Math.clamp(6 - (itemLevel / 10), 1, 5);
+//
+//        // String fix for pure armors
+//        if(itemType.contains("Armor") && !itemType.contains("Cloth") && !itemType.contains("Leather")) itemType = "Armor";
+//
+//        // apply implicits
+//        List<Affix> implicits = ImplicitAffixPool.getImplicits(itemType, itemTier);
+//        List<String> implicitStrings = new ArrayList<>();
+//        for (Affix implicit : implicits) {
+//            String implicitEncoded = implicit.stat() + "|" + implicit.value() + "|" + implicit.display();
+//            implicitStrings.add(implicitEncoded);
+//        }
+//        stack = stack.withMetadata("implicits", Codec.STRING_ARRAY, implicitStrings.toArray(new String[0]));
+//
+//        // get affixes
+//        int affixCount = rarityToAffixMap.getAffixCount(rarity);
+//        List<Affix> affixes = new AffixPool().randomAffixes(affixCount);
+//
+//        // loop over affixes
+//        List<String> affixStrings = new ArrayList<>();
+//        for (Affix affix : affixes) {
+//            // roll the affix tier which also adjusts the value
+//            affix.rollTier(gearScore);
+//
+//            // convert the affix to a string value
+//            String affixEncoded = affix.stat() + "|" + affix.value() + "|" + affix.tier();
+//            affixStrings.add(affixEncoded);
+//        }
+//        stack = stack.withMetadata("affixes", Codec.STRING_ARRAY, affixStrings.toArray(new String[0]));
+//
+//        // assign the gear store and replace the old stack with the new one
+//        stack = stack.withMetadata("GearScore", Codec.INTEGER, gearScore);
+//
+//        // return the new item stack
         return stack;
     }
 

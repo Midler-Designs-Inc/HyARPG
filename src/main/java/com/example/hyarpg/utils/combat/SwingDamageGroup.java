@@ -17,11 +17,11 @@ public class SwingDamageGroup {
     public final long timestamp = System.currentTimeMillis();
     public final boolean blocked;
     public final boolean isProjectile;
-    public String weaponType = null;
+    public String weaponType;
     private final ConcurrentHashMap<DamageCause, Float> totals = new ConcurrentHashMap<>();
     public volatile boolean readyToApply = false;
 
-    public SwingDamageGroup(Ref<EntityStore> attacker, Ref<EntityStore> defender, boolean blocked, boolean isProjectile, @Nullable  String weaponType) {
+    public SwingDamageGroup(Ref<EntityStore> attacker, Ref<EntityStore> defender, boolean blocked, boolean isProjectile, @Nullable String weaponType) {
         this.attacker = attacker;
         this.defender = defender;
         this.blocked = blocked;

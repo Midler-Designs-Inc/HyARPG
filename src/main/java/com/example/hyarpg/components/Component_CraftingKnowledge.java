@@ -28,6 +28,7 @@ import java.util.*;
 import static com.hypixel.hytale.builtin.crafting.CraftingPlugin.sendKnownRecipes;
 
 public class Component_CraftingKnowledge implements Component<EntityStore> {
+
     // Recipe lists the player has discovered
     private Set<String> discoveredItems = new HashSet<>();
     public Set<String> discoveredDroppableRecipes = new HashSet<>();

@@ -12,7 +12,7 @@
   "Model": "Items/Weapons/Club/Copper.blockymodel",
   "Texture": "Items/Weapons/Club/Copper_Texture.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 3,
     "KnowledgeRequired": false,
     "Input": [
       {

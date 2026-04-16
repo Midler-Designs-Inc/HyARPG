@@ -9,7 +9,7 @@
   "Quality": "Epic",
   "ItemLevel": 7,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {

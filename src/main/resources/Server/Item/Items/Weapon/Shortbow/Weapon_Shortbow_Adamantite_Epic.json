@@ -9,7 +9,7 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Adamantite.png",
   "ItemLevel": 40,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4.5,
     "KnowledgeRequired": false,
     "Input": [
       {

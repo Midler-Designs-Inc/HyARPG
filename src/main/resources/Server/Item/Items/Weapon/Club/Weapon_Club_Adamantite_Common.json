@@ -13,7 +13,7 @@
     "Compatible": true
   },
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4.5,
     "KnowledgeRequired": false,
     "Input": [
       {

@@ -9,7 +9,7 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Copper.png",
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 3,
     "KnowledgeRequired": false,
     "Input": [
       {

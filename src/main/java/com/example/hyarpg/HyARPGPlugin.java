@@ -34,6 +34,7 @@ public class HyARPGPlugin extends JavaPlugin {
     private static HyARPGPlugin instance;
     public Module_RPGSystem rpgSystem;
     public Module_RaidSystem raidSystem;
+    public Module_CombatSystem combatSystem;
 
     // required super function??
     public HyARPGPlugin(@Nonnull JavaPluginInit init) {
@@ -115,6 +116,7 @@ public class HyARPGPlugin extends JavaPlugin {
             new Module_Hunger(this);
             new Module_Thirst(this);
             rpgSystem = new Module_RPGSystem(this);
+            combatSystem = new Module_CombatSystem();
             new Module_PlayerHud(this);
             new Module_BuildSystem();
             raidSystem = new Module_RaidSystem();

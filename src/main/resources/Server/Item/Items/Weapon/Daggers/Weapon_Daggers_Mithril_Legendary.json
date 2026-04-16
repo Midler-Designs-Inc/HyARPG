@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Dagger/Mithril_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Daggers_Mithril.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 5,
     "KnowledgeRequired": false,
     "Input": [
       {

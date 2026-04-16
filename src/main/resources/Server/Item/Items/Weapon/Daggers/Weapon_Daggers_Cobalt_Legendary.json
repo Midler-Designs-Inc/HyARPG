@@ -9,7 +9,7 @@
   "Quality": "Legendary",
   "ItemLevel": 35,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4,
     "BenchRequirement": [
       {
         "Id": "Weapon_Bench",

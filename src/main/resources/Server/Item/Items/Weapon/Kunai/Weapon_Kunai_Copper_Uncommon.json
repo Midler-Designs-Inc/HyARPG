@@ -58,7 +58,7 @@
     ]
   },
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 3,
     "BenchRequirement": [
       {
         "Id": "Weapon_Bench",

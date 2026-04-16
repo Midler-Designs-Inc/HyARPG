@@ -10,7 +10,7 @@
   "Quality": "Rare",
   "ItemLevel": 30,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4,
     "KnowledgeRequired": false,
     "Input": [
       {

@@ -160,7 +160,7 @@
   "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 5,
     "KnowledgeRequired": false,
     "Input": [
       {

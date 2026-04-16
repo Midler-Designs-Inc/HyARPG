@@ -9,7 +9,7 @@
   "Quality": "Common",
   "ItemLevel": 30,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",

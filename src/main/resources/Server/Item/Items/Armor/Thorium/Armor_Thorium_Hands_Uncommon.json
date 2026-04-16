@@ -50,7 +50,7 @@
       }
     ],
     "KnowledgeRequired": false,
-    "TimeSeconds": 2
+    "TimeSeconds": 3
   },
   "Armor": {
     "ArmorSlot": "Hands",

@@ -11,7 +11,7 @@
   "Model": "Items/Weapons/Club/Crude.blockymodel",
   "Texture": "Items/Weapons/Club/Crude_Texture.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {

@@ -47,7 +47,7 @@ public class ItemFactory {
         // 1H weapons
         Map.entry("Axe",       List.of("Axe Head", "Shaft", "Handle")),
         Map.entry("Club",      List.of("Club Head", "Shaft", "Handle")),
-        Map.entry("Shield",    List.of("Shield Frame", "Shield Body", "Shield Core")),
+        Map.entry("Shield",    List.of("Shield Frame", "Shield Body", "Handle")),
         Map.entry("Spear",     List.of("Spear Head", "Shaft", "Handle")),
         Map.entry("Sword",     List.of("Blade", "Hilt", "Handle")),
 
@@ -61,7 +61,7 @@ public class ItemFactory {
         Map.entry("Sickles",   List.of("Curved Blade", "Shaft", "Handle")),
 
         // ranged weapons
-        Map.entry("Crossbow",  List.of("Crossbow Head", "String", "Crossbow Stock")),
+        Map.entry("Crossbow",  List.of("Crossbow Head", "String", "Handle")),
         Map.entry("Kunai",     List.of("Kunai Blade", "Hilt", "Handle")),
         Map.entry("Longbow",   List.of("Longbow Body", "String", "Handle")),
         Map.entry("Shortbow",  List.of("Shortbow Body", "String", "Handle")),
@@ -69,7 +69,25 @@ public class ItemFactory {
         // magic weapons
         Map.entry("Spellbook", List.of("Book Binding", "Book Pages", "Magic Core")),
         Map.entry("Staff",     List.of("Staff Head", "Shaft", "Magic Core")),
-        Map.entry("Wand",      List.of("Wand Body", "Handle", "Magic Core"))
+        Map.entry("Wand",      List.of("Wand Body", "Handle", "Magic Core")),
+
+        // metal armor
+        Map.entry("Metal Helmet",    List.of("Metal Helmet Shell", "Straps & Buckles", "Liner")),
+        Map.entry("Metal Chest",   List.of("Metal Chest Shell", "Straps & Buckles", "Liner")),
+        Map.entry("Metal Gloves",  List.of("Metal Gloves Shell", "Straps & Buckles", "Liner")),
+        Map.entry("Metal Pants",   List.of("Metal Pants Shell", "Straps & Buckles", "Liner")),
+
+        // leather armor
+        Map.entry("Leather Hood",     List.of("Leather Hood Panel", "Straps & Buckles", "Stitching")),
+        Map.entry("Leather Vest",    List.of("Leather Vest Panel", "Straps & Buckles", "Stitching")),
+        Map.entry("Leather Gloves",   List.of("Leather Glove Panel", "Straps & Buckles", "Stitching")),
+        Map.entry("Leather Pants",    List.of("Leather Pants Panel", "Straps & Buckles", "Stitching")),
+
+        // cloth armor
+        Map.entry("Cloth Hood",    List.of("Cloth Hood Panel", "Stitching", "Embellishments")),
+        Map.entry("Cloth Tunic",   List.of("Cloth Tunic Panel", "Stitching", "Embellishments")),
+        Map.entry("Cloth Gloves",  List.of("Cloth Glove Panel", "Stitching", "Embellishments")),
+        Map.entry("Cloth Pants",   List.of("Cloth Pants Panel", "Stitching", "Embellishments"))
     );
 
     // pre-built component index: type -> tier -> list of item ids, populated once on server start via buildComponentIndex()
@@ -241,7 +259,7 @@ public class ItemFactory {
 
     // derives the weapon type string from an item id e.g. "Weapon_Axe_Copper_Common" -> "Axe"
     @Nullable
-    private static String deriveWeaponType(@Nonnull String itemId) {
+    public static String deriveWeaponType(@Nonnull String itemId) {
         // strip Weapon_ or Armor_ prefix then take the next segment
         String stripped = itemId.startsWith("Weapon_") ? itemId.substring("Weapon_".length())
                 : itemId.startsWith("Armor_")  ? itemId.substring("Armor_".length())
@@ -275,5 +293,23 @@ public class ItemFactory {
                 return null;
             }
         });
+    }
+
+    // returns a list of weapon damage implicit strings from an item stack's metadata - format of each entry: "STAT_TYPE|value|display"
+    @Nonnull
+    public static List<String> getWeaponDamageImplicits(@Nonnull ItemStack stack) {
+        String[] implicits = stack.getFromMetadataOrNull("implicits", Codec.STRING_ARRAY);
+        if (implicits == null) return Collections.emptyList();
+
+        List<String> result = new ArrayList<>();
+        for (String implicit : implicits) {
+            String[] parts = implicit.split("\\|");
+            if (parts.length < 3) continue;
+            try {
+                StatType stat = StatType.valueOf(parts[0]);
+                if (StatTypeInfo.isWeaponDamageStat(stat)) result.add(implicit);
+            } catch (Exception ignored) {}
+        }
+        return result;
     }
 }

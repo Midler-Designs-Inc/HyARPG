@@ -133,7 +133,7 @@
     }
   },
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 3,
     "KnowledgeRequired": false,
     "Input": [
       {

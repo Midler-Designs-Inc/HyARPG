@@ -12,7 +12,7 @@
   "Texture": "Items/Weapons/Longsword/Adamantite_Texture.png",
   "PlayerAnimationsId": "Longsword",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4.5,
     "KnowledgeRequired": false,
     "Input": [
       {

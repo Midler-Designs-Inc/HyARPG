@@ -131,54 +131,6 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
     private String selectedSlotId = null;
     private Item selectedItem = null;
 
-    // maps each item sub-category name to the set of component types valid in slots 1-4
-    private static final Map<String, List<String>> ALLOWED_COMPONENTS = Map.ofEntries(
-        // 1H weapons
-        Map.entry("Axe",       List.of("Axe Head", "Shaft", "Handle", "Shard")),
-        Map.entry("Club",      List.of("Club Head", "Shaft", "Handle", "Shard")),
-        Map.entry("Shield",    List.of("Shield Frame", "Shield Body", "Shield Core", "Shard")),
-        Map.entry("Spear",     List.of("Spear Head", "Shaft", "Handle", "Shard")),
-        Map.entry("Sword",     List.of("Blade", "Hilt", "Handle", "Shard")),
-
-        // 2H weapons
-        Map.entry("Battleaxe", List.of("Battleaxe Head", "Shaft", "Handle", "Shard")),
-        Map.entry("Claws",     List.of("Claw Blades", "Hilt", "Handle", "Shard")),
-        Map.entry("Daggers",   List.of("Short Blade", "Hilt", "Handle", "Shard")),
-        Map.entry("Longsword", List.of("Long Blade", "Hilt", "Handle", "Shard")),
-        Map.entry("Mace",      List.of("Mace Head", "Shaft", "Handle", "Shard")),
-        Map.entry("Scythe",    List.of("Scythe Blade", "Shaft", "Handle", "Shard")),
-        Map.entry("Sickles",   List.of("Curved Blade", "Shaft", "Handle", "Shard")),
-
-        // ranged weapons
-        Map.entry("Crossbow",  List.of("Crossbow Head", "String", "Crossbow Stock", "Shard")),
-        Map.entry("Kunai",     List.of("Kunai Blade", "Hilt", "Handle", "Shard")),
-        Map.entry("Longbow",   List.of("Longbow Body", "String", "Handle", "Shard")),
-        Map.entry("Shortbow",  List.of("Shortbow Body", "String", "Handle", "Shard")),
-
-        // magic weapons
-        Map.entry("Spellbook", List.of("Book Binding", "Book Pages", "Magic Core", "Shard")),
-        Map.entry("Staff",     List.of("Staff Head", "Shaft", "Magic Core", "Shard")),
-        Map.entry("Wand",      List.of("Wand Body", "Handle", "Magic Core", "Shard")),
-
-        // metal armor
-        Map.entry("Metal Helmet",    List.of("Metal Helmet Shell", "Straps & Buckles", "Liner", "Shard")),
-        Map.entry("Metal Chest",   List.of("Metal Chest Shell", "Straps & Buckles", "Liner", "Shard")),
-        Map.entry("Metal Gloves",  List.of("Metal Gloves Shell", "Straps & Buckles", "Liner", "Shard")),
-        Map.entry("Metal Pants",   List.of("Metal Pants Shell", "Straps & Buckles", "Liner", "Shard")),
-
-        // leather armor
-        Map.entry("Leather Hood",     List.of("Leather Hood Panel", "Straps & Buckles", "Stitching", "Shard")),
-        Map.entry("Leather Vest",    List.of("Leather Vest Panel", "Straps & Buckles", "Stitching", "Shard")),
-        Map.entry("Leather Gloves",   List.of("Leather Glove Panel", "Straps & Buckles", "Stitching", "Shard")),
-        Map.entry("Leather Pants",    List.of("Leather Pants Panel", "Straps & Buckles", "Stitching", "Shard")),
-
-        // cloth armor
-        Map.entry("Cloth Hood",    List.of("Cloth Hood Panel", "Stitching", "Embellishments", "Shard")),
-        Map.entry("Cloth Tunic",   List.of("Cloth Tunic Panel", "Stitching", "Embellishments", "Shard")),
-        Map.entry("Cloth Gloves",  List.of("Cloth Glove Panel", "Stitching", "Embellishments", "Shard")),
-        Map.entry("Cloth Pants",   List.of("Cloth Pants Panel", "Stitching", "Embellishments", "Shard"))
-    );
-
     public CustomForgeCraftingPage(@Nonnull PlayerRef playerRef) {
         super(playerRef, CustomPageLifetime.CanDismiss, PageData.CODEC);
 
@@ -710,14 +662,19 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
 
     // checks if this item is allowed for the active weapon (and/or in this slot as applicable)
     public boolean isComponentAllowed(@Nonnull String itemId, @Nullable Integer slot) {
+        // shards are always valid in slot 3 only
+        if (SHARD_IDS.contains(itemId)) {
+            return slot == null || slot == 3;
+        }
+
         String type = extractComponentType(itemId);
         if (type == null) return false;
 
-        List<String> allowed = ALLOWED_COMPONENTS.get(this.activeItem);
+        List<String> allowed = ItemFactory.ALLOWED_COMPONENTS.get(this.activeItem);
         if (allowed == null) return false;
 
         if (slot == null) return allowed.contains(type);
-        return allowed.get(slot).equals(type);
+        return slot < allowed.size() && allowed.get(slot).equals(type);
     }
 
     // Enable/disable inventory items based on the selected category

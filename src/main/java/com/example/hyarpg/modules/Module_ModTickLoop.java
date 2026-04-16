@@ -75,7 +75,7 @@ public final class Module_ModTickLoop {
                         Store<EntityStore> store = world.getEntityStore().getStore();
 
                         // flush ready damage groups
-                        plugin.rpgSystem.tickDamageGroups(store);
+                        plugin.combatSystem.tickDamageGroups(store);
 
                         // loop over all players in the world
                         for (PlayerRef playerRef : Universe.get().getPlayers()) {

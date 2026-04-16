@@ -12,7 +12,7 @@
   "Model": "Items/Weapons/Axe/Crude.blockymodel",
   "Texture": "Items/Weapons/Axe/Crude_Texture.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 3,
     "KnowledgeRequired": false,
     "Input": [
       {

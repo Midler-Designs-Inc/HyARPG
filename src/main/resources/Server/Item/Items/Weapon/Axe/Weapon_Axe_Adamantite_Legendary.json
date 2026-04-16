@@ -11,7 +11,7 @@
   "Model": "Items/Weapons/Axe/Adamantite.blockymodel",
   "Texture": "Items/Weapons/Axe/Adamantite_Texture.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4.5,
     "KnowledgeRequired": false,
     "Input": [
       {

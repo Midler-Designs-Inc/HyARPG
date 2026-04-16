@@ -11,7 +11,7 @@
   "Model": "Items/Weapons/Club/Mithril.blockymodel",
   "Texture": "Items/Weapons/Club/Mithril_Texture.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 5,
     "KnowledgeRequired": false,
     "Input": [
       {

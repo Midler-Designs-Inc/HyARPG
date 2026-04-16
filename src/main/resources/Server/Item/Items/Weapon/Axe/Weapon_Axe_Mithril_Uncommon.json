@@ -11,7 +11,7 @@
   "Model": "Items/Weapons/Axe/Mithril.blockymodel",
   "Texture": "Items/Weapons/Axe/Mithril_Texture.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 5,
     "KnowledgeRequired": false,
     "Input": [
       {

@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Battleaxe/Mithril_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Battleaxe_Mithril.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 5,
     "KnowledgeRequired": false,
     "Input": [
       {

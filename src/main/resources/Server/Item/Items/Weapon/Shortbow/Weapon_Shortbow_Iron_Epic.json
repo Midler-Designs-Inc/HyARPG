@@ -9,7 +9,7 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Iron.png",
   "ItemLevel": 20,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 3.5,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",

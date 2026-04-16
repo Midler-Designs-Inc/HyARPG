@@ -9,7 +9,7 @@
   "Quality": "Legendary",
   "ItemLevel": 40,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4.5,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",

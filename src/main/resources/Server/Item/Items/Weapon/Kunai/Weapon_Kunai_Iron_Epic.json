@@ -22,7 +22,7 @@
     ]
   },
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {

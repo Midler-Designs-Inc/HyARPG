@@ -9,7 +9,7 @@
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Crude.png",
   "ItemLevel": 9,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 0,
     "Input": [
       {
         "ItemId": "Ingredient_Stick",

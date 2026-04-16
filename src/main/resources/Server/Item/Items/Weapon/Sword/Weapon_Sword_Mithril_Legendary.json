@@ -9,7 +9,7 @@
   "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Mithril.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 5,
     "KnowledgeRequired": false,
     "Input": [
       {

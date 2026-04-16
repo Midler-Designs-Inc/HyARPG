@@ -12,7 +12,7 @@
   "Model": "Items/Weapons/Longsword/Copper.blockymodel",
   "Texture": "Items/Weapons/Longsword/Copper_Texture.png",
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 3,
     "KnowledgeRequired": false,
     "Input": [
       {

@@ -9,7 +9,7 @@
   "Quality": "Legendary",
   "ItemLevel": 6,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 0,
     "Input": [
       {
         "ResourceTypeId": "Rubble",

@@ -9,7 +9,7 @@
   "Quality": "Epic",
   "ItemLevel": 30,
   "Recipe": {
-    "TimeSeconds": 2,
+    "TimeSeconds": 4,
     "BenchRequirement": [
       {
         "Id": "Weapon_Bench",

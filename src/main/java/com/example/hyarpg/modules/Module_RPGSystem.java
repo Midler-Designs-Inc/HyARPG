@@ -1,6 +1,7 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
@@ -11,9 +12,11 @@ import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
+import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
@@ -279,7 +282,7 @@ public class Module_RPGSystem {
         // getIndex() returns indexBlockInColumn — full column-relative coords
         int index = blockStateInfo.getIndex();
         int localX = ChunkUtil.xFromBlockInColumn(index);
-        int localY = ChunkUtil.yFromBlockInColumn(index); // full Y within column, not section-local
+        int localY = ChunkUtil.yFromBlockInColumn(index);
         int localZ = ChunkUtil.zFromBlockInColumn(index);
 
         // Get chunk X/Z from the WorldChunk component on the chunk ref
@@ -291,7 +294,7 @@ public class Module_RPGSystem {
 
         // Reconstruct world coordinates — no sectionY needed, localY is already full column Y
         int worldX = ChunkUtil.worldCoordFromLocalCoord(chunkX, localX);
-        int worldY = localY; // Y is absolute within the column (MIN_Y = 0)
+        int worldY = localY;
         int worldZ = ChunkUtil.worldCoordFromLocalCoord(chunkZ, localZ);
 
         // Compute distance from config origin
@@ -302,13 +305,33 @@ public class Module_RPGSystem {
 
         // Determine tier based on ore spawn distance ranges
         int tier = 1;
-        if (distance >= ModConfig.get().world.min_distance_for_mithril_spawn)     tier = 6;
-        else if (distance >= ModConfig.get().world.min_distance_for_adamantite_spawn) tier = 5;
-        else if (distance >= ModConfig.get().world.min_distance_for_cobalt_spawn)     tier = 4;
-        else if (distance >= ModConfig.get().world.min_distance_for_thorium_spawn)    tier = 3;
-        else if (distance >= ModConfig.get().world.min_distance_for_iron_spawn)       tier = 2;
+        if (distance >= ModConfig.get().world.min_distance_for_mithril_spawn)          tier = 6;
+        else if (distance >= ModConfig.get().world.min_distance_for_adamantite_spawn)   tier = 5;
+        else if (distance >= ModConfig.get().world.min_distance_for_cobalt_spawn)       tier = 4;
+        else if (distance >= ModConfig.get().world.min_distance_for_thorium_spawn)      tier = 3;
+        else if (distance >= ModConfig.get().world.min_distance_for_iron_spawn)         tier = 2;
 
-        containerBlock.setDroplist("HyARPG_Container_Tier" + tier);
+        // resolve the droplist into raw stacks then null it out so the container can't re-populate on open or break
+        List<ItemStack> rawDrops = ItemModule.get().getRandomItemDrops("HyARPG_Container_Tier" + tier);
+        containerBlock.setDroplist(null);
+
+        // loop over raw drops and replace any mod gear with a factory-generated equivalent
+        List<ItemStack> finalItems = new ArrayList<>();
+        for (ItemStack drop : rawDrops) {
+            Item item = drop.getItem();
+            if (item == null) continue;
+
+            String[] categories = item.getCategories();
+            boolean isModGear = categories != null && Arrays.asList(categories).contains("Items.HyARPG.Gear");
+
+            // pass through non-gear drops as-is, replace gear drops via ItemFactory
+            if (!isModGear) { finalItems.add(drop); continue; }
+            ItemStack generated = ItemFactory.createItem(drop.getItemId(), tier * 10, null, null, null);
+            if (generated != null) finalItems.add(generated);
+        }
+
+        // populate the container with the final item list
+        containerBlock.getItemContainer().addItemStacks(finalItems);
     }
 
     // method for when a player equips an item

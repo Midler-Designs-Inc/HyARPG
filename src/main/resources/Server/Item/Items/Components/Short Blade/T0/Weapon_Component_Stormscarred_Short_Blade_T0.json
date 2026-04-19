@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Stormscarred_Short_Blade_T0.json.name",
+    "Description": "server.items.components.Weapon_Component_Stormscarred_Short_Blade_T0.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T0/Weapon_Component_Short_Blade_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Short_Blade_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T0/Weapon_Component_Daggers.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Rubble_Stone",
+        "Quantity": 10
+      },
+      {
+        "ItemId": "Ingredient_Lightning_Essence",
+        "Quantity": 5
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 0,
+        "Categories": [
+          "Workbench_Crude_Weapons"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Short Blade",
+    "tier": 0,
+    "outputAssetID": "Weapon_Daggers_Crude",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_LIGHTNING_DAMAGE_FLAT",
+        "min": 3,
+        "max": 3
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

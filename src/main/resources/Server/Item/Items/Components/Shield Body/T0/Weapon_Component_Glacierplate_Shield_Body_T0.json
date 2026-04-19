@@ -27,6 +27,7 @@
       {
         "Id": "Workbench",
         "Type": "Crafting",
+        "RequiredTierLevel": 0,
         "Categories": [
           "Workbench_Crude_Weapons"
         ]

@@ -23,6 +23,7 @@
       {
         "Id": "Armor_Bench",
         "Type": "Crafting",
+        "RequiredTierLevel": 6,
         "Categories": [
           "Shield_Parts"
         ]

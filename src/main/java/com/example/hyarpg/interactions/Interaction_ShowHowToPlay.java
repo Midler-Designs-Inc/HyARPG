@@ -1,6 +1,8 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
+import com.example.hyarpg.ui.CustomForgeCraftingPage;
+import com.example.hyarpg.ui.CustomHowToPlayPage;
 import com.example.hyarpg.ui.Page_HowToPlay;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
@@ -8,8 +10,10 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
+import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
@@ -39,10 +43,11 @@ public class Interaction_ShowHowToPlay extends SimpleInstantInteraction {
         final Store<EntityStore> store = entityRef.getStore();
 
         try {
-            Page_HowToPlay.open(entityRef, store);
-        } catch (NoClassDefFoundError e) {
-            // Class not yet loaded, retry on next tick or log
-            HytaleLogger.getLogger().at(Level.WARNING).log("Page_RPGStats not loaded yet: %s", e.getMessage());
+            Player player = store.getComponent(entityRef, Player.getComponentType());
+            PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
+            player.getPageManager().openCustomPage(entityRef, store, new CustomHowToPlayPage(playerRef));
+        } catch (Exception e) {
+            HytaleLogger.getLogger().at(Level.WARNING).log("Open Forge Crafting Window failed: %s", e.getMessage());
         }
     }
 }

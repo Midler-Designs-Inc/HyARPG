@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Hemlocked_Short_Blade_T1.json.name",
+    "Description": "server.items.components.Weapon_Component_Hemlocked_Short_Blade_T1.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T1/Weapon_Component_Short_Blade_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Short_Blade_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T1/Weapon_Component_Daggers.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 20
+      },
+      {
+        "ItemId": "Ingredient_Sac_Venom",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Heads_and_Blades"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Short Blade",
+    "tier": 1,
+    "outputAssetID": "Weapon_Daggers_Copper",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_POISON_DAMAGE_FLAT",
+        "min": 6,
+        "max": 6
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

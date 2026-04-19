@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Ironbound_Shortbow_Body_T0.json.name",
+    "Description": "server.items.components.Weapon_Component_Ironbound_Shortbow_Body_T0.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T0/Weapon_Component_Shortbow_Body_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shortbow_Body_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T0/Weapon_Component_Shortbow.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Rubble_Stone",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 0,
+        "Categories": [
+          "Workbench_Crude_Weapons"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shortbow Body",
+    "tier": 0,
+    "outputAssetID": "Weapon_Shortbow_Crude",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_PHYSICAL_DAMAGE_FLAT",
+        "min": 2,
+        "max": 2
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

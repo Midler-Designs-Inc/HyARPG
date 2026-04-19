@@ -174,24 +174,22 @@ public class ItemFactory {
 
     // creates a fully built item stack with components, implicits, affixes and gear score. any null component will be randomly selected from the index for that slot type and tier
     @Nullable
-    public static ItemStack createItem(@Nonnull String itemId, int playerLevel, @Nullable String rarity, @Nullable String comp1, @Nullable String comp2, @Nullable String comp3) {
+    public static ItemStack createItem(@Nonnull String itemId, int playerLevel, @Nullable String comp1, @Nullable String comp2, @Nullable String comp3) {
         // get the base item asset
         Item item = Item.getAssetMap().getAsset(itemId);
         if (item == null) return null;
 
-        // derive weapon type from item id e.g. "Weapon_Axe_Copper_Common" -> "Axe"
+        // derive weapon type and rarity from item id
         String weaponType = deriveWeaponType(itemId);
-        if (weaponType == null) return null;
+        String rarity = deriveRarity(itemId);
+        if (weaponType == null || rarity == null) return null;
 
-        // derive tier from item level e.g. item level 15 -> tier 1
+        // derive tier from item level
         int tier = Math.max(1, item.getItemLevel() / 10);
 
         // get the slot type list for this weapon type
         List<String> slotTypes = ALLOWED_COMPONENTS.get(weaponType);
         if (slotTypes == null) return null;
-
-        // roll rarity if not provided
-        if (rarity == null) rarity = RARITY_POOL[ThreadLocalRandom.current().nextInt(RARITY_POOL.length)];
 
         // resolve any missing components randomly from the index
         String[] components = {comp1, comp2, comp3};
@@ -202,10 +200,8 @@ public class ItemFactory {
             }
         }
 
-        // start building the stack
+        // build the stack and encode components
         ItemStack stack = new ItemStack(itemId);
-
-        // encode components into metadata as ordered array
         stack = stack.withMetadata("components", Codec.STRING_ARRAY, components);
 
         // read implicits from each component and apply them
@@ -267,6 +263,14 @@ public class ItemFactory {
         if (stripped == null) return null;
         int nextUnderscore = stripped.indexOf('_');
         return nextUnderscore > 0 ? stripped.substring(0, nextUnderscore) : stripped;
+    }
+
+    // derives the rarity string from an item id e.g. "Weapon_Axe_Copper_Common" -> "Common"
+    @Nullable
+    public static String deriveRarity(@Nonnull String itemId) {
+        for (String r : RARITY_TO_AFFIX_COUNT.keySet())
+            if (itemId.endsWith("_" + r)) return r;
+        return null;
     }
 
     // picks a random component item id from the index for the given type and tier

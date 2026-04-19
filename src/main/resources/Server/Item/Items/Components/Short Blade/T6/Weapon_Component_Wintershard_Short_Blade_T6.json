@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Wintershard_Short_Blade_T6.json.name",
+    "Description": "server.items.components.Weapon_Component_Wintershard_Short_Blade_T6.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T6/Weapon_Component_Short_Blade_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Short_Blade_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T6/Weapon_Component_Daggers.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 70
+      },
+      {
+        "ItemId": "Ingredient_Ice_Essence",
+        "Quantity": 35
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 6,
+        "Categories": [
+          "Heads_and_Blades"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Short Blade",
+    "tier": 6,
+    "outputAssetID": "Weapon_Daggers_Mithril",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_ICE_DAMAGE_FLAT",
+        "min": 21,
+        "max": 21
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

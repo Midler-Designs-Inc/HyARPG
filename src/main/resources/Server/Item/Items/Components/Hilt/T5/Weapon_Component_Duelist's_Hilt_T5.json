@@ -23,6 +23,7 @@
       {
         "Id": "Weapon_Bench",
         "Type": "Crafting",
+        "RequiredTierLevel": 5,
         "Categories": [
           "Shafts_and_Hilts"
         ]

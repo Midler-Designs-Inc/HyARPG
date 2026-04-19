@@ -185,12 +185,23 @@ public class Module_CombatSystem {
             if (!isExcluded) allDrops.add(drop);
         }
 
-        // determine tier from horizontal distance to world origin and append mod drops
+        // determine tier from horizontal distance to world origin
         Config_World worldConfig = ModConfig.get().world;
         Vector3d pos = transform.getPosition();
         double distance = Math.sqrt( Math.pow(pos.x - worldConfig.origin_spawn_point_x, 2) + Math.pow(pos.z - worldConfig.origin_spawn_point_z, 2));
-        String tierDropList = TIER_DROP_LISTS[getTierByDistance(distance) - 1];
-        allDrops.addAll(itemModule.getRandomItemDrops(tierDropList));
+        int tier = getTierByDistance(distance);
+        String tierDropList = TIER_DROP_LISTS[tier - 1];
+
+        // resolve tier drops and replace any mod gear with factory-generated equivalents
+        for (ItemStack drop : itemModule.getRandomItemDrops(tierDropList)) {
+            Item item = drop.getItem();
+            if (item == null) continue;
+            String[] categories = item.getCategories();
+            boolean isModGear = categories != null && Arrays.asList(categories).contains("Items.HyARPG.Gear");
+            if (!isModGear) { allDrops.add(drop); continue; }
+            ItemStack generated = ItemFactory.createItem(drop.getItemId(), tier * 10, null, null, null);
+            if (generated != null) allDrops.add(generated);
+        }
 
         // spawn all drops
         if (!allDrops.isEmpty()) {

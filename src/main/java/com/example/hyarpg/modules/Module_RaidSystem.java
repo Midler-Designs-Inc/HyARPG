@@ -372,9 +372,13 @@ public class Module_RaidSystem {
                         if (ModConfig.get().raids.allow_base_raids) {
                             long secondsSinceLastBaseRaid = nowEpochSeconds - rpgPlayer.lastBaseRaid;
                             if (secondsSinceLastBaseRaid >= raidTimerSeconds) {
+                                // get the players territory data or bail if they don't have one
+                                TerritoryData territory = getTerritory(world, playerRef);
+                                if (territory == null) continue;
+
                                 if (random.nextInt(100) < ModConfig.get().raids.raid_chance) {
                                     rpgPlayer.nextRaid = null;
-                                    startBaseRaid(playerRef, ref, store, world, nextDefinition);
+                                    startBaseRaid(playerRef, ref, store, world, territory, nextDefinition);
                                 } else {
                                     sendRaidMessage(playerRef, nextDefinition.prePhrase, new Color(0x888888));
                                 }
@@ -403,31 +407,16 @@ public class Module_RaidSystem {
     }
 
     // Base raid — targets the player's Light Well territory
-    public void startBaseRaid(PlayerRef playerRef, Ref<EntityStore> ref, Store<EntityStore> store, World world, RaidDefinition definition) {
+    public void startBaseRaid(PlayerRef playerRef, Ref<EntityStore> ref, Store<EntityStore> store, World world, TerritoryData territory, RaidDefinition definition) {
+        // bail if no territory
+        if (territory == null) return;
+
+        // get the rpg player component and check it's last raid
         Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
         if (rpgPlayer == null) return;
-
         rpgPlayer.lastBaseRaid = Instant.now().getEpochSecond();
 
-        WorldRoomRegistry registry = WorldRoomRegistry.get(world);
-        if (registry == null) {
-            System.err.println("[RaidSystem] Base raid fired for " + playerRef.getUsername() + " but no registry found for world — skipping.");
-            return;
-        }
-
-        TerritoryData territory = null;
-        for (TerritoryData t : registry.getAllTerritories()) {
-            if (playerRef.getUuid().equals(t.getOwnerUuid())) {
-                territory = t;
-                break;
-            }
-        }
-
-        if (territory == null) {
-            System.err.println("[RaidSystem] Base raid fired for " + playerRef.getUsername() + " but they have no territory in this world — skipping.");
-            return;
-        }
-
+        // get the territory coords
         int cx = territory.getCenter().x;
         int cy = territory.getCenter().y;
         int cz = territory.getCenter().z;
@@ -723,6 +712,22 @@ public class Module_RaidSystem {
         }
     }
 
+    // try to get a players territory data
+    private TerritoryData getTerritory(World world, PlayerRef playerRef) {
+        WorldRoomRegistry registry = WorldRoomRegistry.get(world);
+        if (registry == null) return null;
+
+        TerritoryData territory = null;
+        for (TerritoryData t : registry.getAllTerritories()) {
+            if (playerRef.getUuid().equals(t.getOwnerUuid())) {
+                territory = t;
+                break;
+            }
+        }
+
+        return territory;
+    }
+
     // Sends a colored chat message to a player
     private static void sendRaidMessage(PlayerRef playerRef, String text, Color color) {
         try {
@@ -740,7 +745,7 @@ public class Module_RaidSystem {
         if (definition == null) return;
 
         if (raidType.equals("base")) {
-            startBaseRaid(playerRef, ref, store, world, definition);
+            startBaseRaid(playerRef, ref, store, world, getTerritory(world, playerRef), definition);
         } else {
             startPlayerRaid(playerRef, ref, store, world, definition);
         }

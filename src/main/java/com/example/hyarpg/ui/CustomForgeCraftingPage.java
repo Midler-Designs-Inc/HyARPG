@@ -484,7 +484,6 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         ItemStack output = ItemFactory.createItem(
                 outputItemId,
                 playerLevel,
-                rarity,
                 inputSlotItems[0].item().getId(),
                 inputSlotItems[1].item().getId(),
                 inputSlotItems[2].item().getId()

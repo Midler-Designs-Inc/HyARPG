@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Stormscarred_Shortbow_Body_T6.json.name",
+    "Description": "server.items.components.Weapon_Component_Stormscarred_Shortbow_Body_T6.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T6/Weapon_Component_Shortbow_Body_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shortbow_Body_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T6/Weapon_Component_Shortbow.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 70
+      },
+      {
+        "ItemId": "Ingredient_Lightning_Essence",
+        "Quantity": 35
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 6,
+        "Categories": [
+          "Bow_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shortbow Body",
+    "tier": 6,
+    "outputAssetID": "Weapon_Shortbow_Mithril",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_LIGHTNING_DAMAGE_FLAT",
+        "min": 14,
+        "max": 14
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

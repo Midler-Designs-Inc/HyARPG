@@ -23,6 +23,7 @@
       {
         "Id": "Weapon_Bench",
         "Type": "Crafting",
+        "RequiredTierLevel": 1,
         "Categories": [
           "Heads_and_Blades"
         ]

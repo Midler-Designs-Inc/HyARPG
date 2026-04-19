@@ -23,6 +23,7 @@
       {
         "Id": "Weapon_Bench",
         "Type": "Crafting",
+        "RequiredTierLevel": 3,
         "Categories": [
           "Bow_Parts"
         ]

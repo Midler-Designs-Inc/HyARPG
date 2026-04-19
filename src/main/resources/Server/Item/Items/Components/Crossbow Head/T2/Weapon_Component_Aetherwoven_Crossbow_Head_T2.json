@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Aetherwoven_Crossbow_Head_T2.json.name",
+    "Description": "server.items.components.Weapon_Component_Aetherwoven_Crossbow_Head_T2.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T2/Weapon_Component_Crossbow_Head_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Crossbow_Head_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T2/Weapon_Component_Crossbow.png",
+  "Recipe": {
+    "TimeSeconds": 6,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 30
+      },
+      {
+        "ItemId": "Ingredient_Water_Essence",
+        "Quantity": 15
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Bow_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Crossbow Head",
+    "tier": 2,
+    "outputAssetID": "Weapon_Crossbow_Iron",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_MAGIC_DAMAGE_FLAT",
+        "min": 3,
+        "max": 3
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

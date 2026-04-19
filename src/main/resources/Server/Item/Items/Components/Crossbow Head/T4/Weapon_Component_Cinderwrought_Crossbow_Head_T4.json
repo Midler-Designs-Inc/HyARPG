@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Cinderwrought_Crossbow_Head_T4.json.name",
+    "Description": "server.items.components.Weapon_Component_Cinderwrought_Crossbow_Head_T4.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T4/Weapon_Component_Crossbow_Head_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Crossbow_Head_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T4/Weapon_Component_Crossbow.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 50
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
+        "Quantity": 25
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Bow_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Crossbow Head",
+    "tier": 4,
+    "outputAssetID": "Weapon_Crossbow_Cobalt",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_FIRE_DAMAGE_FLAT",
+        "min": 5,
+        "max": 5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

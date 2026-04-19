@@ -3,9 +3,9 @@
     "Name": "server.items.components.Weapon_Component_Aetherwoven_Battleaxe_Head_T0.json.name",
     "Description": "server.items.components.Weapon_Component_Aetherwoven_Battleaxe_Head_T0.json.description"
   },
-  "Icon": "Icons/Items/Weapon_Component_Battleaxe_Head_T1_Icon.png",
+  "Icon": "Icons/Items/Weapons/T0/Weapon_Component_Battleaxe_Head_Icon.png",
   "Model": "Items/Weapons/Components/T1/Weapon_Component_Battleaxe_Head_T1.blockymodel",
-  "Texture": "Items/Weapons/Battleaxe/Crude_Texture.png",
+  "Texture": "Items/Weapons/Components/T0/Weapon_Component_Battleaxe.png",
   "Recipe": {
     "TimeSeconds": 2,
     "KnowledgeRequired": true,

@@ -1,0 +1,44 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Ironbound_Crossbow_Head_T0.json.name",
+    "Description": "server.items.components.Weapon_Component_Ironbound_Crossbow_Head_T0.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T0/Weapon_Component_Crossbow_Head_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Crossbow_Head_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T0/Weapon_Component_Crossbow.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Rubble_Stone",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Crude_Weapons"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Crossbow Head",
+    "tier": 0,
+    "outputAssetID": "Weapon_Crossbow_Crude",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_PHYSICAL_DAMAGE_FLAT",
+        "min": 1,
+        "max": 1
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

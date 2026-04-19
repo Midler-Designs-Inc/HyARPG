@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Hemlocked_Crossbow_Head_T3.json.name",
+    "Description": "server.items.components.Weapon_Component_Hemlocked_Crossbow_Head_T3.json.description"
+  },
+  "Icon": "Icons/Items/Weapons/T3/Weapon_Component_Crossbow_Head_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Crossbow_Head_T1.blockymodel",
+  "Texture": "Items/Weapons/Components/T3/Weapon_Component_Crossbow.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 40
+      },
+      {
+        "ItemId": "Ingredient_Sac_Venom",
+        "Quantity": 20
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Bow_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Crossbow Head",
+    "tier": 3,
+    "outputAssetID": "Weapon_Crossbow_Thorium",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_POISON_DAMAGE_FLAT",
+        "min": 4,
+        "max": 4
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

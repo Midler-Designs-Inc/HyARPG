@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Crossbow/Mythril_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Mythril.png",
   "Quality": "Common",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Recipe": {
     "TimeSeconds": 5,
     "KnowledgeRequired": false,

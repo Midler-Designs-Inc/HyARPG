@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Common",
-  "ItemLevel": 5,
+  "ItemLevel": 1,
   "Model": "Items/Weapons/Longsword/Crude.blockymodel",
   "Texture": "Items/Weapons/Longsword/Crude_Texture.png",
   "PlayerAnimationsId": "Longsword",
@@ -133,7 +133,7 @@
     }
   },
   "Recipe": {
-    "TimeSeconds": 3,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {
@@ -154,16 +154,15 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "none"
         ]
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Longsword"
+          "none"
         ],
-        "Id": "Weapon_Bench"
+        "Id": "Workbench"
       }
     ]
   },

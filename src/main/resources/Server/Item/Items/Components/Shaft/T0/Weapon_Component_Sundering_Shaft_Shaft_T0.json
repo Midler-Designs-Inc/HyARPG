@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Sundering_Shaft_Shaft_T0.json.name",
+    "Description": "server.items.components.Weapon_Component_Sundering_Shaft_Shaft_T0.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Shaft_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shaft_T1.blockymodel",
+  "Texture": "Items/Weapons/Spear/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Rubble_Stone",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Wood_Cedar_Trunk_Full",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Crude_Weapons"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shaft",
+    "tier": 0,
+    "outputAssetID": "Weapon_Component_Sundering_Shaft_Shaft",
+    "implicits": [
+      {
+        "stat": "PHYSICAL_DAMAGE_PERCENT",
+        "min": 0.8,
+        "max": 5
+      },
+      {
+        "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
+        "min": 0.4,
+        "max": 2.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

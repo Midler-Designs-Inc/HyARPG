@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Head",
   "Quality": "Epic",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Icon": "Icons/ItemsGenerated/Armor_Mithril_Head.png",
   "IconProperties": {
     "Rotation": [
@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Void_Essence",
         "Quantity": 40
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -56,9 +60,7 @@
       "Ear",
       "Haircut",
       "HeadAccessory"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

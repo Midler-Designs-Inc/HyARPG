@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Common",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Model": "Items/Weapons/Club/Mithril.blockymodel",
   "Texture": "Items/Weapons/Club/Mithril_Texture.png",
   "Recipe": {

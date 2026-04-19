@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Hands",
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Amor_Adamantite_Hands.png",
   "IconProperties": {
     "Rotation": [
@@ -50,10 +50,7 @@
   },
   "Armor": {
     "ArmorSlot": "Hands",
-    "BaseDamageResistance": 0,
-    "DamageResistance": {},
-    "StatModifiers": {},
-    "DamageClassEnhancement": {}
+    "BaseDamageResistance": 0
   },
   "MaxDurability": 0,
   "Tags": {

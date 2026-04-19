@@ -37,6 +37,10 @@
       {
         "ItemId": "Ingredient_Sac_Venom",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -57,9 +61,7 @@
     "BaseDamageResistance": 0,
     "CosmeticsToHide": [
       "Overtop"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.5,

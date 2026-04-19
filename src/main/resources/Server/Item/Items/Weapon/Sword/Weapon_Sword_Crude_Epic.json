@@ -8,7 +8,7 @@
   "Model": "Items/Weapons/Sword/Crude.blockymodel",
   "Texture": "Items/Weapons/Sword/Crude_Texture.png",
   "Quality": "Epic",
-  "ItemLevel": 3,
+  "ItemLevel": 1,
   "Recipe": {
     "TimeSeconds": 0,
     "KnowledgeRequired": false,
@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Stick",
         "Quantity": 2
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -31,14 +35,14 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools"
+          "none"
         ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival"
+          "none"
         ]
       }
     ]

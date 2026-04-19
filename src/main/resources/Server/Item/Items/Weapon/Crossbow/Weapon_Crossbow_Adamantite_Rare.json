@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Crossbow/Adamantite_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Adamantite.png",
   "Quality": "Rare",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 4.5,
     "KnowledgeRequired": false,
@@ -23,6 +23,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

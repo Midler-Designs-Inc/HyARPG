@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Draining_Ward_Shield_Body_T6.json.name",
+    "Description": "server.items.components.Weapon_Component_Draining_Ward_Shield_Body_T6.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Shield_Body_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shield_Body_T1.blockymodel",
+  "Texture": "Items/Weapons/Shield/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 14
+      },
+      {
+        "ItemId": "Ingredient_Void_Essence",
+        "Quantity": 14
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Shield_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shield Body",
+    "tier": 6,
+    "outputAssetID": "Weapon_Component_Draining_Ward_Shield_Body",
+    "implicits": [
+      {
+        "stat": "MANA_LEECH_PERCENT",
+        "min": 0.21,
+        "max": 1.05
+      },
+      {
+        "stat": "LIFE_LEECH_PERCENT",
+        "min": 0.21,
+        "max": 1.05
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

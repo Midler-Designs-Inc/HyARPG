@@ -1,0 +1,62 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Emberstorm_Draw_String_T4.json.name",
+    "Description": "server.items.components.Weapon_Component_Emberstorm_Draw_String_T4.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_String_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_String_T1.blockymodel",
+  "Texture": "Items/Weapons/Bow/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Silk",
+        "Quantity": 10
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
+        "Quantity": 5
+      },
+      {
+        "ItemId": "Ingredient_Lightning_Essence",
+        "Quantity": 5
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Bow_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "String",
+    "tier": 4,
+    "outputAssetID": "Weapon_Component_Emberstorm_Draw_String",
+    "implicits": [
+      {
+        "stat": "FIRE_DAMAGE_PERCENT",
+        "min": 2.5,
+        "max": 15
+      },
+      {
+        "stat": "LIGHTNING_DAMAGE_PERCENT",
+        "min": 2.5,
+        "max": 15
+      },
+      {
+        "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
+        "min": 1.25,
+        "max": 7.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

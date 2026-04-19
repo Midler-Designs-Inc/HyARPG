@@ -1,0 +1,57 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Spiritwood_Handle_T6.json.name",
+    "Description": "server.items.components.Weapon_Component_Spiritwood_Handle_T6.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Handle_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Handle_T1.blockymodel",
+  "Texture": "Items/Weapons/Spear/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 14
+      },
+      {
+        "ItemId": "Wood_Spiral_Trunk_Full",
+        "Quantity": 14
+      },
+      {
+        "ItemId": "Ingredient_Void_Essence",
+        "Quantity": 7
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Handles"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Handle",
+    "tier": 6,
+    "outputAssetID": "Weapon_Component_Spiritwood_Handle",
+    "implicits": [
+      {
+        "stat": "MANA_FLAT",
+        "min": 4.9,
+        "max": 28
+      },
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.14,
+        "max": 0.7
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

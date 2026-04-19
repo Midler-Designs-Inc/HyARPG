@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Quality": "Common",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Icon": "Icons/ItemsGenerated/Armor_Cobalt_Chest.png",
   "IconProperties": {
     "Rotation": [
@@ -53,10 +53,7 @@
     "BaseDamageResistance": 0,
     "CosmeticsToHide": [
       "Overtop"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {},
-    "DamageClassEnhancement": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

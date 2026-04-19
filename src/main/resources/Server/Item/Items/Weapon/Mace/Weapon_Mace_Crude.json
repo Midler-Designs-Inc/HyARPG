@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Mace/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Mace_Crude.png",
   "Quality": "Common",
-  "ItemLevel": 8,
+  "ItemLevel": 1,
   "Recipe": {
     "TimeSeconds": 0,
     "KnowledgeRequired": false,
@@ -29,11 +29,15 @@
       {
         "Id": "Fieldcraft",
         "Type": "Crafting",
-        "Categories": []
+        "Categories": [
+          "none"
+        ]
       },
       {
         "Type": "Crafting",
-        "Categories": [],
+        "Categories": [
+          "none"
+        ],
         "Id": "Workbench"
       }
     ]

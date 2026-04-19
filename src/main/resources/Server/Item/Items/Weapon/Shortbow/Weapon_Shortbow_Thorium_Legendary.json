@@ -22,6 +22,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -40,8 +44,7 @@
         ],
         "Id": "Armory"
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Primary_Shoot_Damage_Strength_0": {

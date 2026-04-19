@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bar_Copper",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -53,9 +57,7 @@
     "CosmeticsToHide": [
       "Shoes",
       "Pants"
-    ],
-    "StatModifiers": {},
-    "DamageResistance": {}
+    ]
   },
   "Tags": {
     "Type": [

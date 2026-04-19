@@ -26,6 +26,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

@@ -15,16 +15,48 @@
                 "Type": "Single",
                 "Weight": 200,
                 "Item": {
-                  "ItemId": "Ore_Adamantite",
-                  "QuantityMax": 200
+                  "ItemId": "Ore_Cobalt",
+                  "QuantityMax": 40
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 200,
                 "Item": {
-                  "ItemId": "Ore_Mithril",
-                  "QuantityMax": 100
+                  "ItemId": "Ingredient_Hide_Heavy",
+                  "QuantityMax": 40
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Fabric_Scrap_Silk",
+                  "QuantityMax": 40
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ore_Adamantite",
+                  "QuantityMax": 20
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Hide_Storm",
+                  "QuantityMax": 20
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+                  "QuantityMax": 20
                 }
               },
               {
@@ -50,22 +82,6 @@
                   "ItemId": "Wood_Dry_Trunk",
                   "QuantityMax": 70
                 }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ingredient_Leather_Storm",
-                  "QuantityMax": 20
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ingredient_Fabric_Scrap_Stormsilk",
-                  "QuantityMax": 10
-                }
               }
             ]
           },
@@ -73,6 +89,34 @@
             "Type": "Choice",
             "Weight": 25,
             "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Chest_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Hands_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Head_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Legs_Common"
+                }
+              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -105,133 +149,105 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Chest_Common"
+                  "ItemId": "Armor_Leather_Storm_Chest_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Hands_Common"
+                  "ItemId": "Armor_Leather_Storm_Hands_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Head_Common"
+                  "ItemId": "Armor_Leather_Storm_Head_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Legs_Common"
+                  "ItemId": "Armor_Leather_Storm_Legs_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Chest_Common"
+                  "ItemId": "Weapon_Axe_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Hands_Common"
+                  "ItemId": "Weapon_Battleaxe_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Head_Common"
+                  "ItemId": "Weapon_Club_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Legs_Common"
+                  "ItemId": "Weapon_Crossbow_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Mithril_Common"
+                  "ItemId": "Weapon_Daggers_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Mithril_Common"
+                  "ItemId": "Weapon_Kunai_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Mithril_Common"
+                  "ItemId": "Weapon_Longsword_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Mithril_Common"
+                  "ItemId": "Weapon_Mace_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Mithril_Common"
+                  "ItemId": "Weapon_Shield_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Mithril_Common"
+                  "ItemId": "Weapon_Shortbow_Adamantite_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Mithril_Common"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Mace_Mithril_Common"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shield_Mithril_Common"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shortbow_Mithril_Common"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Mithril_Common"
+                  "ItemId": "Weapon_Sword_Adamantite_Common"
                 }
               },
               {
@@ -247,6 +263,34 @@
             "Type": "Choice",
             "Weight": 11,
             "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Chest_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Hands_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Head_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Legs_Uncommon"
+                }
+              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -279,133 +323,105 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Chest_Uncommon"
+                  "ItemId": "Armor_Leather_Storm_Chest_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Hands_Uncommon"
+                  "ItemId": "Armor_Leather_Storm_Hands_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Head_Uncommon"
+                  "ItemId": "Armor_Leather_Storm_Head_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Legs_Uncommon"
+                  "ItemId": "Armor_Leather_Storm_Legs_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Chest_Uncommon"
+                  "ItemId": "Weapon_Axe_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Hands_Uncommon"
+                  "ItemId": "Weapon_Battleaxe_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Head_Uncommon"
+                  "ItemId": "Weapon_Club_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Legs_Uncommon"
+                  "ItemId": "Weapon_Crossbow_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Mithril_Uncommon"
+                  "ItemId": "Weapon_Daggers_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Mithril_Uncommon"
+                  "ItemId": "Weapon_Kunai_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Mithril_Uncommon"
+                  "ItemId": "Weapon_Longsword_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Mithril_Uncommon"
+                  "ItemId": "Weapon_Mace_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Mithril_Uncommon"
+                  "ItemId": "Weapon_Shield_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Mithril_Uncommon"
+                  "ItemId": "Weapon_Shortbow_Adamantite_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Mithril_Uncommon"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Mace_Mithril_Uncommon"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shield_Mithril_Uncommon"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shortbow_Mithril_Uncommon"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Mithril_Uncommon"
+                  "ItemId": "Weapon_Sword_Adamantite_Uncommon"
                 }
               },
               {
@@ -421,6 +437,34 @@
             "Type": "Choice",
             "Weight": 8,
             "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Chest_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Hands_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Head_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Legs_Rare"
+                }
+              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -453,133 +497,105 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Chest_Rare"
+                  "ItemId": "Armor_Leather_Storm_Chest_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Hands_Rare"
+                  "ItemId": "Armor_Leather_Storm_Hands_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Head_Rare"
+                  "ItemId": "Armor_Leather_Storm_Head_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Legs_Rare"
+                  "ItemId": "Armor_Leather_Storm_Legs_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Chest_Rare"
+                  "ItemId": "Weapon_Axe_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Hands_Rare"
+                  "ItemId": "Weapon_Battleaxe_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Head_Rare"
+                  "ItemId": "Weapon_Club_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Legs_Rare"
+                  "ItemId": "Weapon_Crossbow_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Mithril_Rare"
+                  "ItemId": "Weapon_Daggers_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Mithril_Rare"
+                  "ItemId": "Weapon_Kunai_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Mithril_Rare"
+                  "ItemId": "Weapon_Longsword_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Mithril_Rare"
+                  "ItemId": "Weapon_Mace_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Mithril_Rare"
+                  "ItemId": "Weapon_Shield_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Mithril_Rare"
+                  "ItemId": "Weapon_Shortbow_Adamantite_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Mithril_Rare"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Mace_Mithril_Rare"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shield_Mithril_Rare"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shortbow_Mithril_Rare"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Mithril_Rare"
+                  "ItemId": "Weapon_Sword_Adamantite_Rare"
                 }
               },
               {
@@ -595,6 +611,34 @@
             "Type": "Choice",
             "Weight": 4,
             "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Chest_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Hands_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Head_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Legs_Epic"
+                }
+              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -627,133 +671,105 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Chest_Epic"
+                  "ItemId": "Armor_Leather_Storm_Chest_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Hands_Epic"
+                  "ItemId": "Armor_Leather_Storm_Hands_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Head_Epic"
+                  "ItemId": "Armor_Leather_Storm_Head_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Legs_Epic"
+                  "ItemId": "Armor_Leather_Storm_Legs_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Chest_Epic"
+                  "ItemId": "Weapon_Axe_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Hands_Epic"
+                  "ItemId": "Weapon_Battleaxe_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Head_Epic"
+                  "ItemId": "Weapon_Club_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Legs_Epic"
+                  "ItemId": "Weapon_Crossbow_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Mithril_Epic"
+                  "ItemId": "Weapon_Daggers_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Mithril_Epic"
+                  "ItemId": "Weapon_Kunai_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Mithril_Epic"
+                  "ItemId": "Weapon_Longsword_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Mithril_Epic"
+                  "ItemId": "Weapon_Mace_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Mithril_Epic"
+                  "ItemId": "Weapon_Shield_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Mithril_Epic"
+                  "ItemId": "Weapon_Shortbow_Adamantite_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Mithril_Epic"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Mace_Mithril_Epic"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shield_Mithril_Epic"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shortbow_Mithril_Epic"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Mithril_Epic"
+                  "ItemId": "Weapon_Sword_Adamantite_Epic"
                 }
               },
               {
@@ -769,6 +785,34 @@
             "Type": "Choice",
             "Weight": 2,
             "Containers": [
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Chest_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Hands_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Head_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Adamantite_Legs_Legendary"
+                }
+              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -801,133 +845,105 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Chest_Legendary"
+                  "ItemId": "Armor_Leather_Storm_Chest_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Hands_Legendary"
+                  "ItemId": "Armor_Leather_Storm_Hands_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Head_Legendary"
+                  "ItemId": "Armor_Leather_Storm_Head_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Leather_Raven_Legs_Legendary"
+                  "ItemId": "Armor_Leather_Storm_Legs_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Chest_Legendary"
+                  "ItemId": "Weapon_Axe_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Hands_Legendary"
+                  "ItemId": "Weapon_Battleaxe_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Head_Legendary"
+                  "ItemId": "Weapon_Club_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Armor_Mithril_Legs_Legendary"
+                  "ItemId": "Weapon_Crossbow_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Mithril_Legendary"
+                  "ItemId": "Weapon_Daggers_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Mithril_Legendary"
+                  "ItemId": "Weapon_Kunai_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Mithril_Legendary"
+                  "ItemId": "Weapon_Longsword_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Mithril_Legendary"
+                  "ItemId": "Weapon_Mace_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Mithril_Legendary"
+                  "ItemId": "Weapon_Shield_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Mithril_Legendary"
+                  "ItemId": "Weapon_Shortbow_Adamantite_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Mithril_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Mace_Mithril_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shield_Mithril_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Shortbow_Mithril_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Mithril_Legendary"
+                  "ItemId": "Weapon_Sword_Adamantite_Legendary"
                 }
               },
               {

@@ -31,9 +31,12 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Swing_Left_Damage": {

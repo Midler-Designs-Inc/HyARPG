@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Epic",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Model": "Items/Weapons/Axe/Adamantite.blockymodel",
   "Texture": "Items/Weapons/Axe/Adamantite_Texture.png",
   "Recipe": {
@@ -25,6 +25,10 @@
       {
         "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

@@ -28,6 +28,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -48,9 +52,7 @@
     "CosmeticsToHide": [
       "Pants",
       "Shoes"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

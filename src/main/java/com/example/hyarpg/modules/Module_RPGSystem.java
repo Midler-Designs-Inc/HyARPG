@@ -96,6 +96,8 @@ public class Module_RPGSystem {
         interactionRegistry.register("Use_Ability_2", Interaction_UseAbility2.class, Interaction_UseAbility2.CODEC);
         interactionRegistry.register("Use_Ability_3", Interaction_UseAbility3.class, Interaction_UseAbility3.CODEC);
         interactionRegistry.register("SpawnDeployableAtHitLocationFixed", Interaction_SpawnDeployableAtHitLocation.class, Interaction_SpawnDeployableAtHitLocation.CODEC);
+        interactionRegistry.register("Bench_Forge_Open_Crafting", Interaction_Bench_Forge_Open_Crafting.class, Interaction_Bench_Forge_Open_Crafting.CODEC);
+        interactionRegistry.register("Bench_Forge_Open_Salvaging", Interaction_Bench_Forge_Open_Salvaging.class, Interaction_Bench_Forge_Open_Salvaging.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
@@ -300,10 +302,11 @@ public class Module_RPGSystem {
 
         // Determine tier based on ore spawn distance ranges
         int tier = 1;
-        if (distance >= ModConfig.get().world.min_distance_for_mithril_spawn) tier = 5;
-        else if (distance >= ModConfig.get().world.min_distance_for_adamantite_spawn) tier = 4;
-        else if (distance >= ModConfig.get().world.min_distance_for_thorium_spawn) tier = 3;
-        else if (distance >= ModConfig.get().world.min_distance_for_iron_spawn) tier = 2;
+        if (distance >= ModConfig.get().world.min_distance_for_mithril_spawn)     tier = 6;
+        else if (distance >= ModConfig.get().world.min_distance_for_adamantite_spawn) tier = 5;
+        else if (distance >= ModConfig.get().world.min_distance_for_cobalt_spawn)     tier = 4;
+        else if (distance >= ModConfig.get().world.min_distance_for_thorium_spawn)    tier = 3;
+        else if (distance >= ModConfig.get().world.min_distance_for_iron_spawn)       tier = 2;
 
         containerBlock.setDroplist("HyARPG_Container_Tier" + tier);
     }
@@ -348,8 +351,8 @@ public class Module_RPGSystem {
             if (craftingKnowledge == null || playerRef == null) return;
 
             // Discover the item, then discover any new recipes
-            boolean discoveredNew = craftingKnowledge.addDiscoveredItem(playerRef, query);
-            if (discoveredNew) craftingKnowledge.discoverRecipes(ref, store, query);
+            craftingKnowledge.addDiscoveredItem(playerRef, query);
+            craftingKnowledge.discoverRecipes(ref, store, query);
         } catch (Exception e) {}
     }
 

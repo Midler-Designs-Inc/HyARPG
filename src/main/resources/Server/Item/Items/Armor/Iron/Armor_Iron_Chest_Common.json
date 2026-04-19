@@ -74,9 +74,7 @@
     "CosmeticsToHide": [
       "Overtop",
       "Cape"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.5,

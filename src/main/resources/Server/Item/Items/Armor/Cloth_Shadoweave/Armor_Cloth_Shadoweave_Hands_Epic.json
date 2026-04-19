@@ -1,0 +1,72 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Cloth_Luxurious_Hands.name"
+  },
+  "Parent": "Armor_Iron_Hands",
+  "Quality": "Epic",
+  "ItemLevel": 60,
+  "Icon": "Icons/ItemsGenerated/Armor_Cloth_Luxurious_Hands_Icon.png",
+  "IconProperties": {
+    "Rotation": [
+      29.815,
+      45.565,
+      25.315
+    ],
+    "Scale": 0.645,
+    "Translation": [
+      -0.9,
+      -0.3
+    ]
+  },
+  "Model": "Items/Armors/Copper_Laced_Wool/Hands.blockymodel",
+  "Texture": "Items/Armors/Copper_Laced_Wool/Hands.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Linen",
+        "Quantity": 2
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Hands"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  },
+  "Armor": {
+    "ArmorSlot": "Hands",
+    "BaseDamageResistance": 0
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Cloth_Luxurious"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Cloth",
+  "MaxStack": 1,
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
+}

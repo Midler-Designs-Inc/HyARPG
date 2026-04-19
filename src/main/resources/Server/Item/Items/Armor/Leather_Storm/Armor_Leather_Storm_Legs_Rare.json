@@ -1,0 +1,76 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Raven_Legs.name"
+  },
+  "Parent": "Armor_Iron_Legs",
+  "ItemLevel": 50,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Raven_Legs.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      50.065,
+      22.5
+    ],
+    "Scale": 0.67,
+    "Translation": [
+      -2.1,
+      -0.3
+    ]
+  },
+  "Model": "Items/Armors/Leather_Raven/Legs.blockymodel",
+  "Texture": "Items/Armors/Leather_Raven/Legs_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Feathers_Dark",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Legs"
+        ]
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Legs",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Pants",
+      "Shoes"
+    ]
+  },
+  "MaxDurability": 0,
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Armor_Leather",
+  "MaxStack": 1,
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ],
+  "Quality": "Rare"
+}

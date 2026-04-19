@@ -40,8 +40,7 @@
         ],
         "Id": "Armory"
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Primary_Shoot_Damage_Strength_0": {

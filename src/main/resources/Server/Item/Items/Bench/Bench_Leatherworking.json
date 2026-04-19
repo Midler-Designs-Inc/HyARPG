@@ -12,15 +12,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 2
+        "Quantity": 50
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 10
+        "Quantity": 20
       },
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 5
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -55,24 +55,19 @@
       "Type": "Crafting",
       "Categories": [
         {
-          "Id": "Armor_Head",
-          "Icon": "Icons/CraftingCategories/Armory/MetalHead.png",
-          "Name": "server.benchCategories.head"
+          "Id": "Leather_Panels",
+          "Icon": "Icons/CraftingCategories/Crafting_Leather_Panels.png",
+          "Name": "server.benchCategories.components.Leather_Panels"
         },
         {
-          "Id": "Armor_Chest",
-          "Icon": "Icons/CraftingCategories/Armory/MetalChest.png",
-          "Name": "server.benchCategories.chest"
+          "Id": "Cloth_Panels",
+          "Icon": "Icons/CraftingCategories/Crafting_Cloth_Panels.png",
+          "Name": "server.benchCategories.components.Cloth_Panels"
         },
         {
-          "Id": "Armor_Hands",
-          "Icon": "Icons/CraftingCategories/Armory/MetalHands.png",
-          "Name": "server.benchCategories.hands"
-        },
-        {
-          "Id": "Armor_Legs",
-          "Icon": "Icons/CraftingCategories/Armory/MetalLegs.png",
-          "Name": "server.benchCategories.legs"
+          "Id": "Stitching_and_Embellishments",
+          "Icon": "Icons/CraftingCategories/Crafting_Stitching_and_Embellishments.png",
+          "Name": "server.benchCategories.components.Stitching_and_Embellishments"
         }
       ],
       "LocalOpenSoundEventId": "SFX_Armour_Bench_Open",
@@ -83,20 +78,11 @@
       "Id": "Leatherworking_Bench_HyARPG",
       "TierLevels": [
         {
-          "CraftingTimeReductionModifier": 0.15,
           "UpgradeRequirement": {
             "Material": [
               {
-                "ItemId": "Ingredient_Bar_Copper",
-                "Quantity": 50
-              },
-              {
-                "Quantity": 100,
-                "ResourceTypeId": "Wood_Trunk"
-              },
-              {
                 "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 25
+                "Quantity": 100
               }
             ],
             "TimeSeconds": 3
@@ -106,81 +92,45 @@
           "UpgradeRequirement": {
             "Material": [
               {
-                "ItemId": "Ingredient_Bar_Copper",
-                "Quantity": 100
-              },
-              {
-                "Quantity": 200,
-                "ResourceTypeId": "Wood_Trunk"
-              },
-              {
-                "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 50
-              },
-              {
                 "ItemId": "Ingredient_Bar_Thorium",
-                "Quantity": 25
+                "Quantity": 100
               }
             ],
-            "TimeSeconds": 3
-          },
-          "CraftingTimeReductionModifier": 0.15
-        },
-        {
-          "CraftingTimeReductionModifier": 0.15,
-          "UpgradeRequirement": {
-            "Material": [
-              {
-                "ItemId": "Ingredient_Bar_Copper",
-                "Quantity": 200
-              },
-              {
-                "Quantity": 400,
-                "ResourceTypeId": "Wood_Trunk"
-              },
-              {
-                "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 100
-              },
-              {
-                "ItemId": "Ingredient_Bar_Thorium",
-                "Quantity": 50
-              },
-              {
-                "ItemId": "Ingredient_Bar_Adamantite",
-                "Quantity": 25
-              }
-            ],
-            "TimeSeconds": 3
+            "TimeSeconds": 6
           }
         },
         {
           "UpgradeRequirement": {
             "Material": [
               {
-                "Quantity": 800,
-                "ResourceTypeId": "Wood_Trunk"
-              },
-              {
-                "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 200
-              },
-              {
-                "ItemId": "Ingredient_Bar_Thorium",
+                "ItemId": "Ingredient_Bar_Cobalt",
                 "Quantity": 100
-              },
+              }
+            ],
+            "TimeSeconds": 9
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
               {
                 "ItemId": "Ingredient_Bar_Adamantite",
-                "Quantity": 50
-              },
+                "Quantity": 100
+              }
+            ],
+            "TimeSeconds": 12
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
               {
                 "ItemId": "Ingredient_Bar_Mithril",
-                "Quantity": 25
+                "Quantity": 100
               }
             ],
-            "TimeSeconds": 3
-          },
-          "CraftingTimeReductionModifier": 0.15
+            "TimeSeconds": 15
+          }
         }
       ]
     },

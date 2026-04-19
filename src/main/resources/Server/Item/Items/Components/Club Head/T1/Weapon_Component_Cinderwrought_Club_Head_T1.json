@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Cinderwrought_Club_Head_T1.json.name",
+    "Description": "server.items.components.Weapon_Component_Cinderwrought_Club_Head_T1.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Club_Head_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Club_Head_T1.blockymodel",
+  "Texture": "Items/Weapons/Club/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 20
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Heads_and_Blades"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Club Head",
+    "tier": 1,
+    "outputAssetID": "Weapon_Club_Copper",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_FIRE_DAMAGE_FLAT",
+        "min": 4,
+        "max": 4
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

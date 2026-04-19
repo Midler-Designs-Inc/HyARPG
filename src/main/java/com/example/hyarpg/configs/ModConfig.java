@@ -38,10 +38,6 @@ public class ModConfig extends ConfigurablePojo<ModConfig> {
     @Section("hunger")
     public Config_Hunger hunger = new Config_Hunger();
 
-    @Key("loot")
-    @Section("loot")
-    public Config_Loot loot = new Config_Loot();
-
     @Key("players")
     @Section("players")
     public Config_Players players = new Config_Players();

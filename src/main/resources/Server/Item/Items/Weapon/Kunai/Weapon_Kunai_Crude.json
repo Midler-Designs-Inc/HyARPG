@@ -1,0 +1,93 @@
+{
+  "Parent": "Template_Weapon_Kunai",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Kunai_Bone.name",
+    "Description": "server.items.Weapon_Sword_Crude.description"
+  },
+  "Categories": [
+    "Items.Weapons"
+  ],
+  "Icon": "Icons/ItemsGenerated/Kunai/Bone_Kunai_Icon.png",
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      315,
+      270,
+      0
+    ],
+    "Translation": [
+      -21,
+      -22
+    ]
+  },
+  "Quality": "Common",
+  "ItemLevel": 1,
+  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Bone_Kunai.png",
+  "PlayerAnimationsId": "Throwing_Knife",
+  "Utility": {
+    "Usable": true
+  },
+  "Weapon": {},
+  "InteractionVars": {
+    "Kunai_Projectile": {
+      "Interactions": [
+        {
+          "Type": "Projectile",
+          "Config": "Projectile_Config_Kunai_Bone"
+        }
+      ]
+    },
+    "Kunai_Hit_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Kunai_Primary_Hit_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Kunai": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ]
+  },
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": false,
+    "Input": [
+      {
+        "Quantity": 2,
+        "ItemId": "Ingredient_Bone_Fragment"
+      },
+      {
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Stick",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": [
+          "none"
+        ]
+      },
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "none"
+        ]
+      }
+    ]
+  }
+}

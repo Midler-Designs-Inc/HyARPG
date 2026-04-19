@@ -1,0 +1,16 @@
+{
+  "QualityValue": 10,
+  "ItemTooltipTexture": "UI/ItemQualities/Tooltips/ItemTooltipTechnical.png",
+  "ItemTooltipArrowTexture": "UI/ItemQualities/Tooltips/ItemTooltipTechnicalArrow.png",
+  "SlotTexture": "UI/ItemQualities/Slots/SlotSet.png",
+  "BlockSlotTexture": "UI/ItemQualities/Slots/SlotSet.png",
+  "SpecialSlotTexture": "UI/ItemQualities/Slots/SlotSet.png",
+  "TextColor": "#00ff90",
+  "LocalizationKey": "server.general.qualities.Set",
+  "VisibleQualityLabel": true,
+  "RenderSpecialSlot": true,
+  "HideFromSearch": false,
+  "ItemEntityConfig": {
+    "ParticleSystemId": "Drop_Set"
+  }
+}

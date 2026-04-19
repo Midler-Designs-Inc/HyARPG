@@ -1,0 +1,57 @@
+$Common = "Common.ui";
+$InventoryPanel = "Salvaging/Pages/CustomForgeInventoryPanel.ui";
+$SalvageOutputSlots = "Salvaging/Pages/CustomForgeSalvageOutputSlots.ui";
+$SalvageInfoPanel = "Salvaging/Pages/CustomForgeSalvageInfoPanel.ui";
+
+SceneBlur {}
+
+Group {
+  Background: #000000(0.55);
+}
+
+Group {
+  LayoutMode: Center;
+
+  Group {
+    Anchor: (Width: 720);
+    LayoutMode: Top;
+    Padding: (Top: 15);
+
+    // Top Window - Salvage Panel
+    Group {
+      LayoutMode: Top;
+
+      $Common.@Container #SalvagePanel {
+        #Title {
+            LayoutMode: Left;
+            Padding: (Left: 20, Top: 0, Bottom: 0);
+
+            Label #TitleLabel {
+                Text: "SALVAGE";
+                Style: (...$Common.@TitleStyle, TextColor: #5a8ab0, VerticalAlignment: Center);
+                Anchor: (Height: 38);
+            }
+
+            Group { FlexWeight: 1; }
+        }
+
+        #Content {
+          LayoutMode: Left;
+          Padding: (Left: 14, Top: 5, Bottom: 5);
+
+          // Left Column — 4 output component slots (mirrors crafting page left diagram area)
+          $SalvageOutputSlots.@SalvageOutputSlots #SalvageOutputArea {}
+
+          // Vertical separator
+          $Common.@VerticalSeparator {}
+
+          // Right Column — input slot + weapon stats + salvage button (mirrors crafting page right output panel)
+          $SalvageInfoPanel.@SalvageInfoPanel #SalvageItemInfo {}
+        }
+      }
+    }
+
+    // Bottom Window - Inventory Panel
+    $InventoryPanel.@InventoryPanel {}
+  }
+}

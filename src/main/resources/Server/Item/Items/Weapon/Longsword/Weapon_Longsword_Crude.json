@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 5,
+  "ItemLevel": 1,
   "Model": "Items/Weapons/Longsword/Crude.blockymodel",
   "Texture": "Items/Weapons/Longsword/Crude_Texture.png",
   "PlayerAnimationsId": "Longsword",
@@ -115,7 +115,7 @@
     }
   },
   "Recipe": {
-    "TimeSeconds": 3,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {
@@ -135,12 +135,16 @@
       {
         "Id": "Fieldcraft",
         "Type": "Crafting",
-        "Categories": []
+        "Categories": [
+          "none"
+        ]
       },
       {
         "Type": "Crafting",
-        "Categories": [],
-        "Id": "Weapon_Bench"
+        "Categories": [
+          "none"
+        ],
+        "Id": "Workbench"
       }
     ]
   },

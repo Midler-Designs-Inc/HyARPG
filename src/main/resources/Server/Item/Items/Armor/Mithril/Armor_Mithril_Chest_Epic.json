@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Quality": "Epic",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Icon": "Icons/ItemsGenerated/Armor_Mithril_Chest.png",
   "IconProperties": {
     "Rotation": [
@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Void_Essence",
         "Quantity": 80
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -53,9 +57,7 @@
     "BaseDamageResistance": 0,
     "CosmeticsToHide": [
       "Overtop"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Crossbow/Adamantite_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Adamantite.png",
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 4.5,
     "KnowledgeRequired": false,

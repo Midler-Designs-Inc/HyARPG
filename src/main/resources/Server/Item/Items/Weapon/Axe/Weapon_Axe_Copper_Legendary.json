@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

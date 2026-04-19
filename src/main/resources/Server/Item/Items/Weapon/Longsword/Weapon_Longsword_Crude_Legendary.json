@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Legendary",
-  "ItemLevel": 5,
+  "ItemLevel": 1,
   "Model": "Items/Weapons/Longsword/Crude.blockymodel",
   "Texture": "Items/Weapons/Longsword/Crude_Texture.png",
   "PlayerAnimationsId": "Longsword",
@@ -133,7 +133,7 @@
     }
   },
   "Recipe": {
-    "TimeSeconds": 3,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {
@@ -147,6 +147,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -154,16 +158,15 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "none"
         ]
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Weapon_Longsword"
+          "none"
         ],
-        "Id": "Weapon_Bench"
+        "Id": "Workbench"
       }
     ]
   },

@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Battleaxe/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Battleaxe_Crude.png",
   "Quality": "Epic",
-  "ItemLevel": 7,
+  "ItemLevel": 1,
   "Recipe": {
     "TimeSeconds": 0,
     "KnowledgeRequired": false,
@@ -23,6 +23,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -30,15 +34,14 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "none"
         ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival"
+          "none"
         ]
       }
     ]

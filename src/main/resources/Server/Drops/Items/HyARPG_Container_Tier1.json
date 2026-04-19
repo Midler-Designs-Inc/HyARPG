@@ -16,7 +16,23 @@
                 "Weight": 200,
                 "Item": {
                   "ItemId": "Ore_Copper",
-                  "QuantityMax": 100
+                  "QuantityMax": 20
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Hide_Soft",
+                  "QuantityMax": 20
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Fabric_Scrap_Wool",
+                  "QuantityMax": 20
                 }
               },
               {
@@ -65,22 +81,6 @@
                 "Item": {
                   "ItemId": "Wood_Beech_Trunk",
                   "QuantityMax": 70
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ingredient_Leather_Light",
-                  "QuantityMax": 20
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ingredient_Fabric_Scrap_Linen",
-                  "QuantityMax": 20
                 }
               }
             ]
@@ -240,14 +240,14 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Bone_Common"
+                  "ItemId": "Weapon_Kunai_Copper_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Copper_Common"
+                  "ItemId": "Weapon_Kunai_Crude_Common"
                 }
               },
               {
@@ -289,7 +289,7 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Wood_Common"
+                  "ItemId": "Weapon_Shield_Crude_Common"
                 }
               },
               {
@@ -484,14 +484,14 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Bone_Uncommon"
+                  "ItemId": "Weapon_Kunai_Copper_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Copper_Uncommon"
+                  "ItemId": "Weapon_Kunai_Crude_Uncommon"
                 }
               },
               {
@@ -533,7 +533,7 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Wood_Uncommon"
+                  "ItemId": "Weapon_Shield_Crude_Uncommon"
                 }
               },
               {
@@ -728,14 +728,14 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Bone_Rare"
+                  "ItemId": "Weapon_Kunai_Copper_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Copper_Rare"
+                  "ItemId": "Weapon_Kunai_Crude_Rare"
                 }
               },
               {
@@ -777,7 +777,7 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Wood_Rare"
+                  "ItemId": "Weapon_Shield_Crude_Rare"
                 }
               },
               {
@@ -972,14 +972,14 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Bone_Epic"
+                  "ItemId": "Weapon_Kunai_Copper_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Copper_Epic"
+                  "ItemId": "Weapon_Kunai_Crude_Epic"
                 }
               },
               {
@@ -1021,7 +1021,7 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Wood_Epic"
+                  "ItemId": "Weapon_Shield_Crude_Epic"
                 }
               },
               {
@@ -1216,14 +1216,14 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Bone_Legendary"
+                  "ItemId": "Weapon_Kunai_Copper_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Copper_Legendary"
+                  "ItemId": "Weapon_Kunai_Crude_Legendary"
                 }
               },
               {
@@ -1265,7 +1265,7 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Wood_Legendary"
+                  "ItemId": "Weapon_Shield_Crude_Legendary"
                 }
               },
               {

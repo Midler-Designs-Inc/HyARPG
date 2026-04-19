@@ -22,7 +22,7 @@
     ]
   },
   "Quality": "Uncommon",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
   "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Adamantite_Kunai.png",
   "PlayerAnimationsId": "Throwing_Knife",
@@ -81,9 +81,12 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "MaxDurability": 0,
   "MaxStack": 1

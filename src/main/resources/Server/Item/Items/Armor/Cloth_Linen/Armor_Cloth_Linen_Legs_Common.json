@@ -53,9 +53,7 @@
     "CosmeticsToHide": [
       "Shoes",
       "Pants"
-    ],
-    "StatModifiers": {},
-    "DamageResistance": {}
+    ]
   },
   "Tags": {
     "Type": [

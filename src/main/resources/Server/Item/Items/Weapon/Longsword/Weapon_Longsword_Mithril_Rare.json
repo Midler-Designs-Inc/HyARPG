@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Rare",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Model": "Items/Weapons/Longsword/Mithril.blockymodel",
   "Texture": "Items/Weapons/Longsword/Mithril_Texture.png",
   "PlayerAnimationsId": "Longsword",
@@ -173,6 +173,10 @@
       },
       {
         "ItemId": "Ingredient_Voidheart",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Rare_Shards",
         "Quantity": 1
       }
     ],

@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Quality": "Common",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Icon": "Icons/ItemsGenerated/Armor_Cobalt_Legs.png",
   "IconProperties": {
     "Rotation": [
@@ -54,10 +54,7 @@
     "CosmeticsToHide": [
       "Pants",
       "Shoes"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {},
-    "DamageClassEnhancement": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

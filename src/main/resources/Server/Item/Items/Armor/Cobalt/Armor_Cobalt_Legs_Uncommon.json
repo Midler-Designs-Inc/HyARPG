@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Quality": "Uncommon",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Icon": "Icons/ItemsGenerated/Armor_Cobalt_Legs.png",
   "IconProperties": {
     "Rotation": [
@@ -33,6 +33,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
         "Quantity": 6
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -54,10 +58,7 @@
     "CosmeticsToHide": [
       "Pants",
       "Shoes"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {},
-    "DamageClassEnhancement": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

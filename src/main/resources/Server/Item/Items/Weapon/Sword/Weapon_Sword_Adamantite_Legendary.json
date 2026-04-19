@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Sword/Adamantite_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Adamantite.png",
   "Quality": "Legendary",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 4.5,
     "Input": [
@@ -22,6 +22,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -33,8 +37,7 @@
         "Id": "Weapon_Bench",
         "RequiredTierLevel": 3
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Swing_Left_Damage": {

@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bar_Mithril",
         "Quantity": 2
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -55,9 +59,7 @@
       "Ear",
       "Haircut",
       "HeadAccessory"
-    ],
-    "StatModifiers": {},
-    "DamageResistance": {}
+    ]
   },
   "Tags": {
     "Type": [

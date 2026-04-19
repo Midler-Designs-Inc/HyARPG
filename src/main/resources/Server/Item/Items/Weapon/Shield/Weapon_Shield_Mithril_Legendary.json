@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Shield/Mithril_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Shield_Mithril.png",
   "Quality": "Legendary",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Recipe": {
     "TimeSeconds": 5,
     "KnowledgeRequired": false,
@@ -23,6 +23,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Stormsilk",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

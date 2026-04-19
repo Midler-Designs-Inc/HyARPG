@@ -1,0 +1,75 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Cloth_Luxurious_Legs.name"
+  },
+  "Parent": "Armor_Iron_Legs",
+  "Quality": "Legendary",
+  "ItemLevel": 60,
+  "Icon": "Icons/ItemsGenerated/Armor_Cloth_Luxurious_Legs_Icon.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.6,
+    "Translation": [
+      0.6,
+      -11.7
+    ]
+  },
+  "Model": "Items/Armors/Copper_Laced_Wool/Feet.blockymodel",
+  "Texture": "Items/Armors/Copper_Laced_Wool/Feet.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Linen",
+        "Quantity": 4
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Legs"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false
+  },
+  "Armor": {
+    "ArmorSlot": "Legs",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "Shoes"
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Cloth_Luxurious"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Cloth",
+  "MaxStack": 1,
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
+}

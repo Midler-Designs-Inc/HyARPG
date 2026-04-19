@@ -38,6 +38,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -70,9 +74,7 @@
   },
   "Armor": {
     "ArmorSlot": "Hands",
-    "BaseDamageResistance": 0,
-    "DamageResistance": {},
-    "StatModifiers": {}
+    "BaseDamageResistance": 0
   },
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.5,

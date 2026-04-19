@@ -37,6 +37,10 @@
       {
         "ItemId": "Ingredient_Sac_Venom",
         "Quantity": 1
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -54,9 +58,7 @@
   },
   "Armor": {
     "ArmorSlot": "Hands",
-    "BaseDamageResistance": 0,
-    "DamageResistance": {},
-    "StatModifiers": {}
+    "BaseDamageResistance": 0
   },
   "MaxDurability": 0,
   "Tags": {

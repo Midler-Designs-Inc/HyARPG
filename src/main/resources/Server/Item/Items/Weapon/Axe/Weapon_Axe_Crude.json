@@ -7,11 +7,11 @@
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Axe_Crude.png",
   "Quality": "Common",
-  "ItemLevel": 5,
+  "ItemLevel": 1,
   "Model": "Items/Weapons/Axe/Crude.blockymodel",
   "Texture": "Items/Weapons/Axe/Crude_Texture.png",
   "Recipe": {
-    "TimeSeconds": 3,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {
@@ -35,12 +35,16 @@
       {
         "Id": "Fieldcraft",
         "Type": "Crafting",
-        "Categories": []
+        "Categories": [
+          "none"
+        ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
-        "Categories": []
+        "Categories": [
+          "none"
+        ]
       }
     ]
   },

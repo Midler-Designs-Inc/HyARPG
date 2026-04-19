@@ -82,8 +82,7 @@
         "ItemId": "Ingredient_Bar_Copper",
         "Quantity": 4
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "MaxDurability": 0,
   "MaxStack": 1

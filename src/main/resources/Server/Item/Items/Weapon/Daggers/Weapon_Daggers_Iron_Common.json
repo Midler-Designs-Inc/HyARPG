@@ -32,8 +32,7 @@
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 3
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Swing_Left_Damage": {

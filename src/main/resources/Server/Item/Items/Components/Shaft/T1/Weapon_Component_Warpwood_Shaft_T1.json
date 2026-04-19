@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Warpwood_Shaft_T1.json.name",
+    "Description": "server.items.components.Weapon_Component_Warpwood_Shaft_T1.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Shaft_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shaft_T1.blockymodel",
+  "Texture": "Items/Weapons/Spear/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Wood_Petrified_Trunk_Full",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Shafts_and_Hilts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shaft",
+    "tier": 1,
+    "outputAssetID": "Weapon_Component_Warpwood_Shaft",
+    "implicits": [
+      {
+        "stat": "MANA_FLAT",
+        "min": 2,
+        "max": 12.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

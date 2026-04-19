@@ -594,6 +594,17 @@ public class CustomForgeCraftingPage extends InteractiveCustomUIPage<CustomForge
         if (this.selectedSlotId != null) {
             cmd.set("#" + getItemSlotId(this.selectedSlotId) + ".Visible", false);
         }
+
+        // todo RIP THIS OUT LATER when supported
+        // temporarily hidden weapons — remove this block when ready to enable
+        for (String hidden : new String[]{ "#IconSpear", "#IconClaws", "#IconScythe", "#IconSickles", "#IconLongbow", "#IconSpellbook", "#IconStaff", "#IconWand" }) {
+            cmd.set(hidden + ".Visible", false);
+        }
+
+        // temporarily hidden weapons — remove this block when ready to enable
+        for (String hidden : new String[]{ "#IconSpear", "#IconClaws", "#IconScythe", "#IconSickles", "#IconLongbow", "#IconSpellbook", "#IconStaff", "#IconWand", "#TabMagic" }) {
+            cmd.set(hidden + ".Visible", false);
+        }
     }
 
     // returns the diagram group id for the current category and item

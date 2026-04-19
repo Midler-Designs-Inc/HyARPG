@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Head",
   "Quality": "Common",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Icon": "Icons/ItemsGenerated/Armor_Cobalt_Head.png",
   "IconProperties": {
     "Rotation": [
@@ -56,10 +56,7 @@
       "Ear",
       "Haircut",
       "HeadAccessory"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {},
-    "DamageClassEnhancement": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

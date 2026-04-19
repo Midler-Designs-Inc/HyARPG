@@ -21,6 +21,10 @@
       {
         "ItemId": "Ingredient_Voidheart",
         "Quantity": 1
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -35,7 +39,7 @@
     ]
   },
   "Quality": "Epic",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "InteractionVars": {
     "Swing_Left_Damage": {
       "Interactions": [

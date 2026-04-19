@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Dagger/Adamantite_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Daggers_Adamantite.png",
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 4.5,
     "BenchRequirement": [
@@ -33,8 +33,7 @@
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
         "Quantity": 3
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Swing_Left_Damage": {

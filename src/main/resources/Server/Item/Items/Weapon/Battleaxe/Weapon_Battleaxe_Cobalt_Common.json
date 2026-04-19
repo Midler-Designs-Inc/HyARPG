@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Battleaxe/Cobalt_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Battleaxe_Cobalt.png",
   "Quality": "Common",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 4,
     "KnowledgeRequired": false,

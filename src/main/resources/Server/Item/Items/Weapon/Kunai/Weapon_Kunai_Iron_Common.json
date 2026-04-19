@@ -23,7 +23,7 @@
   },
   "Recipe": {
     "TimeSeconds": 0,
-    "KnowledgeRequired": false,
+    "KnowledgeRequired": true,
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",

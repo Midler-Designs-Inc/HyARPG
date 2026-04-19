@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bar_Copper",
         "Quantity": 2
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -55,9 +59,7 @@
       "Ear",
       "Haircut",
       "HeadAccessory"
-    ],
-    "StatModifiers": {},
-    "DamageResistance": {}
+    ]
   },
   "Tags": {
     "Type": [

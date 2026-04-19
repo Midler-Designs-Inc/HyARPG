@@ -16,7 +16,23 @@
                 "Weight": 200,
                 "Item": {
                   "ItemId": "Ore_Copper",
-                  "QuantityMax": 200
+                  "QuantityMax": 40
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Hide_Soft",
+                  "QuantityMax": 40
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Fabric_Scrap_Wool",
+                  "QuantityMax": 40
                 }
               },
               {
@@ -24,7 +40,23 @@
                 "Weight": 200,
                 "Item": {
                   "ItemId": "Ore_Iron",
-                  "QuantityMax": 100
+                  "QuantityMax": 20
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Hide_Light",
+                  "QuantityMax": 20
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Fabric_Scrap_Linen",
+                  "QuantityMax": 20
                 }
               },
               {
@@ -65,22 +97,6 @@
                 "Item": {
                   "ItemId": "Wood_Beech_Trunk",
                   "QuantityMax": 70
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ingredient_Leather_Light",
-                  "QuantityMax": 20
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ingredient_Fabric_Scrap_Linen",
-                  "QuantityMax": 20
                 }
               }
             ]

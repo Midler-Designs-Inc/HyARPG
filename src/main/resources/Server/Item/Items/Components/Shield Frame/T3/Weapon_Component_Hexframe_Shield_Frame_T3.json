@@ -1,0 +1,57 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Hexframe_Shield_Frame_T3.json.name",
+    "Description": "server.items.components.Weapon_Component_Hexframe_Shield_Frame_T3.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Shield_Frame_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shield_Frame_T1.blockymodel",
+  "Texture": "Items/Weapons/Shield/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 8
+      },
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Void_Essence",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Shield_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shield Frame",
+    "tier": 3,
+    "outputAssetID": "Weapon_Component_Hexframe_Shield_Frame",
+    "implicits": [
+      {
+        "stat": "MAGIC_DAMAGE_FLAT",
+        "min": 1,
+        "max": 6
+      },
+      {
+        "stat": "MAGIC_DAMAGE_PERCENT",
+        "min": 3.2,
+        "max": 20
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Dagger/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Daggers_Crude.png",
   "Quality": "Common",
-  "ItemLevel": 6,
+  "ItemLevel": 1,
   "Recipe": {
     "TimeSeconds": 0,
     "Input": [
@@ -29,19 +29,17 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "none"
         ]
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival"
+          "none"
         ],
         "Id": "Workbench"
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Swing_Left_Selector": {

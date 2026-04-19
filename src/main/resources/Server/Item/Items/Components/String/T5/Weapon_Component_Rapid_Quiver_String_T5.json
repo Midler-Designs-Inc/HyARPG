@@ -1,0 +1,52 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Rapid_Quiver_String_T5.json.name",
+    "Description": "server.items.components.Weapon_Component_Rapid_Quiver_String_T5.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_String_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_String_T1.blockymodel",
+  "Texture": "Items/Weapons/Bow/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Cindercloth",
+        "Quantity": 12
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Wood_Windwillow_Trunk_Full",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Bow_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "String",
+    "tier": 5,
+    "outputAssetID": "Weapon_Component_Rapid_Quiver_String",
+    "implicits": [
+      {
+        "stat": "AMMO_REGEN_PERCENT",
+        "min": 4.8,
+        "max": 30
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

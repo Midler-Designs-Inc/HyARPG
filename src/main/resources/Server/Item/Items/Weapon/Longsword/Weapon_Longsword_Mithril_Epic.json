@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Epic",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Model": "Items/Weapons/Longsword/Mithril.blockymodel",
   "Texture": "Items/Weapons/Longsword/Mithril_Texture.png",
   "PlayerAnimationsId": "Longsword",
@@ -173,6 +173,10 @@
       },
       {
         "ItemId": "Ingredient_Voidheart",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Epic_Shards",
         "Quantity": 1
       }
     ],

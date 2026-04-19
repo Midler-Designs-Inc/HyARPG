@@ -4,6 +4,9 @@ package com.example.hyarpg.listeners;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.component.dependency.Dependency;
+import com.hypixel.hytale.component.dependency.Order;
+import com.hypixel.hytale.component.dependency.SystemDependency;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathSystems;
@@ -17,8 +20,13 @@ import com.example.hyarpg.events.Event_PlayerDeath;
 
 // Java Imports
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import com.hypixel.hytale.server.npc.role.Role;
+import com.hypixel.hytale.server.npc.systems.RoleSystems;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
+
+import javax.annotation.Nonnull;
+import java.util.Set;
 
 public class Listeners_Death extends DeathSystems.OnDeathSystem {
     @NullableDecl
@@ -57,4 +65,10 @@ public class Listeners_Death extends DeathSystems.OnDeathSystem {
             @NonNullDecl Store<EntityStore> store,
             @NonNullDecl CommandBuffer<EntityStore> commandBuffer
     ) {}
+
+    @Nonnull
+    @Override
+    public Set<Dependency<EntityStore>> getDependencies() {
+        return Set.of(new SystemDependency(Order.BEFORE, RoleSystems.BehaviourTickSystem.class));
+    }
 }

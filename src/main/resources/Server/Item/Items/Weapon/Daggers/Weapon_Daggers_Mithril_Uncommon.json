@@ -21,6 +21,10 @@
       {
         "ItemId": "Ingredient_Voidheart",
         "Quantity": 1
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -35,7 +39,7 @@
     ]
   },
   "Quality": "Uncommon",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "InteractionVars": {
     "Swing_Left_Damage": {
       "Interactions": [

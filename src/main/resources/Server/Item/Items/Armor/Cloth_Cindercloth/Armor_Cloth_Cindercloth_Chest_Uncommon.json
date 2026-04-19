@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bar_Mithril",
         "Quantity": 2
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -52,9 +56,7 @@
     "BaseDamageResistance": 0,
     "CosmeticsToHide": [
       "Overtop"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "Tags": {
     "Type": [

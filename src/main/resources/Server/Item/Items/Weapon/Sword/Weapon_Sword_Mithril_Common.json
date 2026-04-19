@@ -6,7 +6,7 @@
   "Model": "Items/Weapons/Sword/Mithril.blockymodel",
   "Texture": "Items/Weapons/Sword/Mithril_Texture.png",
   "Quality": "Common",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Mithril.png",
   "Recipe": {
     "TimeSeconds": 5,

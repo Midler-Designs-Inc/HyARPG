@@ -154,12 +154,12 @@ public class Config_World {
     // ── Cobalt ────────────────────────────────────────────────────────────────
 
     @Key("min_distance_for_cobalt_spawn")
-    @Comment("Determines the minimum distance from origin before cobalt starts spawning. Default: 20000")
-    public double min_distance_for_cobalt_spawn = 20_000;
+    @Comment("Determines the minimum distance from origin before cobalt starts spawning. Default: 30000")
+    public double min_distance_for_cobalt_spawn = 30_000;
 
     @Key("max_distance_for_cobalt_spawn")
-    @Comment("Determines the maximum distance from origin before cobalt stops spawning. Default: 40000")
-    public double max_distance_for_cobalt_spawn = 40_000;
+    @Comment("Determines the maximum distance from origin before cobalt stops spawning. Default: 50000")
+    public double max_distance_for_cobalt_spawn = 50_000;
 
     @Key("cobalt_veins_per_chunk")
     @Comment("Number of cobalt veins that can generate per chunk. Default: 5")
@@ -204,12 +204,12 @@ public class Config_World {
     // ── Adamantite ────────────────────────────────────────────────────────────
 
     @Key("min_distance_for_adamantite_spawn")
-    @Comment("Determines the minimum distance from origin before adamantite starts spawning. Default: 30000")
-    public double min_distance_for_adamantite_spawn = 30_000;
+    @Comment("Determines the minimum distance from origin before adamantite starts spawning. Default: 40000")
+    public double min_distance_for_adamantite_spawn = 40_000;
 
     @Key("max_distance_for_adamantite_spawn")
-    @Comment("Determines the maximum distance from origin before adamantite stops spawning. Default: 50000")
-    public double max_distance_for_adamantite_spawn = 50_000;
+    @Comment("Determines the maximum distance from origin before adamantite stops spawning. Default: 60000")
+    public double max_distance_for_adamantite_spawn = 60_000;
 
     @Key("adamantite_veins_per_chunk")
     @Comment("Number of adamantite veins that can generate per chunk. Default: 4")
@@ -254,12 +254,12 @@ public class Config_World {
     // ── Mithril ───────────────────────────────────────────────────────────────
 
     @Key("min_distance_for_mithril_spawn")
-    @Comment("Determines the minimum distance from origin before mithril starts spawning. Default: 40000")
-    public double min_distance_for_mithril_spawn = 40_000;
+    @Comment("Determines the minimum distance from origin before mithril starts spawning. Default: 50000")
+    public double min_distance_for_mithril_spawn = 50_000;
 
     @Key("max_distance_for_mithril_spawn")
-    @Comment("Determines the maximum distance from origin before mithril stops spawning. Default: 60000")
-    public double max_distance_for_mithril_spawn = 60_000;
+    @Comment("Determines the maximum distance from origin before mithril stops spawning. Default: 70000")
+    public double max_distance_for_mithril_spawn = 70_000;
 
     @Key("mithril_veins_per_chunk")
     @Comment("Number of mithril veins that can generate per chunk. Default: 3")

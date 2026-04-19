@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Icon": "Icons/ItemsGenerated/Armor_Adamantite_Chest.png",
   "IconProperties": {
     "Rotation": [
@@ -53,10 +53,7 @@
     "BaseDamageResistance": 0,
     "CosmeticsToHide": [
       "Overtop"
-    ],
-    "StatModifiers": {},
-    "DamageResistance": {},
-    "DamageClassEnhancement": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

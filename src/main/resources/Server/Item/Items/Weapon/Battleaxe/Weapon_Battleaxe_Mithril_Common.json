@@ -35,7 +35,7 @@
     ]
   },
   "Quality": "Common",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "InteractionVars": {
     "Swing_Down_Damage": {
       "Interactions": [

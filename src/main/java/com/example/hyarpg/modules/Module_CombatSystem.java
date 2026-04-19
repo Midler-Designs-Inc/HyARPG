@@ -1,6 +1,7 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.configs.Config_World;
 import com.example.hyarpg.utils.affixes.StatType;
 import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.component.*;
@@ -88,18 +89,25 @@ public class Module_CombatSystem {
         return attacker + "->" + defender + "@" + (System.currentTimeMillis() / BUCKET_MS);
     }
 
-    // Used for weapon damage swap
-    private static class ResolvedDamage {
-        final DamageCause cause;
-        final float amount;
-        final String[] weaponTypes;
+    // exclude items with these strings in their ID
+    private static final Set<String> EXCLUDED_ID_SUBSTRINGS = Set.of(
+        "Ingredient_Bar",
+        "Ore_",
+        "Weapon_",
+        "Armor_",
+        "Ingredient_Leather_",
+        "Ingredient_Bolt_",
+        "Ingredient_Hide"
+    );
 
-        ResolvedDamage(DamageCause cause, float amount, @Nullable String... weaponTypes) {
-            this.cause = cause;
-            this.amount = amount;
-            this.weaponTypes = weaponTypes;
-        }
-    }
+    private static final String[] TIER_DROP_LISTS = {
+        "HyARPG_Container_Tier1",
+        "HyARPG_Container_Tier2",
+        "HyARPG_Container_Tier3",
+        "HyARPG_Container_Tier4",
+        "HyARPG_Container_Tier5",
+        "HyARPG_Container_Tier6",
+    };
 
     // initialize this module
     public Module_CombatSystem() {
@@ -153,41 +161,41 @@ public class Module_CombatSystem {
         Role role = npcComponent.getRole();
         if (role == null) return;
 
-        // get the drop list from the role!?
+        // get the drop list from the role
         String dropListId = role.getDropListId();
         if (dropListId == null) return;
 
-        // get the item module from teh drop list!?
+        // get the item module
         ItemModule itemModule = ItemModule.get();
         if (!itemModule.isEnabled()) return;
 
-        // get random items to be dropped
-        var drops = itemModule.getRandomItemDrops(dropListId);
+        // claim the drop so deathInstruction skips its own loot spawn
+        role.setDeathItemsDropped();
 
-        // filter out vanilla weapons and armor and ingots
-        List<ItemStack> filteredDrops = new ObjectArrayList();
-        for (ItemStack drop : drops) {
+        // get transform early — needed for drop position and distance calculation
+        TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
+        HeadRotation headRotation = store.getComponent(ref, HeadRotation.getComponentType());
+        assert transform != null && headRotation != null;
+
+        // filter vanilla drops — remove weapons, armor, and raw resource items
+        List<ItemStack> allDrops = new ObjectArrayList<>();
+        for (ItemStack drop : itemModule.getRandomItemDrops(dropListId)) {
             Item item = drop.getItem();
-            if (item.getWeapon() != null || item.getArmor() != null || item.getId().contains("Ingredient_Bar") || item.getId().contains("Ore_") || item.getId().contains("Weapon_") || item.getId().contains("Armor_")) {
-                continue;
-            };
-            filteredDrops.add(drop);
+            boolean isExcluded = item.getWeapon() != null || item.getArmor() != null || EXCLUDED_ID_SUBSTRINGS.stream().anyMatch(item.getId()::contains);
+            if (!isExcluded) allDrops.add(drop);
         }
 
-        // get a list of players that attacked the enemy in the last 30 seconds
-        List<Ref<EntityStore>> players = getAttackingPlayers(ref, store);
+        // determine tier from horizontal distance to world origin and append mod drops
+        Config_World worldConfig = ModConfig.get().world;
+        Vector3d pos = transform.getPosition();
+        double distance = Math.sqrt( Math.pow(pos.x - worldConfig.origin_spawn_point_x, 2) + Math.pow(pos.z - worldConfig.origin_spawn_point_z, 2));
+        String tierDropList = TIER_DROP_LISTS[getTierByDistance(distance) - 1];
+        allDrops.addAll(itemModule.getRandomItemDrops(tierDropList));
 
-        // add drops to the pool
-        rollLoot(ref, store, players, filteredDrops);
-
-        // spawn filtered drops
-        if (!filteredDrops.isEmpty()) {
-            TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
-            HeadRotation headRotation = store.getComponent(ref, HeadRotation.getComponentType());
-            assert transform != null && headRotation != null;
-
-            Vector3d dropPosition = transform.getPosition().clone().add(0.0, 1.0, 0.0);
-            Holder<EntityStore>[] dropEntities = ItemComponent.generateItemDrops(store, filteredDrops, dropPosition, headRotation.getRotation().clone());
+        // spawn all drops
+        if (!allDrops.isEmpty()) {
+            Vector3d dropPosition = pos.clone().add(0.0, 1.0, 0.0);
+            Holder<EntityStore>[] dropEntities = ItemComponent.generateItemDrops(store, allDrops, dropPosition, headRotation.getRotation().clone());
             commandBuffer.addEntities(dropEntities, AddReason.SPAWN);
         }
 
@@ -621,194 +629,6 @@ public class Module_CombatSystem {
         });
     }
 
-    // function for spawning loot drops
-    private void rollLoot(Ref<EntityStore> defender, Store<EntityStore> store, List<Ref<EntityStore>> players, List<ItemStack> dropPool) {
-        // Get the killed enemies rpg component
-        Component_RPG_Enemy rpgEnemy = store.getComponent(defender, componentTypeRPGEnemy);
-        if(rpgEnemy == null) return;
-
-        // get the enemies level and rarity
-        String rarity = rpgEnemy.getRarityString();
-        int level = rpgEnemy.level;
-
-        // roll to see if gear or recipes should drop
-        boolean shouldLootDrop = shouldLootDrop(rarity, ModConfig.get().loot.loot_drop_chance_modifier);
-        boolean shouldRecipeDrop = shouldLootDrop(rarity, ModConfig.get().loot.recipe_drop_chance_modifier);
-
-        // loop over all players who damaged the defender in the last 30 seconds
-        if (ModConfig.get().loot.broadcast_drops_in_global_chat) {
-
-        }
-        for (Ref<EntityStore> ref : players) {
-            // resolve the player component
-            Player player = store.getComponent(ref, Player.getComponentType());
-
-            // get the player's applicable components or bail
-            Component_CraftingKnowledge craftingKnowledge = store.getComponent(ref, componentTypeCraftingKnowledge);
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
-            if (craftingKnowledge == null || rpgPlayer == null) continue;
-
-            // add a recipe if applicable
-            if(shouldRecipeDrop && ModConfig.get().loot.broadcast_drops_in_global_chat && rpgPlayer.showLootDrops) {
-                // roll recipe rarity and add it to the drop pool
-                String recipeRarity = rollRarity();
-                String recipeID = "Recipe_Page_" + recipeRarity;
-                dropPool.add(new ItemStack(recipeID, 1));
-
-                // get item color based on rarity
-                Color color = Module_RPGSystem.colorUtils.getRarityColor(recipeRarity);
-
-                // notify players of the loot roll
-                alertPlayers(new Message[]{
-                        Message.raw(player.getDisplayName()).color("#ffffff").bold(true),
-                        Message.raw(" rolled a ").color(Color.GRAY),
-                        Message.raw(recipeID.replace("_", " ")).color(color).bold(true)
-                });
-            }
-
-            // bail now if loot should not drop
-            if(!shouldLootDrop) continue;
-
-            // bail if the player's recipes are empty
-            Set<String> recipes = craftingKnowledge.discoveredDroppableRecipes;
-            int recipeCount = recipes.size();
-            if (recipeCount == 0) continue;
-
-            // get the rarity the random item should be
-            String rolledRarity = rollRarity();
-
-            // get a random item based on the rarity rolled (falling down rarity order otherwise)
-            String randomItemId = rollItemForRarity(recipes, rolledRarity);
-            if (randomItemId == null) continue;
-
-            // assign gear score based on enemy level and then add the item stack to the drop pool
-            ItemStack newStack = new ItemStack(randomItemId, 1);
-//            newStack = assignGearScoreAndAffixes(newStack, level);
-            dropPool.add(newStack);
-
-            // resolve the player component for messaging and alert players of the roll
-            if (player != null && ModConfig.get().loot.broadcast_drops_in_global_chat && rpgPlayer.showLootDrops) {
-                // get rarity of the item actually returned
-                String[] parts = randomItemId.split("_");
-                String actualRarity = parts[parts.length - 1];
-
-                // format item name for display
-                String itemName = randomItemId
-                        .replace("Weapon_", "")
-                        .replace("Armor_", "")
-                        .replace("_", " ");
-
-                // get the item rarity color
-                Color color = Module_RPGSystem.colorUtils.getRarityColor(actualRarity);
-
-                // notify players of the loot roll
-                alertPlayers(new Message[]{
-                        Message.raw(player.getDisplayName()).color("#ffffff").bold(true),
-                        Message.raw(" rolled a ").color(Color.GRAY),
-                        Message.raw(itemName).color(color).bold(true)
-                });
-            }
-        }
-    }
-
-    // Returns true if the modifier application succeeds
-    private boolean shouldLootDrop(String rarity, float modifier) {
-        // Defensive default (treat unknown rarity as worst case)
-        if (rarity == null) return false;
-
-        // make a random roll between 0 and 1
-        double roll = ThreadLocalRandom.current().nextDouble(); // 0.0 <= roll < 1.0
-        double failChance;
-
-        switch (rarity) {
-            case "Common":
-                failChance = 0.95; // 95% fail → 5% success
-                break;
-
-            case "Uncommon":
-                failChance = 0.85; // 85% fail → 15% success
-                break;
-
-            case "Rare":
-                failChance = 0.65; // 65% fail → 35% success
-                break;
-
-            case "Epic":
-                failChance = 0.40; // 40% fail → 60% success
-                break;
-
-            case "Legendary":
-                failChance = 0.10; // 10% fail → 90% success
-                break;
-
-            default:
-                failChance = 0.95; // Safe fallback
-                break;
-        }
-
-        // get the success chance and apply the passed modifier
-        double successChance = 1.0 - failChance;
-        successChance *= modifier;
-
-        // Clamp to [0, 1]
-        successChance = Math.max(0.0, Math.min(1.0, successChance));
-
-
-        // Success occurs when roll exceeds failure probability
-        return roll < successChance;
-    }
-
-    // Rolls a rarity tier based on fixed probabilities
-    private String rollRarity() {
-        double roll = ThreadLocalRandom.current().nextDouble(); // 0.0 <= roll < 1.0
-
-        // Cumulative probability bands (must sum to 1.0)
-        if (roll < 0.03) return "Legendary";   // 3%
-        else if (roll < 0.10) return "Epic";   // 7% (0.10 total)
-        else if (roll < 0.25) return "Rare";   // 15% (0.25 total)
-        else return "Uncommon";                // 75% (0.70 total)
-    }
-
-    // Rolls a random item based on the passed rarity/recipes
-    private String rollItemForRarity(Set<String> recipes, String rolledRarity) {
-        // use ThreadLocalRandom for efficient RNG in game loops
-        ThreadLocalRandom rng = ThreadLocalRandom.current();
-
-        // Define fallback order (highest → lowest)
-        String[] rarityOrder = { "Legendary", "Epic", "Rare", "Uncommon", "Common" };
-
-        // Find starting rarity order index based on rolled rarity
-        int startIndex = -1;
-        for (int i = 0; i < rarityOrder.length; i++) {
-            if (rarityOrder[i].equals(rolledRarity)) {
-                startIndex = i;
-                break;
-            }
-        }
-        if (startIndex == -1) return null;
-
-        // loop over rarity order and try to get a random item or fall down the chain
-        for (int r = startIndex; r < rarityOrder.length; r++) {
-            String rarity = rarityOrder[r];
-
-            // Collect matching recipes
-            List<String> matches = new ArrayList<>();
-            for (String id : recipes) {
-                if (id.endsWith("_" + rarity)) {
-                    matches.add(id);
-                }
-            }
-
-            // If matches exist → roll one
-            if (!matches.isEmpty()) {
-                return matches.get(rng.nextInt(matches.size()));
-            }
-        }
-
-        // Should never occur if Common recipes exist
-        return null;
-    }
-
     // adjust damage packets based on the enemies level
     private double adjustDamageBasedOnLevel(int attackerLevel, int attackerRarity, int defenderLevel, int defenderRarity, double damage) {
         // Tunable constants (safe for infinite scaling)
@@ -832,6 +652,17 @@ public class Module_CombatSystem {
 
         // return the scaled damage number
         return damage;
+    }
+
+    // get the world tier at the current location
+    private static int getTierByDistance(double distance) {
+        Config_World world = ModConfig.get().world;
+        if (distance >= world.min_distance_for_mithril_spawn)     return 6;
+        if (distance >= world.min_distance_for_adamantite_spawn)  return 5;
+        if (distance >= world.min_distance_for_cobalt_spawn)      return 4;
+        if (distance >= world.min_distance_for_thorium_spawn)     return 3;
+        if (distance >= world.min_distance_for_iron_spawn)        return 2;
+        return 1;
     }
 
     // get valid attackers from the damage registry
@@ -858,11 +689,4 @@ public class Module_CombatSystem {
         return attackingRefs;
     }
 
-    // helper function to show chat messages to all players
-    public void alertPlayers(Message[] messages) {
-        // loop over all players and broadcast the message
-        for (PlayerRef player : Universe.get().getPlayers()) {
-            player.sendMessage(Message.join(messages));
-        }
-    }
 }

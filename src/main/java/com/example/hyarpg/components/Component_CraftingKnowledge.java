@@ -113,26 +113,6 @@ public class Component_CraftingKnowledge implements Component<EntityStore> {
     }
 
     // try to register a discovered recipe
-    public void addDiscoveredRecipe(Ref<EntityStore> ref, Store<EntityStore> store, String itemId) {
-
-        // if the add is successful rebuild the raw string
-        if (discoveredDroppableRecipes.add(itemId)) {
-            // add the recipe to the player
-            CraftingPlugin.learnRecipe(ref, itemId, store);
-
-            // Show the discovered notification
-            PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
-            String itemName = itemId.replace("Weapon_", "").replace("Armor_", "").replace("_", " ");
-            NotificationUtil.sendNotification(
-                playerRef.getPacketHandler(),
-                Message.translation("server.hyarpg.notifications.learned_recipe").param("item", Message.translation(itemName)),
-                NotificationStyle.Success
-            );
-
-            // update the serialized value of discovered map
-            discoveredDroppableRecipesRaw = String.join(",", discoveredDroppableRecipes);
-        }
-    }
     public void addDiscoveredRoomRecipe(Ref<EntityStore> ref, Store<EntityStore> store, String roomTypeValue, String roomTypeDisplay) {
         // if the add is successful rebuild the raw string
         if (discoveredRoomRecipes.add(roomTypeValue)) {

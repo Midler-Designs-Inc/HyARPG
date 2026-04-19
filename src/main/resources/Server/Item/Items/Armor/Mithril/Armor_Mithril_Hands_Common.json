@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Hands",
   "Quality": "Common",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Icon": "Icons/ItemsGenerated/Armor_Mithril_Hands.png",
   "IconProperties": {
     "Rotation": [
@@ -50,9 +50,7 @@
   },
   "Armor": {
     "ArmorSlot": "Hands",
-    "BaseDamageResistance": 0,
-    "DamageResistance": {},
-    "StatModifiers": {}
+    "BaseDamageResistance": 0
   },
   "MaxDurability": 0,
   "Tags": {

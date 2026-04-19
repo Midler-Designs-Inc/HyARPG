@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Taut_String_T4.json.name",
+    "Description": "server.items.components.Weapon_Component_Taut_String_T4.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_String_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_String_T1.blockymodel",
+  "Texture": "Items/Weapons/Bow/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 15
+      },
+      {
+        "ItemId": "Wood_Aspen_Trunk_Full",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Bow_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "String",
+    "tier": 4,
+    "outputAssetID": "Weapon_Component_Taut_String",
+    "implicits": [
+      {
+        "stat": "PHYSICAL_DAMAGE_PERCENT",
+        "min": 7.5,
+        "max": 50
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

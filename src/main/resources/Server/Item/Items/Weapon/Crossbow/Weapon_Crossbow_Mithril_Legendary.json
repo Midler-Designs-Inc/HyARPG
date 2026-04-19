@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Crossbow/Mythril_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Mythril.png",
   "Quality": "Legendary",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Recipe": {
     "TimeSeconds": 5,
     "KnowledgeRequired": false,
@@ -22,6 +22,10 @@
       },
       {
         "ItemId": "Ingredient_Voidheart",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Legendary_Shards",
         "Quantity": 1
       }
     ],

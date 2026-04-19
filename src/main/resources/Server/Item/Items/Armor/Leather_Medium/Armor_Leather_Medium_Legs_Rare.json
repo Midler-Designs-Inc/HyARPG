@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bar_Thorium",
         "Quantity": 2
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -53,9 +57,7 @@
     "CosmeticsToHide": [
       "Pants",
       "Shoes"
-    ],
-    "StatModifiers": {},
-    "DamageResistance": {}
+    ]
   },
   "Tags": {
     "Type": [

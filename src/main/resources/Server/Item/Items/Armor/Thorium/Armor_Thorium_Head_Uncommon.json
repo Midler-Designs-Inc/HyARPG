@@ -25,6 +25,10 @@
       {
         "ItemId": "Ingredient_Sac_Venom",
         "Quantity": 2
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -48,9 +52,7 @@
       "Ear",
       "Haircut",
       "HeadAccessory"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

@@ -1,0 +1,52 @@
+{
+  "Parent": "Template_Weapon_Shield",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Shield_Wood.name"
+  },
+  "Model": "Items/Weapons/Shield/Wood.blockymodel",
+  "Texture": "Items/Weapons/Shield/Wood_Hide.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Shield_Wood.png",
+  "Quality": "Common",
+  "ItemLevel": 1,
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": false,
+    "Input": [
+      {
+        "Quantity": 6,
+        "ResourceTypeId": "Wood_Trunk"
+      },
+      {
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Fieldcraft",
+        "Type": "Crafting",
+        "Categories": [
+          "none"
+        ]
+      },
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "Categories": [
+          "none"
+        ]
+      }
+    ]
+  },
+  "ItemSoundSetId": "ISS_Weapons_Shield_Wood",
+  "MaxDurability": 0,
+  "MaxStack": 1,
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ]
+}

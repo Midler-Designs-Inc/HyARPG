@@ -34,6 +34,10 @@
       {
         "ItemId": "Ingredient_Bar_Adamantite",
         "Quantity": 2
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -49,9 +53,7 @@
   },
   "Armor": {
     "ArmorSlot": "Hands",
-    "BaseDamageResistance": 0,
-    "StatModifiers": {},
-    "DamageResistance": {}
+    "BaseDamageResistance": 0
   },
   "Tags": {
     "Type": [

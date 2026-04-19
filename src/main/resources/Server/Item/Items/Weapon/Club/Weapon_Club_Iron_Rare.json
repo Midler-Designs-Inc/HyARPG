@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Leather_Light",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Legendary",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Model": "Items/Weapons/Axe/Mithril.blockymodel",
   "Texture": "Items/Weapons/Axe/Mithril_Texture.png",
   "Recipe": {
@@ -24,6 +24,10 @@
       },
       {
         "ItemId": "Ingredient_Voidheart",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Legendary_Shards",
         "Quantity": 1
       }
     ],

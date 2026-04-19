@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Mace/Cobalt_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Mace_Cobalt.png",
   "Quality": "Common",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 4,
     "KnowledgeRequired": false,

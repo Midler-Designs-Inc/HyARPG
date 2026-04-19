@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Enduring_Clutch_Hilt_T4.json.name",
+    "Description": "server.items.components.Weapon_Component_Enduring_Clutch_Hilt_T4.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Hilt_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Hilt_T1.blockymodel",
+  "Texture": "Items/Weapons/Longsword/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 10
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Shafts_and_Hilts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Hilt",
+    "tier": 4,
+    "outputAssetID": "Weapon_Component_Enduring_Clutch_Hilt",
+    "implicits": [
+      {
+        "stat": "STAMINA_FLAT",
+        "min": 2,
+        "max": 12.5
+      },
+      {
+        "stat": "STAMINA_REGEN_FLAT",
+        "min": 0.1,
+        "max": 0.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

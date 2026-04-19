@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Chest",
   "Quality": "Common",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Icon": "Icons/ItemsGenerated/Armor_Mithril_Chest.png",
   "IconProperties": {
     "Rotation": [
@@ -53,9 +53,7 @@
     "BaseDamageResistance": 0,
     "CosmeticsToHide": [
       "Overtop"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

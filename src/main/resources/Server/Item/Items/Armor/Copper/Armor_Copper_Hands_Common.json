@@ -44,9 +44,7 @@
   },
   "Armor": {
     "ArmorSlot": "Hands",
-    "BaseDamageResistance": 0,
-    "DamageResistance": {},
-    "StatModifiers": {}
+    "BaseDamageResistance": 0
   },
   "MaxDurability": 0,
   "Tags": {

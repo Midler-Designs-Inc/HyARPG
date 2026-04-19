@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Windwillow_Stave_Shaft_T2.json.name",
+    "Description": "server.items.components.Weapon_Component_Windwillow_Stave_Shaft_T2.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Shaft_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shaft_T1.blockymodel",
+  "Texture": "Items/Weapons/Spear/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 6,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Wood_Windwillow_Trunk_Full",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Shafts_and_Hilts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shaft",
+    "tier": 2,
+    "outputAssetID": "Weapon_Component_Windwillow_Stave_Shaft",
+    "implicits": [
+      {
+        "stat": "STAMINA_FLAT",
+        "min": 0.9,
+        "max": 4.5
+      },
+      {
+        "stat": "STAMINA_REGEN_FLAT",
+        "min": 0.06,
+        "max": 0.3
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

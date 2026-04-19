@@ -22,7 +22,7 @@
     ]
   },
   "Quality": "Uncommon",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
   "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Mythril_Kunai.png",
   "PlayerAnimationsId": "Throwing_Knife",
@@ -71,6 +71,10 @@
       },
       {
         "ItemId": "Ingredient_Voidheart",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Uncommon_Shards",
         "Quantity": 1
       }
     ],

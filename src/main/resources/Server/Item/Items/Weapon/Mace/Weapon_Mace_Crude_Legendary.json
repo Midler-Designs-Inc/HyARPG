@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Mace/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Mace_Crude.png",
   "Quality": "Legendary",
-  "ItemLevel": 8,
+  "ItemLevel": 1,
   "Recipe": {
     "TimeSeconds": 0,
     "KnowledgeRequired": false,
@@ -23,6 +23,10 @@
       {
         "ItemId": "Ingredient_Fibre",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -30,14 +34,13 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "none"
         ]
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival"
+          "none"
         ],
         "Id": "Workbench"
       }

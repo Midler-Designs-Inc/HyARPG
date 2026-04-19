@@ -1,0 +1,100 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Crossbow_Cobalt.name"
+  },
+  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
+  "Texture": "Items/Weapons/Crossbow/Cobalt_Crossbow_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Cobalt.png",
+  "Quality": "Common",
+  "ItemLevel": 40,
+  "Recipe": {
+    "TimeSeconds": 3.5,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Linen",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Bow"
+        ],
+        "Id": "Weapon_Bench"
+      },
+      {
+        "Type": "DiagramCrafting",
+        "Categories": [
+          "Weapons.Bow"
+        ],
+        "Id": "Armory"
+      }
+    ]
+  },
+  "InteractionVars": {
+    "Standard_Projectile_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Crossbow_Damage_Standard_Projectile",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "MainHand": 1
+            }
+          }
+        }
+      ]
+    },
+    "Combo_Projectile_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Crossbow_Damage_Combo_Projectile",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Projectile": 27
+            }
+          }
+        }
+      ]
+    },
+    "Signature_BigArrow_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Crossbow_Damage_Signature_Projectile",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "Projectile": 78
+            }
+          }
+        }
+      ]
+    },
+    "Guard_Wield": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Crossbow_Secondary_Guard_Wield",
+          "StaminaCost": {
+            "Value": 10,
+            "CostType": "Damage"
+          }
+        }
+      ]
+    }
+  },
+  "MaxDurability": 0,
+  "DurabilityLossOnHit": 0.28,
+  "Parent": "Template_Weapon_Crossbow",
+  "MaxStack": 1,
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ]
+}

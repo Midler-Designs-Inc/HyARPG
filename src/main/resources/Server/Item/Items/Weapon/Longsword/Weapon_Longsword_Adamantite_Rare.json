@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Rare",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Model": "Items/Weapons/Longsword/Adamantite.blockymodel",
   "Texture": "Items/Weapons/Longsword/Adamantite_Texture.png",
   "PlayerAnimationsId": "Longsword",
@@ -26,6 +26,10 @@
       {
         "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

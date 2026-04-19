@@ -8,11 +8,11 @@
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Axe_Crude.png",
   "Quality": "Uncommon",
-  "ItemLevel": 5,
+  "ItemLevel": 1,
   "Model": "Items/Weapons/Axe/Crude.blockymodel",
   "Texture": "Items/Weapons/Axe/Crude_Texture.png",
   "Recipe": {
-    "TimeSeconds": 3,
+    "TimeSeconds": 0,
     "KnowledgeRequired": false,
     "Input": [
       {
@@ -30,6 +30,10 @@
       {
         "ItemId": "Ingredient_Tree_Sap",
         "Quantity": 2
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [
@@ -37,14 +41,14 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools"
+          "none"
         ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival"
+          "none"
         ]
       }
     ]

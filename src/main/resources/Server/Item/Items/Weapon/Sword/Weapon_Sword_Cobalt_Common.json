@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Sword/Cobalt_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Cobalt.png",
   "Quality": "Common",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 4,
     "KnowledgeRequired": false,

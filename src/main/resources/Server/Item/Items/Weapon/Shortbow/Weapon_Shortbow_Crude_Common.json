@@ -7,7 +7,7 @@
   "Model": "Items/Weapons/Bow/Crude.blockymodel",
   "Texture": "Items/Weapons/Bow/Crude_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Crude.png",
-  "ItemLevel": 9,
+  "ItemLevel": 1,
   "Recipe": {
     "TimeSeconds": 0,
     "Input": [
@@ -25,19 +25,17 @@
         "Id": "Fieldcraft",
         "Type": "Crafting",
         "Categories": [
-          "Tools",
-          "Discoverable"
+          "none"
         ]
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "Workbench_Survival"
+          "none"
         ],
         "Id": "Workbench"
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Primary_Shoot_Charge": {

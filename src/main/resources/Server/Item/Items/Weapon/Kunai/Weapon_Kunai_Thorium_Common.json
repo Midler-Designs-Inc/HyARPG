@@ -82,8 +82,7 @@
         "ItemId": "Ingredient_Fabric_Scrap_Linen",
         "Quantity": 3
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "MaxDurability": 0,
   "MaxStack": 1

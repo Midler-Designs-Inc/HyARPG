@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Legs",
   "Quality": "Common",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Icon": "Icons/ItemsGenerated/Armor_Mithril_Legs.png",
   "IconProperties": {
     "Rotation": [
@@ -54,9 +54,7 @@
     "CosmeticsToHide": [
       "Pants",
       "Shoes"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "Tags": {

@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Cinderwrought_Long_Blade_T5.json.name",
+    "Description": "server.items.components.Weapon_Component_Cinderwrought_Long_Blade_T5.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Long_Blade_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Long_Blade_T1.blockymodel",
+  "Texture": "Items/Weapons/Longsword/Adamantite_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 60
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
+        "Quantity": 30
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Heads_and_Blades"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Long Blade",
+    "tier": 5,
+    "outputAssetID": "Weapon_Longsword_Adamantite",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_FIRE_DAMAGE_FLAT",
+        "min": 24,
+        "max": 24
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

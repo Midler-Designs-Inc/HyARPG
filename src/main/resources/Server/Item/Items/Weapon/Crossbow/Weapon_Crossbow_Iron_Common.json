@@ -39,8 +39,7 @@
         ],
         "Id": "Armory"
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "MaxDurability": 0,
   "InteractionVars": {

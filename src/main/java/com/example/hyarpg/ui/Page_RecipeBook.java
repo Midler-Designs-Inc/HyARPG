@@ -189,7 +189,7 @@ public class Page_RecipeBook {
     private static String buildComponentContent(Set<String> discovered, String category, String tab, int width) {
         StringBuilder sb = new StringBuilder();
 
-        for (int tier = 1; tier <= 5; tier++) {
+        for (int tier = 1; tier <= 6; tier++) {
             List<String> tierComponents = new ArrayList<>();
             for (Map.Entry<String, Map<Integer, List<String>>> typeEntry : ItemFactory.COMPONENT_INDEX.entrySet()) {
                 List<String> ids = typeEntry.getValue().get(tier);

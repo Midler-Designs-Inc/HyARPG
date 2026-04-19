@@ -1,0 +1,105 @@
+@OutputSlotBackground = (TexturePath: "../../Slot.png", Border: 4);
+@OutputSlotStyle = (Default: (Background: @OutputSlotBackground), Hovered: (Background: @OutputSlotBackground), Pressed: (Background: @OutputSlotBackground));
+
+@SalvageOutputSlots = Group {
+    Anchor: (Height: 460);
+    FlexWeight: 1;
+    LayoutMode: Top;
+    Padding: (Horizontal: 8, Top: 8);
+
+    // Row 1 — Component slot 1
+    Group {
+        LayoutMode: Left;
+        Anchor: (Height: 90, Bottom: 6);
+
+        Button #SalvageOutputSlot1 {
+            Anchor: (Width: 74, Height: 74);
+            Style: @OutputSlotStyle;
+            ItemSlot #SalvageOutputItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+        }
+
+        Group {
+            LayoutMode: Top;
+            Anchor: (Left: 10);
+            FlexWeight: 1;
+
+            Label #SalvageOutputName1  { Style: (FontSize: 12, TextColor: #cccccc, RenderBold: true, Wrap: true); Anchor: (Top: 4); }
+            Label #SalvageOutputStat1a { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+            Label #SalvageOutputStat1b { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+            Label #SalvageOutputStat1c { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+        }
+    }
+
+    Group { Background: #9c8863(0.15); Anchor: (Height: 1, Bottom: 6); }
+
+    // Row 2 — Component slot 2
+    Group {
+        LayoutMode: Left;
+        Anchor: (Height: 90, Bottom: 6);
+
+        Button #SalvageOutputSlot2 {
+            Anchor: (Width: 74, Height: 74);
+            Style: @OutputSlotStyle;
+            ItemSlot #SalvageOutputItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+        }
+
+        Group {
+            LayoutMode: Top;
+            Anchor: (Left: 10);
+            FlexWeight: 1;
+
+            Label #SalvageOutputName2  { Style: (FontSize: 12, TextColor: #cccccc, RenderBold: true, Wrap: true); Anchor: (Top: 4); }
+            Label #SalvageOutputStat2a { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+            Label #SalvageOutputStat2b { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+            Label #SalvageOutputStat2c { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+        }
+    }
+
+    Group { Background: #9c8863(0.15); Anchor: (Height: 1, Bottom: 6); }
+
+    // Row 3 — Component slot 3
+    Group {
+        LayoutMode: Left;
+        Anchor: (Height: 90, Bottom: 6);
+
+        Button #SalvageOutputSlot3 {
+            Anchor: (Width: 74, Height: 74);
+            Style: @OutputSlotStyle;
+            ItemSlot #SalvageOutputItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+        }
+
+        Group {
+            LayoutMode: Top;
+            Anchor: (Left: 10);
+            FlexWeight: 1;
+
+            Label #SalvageOutputName3  { Style: (FontSize: 12, TextColor: #cccccc, RenderBold: true, Wrap: true); Anchor: (Top: 4); }
+            Label #SalvageOutputStat3a { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+            Label #SalvageOutputStat3b { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+            Label #SalvageOutputStat3c { Style: (FontSize: 11, TextColor: #c8a84b, Wrap: true); Anchor: (Top: 2); }
+        }
+    }
+
+    Group { Background: #9c8863(0.15); Anchor: (Height: 1, Bottom: 6); }
+
+    // Row 4 — Shard slot
+    Group {
+        LayoutMode: Left;
+        Anchor: (Height: 90, Bottom: 6);
+
+        Button #SalvageOutputSlot4 {
+            Anchor: (Width: 74, Height: 74);
+            Style: @OutputSlotStyle;
+            ItemSlot #SalvageOutputItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+        }
+
+        Group {
+            LayoutMode: Top;
+            Anchor: (Left: 10);
+            FlexWeight: 1;
+
+            Label #SalvageOutputName4 { Style: (FontSize: 12, TextColor: #cccccc, RenderBold: true, Wrap: true); Anchor: (Top: 4); }
+            Label #SalvageOutputStat4a { Style: (FontSize: 11, TextColor: #888888, Wrap: true); Anchor: (Top: 2); }
+        }
+    }
+};

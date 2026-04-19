@@ -72,10 +72,10 @@ public class ItemFactory {
         Map.entry("Wand",      List.of("Wand Body", "Handle", "Magic Core")),
 
         // metal armor
-        Map.entry("Metal Helmet",    List.of("Metal Helmet Shell", "Straps & Buckles", "Liner")),
-        Map.entry("Metal Chest",   List.of("Metal Chest Shell", "Straps & Buckles", "Liner")),
-        Map.entry("Metal Gloves",  List.of("Metal Gloves Shell", "Straps & Buckles", "Liner")),
-        Map.entry("Metal Pants",   List.of("Metal Pants Shell", "Straps & Buckles", "Liner")),
+        Map.entry("Metal Helmet",    List.of("Metal Helmet Shell", "Straps & Buckles", "Padding")),
+        Map.entry("Metal Chest",   List.of("Metal Chest Shell", "Straps & Buckles", "Padding")),
+        Map.entry("Metal Gloves",  List.of("Metal Gloves Shell", "Straps & Buckles", "Padding")),
+        Map.entry("Metal Pants",   List.of("Metal Pants Shell", "Straps & Buckles", "Padding")),
 
         // leather armor
         Map.entry("Leather Hood",     List.of("Leather Hood Panel", "Straps & Buckles", "Stitching")),

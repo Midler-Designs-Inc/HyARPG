@@ -366,9 +366,10 @@ public class Page_HowToPlay {
                 + p("Higher ore tiers start to appear the further you explore into the world. Ore types wax and wane, peaking at their mid-point range before fading. The ranges below are default values and are configurable.")
                 + bullet(bold("Copper") + txt(" — Close to spawn (0-20k blocks, peaks ~10k)."))
                 + bullet(bold("Iron") + txt(" — Mid range (10-30k blocks, peaks ~20k)."))
-                + bullet(bold("Thorium & Cobalt") + txt(" — Further out (20-40k blocks, peaks ~30k)."))
-                + bullet(bold("Adamantite") + txt(" — Deep exploration (30-50k blocks, peaks ~40k)."))
-                + bullet(bold("Mithril") + txt(" — The furthest tier (30-60k blocks, peaks ~50k)."))
+                + bullet(bold("Thorium") + txt(" — Further out (20-40k blocks, peaks ~30k)."))
+                + bullet(bold("Cobalt") + txt(" — Deep exploration (30-50k blocks, peaks ~40k)."))
+                + bullet(bold("Adamantite") + txt(" — The furthest tier (40-60k blocks, peaks ~50k)."))
+                + bullet(bold("Mithril") + txt(" — The furthest tier (50-70k blocks, peaks ~60k)."))
                 + divider();
     }
 

@@ -7,7 +7,7 @@
   "Model": "Items/Weapons/Bow/Adamantite.blockymodel",
   "Texture": "Items/Weapons/Bow/Adamantite_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Bow_Adamantite.png",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 4.5,
     "KnowledgeRequired": false,

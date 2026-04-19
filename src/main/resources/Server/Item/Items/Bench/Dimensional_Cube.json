@@ -1,0 +1,54 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Dimensional_Cube.name",
+    "Description": "server.items.Dimensional_Cube.description"
+  },
+  "Recipe": {
+    "Input": [
+      {
+        "ResourceTypeId": "Rubble",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Tools"
+        ],
+        "Id": "Fieldcraft"
+      }
+    ]
+  },
+  "Categories": [
+    "Items.Tools"
+  ],
+  "Icon": "Icons/Items/Dimensional_Cube_Icon.png",
+  "Model": "Items/Dimensional_Cube/Dimensional_Cube.blockymodel",
+  "Texture": "Items/Dimensional_Cube/Cube_Texture.png",
+  "Scale": 0.16,
+  "Animation": "Items/Dimensional_Cube/Cube_Rotation - Temp.blockyanim",
+  "MaxStack": 1,
+  "Quality": "Legendary",
+  "Interactions": {
+    "Primary": {
+      "Interactions": [
+        {
+          "Type": "Bench_Forge_Open_Crafting"
+        }
+      ]
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "Bench_Forge_Open_Salvaging"
+        }
+      ]
+    }
+  },
+  "Light": {
+    "Color": "#444"
+  },
+  "UsePlayerAnimations": true,
+  "PlayerAnimationsId": "Item"
+}

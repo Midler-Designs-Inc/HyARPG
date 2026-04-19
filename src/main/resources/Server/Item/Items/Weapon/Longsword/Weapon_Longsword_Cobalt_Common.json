@@ -8,7 +8,7 @@
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Longsword_Cobalt.png",
   "Quality": "Common",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 4,
     "KnowledgeRequired": false,

@@ -8,7 +8,7 @@
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Club_Cobalt.png",
   "Quality": "Uncommon",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 4,
     "KnowledgeRequired": false,
@@ -24,6 +24,10 @@
       {
         "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 4
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

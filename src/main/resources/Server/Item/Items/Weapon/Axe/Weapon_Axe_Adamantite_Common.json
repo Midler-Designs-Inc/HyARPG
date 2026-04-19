@@ -7,7 +7,7 @@
     "Items.HyARPG.Gear"
   ],
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Model": "Items/Weapons/Axe/Adamantite.blockymodel",
   "Texture": "Items/Weapons/Axe/Adamantite_Texture.png",
   "Recipe": {

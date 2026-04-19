@@ -1,0 +1,48 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Hemlocked_Shortbow_Body_T3.json.name",
+    "Description": "server.items.components.Weapon_Component_Hemlocked_Shortbow_Body_T3.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Shortbow_Body_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shortbow_Body_T1.blockymodel",
+  "Texture": "Items/Weapons/Bow/Thorium_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 40
+      },
+      {
+        "ItemId": "Ingredient_Sac_Venom",
+        "Quantity": 20
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Bow_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shortbow Body",
+    "tier": 3,
+    "outputAssetID": "Weapon_Shortbow_Thorium",
+    "implicits": [
+      {
+        "stat": "MAIN_HAND_POISON_DAMAGE_FLAT",
+        "min": 8,
+        "max": 8
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

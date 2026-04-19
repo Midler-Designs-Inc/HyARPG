@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Mace/Adamantite_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Mace_Adamantite.png",
   "Quality": "Legendary",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 4.5,
     "KnowledgeRequired": false,
@@ -23,6 +23,10 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
       }
     ],
     "BenchRequirement": [

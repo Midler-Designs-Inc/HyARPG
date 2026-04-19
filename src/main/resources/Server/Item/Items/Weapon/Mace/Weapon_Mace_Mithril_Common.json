@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Mace/Mithril_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Mace_Mithril.png",
   "Quality": "Common",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Recipe": {
     "TimeSeconds": 5,
     "KnowledgeRequired": false,

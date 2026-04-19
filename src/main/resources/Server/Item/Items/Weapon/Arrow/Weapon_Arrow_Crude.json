@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Quality": "Common",
-  "ItemLevel": 9,
+  "ItemLevel": 1,
   "PlayerAnimationsId": "Dagger",
   "Recipe": {
     "TimeSeconds": 0,
@@ -25,12 +25,16 @@
     "BenchRequirement": [
       {
         "Type": "Crafting",
-        "Categories": [],
+        "Categories": [
+          "none"
+        ],
         "Id": "Workbench"
       },
       {
         "Type": "Crafting",
-        "Categories": [],
+        "Categories": [
+          "none"
+        ],
         "Id": "Weapon_Bench"
       }
     ]

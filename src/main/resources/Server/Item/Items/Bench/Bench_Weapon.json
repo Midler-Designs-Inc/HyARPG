@@ -12,15 +12,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 2
+        "Quantity": 50
       },
       {
         "ResourceTypeId": "Wood_Trunk",
-        "Quantity": 10
+        "Quantity": 20
       },
       {
         "ResourceTypeId": "Rock",
-        "Quantity": 5
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -94,30 +94,16 @@
           "Id": "Bow_Parts",
           "Icon": "Icons/CraftingCategories/Crafting_Bow_Parts.png",
           "Name": "server.benchCategories.components.Bow_Parts"
-        },
-        {
-          "Id": "Shield_Parts",
-          "Icon": "Icons/CraftingCategories/Crafting_Shield_Parts.png",
-          "Name": "server.benchCategories.components.Shield_Parts"
         }
       ],
       "Id": "Weapon_Bench",
       "TierLevels": [
         {
-          "CraftingTimeReductionModifier": 0.15,
           "UpgradeRequirement": {
             "Material": [
               {
-                "ItemId": "Ingredient_Bar_Copper",
-                "Quantity": 50
-              },
-              {
-                "Quantity": 100,
-                "ResourceTypeId": "Wood_Trunk"
-              },
-              {
                 "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 25
+                "Quantity": 100
               }
             ],
             "TimeSeconds": 3
@@ -127,81 +113,45 @@
           "UpgradeRequirement": {
             "Material": [
               {
-                "ItemId": "Ingredient_Bar_Copper",
-                "Quantity": 100
-              },
-              {
-                "Quantity": 200,
-                "ResourceTypeId": "Wood_Trunk"
-              },
-              {
-                "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 50
-              },
-              {
                 "ItemId": "Ingredient_Bar_Thorium",
-                "Quantity": 25
+                "Quantity": 100
               }
             ],
-            "TimeSeconds": 3
-          },
-          "CraftingTimeReductionModifier": 0.15
-        },
-        {
-          "CraftingTimeReductionModifier": 0.15,
-          "UpgradeRequirement": {
-            "Material": [
-              {
-                "ItemId": "Ingredient_Bar_Copper",
-                "Quantity": 200
-              },
-              {
-                "Quantity": 400,
-                "ResourceTypeId": "Wood_Trunk"
-              },
-              {
-                "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 100
-              },
-              {
-                "ItemId": "Ingredient_Bar_Thorium",
-                "Quantity": 50
-              },
-              {
-                "ItemId": "Ingredient_Bar_Adamantite",
-                "Quantity": 25
-              }
-            ],
-            "TimeSeconds": 3
+            "TimeSeconds": 6
           }
         },
         {
           "UpgradeRequirement": {
             "Material": [
               {
-                "Quantity": 800,
-                "ResourceTypeId": "Wood_Trunk"
-              },
-              {
-                "ItemId": "Ingredient_Bar_Iron",
-                "Quantity": 200
-              },
-              {
-                "ItemId": "Ingredient_Bar_Thorium",
+                "ItemId": "Ingredient_Bar_Cobalt",
                 "Quantity": 100
-              },
+              }
+            ],
+            "TimeSeconds": 9
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
               {
                 "ItemId": "Ingredient_Bar_Adamantite",
-                "Quantity": 50
-              },
+                "Quantity": 100
+              }
+            ],
+            "TimeSeconds": 12
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
               {
                 "ItemId": "Ingredient_Bar_Mithril",
-                "Quantity": 25
+                "Quantity": 100
               }
             ],
-            "TimeSeconds": 3
-          },
-          "CraftingTimeReductionModifier": 0.15
+            "TimeSeconds": 15
+          }
         }
       ]
     },

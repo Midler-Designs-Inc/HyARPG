@@ -32,8 +32,7 @@
         "ItemId": "Ingredient_Bar_Copper",
         "Quantity": 4
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Swing_Left_Damage": {

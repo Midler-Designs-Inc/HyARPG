@@ -8,7 +8,7 @@
   "Model": "Items/Weapons/Sword/Crude.blockymodel",
   "Texture": "Items/Weapons/Sword/Crude_Texture.png",
   "Quality": "Common",
-  "ItemLevel": 3,
+  "ItemLevel": 1,
   "Recipe": {
     "TimeSeconds": 0,
     "KnowledgeRequired": false,
@@ -30,12 +30,16 @@
       {
         "Id": "Fieldcraft",
         "Type": "Crafting",
-        "Categories": []
+        "Categories": [
+          "none"
+        ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
-        "Categories": []
+        "Categories": [
+          "none"
+        ]
       }
     ]
   },

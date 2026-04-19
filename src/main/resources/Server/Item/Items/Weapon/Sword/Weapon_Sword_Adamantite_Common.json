@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Sword/Adamantite_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Sword_Adamantite.png",
   "Quality": "Common",
-  "ItemLevel": 40,
+  "ItemLevel": 50,
   "Recipe": {
     "TimeSeconds": 4.5,
     "Input": [
@@ -33,8 +33,7 @@
         "Id": "Weapon_Bench",
         "RequiredTierLevel": 3
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Swing_Left_Damage": {

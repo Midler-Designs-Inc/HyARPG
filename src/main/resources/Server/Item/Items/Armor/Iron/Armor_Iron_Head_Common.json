@@ -76,9 +76,7 @@
       "Ear",
       "Haircut",
       "HeadAccessory"
-    ],
-    "DamageResistance": {},
-    "StatModifiers": {}
+    ]
   },
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.5,

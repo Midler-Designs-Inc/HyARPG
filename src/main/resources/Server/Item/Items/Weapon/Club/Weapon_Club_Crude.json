@@ -6,7 +6,7 @@
     "Items.Weapons"
   ],
   "Icon": "Icons/ItemsGenerated/Weapon_Club_Crude.png",
-  "ItemLevel": 5,
+  "ItemLevel": 1,
   "Model": "Items/Weapons/Club/Crude.blockymodel",
   "Texture": "Items/Weapons/Club/Crude_Texture.png",
   "Recipe": {
@@ -30,12 +30,16 @@
       {
         "Id": "Fieldcraft",
         "Type": "Crafting",
-        "Categories": []
+        "Categories": [
+          "none"
+        ]
       },
       {
         "Id": "Workbench",
         "Type": "Crafting",
-        "Categories": []
+        "Categories": [
+          "none"
+        ]
       }
     ]
   },

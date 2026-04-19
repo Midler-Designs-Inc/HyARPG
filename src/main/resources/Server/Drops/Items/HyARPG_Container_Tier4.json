@@ -16,7 +16,23 @@
                 "Weight": 200,
                 "Item": {
                   "ItemId": "Ore_Thorium",
-                  "QuantityMax": 200
+                  "QuantityMax": 40
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Hide_Medium",
+                  "QuantityMax": 40
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Fabric_Scrap_Cotton",
+                  "QuantityMax": 40
                 }
               },
               {
@@ -24,15 +40,23 @@
                 "Weight": 200,
                 "Item": {
                   "ItemId": "Ore_Cobalt",
-                  "QuantityMax": 200
+                  "QuantityMax": 20
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 200,
                 "Item": {
-                  "ItemId": "Ore_Adamantite",
-                  "QuantityMax": 100
+                  "ItemId": "Ingredient_Hide_Heavy",
+                  "QuantityMax": 20
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 200,
+                "Item": {
+                  "ItemId": "Ingredient_Fabric_Scrap_Silk",
+                  "QuantityMax": 20
                 }
               },
               {
@@ -58,22 +82,6 @@
                   "ItemId": "Wood_Fir_Trunk",
                   "QuantityMax": 70
                 }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ingredient_Leather_Heavy",
-                  "QuantityMax": 20
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
-                  "QuantityMax": 10
-                }
               }
             ]
           },
@@ -81,34 +89,6 @@
             "Type": "Choice",
             "Weight": 25,
             "Containers": [
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Chest_Common"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Hands_Common"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Head_Common"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Legs_Common"
-                }
-              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -135,6 +115,34 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Armor_Cloth_Silk_Legs_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Common"
                 }
               },
               {
@@ -169,77 +177,70 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Adamantite_Common"
+                  "ItemId": "Weapon_Axe_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Adamantite_Common"
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Adamantite_Common"
+                  "ItemId": "Weapon_Club_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Adamantite_Common"
+                  "ItemId": "Weapon_Crossbow_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Adamantite_Common"
+                  "ItemId": "Weapon_Daggers_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Adamantite_Common"
+                  "ItemId": "Weapon_Longsword_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Adamantite_Common"
+                  "ItemId": "Weapon_Mace_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Mace_Adamantite_Common"
+                  "ItemId": "Weapon_Shield_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Adamantite_Common"
+                  "ItemId": "Weapon_Shortbow_Cobalt_Common"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shortbow_Adamantite_Common"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Adamantite_Common"
+                  "ItemId": "Weapon_Sword_Cobalt_Common"
                 }
               },
               {
@@ -255,34 +256,6 @@
             "Type": "Choice",
             "Weight": 11,
             "Containers": [
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Chest_Uncommon"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Hands_Uncommon"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Head_Uncommon"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Legs_Uncommon"
-                }
-              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -309,6 +282,34 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Armor_Cloth_Silk_Legs_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Uncommon"
                 }
               },
               {
@@ -343,77 +344,70 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Axe_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Club_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Crossbow_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Daggers_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Longsword_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Mace_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Mace_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Shield_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Shortbow_Cobalt_Uncommon"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shortbow_Adamantite_Uncommon"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Adamantite_Uncommon"
+                  "ItemId": "Weapon_Sword_Cobalt_Uncommon"
                 }
               },
               {
@@ -429,34 +423,6 @@
             "Type": "Choice",
             "Weight": 8,
             "Containers": [
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Chest_Rare"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Hands_Rare"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Head_Rare"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Legs_Rare"
-                }
-              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -483,6 +449,34 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Armor_Cloth_Silk_Legs_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Rare"
                 }
               },
               {
@@ -517,77 +511,70 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Adamantite_Rare"
+                  "ItemId": "Weapon_Axe_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Adamantite_Rare"
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Adamantite_Rare"
+                  "ItemId": "Weapon_Club_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Adamantite_Rare"
+                  "ItemId": "Weapon_Crossbow_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Adamantite_Rare"
+                  "ItemId": "Weapon_Daggers_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Adamantite_Rare"
+                  "ItemId": "Weapon_Longsword_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Adamantite_Rare"
+                  "ItemId": "Weapon_Mace_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Mace_Adamantite_Rare"
+                  "ItemId": "Weapon_Shield_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Adamantite_Rare"
+                  "ItemId": "Weapon_Shortbow_Cobalt_Rare"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shortbow_Adamantite_Rare"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Adamantite_Rare"
+                  "ItemId": "Weapon_Sword_Cobalt_Rare"
                 }
               },
               {
@@ -603,34 +590,6 @@
             "Type": "Choice",
             "Weight": 4,
             "Containers": [
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Chest_Epic"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Hands_Epic"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Head_Epic"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Legs_Epic"
-                }
-              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -657,6 +616,34 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Armor_Cloth_Silk_Legs_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Epic"
                 }
               },
               {
@@ -691,77 +678,70 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Adamantite_Epic"
+                  "ItemId": "Weapon_Axe_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Adamantite_Epic"
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Adamantite_Epic"
+                  "ItemId": "Weapon_Club_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Adamantite_Epic"
+                  "ItemId": "Weapon_Crossbow_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Adamantite_Epic"
+                  "ItemId": "Weapon_Daggers_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Adamantite_Epic"
+                  "ItemId": "Weapon_Longsword_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Adamantite_Epic"
+                  "ItemId": "Weapon_Mace_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Mace_Adamantite_Epic"
+                  "ItemId": "Weapon_Shield_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Adamantite_Epic"
+                  "ItemId": "Weapon_Shortbow_Cobalt_Epic"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shortbow_Adamantite_Epic"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Adamantite_Epic"
+                  "ItemId": "Weapon_Sword_Cobalt_Epic"
                 }
               },
               {
@@ -777,34 +757,6 @@
             "Type": "Choice",
             "Weight": 2,
             "Containers": [
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Chest_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Hands_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Head_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Armor_Adamantite_Legs_Legendary"
-                }
-              },
               {
                 "Type": "Single",
                 "Weight": 100,
@@ -831,6 +783,34 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Armor_Cloth_Silk_Legs_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Chest_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Hands_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Head_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Armor_Cobalt_Legs_Legendary"
                 }
               },
               {
@@ -865,77 +845,70 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Axe_Adamantite_Legendary"
+                  "ItemId": "Weapon_Axe_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Battleaxe_Adamantite_Legendary"
+                  "ItemId": "Weapon_Battleaxe_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Club_Adamantite_Legendary"
+                  "ItemId": "Weapon_Club_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Crossbow_Adamantite_Legendary"
+                  "ItemId": "Weapon_Crossbow_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Daggers_Adamantite_Legendary"
+                  "ItemId": "Weapon_Daggers_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Kunai_Adamantite_Legendary"
+                  "ItemId": "Weapon_Longsword_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Longsword_Adamantite_Legendary"
+                  "ItemId": "Weapon_Mace_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Mace_Adamantite_Legendary"
+                  "ItemId": "Weapon_Shield_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shield_Adamantite_Legendary"
+                  "ItemId": "Weapon_Shortbow_Cobalt_Legendary"
                 }
               },
               {
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
-                  "ItemId": "Weapon_Shortbow_Adamantite_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 100,
-                "Item": {
-                  "ItemId": "Weapon_Sword_Adamantite_Legendary"
+                  "ItemId": "Weapon_Sword_Cobalt_Legendary"
                 }
               },
               {

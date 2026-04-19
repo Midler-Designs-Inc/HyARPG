@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Dagger/Cobalt_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Daggers_Cobalt.png",
   "Quality": "Epic",
-  "ItemLevel": 35,
+  "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 4,
     "BenchRequirement": [
@@ -32,9 +32,12 @@
       {
         "ItemId": "Ingredient_Fabric_Scrap_Shadoweave",
         "Quantity": 3
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
       }
-    ],
-    "KnowledgeRequired": false
+    ]
   },
   "InteractionVars": {
     "Swing_Left_Damage": {

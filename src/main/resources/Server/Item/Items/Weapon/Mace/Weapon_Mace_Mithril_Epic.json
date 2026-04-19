@@ -7,7 +7,7 @@
   "Texture": "Items/Weapons/Mace/Mithril_Texture.png",
   "Icon": "Icons/ItemsGenerated/Weapon_Mace_Mithril.png",
   "Quality": "Epic",
-  "ItemLevel": 50,
+  "ItemLevel": 60,
   "Recipe": {
     "TimeSeconds": 5,
     "KnowledgeRequired": false,
@@ -22,6 +22,10 @@
       },
       {
         "ItemId": "Ingredient_Voidheart",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Epic_Shards",
         "Quantity": 1
       }
     ],

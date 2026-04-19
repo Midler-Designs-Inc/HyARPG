@@ -1,0 +1,66 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Leather_Savage_Head.name"
+  },
+  "Parent": "Armor_Iron_Head",
+  "ItemLevel": 60,
+  "Icon": "Icons/ItemsGenerated/Armor_Leather_Savage_Head_Icon.png",
+  "Model": "Items/Armors/Trork_Warrior/Head.blockymodel",
+  "Texture": "Items/Armors/Trork_Warrior/Head_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Feathers_Dark",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Cotton",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "TODO",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Head"
+        ]
+      }
+    ],
+    "KnowledgeRequired": true
+  },
+  "Armor": {
+    "ArmorSlot": "Head",
+    "BaseDamageResistance": 0,
+    "CosmeticsToHide": [
+      "EarAccessory",
+      "Ear",
+      "Haircut",
+      "HeadAccessory"
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Leather"
+    ]
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Leather",
+  "MaxStack": 1,
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ],
+  "Quality": "Rare"
+}

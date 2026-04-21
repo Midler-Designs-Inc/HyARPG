@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 15
-      },
-      {
-        "ItemId": "Wood_Maple_Trunk_Full",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Warding_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Cobalt",
     "implicits": [
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 5,
-        "max": 33.5
+        "min": 2,
+        "max": 5
       }
     ]
   },

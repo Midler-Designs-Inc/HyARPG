@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Wood_Maple_Trunk_Full",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Warding_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Copper",
     "implicits": [
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 2,
-        "max": 13.4
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

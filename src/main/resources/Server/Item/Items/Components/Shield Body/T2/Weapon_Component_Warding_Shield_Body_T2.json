@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 9
-      },
-      {
-        "ItemId": "Wood_Maple_Trunk_Full",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Warding_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Iron",
     "implicits": [
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 3,
-        "max": 20.1
+        "min": 1.2,
+        "max": 3
       }
     ]
   },

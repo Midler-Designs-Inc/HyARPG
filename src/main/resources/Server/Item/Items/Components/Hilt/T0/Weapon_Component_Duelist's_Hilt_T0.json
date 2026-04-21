@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Fibre",
-        "Quantity": 2
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Duelist's_Hilt",
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
-        "min": 0.8,
-        "max": 5
+        "min": 0.2,
+        "max": 0.5
       }
     ]
   },

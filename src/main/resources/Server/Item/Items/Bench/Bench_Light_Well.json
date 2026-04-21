@@ -97,7 +97,16 @@
         }
       }
     },
-    "Looping": true
+    "Looping": true,
+    "Interactions": {
+      "Use": {
+        "Interactions": [
+          {
+            "Type": "Open_Territory_Panel"
+          }
+        ]
+      }
+    }
   },
   "PlayerAnimationsId": "Block",
   "IconProperties": {

@@ -11,12 +11,8 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Wood_Poisoned_Trunk_Full",
-        "Quantity": 14
+        "ItemId": "Ingredient_Bolt_Shadoweave",
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Verdant_String_String",
     "implicits": [
       {
-        "stat": "POISON_DAMAGE_FLAT",
-        "min": 2.8,
-        "max": 17.5
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.07,
+        "max": 0.21
       }
     ]
   },

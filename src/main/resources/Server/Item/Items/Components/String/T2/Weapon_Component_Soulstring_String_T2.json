@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 3
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Soulstring_String",
     "implicits": [
       {
         "stat": "LIFE_LEECH_PERCENT",
-        "min": 0.15,
-        "max": 0.9
+        "min": 0.03,
+        "max": 0.06
       }
     ]
   },

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 18
-      },
-      {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Steadied_Frame_Shield_Frame",
     "implicits": [
       {
-        "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 3.6,
-        "max": 24
-      },
-      {
-        "stat": "LIFE_FLAT",
-        "min": 15,
-        "max": 90
+        "stat": "STABILITY_PERCENT",
+        "min": 1.2,
+        "max": 3
       }
     ]
   },

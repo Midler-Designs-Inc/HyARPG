@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 3
-      },
-      {
-        "ItemId": "Wood_Windwillow_Trunk_Full",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Rapid_Quiver_String",
     "implicits": [
       {
         "stat": "AMMO_REGEN_PERCENT",
-        "min": 2.4,
-        "max": 15
+        "min": 1.5,
+        "max": 4.5
       }
     ]
   },

@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Vitalhilt_Hilt",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 24,
-        "max": 150
+        "min": 6,
+        "max": 18
       }
     ]
   },

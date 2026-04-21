@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Shadoweave",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 7
-      },
-      {
-        "ItemId": "Wood_Windwillow_Trunk_Full",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Rapid_Quiver_String",
     "implicits": [
       {
         "stat": "AMMO_REGEN_PERCENT",
-        "min": 5.6,
-        "max": 35
+        "min": 3.5,
+        "max": 10.5
       }
     ]
   },

@@ -185,7 +185,7 @@ public class ItemFactory {
         if (weaponType == null || rarity == null) return null;
 
         // derive tier from item level
-        int tier = Math.max(1, item.getItemLevel() / 10);
+        int tier = item.getItemLevel() / 10;
 
         // get the slot type list for this weapon type
         List<String> slotTypes = ALLOWED_COMPONENTS.get(weaponType);

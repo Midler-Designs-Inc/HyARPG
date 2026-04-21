@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 3
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 1
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Reinforced_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Crude",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 4,
-        "max": 25
+        "min": 1.5,
+        "max": 4
       }
     ]
   },

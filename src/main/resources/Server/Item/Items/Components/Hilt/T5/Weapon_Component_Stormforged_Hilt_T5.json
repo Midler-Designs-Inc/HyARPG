@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Lightning_Essence",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Stormforged_Hilt",
     "implicits": [
       {
         "stat": "LIGHTNING_DAMAGE_PERCENT",
-        "min": 9,
-        "max": 60
+        "min": 2.4,
+        "max": 6
       }
     ]
   },

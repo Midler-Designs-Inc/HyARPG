@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Wool",
-        "Quantity": 4
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Wood_Windwillow_Trunk_Full",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -38,17 +30,16 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Reservoir_Draw_String",
     "implicits": [
       {
         "stat": "AMMO_FLAT",
-        "min": 0.5,
-        "max": 2
+        "min": 0.3,
+        "max": 0.8
       },
       {
         "stat": "AMMO_REGEN_PERCENT",
-        "min": 1.6,
-        "max": 9
+        "min": 0.5,
+        "max": 1.5
       }
     ]
   },

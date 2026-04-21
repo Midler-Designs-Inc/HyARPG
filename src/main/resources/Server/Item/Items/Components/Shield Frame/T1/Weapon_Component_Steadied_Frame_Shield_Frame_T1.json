@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Steadied_Frame_Shield_Frame",
     "implicits": [
       {
-        "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 1.2,
-        "max": 8
-      },
-      {
-        "stat": "LIFE_FLAT",
-        "min": 5,
-        "max": 30
+        "stat": "STABILITY_PERCENT",
+        "min": 0.4,
+        "max": 1
       }
     ]
   },

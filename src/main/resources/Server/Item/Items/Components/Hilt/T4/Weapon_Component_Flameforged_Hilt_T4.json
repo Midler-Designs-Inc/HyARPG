@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 10
-      },
-      {
-        "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 5
-      },
-      {
-        "ItemId": "Ingredient_Fire_Essence",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Flameforged_Hilt",
     "implicits": [
       {
         "stat": "FIRE_DAMAGE_PERCENT",
-        "min": 7.5,
-        "max": 50
+        "min": 2,
+        "max": 5
       }
     ]
   },

@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Fibre",
-        "Quantity": 1
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 1
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Manaframe_Shield_Frame",
     "implicits": [
       {
         "stat": "MANA_FLAT",
-        "min": 1,
-        "max": 6.25
+        "min": 0.3,
+        "max": 0.8
       }
     ]
   },

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 15
-      },
-      {
-        "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Steadied_Frame_Shield_Frame",
     "implicits": [
       {
-        "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 3,
-        "max": 20
-      },
-      {
-        "stat": "LIFE_FLAT",
-        "min": 12.5,
-        "max": 75
+        "stat": "STABILITY_PERCENT",
+        "min": 1,
+        "max": 2.5
       }
     ]
   },

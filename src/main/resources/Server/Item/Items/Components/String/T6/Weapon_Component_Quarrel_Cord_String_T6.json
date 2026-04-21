@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Shadoweave",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 14
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Quarrel_Cord_String",
     "implicits": [
       {
         "stat": "CROSSBOW_DAMAGE_PERCENT",
-        "min": 10.5,
-        "max": 70
+        "min": 2.8,
+        "max": 7
       }
     ]
   },

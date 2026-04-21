@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 4
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Sorcerer's_Rim_Shield_Frame",
     "implicits": [
       {
-        "stat": "MAGIC_DAMAGE_PERCENT",
-        "min": 3,
-        "max": 20
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.02,
+        "max": 0.06
       }
     ]
   },

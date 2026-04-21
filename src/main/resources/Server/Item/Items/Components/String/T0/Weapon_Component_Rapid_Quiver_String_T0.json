@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Fibre",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Fibre",
-        "Quantity": 1
-      },
-      {
-        "ItemId": "Wood_Windwillow_Trunk_Full",
-        "Quantity": 1
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Rapid_Quiver_String",
     "implicits": [
       {
         "stat": "AMMO_REGEN_PERCENT",
-        "min": 0.8,
-        "max": 5
+        "min": 0.5,
+        "max": 1.5
       }
     ]
   },

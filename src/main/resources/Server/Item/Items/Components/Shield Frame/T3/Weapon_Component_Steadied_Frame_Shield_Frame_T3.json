@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 4
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Steadied_Frame_Shield_Frame",
     "implicits": [
       {
-        "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 2.4,
-        "max": 16
-      },
-      {
-        "stat": "LIFE_FLAT",
-        "min": 10,
-        "max": 60
+        "stat": "STABILITY_PERCENT",
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

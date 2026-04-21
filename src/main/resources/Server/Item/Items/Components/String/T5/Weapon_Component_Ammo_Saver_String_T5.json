@@ -11,12 +11,8 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 12
-      },
-      {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 12
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Ammo_Saver_String",
     "implicits": [
       {
         "stat": "AMMO_FLAT",
-        "min": 3,
-        "max": 9
+        "min": 1.8,
+        "max": 4.8
       }
     ]
   },

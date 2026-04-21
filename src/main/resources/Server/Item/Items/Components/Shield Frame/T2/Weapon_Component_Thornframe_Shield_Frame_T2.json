@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 3
-      },
-      {
-        "ItemId": "Ingredient_Water_Essence",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Thornframe_Shield_Frame",
     "implicits": [
       {
-        "stat": "POISON_DAMAGE_PERCENT",
-        "min": 4.5,
-        "max": 30
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.03,
+        "max": 0.09
       }
     ]
   },

@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 4
-      },
-      {
-        "ItemId": "Ingredient_Fire_Essence",
-        "Quantity": 4
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Flameforged_Hilt",
     "implicits": [
       {
         "stat": "FIRE_DAMAGE_PERCENT",
-        "min": 6,
-        "max": 40
+        "min": 1.6,
+        "max": 4
       }
     ]
   },

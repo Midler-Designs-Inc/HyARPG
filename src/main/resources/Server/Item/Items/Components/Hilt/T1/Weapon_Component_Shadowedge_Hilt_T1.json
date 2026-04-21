@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 4
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -38,17 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Shadowedge_Hilt",
     "implicits": [
       {
-        "stat": "DAGGERS_DAMAGE_PERCENT",
-        "min": 1.6,
-        "max": 10
-      },
-      {
-        "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
+        "stat": "KUNAI_DAMAGE_PERCENT",
         "min": 0.8,
-        "max": 5
+        "max": 2
       }
     ]
   },

@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Sorcerer's_Rim_Shield_Frame",
     "implicits": [
       {
-        "stat": "MAGIC_DAMAGE_PERCENT",
-        "min": 9,
-        "max": 60
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.06,
+        "max": 0.18
       }
     ]
   },

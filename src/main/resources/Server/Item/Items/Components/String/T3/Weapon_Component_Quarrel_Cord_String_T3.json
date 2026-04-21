@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cotton",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 8
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Quarrel_Cord_String",
     "implicits": [
       {
         "stat": "CROSSBOW_DAMAGE_PERCENT",
-        "min": 6,
-        "max": 40
+        "min": 1.6,
+        "max": 4
       }
     ]
   },

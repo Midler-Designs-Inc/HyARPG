@@ -45,11 +45,6 @@
       "Type": "Crafting",
       "Categories": [
         {
-          "Id": "Workbench_Survival",
-          "Icon": "Icons/CraftingCategories/Workbench/WeaponsCrude.png",
-          "Name": "server.benchCategories.workbench.survival"
-        },
-        {
           "Id": "Workbench_Crude_Weapons",
           "Icon": "Icons/CraftingCategories/Crafting_Weapons_Crude.png",
           "Name": "server.benchCategories.workbench.crude_weapons"

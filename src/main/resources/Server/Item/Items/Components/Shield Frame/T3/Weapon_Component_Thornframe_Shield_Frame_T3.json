@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 4
-      },
-      {
-        "ItemId": "Ingredient_Water_Essence",
-        "Quantity": 4
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Thornframe_Shield_Frame",
     "implicits": [
       {
-        "stat": "POISON_DAMAGE_PERCENT",
-        "min": 6,
-        "max": 40
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.04,
+        "max": 0.12
       }
     ]
   },

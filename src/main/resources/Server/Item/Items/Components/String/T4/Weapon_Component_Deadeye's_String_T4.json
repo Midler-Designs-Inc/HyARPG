@@ -11,16 +11,8 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 10
-      },
-      {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 5
-      },
-      {
-        "ItemId": "Wood_Birch_Trunk_Full",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Deadeye's_String",
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
-        "min": 4,
-        "max": 25
+        "min": 1,
+        "max": 2.5
       }
     ]
   },

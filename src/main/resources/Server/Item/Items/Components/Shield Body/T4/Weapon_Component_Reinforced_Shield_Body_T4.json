@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 15
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Reinforced_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Cobalt",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 20,
-        "max": 125
+        "min": 7.5,
+        "max": 20
       }
     ]
   },

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 4
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 4
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,16 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Warbrand_Hilt",
     "implicits": [
       {
         "stat": "SWORD_DAMAGE_PERCENT",
-        "min": 1.6,
-        "max": 10
+        "min": 0.4,
+        "max": 1
       },
       {
         "stat": "PHYSICAL_DAMAGE_PERCENT",
-        "min": 1.6,
-        "max": 10
+        "min": 0.4,
+        "max": 1
       }
     ]
   },

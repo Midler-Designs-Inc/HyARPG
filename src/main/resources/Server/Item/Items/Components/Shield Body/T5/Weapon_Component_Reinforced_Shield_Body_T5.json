@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 18
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Reinforced_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Adamantite",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 24,
-        "max": 150
+        "min": 9,
+        "max": 24
       }
     ]
   },

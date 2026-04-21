@@ -679,7 +679,8 @@ public class Module_CombatSystem {
         if (distance >= world.min_distance_for_cobalt_spawn)      return 4;
         if (distance >= world.min_distance_for_thorium_spawn)     return 3;
         if (distance >= world.min_distance_for_iron_spawn)        return 2;
-        return 1;
+        if (distance >= world.min_distance_for_copper_spawn)        return 1;
+        return 0;
     }
 
     // get valid attackers from the damage registry

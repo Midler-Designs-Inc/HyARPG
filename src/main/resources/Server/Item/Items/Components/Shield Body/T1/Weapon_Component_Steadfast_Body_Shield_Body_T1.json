@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Wood_Beech_Trunk_Full",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,17 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Steadfast_Body_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Copper",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 5,
-        "max": 30
+        "min": 1.5,
+        "max": 4
       },
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 1,
-        "max": 6
+        "min": 0.4,
+        "max": 1
       }
     ]
   },

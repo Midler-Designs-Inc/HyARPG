@@ -94,6 +94,11 @@
           "Id": "Stitching_and_Embellishments",
           "Icon": "Icons/CraftingCategories/Crafting_Stitching_and_Embellishments.png",
           "Name": "server.benchCategories.components.Stitching_and_Embellishments"
+        },
+        {
+          "Id": "Shield_Parts",
+          "Icon": "Icons/CraftingCategories/Crafting_Shield_Parts.png",
+          "Name": "server.benchCategories.components.Shield_Parts"
         }
       ],
       "LocalOpenSoundEventId": "SFX_Armour_Bench_Open",

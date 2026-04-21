@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Reinforced_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Copper",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 8,
-        "max": 50
+        "min": 3,
+        "max": 8
       }
     ]
   },

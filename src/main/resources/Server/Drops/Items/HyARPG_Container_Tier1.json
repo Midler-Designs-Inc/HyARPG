@@ -9,7 +9,7 @@
         "Containers": [
           {
             "Type": "Choice",
-            "Weight": 300,
+            "Weight": 600,
             "Containers": [
               {
                 "Type": "Single",

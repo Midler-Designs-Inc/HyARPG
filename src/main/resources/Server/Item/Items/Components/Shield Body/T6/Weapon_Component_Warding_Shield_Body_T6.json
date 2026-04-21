@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 21
-      },
-      {
-        "ItemId": "Wood_Maple_Trunk_Full",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Warding_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Mithril",
     "implicits": [
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 7,
-        "max": 46.9
+        "min": 2.8,
+        "max": 7
       }
     ]
   },

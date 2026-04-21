@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 3
-      },
-      {
-        "ItemId": "Wood_Beech_Trunk_Full",
-        "Quantity": 1
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,17 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Steadfast_Body_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Crude",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 2.5,
-        "max": 15
+        "min": 0.75,
+        "max": 2
       },
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 0.5,
-        "max": 3
+        "min": 0.2,
+        "max": 0.5
       }
     ]
   },

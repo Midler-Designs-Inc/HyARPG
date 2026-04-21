@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 8
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Duelist's_Hilt",
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
-        "min": 3.2,
-        "max": 20
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 2
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Reaper's_Guard_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Crude",
     "implicits": [
       {
         "stat": "LIFE_LEECH_PERCENT",
-        "min": 0.05,
-        "max": 0.3
+        "min": 0.01,
+        "max": 0.02
       }
     ]
   },

@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Fibre",
-        "Quantity": 1
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 1
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Leechframe_Shield_Frame",
     "implicits": [
       {
         "stat": "LIFE_LEECH_PERCENT",
-        "min": 0.05,
-        "max": 0.3
+        "min": 0.01,
+        "max": 0.02
       }
     ]
   },

@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 10
-      },
-      {
-        "ItemId": "Wood_Birch_Trunk_Full",
-        "Quantity": 5
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -38,17 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Silkdraw_String",
     "implicits": [
       {
-        "stat": "SHORTBOW_DAMAGE_PERCENT",
-        "min": 4,
-        "max": 25
-      },
-      {
-        "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
-        "min": 2,
-        "max": 12.5
+        "stat": "STAMINA_FLAT",
+        "min": 1,
+        "max": 2.5
       }
     ]
   },

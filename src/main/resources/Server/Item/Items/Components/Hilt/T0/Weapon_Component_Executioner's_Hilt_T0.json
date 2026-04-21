@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Fibre",
-        "Quantity": 1
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 1
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Executioner's_Hilt",
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_DAMAGE_PERCENT",
-        "min": 3,
-        "max": 20
+        "min": 0.5,
+        "max": 1.5
       }
     ]
   },

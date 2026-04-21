@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 9
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Ironlaced_Shield_Frame",
     "implicits": [
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 3,
-        "max": 20.1
+        "min": 1.2,
+        "max": 3
       }
     ]
   },

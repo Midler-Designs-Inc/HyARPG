@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 7
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Sorcerer's_Rim_Shield_Frame",
     "implicits": [
       {
-        "stat": "MAGIC_DAMAGE_PERCENT",
-        "min": 10.5,
-        "max": 70
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.07,
+        "max": 0.21
       }
     ]
   },

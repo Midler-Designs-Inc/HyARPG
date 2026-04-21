@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 10
-      },
-      {
-        "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 10
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Cleaver's_Hilt",
     "implicits": [
       {
         "stat": "AXE_DAMAGE_PERCENT",
-        "min": 7.5,
-        "max": 50
+        "min": 2,
+        "max": 5
       }
     ]
   },

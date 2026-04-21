@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 18
-      },
-      {
-        "ItemId": "Wood_Beech_Trunk_Full",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,17 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Steadfast_Body_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Adamantite",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 15,
-        "max": 90
+        "min": 4.5,
+        "max": 12
       },
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 3,
-        "max": 18
+        "min": 1.2,
+        "max": 3
       }
     ]
   },

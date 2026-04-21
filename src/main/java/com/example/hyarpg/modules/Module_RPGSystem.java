@@ -101,6 +101,7 @@ public class Module_RPGSystem {
         interactionRegistry.register("SpawnDeployableAtHitLocationFixed", Interaction_SpawnDeployableAtHitLocation.class, Interaction_SpawnDeployableAtHitLocation.CODEC);
         interactionRegistry.register("Bench_Forge_Open_Crafting", Interaction_Bench_Forge_Open_Crafting.class, Interaction_Bench_Forge_Open_Crafting.CODEC);
         interactionRegistry.register("Bench_Forge_Open_Salvaging", Interaction_Bench_Forge_Open_Salvaging.class, Interaction_Bench_Forge_Open_Salvaging.CODEC);
+        interactionRegistry.register("Open_Territory_Panel", Interaction_Open_Territory_Panel.class, Interaction_Open_Territory_Panel.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 10
-      },
-      {
-        "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 10
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,16 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Warbrand_Hilt",
     "implicits": [
       {
         "stat": "SWORD_DAMAGE_PERCENT",
-        "min": 4,
-        "max": 25
+        "min": 1,
+        "max": 2.5
       },
       {
         "stat": "PHYSICAL_DAMAGE_PERCENT",
-        "min": 4,
-        "max": 25
+        "min": 1,
+        "max": 2.5
       }
     ]
   },

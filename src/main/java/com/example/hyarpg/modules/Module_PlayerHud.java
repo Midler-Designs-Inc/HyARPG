@@ -84,184 +84,186 @@ public class Module_PlayerHud {
         hud.withRefreshRate(250).onRefresh(hudRef -> {
             // Schedule component reads on the world thread
             world.execute(() -> {
-                Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
-                Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
-                Component_RPG_Player rpgPlayer = store.getComponent(entityRef, componentTypeRPGPlayer);
-                EntityStatMap statMap = store.getComponent(entityRef, EntityStatsModule.get().getEntityStatMapComponentType());
-                Player player = store.getComponent(entityRef, Player.getComponentType());
-                if (hunger == null || thirst == null || rpgPlayer == null || player == null || statMap == null) return;
+                try {
+                    Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
+                    Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
+                    Component_RPG_Player rpgPlayer = store.getComponent(entityRef, componentTypeRPGPlayer);
+                    EntityStatMap statMap = store.getComponent(entityRef, EntityStatsModule.get().getEntityStatMapComponentType());
+                    Player player = store.getComponent(entityRef, Player.getComponentType());
+                    if (hunger == null || thirst == null || rpgPlayer == null || player == null || statMap == null) return;
 
-                float thirstPercent = thirst.getPercentage();
-                float hungerPercent = hunger.getPercentage();
-                float levelPercent = rpgPlayer.calculateLevelProgress();
-                float barrierOnBlockPercent;
-                int playerLevel = rpgPlayer.level;
-                int gearScore = rpgPlayer.gearScore;
+                    float thirstPercent = thirst.getPercentage();
+                    float hungerPercent = hunger.getPercentage();
+                    float levelPercent = rpgPlayer.calculateLevelProgress();
+                    float barrierOnBlockPercent;
+                    int playerLevel = rpgPlayer.level;
+                    int gearScore = rpgPlayer.gearScore;
 
-                // check for health and barrier stats
-                int barrierStatIndex = EntityStatType.getAssetMap().getIndex("BarrierOnBlock");
-                int healthIndex = DefaultEntityStatTypes.getHealth();
-                EntityStatValue barrierStat = statMap.get(barrierStatIndex);
-                EntityStatValue healthStat = statMap.get(healthIndex);
+                    // check for health and barrier stats
+                    int barrierStatIndex = EntityStatType.getAssetMap().getIndex("BarrierOnBlock");
+                    int healthIndex = DefaultEntityStatTypes.getHealth();
+                    EntityStatValue barrierStat = statMap.get(barrierStatIndex);
+                    EntityStatValue healthStat = statMap.get(healthIndex);
 
-                // barrier and health stats found
-                if (barrierStat != null && healthStat != null && barrierStat.getMax() > 0)
-                    barrierOnBlockPercent = (float) barrierStat.get() / (float) healthStat.getMax();
-                else barrierOnBlockPercent = 0f;
+                    // barrier and health stats found
+                    if (barrierStat != null && healthStat != null && barrierStat.getMax() > 0)
+                        barrierOnBlockPercent = (float) barrierStat.get() / (float) healthStat.getMax();
+                    else barrierOnBlockPercent = 0f;
 
-                // get abilities cooldowns if applicable //skillSlotOverlay_Label_R
-                int secondsLeft_E = 0;
-                if(rpgPlayer.primaryAbility != null) {
-                    SkillNode node = rpgPlayer.skillLibrary.findNode(rpgPlayer.primaryAbility);
+                    // get abilities cooldowns if applicable //skillSlotOverlay_Label_R
+                    int secondsLeft_E = 0;
+                    if(rpgPlayer.primaryAbility != null) {
+                        SkillNode node = rpgPlayer.skillLibrary.findNode(rpgPlayer.primaryAbility);
 
-                    // check if the node exists and has an ability still
-                    if(node !=null && node.ability != null) {
-                        // get the time now and the last use of the ability in nano time
-                        long now = System.nanoTime();
-                        long lastUse = node.ability.getLastUse();
+                        // check if the node exists and has an ability still
+                        if(node !=null && node.ability != null) {
+                            // get the time now and the last use of the ability in nano time
+                            long now = System.nanoTime();
+                            long lastUse = node.ability.getLastUse();
 
-                        // if lastUse was ever set (not zero) do comparison logic
-                        if(lastUse != 0) {
-                            // determine how much nano seconds have passed
-                            long elapsedNanos = now - lastUse;
+                            // if lastUse was ever set (not zero) do comparison logic
+                            if(lastUse != 0) {
+                                // determine how much nano seconds have passed
+                                long elapsedNanos = now - lastUse;
 
-                            // get the remaining cooldown time in nanos
-                            long cooldownNanos = node.ability.cooldownSeconds * 1_000_000_000L;
-                            long remainingNanos = cooldownNanos - elapsedNanos;
+                                // get the remaining cooldown time in nanos
+                                long cooldownNanos = node.ability.cooldownSeconds * 1_000_000_000L;
+                                long remainingNanos = cooldownNanos - elapsedNanos;
 
-                            // set the remaining nanos into a clamped seconds left value
-                            secondsLeft_E = (int) Math.max(0, (remainingNanos + 999_999_999L) / 1_000_000_000L);
+                                // set the remaining nanos into a clamped seconds left value
+                                secondsLeft_E = (int) Math.max(0, (remainingNanos + 999_999_999L) / 1_000_000_000L);
+                            }
                         }
                     }
-                }
 
-                // get abilities cooldowns if applicable //skillSlotOverlay_Label_R
-                int secondsLeft_R = 0;
-                if(rpgPlayer.secondaryAbility != null) {
-                    SkillNode node = rpgPlayer.skillLibrary.findNode(rpgPlayer.secondaryAbility);
+                    // get abilities cooldowns if applicable //skillSlotOverlay_Label_R
+                    int secondsLeft_R = 0;
+                    if(rpgPlayer.secondaryAbility != null) {
+                        SkillNode node = rpgPlayer.skillLibrary.findNode(rpgPlayer.secondaryAbility);
 
-                    // check if the node exists and has an ability still
-                    if(node !=null && node.ability != null) {
-                        // get the time now and the last use of the ability in nano time
-                        long now = System.nanoTime();
-                        long lastUse = node.ability.getLastUse();
+                        // check if the node exists and has an ability still
+                        if(node !=null && node.ability != null) {
+                            // get the time now and the last use of the ability in nano time
+                            long now = System.nanoTime();
+                            long lastUse = node.ability.getLastUse();
 
-                        // if lastUse was ever set (not zero) do comparison logic
-                        if(lastUse != 0) {
-                            // determine how much nano seconds have passed
-                            long elapsedNanos = now - lastUse;
+                            // if lastUse was ever set (not zero) do comparison logic
+                            if(lastUse != 0) {
+                                // determine how much nano seconds have passed
+                                long elapsedNanos = now - lastUse;
 
-                            // get the remaining cooldown time in nanos
-                            long cooldownNanos = node.ability.cooldownSeconds * 1_000_000_000L;
-                            long remainingNanos = cooldownNanos - elapsedNanos;
+                                // get the remaining cooldown time in nanos
+                                long cooldownNanos = node.ability.cooldownSeconds * 1_000_000_000L;
+                                long remainingNanos = cooldownNanos - elapsedNanos;
 
-                            // set the remaining nanos into a clamped seconds left value
-                            secondsLeft_R = (int) Math.max(0, (remainingNanos + 999_999_999L) / 1_000_000_000L);
+                                // set the remaining nanos into a clamped seconds left value
+                                secondsLeft_R = (int) Math.max(0, (remainingNanos + 999_999_999L) / 1_000_000_000L);
+                            }
                         }
                     }
-                }
 
-                // convert seconds left to final to shut up lambda error (java is so stupid)
-                int secondsLeft_E_final = secondsLeft_E;
-                int secondsLeft_R_final = secondsLeft_R;
+                    // convert seconds left to final to shut up lambda error (java is so stupid)
+                    int secondsLeft_E_final = secondsLeft_E;
+                    int secondsLeft_R_final = secondsLeft_R;
 
-                // Update UI back on the HyUI/render thread
-                hudRef.getById("thirstBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(thirstPercent));
-                hudRef.getById("hungerBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(hungerPercent));
-                hudRef.getById("barrierBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(barrierOnBlockPercent));
-                hudRef.getById("xpBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(levelPercent));
-                hudRef.getById("xpLevelCurrent", LabelBuilder.class).ifPresent(l -> l.withText(
-                    "SP " + rpgPlayer.skillPoints + "  |  GS " + String.valueOf(gearScore) + "  |  Lv " + String.valueOf(playerLevel)
-                ));
-                hudRef.getById("skillIcon_Q", ImageBuilder.class).ifPresent(l -> l
-                    .withImage(rpgPlayer.ultimateAbilityIcon == null ? "" : rpgPlayer.ultimateAbilityIcon)
-                    .withVisible(rpgPlayer.ultimateAbilityIcon != null)
-                );
-                hudRef.getById("skillIcon_E", ImageBuilder.class).ifPresent(l -> l
-                    .withImage(rpgPlayer.primaryAbilityIcon == null ? "" : rpgPlayer.primaryAbilityIcon)
-                    .withVisible(rpgPlayer.primaryAbilityIcon != null)
-                );
-                hudRef.getById("skillIcon_R", ImageBuilder.class).ifPresent(l -> l
-                    .withImage(rpgPlayer.secondaryAbilityIcon == null ? "" : rpgPlayer.secondaryAbilityIcon)
-                    .withVisible(rpgPlayer.secondaryAbilityIcon != null)
-                );
-                hudRef.getById("skillSlotOverlay_Label_E", LabelBuilder.class).ifPresent(l -> l
-                    .withText(String.valueOf(secondsLeft_E_final))
-                    .withVisible(secondsLeft_E_final > 0)
-                );
-                hudRef.getById("skillIconOverlay_E", ImageBuilder.class).ifPresent(l -> l
-                    .withVisible(secondsLeft_E_final > 0)
-                );
-                hudRef.getById("skillSlotOverlay_Label_R", LabelBuilder.class).ifPresent(l -> l
-                    .withText(String.valueOf(secondsLeft_R_final))
-                    .withVisible(secondsLeft_R_final > 0)
-                );
-                hudRef.getById("skillIconOverlay_R", ImageBuilder.class).ifPresent(l -> l
-                        .withVisible(secondsLeft_R_final > 0)
-                );
+                    // Update UI back on the HyUI/render thread
+                    hudRef.getById("thirstBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(thirstPercent));
+                    hudRef.getById("hungerBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(hungerPercent));
+                    hudRef.getById("barrierBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(barrierOnBlockPercent));
+                    hudRef.getById("xpBar", ProgressBarBuilder.class).ifPresent(b -> b.withValue(levelPercent));
+                    hudRef.getById("xpLevelCurrent", LabelBuilder.class).ifPresent(l -> l.withText(
+                            "SP " + rpgPlayer.skillPoints + "  |  GS " + String.valueOf(gearScore) + "  |  Lv " + String.valueOf(playerLevel)
+                    ));
+                    hudRef.getById("skillIcon_Q", ImageBuilder.class).ifPresent(l -> l
+                            .withImage(rpgPlayer.ultimateAbilityIcon == null ? "" : rpgPlayer.ultimateAbilityIcon)
+                            .withVisible(rpgPlayer.ultimateAbilityIcon != null)
+                    );
+                    hudRef.getById("skillIcon_E", ImageBuilder.class).ifPresent(l -> l
+                            .withImage(rpgPlayer.primaryAbilityIcon == null ? "" : rpgPlayer.primaryAbilityIcon)
+                            .withVisible(rpgPlayer.primaryAbilityIcon != null)
+                    );
+                    hudRef.getById("skillIcon_R", ImageBuilder.class).ifPresent(l -> l
+                            .withImage(rpgPlayer.secondaryAbilityIcon == null ? "" : rpgPlayer.secondaryAbilityIcon)
+                            .withVisible(rpgPlayer.secondaryAbilityIcon != null)
+                    );
+                    hudRef.getById("skillSlotOverlay_Label_E", LabelBuilder.class).ifPresent(l -> l
+                            .withText(String.valueOf(secondsLeft_E_final))
+                            .withVisible(secondsLeft_E_final > 0)
+                    );
+                    hudRef.getById("skillIconOverlay_E", ImageBuilder.class).ifPresent(l -> l
+                            .withVisible(secondsLeft_E_final > 0)
+                    );
+                    hudRef.getById("skillSlotOverlay_Label_R", LabelBuilder.class).ifPresent(l -> l
+                            .withText(String.valueOf(secondsLeft_R_final))
+                            .withVisible(secondsLeft_R_final > 0)
+                    );
+                    hudRef.getById("skillIconOverlay_R", ImageBuilder.class).ifPresent(l -> l
+                            .withVisible(secondsLeft_R_final > 0)
+                    );
 
-                // update raid HUD — only visible during an active raid
-                Module_RaidSystem.RaidHudState raidState = rpgPlayer.activeRaidHudState;
-                boolean raidActive = raidState != null;
-                hudRef.getById("raidHud_Icon", ImageBuilder.class).ifPresent(b -> b.withVisible(raidActive));
-                hudRef.getById("raidHud_WaveStatus", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
-                hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
-                hudRef.getById("raidHud_ExplosionWarning", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive && ModConfig.get().raids.unkilled_raid_enemies_explode));
+                    // update raid HUD — only visible during an active raid
+                    Module_RaidSystem.RaidHudState raidState = rpgPlayer.activeRaidHudState;
+                    boolean raidActive = raidState != null;
+                    hudRef.getById("raidHud_Icon", ImageBuilder.class).ifPresent(b -> b.withVisible(raidActive));
+                    hudRef.getById("raidHud_WaveStatus", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
+                    hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
+                    hudRef.getById("raidHud_ExplosionWarning", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive && ModConfig.get().raids.unkilled_raid_enemies_explode));
 
-                if (raidActive) {
-                    long nowMs = System.currentTimeMillis();
+                    if (raidActive) {
+                        long nowMs = System.currentTimeMillis();
 
-                    // determine wave status text and countdown text based on current phase
-                    String waveStatusText;
-                    String countdownText;
+                        // determine wave status text and countdown text based on current phase
+                        String waveStatusText;
+                        String countdownText;
 
-                    if (raidState.currentWave == 0) {
-                        // pre-first-wave phase
-                        long secondsUntilFirst = Math.max(0, (raidState.firstWaveSpawnAtMs - nowMs) / 1000L);
-                        waveStatusText = "Incoming...";
-                        countdownText = "First wave in " + secondsUntilFirst + "s";
-                    } else if (raidState.currentWave < raidState.totalWaves) {
-                        // mid-raid — a wave has spawned, more to come
-                        long nextWaveAtMs = raidState.firstWaveSpawnAtMs + ((long) raidState.currentWave * raidState.secondsBetweenWaves * 1000L);
-                        long secondsUntilNext = Math.max(0, (nextWaveAtMs - nowMs) / 1000L);
-                        waveStatusText = "Wave " + raidState.currentWave + " / " + raidState.totalWaves;
-                        countdownText = "Next wave in " + secondsUntilNext + "s";
-                    } else {
-                        // all waves spawned — counting down to raid end
-                        long secondsUntilEnd = Math.max(0, (raidState.raidEndMs - nowMs) / 1000L);
-                        waveStatusText = "Wave " + raidState.totalWaves + " / " + raidState.totalWaves;
-                        countdownText = "Raid ends in " + secondsUntilEnd + "s";
+                        if (raidState.currentWave == 0) {
+                            // pre-first-wave phase
+                            long secondsUntilFirst = Math.max(0, (raidState.firstWaveSpawnAtMs - nowMs) / 1000L);
+                            waveStatusText = "Incoming...";
+                            countdownText = "First wave in " + secondsUntilFirst + "s";
+                        } else if (raidState.currentWave < raidState.totalWaves) {
+                            // mid-raid — a wave has spawned, more to come
+                            long nextWaveAtMs = raidState.firstWaveSpawnAtMs + ((long) raidState.currentWave * raidState.secondsBetweenWaves * 1000L);
+                            long secondsUntilNext = Math.max(0, (nextWaveAtMs - nowMs) / 1000L);
+                            waveStatusText = "Wave " + raidState.currentWave + " / " + raidState.totalWaves;
+                            countdownText = "Next wave in " + secondsUntilNext + "s";
+                        } else {
+                            // all waves spawned — counting down to raid end
+                            long secondsUntilEnd = Math.max(0, (raidState.raidEndMs - nowMs) / 1000L);
+                            waveStatusText = "Wave " + raidState.totalWaves + " / " + raidState.totalWaves;
+                            countdownText = "Raid ends in " + secondsUntilEnd + "s";
+                        }
+
+                        final String waveStatusFinal = waveStatusText;
+                        final String countdownFinal = countdownText;
+                        hudRef.getById("raidHud_WaveStatus", LabelBuilder.class).ifPresent(b -> b.withText(waveStatusFinal));
+                        hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withText(countdownFinal));
                     }
 
-                    final String waveStatusFinal = waveStatusText;
-                    final String countdownFinal = countdownText;
-                    hudRef.getById("raidHud_WaveStatus", LabelBuilder.class).ifPresent(b -> b.withText(waveStatusFinal));
-                    hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withText(countdownFinal));
-                }
+                    // determine if we should show the room info or not
+                    boolean showRoomInfo = ModConfig.get().building.allow_light_well_territory_claim && rpgPlayer.territory != null;
+                    hudRef.getById("currentRoomBorder", ImageBuilder.class).ifPresent(l -> l
+                            .withVisible(showRoomInfo)
+                    );
+                    hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
+                            .withVisible(showRoomInfo)
+                    );
+                    if (!showRoomInfo || rpgPlayer.territory.getOwnerUuid() == null) return;
 
-                // determine if we should show the room info or not
-                boolean showRoomInfo = ModConfig.get().building.allow_light_well_territory_claim && rpgPlayer.territory != null;
-                hudRef.getById("currentRoomBorder", ImageBuilder.class).ifPresent(l -> l
-                        .withVisible(showRoomInfo)
-                );
-                hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
-                        .withVisible(showRoomInfo)
-                );
-                if (!showRoomInfo || rpgPlayer.territory.getOwnerUuid() == null) return;
-
-                // priority: room > outdoor space > territory label
-                PlayerRef territoryOwner = Universe.get().getPlayer(rpgPlayer.territory.getOwnerUuid());
-                String ownerName = territoryOwner != null ? territoryOwner.getUsername() : "Unknown";
-                String roomText;
-                if (rpgPlayer.room != null)
-                    roomText = rpgPlayer.room.getDesignatedRoomType();
-                else if (rpgPlayer.outdoorRoom != null)
-                    roomText = rpgPlayer.outdoorRoom.getDesignatedRoomType();
-                else
-                    roomText = ownerName + "'s Territory";
-                hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
-                        .withText(roomText)
-                );
+                    // priority: room > outdoor space > territory label
+                    PlayerRef territoryOwner = Universe.get().getPlayer(rpgPlayer.territory.getOwnerUuid());
+                    String ownerName = territoryOwner != null ? territoryOwner.getUsername() : "Unknown";
+                    String roomText;
+                    if (rpgPlayer.room != null)
+                        roomText = rpgPlayer.room.getDesignatedRoomType();
+                    else if (rpgPlayer.outdoorRoom != null)
+                        roomText = rpgPlayer.outdoorRoom.getDesignatedRoomType();
+                    else
+                        roomText = ownerName + "'s Territory";
+                    hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
+                            .withText(roomText)
+                    );
+                } catch (Exception e) {}
             });
         });
     }

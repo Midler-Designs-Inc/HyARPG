@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 14
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Duelist's_Hilt",
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
-        "min": 5.6,
-        "max": 35
+        "min": 1.4,
+        "max": 3.5
       }
     ]
   },

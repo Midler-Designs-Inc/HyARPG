@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 12
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,16 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Warbrand_Hilt",
     "implicits": [
       {
         "stat": "SWORD_DAMAGE_PERCENT",
-        "min": 4.8,
-        "max": 30
+        "min": 1.2,
+        "max": 3
       },
       {
         "stat": "PHYSICAL_DAMAGE_PERCENT",
-        "min": 4.8,
-        "max": 30
+        "min": 1.2,
+        "max": 3
       }
     ]
   },

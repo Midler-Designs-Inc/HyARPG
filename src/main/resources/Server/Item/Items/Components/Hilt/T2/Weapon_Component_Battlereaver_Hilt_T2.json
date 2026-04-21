@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 6
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Battlereaver_Hilt",
     "implicits": [
       {
         "stat": "BATTLEAXE_DAMAGE_PERCENT",
-        "min": 4.5,
-        "max": 30
+        "min": 1.2,
+        "max": 3
       }
     ]
   },

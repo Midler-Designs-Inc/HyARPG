@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 15
-      },
-      {
-        "ItemId": "Wood_Beech_Trunk_Full",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,17 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Steadfast_Body_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Cobalt",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 12.5,
-        "max": 75
+        "min": 3.75,
+        "max": 10
       },
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 2.5,
-        "max": 15
+        "min": 1,
+        "max": 2.5
       }
     ]
   },

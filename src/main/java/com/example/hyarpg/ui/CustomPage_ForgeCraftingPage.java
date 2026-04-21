@@ -452,9 +452,7 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         for (int i = 0; i < 3; i++) {
             SlotEntry entry = inputSlotItems[i];
             if (entry == null) { sendUpdate((UICommandBuilder) null, false); return; }
-            ItemContainer inv = isHotbarItem(entry.slotN())
-                    ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
-                    : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
+            ItemContainer inv = isHotbarItem(entry.slotN()) ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory() : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
             if (inv == null) { sendUpdate((UICommandBuilder) null, false); return; }
             short slot = Short.parseShort(getSlotNumber(entry.slotN()));
             ItemStack stack = inv.getItemStack(slot);

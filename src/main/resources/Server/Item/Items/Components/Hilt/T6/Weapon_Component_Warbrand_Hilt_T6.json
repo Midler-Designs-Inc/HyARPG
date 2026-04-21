@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 14
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,16 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Warbrand_Hilt",
     "implicits": [
       {
         "stat": "SWORD_DAMAGE_PERCENT",
-        "min": 5.6,
-        "max": 35
+        "min": 1.4,
+        "max": 3.5
       },
       {
         "stat": "PHYSICAL_DAMAGE_PERCENT",
-        "min": 5.6,
-        "max": 35
+        "min": 1.4,
+        "max": 3.5
       }
     ]
   },

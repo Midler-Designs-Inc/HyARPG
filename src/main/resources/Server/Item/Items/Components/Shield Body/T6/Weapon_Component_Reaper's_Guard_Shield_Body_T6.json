@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 14
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Reaper's_Guard_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Mithril",
     "implicits": [
       {
         "stat": "LIFE_LEECH_PERCENT",
-        "min": 0.35,
-        "max": 2.1
+        "min": 0.07,
+        "max": 0.14
       }
     ]
   },

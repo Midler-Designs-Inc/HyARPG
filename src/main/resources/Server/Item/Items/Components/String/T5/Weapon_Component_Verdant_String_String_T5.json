@@ -11,12 +11,8 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Wood_Poisoned_Trunk_Full",
-        "Quantity": 12
+        "ItemId": "Ingredient_Bolt_Cindercloth",
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Verdant_String_String",
     "implicits": [
       {
-        "stat": "POISON_DAMAGE_FLAT",
-        "min": 2.4,
-        "max": 15
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.06,
+        "max": 0.18
       }
     ]
   },

@@ -11,12 +11,8 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 10
-      },
-      {
         "ItemId": "Ingredient_Bolt_Silk",
-        "Quantity": 10
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Ammo_Saver_String",
     "implicits": [
       {
         "stat": "AMMO_FLAT",
-        "min": 2.5,
-        "max": 7.5
+        "min": 1.5,
+        "max": 4
       }
     ]
   },

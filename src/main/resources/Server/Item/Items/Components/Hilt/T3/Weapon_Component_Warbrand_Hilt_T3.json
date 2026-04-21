@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 8
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,16 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Warbrand_Hilt",
     "implicits": [
       {
         "stat": "SWORD_DAMAGE_PERCENT",
-        "min": 3.2,
-        "max": 20
+        "min": 0.8,
+        "max": 2
       },
       {
         "stat": "PHYSICAL_DAMAGE_PERCENT",
-        "min": 3.2,
-        "max": 20
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

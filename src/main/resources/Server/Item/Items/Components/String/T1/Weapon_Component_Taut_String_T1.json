@@ -11,12 +11,8 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Wood_Aspen_Trunk_Full",
-        "Quantity": 4
+        "ItemId": "Ingredient_Bolt_Wool",
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Taut_String",
     "implicits": [
       {
-        "stat": "PHYSICAL_DAMAGE_PERCENT",
-        "min": 3,
-        "max": 20
+        "stat": "SHORTBOW_DAMAGE_PERCENT",
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

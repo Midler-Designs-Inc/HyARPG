@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Glass_Canon_Hilt_T0.json.name",
+    "Description": "server.items.components.Weapon_Component_Glass_Canon_Hilt_T0.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Hilt_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Hilt_T1.blockymodel",
+  "Texture": "Items/Weapons/Longsword/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Rubble_Stone",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Workbench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 0,
+        "Categories": [
+          "Workbench_Crude_Weapons"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Hilt",
+    "tier": 0,
+    "implicits": [
+      {
+        "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
+        "min": 0.1,
+        "max": 0.25
+      },
+      {
+        "stat": "CRITICAL_STRIKE_DAMAGE_PERCENT",
+        "min": 0.25,
+        "max": 0.75
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

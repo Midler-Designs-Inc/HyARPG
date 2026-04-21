@@ -1,0 +1,44 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Thornbound_Shaft_T4.json.name",
+    "Description": "server.items.components.Weapon_Component_Thornbound_Shaft_T4.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Shaft_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shaft_T1.blockymodel",
+  "Texture": "Items/Weapons/Spear/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 50
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 4,
+        "Categories": [
+          "Shafts_and_Hilts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shaft",
+    "tier": 4,
+    "implicits": [
+      {
+        "stat": "SICKLES_DAMAGE_PERCENT",
+        "min": 2,
+        "max": 5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 21
-      },
-      {
-        "ItemId": "Wood_Beech_Trunk_Full",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,17 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Steadfast_Body_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Mithril",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 17.5,
-        "max": 105
+        "min": 5.25,
+        "max": 14
       },
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 3.5,
-        "max": 21
+        "min": 1.4,
+        "max": 3.5
       }
     ]
   },

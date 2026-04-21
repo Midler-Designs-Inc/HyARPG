@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Linen",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 6
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Quarrel_Cord_String",
     "implicits": [
       {
         "stat": "CROSSBOW_DAMAGE_PERCENT",
-        "min": 4.5,
-        "max": 30
+        "min": 1.2,
+        "max": 3
       }
     ]
   },

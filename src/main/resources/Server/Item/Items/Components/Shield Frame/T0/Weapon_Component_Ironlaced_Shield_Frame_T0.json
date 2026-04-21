@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 3
-      },
-      {
-        "ItemId": "Ingredient_Fibre",
-        "Quantity": 1
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Ironlaced_Shield_Frame",
     "implicits": [
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 1,
-        "max": 6.7
+        "min": 0.4,
+        "max": 1
       }
     ]
   },

@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Bulwark_Shield_Body_T5.json.name",
+    "Description": "server.items.components.Weapon_Component_Bulwark_Shield_Body_T5.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Shield_Body_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shield_Body_T1.blockymodel",
+  "Texture": "Items/Weapons/Shield/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 60
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Shield_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Shield Body",
+    "tier": 5,
+    "outputAssetID": "Weapon_Shield_Adamantite",
+    "implicits": [
+      {
+        "stat": "PHYSICAL_RESIST_PERCENT",
+        "min": 1.8,
+        "max": 4.8
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

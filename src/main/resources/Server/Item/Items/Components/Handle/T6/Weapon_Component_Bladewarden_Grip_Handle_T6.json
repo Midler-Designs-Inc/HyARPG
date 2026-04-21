@@ -1,0 +1,44 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Weapon_Component_Bladewarden_Grip_Handle_T6.json.name",
+    "Description": "server.items.components.Weapon_Component_Bladewarden_Grip_Handle_T6.json.description"
+  },
+  "Icon": "Icons/Items/Weapon_Component_Handle_T1_Icon.png",
+  "Model": "Items/Weapons/Components/T1/Weapon_Component_Handle_T1.blockymodel",
+  "Texture": "Items/Weapons/Spear/Copper_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Dark",
+        "Quantity": 70
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 6,
+        "Categories": [
+          "Handles"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Handle",
+    "tier": 6,
+    "implicits": [
+      {
+        "stat": "SWORD_DAMAGE_PERCENT",
+        "min": 2.8,
+        "max": 7
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

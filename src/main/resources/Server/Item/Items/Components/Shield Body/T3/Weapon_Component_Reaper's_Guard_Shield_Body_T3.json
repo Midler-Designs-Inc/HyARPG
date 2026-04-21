@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 8
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Reaper's_Guard_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Thorium",
     "implicits": [
       {
         "stat": "LIFE_LEECH_PERCENT",
-        "min": 0.2,
-        "max": 1.2
+        "min": 0.04,
+        "max": 0.08
       }
     ]
   },

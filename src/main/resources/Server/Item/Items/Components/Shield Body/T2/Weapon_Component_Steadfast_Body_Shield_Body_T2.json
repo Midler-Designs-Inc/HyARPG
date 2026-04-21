@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 9
-      },
-      {
-        "ItemId": "Wood_Beech_Trunk_Full",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,17 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Steadfast_Body_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Iron",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 7.5,
-        "max": 45
+        "min": 2.25,
+        "max": 6
       },
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 1.5,
-        "max": 9
+        "min": 0.6,
+        "max": 1.5
       }
     ]
   },

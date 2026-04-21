@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 7
-      },
-      {
-        "ItemId": "Ingredient_Water_Essence",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Thornframe_Shield_Frame",
     "implicits": [
       {
-        "stat": "POISON_DAMAGE_PERCENT",
-        "min": 10.5,
-        "max": 70
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.07,
+        "max": 0.21
       }
     ]
   },

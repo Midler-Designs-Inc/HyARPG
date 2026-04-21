@@ -9,7 +9,7 @@
         "Containers": [
           {
             "Type": "Choice",
-            "Weight": 300,
+            "Weight": 600,
             "Containers": [
               {
                 "Type": "Single",
@@ -84,6 +84,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Club_Crude_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Crossbow_Crude_Common"
                 }
               },
               {
@@ -166,6 +173,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Crossbow_Crude_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Daggers_Crude_Uncommon"
                 }
               },
@@ -236,6 +250,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Club_Crude_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Crossbow_Crude_Rare"
                 }
               },
               {
@@ -318,6 +339,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Crossbow_Crude_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Daggers_Crude_Epic"
                 }
               },
@@ -388,6 +416,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Club_Crude_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Crossbow_Crude_Legendary"
                 }
               },
               {

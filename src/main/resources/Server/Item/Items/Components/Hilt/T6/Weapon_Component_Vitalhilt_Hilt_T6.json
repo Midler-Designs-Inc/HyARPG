@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 7
-      },
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Vitalhilt_Hilt",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 28,
-        "max": 175
+        "min": 7,
+        "max": 21
       }
     ]
   },

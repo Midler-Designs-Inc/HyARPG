@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Rubble_Stone",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Ingredient_Fibre",
-        "Quantity": 2
+        "Quantity": 10
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,16 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 0,
-    "outputAssetID": "Weapon_Component_Warbrand_Hilt",
     "implicits": [
       {
         "stat": "SWORD_DAMAGE_PERCENT",
-        "min": 0.8,
-        "max": 5
+        "min": 0.2,
+        "max": 0.5
       },
       {
         "stat": "PHYSICAL_DAMAGE_PERCENT",
-        "min": 0.8,
-        "max": 5
+        "min": 0.2,
+        "max": 0.5
       }
     ]
   },

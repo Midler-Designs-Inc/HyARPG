@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 6
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 2,
-    "outputAssetID": "Weapon_Component_Duelist's_Hilt",
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
-        "min": 2.4,
-        "max": 15
+        "min": 0.6,
+        "max": 1.5
       }
     ]
   },

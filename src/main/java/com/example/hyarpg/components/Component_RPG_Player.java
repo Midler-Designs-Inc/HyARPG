@@ -84,7 +84,6 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public OutdoorRoomData outdoorRoom;
 
     // player raid parameters
-    public long lastBaseRaid;
     public long lastPlayerRaid;
     public RaidHudState activeRaidHudState = null;
     public String nextRaid = null;
@@ -147,10 +146,6 @@ public class Component_RPG_Player implements Component<EntityStore> {
         .append(new KeyedCodec<>("HyARPG_RPGPlayer_ShowCombatText", Codec.BOOLEAN),
             ((comp, value) -> comp.showCombatText = value),
             comp -> comp.showCombatText
-        ).add()
-        .append(new KeyedCodec<>("HyARPG_RPGPlayer_LastBaseRaid", Codec.LONG),
-            ((comp, value) -> comp.lastBaseRaid = value),
-            comp -> comp.lastBaseRaid
         ).add()
         .append(new KeyedCodec<>("HyARPG_RPGPlayer_LastPlayerRaid", Codec.LONG),
             ((comp, value) -> comp.lastPlayerRaid = value),

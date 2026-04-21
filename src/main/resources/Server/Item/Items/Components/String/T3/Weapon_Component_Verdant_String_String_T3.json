@@ -11,12 +11,8 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Wood_Poisoned_Trunk_Full",
-        "Quantity": 8
+        "ItemId": "Ingredient_Bolt_Cotton",
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Verdant_String_String",
     "implicits": [
       {
-        "stat": "POISON_DAMAGE_FLAT",
-        "min": 1.6,
-        "max": 10
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.04,
+        "max": 0.12
       }
     ]
   },

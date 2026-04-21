@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Longsword_Master_Hilt",
     "implicits": [
       {
         "stat": "LONGSWORD_DAMAGE_PERCENT",
-        "min": 3,
-        "max": 20
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

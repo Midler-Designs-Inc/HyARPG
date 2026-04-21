@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Wood_Beech_Trunk_Full",
-        "Quantity": 4
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -34,17 +30,17 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 3,
-    "outputAssetID": "Weapon_Component_Steadfast_Body_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Thorium",
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 10,
-        "max": 60
+        "min": 3,
+        "max": 8
       },
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 2,
-        "max": 12
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

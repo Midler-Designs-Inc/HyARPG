@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Wool",
-        "Quantity": 4
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 2
-      },
-      {
-        "ItemId": "Wood_Birch_Trunk_Full",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -38,17 +30,16 @@
   "CraftingComponent": {
     "type": "String",
     "tier": 1,
-    "outputAssetID": "Weapon_Component_Ranger's_Blend_String",
     "implicits": [
       {
         "stat": "SHORTBOW_DAMAGE_PERCENT",
-        "min": 1.6,
-        "max": 10
+        "min": 0.4,
+        "max": 1
       },
       {
-        "stat": "CROSSBOW_DAMAGE_PERCENT",
-        "min": 1.6,
-        "max": 10
+        "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
+        "min": 0.2,
+        "max": 0.5
       }
     ]
   },

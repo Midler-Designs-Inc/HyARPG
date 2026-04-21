@@ -1,0 +1,193 @@
+$Common = "Common.ui";
+
+SceneBlur {}
+
+Group {
+    Background: #000000(0.55);
+}
+
+Group {
+    LayoutMode: Center;
+
+    Group {
+        Anchor: (Width: 500);
+        LayoutMode: Top;
+        Padding: (Top: 15);
+
+        $Common.@Container #TerritoryPanel {
+            #Title {
+                LayoutMode: Left;
+                Padding: (Left: 20, Top: 0, Bottom: 0);
+
+                Label {
+                    Text: "LIGHT WELL";
+                    Style: (...$Common.@TitleStyle, TextColor: #5a8ab0, VerticalAlignment: Center);
+                    Anchor: (Height: 38);
+                }
+
+                Group { FlexWeight: 1; }
+            }
+
+            #Content {
+                LayoutMode: Top;
+                Padding: (Left: 14, Top: 10, Bottom: 10, Right: 14);
+
+                // owner row
+                Group {
+                    LayoutMode: Left;
+                    Anchor: (Bottom: 6);
+
+                    Label {
+                        Text: "OWNER";
+                        Style: (FontSize: 11, RenderBold: true, TextColor: #888888, RenderUppercase: true);
+                        Anchor: (Width: 80, Top: 2);
+                    }
+
+                    Label #TPOwnerName {
+                        Style: (FontSize: 13, TextColor: #c8a84b, RenderBold: true);
+                        FlexWeight: 1;
+                    }
+                }
+
+                // separator
+                Group { Background: #9c8863(0.2); Anchor: (Height: 1, Bottom: 10); }
+
+                // co-owners section label
+                Label {
+                    Text: "CO-OWNERS";
+                    Style: (FontSize: 11, RenderBold: true, TextColor: #888888, RenderUppercase: true);
+                    Anchor: (Bottom: 6);
+                }
+
+                // co-owner rows — up to 10
+                Group #TPCoOwnerRow1  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName1  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner1  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow2  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName2  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner2  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow3  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName3  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner3  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow4  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName4  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner4  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow5  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName5  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner5  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow6  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName6  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner6  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow7  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName7  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner7  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow8  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName8  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner8  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow9  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName9  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner9  { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+                Group #TPCoOwnerRow10 { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPCoOwnerName10 { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPRemoveCoOwner10 { @Text = "Remove"; @Anchor = (Width: 80); }
+                }
+
+                // no co-owners placeholder
+                Label #TPNoCoOwners {
+                    Text: "No co-owners.";
+                    Style: (FontSize: 12, TextColor: #555555);
+                    Anchor: (Bottom: 6);
+                    Visible: false;
+                }
+
+                // separator before requests — only visible to owner
+                Group #TPRequestsSeparator { Background: #9c8863(0.2); Anchor: (Height: 1, Bottom: 10); Visible: false; }
+
+                // pending requests section — only visible to owner
+                Label #TPRequestsLabel {
+                    Text: "PENDING REQUESTS";
+                    Style: (FontSize: 11, RenderBold: true, TextColor: #888888, RenderUppercase: true);
+                    Anchor: (Bottom: 6);
+                    Visible: false;
+                }
+
+                // request rows — up to 10
+                Group #TPRequestRow1  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName1  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest1  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest1     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow2  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName2  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest2  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest2     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow3  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName3  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest3  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest3     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow4  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName4  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest4  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest4     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow5  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName5  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest5  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest5     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow6  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName6  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest6  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest6     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow7  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName7  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest7  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest7     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow8  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName8  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest8  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest8     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow9  { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName9  { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest9  { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest9     { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+                Group #TPRequestRow10 { LayoutMode: Left; Anchor: (Height: 32, Bottom: 3); Visible: false;
+                    Label #TPRequestName10 { Style: (FontSize: 13, TextColor: #cccccc); FlexWeight: 1; Anchor: (Top: 6); }
+                    $Common.@SmallSecondaryTextButton #TPApproveRequest10 { @Text = "Approve"; @Anchor = (Width: 90, Right: 4); }
+                    $Common.@SmallTertiaryTextButton  #TPDenyRequest10    { @Text = "Deny";    @Anchor = (Width: 70); }
+                }
+
+                // no requests placeholder — only visible to owner when no pending requests
+                Label #TPNoRequests {
+                    Text: "No pending requests.";
+                    Style: (FontSize: 12, TextColor: #555555);
+                    Anchor: (Bottom: 6);
+                    Visible: false;
+                }
+
+                // separator before action button
+                Group { Background: #9c8863(0.2); Anchor: (Height: 1, Top: 6, Bottom: 10); }
+
+                // action button — request / withdraw request / withdraw ownership (non-owner only)
+                $Common.@SmallSecondaryTextButton #TPRequestOwnership  { @Text = "Request Ownership";  @Anchor = (Bottom: 4); Visible: false; }
+                $Common.@SmallTertiaryTextButton  #TPWithdrawRequest   { @Text = "Withdraw Request";   @Anchor = (Bottom: 4); Visible: false; }
+                $Common.@SmallTertiaryTextButton  #TPWithdrawOwnership { @Text = "Withdraw Ownership"; @Anchor = (Bottom: 4); Visible: false; }
+            }
+        }
+    }
+}

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 18
-      },
-      {
-        "ItemId": "Wood_Maple_Trunk_Full",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Warding_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Adamantite",
     "implicits": [
       {
         "stat": "SHIELD_STABILITY_PERCENT",
-        "min": 6,
-        "max": 40.2
+        "min": 2.4,
+        "max": 6
       }
     ]
   },

@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Water_Essence",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -38,17 +30,16 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 5,
-    "outputAssetID": "Weapon_Component_Surging_Rim_Shield_Frame",
     "implicits": [
       {
         "stat": "MANA_REGEN_FLAT",
-        "min": 0.18,
-        "max": 0.9
+        "min": 0.06,
+        "max": 0.12
       },
       {
         "stat": "STAMINA_REGEN_FLAT",
-        "min": 0.18,
-        "max": 0.9
+        "min": 0.06,
+        "max": 0.12
       }
     ]
   },

@@ -12,15 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Wood_Petrified_Trunk_Full",
-        "Quantity": 7
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -38,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Soulguard_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Mithril",
     "implicits": [
       {
         "stat": "MANA_FLAT",
-        "min": 7,
-        "max": 43.75
+        "min": 2.1,
+        "max": 5.6
       }
     ]
   },

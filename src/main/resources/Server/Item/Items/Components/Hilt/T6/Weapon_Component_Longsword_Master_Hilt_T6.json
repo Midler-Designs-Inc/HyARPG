@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 21
-      },
-      {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,11 @@
   "CraftingComponent": {
     "type": "Hilt",
     "tier": 6,
-    "outputAssetID": "Weapon_Component_Longsword_Master_Hilt",
     "implicits": [
       {
         "stat": "LONGSWORD_DAMAGE_PERCENT",
-        "min": 10.5,
-        "max": 70
+        "min": 2.8,
+        "max": 7
       }
     ]
   },

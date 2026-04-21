@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 10
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 10
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -34,12 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 4,
-    "outputAssetID": "Weapon_Component_Reaper's_Guard_Shield_Body",
+    "outputAssetID": "Weapon_Shield_Cobalt",
     "implicits": [
       {
         "stat": "LIFE_LEECH_PERCENT",
-        "min": 0.25,
-        "max": 1.5
+        "min": 0.05,
+        "max": 0.1
       }
     ]
   },

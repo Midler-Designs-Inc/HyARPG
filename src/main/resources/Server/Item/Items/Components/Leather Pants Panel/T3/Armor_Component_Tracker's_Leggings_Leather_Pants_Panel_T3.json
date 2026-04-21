@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Tracker's_Leggings_Leather_Pants_Panel_T3.json.name",
+    "Description": "server.items.components.Armor_Component_Tracker's_Leggings_Leather_Pants_Panel_T3.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T3/Armor_Component_Leather_Pants_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Leather_Pants_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T3/Armor_Component_Leather_Pants_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 12
+      },
+      {
+        "ItemId": "Wood_Aspen_Trunk_Full",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 3,
+        "Categories": [
+          "Leather_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Leather Pants Panel",
+    "tier": 3,
+    "outputAssetID": "Armor_Leather_Medium_Pants",
+    "implicits": [
+      {
+        "stat": "STAMINA_FLAT",
+        "min": 1.2,
+        "max": 7.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

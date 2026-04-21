@@ -1,82 +1,72 @@
 $Common = "../../Common.ui";
 
 @HowToPlayContentPanel = Group {
-    LayoutMode: Top;
     FlexWeight: 1;
+    LayoutMode: Top;
+    Padding: (Left: 16, Top: 16, Right: 16, Bottom: 16);
 
+    // section title
+    Label #HTPSectionTitle {
+        Style: (FontSize: 18, RenderBold: true, TextColor: #c8a84b, RenderUppercase: true);
+        Anchor: (Bottom: 10, Height: 24);
+    }
+
+    // separator under title
     Group {
-        Background: (TexturePath: "../../Common/ContainerPanelPatch.png", Border: 4);
+        Background: #9c8863(0.3);
+        Anchor: (Height: 1, Bottom: 12);
+    }
+
+    // scrolling content area with translucent scrollbar matching UI gallery
+    Group {
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
         FlexWeight: 1;
 
         Group {
             LayoutMode: Top;
-            Anchor: (Full: 0);
+            Anchor: (Right: 16, Top: 4, Bottom: 4);
 
-            // section title
-            Label #HTPSectionTitle {
-                Style: (FontSize: 16, RenderBold: true, TextColor: #c8a84b, RenderUppercase: true);
-                Anchor: (Top: 10, Left: 12, Right: 12, Height: 24);
-            }
-
-            // separator under title
-            Group {
-                Background: #9c8863(0.3);
-                Anchor: (Height: 1, Top: 6, Bottom: 6, Horizontal: 12);
-            }
-
-            // scrolling content area with native scrollbar style
-            Group {
-                LayoutMode: TopScrolling;
-                ScrollbarStyle: $Common.@DefaultScrollbarStyle;
-                FlexWeight: 1;
-                Anchor: (Horizontal: 0);
-
-                Group {
-                    LayoutMode: Top;
-                    Anchor: (Horizontal: 12, Top: 8, Bottom: 8);
-
-                    Label #HTPLine1  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine2  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine3  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine4  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine5  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine6  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine7  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine8  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine9  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine10 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine11 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine12 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine13 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine14 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine15 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine16 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine17 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine18 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine19 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine20 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine21 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine22 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine23 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine24 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine25 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine26 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine27 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine28 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine29 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine30 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine31 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine32 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine33 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine34 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine35 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine36 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine37 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine38 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine39 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                    Label #HTPLine40 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
-                }
-            }
+            Label #HTPLine1  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine2  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine3  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine4  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine5  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine6  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine7  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine8  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine9  { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine10 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine11 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine12 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine13 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine14 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine15 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine16 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine17 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine18 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine19 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine20 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine21 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine22 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine23 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine24 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine25 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine26 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine27 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine28 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine29 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine30 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine31 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine32 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine33 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine34 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine35 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine36 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine37 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine38 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine39 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
+            Label #HTPLine40 { Anchor: (Top: 2); Style: (FontSize: 13, TextColor: #cccccc, Wrap: true); }
         }
     }
 };

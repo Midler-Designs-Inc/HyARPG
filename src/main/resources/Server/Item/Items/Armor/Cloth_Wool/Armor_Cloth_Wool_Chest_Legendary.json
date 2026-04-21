@@ -5,7 +5,7 @@
   "Parent": "Armor_Iron_Chest",
   "Quality": "Legendary",
   "ItemLevel": 10,
-  "Icon": "Icons/ItemsGenerated/Armor_Leather_Light_Chest.png",
+  "Icon": "Icons/ItemsGenerated/Armor_Wool_Chest.png",
   "IconProperties": {
     "Rotation": [
       22.5,
@@ -18,8 +18,8 @@
       -8.7
     ]
   },
-  "Model": "Items/Armors/Leather_Light/Chest.blockymodel",
-  "Texture": "Items/Armors/Leather_Light/Chest_Texture.png",
+  "Model": "Items/Armors/Wool/Chest.blockymodel",
+  "Texture": "Items/Armors/Wool/Chest_Texture.png",
   "Recipe": {
     "TimeSeconds": 2,
     "Input": [

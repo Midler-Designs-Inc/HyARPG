@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Voidlined_Padding_T5.json.name",
+    "Description": "server.items.components.Armor_Component_Voidlined_Padding_T5.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Padding_Icon.png",
+  "Model": "Resources/Materials/Wool_Bolt.blockymodel",
+  "Texture": "Resources/Materials/Wool_Bolt_Textures/Orange.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Purple",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Ingredient_Void_Essence",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Padding",
+    "tier": 5,
+    "outputAssetID": "Armor_Component_Voidlined_Padding",
+    "implicits": [
+      {
+        "stat": "MAGIC_RESIST_PERCENT",
+        "min": 2.5,
+        "max": 15
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

@@ -5,7 +5,7 @@
   "Parent": "Armor_Iron_Head",
   "Quality": "Rare",
   "ItemLevel": 10,
-  "Icon": "Icons/ItemsGenerated/Armor_Leather_Light_Head.png",
+  "Icon": "Icons/ItemsGenerated/Armor_Wool_Head.png",
   "IconProperties": {
     "Rotation": [
       22.5,
@@ -18,8 +18,8 @@
       -12.3
     ]
   },
-  "Model": "Items/Armors/Leather_Light/Head.blockymodel",
-  "Texture": "Items/Armors/Leather_Light/Head_Texture.png",
+  "Model": "Items/Armors/Wool/Head.blockymodel",
+  "Texture": "Items/Armors/Wool/Head_Texture.png",
   "Recipe": {
     "TimeSeconds": 2,
     "Input": [

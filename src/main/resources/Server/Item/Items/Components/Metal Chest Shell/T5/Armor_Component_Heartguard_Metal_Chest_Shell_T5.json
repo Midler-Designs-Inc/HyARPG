@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Heartguard_Metal_Chest_Shell_T5.json.name",
+    "Description": "server.items.components.Armor_Component_Heartguard_Metal_Chest_Shell_T5.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T5/Armor_Component_Metal_Chest_Shell_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Metal_Chest_Shell_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T5/Armor_Component_Metal_Chest_Shell.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 24
+      },
+      {
+        "ItemId": "Ingredient_Life_Essence",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Metal Chest Shell",
+    "tier": 5,
+    "outputAssetID": "Armor_Adamantite_Chest",
+    "implicits": [
+      {
+        "stat": "LIFE_FLAT",
+        "min": 20,
+        "max": 125
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

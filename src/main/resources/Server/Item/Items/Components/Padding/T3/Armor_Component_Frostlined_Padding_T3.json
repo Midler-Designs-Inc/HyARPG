@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Frostlined_Padding_T3.json.name",
+    "Description": "server.items.components.Armor_Component_Frostlined_Padding_T3.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Padding_Icon.png",
+  "Model": "Resources/Materials/Wool_Bolt.blockymodel",
+  "Texture": "Resources/Materials/Wool_Bolt_Textures/Orange.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Cyan",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Ice_Essence",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 3,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Padding",
+    "tier": 3,
+    "outputAssetID": "Armor_Component_Frostlined_Padding",
+    "implicits": [
+      {
+        "stat": "ICE_RESIST_PERCENT",
+        "min": 2.4,
+        "max": 15
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

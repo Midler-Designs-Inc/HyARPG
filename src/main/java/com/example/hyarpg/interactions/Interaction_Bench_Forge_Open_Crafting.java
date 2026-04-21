@@ -1,7 +1,7 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-import com.example.hyarpg.ui.CustomForgeCraftingPage;
+import com.example.hyarpg.ui.CustomPage_ForgeCraftingPage;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -15,7 +15,6 @@ import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
-import java.awt.*;
 import java.util.logging.Level;
 
 public class Interaction_Bench_Forge_Open_Crafting extends SimpleInstantInteraction {
@@ -39,7 +38,7 @@ public class Interaction_Bench_Forge_Open_Crafting extends SimpleInstantInteract
         try {
             Player player = store.getComponent(entityRef, Player.getComponentType());
             PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
-            player.getPageManager().openCustomPage(entityRef, store, new CustomForgeCraftingPage(playerRef));
+            player.getPageManager().openCustomPage(entityRef, store, new CustomPage_ForgeCraftingPage(playerRef));
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("Open Forge Crafting Window failed: %s", e.getMessage());
         }

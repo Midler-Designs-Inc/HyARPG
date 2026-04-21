@@ -1,0 +1,74 @@
+$Common = "../../Common.ui";
+$RoomCardHidden = "../Rooms/RoomCard_Hidden.ui";
+$RoomCardSmallRoom = "../Rooms/RoomCard_SmallRoom.ui";
+$RoomCardRoom = "../Rooms/RoomCard_Room.ui";
+$RoomCardLargeRoom = "../Rooms/RoomCard_LargeRoom.ui";
+$RoomCardBasicKitchen = "../Rooms/RoomCard_BasicKitchen.ui";
+$RoomCardIntermediateKitchen = "../Rooms/RoomCard_IntermediateKitchen.ui";
+$RoomCardBasicAlchemy = "../Rooms/RoomCard_BasicAlchemy.ui";
+$RoomCardIntermediateAlchemy = "../Rooms/RoomCard_IntermediateAlchemy.ui";
+$RoomCardAdvancedAlchemy = "../Rooms/RoomCard_AdvancedAlchemy.ui";
+$RoomCardBasicArcanist = "../Rooms/RoomCard_BasicArcanist.ui";
+$RoomCardIntermediateArcanist = "../Rooms/RoomCard_IntermediateArcanist.ui";
+$RoomCardAdvancedArcanist = "../Rooms/RoomCard_AdvancedArcanist.ui";
+$RoomCardBasicForge = "../Rooms/RoomCard_BasicForge.ui";
+$RoomCardIntermediateForge = "../Rooms/RoomCard_IntermediateForge.ui";
+$RoomCardAdvancedForge = "../Rooms/RoomCard_AdvancedForge.ui";
+$RoomCardBasicTailor = "../Rooms/RoomCard_BasicTailor.ui";
+$RoomCardIntermediateTailor = "../Rooms/RoomCard_IntermediateTailor.ui";
+$RoomCardAdvancedTailor = "../Rooms/RoomCard_AdvancedTailor.ui";
+
+@RecipeBookContentPanel = Group {
+    FlexWeight: 1;
+    LayoutMode: Top;
+    Padding: (Left: 16, Top: 8, Right: 16, Bottom: 16);
+
+    Group {
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@TranslucentScrollbarStyle;
+        FlexWeight: 1;
+
+        Group {
+            LayoutMode: Top;
+            Anchor: (Right: 16, Top: 4, Bottom: 4);
+
+            // hidden card slots — java shows one per undiscovered room
+            $RoomCardHidden.@RoomCardHidden #HiddenCard1 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard2 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard3 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard4 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard5 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard6 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard7 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard8 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard9 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard10 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard11 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard12 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard13 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard14 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard15 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard16 { Visible: false; }
+            $RoomCardHidden.@RoomCardHidden #HiddenCard17 { Visible: false; }
+
+            // discovered room cards — java shows when discovered
+            $RoomCardSmallRoom.@RoomCardSmallRoom #RoomCardSmallRoom { Visible: false; }
+            $RoomCardRoom.@RoomCardRoom #RoomCardRoom { Visible: false; }
+            $RoomCardLargeRoom.@RoomCardLargeRoom #RoomCardLargeRoom { Visible: false; }
+            $RoomCardBasicKitchen.@RoomCardBasicKitchen #RoomCardBasicKitchen { Visible: false; }
+            $RoomCardIntermediateKitchen.@RoomCardIntermediateKitchen #RoomCardIntermediateKitchen { Visible: false; }
+            $RoomCardBasicAlchemy.@RoomCardBasicAlchemy #RoomCardBasicAlchemy { Visible: false; }
+            $RoomCardIntermediateAlchemy.@RoomCardIntermediateAlchemy #RoomCardIntermediateAlchemy { Visible: false; }
+            $RoomCardAdvancedAlchemy.@RoomCardAdvancedAlchemy #RoomCardAdvancedAlchemy { Visible: false; }
+            $RoomCardBasicArcanist.@RoomCardBasicArcanist #RoomCardBasicArcanist { Visible: false; }
+            $RoomCardIntermediateArcanist.@RoomCardIntermediateArcanist #RoomCardIntermediateArcanist { Visible: false; }
+            $RoomCardAdvancedArcanist.@RoomCardAdvancedArcanist #RoomCardAdvancedArcanist { Visible: false; }
+            $RoomCardBasicForge.@RoomCardBasicForge #RoomCardBasicForge { Visible: false; }
+            $RoomCardIntermediateForge.@RoomCardIntermediateForge #RoomCardIntermediateForge { Visible: false; }
+            $RoomCardAdvancedForge.@RoomCardAdvancedForge #RoomCardAdvancedForge { Visible: false; }
+            $RoomCardBasicTailor.@RoomCardBasicTailor #RoomCardBasicTailor { Visible: false; }
+            $RoomCardIntermediateTailor.@RoomCardIntermediateTailor #RoomCardIntermediateTailor { Visible: false; }
+            $RoomCardAdvancedTailor.@RoomCardAdvancedTailor #RoomCardAdvancedTailor { Visible: false; }
+        }
+    }
+};

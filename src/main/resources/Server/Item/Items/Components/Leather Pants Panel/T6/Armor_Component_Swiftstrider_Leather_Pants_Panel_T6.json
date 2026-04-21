@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Swiftstrider_Leather_Pants_Panel_T6.json.name",
+    "Description": "server.items.components.Armor_Component_Swiftstrider_Leather_Pants_Panel_T6.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T6/Armor_Component_Leather_Pants_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Leather_Pants_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T6/Armor_Component_Leather_Pants_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Dark",
+        "Quantity": 21
+      },
+      {
+        "ItemId": "Wood_Windwillow_Trunk_Full",
+        "Quantity": 7
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 6,
+        "Categories": [
+          "Leather_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Leather Pants Panel",
+    "tier": 6,
+    "outputAssetID": "Armor_Leather_Dark_Pants",
+    "implicits": [
+      {
+        "stat": "STAMINA_REGEN_FLAT",
+        "min": 0.18,
+        "max": 0.9
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

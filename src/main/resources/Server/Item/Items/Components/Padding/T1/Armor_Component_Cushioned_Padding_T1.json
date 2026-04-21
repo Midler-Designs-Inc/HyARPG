@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Cushioned_Padding_T1.json.name",
+    "Description": "server.items.components.Armor_Component_Cushioned_Padding_T1.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Padding_Icon.png",
+  "Model": "Resources/Materials/Wool_Bolt.blockymodel",
+  "Texture": "Resources/Materials/Wool_Bolt_Textures/Orange.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Soft",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Blue",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Padding",
+    "tier": 1,
+    "outputAssetID": "Armor_Component_Cushioned_Padding",
+    "implicits": [
+      {
+        "stat": "STAMINA_FLAT",
+        "min": 0.4,
+        "max": 2.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

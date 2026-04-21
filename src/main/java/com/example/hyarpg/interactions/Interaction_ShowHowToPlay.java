@@ -1,9 +1,7 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-import com.example.hyarpg.ui.CustomForgeCraftingPage;
-import com.example.hyarpg.ui.CustomHowToPlayPage;
-import com.example.hyarpg.ui.Page_HowToPlay;
+import com.example.hyarpg.ui.CustomPage_HowToPlayPage;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -15,9 +13,6 @@ import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHa
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-
-// Mod Imports
-import com.example.hyarpg.ui.Page_RPGStats;
 
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -45,7 +40,7 @@ public class Interaction_ShowHowToPlay extends SimpleInstantInteraction {
         try {
             Player player = store.getComponent(entityRef, Player.getComponentType());
             PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
-            player.getPageManager().openCustomPage(entityRef, store, new CustomHowToPlayPage(playerRef));
+            player.getPageManager().openCustomPage(entityRef, store, new CustomPage_HowToPlayPage(playerRef));
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("Open Forge Crafting Window failed: %s", e.getMessage());
         }

@@ -5,7 +5,7 @@
   "Parent": "Armor_Iron_Legs",
   "Quality": "Rare",
   "ItemLevel": 10,
-  "Icon": "Icons/ItemsGenerated/Armor_Leather_Light_Legs.png",
+  "Icon": "Icons/ItemsGenerated/Armor_Wool_Legs.png",
   "IconProperties": {
     "Rotation": [
       22.5,
@@ -18,8 +18,8 @@
       -22.8
     ]
   },
-  "Model": "Items/Armors/Leather_Light/Legs.blockymodel",
-  "Texture": "Items/Armors/Leather_Light/Legs_Texture.png",
+  "Model": "Items/Armors/Wool/Feet.blockymodel",
+  "Texture": "Items/Armors/Wool/Feet_Texture.png",
   "Recipe": {
     "TimeSeconds": 2,
     "Input": [

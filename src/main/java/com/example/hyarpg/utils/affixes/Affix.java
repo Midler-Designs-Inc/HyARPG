@@ -35,7 +35,7 @@ public final class Affix {
         ThreadLocalRandom r = ThreadLocalRandom.current();
 
         // Determine bracket (0–5 max)
-        int bracket = Math.min(level / 100, 5);
+        int bracket = Math.min(level / 20, 5);
 
         // Lowest possible tier based on bracket
         int minTier = 5 - bracket;

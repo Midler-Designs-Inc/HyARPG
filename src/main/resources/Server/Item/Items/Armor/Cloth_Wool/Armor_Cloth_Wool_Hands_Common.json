@@ -5,7 +5,7 @@
   "Parent": "Armor_Iron_Hands",
   "Quality": "Common",
   "ItemLevel": 10,
-  "Icon": "Icons/ItemsGenerated/Armor_Leather_Light_Hands.png",
+  "Icon": "Icons/ItemsGenerated/Armor_Wool_Hands.png",
   "IconProperties": {
     "Rotation": [
       29.815,
@@ -18,8 +18,8 @@
       -0.9
     ]
   },
-  "Model": "Items/Armors/Leather_Light/Hands.blockymodel",
-  "Texture": "Items/Armors/Leather_Light/Hands_Texture.png",
+  "Model": "Items/Armors/Wool/Hands.blockymodel",
+  "Texture": "Items/Armors/Wool/Hands_Texture.png",
   "Recipe": {
     "TimeSeconds": 2,
     "Input": [

@@ -1,0 +1,60 @@
+@RoomCardIntermediateTailor = Group {
+    LayoutMode: Top;
+    Anchor: (Bottom: 8);
+
+    Group {
+        Background: #111a24;
+        LayoutMode: Top;
+        Anchor: (Horizontal: 0);
+
+        Group { Anchor: (Height: 10); }
+
+        Group {
+            LayoutMode: Left;
+            Anchor: (Horizontal: 12, Bottom: 4);
+            Label {
+                Text: "Intermediate Tailor";
+                Style: (FontSize: 15, RenderBold: true, TextColor: #cccccc);
+                FlexWeight: 1;
+            }
+            Label {
+                Text: "Tier 2";
+                Style: (FontSize: 12, TextColor: #888888,  VerticalAlignment: Center);
+                Anchor: (Width: 80);
+            }
+        }
+
+        Label {
+            Text: "Size: 3x3x3 – 15x15x15";
+            Style: (FontSize: 11, TextColor: #666666);
+            Anchor: (Horizontal: 12, Bottom: 6);
+        }
+
+        Group { Background: #2a3a4a; Anchor: (Height: 1, Horizontal: 12, Bottom: 8); }
+
+        Group {
+            LayoutMode: Left;
+            Anchor: (Horizontal: 12, Bottom: 10);
+
+            Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Label { Text: "Buffs"; Style: (FontSize: 12, RenderBold: true, TextColor: #aaaaaa); Anchor: (Bottom: 4); }
+                Label { Text: "Coming Soon!"; Style: (FontSize: 11, TextColor: #555555); }
+            }
+
+            Group { Anchor: (Width: 20); }
+
+            Group {
+                LayoutMode: Top;
+                FlexWeight: 1;
+                Label { Text: "Requirements"; Style: (FontSize: 12, RenderBold: true, TextColor: #aaaaaa); Anchor: (Bottom: 4); }
+                Label { Text: "• 1x Leatherworking Bench"; Style: (FontSize: 11, TextColor: #cccccc, Wrap: true); }
+                Label { Text: "• 1x Tannery"; Style: (FontSize: 11, TextColor: #cccccc, Wrap: true); }
+                Label { Text: "• 1x Salvage Bench"; Style: (FontSize: 11, TextColor: #cccccc, Wrap: true); }
+                Label { Text: "• 2x Lighting"; Style: (FontSize: 11, TextColor: #cccccc, Wrap: true); }
+            }
+        }
+        Group { Anchor: (Height: 10); }
+    }
+};

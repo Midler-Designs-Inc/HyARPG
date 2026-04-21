@@ -9,30 +9,30 @@
         "Containers": [
           {
             "Type": "Choice",
-            "Weight": 50,
+            "Weight": 300,
             "Containers": [
               {
                 "Type": "Single",
-                "Weight": 200,
+                "Weight": 300,
                 "Item": {
                   "ItemId": "Ore_Copper",
-                  "QuantityMax": 40
+                  "QuantityMax": 5
                 }
               },
               {
                 "Type": "Single",
-                "Weight": 200,
+                "Weight": 300,
                 "Item": {
                   "ItemId": "Ingredient_Hide_Soft",
-                  "QuantityMax": 40
+                  "QuantityMax": 5
                 }
               },
               {
                 "Type": "Single",
-                "Weight": 200,
+                "Weight": 300,
                 "Item": {
                   "ItemId": "Ingredient_Fabric_Scrap_Wool",
-                  "QuantityMax": 40
+                  "QuantityMax": 5
                 }
               },
               {
@@ -40,7 +40,7 @@
                 "Weight": 200,
                 "Item": {
                   "ItemId": "Ore_Iron",
-                  "QuantityMax": 20
+                  "QuantityMax": 2
                 }
               },
               {
@@ -48,7 +48,7 @@
                 "Weight": 200,
                 "Item": {
                   "ItemId": "Ingredient_Hide_Light",
-                  "QuantityMax": 20
+                  "QuantityMax": 2
                 }
               },
               {
@@ -56,12 +56,12 @@
                 "Weight": 200,
                 "Item": {
                   "ItemId": "Ingredient_Fabric_Scrap_Linen",
-                  "QuantityMax": 20
+                  "QuantityMax": 2
                 }
               },
               {
                 "Type": "Single",
-                "Weight": 200,
+                "Weight": 400,
                 "Item": {
                   "ItemId": "Ingredient_Fibre",
                   "QuantityMax": 50
@@ -69,7 +69,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 200,
+                "Weight": 400,
                 "Item": {
                   "ItemId": "Plant_Fruit_Apple",
                   "QuantityMax": 10
@@ -77,7 +77,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 200,
+                "Weight": 400,
                 "Item": {
                   "ItemId": "Plant_Fruit_Berries_Red",
                   "QuantityMax": 20
@@ -85,7 +85,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 200,
+                "Weight": 400,
                 "Item": {
                   "ItemId": "Rock_Stone",
                   "QuantityMax": 70
@@ -93,7 +93,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 200,
+                "Weight": 400,
                 "Item": {
                   "ItemId": "Wood_Beech_Trunk",
                   "QuantityMax": 70
@@ -103,7 +103,7 @@
           },
           {
             "Type": "Choice",
-            "Weight": 25,
+            "Weight": 50,
             "Containers": [
               {
                 "Type": "Single",
@@ -265,19 +265,12 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Iron_Common"
                 }
-              },
-              {
-                "Type": "Single",
-                "Weight": 1,
-                "Item": {
-                  "ItemId": "PLACEHOLDER_COMMON"
-                }
               }
             ]
           },
           {
             "Type": "Choice",
-            "Weight": 11,
+            "Weight": 10,
             "Containers": [
               {
                 "Type": "Single",
@@ -439,19 +432,12 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Iron_Uncommon"
                 }
-              },
-              {
-                "Type": "Single",
-                "Weight": 1,
-                "Item": {
-                  "ItemId": "PLACEHOLDER_UNCOMMON"
-                }
               }
             ]
           },
           {
             "Type": "Choice",
-            "Weight": 8,
+            "Weight": 5,
             "Containers": [
               {
                 "Type": "Single",
@@ -613,19 +599,12 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Iron_Rare"
                 }
-              },
-              {
-                "Type": "Single",
-                "Weight": 1,
-                "Item": {
-                  "ItemId": "PLACEHOLDER_RARE"
-                }
               }
             ]
           },
           {
             "Type": "Choice",
-            "Weight": 4,
+            "Weight": 2,
             "Containers": [
               {
                 "Type": "Single",
@@ -787,19 +766,12 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Iron_Epic"
                 }
-              },
-              {
-                "Type": "Single",
-                "Weight": 1,
-                "Item": {
-                  "ItemId": "PLACEHOLDER_EPIC"
-                }
               }
             ]
           },
           {
             "Type": "Choice",
-            "Weight": 2,
+            "Weight": 1,
             "Containers": [
               {
                 "Type": "Single",
@@ -960,13 +932,6 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Sword_Iron_Legendary"
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 1,
-                "Item": {
-                  "ItemId": "PLACEHOLDER_LEGENDARY"
                 }
               }
             ]

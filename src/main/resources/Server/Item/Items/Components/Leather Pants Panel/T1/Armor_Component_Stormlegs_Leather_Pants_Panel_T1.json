@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Stormlegs_Leather_Pants_Panel_T1.json.name",
+    "Description": "server.items.components.Armor_Component_Stormlegs_Leather_Pants_Panel_T1.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T1/Armor_Component_Leather_Pants_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Leather_Pants_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Leather_Pants_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Soft",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Lightning_Essence",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Leather_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Leather Pants Panel",
+    "tier": 1,
+    "outputAssetID": "Armor_Leather_Soft_Pants",
+    "implicits": [
+      {
+        "stat": "LIGHTNING_RESIST_PERCENT",
+        "min": 0.8,
+        "max": 5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

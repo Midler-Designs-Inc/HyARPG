@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Ironstrider_Metal_Pants_Shell_T2.json.name",
+    "Description": "server.items.components.Armor_Component_Ironstrider_Metal_Pants_Shell_T2.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T2/Armor_Component_Metal_Pants_Shell_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Metal_Pants_Shell_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T2/Armor_Component_Metal_Pants_Shell.png",
+  "Recipe": {
+    "TimeSeconds": 6,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 9
+      },
+      {
+        "ItemId": "Wood_Oak_Trunk_Full",
+        "Quantity": 3
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 2,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Metal Pants Shell",
+    "tier": 2,
+    "outputAssetID": "Armor_Iron_Pants",
+    "implicits": [
+      {
+        "stat": "STAMINA_FLAT",
+        "min": 0.8,
+        "max": 5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

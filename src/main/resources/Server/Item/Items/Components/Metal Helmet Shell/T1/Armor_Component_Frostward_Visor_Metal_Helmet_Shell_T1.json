@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Frostward_Visor_Metal_Helmet_Shell_T1.json.name",
+    "Description": "server.items.components.Armor_Component_Frostward_Visor_Metal_Helmet_Shell_T1.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T1/Armor_Component_Metal_Helmet_Shell_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Metal_Helmet_Shell_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Metal_Helmet_Shell.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Ice_Essence",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Metal Helmet Shell",
+    "tier": 1,
+    "outputAssetID": "Armor_Copper_Helmet",
+    "implicits": [
+      {
+        "stat": "ICE_RESIST_PERCENT",
+        "min": 0.8,
+        "max": 5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

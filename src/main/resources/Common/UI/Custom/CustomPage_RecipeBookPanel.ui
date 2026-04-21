@@ -1,0 +1,49 @@
+$Common = "Common.ui";
+$ContentPanel = "RecipeBook/Pages/CustomForgeRecipeBookContentPanel.ui";
+
+SceneBlur {}
+
+Group {
+    Background: #000000(0.55);
+}
+
+Group {
+    LayoutMode: Center;
+
+    Group {
+        Anchor: (Width: 860);
+        LayoutMode: Center;
+        Padding: (Top: 15);
+
+        $Common.@DecoratedContainer #RecipeBookPanel {
+            @ContentPadding = Padding(Full: 0);
+            Anchor: (Width: 860, Height: 680);
+
+            #ContainerDecorationTop {
+                Anchor: (Width: 236, Height: 11, Top: 0);
+            }
+
+            #ContainerDecorationBottom {
+                Anchor: (Width: 236, Height: 11, Bottom: 0);
+            }
+
+            #Title {
+                Padding: (Top: 0);
+
+                Label {
+                    Text: "ROOM RECIPES";
+                    Style: (...$Common.@TitleStyle, TextColor: #ffffff, VerticalAlignment: Center, Alignment: Center);
+                    Anchor: (Full: 0);
+                }
+            }
+
+            #Content {
+                LayoutMode: Top;
+                Anchor: (Height: 618);
+                Padding: (Left: 0, Top: 0, Bottom: 0, Right: 0);
+
+                $ContentPanel.@RecipeBookContentPanel #RecipeBookContent {}
+            }
+        }
+    }
+}

@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Elementalweave_Hood_Cloth_Hood_Panel_T6.json.name",
+    "Description": "server.items.components.Armor_Component_Elementalweave_Hood_Cloth_Hood_Panel_T6.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T6/Armor_Component_Cloth_Hood_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Cloth_Hood_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T6/Armor_Component_Cloth_Hood_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Shadoweave",
+        "Quantity": 14
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
+        "Quantity": 7
+      },
+      {
+        "ItemId": "Ingredient_Ice_Essence",
+        "Quantity": 7
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 6,
+        "Categories": [
+          "Cloth_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Cloth Hood Panel",
+    "tier": 6,
+    "outputAssetID": "Armor_Cloth_Wool_Hood",
+    "implicits": [
+      {
+        "stat": "ELEMENTAL_RESIST_PERCENT",
+        "min": 3,
+        "max": 18
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

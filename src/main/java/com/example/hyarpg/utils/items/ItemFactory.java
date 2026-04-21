@@ -174,7 +174,7 @@ public class ItemFactory {
 
     // creates a fully built item stack with components, implicits, affixes and gear score. any null component will be randomly selected from the index for that slot type and tier
     @Nullable
-    public static ItemStack createItem(@Nonnull String itemId, int playerLevel, @Nullable String comp1, @Nullable String comp2, @Nullable String comp3) {
+    public static ItemStack createItem(@Nonnull String itemId, int gearScore, @Nullable String comp1, @Nullable String comp2, @Nullable String comp3) {
         // get the base item asset
         Item item = Item.getAssetMap().getAsset(itemId);
         if (item == null) return null;
@@ -241,14 +241,14 @@ public class ItemFactory {
         if (affixCount > 0) {
             List<Affix> affixes = AffixPool.randomAffixes(affixCount);
             for (Affix affix : affixes) {
-                affix.rollTier(playerLevel);
+                affix.rollTier(gearScore);
                 affixStrings.add(affix.stat() + "|" + affix.value() + "|" + affix.tier());
             }
         }
         stack = stack.withMetadata("affixes", Codec.STRING_ARRAY, affixStrings.toArray(new String[0]));
 
         // apply gear score from player level
-        stack = stack.withMetadata("GearScore", Codec.INTEGER, playerLevel);
+        stack = stack.withMetadata("GearScore", Codec.INTEGER, gearScore);
 
         return stack;
     }

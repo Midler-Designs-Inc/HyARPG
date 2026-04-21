@@ -1,8 +1,7 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-import com.example.hyarpg.ui.CustomForgeCraftingPage;
-import com.example.hyarpg.ui.CustomForgeSalvagePage;
+import com.example.hyarpg.ui.CustomPage_ForgeSalvagePage;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -39,7 +38,7 @@ public class Interaction_Bench_Forge_Open_Salvaging extends SimpleInstantInterac
         try {
             Player player = store.getComponent(entityRef, Player.getComponentType());
             PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
-            player.getPageManager().openCustomPage(entityRef, store, new CustomForgeSalvagePage(playerRef));
+            player.getPageManager().openCustomPage(entityRef, store, new CustomPage_ForgeSalvagePage(playerRef));
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("Open Forge Salvage Window failed: %s", e.getMessage());
         }

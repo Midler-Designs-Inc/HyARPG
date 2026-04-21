@@ -1,0 +1,54 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Vitalstrap_Straps_&_Buckles_T4.json.name",
+    "Description": "server.items.components.Armor_Component_Vitalstrap_Straps_&_Buckles_T4.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Straps_and_Buckles_T1_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Straps_and_Buckles.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Straps_and_Buckles.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 5
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 4,
+        "Categories": [
+          "Straps_and_Buckles"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Straps & Buckles",
+    "tier": 4,
+    "outputAssetID": "Armor_Component_Vitalstrap_Straps_&_Buckles",
+    "implicits": [
+      {
+        "stat": "LIFE_FLAT",
+        "min": 8,
+        "max": 48
+      },
+      {
+        "stat": "STAMINA_FLAT",
+        "min": 0.8,
+        "max": 4.8
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

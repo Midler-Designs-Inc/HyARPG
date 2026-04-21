@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Sage's_Hood_Cloth_Hood_Panel_T3.json.name",
+    "Description": "server.items.components.Armor_Component_Sage's_Hood_Cloth_Hood_Panel_T3.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T3/Armor_Component_Cloth_Hood_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Cloth_Hood_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T3/Armor_Component_Cloth_Hood_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Cotton",
+        "Quantity": 12
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Purple",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 3,
+        "Categories": [
+          "Cloth_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Cloth Hood Panel",
+    "tier": 3,
+    "outputAssetID": "Armor_Cloth_Wool_Hood",
+    "implicits": [
+      {
+        "stat": "MANA_FLAT",
+        "min": 3,
+        "max": 18.75
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

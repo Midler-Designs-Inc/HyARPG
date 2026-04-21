@@ -1,0 +1,195 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Bench_Armour.name",
+    "Description": "server.items.Bench_Armour.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Bench_Armour.png",
+  "Categories": [
+    "Furniture.Benches"
+  ],
+  "Recipe": {
+    "TimeSeconds": 3,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 50
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 20
+      },
+      {
+        "ResourceTypeId": "Rock",
+        "Quantity": 20
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Workbench_Crafting"
+        ],
+        "Id": "Workbench"
+      }
+    ]
+  },
+  "BlockType": {
+    "Material": "Solid",
+    "DrawType": "Model",
+    "Opacity": "Transparent",
+    "CustomModel": "Blocks/Benches/Armor.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Benches/Armor_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "VariantRotation": "NESW",
+    "HitboxType": "Bench_Armor",
+    "BlockEntity": {
+      "Components": {
+        "BenchBlock": {}
+      }
+    },
+    "State": {
+      "Definitions": {
+        "CraftCompleted": {
+          "CustomModelAnimation": "Blocks/Benches/Armor_Crafting.blockyanim",
+          "Looping": true
+        },
+        "CraftCompletedInstant": {
+          "CustomModelAnimation": "Blocks/Benches/Armor_Crafting.blockyanim"
+        }
+      }
+    },
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Benches"
+      }
+    },
+    "Bench": {
+      "Type": "Crafting",
+      "Categories": [
+        {
+          "Id": "Shells_and_Padding",
+          "Icon": "Icons/CraftingCategories/Crafting_Shells_and_Padding.png",
+          "Name": "server.benchCategories.components.Shells_and_Padding"
+        },
+        {
+          "Id": "Leather_Panels",
+          "Icon": "Icons/CraftingCategories/Crafting_Leather_Panels.png",
+          "Name": "server.benchCategories.components.Leather_Panels"
+        },
+        {
+          "Id": "Cloth_Panels",
+          "Icon": "Icons/CraftingCategories/Crafting_Cloth_Panels.png",
+          "Name": "server.benchCategories.components.Cloth_Panels"
+        },
+        {
+          "Id": "Straps_and_Buckles",
+          "Icon": "Icons/CraftingCategories/Crafting_Straps_and_Buckles.png",
+          "Name": "server.benchCategories.components.Straps_and_Buckles"
+        },
+        {
+          "Id": "Stitching_and_Embellishments",
+          "Icon": "Icons/CraftingCategories/Crafting_Stitching_and_Embellishments.png",
+          "Name": "server.benchCategories.components.Stitching_and_Embellishments"
+        }
+      ],
+      "LocalOpenSoundEventId": "SFX_Armour_Bench_Open",
+      "LocalCloseSoundEventId": "SFX_Armour_Bench_Close",
+      "CompletedSoundEventId": "SFX_Armour_Bench_Craft",
+      "BenchUpgradeSoundEventId": "SFX_Workbench_Upgrade_Start_Default",
+      "BenchUpgradeCompletedSoundEventId": "SFX_Workbench_Upgrade_Complete_Default",
+      "Id": "Armor_Bench",
+      "TierLevels": [
+        {
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Iron",
+                "Quantity": 100
+              }
+            ],
+            "TimeSeconds": 3
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Thorium",
+                "Quantity": 100
+              }
+            ],
+            "TimeSeconds": 6
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Cobalt",
+                "Quantity": 100
+              }
+            ],
+            "TimeSeconds": 9
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Adamantite",
+                "Quantity": 100
+              }
+            ],
+            "TimeSeconds": 12
+          }
+        },
+        {
+          "UpgradeRequirement": {
+            "Material": [
+              {
+                "ItemId": "Ingredient_Bar_Mithril",
+                "Quantity": 100
+              }
+            ],
+            "TimeSeconds": 15
+          }
+        }
+      ]
+    },
+    "BlockParticleSetId": "Wood",
+    "ParticleColor": "#64482d",
+    "Support": {
+      "Down": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    },
+    "BlockSoundSetId": "Wood"
+  },
+  "PlayerAnimationsId": "Block",
+  "IconProperties": {
+    "Scale": 0.33,
+    "Translation": [
+      9.6,
+      -18.6
+    ],
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Bench"
+    ]
+  },
+  "MaxStack": 1,
+  "ItemLevel": 2,
+  "ItemSoundSetId": "ISS_Blocks_Wood"
+}

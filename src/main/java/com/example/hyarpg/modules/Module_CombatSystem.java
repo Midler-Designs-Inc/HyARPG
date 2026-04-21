@@ -97,10 +97,12 @@ public class Module_CombatSystem {
         "Armor_",
         "Ingredient_Leather_",
         "Ingredient_Bolt_",
-        "Ingredient_Hide"
+        "Ingredient_Hide",
+        "Ingredient_Fabric"
     );
 
     private static final String[] TIER_DROP_LISTS = {
+        "HyARPG_Container_Tier0",
         "HyARPG_Container_Tier1",
         "HyARPG_Container_Tier2",
         "HyARPG_Container_Tier3",
@@ -153,9 +155,13 @@ public class Module_CombatSystem {
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
 
-        // get the NPC component
+        // only do loot and XP if a player attacked this enemy recently
+        if (getAttackingPlayers(ref, store).isEmpty()) return;
+
+        // get the NPC component and rpgEnemy components
         NPCEntity npcComponent = commandBuffer.getComponent(ref, NPCEntity.getComponentType());
-        if (npcComponent == null) return;
+        Component_RPG_Enemy rpgEnemy = commandBuffer.getComponent(ref, componentTypeRPGEnemy);
+        if (npcComponent == null || rpgEnemy == null) return;
 
         // get the role component
         Role role = npcComponent.getRole();
@@ -190,7 +196,7 @@ public class Module_CombatSystem {
         Vector3d pos = transform.getPosition();
         double distance = Math.sqrt( Math.pow(pos.x - worldConfig.origin_spawn_point_x, 2) + Math.pow(pos.z - worldConfig.origin_spawn_point_z, 2));
         int tier = getTierByDistance(distance);
-        String tierDropList = TIER_DROP_LISTS[tier - 1];
+        String tierDropList = TIER_DROP_LISTS[tier];
 
         // resolve tier drops and replace any mod gear with factory-generated equivalents
         for (ItemStack drop : itemModule.getRandomItemDrops(tierDropList)) {
@@ -199,7 +205,7 @@ public class Module_CombatSystem {
             String[] categories = item.getCategories();
             boolean isModGear = categories != null && Arrays.asList(categories).contains("Items.HyARPG.Gear");
             if (!isModGear) { allDrops.add(drop); continue; }
-            ItemStack generated = ItemFactory.createItem(drop.getItemId(), tier * 10, null, null, null);
+            ItemStack generated = ItemFactory.createItem(drop.getItemId(), rpgEnemy.level, null, null, null);
             if (generated != null) allDrops.add(generated);
         }
 

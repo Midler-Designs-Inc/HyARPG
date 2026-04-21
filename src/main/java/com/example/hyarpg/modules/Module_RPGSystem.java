@@ -279,6 +279,9 @@ public class Module_RPGSystem {
         ItemContainerBlock containerBlock = event.containerBlock();
         BlockStateInfo blockStateInfo = event.blockStateInfo();
 
+        // if droplist is already null this chest was previously looted — leave it empty
+        if (containerBlock.getDroplist() == null) return;
+
         // getIndex() returns indexBlockInColumn — full column-relative coords
         int index = blockStateInfo.getIndex();
         int localX = ChunkUtil.xFromBlockInColumn(index);
@@ -304,12 +307,13 @@ public class Module_RPGSystem {
         double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
         // Determine tier based on ore spawn distance ranges
-        int tier = 1;
+        int tier = 0;
         if (distance >= ModConfig.get().world.min_distance_for_mithril_spawn)          tier = 6;
         else if (distance >= ModConfig.get().world.min_distance_for_adamantite_spawn)   tier = 5;
         else if (distance >= ModConfig.get().world.min_distance_for_cobalt_spawn)       tier = 4;
         else if (distance >= ModConfig.get().world.min_distance_for_thorium_spawn)      tier = 3;
         else if (distance >= ModConfig.get().world.min_distance_for_iron_spawn)         tier = 2;
+        else if (distance >= ModConfig.get().world.min_distance_for_copper_spawn)       tier = 1;
 
         // resolve the droplist into raw stacks then null it out so the container can't re-populate on open or break
         List<ItemStack> rawDrops = ItemModule.get().getRandomItemDrops("HyARPG_Container_Tier" + tier);
@@ -317,6 +321,7 @@ public class Module_RPGSystem {
 
         // loop over raw drops and replace any mod gear with a factory-generated equivalent
         List<ItemStack> finalItems = new ArrayList<>();
+        int gearLevel = Math.max(1, (int)(distance / ModConfig.get().enemies.blocks_per_level_threshold) + 1);
         for (ItemStack drop : rawDrops) {
             Item item = drop.getItem();
             if (item == null) continue;
@@ -326,7 +331,7 @@ public class Module_RPGSystem {
 
             // pass through non-gear drops as-is, replace gear drops via ItemFactory
             if (!isModGear) { finalItems.add(drop); continue; }
-            ItemStack generated = ItemFactory.createItem(drop.getItemId(), tier * 10, null, null, null);
+            ItemStack generated = ItemFactory.createItem(drop.getItemId(), gearLevel, null, null, null);
             if (generated != null) finalItems.add(generated);
         }
 

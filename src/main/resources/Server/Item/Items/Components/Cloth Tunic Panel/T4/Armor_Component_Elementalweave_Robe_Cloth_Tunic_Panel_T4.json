@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Elementalweave_Robe_Cloth_Tunic_Panel_T4.json.name",
+    "Description": "server.items.components.Armor_Component_Elementalweave_Robe_Cloth_Tunic_Panel_T4.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T4/Armor_Component_Cloth_Tunic_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Cloth_Tunic_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T4/Armor_Component_Cloth_Tunic_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Silk",
+        "Quantity": 15
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
+        "Quantity": 5
+      },
+      {
+        "ItemId": "Ingredient_Ice_Essence",
+        "Quantity": 5
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 4,
+        "Categories": [
+          "Cloth_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Cloth Tunic Panel",
+    "tier": 4,
+    "outputAssetID": "Armor_Cloth_Wool_Tunic",
+    "implicits": [
+      {
+        "stat": "ELEMENTAL_RESIST_PERCENT",
+        "min": 2,
+        "max": 12
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

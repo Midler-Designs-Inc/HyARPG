@@ -1,0 +1,54 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Lifewoven_Padding_T3.json.name",
+    "Description": "server.items.components.Armor_Component_Lifewoven_Padding_T3.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Padding_Icon.png",
+  "Model": "Resources/Materials/Wool_Bolt.blockymodel",
+  "Texture": "Resources/Materials/Wool_Bolt_Textures/Orange.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 8
+      },
+      {
+        "ItemId": "Ingredient_Life_Essence",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 3,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Padding",
+    "tier": 3,
+    "outputAssetID": "Armor_Component_Lifewoven_Padding",
+    "implicits": [
+      {
+        "stat": "LIFE_FLAT",
+        "min": 6,
+        "max": 36
+      },
+      {
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.06,
+        "max": 0.3
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

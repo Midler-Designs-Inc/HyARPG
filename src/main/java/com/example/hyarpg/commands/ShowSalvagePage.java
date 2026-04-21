@@ -11,7 +11,7 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
-import com.example.hyarpg.ui.CustomForgeSalvagePage;
+import com.example.hyarpg.ui.CustomPage_ForgeSalvagePage;
 
 // Java imports
 import javax.annotation.Nonnull;
@@ -39,7 +39,7 @@ public class ShowSalvagePage extends CommandBase {
         world.execute(() -> {
             PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
 
-            sender.getPageManager().openCustomPage(ref, store, new CustomForgeSalvagePage(playerRef));
+            sender.getPageManager().openCustomPage(ref, store, new CustomPage_ForgeSalvagePage(playerRef));
         });
     }
 }

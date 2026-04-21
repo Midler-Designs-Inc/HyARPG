@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Ember_Rune_Embellishments_T5.json.name",
+    "Description": "server.items.components.Armor_Component_Ember_Rune_Embellishments_T5.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Embellishments_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Embellishments.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Embellishments.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Cindercloth",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Orange",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Stitching_and_Embellishments"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Embellishments",
+    "tier": 5,
+    "outputAssetID": "Armor_Component_Ember_Rune_Embellishments",
+    "implicits": [
+      {
+        "stat": "FIRE_RESIST_PERCENT",
+        "min": 4,
+        "max": 25
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

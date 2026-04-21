@@ -8,6 +8,8 @@ import com.example.hyarpg.utils.HookedNotificationHandler;
 import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
 import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomFloodFill;
 import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomType;
+import com.hypixel.hytale.builtin.beds.BedsPlugin;
+import com.hypixel.hytale.builtin.beds.interactions.BedInteraction;
 import com.hypixel.hytale.builtin.crafting.component.BenchBlock;
 import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.Holder;
@@ -21,6 +23,11 @@ import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.asset.type.gameplay.respawn.WorldSpawnPoint;
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerConfigData;
+import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerRespawnPointData;
+import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerWorldData;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
@@ -191,10 +198,10 @@ public class Module_BuildSystem {
 
         UUID ownerUuid = playerRef.getUuid();
 
-        boolean alreadyOwnsTerritory = registry.getAllTerritories().stream().anyMatch(t -> ownerUuid.equals(t.getOwnerUuid()));
+        boolean alreadyOwnsTerritory = registry.getAllTerritories().stream().anyMatch(t -> ownerUuid.equals(t.getOwnerUuid()) || t.isCoOwner(ownerUuid));
         if (alreadyOwnsTerritory) {
             event.event().setCancelled(true);
-            playerRef.sendMessage(Message.raw("You already have an active territory. Break your existing Light Well before placing a new one.").color(Color.RED));
+            playerRef.sendMessage(Message.raw("Players are restricted to owning one territory. You already own or co-own a territory, you must remove your current Light Well or disband ownership from an existing one before you can place another Light Well.").color(Color.RED));
             return;
         }
 
@@ -215,6 +222,24 @@ public class Module_BuildSystem {
         registry.addTerritory(candidate);
         registry.saveAsync(world);
 
+        // set the lightwell position as the player's spawn point
+        Ref<EntityStore> ref = playerRef.getReference();
+        if (ref != null) {
+            Player player = ref.getStore().getComponent(ref, Player.getComponentType());
+            if (player != null) {
+                PlayerWorldData worldData = player.getPlayerConfigData().getPerWorldData(world.getName());
+                PlayerRespawnPointData[] existing = worldData.getRespawnPoints();
+                PlayerRespawnPointData newPoint = new PlayerRespawnPointData(
+                    pos,
+                    new Vector3d(pos.x + 0.5, pos.y + 1.0, pos.z + 0.5),
+                    "Light Well"
+                );
+                PlayerRespawnPointData[] updated = existing == null ? new PlayerRespawnPointData[]{ newPoint } : Arrays.copyOf(existing, existing.length + 1);
+                if (existing != null) updated[existing.length] = newPoint;
+                worldData.setRespawnPoints(updated);
+            }
+        }
+
         HytaleLogger.getLogger().at(Level.INFO).log(
                 "[BuildSystem] Territory registered at (%d, %d, %d) by %s",
                 pos.x, pos.y, pos.z, ownerUuid
@@ -233,12 +258,31 @@ public class Module_BuildSystem {
 
         final TerritoryData finalTerritory = territory;
 
-        // Defer block breaking to next tick to avoid calling store methods
-        // from within the current event processing pipeline
+        // Defer block breaking to next tick to avoid calling store methods from within the current event processing pipeline
         world.execute(() -> {
             breakRestrictedBlocksInTerritory(world, finalTerritory);
             registry.removeTerritory(finalTerritory);
             registry.saveAsync(world);
+
+            // if the owner's spawn point was this lightwell, unset it
+            PlayerRef ownerRef = Universe.get().getPlayer(finalTerritory.getOwnerUuid());
+            if (ownerRef != null) {
+                Ref<EntityStore> playerEntityRef = ownerRef.getReference();
+                Store<EntityStore> store = world.getEntityStore().getStore();
+                if (playerEntityRef != null) {
+                    Player playerComponent = store.getComponent(playerEntityRef, Player.getComponentType());
+                    if (playerComponent != null) {
+                        PlayerWorldData worldData = playerComponent.getPlayerConfigData().getPerWorldData(world.getName());
+                        PlayerRespawnPointData[] respawnPoints = worldData.getRespawnPoints();
+                        if (respawnPoints != null) {
+                            PlayerRespawnPointData[] filtered = Arrays.stream(respawnPoints)
+                                    .filter(p -> !p.getBlockPosition().equals(pos))
+                                    .toArray(PlayerRespawnPointData[]::new);
+                            worldData.setRespawnPoints(filtered.length > 0 ? filtered : null);
+                        }
+                    }
+                }
+            }
 
             HytaleLogger.getLogger().at(Level.INFO).log(
                     "[BuildSystem] Territory removed at (%d, %d, %d), rooms de-registered",

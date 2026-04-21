@@ -6,6 +6,7 @@ import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.affixes.StatMapper;
 import com.example.hyarpg.utils.affixes.StatType;
 import com.hypixel.hytale.codec.Codec;
+import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.component.ComponentType;
@@ -37,7 +38,11 @@ public class Component_RPG_Enemy implements Component<EntityStore> {
     public EntityStats stats = new EntityStats();
 
     // Register properties that needs to get persisted (none, just register codec in this case)
-    public static final BuilderCodec<Component_RPG_Enemy> CODEC = BuilderCodec.builder( Component_RPG_Enemy.class, Component_RPG_Enemy::new ).build();
+    public static final BuilderCodec<Component_RPG_Enemy> CODEC = BuilderCodec
+            .builder(Component_RPG_Enemy.class, Component_RPG_Enemy::new)
+            .append(new KeyedCodec<>("Level", Codec.INTEGER), (c, v) -> c.level = v, c -> c.level).add()
+            .append(new KeyedCodec<>("MonsterRarity", Codec.INTEGER), (c, v) -> c.monsterRarity = v, c -> c.monsterRarity).add()
+            .build();
 
     // Default no-arg constructor (required for component registration)
     public Component_RPG_Enemy() { this(1); }
@@ -87,6 +92,8 @@ public class Component_RPG_Enemy implements Component<EntityStore> {
     @Override
     public Component<EntityStore> clone() {
         Component_RPG_Enemy copy = new Component_RPG_Enemy(level);
+        copy.monsterRarity = this.monsterRarity;
+        copy.stats = this.stats;
         return copy;
     }
 }

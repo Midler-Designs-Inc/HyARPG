@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Toxinstitch_Stitching_T4.json.name",
+    "Description": "server.items.components.Armor_Component_Toxinstitch_Stitching_T4.json.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ingredient_Sinue_Cindersinue.png",
+  "Model": "Resources/Materials/Sinue.blockymodel",
+  "Texture": "Resources/Materials/Sinue_Cinder_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 5
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Green",
+        "Quantity": 5
+      },
+      {
+        "ItemId": "Ingredient_Water_Essence",
+        "Quantity": 5
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 4,
+        "Categories": [
+          "Stitching_and_Embellishments"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Stitching",
+    "tier": 4,
+    "outputAssetID": "Armor_Component_Toxinstitch_Stitching",
+    "implicits": [
+      {
+        "stat": "POISON_RESIST_PERCENT",
+        "min": 3.2,
+        "max": 20
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

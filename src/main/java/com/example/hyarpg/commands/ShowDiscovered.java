@@ -1,12 +1,14 @@
 package com.example.hyarpg.commands;
 
 // Hytale Imports
-import com.example.hyarpg.ui.Page_RecipeBook;
+import com.example.hyarpg.ui.CustomPage_RecipeBookPage;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.command.system.CommandContext;
 import com.hypixel.hytale.server.core.command.system.basecommands.CommandBase;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
@@ -18,7 +20,7 @@ public class ShowDiscovered extends CommandBase {
 
     public ShowDiscovered() {
         // Name, Description
-        super("discovered", "Show the player's discovered gear & room recipes.", false);
+        super("discovered", "Show the player's discovered room recipes.", false);
     }
 
     @Override
@@ -28,12 +30,16 @@ public class ShowDiscovered extends CommandBase {
 
     @Override
     protected void executeSync(@Nonnull CommandContext commandContext) {
-        // Ensure the sender is a player before proceeding
-        commandContext.senderAs(Player.class).getWorld().execute(() -> {
-            Player player = commandContext.senderAs(Player.class);
-            Ref<EntityStore> ref = player.getReference();
-            Store<EntityStore> store = ref.getStore();
-            Page_RecipeBook.open(ref, store);
+        Player sender = commandContext.senderAs(Player.class);
+        Ref<EntityStore> ref = sender.getReference();
+        Store<EntityStore> store = ref.getStore();
+
+        World world = sender.getWorld();
+
+        world.execute(() -> {
+            PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+
+            sender.getPageManager().openCustomPage(ref, store, new CustomPage_RecipeBookPage(playerRef));
         });
     }
 }

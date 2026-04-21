@@ -1,0 +1,37 @@
+@RoomCardHidden = Group {
+    LayoutMode: Top;
+    Anchor: (Bottom: 8);
+
+    Group {
+        Background: #0d1117;
+        LayoutMode: Top;
+        Anchor: (Horizontal: 0);
+
+        Group { Anchor: (Height: 10); }
+
+        Group {
+            LayoutMode: Left;
+            Anchor: (Horizontal: 12, Bottom: 4);
+
+            Label {
+                Text: "?????";
+                Style: (FontSize: 15, RenderBold: true, TextColor: #444444);
+                FlexWeight: 1;
+            }
+
+            Label {
+                Text: "Tier ?";
+                Style: (FontSize: 12, TextColor: #333333,  VerticalAlignment: Center);
+                Anchor: (Width: 80);
+            }
+        }
+
+        Label {
+            Text: "Undiscovered";
+            Style: (FontSize: 11, TextColor: #333333);
+            Anchor: (Horizontal: 12, Bottom: 10);
+        }
+
+        Group { Anchor: (Height: 10); }
+    }
+};

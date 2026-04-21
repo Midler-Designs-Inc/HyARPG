@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Ember_Cowl_Cloth_Hood_Panel_T2.json.name",
+    "Description": "server.items.components.Armor_Component_Ember_Cowl_Cloth_Hood_Panel_T2.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T2/Armor_Component_Cloth_Hood_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Cloth_Hood_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T2/Armor_Component_Cloth_Hood_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 6,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Linen",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 2,
+        "Categories": [
+          "Cloth_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Cloth Hood Panel",
+    "tier": 2,
+    "outputAssetID": "Armor_Cloth_Wool_Hood",
+    "implicits": [
+      {
+        "stat": "FIRE_RESIST_PERCENT",
+        "min": 1.6,
+        "max": 10
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

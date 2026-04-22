@@ -30,7 +30,6 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 2,
-    "outputAssetID": "Weapon_Shield_Iron",
     "implicits": [
       {
         "stat": "LIFE_FLAT",

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 4
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "MAGIC_RESIST_PERCENT",
-        "min": 0.5,
-        "max": 3
+        "min": 0.2,
+        "max": 0.5
       }
     ]
   },

@@ -15,10 +15,6 @@
         "Quantity": 5
       },
       {
-        "ItemId": "Cloth_Block_Wool_Cyan",
-        "Quantity": 5
-      },
-      {
         "ItemId": "Ingredient_Ice_Essence",
         "Quantity": 5
       }
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "ICE_RESIST_PERCENT",
-        "min": 3.2,
-        "max": 20
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

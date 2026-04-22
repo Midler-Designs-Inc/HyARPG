@@ -30,6 +30,7 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 3,
+    "outputAssetID": "Weapon_Shield_Thorium",
     "implicits": [
       {
         "stat": "FALL_RESIST_PERCENT",

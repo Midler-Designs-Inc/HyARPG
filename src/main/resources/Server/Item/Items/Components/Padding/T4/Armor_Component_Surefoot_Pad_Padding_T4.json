@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Surefoot_Pad_Padding_T4.json.name",
+    "Description": "server.items.components.Armor_Component_Surefoot_Pad_Padding_T4.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Padding_Icon.png",
+  "Model": "Resources/Materials/Wool_Bolt.blockymodel",
+  "Texture": "Resources/Materials/Wool_Bolt_Textures/Orange.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 10
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Black",
+        "Quantity": 5
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 4,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Padding",
+    "tier": 4,
+    "outputAssetID": "Armor_Component_Surefoot_Pad_Padding",
+    "implicits": [
+      {
+        "stat": "FALL_RESIST_PERCENT",
+        "min": 1.2,
+        "max": 3.2
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 9
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 8,
-        "max": 50
+        "min": 3,
+        "max": 8
       }
     ]
   },

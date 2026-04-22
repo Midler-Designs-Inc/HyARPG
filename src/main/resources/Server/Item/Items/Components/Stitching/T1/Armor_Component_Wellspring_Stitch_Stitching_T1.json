@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Wellspring_Stitch_Stitching_T1.json.name",
+    "Description": "server.items.components.Armor_Component_Wellspring_Stitch_Stitching_T1.json.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ingredient_Sinue_Cindersinue.png",
+  "Model": "Resources/Materials/Sinue.blockymodel",
+  "Texture": "Resources/Materials/Sinue_Cinder_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Wool",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Stitching_and_Embellishments"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Stitching",
+    "tier": 1,
+    "outputAssetID": "Armor_Component_Wellspring_Stitch_Stitching",
+    "implicits": [
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.01,
+        "max": 0.02
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

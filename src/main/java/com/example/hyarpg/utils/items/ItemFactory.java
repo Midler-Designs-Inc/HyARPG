@@ -105,6 +105,12 @@ public class ItemFactory {
     // itemId -> list of ingredient display strings e.g. ["4x Ingredient_Bar_Copper"]
     public static final Map<String, List<String>> COMPONENT_RECIPE_INDEX = new ConcurrentHashMap<>();
 
+    // structured recipe inputs cache — populated once at startup, used by salvage page
+    public static final Map<String, List<RecipeInput>> COMPONENT_RECIPE_INPUTS = new ConcurrentHashMap<>();
+
+    // record to hold structured recipe input data
+    public record RecipeInput(String itemId, String displayName, int quantity) {}
+
     // converts a bench category string to a display name e.g. "Heads_and_Blades" -> "Heads & Blades"
     private static String categoryToDisplay(@Nonnull String raw) {
         return COMPONENT_CATEGORY_DISPLAY.computeIfAbsent(raw, k -> k.replace("_and_", " & ").replace("_", " "));
@@ -156,18 +162,21 @@ public class ItemFactory {
                 }
             } catch (Exception ignored) {}
 
-            // index recipe inputs
+            // index recipe inputs — both formatted display strings and structured data for salvage page
             try {
                 BsonDocument recipe = doc.get("Recipe").asDocument();
-                List<String> inputs = new ArrayList<>();
+                List<String> displayInputs = new ArrayList<>();
+                List<RecipeInput> structuredInputs = new ArrayList<>();
                 for (BsonValue inputVal : recipe.getArray("Input")) {
                     BsonDocument input = inputVal.asDocument();
                     String itemInputId = input.getString("ItemId").getValue();
                     int quantity = input.getInt32("Quantity").getValue();
                     String displayName = itemInputId.replace("Ingredient_", "").replace("_", " ");
-                    inputs.add(quantity + "x " + displayName);
+                    displayInputs.add(quantity + "x " + displayName);
+                    structuredInputs.add(new RecipeInput(itemInputId, displayName, quantity));
                 }
-                COMPONENT_RECIPE_INDEX.put(id, inputs);
+                COMPONENT_RECIPE_INDEX.put(id, displayInputs);
+                COMPONENT_RECIPE_INPUTS.put(id, structuredInputs);
             } catch (Exception ignored) {}
         }
     }
@@ -220,9 +229,9 @@ public class ItemFactory {
                 BsonValue maxVal = implicit.get("max");
                 if (statVal == null || minVal == null || maxVal == null) continue;
 
-                float min = minVal.isDouble() ? (float) minVal.asDouble().getValue() : (float) minVal.asInt32().getValue();
-                float max = maxVal.isDouble() ? (float) maxVal.asDouble().getValue() : (float) maxVal.asInt32().getValue();
-                float value = StatTypeInfo.rollValue(min, max);
+                double min = minVal.isDouble() ? minVal.asDouble().getValue() : (double) minVal.asInt32().getValue();
+                double max = maxVal.isDouble() ? maxVal.asDouble().getValue() : (double) maxVal.asInt32().getValue();
+                float value = StatTypeInfo.rollValue((float) min, (float) max);
 
                 String display = statVal.asString().getValue();
                 try {

@@ -129,18 +129,10 @@ public class StatTypeInfo {
 
     // returns a friendly display string for the given stat and value e.g. "+5 Physical Damage"
     @Nonnull
-    public static String getDisplay(@Nonnull StatType stat, float value) {
-        String template = DISPLAY_NAMES.getOrDefault(stat, stat.name());
-        String formatted = value == (int) value ? String.valueOf((int) value) : String.format("%.1f", value);
-        return template.replace("{value}", formatted);
-    }
-
-    // returns a friendly display string for the given stat and ranges e.g. "+2-5 Physical Damage"
-    @Nonnull
     public static String getDisplay(@Nonnull StatType stat, float min, float max) {
         String template = DISPLAY_NAMES.getOrDefault(stat, stat.name());
-        String minFormatted = min == (int) min ? String.valueOf((int) min) : String.format("%.1f", min);
-        String maxFormatted = max == (int) max ? String.valueOf((int) max) : String.format("%.1f", max);
+        String minFormatted = min == (int) min ? String.valueOf((int) min) : String.format("%.2f", min);
+        String maxFormatted = max == (int) max ? String.valueOf((int) max) : String.format("%.2f", max);
         String range = minFormatted.equals(maxFormatted) ? maxFormatted : (minFormatted + "-" + maxFormatted);
         return template.replace("{value}", range);
     }
@@ -148,16 +140,12 @@ public class StatTypeInfo {
     // rolls a float value inclusively between min and max
     public static float rollValue(float min, float max) {
         if (min == max) return min;
-        return min + RANDOM.nextFloat() * (max - min);
+        double result = (double) min + RANDOM.nextDouble() * ((double) max - (double) min);
+        return (float) result;
     }
 
     // returns true if this stat is a base weapon damage flat (main or off hand)
     public static boolean isWeaponDamageStat(@Nonnull StatType stat) {
         return MAIN_HAND_DAMAGE_FLATS.contains(stat) || OFF_HAND_DAMAGE_FLATS.contains(stat);
-    }
-
-    // returns true if this stat is a main hand damage flat
-    public static boolean isMainHandDamageStat(@Nonnull StatType stat) {
-        return MAIN_HAND_DAMAGE_FLATS.contains(stat);
     }
 }

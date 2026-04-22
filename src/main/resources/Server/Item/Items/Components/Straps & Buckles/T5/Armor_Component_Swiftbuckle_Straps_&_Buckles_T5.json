@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Swiftbuckle_Straps_&_Buckles_T5.json.name",
+    "Description": "server.items.components.Armor_Component_Swiftbuckle_Straps_&_Buckles_T5.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Straps_and_Buckles_T1_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Straps_and_Buckles.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Straps_and_Buckles.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 12
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Straps_and_Buckles"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Straps & Buckles",
+    "tier": 5,
+    "outputAssetID": "Armor_Component_Swiftbuckle_Straps_&_Buckles",
+    "implicits": [
+      {
+        "stat": "RUN_SPEED_PERCENT",
+        "min": 0.75,
+        "max": 2
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

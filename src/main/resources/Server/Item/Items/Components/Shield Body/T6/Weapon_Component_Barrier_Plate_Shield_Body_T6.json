@@ -30,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 6,
-    "outputAssetID": "Weapon_Shield_Mithril",
     "implicits": [
       {
         "stat": "BARRIER_ON_BLOCK",
-        "min": 3.5,
-        "max": 10.5
+        "min": 0.07,
+        "max": 0.35
       }
     ]
   },

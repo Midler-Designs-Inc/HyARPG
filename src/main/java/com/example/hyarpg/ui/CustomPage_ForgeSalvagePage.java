@@ -52,7 +52,7 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
     // number of components to return on salvage — 1 now, designed to scale with crafting level later
     private static final int SALVAGE_COMPONENT_COUNT = 1;
     private static final int SALVAGE_MATERIAL_COUNT = 1;
-    private static final float SALVAGE_MATERIAL_YIELD = 0.0f;
+    private static final int SALVAGE_MATERIAL_YIELD = 0;
 
     // containers backing the input and output slots
     private final SimpleItemContainer inputContainer;
@@ -299,9 +299,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         if (storage != null) {
             for (RecipeInput input : toReturn) {
                 // yield stat biases the minimum return amount upward — at 1.0 always returns full amount
-                int minQty = Math.max(1, (int) Math.floor(SALVAGE_MATERIAL_YIELD * input.quantity));
-                int maxQty = input.quantity;
-                int returnQty = minQty >= maxQty ? maxQty : r.nextInt(minQty, maxQty + 1);
+                int maxQty = Math.max(1, (int) Math.floor((SALVAGE_MATERIAL_YIELD / 100f) * input.quantity));
+                int returnQty = maxQty == 1 ? 1 : r.nextInt(1, maxQty + 1);
                 storage.getInventory().addItemStack(new ItemStack(input.itemId, returnQty));
             }
         }
@@ -395,20 +394,19 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
     // populate output slots and right panel for a crafting component
     private void setOutputSlotStateForComponent(@Nonnull UICommandBuilder cmd, @Nonnull String itemId) {
         List<RecipeInput> recipeInputs = readRecipeInputs(itemId);
-        String[] statLabels = { "a", "b", "c" };
 
         // populate output slots with recipe ingredients (up to 4)
         for (int i = 0; i < 4; i++) {
             int slot = i + 1;
             if (i < recipeInputs.size()) {
                 RecipeInput input = recipeInputs.get(i);
-                int minQty = Math.max(1, (int) Math.floor(SALVAGE_MATERIAL_YIELD * input.quantity));
-                int maxQty = input.quantity;
+                int minQty = 1;
+                int maxQty = Math.max(1, (int) Math.floor((SALVAGE_MATERIAL_YIELD / 100f) * input.quantity));
 
                 // set ingredient icon if valid item asset exists
                 Item ingredientItem = Item.getAssetMap().getAsset(input.itemId);
                 if (ingredientItem != null) cmd.set("#SalvageOutputItem" + slot + ".ItemId", input.itemId);
-                else cmd.setNull("#SalvageOutputItem" + slot + ".ItemId");
+                cmd.set("#SalvageOutputStat" + slot + "a.Text", "Returns: " + minQty + "-" + maxQty + "x");
 
                 // set ingredient name and return quantity
                 cmd.set("#SalvageOutputName" + slot + ".Text", input.displayName);
@@ -534,25 +532,11 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
 
     // reads recipe inputs from a component's full asset json
     private List<RecipeInput> readRecipeInputs(@Nonnull String itemId) {
-        List<RecipeInput> inputs = new ArrayList<>();
-        try {
-            java.nio.file.Path assetPath = Item.getAssetMap().getPath(itemId);
-            if (assetPath == null) return inputs;
-            BsonDocument fullDoc = BsonDocument.parse(java.nio.file.Files.readString(assetPath));
-            BsonValue recipeVal = fullDoc.get("Recipe");
-            if (recipeVal == null || !recipeVal.isDocument()) return inputs;
-            BsonValue inputVal = recipeVal.asDocument().get("Input");
-            if (inputVal == null || !inputVal.isArray()) return inputs;
-            for (BsonValue entry : inputVal.asArray()) {
-                if (!entry.isDocument()) continue;
-                BsonDocument input = entry.asDocument();
-                String inputId  = input.getString("ItemId").getValue();
-                int quantity    = input.getInt32("Quantity").getValue();
-                String dispName = inputId.replace("Ingredient_", "").replace("_", " ");
-                inputs.add(new RecipeInput(inputId, dispName, quantity));
-            }
-        } catch (Exception ignored) {}
-        return inputs;
+        List<ItemFactory.RecipeInput> cached = ItemFactory.COMPONENT_RECIPE_INPUTS.get(itemId);
+        if (cached == null) return List.of();
+        return cached.stream()
+                .map(r -> new RecipeInput(r.itemId(), r.displayName(), r.quantity()))
+                .toList();
     }
 
     // small record to hold recipe input data
@@ -569,7 +553,7 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
     }
 
     private static String fmt(float value) {
-        float rounded = Math.round(value * 10) / 10f;
+        float rounded = Math.round(value * 100) / 100f;
         return rounded == (int) rounded ? String.valueOf((int) rounded) : String.valueOf(rounded);
     }
 

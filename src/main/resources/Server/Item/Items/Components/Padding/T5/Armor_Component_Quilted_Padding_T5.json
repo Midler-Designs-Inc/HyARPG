@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 20,
-        "max": 125
+        "min": 5,
+        "max": 15
       }
     ]
   },

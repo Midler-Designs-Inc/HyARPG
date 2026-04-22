@@ -12,10 +12,10 @@
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 14
+        "Quantity": 7
       },
       {
-        "ItemId": "Cloth_Block_Wool_White",
+        "ItemId": "Ingredient_Bolt_Shadoweave",
         "Quantity": 7
       }
     ],
@@ -37,9 +37,9 @@
     "outputAssetID": "Armor_Component_Reinforced_Stitching",
     "implicits": [
       {
-        "stat": "PHYSICAL_RESIST_PERCENT",
-        "min": 4.8,
-        "max": 30
+        "stat": "STAMINA_FLAT",
+        "min": 0.9,
+        "max": 2.4
       }
     ]
   },

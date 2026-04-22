@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Wool",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Cloth_Block_Wool_Purple",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,13 @@
     "implicits": [
       {
         "stat": "MANA_FLAT",
-        "min": 1,
-        "max": 6.25
+        "min": 0.2,
+        "max": 0.5
+      },
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.005,
+        "max": 0.015
       }
     ]
   },

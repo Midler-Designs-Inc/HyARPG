@@ -132,7 +132,8 @@ public final class Module_ModTickLoop {
             Component_Hunger hunger = store.getComponent(ref, Module_Hunger.componentTypeHunger);
 
             // do the drain
-            hunger.drain((float) ModConfig.get().hunger.drain_rate);
+            float drainRate = ModConfig.get().hunger.min_drain_rate == ModConfig.get().hunger.max_drain_rate ? (float) ModConfig.get().hunger.min_drain_rate : (float) (ModConfig.get().hunger.min_drain_rate + ThreadLocalRandom.current().nextDouble(ModConfig.get().hunger.max_drain_rate - ModConfig.get().hunger.min_drain_rate));
+            hunger.drain(drainRate);
 
             // Apply starvation damage if starving
             if (hunger.isStarving()) {
@@ -173,7 +174,8 @@ public final class Module_ModTickLoop {
             Component_Thirst thirst = store.getComponent(ref, Module_Thirst.componentTypeThirst);
 
             // do the drain
-            thirst.drain((float) ModConfig.get().thirst.drain_rate);
+            float drainRate = ModConfig.get().thirst.min_drain_rate == ModConfig.get().thirst.max_drain_rate ? (float) ModConfig.get().thirst.min_drain_rate : (float) (ModConfig.get().thirst.min_drain_rate + ThreadLocalRandom.current().nextDouble(ModConfig.get().thirst.max_drain_rate - ModConfig.get().thirst.min_drain_rate));
+            thirst.drain(drainRate);
 
             // Apply starvation damage if starving
             if (thirst.isStarving()) {

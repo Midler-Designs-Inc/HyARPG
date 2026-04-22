@@ -30,6 +30,7 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 4,
+    "outputAssetID": "Weapon_Shield_Cobalt",
     "implicits": [
       {
         "stat": "LIFE_REGEN_FLAT",

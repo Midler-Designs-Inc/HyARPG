@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "PHYSICAL_RESIST_PERCENT",
-        "min": 4,
-        "max": 25
+        "min": 1,
+        "max": 3
       }
     ]
   },

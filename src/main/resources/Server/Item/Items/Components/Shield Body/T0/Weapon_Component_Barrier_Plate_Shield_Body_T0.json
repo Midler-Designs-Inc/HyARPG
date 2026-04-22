@@ -30,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 0,
-    "outputAssetID": "Weapon_Shield_Crude",
     "implicits": [
       {
         "stat": "BARRIER_ON_BLOCK",
-        "min": 0.5,
-        "max": 1.5
+        "min": 0.01,
+        "max": 0.05
       }
     ]
   },

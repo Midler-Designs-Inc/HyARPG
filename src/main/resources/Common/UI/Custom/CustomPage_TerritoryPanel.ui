@@ -180,13 +180,16 @@ Group {
                     Visible: false;
                 }
 
-                // separator before action button
+                // separator before action buttons
                 Group { Background: #9c8863(0.2); Anchor: (Height: 1, Top: 6, Bottom: 10); }
 
-                // action button — request / withdraw request / withdraw ownership (non-owner only)
+                // action buttons — request / withdraw request / withdraw ownership (non-owner only)
                 $Common.@SmallSecondaryTextButton #TPRequestOwnership  { @Text = "Request Ownership";  @Anchor = (Bottom: 4); Visible: false; }
                 $Common.@SmallTertiaryTextButton  #TPWithdrawRequest   { @Text = "Withdraw Request";   @Anchor = (Bottom: 4); Visible: false; }
                 $Common.@SmallTertiaryTextButton  #TPWithdrawOwnership { @Text = "Withdraw Ownership"; @Anchor = (Bottom: 4); Visible: false; }
+
+                // set spawn button — visible to owner and co-owners
+                $Common.@SmallSecondaryTextButton #TPSetSpawn { @Text = "Set as Spawn Point"; @Anchor = (Bottom: 4); Visible: false; }
             }
         }
     }

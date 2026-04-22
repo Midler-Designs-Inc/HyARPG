@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Wood_Windwillow_Trunk_Full",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -37,9 +33,9 @@
     "outputAssetID": "Armor_Leather_Light_Glove",
     "implicits": [
       {
-        "stat": "STAMINA_REGEN_FLAT",
-        "min": 0.06,
-        "max": 0.3
+        "stat": "STAMINA_FLAT",
+        "min": 0.4,
+        "max": 1
       }
     ]
   },

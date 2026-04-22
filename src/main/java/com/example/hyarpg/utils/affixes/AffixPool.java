@@ -69,9 +69,9 @@ public final class AffixPool {
             // Defense
             new Affix("Stat_Increased_Dodge_Chance",        "Dodge Chance: +%s%%",            1.666f, 5f),
             new Affix("Stat_Increased_Stability",           "Stability: +%s%%",               2.2f,   6.7f),
-//            new Affix("Stat_Flat_Parry_Window",             "Parry Window: +%s",              0.033f, 0.1f),
-//            new Affix("Stat_Increased_Barrier_On_Block",    "Barrier on Block: +%s%%",        1.666f, 5f),
-//            new Affix("Stat_Increased_Shield_Stability",    "Shield Stability: +%s%%",        2.2f,   6.7f),
+            new Affix("Stat_Flat_Parry_Window",             "Parry Window: +%s",              0.033f, 0.1f),
+            new Affix("Stat_Increased_Barrier_On_Block",    "Barrier on Block: +%s%%",        1.666f, 5f),
+            new Affix("Stat_Increased_Shield_Stability",    "Shield Stability: +%s%%",        2.2f,   6.7f),
 
             // Leech — very tight, 6x T0 on 4 pieces would be ~2.4-7.2% which is still very strong
             new Affix("Stat_Increased_Life_Leech",          "Life Leech: +%s%%",              0.1f,   0.3f),

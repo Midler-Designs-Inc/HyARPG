@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 21
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 24,
-        "max": 150
+        "min": 9,
+        "max": 24
       }
     ]
   },

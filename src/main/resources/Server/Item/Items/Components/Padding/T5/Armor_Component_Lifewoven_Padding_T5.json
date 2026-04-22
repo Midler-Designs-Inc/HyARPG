@@ -38,13 +38,13 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 10,
-        "max": 60
+        "min": 2.5,
+        "max": 7.5
       },
       {
         "stat": "LIFE_REGEN_FLAT",
-        "min": 0.1,
-        "max": 0.5
+        "min": 0.025,
+        "max": 0.075
       }
     ]
   },

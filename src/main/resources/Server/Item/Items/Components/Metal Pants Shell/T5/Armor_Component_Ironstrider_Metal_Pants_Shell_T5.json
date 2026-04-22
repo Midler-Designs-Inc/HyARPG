@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 18
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "STAMINA_FLAT",
-        "min": 2,
-        "max": 12.5
+        "min": 1.5,
+        "max": 4
       }
     ]
   },

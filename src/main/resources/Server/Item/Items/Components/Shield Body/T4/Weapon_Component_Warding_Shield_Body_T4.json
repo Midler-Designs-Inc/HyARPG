@@ -30,7 +30,6 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 4,
-    "outputAssetID": "Weapon_Shield_Cobalt",
     "implicits": [
       {
         "stat": "SHIELD_STABILITY_PERCENT",

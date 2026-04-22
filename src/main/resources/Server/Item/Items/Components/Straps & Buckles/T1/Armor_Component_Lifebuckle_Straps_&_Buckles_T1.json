@@ -17,10 +17,6 @@
       {
         "ItemId": "Ingredient_Leather_Soft",
         "Quantity": 4
-      },
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 2
       }
     ],
     "BenchRequirement": [
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 4,
-        "max": 25
+        "min": 0.8,
+        "max": 2
       }
     ]
   },

@@ -11,11 +11,7 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 5
-      },
-      {
-        "ItemId": "Cloth_Block_Wool_Purple",
+        "ItemId": "Ingredient_Bolt_Silk",
         "Quantity": 5
       },
       {
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "MAGIC_RESIST_PERCENT",
-        "min": 2,
-        "max": 12
+        "min": 0.6,
+        "max": 1.6
       }
     ]
   },

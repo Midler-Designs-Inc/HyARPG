@@ -1,0 +1,50 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Arcane_Stride_Cloth_Pants_Panel_T1.json.name",
+    "Description": "server.items.components.Armor_Component_Arcane_Stride_Cloth_Pants_Panel_T1.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T1/Armor_Component_Cloth_Pants_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Cloth_Pants_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Cloth_Pants_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Wool",
+        "Quantity": 20
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Cloth_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Cloth Pants Panel",
+    "tier": 1,
+    "outputAssetID": "Armor_Cloth_Wool_Pants",
+    "implicits": [
+      {
+        "stat": "MANA_FLAT",
+        "min": 0.2,
+        "max": 0.5
+      },
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.005,
+        "max": 0.02
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

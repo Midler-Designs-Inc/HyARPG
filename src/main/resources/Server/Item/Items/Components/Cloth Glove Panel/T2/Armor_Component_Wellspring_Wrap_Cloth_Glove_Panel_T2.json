@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Wellspring_Wrap_Cloth_Glove_Panel_T2.json.name",
+    "Description": "server.items.components.Armor_Component_Wellspring_Wrap_Cloth_Glove_Panel_T2.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T2/Armor_Component_Cloth_Glove_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Cloth_Glove_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T2/Armor_Component_Cloth_Glove_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 6,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Linen",
+        "Quantity": 30
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 2,
+        "Categories": [
+          "Cloth_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Cloth Glove Panel",
+    "tier": 2,
+    "outputAssetID": "Armor_Cloth_Wool_Glove",
+    "implicits": [
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.02,
+        "max": 0.06
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

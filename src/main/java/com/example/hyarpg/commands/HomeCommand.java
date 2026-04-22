@@ -69,7 +69,7 @@ public class HomeCommand extends CommandBase {
 
             TerritoryData territory = null;
             for (TerritoryData t : registry.getAllTerritories()) {
-                if (playerUuid.equals(t.getOwnerUuid())) {
+                if (playerUuid.equals(t.getOwnerUuid()) || t.isCoOwner(playerUuid)) {
                     territory = t;
                     break;
                 }

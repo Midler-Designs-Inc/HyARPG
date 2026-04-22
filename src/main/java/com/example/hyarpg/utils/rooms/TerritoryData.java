@@ -33,8 +33,17 @@ public class TerritoryData {
                     (d, v) -> d.ownerUuid = v != null ? UUID.fromString(v) : null,
                     d -> d.ownerUuid != null ? d.ownerUuid.toString() : null).add()
             .append(new KeyedCodec<>("CoOwners", new ArrayCodec<>(Codec.STRING, String[]::new)),
-                    (d, v) -> d.coOwners = v != null ? Arrays.stream(v).map(UUID::fromString).collect(Collectors.toCollection(ArrayList::new)) : new ArrayList<>(),
-                    d -> d.coOwners.stream().map(UUID::toString).toArray(String[]::new)).add()
+                    (d, v) -> {
+                        d.coOwners = new ArrayList<>();
+                        if (v != null) for (String entry : v) {
+                            String[] parts = entry.split(":", 2);
+                            if (parts.length == 2) {
+                                try { d.coOwners.add(new CoOwnerEntry(UUID.fromString(parts[0]), parts[1])); } catch (Exception ignored) {}
+                            }
+                        }
+                    },
+                    d -> d.coOwners.stream().map(e -> e.uuid().toString() + ":" + e.username()).toArray(String[]::new)
+            ).add()
             .append(new KeyedCodec<>("CoOwnerRequests", new ArrayCodec<>(Codec.STRING, String[]::new)),
                     (d, v) -> d.coOwnerRequests = v != null ? Arrays.stream(v).map(UUID::fromString).collect(Collectors.toCollection(ArrayList::new)) : new ArrayList<>(),
                     d -> d.coOwnerRequests.stream().map(UUID::toString).toArray(String[]::new)).add()
@@ -53,8 +62,9 @@ public class TerritoryData {
     private int centerX, centerY, centerZ;
 
     // Ownership
+    public record CoOwnerEntry(UUID uuid, String username) {}
     @Nullable private UUID ownerUuid;
-    @Nonnull private List<UUID> coOwners = new ArrayList<>();
+    @Nonnull private List<CoOwnerEntry> coOwners = new ArrayList<>();
     private List<UUID> coOwnerRequests = new ArrayList<>();
 
     // Raid tracking
@@ -93,11 +103,13 @@ public class TerritoryData {
 
     // --- Ownership --- //
     @Nullable public UUID getOwnerUuid() { return ownerUuid; }
-    public List<UUID> getCoOwners() { return Collections.unmodifiableList(coOwners); }
-    public boolean isCoOwner(UUID uuid) { return coOwners.contains(uuid); }
+    public List<CoOwnerEntry> getCoOwners() { return Collections.unmodifiableList(coOwners); }
+    public boolean isCoOwner(UUID uuid) { return coOwners.stream().anyMatch(e -> e.uuid().equals(uuid)); }
     public boolean hasAccess(UUID uuid) { return uuid.equals(ownerUuid) || isCoOwner(uuid); }
-    public void addCoOwner(UUID uuid) { if (!coOwners.contains(uuid)) coOwners.add(uuid); }
-    public void removeCoOwner(UUID uuid) { coOwners.remove(uuid); }
+    public void addCoOwner(UUID uuid, String username) {
+        if (!isCoOwner(uuid)) coOwners.add(new CoOwnerEntry(uuid, username));
+    }
+    public void removeCoOwner(UUID uuid) { coOwners.removeIf(e -> e.uuid().equals(uuid)); }
 
     // --- Co-owner requests --- //
     public List<UUID> getCoOwnerRequests() { return Collections.unmodifiableList(coOwnerRequests); }
@@ -108,11 +120,11 @@ public class TerritoryData {
         coOwnerRequests.add(uuid);
         return true;
     }
-    public boolean approveCoOwner(UUID requesterUuid, UUID approverUuid) {
+    public boolean approveCoOwner(UUID requesterUuid, UUID approverUuid, String requesterUsername) {
         if (!approverUuid.equals(ownerUuid)) return false;
         if (!coOwnerRequests.contains(requesterUuid)) return false;
         coOwnerRequests.remove(requesterUuid);
-        addCoOwner(requesterUuid);
+        addCoOwner(requesterUuid, requesterUsername);
         return true;
     }
     public boolean denyCoOwner(UUID requesterUuid, UUID approverUuid) {

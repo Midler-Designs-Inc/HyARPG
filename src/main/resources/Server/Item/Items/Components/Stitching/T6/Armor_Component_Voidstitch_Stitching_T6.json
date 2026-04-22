@@ -11,11 +11,7 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 7
-      },
-      {
-        "ItemId": "Cloth_Block_Wool_Purple",
+        "ItemId": "Ingredient_Bolt_Shadoweave",
         "Quantity": 7
       },
       {
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "MAGIC_RESIST_PERCENT",
-        "min": 3,
-        "max": 18
+        "min": 0.9,
+        "max": 2.4
       }
     ]
   },

@@ -379,6 +379,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
 
                 // map the id to a stat and update its value
                 StatType type = StatMapper.fromAffixId(affixId);
+                if (type == null) continue;
                 stats.add(type, Float.parseFloat(parts[1]));
             }
         } catch (Exception e) {}

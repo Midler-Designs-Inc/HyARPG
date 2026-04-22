@@ -11,11 +11,7 @@
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Storm",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Cloth_Block_Wool_Yellow",
+        "ItemId": "Ingredient_Bolt_Cindercloth",
         "Quantity": 6
       },
       {
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIGHTNING_RESIST_PERCENT",
-        "min": 4,
-        "max": 25
+        "min": 1,
+        "max": 2.5
       }
     ]
   },

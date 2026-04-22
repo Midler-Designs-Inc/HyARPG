@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 16
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 4
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -37,9 +33,9 @@
     "outputAssetID": "Armor_Thorium_Chest",
     "implicits": [
       {
-        "stat": "STAMINA_FLAT",
+        "stat": "PHYSICAL_RESIST_PERCENT",
         "min": 1.2,
-        "max": 7.5
+        "max": 3
       }
     ]
   },

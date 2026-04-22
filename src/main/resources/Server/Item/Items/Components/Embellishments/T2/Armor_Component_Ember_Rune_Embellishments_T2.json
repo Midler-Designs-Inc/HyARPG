@@ -15,10 +15,6 @@
         "Quantity": 3
       },
       {
-        "ItemId": "Cloth_Block_Wool_Orange",
-        "Quantity": 3
-      },
-      {
         "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 3
       }
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "FIRE_RESIST_PERCENT",
-        "min": 1.6,
-        "max": 10
+        "min": 0.4,
+        "max": 1
       }
     ]
   },

@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Vital_Lining_Padding_T5.json.name",
+    "Description": "server.items.components.Armor_Component_Vital_Lining_Padding_T5.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Padding_Icon.png",
+  "Model": "Resources/Materials/Wool_Bolt.blockymodel",
+  "Texture": "Resources/Materials/Wool_Bolt_Textures/Orange.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 12
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Pink",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Padding",
+    "tier": 5,
+    "outputAssetID": "Armor_Component_Vital_Lining_Padding",
+    "implicits": [
+      {
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.05,
+        "max": 0.15
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 24
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -37,9 +33,9 @@
     "outputAssetID": "Armor_Adamantite_Chest",
     "implicits": [
       {
-        "stat": "STAMINA_FLAT",
+        "stat": "PHYSICAL_RESIST_PERCENT",
         "min": 2,
-        "max": 12.5
+        "max": 5
       }
     ]
   },

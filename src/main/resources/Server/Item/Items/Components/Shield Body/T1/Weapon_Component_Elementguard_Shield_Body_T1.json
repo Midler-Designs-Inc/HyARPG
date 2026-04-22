@@ -30,7 +30,6 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 1,
-    "outputAssetID": "Weapon_Shield_Copper",
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",

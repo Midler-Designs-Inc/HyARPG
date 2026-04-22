@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 2
+        "Quantity": 20
       }
     ],
     "BenchRequirement": [
@@ -37,9 +33,9 @@
     "outputAssetID": "Armor_Copper_Chest",
     "implicits": [
       {
-        "stat": "STAMINA_FLAT",
+        "stat": "PHYSICAL_RESIST_PERCENT",
         "min": 0.4,
-        "max": 2.5
+        "max": 1
       }
     ]
   },

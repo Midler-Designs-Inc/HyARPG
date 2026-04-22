@@ -12,14 +12,14 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 7
       },
       {
-        "ItemId": "Ingredient_Ice_Essence",
+        "ItemId": "Ingredient_Leather_Dark",
+        "Quantity": 7
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 7
       }
     ],
@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",
-        "min": 3,
-        "max": 18
+        "min": 0.9,
+        "max": 2.4
       }
     ]
   },

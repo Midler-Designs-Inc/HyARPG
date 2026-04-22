@@ -14,7 +14,9 @@ import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.Frozen;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
@@ -177,6 +179,12 @@ public class Module_CombatSystem {
 
         // claim the drop so deathInstruction skips its own loot spawn
         role.setDeathItemsDropped();
+
+        // clear NPC inventory to prevent inventoryContentsDropList items from dropping
+        InventoryComponent.Storage npcStorage = commandBuffer.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        InventoryComponent.Hotbar npcHotbar = commandBuffer.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+        if (npcStorage != null) npcStorage.getInventory().clear();
+        if (npcHotbar != null) npcHotbar.getInventory().clear();
 
         // get transform early — needed for drop position and distance calculation
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
@@ -588,6 +596,68 @@ public class Module_CombatSystem {
             if (dodgeRoll < dodgeChance) {
                 // successful dodge
                 finalDamage = 0f;
+            }
+        }
+
+        // apply damage taken from mana/stamina — redirects a portion of damage away from health
+        if (defenderRPGStats != null && defenderStatMap != null && finalDamage > 0) {
+            ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
+
+            float damageTakenFromMana = defenderStats.getDamageTakenFrom("Mana");
+            if (damageTakenFromMana > 0) {
+                double redirect = finalDamage * (damageTakenFromMana / 100f);
+                int manaIndex = DefaultEntityStatTypes.getMana();
+                EntityStatValue manaStat = defenderStatMap.get(manaIndex);
+                if (manaStat != null && manaStat.get() > 0) {
+                    double absorbed = Math.min(manaStat.get(), redirect);
+                    defenderStatMap.setStatValue(manaIndex, Math.max(0, manaStat.get() - (float) absorbed));
+                    finalDamage -= absorbed;
+                }
+            }
+
+            float damageTakenFromStamina = defenderStats.getDamageTakenFrom("Stamina");
+            if (damageTakenFromStamina > 0) {
+                double redirect = finalDamage * (damageTakenFromStamina / 100f);
+                int staminaIndex = DefaultEntityStatTypes.getStamina();
+                EntityStatValue staminaStat = defenderStatMap.get(staminaIndex);
+                if (staminaStat != null && staminaStat.get() > 0) {
+                    double absorbed = Math.min(staminaStat.get(), redirect);
+                    defenderStatMap.setStatValue(staminaIndex, Math.max(0, staminaStat.get() - (float) absorbed));
+                    finalDamage -= absorbed;
+                }
+            }
+        }
+
+        // apply leech — attacker recovers a portion of damage dealt as a resource
+        if (attackerRPGStats != null && finalDamage > 0) {
+            EntityStatMap attackerStatMap = store.getComponent(attacker, EntityStatsModule.get().getEntityStatMapComponentType());
+            if (attackerStatMap != null) {
+                float lifeLeech = attackerStats.getLeech("Life");
+                if (lifeLeech > 0) {
+                    double leechAmount = finalDamage * (lifeLeech / 100f);
+                    int healthIndex = DefaultEntityStatTypes.getHealth();
+                    EntityStatValue healthStat = attackerStatMap.get(healthIndex);
+                    if (healthStat != null)
+                        attackerStatMap.setStatValue(healthIndex, Math.min(healthStat.getMax(), healthStat.get() + (float) leechAmount));
+                }
+
+                float manaLeech = attackerStats.getLeech("Mana");
+                if (manaLeech > 0) {
+                    double leechAmount = finalDamage * (manaLeech / 100f);
+                    int manaIndex = DefaultEntityStatTypes.getMana();
+                    EntityStatValue manaStat = attackerStatMap.get(manaIndex);
+                    if (manaStat != null)
+                        attackerStatMap.setStatValue(manaIndex, Math.min(manaStat.getMax(), manaStat.get() + (float) leechAmount));
+                }
+
+                float staminaLeech = attackerStats.getLeech("Stamina");
+                if (staminaLeech > 0) {
+                    double leechAmount = finalDamage * (staminaLeech / 100f);
+                    int staminaIndex = DefaultEntityStatTypes.getStamina();
+                    EntityStatValue staminaStat = attackerStatMap.get(staminaIndex);
+                    if (staminaStat != null)
+                        attackerStatMap.setStatValue(staminaIndex, Math.min(staminaStat.getMax(), staminaStat.get() + (float) leechAmount));
+                }
             }
         }
 

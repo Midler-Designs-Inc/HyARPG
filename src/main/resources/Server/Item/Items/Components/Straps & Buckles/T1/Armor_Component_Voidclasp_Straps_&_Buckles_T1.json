@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "MAGIC_RESIST_PERCENT",
-        "min": 0.5,
-        "max": 3
+        "min": 0.15,
+        "max": 0.4
       }
     ]
   },

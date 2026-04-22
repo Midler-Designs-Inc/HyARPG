@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Heavy",
-        "Quantity": 15
-      },
-      {
-        "ItemId": "Wood_Windwillow_Trunk_Full",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -37,9 +33,9 @@
     "outputAssetID": "Armor_Leather_Heavy_Hood",
     "implicits": [
       {
-        "stat": "STAMINA_REGEN_FLAT",
-        "min": 0.12,
-        "max": 0.6
+        "stat": "DODGE_CHANCE_PERCENT",
+        "min": 1.2,
+        "max": 3.2
       }
     ]
   },

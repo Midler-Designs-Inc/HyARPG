@@ -436,8 +436,9 @@ public class Page_RPGStats {
     }
 
     private static String fmt(float value) {
-        float rounded = Math.round(value * 10) / 10f;
-        return rounded == (int) rounded ? String.valueOf((int) rounded) : String.valueOf(rounded);
+        if (value == (int) value) return String.valueOf((int) value);
+        if (value < 0.01f && value > 0f) return String.format("%.4f", value);
+        return String.format("%.2f", value).replaceAll("0+$", "").replaceAll("\\.$", "");
     }
 
     // -------------------------------------------------------------------------

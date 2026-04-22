@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cotton",
-        "Quantity": 16
-      },
-      {
-        "ItemId": "Ingredient_Water_Essence",
-        "Quantity": 4
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -37,14 +33,9 @@
     "outputAssetID": "Armor_Cloth_Wool_Tunic",
     "implicits": [
       {
-        "stat": "MANA_FLAT",
-        "min": 1.8,
-        "max": 10.5
-      },
-      {
         "stat": "MANA_REGEN_FLAT",
-        "min": 0.06,
-        "max": 0.3
+        "min": 0.03,
+        "max": 0.12
       }
     ]
   },

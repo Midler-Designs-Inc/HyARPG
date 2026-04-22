@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "ICE_RESIST_PERCENT",
-        "min": 4,
-        "max": 25
+        "min": 1,
+        "max": 2.5
       }
     ]
   },

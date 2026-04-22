@@ -30,12 +30,11 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 4,
-    "outputAssetID": "Weapon_Shield_Cobalt",
     "implicits": [
       {
         "stat": "BARRIER_ON_BLOCK",
-        "min": 2.5,
-        "max": 7.5
+        "min": 0.05,
+        "max": 0.25
       }
     ]
   },

@@ -1,0 +1,50 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Arcane_Weave_Stitching_T2.json.name",
+    "Description": "server.items.components.Armor_Component_Arcane_Weave_Stitching_T2.json.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ingredient_Sinue_Cindersinue.png",
+  "Model": "Resources/Materials/Sinue.blockymodel",
+  "Texture": "Resources/Materials/Sinue_Cinder_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 6,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Linen",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 2,
+        "Categories": [
+          "Stitching_and_Embellishments"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Stitching",
+    "tier": 2,
+    "outputAssetID": "Armor_Component_Arcane_Weave_Stitching",
+    "implicits": [
+      {
+        "stat": "MANA_FLAT",
+        "min": 0.3,
+        "max": 0.7
+      },
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.01,
+        "max": 0.02
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

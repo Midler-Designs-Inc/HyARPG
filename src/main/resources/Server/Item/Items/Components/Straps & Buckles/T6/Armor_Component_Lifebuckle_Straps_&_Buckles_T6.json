@@ -17,10 +17,6 @@
       {
         "ItemId": "Ingredient_Leather_Dark",
         "Quantity": 14
-      },
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 7
       }
     ],
     "BenchRequirement": [
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 24,
-        "max": 150
+        "min": 4.8,
+        "max": 12
       }
     ]
   },

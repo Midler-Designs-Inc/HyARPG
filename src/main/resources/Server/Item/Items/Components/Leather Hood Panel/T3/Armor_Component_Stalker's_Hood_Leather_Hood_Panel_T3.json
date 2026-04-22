@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Medium",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Wood_Aspen_Trunk_Full",
-        "Quantity": 4
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -37,9 +33,9 @@
     "outputAssetID": "Armor_Leather_Medium_Hood",
     "implicits": [
       {
-        "stat": "STAMINA_FLAT",
-        "min": 1.2,
-        "max": 7.5
+        "stat": "LIFE_FLAT",
+        "min": 3,
+        "max": 9
       }
     ]
   },

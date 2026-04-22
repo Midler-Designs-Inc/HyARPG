@@ -12,14 +12,14 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 10
-      },
-      {
-        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 5
       },
       {
-        "ItemId": "Ingredient_Ice_Essence",
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 5
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 5
       }
     ],
@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",
-        "min": 2,
-        "max": 12
+        "min": 0.6,
+        "max": 1.6
       }
     ]
   },

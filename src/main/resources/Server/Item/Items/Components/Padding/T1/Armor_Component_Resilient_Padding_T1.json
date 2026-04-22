@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "STAMINA_REGEN_FLAT",
-        "min": 0.03,
-        "max": 0.15
+        "min": 0.01,
+        "max": 0.03
       }
     ]
   },

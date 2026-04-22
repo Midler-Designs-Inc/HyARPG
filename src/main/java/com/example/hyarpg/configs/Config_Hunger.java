@@ -8,9 +8,13 @@ public class Config_Hunger {
     @Comment("Whether the hunger system is active. Default: true")
     public boolean enabled = true;
 
-    @Key("drain_rate")
-    @Comment("How fast hunger depletes per tick. Default: 0.02")
-    public double drain_rate = 0.02;
+    @Key("min_drain_rate")
+    @Comment("Minimum amount hunger depletes per tick. Default: 0.01")
+    public double min_drain_rate = 0.01;
+
+    @Key("max_drain_rate")
+    @Comment("Maximum amount hunger depletes per tick. Default: 0.03")
+    public double max_drain_rate = 0.03;
 
     @Key("seconds_till_death")
     @Comment("Seconds until death once hunger is fully depleted. Default: 60")

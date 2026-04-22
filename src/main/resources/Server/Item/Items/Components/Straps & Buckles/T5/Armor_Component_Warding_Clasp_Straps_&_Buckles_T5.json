@@ -12,14 +12,14 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 6
       },
       {
-        "ItemId": "Ingredient_Ice_Essence",
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 6
       }
     ],
@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",
-        "min": 2.5,
-        "max": 15
+        "min": 0.75,
+        "max": 2
       }
     ]
   },

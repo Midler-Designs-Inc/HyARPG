@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Sentinel's_Metal_Helmet_Shell_T3.json.name",
+    "Description": "server.items.components.Armor_Component_Sentinel's_Metal_Helmet_Shell_T3.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T3/Armor_Component_Metal_Helmet_Shell_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Metal_Helmet_Shell_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T3/Armor_Component_Metal_Helmet_Shell.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 40
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 3,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Metal Helmet Shell",
+    "tier": 3,
+    "outputAssetID": "Armor_Thorium_Helmet",
+    "implicits": [
+      {
+        "stat": "DODGE_CHANCE_PERCENT",
+        "min": 0.6,
+        "max": 1.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

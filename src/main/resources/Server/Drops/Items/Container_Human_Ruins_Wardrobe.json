@@ -1,0 +1,43 @@
+{
+  "Container": {
+    "Type": "Multiple",
+    "Containers": [
+      {
+        "Type": "Choice",
+        "Weight": 100,
+        "Containers": [
+          {
+            "Type": "Single",
+            "Item": {
+              "ItemId": "Tool_Repair_Kit_Crude"
+            }
+          }
+        ]
+      },
+      {
+        "Type": "Choice",
+        "Weight": 75,
+        "Containers": [
+          {
+            "Type": "Single",
+            "Weight": 75,
+            "Item": {
+              "ItemId": "Potion_Health",
+              "QuantityMin": 1,
+              "QuantityMax": 2
+            }
+          },
+          {
+            "Type": "Single",
+            "Weight": 25,
+            "Item": {
+              "ItemId": "Potion_Health_Large",
+              "QuantityMin": 1,
+              "QuantityMax": 2
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

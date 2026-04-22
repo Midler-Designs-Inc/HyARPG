@@ -17,10 +17,6 @@
       {
         "ItemId": "Ingredient_Leather_Heavy",
         "Quantity": 10
-      },
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 5
       }
     ],
     "BenchRequirement": [
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 16,
-        "max": 100
+        "min": 3.2,
+        "max": 8
       }
     ]
   },

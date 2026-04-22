@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "STAMINA_FLAT",
-        "min": 2,
-        "max": 12.5
+        "min": 0.75,
+        "max": 2
       }
     ]
   },

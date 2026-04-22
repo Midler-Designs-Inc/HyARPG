@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Shadoweave",
-        "Quantity": 21
-      },
-      {
-        "ItemId": "Cloth_Block_Wool_Purple",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,13 @@
     "implicits": [
       {
         "stat": "MANA_FLAT",
-        "min": 6,
-        "max": 37.5
+        "min": 1.2,
+        "max": 3
+      },
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.03,
+        "max": 0.09
       }
     ]
   },

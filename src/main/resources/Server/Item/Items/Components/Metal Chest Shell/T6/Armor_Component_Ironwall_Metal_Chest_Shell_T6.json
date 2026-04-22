@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 28
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -37,9 +33,9 @@
     "outputAssetID": "Armor_Mithril_Chest",
     "implicits": [
       {
-        "stat": "STAMINA_FLAT",
+        "stat": "PHYSICAL_RESIST_PERCENT",
         "min": 2.4,
-        "max": 15
+        "max": 6
       }
     ]
   },

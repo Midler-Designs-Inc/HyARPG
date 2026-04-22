@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Ranger's_Vest_Leather_Vest_Panel_T6.json.name",
+    "Description": "server.items.components.Armor_Component_Ranger's_Vest_Leather_Vest_Panel_T6.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T6/Armor_Component_Leather_Vest_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Leather_Vest_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T6/Armor_Component_Leather_Vest_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Dark",
+        "Quantity": 70
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 6,
+        "Categories": [
+          "Leather_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Leather Vest Panel",
+    "tier": 6,
+    "outputAssetID": "Armor_Leather_Dark_Vest",
+    "implicits": [
+      {
+        "stat": "LIFE_FLAT",
+        "min": 9,
+        "max": 24
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

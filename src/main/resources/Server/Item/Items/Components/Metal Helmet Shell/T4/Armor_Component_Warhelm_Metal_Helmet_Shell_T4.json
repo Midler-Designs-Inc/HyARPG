@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 15
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 16,
-        "max": 100
+        "min": 6,
+        "max": 16
       }
     ]
   },

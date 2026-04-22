@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Leather_Light",
-        "Quantity": 4
+        "Quantity": 40
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "PHYSICAL_RESIST_PERCENT",
-        "min": 2.4,
-        "max": 15
+        "min": 0.9,
+        "max": 2.4
       }
     ]
   },

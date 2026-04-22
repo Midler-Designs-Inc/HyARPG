@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
-        "Quantity": 20
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 5
+        "Quantity": 50
       }
     ],
     "BenchRequirement": [
@@ -37,9 +33,9 @@
     "outputAssetID": "Armor_Cobalt_Chest",
     "implicits": [
       {
-        "stat": "STAMINA_FLAT",
+        "stat": "PHYSICAL_RESIST_PERCENT",
         "min": 1.6,
-        "max": 10
+        "max": 4
       }
     ]
   },

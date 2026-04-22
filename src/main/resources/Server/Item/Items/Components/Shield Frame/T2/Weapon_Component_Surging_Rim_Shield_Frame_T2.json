@@ -30,6 +30,7 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 2,
+    "outputAssetID": "Weapon_Shield_Iron",
     "implicits": [
       {
         "stat": "MANA_REGEN_FLAT",

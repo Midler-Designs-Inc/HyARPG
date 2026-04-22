@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
-        "Quantity": 21
-      },
-      {
-        "ItemId": "Wood_Oak_Trunk_Full",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "STAMINA_FLAT",
-        "min": 2.4,
-        "max": 15
+        "min": 1.8,
+        "max": 4.8
       }
     ]
   },

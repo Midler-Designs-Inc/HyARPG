@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Void_Essence",
-        "Quantity": 3
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "MAGIC_RESIST_PERCENT",
-        "min": 1,
-        "max": 6
+        "min": 0.4,
+        "max": 1
       }
     ]
   },

@@ -30,7 +30,6 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 0,
-    "outputAssetID": "Weapon_Shield_Crude",
     "implicits": [
       {
         "stat": "LIFE_REGEN_FLAT",

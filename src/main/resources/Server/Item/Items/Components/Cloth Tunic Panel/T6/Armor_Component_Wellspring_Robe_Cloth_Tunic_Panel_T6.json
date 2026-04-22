@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Shadoweave",
-        "Quantity": 28
-      },
-      {
-        "ItemId": "Ingredient_Water_Essence",
-        "Quantity": 7
+        "Quantity": 70
       }
     ],
     "BenchRequirement": [
@@ -37,14 +33,9 @@
     "outputAssetID": "Armor_Cloth_Wool_Tunic",
     "implicits": [
       {
-        "stat": "MANA_FLAT",
-        "min": 3.6,
-        "max": 21
-      },
-      {
         "stat": "MANA_REGEN_FLAT",
-        "min": 0.12,
-        "max": 0.6
+        "min": 0.06,
+        "max": 0.24
       }
     ]
   },

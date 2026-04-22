@@ -30,6 +30,7 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 5,
+    "outputAssetID": "Weapon_Shield_Adamantite",
     "implicits": [
       {
         "stat": "ICE_RESIST_PERCENT",

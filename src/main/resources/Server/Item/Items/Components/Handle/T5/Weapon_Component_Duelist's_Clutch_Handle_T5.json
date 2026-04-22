@@ -33,8 +33,8 @@
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
-        "min": 1.2,
-        "max": 3
+        "min": 12,
+        "max": 33
       }
     ]
   },

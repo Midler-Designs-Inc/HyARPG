@@ -38,13 +38,13 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 10,
-        "max": 60
+        "min": 2,
+        "max": 5
       },
       {
         "stat": "STAMINA_FLAT",
-        "min": 1,
-        "max": 6
+        "min": 0.4,
+        "max": 1
       }
     ]
   },

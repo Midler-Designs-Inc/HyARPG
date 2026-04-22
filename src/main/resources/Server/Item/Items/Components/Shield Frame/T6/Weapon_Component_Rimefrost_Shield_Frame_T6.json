@@ -30,6 +30,7 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 6,
+    "outputAssetID": "Weapon_Shield_Mithril",
     "implicits": [
       {
         "stat": "STAMINA_REGEN_FLAT",

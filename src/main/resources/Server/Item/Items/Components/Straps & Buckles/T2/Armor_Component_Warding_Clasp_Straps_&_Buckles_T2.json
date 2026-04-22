@@ -12,14 +12,14 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 6
-      },
-      {
-        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 3
       },
       {
-        "ItemId": "Ingredient_Ice_Essence",
+        "ItemId": "Ingredient_Leather_Light",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 3
       }
     ],
@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",
-        "min": 1,
-        "max": 6
+        "min": 0.3,
+        "max": 0.8
       }
     ]
   },

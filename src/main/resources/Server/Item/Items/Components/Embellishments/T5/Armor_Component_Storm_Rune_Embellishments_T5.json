@@ -15,10 +15,6 @@
         "Quantity": 6
       },
       {
-        "ItemId": "Cloth_Block_Wool_Yellow",
-        "Quantity": 6
-      },
-      {
         "ItemId": "Ingredient_Lightning_Essence",
         "Quantity": 6
       }
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIGHTNING_RESIST_PERCENT",
-        "min": 4,
-        "max": 25
+        "min": 1,
+        "max": 2.5
       }
     ]
   },

@@ -139,6 +139,9 @@ public class Module_RPGSystem {
         // refresh gear score
         rpgPlayer.calculateGearScore(entityRef, store);
         rpgPlayer.calculateAffixStats(player.getReference(), store);
+
+        // check if the player should be included in any raid
+        plugin.raidSystem.onPlayerJoinedWhileRaidActive(entityRef);
     }
 
     // This function runs whenever a PlayerDisconnect event is posted

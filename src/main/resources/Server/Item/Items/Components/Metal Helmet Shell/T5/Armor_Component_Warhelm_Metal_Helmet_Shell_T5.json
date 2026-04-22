@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
-        "Quantity": 18
-      },
-      {
-        "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 20,
-        "max": 125
+        "min": 7.5,
+        "max": 20
       }
     ]
   },

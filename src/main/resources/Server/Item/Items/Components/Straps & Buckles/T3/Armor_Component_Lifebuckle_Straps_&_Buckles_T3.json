@@ -17,10 +17,6 @@
       {
         "ItemId": "Ingredient_Leather_Medium",
         "Quantity": 8
-      },
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 12,
-        "max": 75
+        "min": 2.4,
+        "max": 6
       }
     ]
   },

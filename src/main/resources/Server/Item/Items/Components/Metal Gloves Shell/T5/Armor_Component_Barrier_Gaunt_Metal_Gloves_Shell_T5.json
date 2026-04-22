@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Barrier_Gaunt_Metal_Gloves_Shell_T5.json.name",
+    "Description": "server.items.components.Armor_Component_Barrier_Gaunt_Metal_Gloves_Shell_T5.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T5/Armor_Component_Metal_Gloves_Shell_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Metal_Gloves_Shell_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T5/Armor_Component_Metal_Gloves_Shell.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 60
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Metal Gloves Shell",
+    "tier": 5,
+    "outputAssetID": "Armor_Adamantite_Gloves",
+    "implicits": [
+      {
+        "stat": "BARRIER_ON_BLOCK",
+        "min": 1.5,
+        "max": 5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

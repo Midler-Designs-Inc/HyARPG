@@ -30,11 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 3,
+    "outputAssetID": "Weapon_Shield_Thorium",
     "implicits": [
       {
         "stat": "BARRIER_ON_BLOCK",
-        "min": 2,
-        "max": 6
+        "min": 0.04,
+        "max": 0.2
       }
     ]
   },

@@ -250,16 +250,24 @@ public class Module_PlayerHud {
                     );
                     if (!showRoomInfo || rpgPlayer.territory.getOwnerUuid() == null) return;
 
+                    // get the viewing player's uuid
+                    com.hypixel.hytale.server.core.entity.UUIDComponent viewerUuid = store.getComponent(entityRef, com.hypixel.hytale.server.core.entity.UUIDComponent.getComponentType());
+
                     // priority: room > outdoor space > territory label
                     PlayerRef territoryOwner = Universe.get().getPlayer(rpgPlayer.territory.getOwnerUuid());
                     String ownerName = territoryOwner != null ? territoryOwner.getUsername() : "Unknown";
                     String roomText;
-                    if (rpgPlayer.room != null)
-                        roomText = rpgPlayer.room.getDesignatedRoomType();
-                    else if (rpgPlayer.outdoorRoom != null)
-                        roomText = rpgPlayer.outdoorRoom.getDesignatedRoomType();
-                    else
-                        roomText = ownerName + "'s Territory";
+                    if (rpgPlayer.room != null) roomText = rpgPlayer.room.getDesignatedRoomType();
+                    else if (rpgPlayer.outdoorRoom != null) roomText = rpgPlayer.outdoorRoom.getDesignatedRoomType();
+                    else {
+                        boolean isOwnerOrCoOwner = viewerUuid != null && (viewerUuid.getUuid().equals(rpgPlayer.territory.getOwnerUuid()) || rpgPlayer.territory.isCoOwner(viewerUuid.getUuid()));
+                        if (isOwnerOrCoOwner) {
+                            PlayerRef viewerPlayerRef = Universe.get().getPlayer(viewerUuid.getUuid());
+                            roomText = viewerPlayerRef != null ? viewerPlayerRef.getUsername() + "'s Territory" : ownerName + "'s Territory";
+                        } else roomText = ownerName + "'s Territory";
+                    }
+
+                    // set the room text
                     hudRef.getById("currentRoom", LabelBuilder.class).ifPresent(l -> l
                             .withText(roomText)
                     );

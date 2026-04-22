@@ -12,10 +12,10 @@
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 4
+        "Quantity": 2
       },
       {
-        "ItemId": "Cloth_Block_Wool_White",
+        "ItemId": "Ingredient_Bolt_Wool",
         "Quantity": 2
       }
     ],
@@ -37,9 +37,9 @@
     "outputAssetID": "Armor_Component_Reinforced_Stitching",
     "implicits": [
       {
-        "stat": "PHYSICAL_RESIST_PERCENT",
-        "min": 0.8,
-        "max": 5
+        "stat": "STAMINA_FLAT",
+        "min": 0.15,
+        "max": 0.4
       }
     ]
   },

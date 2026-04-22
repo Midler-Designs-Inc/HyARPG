@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bolt_Cindercloth",
-        "Quantity": 18
-      },
-      {
-        "ItemId": "Cloth_Block_Wool_Purple",
-        "Quantity": 6
+        "Quantity": 60
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,13 @@
     "implicits": [
       {
         "stat": "MANA_FLAT",
-        "min": 5,
-        "max": 31.25
+        "min": 1,
+        "max": 2.5
+      },
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.025,
+        "max": 0.075
       }
     ]
   },

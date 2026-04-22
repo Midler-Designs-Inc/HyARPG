@@ -30,11 +30,12 @@
   "CraftingComponent": {
     "type": "Shield Frame",
     "tier": 2,
+    "outputAssetID": "Weapon_Shield_Iron",
     "implicits": [
       {
         "stat": "BARRIER_ON_BLOCK",
-        "min": 1.5,
-        "max": 4.5
+        "min": 0.03,
+        "max": 0.15
       }
     ]
   },

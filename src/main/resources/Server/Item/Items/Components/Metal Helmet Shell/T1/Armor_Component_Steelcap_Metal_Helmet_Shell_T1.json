@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Steelcap_Metal_Helmet_Shell_T1.json.name",
+    "Description": "server.items.components.Armor_Component_Steelcap_Metal_Helmet_Shell_T1.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T1/Armor_Component_Metal_Helmet_Shell_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Metal_Helmet_Shell_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Metal_Helmet_Shell.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 20
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Metal Helmet Shell",
+    "tier": 1,
+    "outputAssetID": "Armor_Copper_Helmet",
+    "implicits": [
+      {
+        "stat": "STABILITY_PERCENT",
+        "min": 0.2,
+        "max": 0.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Conduit_Sigil_Embellishments_T5.json.name",
+    "Description": "server.items.components.Armor_Component_Conduit_Sigil_Embellishments_T5.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Embellishments_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Embellishments.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Embellishments.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Cindercloth",
+        "Quantity": 12
+      },
+      {
+        "ItemId": "Ingredient_Void_Essence",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Stitching_and_Embellishments"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Embellishments",
+    "tier": 5,
+    "outputAssetID": "Armor_Component_Conduit_Sigil_Embellishments",
+    "implicits": [
+      {
+        "stat": "MANA_FLAT",
+        "min": 0.75,
+        "max": 2
+      },
+      {
+        "stat": "MANA_REGEN_FLAT",
+        "min": 0.025,
+        "max": 0.075
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

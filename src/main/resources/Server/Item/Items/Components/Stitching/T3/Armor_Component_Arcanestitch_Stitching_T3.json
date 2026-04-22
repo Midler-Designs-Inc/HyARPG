@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Arcanestitch_Stitching_T3.json.name",
+    "Description": "server.items.components.Armor_Component_Arcanestitch_Stitching_T3.json.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ingredient_Sinue_Cindersinue.png",
+  "Model": "Resources/Materials/Sinue.blockymodel",
+  "Texture": "Resources/Materials/Sinue_Cinder_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 8,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Cotton",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 3,
+        "Categories": [
+          "Stitching_and_Embellishments"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Stitching",
+    "tier": 3,
+    "outputAssetID": "Armor_Component_Arcanestitch_Stitching",
+    "implicits": [
+      {
+        "stat": "MANA_FLAT",
+        "min": 0.9,
+        "max": 2.1
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

@@ -657,14 +657,6 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         return (type != null && type.isString()) ? type.asString().getValue() : null;
     }
 
-    // extracts the component tier from the raw asset json e.g. 1
-    private static int extractComponentTier(@Nonnull String itemId) {
-        BsonDocument component = readCraftingComponent(itemId);
-        if (component == null) return -1;
-        BsonValue tier = component.get("tier");
-        return (tier != null && tier.isInt32()) ? tier.asInt32().getValue() : -1;
-    }
-
     // checks if this item is allowed for the active weapon (and/or in this slot as applicable)
     public boolean isComponentAllowed(@Nonnull String itemId, @Nullable Integer slot) {
         // shards are always valid in slot 3 only

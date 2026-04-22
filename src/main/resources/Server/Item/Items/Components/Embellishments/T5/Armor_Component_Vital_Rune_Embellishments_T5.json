@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Vital_Rune_Embellishments_T5.json.name",
+    "Description": "server.items.components.Armor_Component_Vital_Rune_Embellishments_T5.json.description"
+  },
+  "Icon": "Icons/Items/Armor_Component_Embellishments_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Embellishments.blockymodel",
+  "Texture": "Items/Armor/Components/T1/Armor_Component_Embellishments.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Cindercloth",
+        "Quantity": 6
+      },
+      {
+        "ItemId": "Ingredient_Life_Essence",
+        "Quantity": 6
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Stitching_and_Embellishments"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Embellishments",
+    "tier": 5,
+    "outputAssetID": "Armor_Component_Vital_Rune_Embellishments",
+    "implicits": [
+      {
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.05,
+        "max": 0.1
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

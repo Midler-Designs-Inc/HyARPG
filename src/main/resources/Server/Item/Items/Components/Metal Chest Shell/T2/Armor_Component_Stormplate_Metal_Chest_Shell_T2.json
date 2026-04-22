@@ -12,11 +12,7 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
-        "Quantity": 9
-      },
-      {
-        "ItemId": "Ingredient_Lightning_Essence",
-        "Quantity": 6
+        "Quantity": 30
       }
     ],
     "BenchRequirement": [
@@ -38,8 +34,8 @@
     "implicits": [
       {
         "stat": "LIGHTNING_RESIST_PERCENT",
-        "min": 1.6,
-        "max": 10
+        "min": 0.6,
+        "max": 1.4
       }
     ]
   },

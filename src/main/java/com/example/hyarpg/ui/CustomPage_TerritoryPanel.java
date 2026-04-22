@@ -6,8 +6,13 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
+import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerRespawnPointData;
+import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerWorldData;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
@@ -23,6 +28,7 @@ import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 // Java Imports
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -73,6 +79,11 @@ public class CustomPage_TerritoryPanel extends InteractiveCustomUIPage<CustomPag
             events.addEventBinding(CustomUIEventBindingType.Activating, "#TPWithdrawOwnership", EventData.of("Action", "withdraw_ownership"));
         }
 
+        // bind set spawn button — owner and co-owners
+        if (isOwner || isCoOwner) {
+            events.addEventBinding(CustomUIEventBindingType.Activating, "#TPSetSpawn", EventData.of("Action", "set_spawn"));
+        }
+
         // apply initial state
         applyState(cmd, ref, store, viewerUuid, isOwner, isCoOwner);
     }
@@ -89,9 +100,9 @@ public class CustomPage_TerritoryPanel extends InteractiveCustomUIPage<CustomPag
         if (data.action.startsWith("remove:") && isOwner) {
             // remove co-owner at index
             int idx = Integer.parseInt(data.action.substring("remove:".length())) - 1;
-            List<UUID> coOwners = territory.getCoOwners();
+            List<TerritoryData.CoOwnerEntry> coOwners = territory.getCoOwners();
             if (idx >= 0 && idx < coOwners.size()) {
-                territory.removeCoOwner(coOwners.get(idx));
+                territory.removeCoOwner(coOwners.get(idx).uuid());
                 saveTerritory(store);
             }
         } else if (data.action.startsWith("approve:") && isOwner) {
@@ -99,7 +110,10 @@ public class CustomPage_TerritoryPanel extends InteractiveCustomUIPage<CustomPag
             int idx = Integer.parseInt(data.action.substring("approve:".length())) - 1;
             List<UUID> requests = territory.getCoOwnerRequests();
             if (idx >= 0 && idx < requests.size()) {
-                territory.approveCoOwner(requests.get(idx), viewerUuid);
+                UUID approvedUuid = requests.get(idx);
+                PlayerRef approvedRef = Universe.get().getPlayer(approvedUuid);
+                String approvedUsername = approvedRef != null ? approvedRef.getUsername() : approvedUuid.toString().substring(0, 8) + "...";
+                territory.approveCoOwner(approvedUuid, viewerUuid, approvedUsername);
                 saveTerritory(store);
             }
         } else if (data.action.startsWith("deny:") && isOwner) {
@@ -128,6 +142,20 @@ public class CustomPage_TerritoryPanel extends InteractiveCustomUIPage<CustomPag
                 territory.removeCoOwner(viewerUuid);
                 saveTerritory(store);
             }
+        } else if (data.action.equals("set_spawn") && (isOwner || isCoOwner)) {
+            // set the territory's lightwell as the viewer's spawn point
+            try {
+                Player player = store.getComponent(ref, Player.getComponentType());
+                if (player != null) {
+                    Vector3i pos = territory.getCenter();
+                    PlayerWorldData worldData = player.getPlayerConfigData().getPerWorldData(store.getExternalData().getWorld().getName());
+                    PlayerRespawnPointData[] existing = worldData.getRespawnPoints();
+                    PlayerRespawnPointData newPoint = new PlayerRespawnPointData(pos, new Vector3d(pos.x + 0.5, pos.y + 1.0, pos.z + 0.5), "Light Well");
+                    PlayerRespawnPointData[] updated = existing == null ? new PlayerRespawnPointData[]{ newPoint } : Arrays.copyOf(existing, existing.length + 1);
+                    if (existing != null) updated[existing.length] = newPoint;
+                    worldData.setRespawnPoints(updated);
+                }
+            } catch (IllegalStateException ignored) {}
         }
 
         // refresh state after any action
@@ -142,14 +170,13 @@ public class CustomPage_TerritoryPanel extends InteractiveCustomUIPage<CustomPag
         cmd.set("#TPOwnerName.Text", resolveName(territory.getOwnerUuid(), store));
 
         // populate co-owner rows
-        List<UUID> coOwners = territory.getCoOwners();
+        List<TerritoryData.CoOwnerEntry> coOwners = territory.getCoOwners();
         for (int i = 1; i <= MAX_CO_OWNERS; i++) {
             int idx = i - 1;
             boolean hasCoOwner = idx < coOwners.size();
             cmd.set("#TPCoOwnerRow" + i + ".Visible", hasCoOwner);
             if (hasCoOwner) {
-                cmd.set("#TPCoOwnerName" + i + ".Text", resolveName(coOwners.get(idx), store));
-                // remove button only visible to owner, and not for themselves (though co-owners can't be the owner)
+                cmd.set("#TPCoOwnerName" + i + ".Text", coOwners.get(idx).username());
                 cmd.set("#TPRemoveCoOwner" + i + ".Visible", isOwner);
             }
         }
@@ -186,6 +213,9 @@ public class CustomPage_TerritoryPanel extends InteractiveCustomUIPage<CustomPag
         cmd.set("#TPRequestOwnership.Visible",  !isOwner && !isCoOwner && !hasPendingRequest && !atCapacity);
         cmd.set("#TPWithdrawRequest.Visible",   !isOwner && !isCoOwner && hasPendingRequest);
         cmd.set("#TPWithdrawOwnership.Visible", isCoOwner);
+
+        // set spawn button — owner and co-owners only
+        cmd.set("#TPSetSpawn.Visible", isOwner || isCoOwner);
     }
 
     // resolve a UUID to a display name — tries online players first, falls back to UUID string

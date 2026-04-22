@@ -30,7 +30,6 @@
   "CraftingComponent": {
     "type": "Shield Body",
     "tier": 3,
-    "outputAssetID": "Weapon_Shield_Thorium",
     "implicits": [
       {
         "stat": "LIFE_REGEN_FLAT",

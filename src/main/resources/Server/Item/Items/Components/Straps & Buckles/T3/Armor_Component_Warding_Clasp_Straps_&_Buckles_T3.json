@@ -12,14 +12,14 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
-        "Quantity": 8
-      },
-      {
-        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 4
       },
       {
-        "ItemId": "Ingredient_Ice_Essence",
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Ingredient_Fire_Essence",
         "Quantity": 4
       }
     ],
@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",
-        "min": 1.5,
-        "max": 9
+        "min": 0.45,
+        "max": 1.2
       }
     ]
   },

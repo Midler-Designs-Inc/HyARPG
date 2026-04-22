@@ -17,10 +17,6 @@
       {
         "ItemId": "Ingredient_Leather_Storm",
         "Quantity": 12
-      },
-      {
-        "ItemId": "Ingredient_Life_Essence",
-        "Quantity": 6
       }
     ],
     "BenchRequirement": [
@@ -42,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIFE_FLAT",
-        "min": 20,
-        "max": 125
+        "min": 4,
+        "max": 10
       }
     ]
   },

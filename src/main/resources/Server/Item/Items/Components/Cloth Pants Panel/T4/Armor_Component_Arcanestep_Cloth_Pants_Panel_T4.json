@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Armor_Component_Arcanestep_Cloth_Pants_Panel_T4.json.name",
+    "Description": "server.items.components.Armor_Component_Arcanestep_Cloth_Pants_Panel_T4.json.description"
+  },
+  "Icon": "Icons/Items/Armor/T4/Armor_Component_Cloth_Pants_Panel_Icon.png",
+  "Model": "Items/Armor/Components/T1/Armor_Component_Cloth_Pants_Panel_T1.blockymodel",
+  "Texture": "Items/Armor/Components/T4/Armor_Component_Cloth_Pants_Panel.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bolt_Silk",
+        "Quantity": 50
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 4,
+        "Categories": [
+          "Cloth_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Cloth Pants Panel",
+    "tier": 4,
+    "outputAssetID": "Armor_Cloth_Wool_Pants",
+    "implicits": [
+      {
+        "stat": "MAGIC_RESIST_PERCENT",
+        "min": 1.2,
+        "max": 3.2
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

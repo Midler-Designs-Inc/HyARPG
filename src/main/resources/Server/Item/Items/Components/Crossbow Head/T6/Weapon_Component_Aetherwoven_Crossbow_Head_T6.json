@@ -3,9 +3,9 @@
     "Name": "server.items.components.Weapon_Component_Aetherwoven_Crossbow_Head_T6.json.name",
     "Description": "server.items.components.Weapon_Component_Aetherwoven_Crossbow_Head_T6.json.description"
   },
-  "Icon": "Icons/Items/Weapons/T6/Weapon_Component_Crossbow_Head_Icon.png",
-  "Model": "Items/Weapons/Components/T1/Weapon_Component_Crossbow_Head_T1.blockymodel",
-  "Texture": "Items/Weapons/Components/T6/Weapon_Component_Crossbow.png",
+  "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
   "Recipe": {
     "TimeSeconds": 14,
     "KnowledgeRequired": true,

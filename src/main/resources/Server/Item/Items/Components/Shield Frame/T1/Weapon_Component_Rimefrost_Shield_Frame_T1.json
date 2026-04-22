@@ -3,9 +3,9 @@
     "Name": "server.items.components.Weapon_Component_Rimefrost_Shield_Frame_T1.json.name",
     "Description": "server.items.components.Weapon_Component_Rimefrost_Shield_Frame_T1.json.description"
   },
-  "Icon": "Icons/Items/Weapon_Component_Shield_Frame_T1_Icon.png",
-  "Model": "Items/Weapons/Components/T1/Weapon_Component_Shield_Frame_T1.blockymodel",
-  "Texture": "Items/Weapons/Shield/Copper_Texture.png",
+  "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
   "Recipe": {
     "TimeSeconds": 4,
     "KnowledgeRequired": true,

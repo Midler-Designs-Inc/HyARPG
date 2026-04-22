@@ -1,0 +1,275 @@
+$Common = "../../Common.ui";
+
+@GearPanel = Group {
+    LayoutMode: Top;
+    Anchor: (Width: 220);
+
+    // -------------------------------------------------------------------------
+    // Scrollable stats panel — full left column, all stat sections
+    // -------------------------------------------------------------------------
+    Group {
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+
+        Group {
+            LayoutMode: Top;
+            Anchor: (Right: 8, Top: 4, Bottom: 4);
+
+            // Overview
+            Label { Text: "Overview"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Player Level"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatPlayerLevel { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 10);
+                Label { Text: "Gear Score"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatGearScore { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+
+            // Offense
+            Label { Text: "Offense"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Physical Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatPhysDmgFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Physical Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatPhysDmgPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Magic Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatMagicDmgFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Magic Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatMagicDmgPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Fire Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatFireDmgFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Fire Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatFireDmgPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Ice Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatIceDmgFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Ice Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatIceDmgPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Lightning Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLightningDmgFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Lightning Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLightningDmgPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Poison Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatPoisonDmgFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Poison Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatPoisonDmgPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Crit Chance"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatCritChance { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Crit Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatCritDamage { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Axe Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatAxeDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Battleaxe Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatBattleaxeDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Club Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatClubDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Daggers Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatDaggersDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Kunai Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatKunaiDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Longsword Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLongswordDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Mace Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatMaceDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Shortbow Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatShortbowDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Crossbow Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatCrossbowDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 10);
+                Label { Text: "Sword Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatSwordDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+
+            // Defense
+            Label { Text: "Defense"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Dodge Chance"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatDodgeChance { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Stability"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatStability { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Parry Window"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatParryWindow { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 10);
+                Label { Text: "Barrier on Block"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatBarrierOnBlock { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+
+            // Resources
+            Label { Text: "Resources"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Life"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLifeFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Life"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLifePct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Stamina"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatStaminaFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Stamina"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatStaminaPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Mana"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatManaFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 10);
+                Label { Text: "Mana"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatManaPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+
+            // Regeneration
+            Label { Text: "Regeneration"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Life Regen"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLifeRegenFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Life Regen"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLifeRegenPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Stamina Regen"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatStaminaRegenFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Stamina Regen"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatStaminaRegenPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Mana Regen"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatManaRegenFlat { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 10);
+                Label { Text: "Mana Regen"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatManaRegenPct { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+
+            // Resistances
+            Label { Text: "Resistances"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Physical Resist"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatPhysResist { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Magic Resist"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatMagicResist { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Elemental Resist"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatElementalResist { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Fire Resist"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatFireResist { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Ice Resist"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatIceResist { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Lightning Resist"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLightningResist { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Poison Resist"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatPoisonResist { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 10);
+                Label { Text: "Fall Resist"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatFallResist { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+
+            // Advanced
+            Label { Text: "Advanced"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Life Leech"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatLifeLeech { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Mana Leech"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatManaLeech { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Stamina Leech"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatStaminaLeech { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Damage from Mana"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatDmgFromMana { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 10);
+                Label { Text: "Damage from Stamina"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatDmgFromStamina { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+
+            // Utility
+            Label { Text: "Utility"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
+            Group { LayoutMode: Left; Anchor: (Bottom: 6);
+                Label { Text: "Run Speed"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatRunSpeed { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Ammo"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatAmmo { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 4);
+                Label { Text: "Ammo Regen"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatAmmoRegen { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+        }
+    }
+};

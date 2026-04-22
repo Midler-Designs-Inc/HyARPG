@@ -1,0 +1,56 @@
+$Common = "Common.ui";
+$GearPanel    = "Inventory/Pages/CustomPage_InventoryStatsPanel.ui";
+$InventoryGrid = "Inventory/Pages/CustomPage_InventoryGrid.ui";
+$InspectPanel  = "Inventory/Pages/CustomPage_InventoryInspect.ui";
+
+SceneBlur {}
+
+Group { Background: #000000(0.55); }
+
+Group {
+    LayoutMode: Center;
+
+    Group {
+        Anchor: (Width: 1200);
+        LayoutMode: Top;
+        Padding: (Top: 25);
+
+        $Common.@DecoratedContainer #InventoryPage {
+            @ContentPadding = Padding(Full: 0);
+            Anchor: (Width: 1200, Height: 720);
+
+            #ContainerDecorationTop    { Anchor: (Width: 236, Height: 11, Top: 0); }
+            #ContainerDecorationBottom { Anchor: (Width: 236, Height: 11, Bottom: 0); }
+
+            #Title {
+                Padding: (Top: 0);
+                Label {
+                    Text: "CHARACTER";
+                    Style: (...$Common.@TitleStyle, TextColor: #ffffff, VerticalAlignment: Center, Alignment: Center);
+                    Anchor: (Full: 0);
+                }
+            }
+
+            #Content {
+                LayoutMode: Left;
+                Anchor: (Height: 660);
+                Padding: (Left: 12, Top: 12, Bottom: 12, Right: 12);
+
+                // Left column — gear slots + scrollable stats
+                $GearPanel.@GearPanel #GearPanel {}
+
+                // Vertical separator
+                $Common.@VerticalSeparator {}
+
+                // Center column — inventory grid + hotbar
+                $InventoryGrid.@InventoryGrid #InventoryGrid {}
+
+                // Vertical separator
+                $Common.@VerticalSeparator {}
+
+                // Right column — item inspect panel
+                $InspectPanel.@InspectPanel #InspectPanel {}
+            }
+        }
+    }
+}

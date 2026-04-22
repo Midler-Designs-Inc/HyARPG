@@ -3,7 +3,7 @@
     "Name": "server.items.Bench_Leatherworking.name",
     "Description": "server.items.Bench_Leatherworking.description"
   },
-  "Icon": "Icons/Items/Leatherworking_Icon.png",
+  "Icon": "Icons/ItemsGenerated/Bench_Furniture.png",
   "Categories": [
     "Furniture.Benches"
   ],
@@ -37,10 +37,10 @@
     "Material": "Solid",
     "DrawType": "Model",
     "Opacity": "Transparent",
-    "CustomModel": "Blocks/Benches/Leatherworking.blockymodel",
+    "CustomModel": "Blocks/Benches/Furniture.blockymodel",
     "CustomModelTexture": [
       {
-        "Texture": "Blocks/Benches/Leatherworking_Texture.png",
+        "Texture": "Blocks/Benches/Furniture_Texture.png",
         "Weight": 1
       }
     ],

@@ -4,7 +4,7 @@
   },
   "Parent": "Armor_Iron_Head",
   "ItemLevel": 60,
-  "Icon": "Icons/ItemsGenerated/Armor_Leather_Savage_Head_Icon.png",
+  "Icon": "Icons/ItemsGenerated/Armor_Trork_Warrior_Head.png",
   "Model": "Items/Armors/Trork_Warrior/Head.blockymodel",
   "Texture": "Items/Armors/Trork_Warrior/Head_Texture.png",
   "Recipe": {

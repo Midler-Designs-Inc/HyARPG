@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "MAIN_HAND_ICE_DAMAGE_FLAT",
-        "min": 8,
-        "max": 8
+        "min": 6,
+        "max": 6
       }
     ]
   },

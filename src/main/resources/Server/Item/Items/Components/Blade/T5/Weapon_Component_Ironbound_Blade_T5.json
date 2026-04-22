@@ -34,8 +34,8 @@
     "implicits": [
       {
         "stat": "MAIN_HAND_PHYSICAL_DAMAGE_FLAT",
-        "min": 18,
-        "max": 18
+        "min": 12,
+        "max": 12
       }
     ]
   },

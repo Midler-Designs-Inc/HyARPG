@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "MAIN_HAND_POISON_DAMAGE_FLAT",
-        "min": 15,
-        "max": 15
+        "min": 20,
+        "max": 20
       }
     ]
   },

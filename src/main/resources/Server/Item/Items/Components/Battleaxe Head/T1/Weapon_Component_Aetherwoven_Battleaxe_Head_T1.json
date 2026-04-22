@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "MAIN_HAND_MAGIC_DAMAGE_FLAT",
-        "min": 8,
-        "max": 8
+        "min": 10,
+        "max": 10
       }
     ]
   },

@@ -3,9 +3,6 @@
   "TranslationProperties": {
     "Name": "server.items.Weapon_Crossbow_Mithril.name"
   },
-  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
-  "Texture": "Items/Weapons/Crossbow/Mythril_Texture.png",
-  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Mythril.png",
   "Quality": "Legendary",
   "ItemLevel": 60,
   "Recipe": {

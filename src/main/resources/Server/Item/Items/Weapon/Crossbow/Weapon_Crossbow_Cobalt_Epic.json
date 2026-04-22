@@ -2,9 +2,6 @@
   "TranslationProperties": {
     "Name": "server.items.Weapon_Crossbow_Cobalt.name"
   },
-  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
-  "Texture": "Items/Weapons/Crossbow/Cobalt_Crossbow_Texture.png",
-  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Cobalt.png",
   "Quality": "Epic",
   "ItemLevel": 40,
   "Recipe": {

@@ -3,9 +3,6 @@
   "TranslationProperties": {
     "Name": "server.items.Weapon_Crossbow_Adamantite.name"
   },
-  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
-  "Texture": "Items/Weapons/Crossbow/Adamantite_Texture.png",
-  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Adamantite.png",
   "Quality": "Legendary",
   "ItemLevel": 50,
   "Recipe": {

@@ -7,7 +7,6 @@
   "Categories": [
     "Items.Weapons"
   ],
-  "Icon": "Icons/ItemsGenerated/Kunai/Bone_Kunai_Icon.png",
   "IconProperties": {
     "Scale": 0.5,
     "Rotation": [
@@ -22,8 +21,6 @@
   },
   "Quality": "Common",
   "ItemLevel": 1,
-  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
-  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Bone_Kunai.png",
   "PlayerAnimationsId": "Throwing_Knife",
   "Utility": {
     "Usable": true

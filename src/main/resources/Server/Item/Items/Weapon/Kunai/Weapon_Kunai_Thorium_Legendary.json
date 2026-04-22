@@ -8,7 +8,6 @@
     "Items.Weapons",
     "Items.HyARPG.Gear"
   ],
-  "Icon": "Icons/ItemsGenerated/Kunai/Thorium_Kunai_Icon.png",
   "IconProperties": {
     "Scale": 0.5,
     "Rotation": [
@@ -23,8 +22,6 @@
   },
   "Quality": "Legendary",
   "ItemLevel": 30,
-  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
-  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Thorium_Kunai.png",
   "PlayerAnimationsId": "Throwing_Knife",
   "Utility": {
     "Usable": true

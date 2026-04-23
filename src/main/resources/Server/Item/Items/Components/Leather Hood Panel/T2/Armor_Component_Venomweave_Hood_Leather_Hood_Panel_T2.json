@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Hood Panel",
     "tier": 2,
-    "outputAssetID": "Armor_Leather_Light_Hood",
+    "outputAssetID": "Armor_Leather_Light_Head",
     "implicits": [
       {
         "stat": "POISON_RESIST_PERCENT",

@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Glove Panel",
     "tier": 5,
-    "outputAssetID": "Armor_Leather_Storm_Glove",
+    "outputAssetID": "Armor_Leather_Storm_Hands",
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",

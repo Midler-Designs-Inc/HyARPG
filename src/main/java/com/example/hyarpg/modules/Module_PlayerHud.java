@@ -175,15 +175,15 @@ public class Module_PlayerHud {
                             "SP " + rpgPlayer.skillPoints + "  |  GS " + String.valueOf(gearScore) + "  |  Lv " + String.valueOf(playerLevel)
                     ));
                     hudRef.getById("skillIcon_Q", ImageBuilder.class).ifPresent(l -> l
-                            .withImage(rpgPlayer.ultimateAbilityIcon == null ? "" : rpgPlayer.ultimateAbilityIcon)
+                            .withImage(rpgPlayer.ultimateAbilityIcon == null ? "" : "Skill_Icons/" + rpgPlayer.ultimateAbilityIcon)
                             .withVisible(rpgPlayer.ultimateAbilityIcon != null)
                     );
                     hudRef.getById("skillIcon_E", ImageBuilder.class).ifPresent(l -> l
-                            .withImage(rpgPlayer.primaryAbilityIcon == null ? "" : rpgPlayer.primaryAbilityIcon)
+                            .withImage(rpgPlayer.primaryAbilityIcon == null ? "" : "Skill_Icons/" + rpgPlayer.primaryAbilityIcon)
                             .withVisible(rpgPlayer.primaryAbilityIcon != null)
                     );
                     hudRef.getById("skillIcon_R", ImageBuilder.class).ifPresent(l -> l
-                            .withImage(rpgPlayer.secondaryAbilityIcon == null ? "" : rpgPlayer.secondaryAbilityIcon)
+                            .withImage(rpgPlayer.secondaryAbilityIcon == null ? "" : "Skill_Icons/" + rpgPlayer.secondaryAbilityIcon)
                             .withVisible(rpgPlayer.secondaryAbilityIcon != null)
                     );
                     hudRef.getById("skillSlotOverlay_Label_E", LabelBuilder.class).ifPresent(l -> l
@@ -407,7 +407,7 @@ public class Module_PlayerHud {
                 .setBottom(135)
                 .setRight(165)
             )
-            .withImage("HyARPG_Texture_EmptySkillSlot.png")
+            .withImage("HUD/HyARPG_Texture_EmptySkillSlot.png")
         )
         .addElement(new ImageBuilder()
             .withId("skillIcon_E")
@@ -474,7 +474,7 @@ public class Module_PlayerHud {
                 .setBottom(135)
                 .setRight(80)
             )
-            .withImage("HyARPG_Texture_EmptySkillSlot.png")
+            .withImage("HUD/HyARPG_Texture_EmptySkillSlot.png")
         )
         .addElement(new ImageBuilder()
             .withId("skillIcon_R")
@@ -541,7 +541,7 @@ public class Module_PlayerHud {
                 .setBottom(153)
                 .setRight(269)
             )
-            .withImage("HyARPG_Texture_EmptySkillSlot.png")
+            .withImage("HUD/HyARPG_Texture_EmptySkillSlot.png")
         )
         .addElement(new ImageBuilder()
             .withId("skillIcon_Q")

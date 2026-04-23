@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Helmet Shell",
     "tier": 2,
-    "outputAssetID": "Armor_Iron_Helmet",
+    "outputAssetID": "Armor_Iron_Head",
     "implicits": [
       {
         "stat": "POISON_RESIST_PERCENT",

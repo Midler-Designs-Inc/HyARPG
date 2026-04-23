@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Gloves Shell",
     "tier": 3,
-    "outputAssetID": "Armor_Thorium_Gloves",
+    "outputAssetID": "Armor_Thorium_Hands",
     "implicits": [
       {
         "stat": "BARRIER_ON_BLOCK",

@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Glove Panel",
     "tier": 3,
-    "outputAssetID": "Armor_Leather_Medium_Glove",
+    "outputAssetID": "Armor_Leather_Medium_Hands",
     "implicits": [
       {
         "stat": "POISON_RESIST_PERCENT",

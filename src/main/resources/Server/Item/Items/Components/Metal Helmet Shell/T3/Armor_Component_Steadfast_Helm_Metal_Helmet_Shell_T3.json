@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Helmet Shell",
     "tier": 3,
-    "outputAssetID": "Armor_Thorium_Helmet",
+    "outputAssetID": "Armor_Thorium_Head",
     "implicits": [
       {
         "stat": "LIFE_FLAT",

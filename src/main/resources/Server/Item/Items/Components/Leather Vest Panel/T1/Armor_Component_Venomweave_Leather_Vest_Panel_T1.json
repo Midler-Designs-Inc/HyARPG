@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Vest Panel",
     "tier": 1,
-    "outputAssetID": "Armor_Leather_Soft_Vest",
+    "outputAssetID": "Armor_Leather_Soft_Chest",
     "implicits": [
       {
         "stat": "POISON_RESIST_PERCENT",

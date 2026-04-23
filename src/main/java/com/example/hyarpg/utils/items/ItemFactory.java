@@ -189,7 +189,7 @@ public class ItemFactory {
         if (item == null) return null;
 
         // derive weapon type and rarity from item id
-        String weaponType = deriveWeaponType(itemId);
+        String weaponType = deriveItemType(itemId);
         String rarity = deriveRarity(itemId);
         if (weaponType == null || rarity == null) return null;
 
@@ -264,14 +264,42 @@ public class ItemFactory {
 
     // derives the weapon type string from an item id e.g. "Weapon_Axe_Copper_Common" -> "Axe"
     @Nullable
-    public static String deriveWeaponType(@Nonnull String itemId) {
-        // strip Weapon_ or Armor_ prefix then take the next segment
-        String stripped = itemId.startsWith("Weapon_") ? itemId.substring("Weapon_".length())
-                : itemId.startsWith("Armor_")  ? itemId.substring("Armor_".length())
-                : null;
-        if (stripped == null) return null;
-        int nextUnderscore = stripped.indexOf('_');
-        return nextUnderscore > 0 ? stripped.substring(0, nextUnderscore) : stripped;
+    public static String deriveItemType(@Nonnull String itemId) {
+        if (itemId.startsWith("Weapon_")) {
+            String stripped = itemId.substring("Weapon_".length());
+            int nextUnderscore = stripped.indexOf('_');
+            return nextUnderscore > 0 ? stripped.substring(0, nextUnderscore) : stripped;
+        } else if (itemId.startsWith("Armor_")) {
+            String[] parts = itemId.split("_");
+            // piece is second-to-last segment (last is rarity): Head, Chest, Hands, Legs
+            String piece = parts[parts.length - 2];
+            String material = parts[1]; // Mithril, Leather, Cloth
+
+            return switch (material) {
+                case "Leather" -> switch (piece) {
+                    case "Head"  -> "Leather Hood";
+                    case "Chest" -> "Leather Vest";
+                    case "Hands" -> "Leather Gloves";
+                    case "Legs"  -> "Leather Pants";
+                    default -> null;
+                };
+                case "Cloth" -> switch (piece) {
+                    case "Head"  -> "Cloth Hood";
+                    case "Chest" -> "Cloth Tunic";
+                    case "Hands" -> "Cloth Gloves";
+                    case "Legs"  -> "Cloth Pants";
+                    default -> null;
+                };
+                default -> switch (piece) {
+                    case "Head"  -> "Metal Helmet";
+                    case "Chest" -> "Metal Chest";
+                    case "Hands" -> "Metal Gloves";
+                    case "Legs"  -> "Metal Pants";
+                    default -> null;
+                };
+            };
+        }
+        return null;
     }
 
     // derives the rarity string from an item id e.g. "Weapon_Axe_Copper_Common" -> "Common"

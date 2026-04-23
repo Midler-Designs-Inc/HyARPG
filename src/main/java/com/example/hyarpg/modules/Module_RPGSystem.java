@@ -1,20 +1,27 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.utils.InterceptPocketCraftingWindow;
 import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.protocol.packets.window.WindowType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.entity.entities.player.windows.Window;
+import com.hypixel.hytale.server.core.entity.entities.player.windows.WindowManager;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.inventory.InventoryComponent;
+import com.hypixel.hytale.server.core.inventory.InventorySystems;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
+import com.hypixel.hytale.server.core.modules.entity.player.PlayerSendInventorySystem;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -46,6 +53,7 @@ import java.time.Instant;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 
 
@@ -112,6 +120,9 @@ public class Module_RPGSystem {
         ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onPlayerInventoryItemEquip);
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
         ModEventBus.register(Event_ContainerSpawned.class, this::onContainerSpawned);
+
+        // Replace the inventory open with our own window
+        Window.CLIENT_REQUESTABLE_WINDOW_TYPES.put(WindowType.PocketCrafting, () -> new InterceptPocketCraftingWindow());
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component

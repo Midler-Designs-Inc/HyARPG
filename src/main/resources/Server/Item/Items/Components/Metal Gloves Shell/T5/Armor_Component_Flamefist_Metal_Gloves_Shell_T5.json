@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Gloves Shell",
     "tier": 5,
-    "outputAssetID": "Armor_Adamantite_Gloves",
+    "outputAssetID": "Armor_Adamantite_Hands",
     "implicits": [
       {
         "stat": "FIRE_RESIST_PERCENT",

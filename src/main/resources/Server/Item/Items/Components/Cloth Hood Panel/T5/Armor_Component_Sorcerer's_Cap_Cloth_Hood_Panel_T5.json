@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Cloth Hood Panel",
     "tier": 5,
-    "outputAssetID": "Armor_Cloth_Wool_Hood",
+    "outputAssetID": "Armor_Cloth_Wool_Head",
     "implicits": [
       {
         "stat": "MANA_REGEN_FLAT",

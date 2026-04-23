@@ -383,7 +383,7 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         }
 
         // right panel
-        String weaponType = ItemFactory.deriveWeaponType(itemId);
+        String weaponType = ItemFactory.deriveItemType(itemId);
         cmd.set("#SalvageItemType.Text", (weaponType != null ? weaponType : itemId) + " (" + rarity + ")");
         populateRightPanel(cmd, implicits, affixes);
 

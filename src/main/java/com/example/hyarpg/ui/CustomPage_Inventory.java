@@ -1,18 +1,27 @@
 package com.example.hyarpg.ui;
 
 // Hytale Imports
+import com.example.hyarpg.ModEventBus;
+import com.example.hyarpg.events.Event_PlayerInventoryItemEquip;
+import com.example.hyarpg.events.Event_PlayerInventoryItemUnEquip;
+import com.hypixel.hytale.builtin.buildertools.tooloperations.transform.Translate;
+import com.hypixel.hytale.builtin.crafting.window.CraftingWindow;
+import com.hypixel.hytale.builtin.crafting.window.FieldCraftingWindow;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.protocol.ItemArmorSlot;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.modules.i18n.generator.TranslationMap;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
@@ -40,7 +49,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private static final int STORAGE_SLOTS = 36;
     private static final int HOTBAR_SLOTS  = 9;
     private static final int ARMOR_SLOTS   = 4;
-    private static final int UTILITY_SLOTS = 5;
+    private static final int UTILITY_SLOTS = 4;
 
     // armor slot indices — Helmet=0, Chest=1, Gloves=2, Pants=3
     private static final String[] ARMOR_SLOT_LABELS = { "Helmet", "Chest", "Gloves", "Pants" };
@@ -64,6 +73,10 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     public void build(@Nonnull Ref<EntityStore> ref, @Nonnull UICommandBuilder cmd, @Nonnull UIEventBuilder events, @Nonnull Store<EntityStore> store) {
         // load main UI file
         cmd.append("CustomPage_Inventory.ui");
+
+        // bind to inventory equip/unequip
+        ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onEquipEvent);
+        ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onUnEquipEvent);
 
         // bind storage slot clicks
         for (int i = 0; i < STORAGE_SLOTS; i++) events.addEventBinding(CustomUIEventBindingType.Activating, "#InvStorageSlot" + i, EventData.of("Action", "select:storage:" + i));
@@ -97,9 +110,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         sendUpdate(cmd, false);
     }
 
-    // -------------------------------------------------------------------------
     // Slot click handler — selection, deselection, and equip/swap routing
-    // -------------------------------------------------------------------------
     private void handleSlotClick(@Nonnull String slotId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
         String[] parts = slotId.split(":");
         String source = parts[0];
@@ -113,61 +124,76 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         boolean hasSelection    = this.selectedSlotId != null;
         boolean clickingSelf    = slotId.equals(this.selectedSlotId);
 
+        // clicking the already-selected slot deselects
         if (clickingSelf) {
-            // clicking the already-selected slot deselects
-            clearSelection(cmd);
-            clearGearSlotOverlays(cmd);
-            clearInventoryInvalidOverlays(cmd);
-            updateInspectPanel(cmd, null);
+            clearSelection(cmd); clearGearSlotOverlays(cmd); clearInventoryInvalidOverlays(cmd); updateInspectPanel(cmd, null);
             return;
         }
 
+        // clicking any empty slot with no selection — do nothing
+        if (!hasSelection) {
+            if (clickedItem == null) return;
+            // utility slots with items still need the empty check since active slot can be -1
+            if (source.equals("utility")) {
+                InventoryComponent.Utility u = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
+                if (u == null || u.getActiveSlot() == -1 && clickedStack.isEmpty()) return;
+            }
+        }
+
         if (hasSelection) {
-            String selSource = this.selectedSlotId.split(":")[0];
+            String  selSource    = this.selectedSlotId.split(":")[0];
+            int     selIndex     = Integer.parseInt(this.selectedSlotId.split(":")[1]);
             boolean selIsGear      = selSource.equals("armor") || selSource.equals("utility");
             boolean selIsInventory = selSource.equals("storage") || selSource.equals("hotbar");
 
             if (selIsInventory && isGearSlot) {
-                // inventory item -> gear slot: attempt equip
+                // inventory -> gear slot: validate compatibility, then equip
+                if (!isItemCompatibleWithSlot(this.selectedItem, source, index)) {
+                    clearSelection(cmd); clearGearSlotOverlays(cmd); clearInventoryInvalidOverlays(cmd); updateInspectPanel(cmd, null);
+                    return;
+                }
                 handleEquip(this.selectedSlotId, slotId, ref, store, cmd);
                 return;
             } else if (selIsGear && isInventorySlot) {
-                // gear item -> inventory slot: attempt unequip into specific slot
-                handleUnequip(this.selectedSlotId, slotId, ref, store, cmd);
+                // empty inventory slot = unequip, always allowed
+                // occupied inventory slot = only allow if that item is compatible with source gear slot
+                if (clickedItem != null && !isItemCompatibleWithSlot(clickedItem, selSource, selIndex)) {
+                    clearSelection(cmd); clearGearSlotOverlays(cmd); clearInventoryInvalidOverlays(cmd); updateInspectPanel(cmd, null);
+                    return;
+                }
+                handleEquip(this.selectedSlotId, slotId, ref, store, cmd);
                 return;
             } else if (selIsGear && isGearSlot) {
-                // gear -> gear: swap between gear slots
-                handleGearSwap(this.selectedSlotId, slotId, ref, store, cmd);
+                if (!isItemCompatibleWithSlot(this.selectedItem, source, index)
+                        || (clickedItem != null && !isItemCompatibleWithSlot(clickedItem, selSource, selIndex))) {
+                    clearSelection(cmd); clearGearSlotOverlays(cmd); clearInventoryInvalidOverlays(cmd); updateInspectPanel(cmd, null);
+                    return;
+                }
+                handleEquip(this.selectedSlotId, slotId, ref, store, cmd);
                 return;
+            } else if (selIsInventory && isInventorySlot) {
+                // inventory -> inventory: change selection to newly clicked item, or deselect if empty
+                if (clickedItem == null) {
+                    clearSelection(cmd); clearGearSlotOverlays(cmd); clearInventoryInvalidOverlays(cmd); updateInspectPanel(cmd, null);
+                    return;
+                }
+                // fall through to re-select below
             }
-            // inventory -> inventory or any other combo: just change selection
         }
 
-        // select the clicked slot
-        clearSelection(cmd);
-        clearGearSlotOverlays(cmd);
-        clearInventoryInvalidOverlays(cmd);
+        // clicking an empty slot at this point — do nothing
+        if (clickedItem == null) return;
 
-        if (clickedItem != null) {
-            this.selectedSlotId = slotId;
-            this.selectedItem   = clickedItem;
-            applySelectedOverlay(cmd, source, index, true);
-
-            // if an inventory item is selected, highlight valid gear slots
-            if (isInventorySlot) applyGearSlotCompatibility(cmd, clickedItem, ref, store);
-
-            updateInspectPanel(cmd, clickedStack);
-        } else {
-            this.selectedSlotId = null;
-            this.selectedItem   = null;
-            updateInspectPanel(cmd, null);
-        }
+        // select the clicked slot and apply compatibility overlays
+        clearSelection(cmd); clearGearSlotOverlays(cmd); clearInventoryInvalidOverlays(cmd);
+        this.selectedSlotId = slotId;
+        this.selectedItem   = clickedItem;
+        applySelectedOverlay(cmd, source, index, true);
+        applyGearSlotCompatibility(cmd, clickedItem, ref, store);
+        updateInspectPanel(cmd, clickedStack);
     }
 
-    // -------------------------------------------------------------------------
-    // Equip / unequip / swap — TODO: replace replaceItemStackInSlot calls
-    // with the proper equip API once confirmed
-    // -------------------------------------------------------------------------
+    // Equip / unequip / swap
     private void handleEquip(@Nonnull String fromSlotId, @Nonnull String toSlotId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
         String[] fromParts = fromSlotId.split(":");
         String[] toParts   = toSlotId.split(":");
@@ -181,26 +207,34 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         ItemStack fromStack = fromInv.getItemStack((short) fromIndex);
         ItemStack toStack   = toInv.getItemStack((short) toIndex);
 
-        // TODO: replace with proper equip API call when confirmed
+        // perform the swap
         toInv.replaceItemStackInSlot((short) toIndex, toStack, fromStack);
         fromInv.replaceItemStackInSlot((short) fromIndex, fromStack, toStack != null && !toStack.isEmpty() ? toStack : null);
 
-        clearSelection(cmd);
-        clearGearSlotOverlays(cmd);
-        clearInventoryInvalidOverlays(cmd);
+        clearSelection(cmd); clearGearSlotOverlays(cmd); clearInventoryInvalidOverlays(cmd);
         applyFullState(ref, store, cmd);
-    }
-    private void handleUnequip(@Nonnull String fromSlotId, @Nonnull String toSlotId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
-        // same logic as equip — just swapping direction
-        handleEquip(fromSlotId, toSlotId, ref, store, cmd);
-    }
-    private void handleGearSwap(@Nonnull String fromSlotId, @Nonnull String toSlotId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
-        handleEquip(fromSlotId, toSlotId, ref, store, cmd);
+
+        // schedule a delayed stat refresh to capture stat recalculation after equip
+        store.getExternalData().getWorld().execute(() -> {
+            UICommandBuilder refreshCmd = new UICommandBuilder();
+            pushStats(ref, store, refreshCmd);
+            sendUpdate(refreshCmd, false);
+        });
     }
 
-    // -------------------------------------------------------------------------
+    // Equip event handler — fires when gear is equipped or unequipped, refreshes stats
+    private void onEquipEvent(Event_PlayerInventoryItemEquip event) {
+        UICommandBuilder cmd = new UICommandBuilder();
+        pushStats(event.getRef(), event.getStore(), cmd);
+        sendUpdate(cmd, false);
+    }
+    private void onUnEquipEvent(Event_PlayerInventoryItemUnEquip event) {
+        UICommandBuilder cmd = new UICommandBuilder();
+        pushStats(event.getRef(), event.getStore(), cmd);
+        sendUpdate(cmd, false);
+    }
+
     // Full state push — called on open and after any equip/unequip
-    // -------------------------------------------------------------------------
     private void applyFullState(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
         pushStorageSlots(ref, store, cmd);
         pushHotbarSlots(ref, store, cmd);
@@ -257,7 +291,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
             if (stack != null && !stack.isEmpty()) cmd.set("#UtilityItem" + i + ".ItemId", stack.getItem().getId());
             else cmd.setNull("#UtilityItem" + i + ".ItemId");
             // gold highlight on the active utility slot so player knows which one is equipped
-            cmd.set("#UtilityActiveOverlay" + i + ".Visible", i == activeSlot);
+            cmd.set("#UtilityActiveOverlay" + i + ".Visible", activeSlot >= 0 && i == activeSlot);
         }
     }
 
@@ -343,9 +377,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         cmd.set("#StatAmmoRegen.Text","+" + fmtPct(stats.getAmmoRegenPercent()));
     }
 
-    // -------------------------------------------------------------------------
     // Inspect panel — populated when any item is selected
-    // -------------------------------------------------------------------------
     private void updateInspectPanel(@Nonnull UICommandBuilder cmd, @Nullable ItemStack stack) {
         if (stack == null || stack.isEmpty()) {
             cmd.set("#InspectEmpty.Visible",   true);
@@ -358,12 +390,13 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
 
         // item icon, name, rarity
         String itemId = stack.getItem().getId();
+        String nameKey = stack.getItem().getTranslationProperties().getName();
+        String name = Message.translation(nameKey).getAnsiMessage();
         cmd.set("#InspectItemIcon.ItemId", itemId);
-        cmd.set("#InspectItemName.Text",   stack.getItem().getId());
+        cmd.set("#InspectItemName.Text", name);
 
-        String rarity     = deriveRarity(itemId);
-        String rarityColor = rarityColor(rarity);
-        cmd.set("#InspectItemRarity.Text",      rarity.toUpperCase());
+        String rarity = deriveRarity(itemId);
+        cmd.set("#InspectItemRarity.Text", rarity.toUpperCase());
 
         // gear score from metadata
         Integer gearScore = stack.getFromMetadataOrNull("GearScore", com.hypixel.hytale.codec.Codec.INTEGER);
@@ -421,40 +454,69 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         }
     }
 
-    // -------------------------------------------------------------------------
     // Gear slot compatibility overlays — green = can equip, red = cannot
-    // -------------------------------------------------------------------------
-
     private void applyGearSlotCompatibility(@Nonnull UICommandBuilder cmd, @Nonnull Item item, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
-        String itemId = item.getId();
+        String  itemId    = item.getId();
         boolean isGear    = isGearItem(item);
         boolean isUtility = isUtilityItem(item);
 
+        // armor slots — green only if gear AND matches that specific slot, red otherwise
         for (int i = 0; i < ARMOR_SLOTS; i++) {
-            boolean canEquip = isGear && isCompatibleArmorSlot(itemId, i);
+            boolean canEquip = isGear && isCompatibleArmorSlot(item, i);
             cmd.set("#ArmorValidOverlay" + i + ".Visible",   canEquip);
-            cmd.set("#ArmorInvalidOverlay" + i + ".Visible", isGear && !canEquip);
+            cmd.set("#ArmorInvalidOverlay" + i + ".Visible", !canEquip);
         }
+
+        // utility slots — green if utility item, red if not
         for (int i = 0; i < UTILITY_SLOTS; i++) {
             cmd.set("#UtilityValidOverlay" + i + ".Visible",   isUtility);
-            cmd.set("#UtilityInvalidOverlay" + i + ".Visible", !isUtility && !isGear);
+            cmd.set("#UtilityInvalidOverlay" + i + ".Visible", !isUtility);
+        }
+
+        // inventory slots — if selected item came from a gear slot, mark inventory items
+        // red if they aren't compatible with that source slot, green if they are
+        if (this.selectedSlotId != null) {
+            String selSource = this.selectedSlotId.split(":")[0];
+            boolean selIsGear = selSource.equals("armor") || selSource.equals("utility");
+            int     selIndex  = Integer.parseInt(this.selectedSlotId.split(":")[1]);
+
+            if (selIsGear) {
+                // mark each storage slot based on whether that item could go into the source gear slot
+                InventoryComponent.Storage storageComp = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+                if (storageComp != null) {
+                    ItemContainer inv = storageComp.getInventory();
+                    for (short i = 0; i < Math.min(inv.getCapacity(), STORAGE_SLOTS); i++) {
+                        ItemStack stack = inv.getItemStack(i);
+                        Item slotItem = stack != null && !stack.isEmpty() ? stack.getItem() : null;
+                        boolean compatible = slotItem != null && isItemCompatibleWithSlot(slotItem, selSource, selIndex);
+                        cmd.set("#InvStorageInvalidOverlay" + i + ".Visible", slotItem != null && !compatible);
+                    }
+                }
+
+                // mark each hotbar slot
+                InventoryComponent.Hotbar hotbarComp = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+                if (hotbarComp != null) {
+                    ItemContainer inv = hotbarComp.getInventory();
+                    for (short i = 0; i < Math.min(inv.getCapacity(), HOTBAR_SLOTS); i++) {
+                        ItemStack stack = inv.getItemStack(i);
+                        Item slotItem = stack != null && !stack.isEmpty() ? stack.getItem() : null;
+                        boolean compatible = slotItem != null && isItemCompatibleWithSlot(slotItem, selSource, selIndex);
+                        cmd.set("#InvHotbarInvalidOverlay" + i + ".Visible", slotItem != null && !compatible);
+                    }
+                }
+            }
         }
     }
-
     private void clearGearSlotOverlays(@Nonnull UICommandBuilder cmd) {
         for (int i = 0; i < ARMOR_SLOTS;   i++) { cmd.set("#ArmorValidOverlay" + i + ".Visible", false);   cmd.set("#ArmorInvalidOverlay" + i + ".Visible", false); }
         for (int i = 0; i < UTILITY_SLOTS; i++) { cmd.set("#UtilityValidOverlay" + i + ".Visible", false); cmd.set("#UtilityInvalidOverlay" + i + ".Visible", false); }
     }
-
     private void clearInventoryInvalidOverlays(@Nonnull UICommandBuilder cmd) {
         for (int i = 0; i < STORAGE_SLOTS; i++) cmd.set("#InvStorageInvalidOverlay" + i + ".Visible", false);
         for (int i = 0; i < HOTBAR_SLOTS;  i++) cmd.set("#InvHotbarInvalidOverlay" + i + ".Visible", false);
     }
 
-    // -------------------------------------------------------------------------
     // Selection overlay helpers
-    // -------------------------------------------------------------------------
-
     private void clearSelection(@Nonnull UICommandBuilder cmd) {
         if (this.selectedSlotId != null) {
             String[] p = this.selectedSlotId.split(":");
@@ -463,7 +525,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         this.selectedSlotId = null;
         this.selectedItem   = null;
     }
-
     private void applySelectedOverlay(@Nonnull UICommandBuilder cmd, @Nonnull String source, int index, boolean visible) {
         String element = switch (source) {
             case "storage" -> "#InvStorageSelectedOverlay" + index;
@@ -475,10 +536,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         if (element != null) cmd.set(element + ".Visible", visible);
     }
 
-    // -------------------------------------------------------------------------
     // Slot and container lookup helpers
-    // -------------------------------------------------------------------------
-
     @Nullable
     private ItemStack getStackFromSlot(@Nonnull String source, int index, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         ItemContainer inv = getContainerBySource(source, ref, store);
@@ -497,35 +555,26 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         };
     }
 
-    // -------------------------------------------------------------------------
     // Item classification helpers
-    // -------------------------------------------------------------------------
-
     private static boolean isGearItem(@Nonnull Item item) {
-        String[] cats = item.getCategories();
-        if (cats == null) return false;
-        for (String cat : cats) { if ("Items.HyARPG.Gear".equals(cat)) return true; }
-        return false;
+        return item.getArmor() != null && item.getArmor().getArmorSlot() != null;
     }
-
     private static boolean isUtilityItem(@Nonnull Item item) {
-        return item.getUtility() != null && item.getUtility().isUsable();
+        return item.getUtility().isUsable();
     }
 
-    private static boolean isCompatibleArmorSlot(@Nonnull String itemId, int slot) {
-        // derive armor type from item id and match to slot index
-        if (slot == 0) return itemId.contains("Helmet") || itemId.contains("Hood");
-        if (slot == 1) return itemId.contains("Chest") || itemId.contains("Vest") || itemId.contains("Tunic");
-        if (slot == 2) return itemId.contains("Gloves");
-        if (slot == 3) return itemId.contains("Pants");
+    private static boolean isCompatibleArmorSlot(@Nonnull Item item, int slot) {
+        if (item.getArmor() == null || item.getArmor().getArmorSlot() == null) return false;
+        if (slot == 0) return item.getArmor().getArmorSlot() == ItemArmorSlot.Head;
+        if (slot == 1) return item.getArmor().getArmorSlot() == ItemArmorSlot.Chest;
+        if (slot == 2) return item.getArmor().getArmorSlot() == ItemArmorSlot.Hands;
+        if (slot == 3) return item.getArmor().getArmorSlot() == ItemArmorSlot.Legs;
         return false;
     }
-
     private static String deriveRarity(@Nonnull String itemId) {
         for (String r : new String[]{"Legendary", "Epic", "Rare", "Uncommon", "Common"}) { if (itemId.endsWith("_" + r)) return r; }
         return "Common";
     }
-
     private static String rarityColor(@Nonnull String rarity) {
         return switch (rarity) {
             case "Uncommon"  -> COLOR_UNCOMMON;
@@ -536,17 +585,18 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         };
     }
 
-    // -------------------------------------------------------------------------
-    // Formatting helpers
-    // -------------------------------------------------------------------------
+    // checks if an item is compatible with a specific gear slot
+    private static boolean isItemCompatibleWithSlot(@Nonnull Item item, @Nonnull String slotSource, int slotIndex) {
+        if (slotSource.equals("utility")) return isUtilityItem(item);
+        if (slotSource.equals("armor"))   return isCompatibleArmorSlot(item, slotIndex);
+        return false;
+    }
 
+    // Formatting helpers
     private static String fmt(float v) { float r = Math.round(v * 10) / 10f; return r == (int) r ? String.valueOf((int) r) : String.valueOf(r); }
     private static String fmtPct(float v) { return fmt(v) + "%"; }
 
-    // -------------------------------------------------------------------------
     // PageData codec
-    // -------------------------------------------------------------------------
-
     public static class PageData {
         public static final BuilderCodec<PageData> CODEC = BuilderCodec.<PageData>builder(PageData.class, PageData::new)
                 .append(new KeyedCodec<>("Action", Codec.STRING), (d, v) -> d.action = v, d -> d.action).add()

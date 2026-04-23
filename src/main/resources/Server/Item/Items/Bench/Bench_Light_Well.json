@@ -8,7 +8,7 @@
     "Furniture.Benches"
   ],
   "Recipe": {
-    "TimeSeconds": 3,
+    "TimeSeconds": 0,
     "Input": [
       {
         "ItemId": "Ingredient_Life_Essence",

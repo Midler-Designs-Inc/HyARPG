@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Glove Panel",
     "tier": 4,
-    "outputAssetID": "Armor_Leather_Heavy_Glove",
+    "outputAssetID": "Armor_Leather_Heavy_Hands",
     "implicits": [
       {
         "stat": "STAMINA_FLAT",

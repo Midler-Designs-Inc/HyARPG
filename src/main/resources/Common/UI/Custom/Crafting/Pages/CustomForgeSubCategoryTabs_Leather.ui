@@ -1,7 +1,7 @@
  @ItemIconStyle = (
-   Default: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7)),
-   Hovered: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.8))),
-   Pressed: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.6)))
+   Default: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7)),
+   Hovered: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7, Color: #ffffff(0.8))),
+   Pressed: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7, Color: #ffffff(0.6)))
  );
 
  @SubCategoryTabsLeather = Group {
@@ -13,28 +13,28 @@
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Helmet";
 
-        Group #IconLeatherHelmetOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: false; }
-        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Armor_Leather_Medium_Head.png"; }
+        Group #IconLeatherHelmetOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: false; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Leather_Head_Icon.png"; }
     }
     Button #IconLeatherChest {
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Chest";
 
-        Group #IconLeatherChestOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Armor_Leather_Medium_Chest.png"; }
+        Group #IconLeatherChestOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Leather_Chest_Icon.png"; }
     }
     Button #IconLeatherGloves {
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Gloves";
 
-        Group #IconLeatherGlovesOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Armor_Leather_Medium_Hands.png"; }
+        Group #IconLeatherGlovesOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Leather_Hands_Icon.png"; }
     }
     Button #IconLeatherPants {
         Anchor: (Width: 44, Height: 44); Style: @ItemIconStyle;
         TooltipText: "Pants";
 
-        Group #IconLeatherPantsOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Armor_Leather_Medium_Legs.png"; }
+        Group #IconLeatherPantsOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Leather_Legs_Icon.png"; }
     }
 };

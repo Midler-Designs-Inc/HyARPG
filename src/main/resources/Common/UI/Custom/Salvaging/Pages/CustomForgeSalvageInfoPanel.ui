@@ -1,6 +1,5 @@
 $Common = "../../Common.ui";
 
-@InputSlotBackground = (TexturePath: "../../DiagramCraftingSlot.png", Border: 4);
 @SalvageInfoPanel = Group {
     LayoutMode: Top;
     Anchor: (Width: 222, Left: 8);
@@ -28,7 +27,6 @@ $Common = "../../Common.ui";
 
                 Button #SalvageInputSlot {
                     Anchor: (Width: 74, Height: 74);
-                    Style: (Default: (Background: @InputSlotBackground), Hovered: (Background: @InputSlotBackground), Pressed: (Background: @InputSlotBackground));
                     ItemSlot #SalvageInputItem { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
                     Group #SalvageInputOverlay { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                 }

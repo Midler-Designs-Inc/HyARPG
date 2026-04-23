@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Gloves Shell",
     "tier": 6,
-    "outputAssetID": "Armor_Mithril_Gloves",
+    "outputAssetID": "Armor_Mithril_Hands",
     "implicits": [
       {
         "stat": "POISON_RESIST_PERCENT",

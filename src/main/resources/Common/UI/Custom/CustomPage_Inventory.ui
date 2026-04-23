@@ -12,7 +12,7 @@ Group {
 
     Group {
         Anchor: (Width: 1200);
-        LayoutMode: Top;
+        LayoutMode: Center;
         Padding: (Top: 25);
 
         $Common.@DecoratedContainer #InventoryPage {

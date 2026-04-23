@@ -1,7 +1,7 @@
  @ItemIconStyle = (
-   Default: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7)),
-   Hovered: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.8))),
-   Pressed: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.6)))
+   Default: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7)),
+   Hovered: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7, Color: #ffffff(0.8))),
+   Pressed: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7, Color: #ffffff(0.6)))
  );
 
  @SubCategoryTabs1H = Group {
@@ -14,35 +14,35 @@
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Axe";
 
-        Group #IconAxeOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: false; }
-        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Axe_Iron.png"; }
+        Group #IconAxeOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: false; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Axe_Icon.png"; }
     }
     Button #IconClub {
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Club";
 
-        Group #IconClubOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Club_Iron.png"; }
+        Group #IconClubOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Club_Icon.png"; }
     }
     Button #IconShield {
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Shield";
 
-        Group #IconShieldOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Shield_Iron.png"; }
+        Group #IconShieldOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Shield_Icon.png"; }
     }
     Button #IconSpear {
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Spear";
 
-        Group #IconSpearOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Spear_Iron.png"; }
+        Group #IconSpearOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Spear_Icon.png"; }
     }
     Button #IconSword {
         Anchor: (Width: 44, Height: 44); Style: @ItemIconStyle;
         TooltipText: "Sword";
 
-        Group #IconSwordOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/Weapon_Sword_Iron.png"; }
+        Group #IconSwordOverlay { Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group { Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Sword_Icon.png"; }
     }
 };

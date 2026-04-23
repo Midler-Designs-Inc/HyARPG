@@ -368,12 +368,12 @@ public class Page_SkillTree {
                 .append(" background-color: ").append(bgColor).append(";\">");
 
         // Plain icon — no tooltip
-        sb.append("<img src=\"").append(structureNode.iconId).append("\"")
+        sb.append("<img src=\"Skill_Icons/").append(structureNode.iconId).append("\"")
                 .append(" width=\"").append(NODE_SIZE).append("\"")
                 .append(" height=\"").append(NODE_SIZE).append("\" />");
 
         if (isLocked) {
-            sb.append("<img src=\"Skills_Locked_Overlay.png\"")
+            sb.append("<img src=\"Skill_Icons/Skills_Locked_Overlay.png\"")
                     .append(" width=\"").append(NODE_SIZE).append("\"")
                     .append(" height=\"").append(NODE_SIZE).append("\"")
                     .append(" style=\"margin-top: -").append(NODE_SIZE).append(";\" />");

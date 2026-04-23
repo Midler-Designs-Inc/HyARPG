@@ -1,9 +1,0 @@
-{
-  "Parent": "Kunai",
-  "DefaultAttachments": [
-    {
-      "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
-      "Texture": "Items/Weapons/Throwing_Knife/Kunai_Textures/Mythril_Kunai.png"
-    }
-  ]
-}

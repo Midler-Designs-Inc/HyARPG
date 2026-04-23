@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Hood Panel",
     "tier": 3,
-    "outputAssetID": "Armor_Leather_Medium_Hood",
+    "outputAssetID": "Armor_Leather_Medium_Head",
     "implicits": [
       {
         "stat": "STAMINA_FLAT",

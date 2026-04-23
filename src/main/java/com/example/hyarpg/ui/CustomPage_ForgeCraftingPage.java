@@ -569,13 +569,15 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         }
 
         // overlay visible = inactive state, overlay hidden = active state
+        // use full key for armor categories since ALL_ICON_ITEMS stores full names
+        String activeItemKey = getActiveItemKey();
         for (int i = 0; i < ALL_ICON_OVERLAYS.length; i++) {
-            cmd.set(ALL_ICON_OVERLAYS[i] + ".Visible", !ALL_ICON_ITEMS[i].equals(this.activeItem));
+            cmd.set(ALL_ICON_OVERLAYS[i] + ".Visible", ALL_ICON_ITEMS[i].equals(activeItemKey));
         }
 
         // update the category and sub category label text
         cmd.set("#CategoryLabel.TextSpans", Message.raw(getCategoryLabel(this.activeCategory)));
-        cmd.set("#SubCategoryLabel.TextSpans", Message.raw(this.activeItem));
+        cmd.set("#SubCategoryLabel.TextSpans", Message.raw(activeItemKey));
 
         // restore any items already placed in input slots
         for (int i = 0; i < inputSlotItems.length; i++) {
@@ -667,7 +669,8 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         String type = extractComponentType(itemId);
         if (type == null) return false;
 
-        List<String> allowed = ItemFactory.ALLOWED_COMPONENTS.get(this.activeItem);
+        // use full key for armor categories since ALLOWED_COMPONENTS stores full names
+        List<String> allowed = ItemFactory.ALLOWED_COMPONENTS.get(getActiveItemKey());
         if (allowed == null) return false;
 
         if (slot == null) return allowed.contains(type);
@@ -846,6 +849,24 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
             cmd.set("#CraftButton.Disabled", true);
             cmd.set("#WeaponStats.Visible", false);
         }
+    }
+
+    // get the active item key based on category or passthrough for weapons
+    private String getActiveItemKey() {
+        return switch (this.activeCategory) {
+            case CAT_ARMOR   -> "Metal "   + this.activeItem;
+            case CAT_LEATHER -> switch (this.activeItem) {
+                case "Helmet" -> "Leather Hood";
+                case "Chest"  -> "Leather Vest";
+                default       -> "Leather " + this.activeItem;
+            };
+            case CAT_CLOTH   -> switch (this.activeItem) {
+                case "Helmet" -> "Cloth Hood";
+                case "Chest"  -> "Cloth Tunic";
+                default       -> "Cloth " + this.activeItem;
+            };
+            default -> this.activeItem;
+        };
     }
 
     // reads and caches the CraftingComponent block from a raw asset json — returns null if not present

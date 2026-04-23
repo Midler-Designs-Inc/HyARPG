@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Hood Panel",
     "tier": 6,
-    "outputAssetID": "Armor_Leather_Dark_Hood",
+    "outputAssetID": "Armor_Leather_Dark_Head",
     "implicits": [
       {
         "stat": "LIFE_FLAT",

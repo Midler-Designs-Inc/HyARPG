@@ -1,6 +1,6 @@
 @ItemDiagramContainer = Group {
     Anchor: (Height: 310);
-    Background: (TexturePath: "../../DiagramCraftingBackground.png", Border: 8);
+    Background: (TexturePath: "../DiagramCraftingBackground.png", Border: 8);
     
     // ---- 1H outlines ----
     Group #DiagramAxe { Anchor: (Width: 360, Height: 200); Visible: true;

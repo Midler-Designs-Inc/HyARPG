@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Gloves Shell",
     "tier": 4,
-    "outputAssetID": "Armor_Cobalt_Gloves",
+    "outputAssetID": "Armor_Cobalt_Hands",
     "implicits": [
       {
         "stat": "ICE_RESIST_PERCENT",

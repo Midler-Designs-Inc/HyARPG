@@ -1,7 +1,5 @@
 $Common = "../../Common.ui";
 
-@InspectSlotBackground = (TexturePath: "../../Slot.png", Border: 4);
-
 @InspectPanel = Group {
     LayoutMode: Top;
     Anchor: (Width: 240);
@@ -14,9 +12,7 @@ $Common = "../../Common.ui";
             LayoutMode: Top;
             Anchor: (Full: 0);
 
-            // -------------------------------------------------------------------------
             // Empty state — shown when nothing is selected
-            // -------------------------------------------------------------------------
             Group #InspectEmpty {
                 LayoutMode: Top;
                 Anchor: (Full: 0);
@@ -43,7 +39,6 @@ $Common = "../../Common.ui";
 
                     Group {
                         Anchor: (Width: 74, Height: 74);
-                        Background: @InspectSlotBackground;
                         ItemSlot #InspectItemIcon { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
                     }
                 }

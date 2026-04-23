@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Glove Panel",
     "tier": 2,
-    "outputAssetID": "Armor_Leather_Light_Glove",
+    "outputAssetID": "Armor_Leather_Light_Hands",
     "implicits": [
       {
         "stat": "LIGHTNING_RESIST_PERCENT",

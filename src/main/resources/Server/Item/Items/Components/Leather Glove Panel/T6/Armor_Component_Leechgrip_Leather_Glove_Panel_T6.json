@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Glove Panel",
     "tier": 6,
-    "outputAssetID": "Armor_Leather_Dark_Glove",
+    "outputAssetID": "Armor_Leather_Dark_Hands",
     "implicits": [
       {
         "stat": "LIFE_LEECH_PERCENT",

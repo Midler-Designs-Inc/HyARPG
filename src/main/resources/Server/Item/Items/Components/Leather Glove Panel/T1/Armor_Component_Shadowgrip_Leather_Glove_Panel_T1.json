@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Glove Panel",
     "tier": 1,
-    "outputAssetID": "Armor_Leather_Soft_Glove",
+    "outputAssetID": "Armor_Leather_Soft_Hands",
     "implicits": [
       {
         "stat": "DODGE_CHANCE_PERCENT",

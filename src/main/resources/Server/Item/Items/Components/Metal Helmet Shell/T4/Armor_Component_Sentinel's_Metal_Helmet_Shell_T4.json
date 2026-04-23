@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Helmet Shell",
     "tier": 4,
-    "outputAssetID": "Armor_Cobalt_Helmet",
+    "outputAssetID": "Armor_Cobalt_Head",
     "implicits": [
       {
         "stat": "DODGE_CHANCE_PERCENT",

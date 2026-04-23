@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Vest Panel",
     "tier": 2,
-    "outputAssetID": "Armor_Leather_Light_Vest",
+    "outputAssetID": "Armor_Leather_Light_Chest",
     "implicits": [
       {
         "stat": "LIGHTNING_RESIST_PERCENT",

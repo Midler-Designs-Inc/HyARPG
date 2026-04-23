@@ -162,7 +162,6 @@ public enum RoomType {
                             min(1, blockKeyExact("Bench_Weapon_HyARPG"), "1x Weapon Bench")
                     ),
                     any(
-                            min(1, blockKeyExact("Deco_Copper_Stack"), "1x Copper Stack"),
                             min(1, blockKeyExact("Deco_Iron_Stack"), "1x Iron Stack")
                     ),
                     min(1, isLighting(), "1x Lighting")
@@ -176,7 +175,6 @@ public enum RoomType {
                     ),
                     min(1, blockKeyExact("Bench_Furnace"), "1x Furnace"),
                     min(1, blockKeyExact("Bench_Salvage"), "1x Salvage Bench"),
-                    min(1, blockKeyExact("Deco_Copper_Stack"), "1x Copper Stack"),
                     min(1, blockKeyExact("Deco_Iron_Stack"), "1x Iron Stack"),
                     min(2, isLighting(), "2x Lighting")
             )
@@ -187,7 +185,6 @@ public enum RoomType {
                     min(1, blockKeyExact("Bench_Weapon_HyARPG"), "1x Weapon Bench"),
                     min(1, blockKeyExact("Bench_Furnace"), "1x Furnace"),
                     min(1, blockKeyExact("Bench_Salvage"), "1x Salvage Bench"),
-                    min(1, blockKeyExact("Deco_Copper_Stack"), "1x Copper Stack"),
                     min(1, blockKeyExact("Deco_Iron_Stack"), "1x Iron Stack"),
                     min(2, isLighting(), "2x Lighting")
             )

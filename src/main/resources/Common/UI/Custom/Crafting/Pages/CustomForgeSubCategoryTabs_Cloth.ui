@@ -1,7 +1,7 @@
  @ItemIconStyle = (
-   Default: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7)),
-   Hovered: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.8))),
-   Pressed: (Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7, Color: #ffffff(0.6)))
+   Default: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7)),
+   Hovered: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7, Color: #ffffff(0.8))),
+   Pressed: (Background: (TexturePath: "../../Common/OptionBackgroundPatch.png", Border: 7, Color: #ffffff(0.6)))
  );
 
  @SubCategoryTabsCloth = Group {
@@ -13,28 +13,28 @@
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Helmet";
 
-        Group #IconClothHelmetOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: false; }
-        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Armor_Cloth_Cotton_Head.png"; }
+        Group #IconClothHelmetOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: false; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Cloth_Head_Icon.png"; }
     }
     Button #IconClothChest {
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Chest";
 
-        Group #IconClothChestOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Armor_Cloth_Cotton_Chest.png"; }
+        Group #IconClothChestOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Cloth_Chest_Icon.png"; }
     }
     Button #IconClothGloves {
         Anchor: (Width: 44, Height: 44, Right: 8); Style: @ItemIconStyle;
         TooltipText: "Gloves";
 
-        Group #IconClothGlovesOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Armor_Cloth_Cotton_Hands.png"; }
+        Group #IconClothGlovesOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Cloth_Hands_Icon.png"; }
     }
     Button #IconClothPants {
         Anchor: (Width: 44, Height: 44); Style: @ItemIconStyle;
         TooltipText: "Pants";
 
-        Group #IconClothPantsOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../DiagramCraftingSlotActive.png", Border: 7); Visible: true; }
-        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/Armor_Cloth_Cotton_Legs.png"; }
+        Group #IconClothPantsOverlay {Anchor: (Full: 0); Background: (TexturePath: "../../Common/HeaderTabSelectedBackground.png", Border: 7); Visible: true; }
+        Group {Anchor: (Width: 32, Height: 32); Background: "../Icons/HyARPG_Cloth_Legs_Icon.png"; }
     }
 };

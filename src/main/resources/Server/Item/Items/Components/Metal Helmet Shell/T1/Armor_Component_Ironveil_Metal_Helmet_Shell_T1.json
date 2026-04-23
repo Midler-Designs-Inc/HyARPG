@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Helmet Shell",
     "tier": 1,
-    "outputAssetID": "Armor_Copper_Helmet",
+    "outputAssetID": "Armor_Copper_Head",
     "implicits": [
       {
         "stat": "MAGIC_RESIST_PERCENT",

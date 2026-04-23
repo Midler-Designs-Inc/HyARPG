@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Hood Panel",
     "tier": 4,
-    "outputAssetID": "Armor_Leather_Heavy_Hood",
+    "outputAssetID": "Armor_Leather_Heavy_Head",
     "implicits": [
       {
         "stat": "DODGE_CHANCE_PERCENT",

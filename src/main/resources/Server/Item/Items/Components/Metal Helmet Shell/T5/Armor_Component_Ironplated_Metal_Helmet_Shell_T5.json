@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Helmet Shell",
     "tier": 5,
-    "outputAssetID": "Armor_Adamantite_Helmet",
+    "outputAssetID": "Armor_Adamantite_Head",
     "implicits": [
       {
         "stat": "PHYSICAL_RESIST_PERCENT",

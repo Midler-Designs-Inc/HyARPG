@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Cloth Hood Panel",
     "tier": 4,
-    "outputAssetID": "Armor_Cloth_Wool_Hood",
+    "outputAssetID": "Armor_Cloth_Wool_Head",
     "implicits": [
       {
         "stat": "MAGIC_RESIST_PERCENT",

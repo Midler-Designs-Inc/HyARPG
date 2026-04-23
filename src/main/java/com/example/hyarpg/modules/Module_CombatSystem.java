@@ -5,7 +5,6 @@ import com.example.hyarpg.configs.Config_World;
 import com.example.hyarpg.utils.affixes.StatType;
 import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.component.*;
-import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
@@ -16,7 +15,6 @@ import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
-import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
@@ -30,14 +28,12 @@ import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntitySta
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.role.Role;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 
 // Mod Imports
-import com.example.hyarpg.components.Component_CraftingKnowledge;
 import com.example.hyarpg.utils.combat.SwingDamageGroup;
 import com.example.hyarpg.ModEventBus;
 import com.example.hyarpg.components.Component_RPG_Enemy;
@@ -49,18 +45,11 @@ import static com.example.hyarpg.modules.Module_RPGSystem.*;
 
 // Java Imports
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import javax.annotation.Nullable;
 import java.awt.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.logging.Level;
 
 public class Module_CombatSystem {
 
@@ -271,7 +260,7 @@ public class Module_CombatSystem {
                     : (attackerRPGStats != null ? attackerRPGStats.mainHandItem : null);
 
             // derive the weapon sub-type e.g. "Axe", "Sword" from the item id for weapon bonus lookup
-            String weaponType = weaponStack != null ? ItemFactory.deriveWeaponType(weaponStack.getItem().getId()) : null;
+            String weaponType = weaponStack != null ? ItemFactory.deriveItemType(weaponStack.getItem().getId()) : null;
 
             // read weapon damage implicits from the item
             List<String> damageImplicits = weaponStack != null ? ItemFactory.getWeaponDamageImplicits(weaponStack) : Collections.emptyList();

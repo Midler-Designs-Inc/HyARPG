@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Cloth Glove Panel",
     "tier": 4,
-    "outputAssetID": "Armor_Cloth_Wool_Glove",
+    "outputAssetID": "Armor_Cloth_Wool_Hands",
     "implicits": [
       {
         "stat": "MAGIC_RESIST_PERCENT",

@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Cloth Tunic Panel",
     "tier": 4,
-    "outputAssetID": "Armor_Cloth_Wool_Tunic",
+    "outputAssetID": "Armor_Cloth_Wool_Chest",
     "implicits": [
       {
         "stat": "FIRE_RESIST_PERCENT",

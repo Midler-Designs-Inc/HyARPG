@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Metal Gloves Shell",
     "tier": 1,
-    "outputAssetID": "Armor_Copper_Gloves",
+    "outputAssetID": "Armor_Copper_Hands",
     "implicits": [
       {
         "stat": "STABILITY_PERCENT",

@@ -30,7 +30,7 @@
   "CraftingComponent": {
     "type": "Leather Vest Panel",
     "tier": 4,
-    "outputAssetID": "Armor_Leather_Heavy_Vest",
+    "outputAssetID": "Armor_Leather_Heavy_Chest",
     "implicits": [
       {
         "stat": "DODGE_CHANCE_PERCENT",

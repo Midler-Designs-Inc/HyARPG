@@ -4,6 +4,60 @@ $Common = "../../Common.ui";
     LayoutMode: Top;
     Anchor: (Width: 240);
 
+    // -------------------------------------------------------------------------
+    // Quick-craft grid — 2 rows x 3 columns
+    // -------------------------------------------------------------------------
+    Group {
+        Background: (TexturePath: "../../Common/ContainerPanelPatch.png", Border: 4);
+        Anchor: (Bottom: 6);
+
+        Group {
+            LayoutMode: Top;
+            Anchor: (Full: 8);
+
+            // Row 1: slots 0, 1, 2
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 74, Bottom: 4);
+
+                Button #QuickCraftSlot0 { Anchor: (Width: 74, Height: 74, Right: 4);
+                    ItemSlot #QuickCraftItem0 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+                    Group #QuickCraftDimOverlay0 { Anchor: (Full: 0); Visible: false; Background: #000000(0.6); }
+                }
+                Button #QuickCraftSlot1 { Anchor: (Width: 74, Height: 74, Right: 4);
+                    ItemSlot #QuickCraftItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+                    Group #QuickCraftDimOverlay1 { Anchor: (Full: 0); Visible: false; Background: #000000(0.6); }
+                }
+                Button #QuickCraftSlot2 { Anchor: (Width: 74, Height: 74);
+                    ItemSlot #QuickCraftItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+                    Group #QuickCraftDimOverlay2 { Anchor: (Full: 0); Visible: false; Background: #000000(0.6); }
+                }
+            }
+
+            // Row 2: slots 3, 4, 5
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 74);
+
+                Button #QuickCraftSlot3 { Anchor: (Width: 74, Height: 74, Right: 4);
+                    ItemSlot #QuickCraftItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+                    Group #QuickCraftDimOverlay3 { Anchor: (Full: 0); Visible: false; Background: #000000(0.6); }
+                }
+                Button #QuickCraftSlot4 { Anchor: (Width: 74, Height: 74, Right: 4);
+                    ItemSlot #QuickCraftItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+                    Group #QuickCraftDimOverlay4 { Anchor: (Full: 0); Visible: false; Background: #000000(0.6); }
+                }
+                Button #QuickCraftSlot5 { Anchor: (Width: 74, Height: 74);
+                    ItemSlot #QuickCraftItem5 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
+                    Group #QuickCraftDimOverlay5 { Anchor: (Full: 0); Visible: false; Background: #000000(0.6); }
+                }
+            }
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // Inspect panel — unchanged
+    // -------------------------------------------------------------------------
     Group {
         Background: (TexturePath: "../../Common/ContainerPanelPatch.png", Border: 4);
         FlexWeight: 1;
@@ -12,7 +66,6 @@ $Common = "../../Common.ui";
             LayoutMode: Top;
             Anchor: (Full: 0);
 
-            // Empty state — shown when nothing is selected
             Group #InspectEmpty {
                 LayoutMode: Top;
                 Anchor: (Full: 0);
@@ -24,15 +77,11 @@ $Common = "../../Common.ui";
                 }
             }
 
-            // -------------------------------------------------------------------------
-            // Item details — shown when an item is selected
-            // -------------------------------------------------------------------------
             Group #InspectDetails {
                 Visible: false;
                 LayoutMode: Top;
                 Anchor: (Full: 0);
 
-                // item icon centered
                 Group {
                     LayoutMode: Center;
                     Anchor: (Height: 80, Top: 10, Bottom: 6);
@@ -43,7 +92,6 @@ $Common = "../../Common.ui";
                     }
                 }
 
-                // item name and rarity
                 Label #InspectItemName {
                     Style: (FontSize: 14, RenderBold: true, TextColor: #ffffff, Alignment: Center, Wrap: true);
                     Anchor: (Horizontal: 8, Bottom: 2);
@@ -53,10 +101,8 @@ $Common = "../../Common.ui";
                     Anchor: (Horizontal: 8, Bottom: 8);
                 }
 
-                // separator
                 Group { Background: #9c8863(0.3); Anchor: (Height: 1, Horizontal: 8, Bottom: 8); }
 
-                // scrollable stat content
                 Group {
                     LayoutMode: TopScrolling;
                     FlexWeight: 1;
@@ -66,43 +112,28 @@ $Common = "../../Common.ui";
                         LayoutMode: Top;
                         Anchor: (Horizontal: 10, Top: 4, Bottom: 8);
 
-                        // gear score
                         Group { LayoutMode: Left; Anchor: (Bottom: 6);
                             Label { Text: "Gear Score"; Style: (FontSize: 12, TextColor: #888888); FlexWeight: 1; }
                             Label #InspectGearScore { Style: (FontSize: 12, TextColor: #c8a84b, RenderBold: true); Anchor: (Width: 60); }
                         }
 
-                        // weapon damage — hidden if not a weapon
                         Group #InspectWeaponDamageRow {
                             Visible: false;
                             LayoutMode: Left;
                             Anchor: (Bottom: 2);
-
                             Label #InspectWeaponDamageLabel { Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true); FlexWeight: 1; }
                         }
 
-                        // separator before implicits
-                        Group #InspectImplicitSeparator {
-                            Visible: false;
-                            Background: #9c8863(0.15);
-                            Anchor: (Height: 1, Top: 6, Bottom: 6);
-                        }
+                        Group #InspectImplicitSeparator { Visible: false; Background: #9c8863(0.15); Anchor: (Height: 1, Top: 6, Bottom: 6); }
 
-                        // implicit lines 1-5
                         Label #InspectImplicit1 { Visible: false; Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); Anchor: (Bottom: 3); }
                         Label #InspectImplicit2 { Visible: false; Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); Anchor: (Bottom: 3); }
                         Label #InspectImplicit3 { Visible: false; Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); Anchor: (Bottom: 3); }
                         Label #InspectImplicit4 { Visible: false; Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); Anchor: (Bottom: 3); }
                         Label #InspectImplicit5 { Visible: false; Style: (FontSize: 12, TextColor: #aaaaaa, Wrap: true); Anchor: (Bottom: 3); }
 
-                        // separator before affixes
-                        Group #InspectAffixSeparator {
-                            Visible: false;
-                            Background: #9c8863(0.15);
-                            Anchor: (Height: 1, Top: 6, Bottom: 6);
-                        }
+                        Group #InspectAffixSeparator { Visible: false; Background: #9c8863(0.15); Anchor: (Height: 1, Top: 6, Bottom: 6); }
 
-                        // affix lines 1-4
                         Label #InspectAffix1 { Visible: false; Style: (FontSize: 12, TextColor: #bca57a, Wrap: true); Anchor: (Bottom: 3); }
                         Label #InspectAffix2 { Visible: false; Style: (FontSize: 12, TextColor: #bca57a, Wrap: true); Anchor: (Bottom: 3); }
                         Label #InspectAffix3 { Visible: false; Style: (FontSize: 12, TextColor: #bca57a, Wrap: true); Anchor: (Bottom: 3); }

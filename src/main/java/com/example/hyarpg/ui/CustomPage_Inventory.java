@@ -1,12 +1,6 @@
 package com.example.hyarpg.ui;
 
 // Hytale Imports
-import com.example.hyarpg.ModEventBus;
-import com.example.hyarpg.events.Event_PlayerInventoryItemEquip;
-import com.example.hyarpg.events.Event_PlayerInventoryItemUnEquip;
-import com.hypixel.hytale.builtin.buildertools.tooloperations.transform.Translate;
-import com.hypixel.hytale.builtin.crafting.window.CraftingWindow;
-import com.hypixel.hytale.builtin.crafting.window.FieldCraftingWindow;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
@@ -21,7 +15,6 @@ import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCu
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
-import com.hypixel.hytale.server.core.modules.i18n.generator.TranslationMap;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
@@ -34,12 +27,24 @@ import com.example.hyarpg.utils.StatTypeInfo;
 import com.example.hyarpg.utils.affixes.Affix;
 import com.example.hyarpg.utils.affixes.AffixPool;
 import com.example.hyarpg.utils.affixes.StatType;
+import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
+import com.example.hyarpg.ModEventBus;
+import com.example.hyarpg.events.Event_PlayerInventoryItemEquip;
+import com.example.hyarpg.events.Event_PlayerInventoryItemUnEquip;
 
 // Java Imports
+import org.bson.BsonArray;
+import org.bson.BsonDocument;
+import org.bson.BsonValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.example.hyarpg.modules.Module_RPGSystem.componentTypeRPGPlayer;
 
@@ -60,6 +65,22 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private static final String COLOR_RARE      = "#5588ff";
     private static final String COLOR_EPIC      = "#cc44cc";
     private static final String COLOR_LEGENDARY = "#ffaa00";
+
+    // Quick-craft slot definitions - Index maps directly to the UI slot number (0-5)
+    private static final int QUICK_CRAFT_SLOTS = 6;
+
+    // Item ids shown in each quick-craft slot — order matches UI grid left-to-right, top-to-bottom
+    private static final String[] QUICK_CRAFT_ITEM_IDS = {
+        "HyARPG_How_To_Play_Guide",   // 0 — no cost, lit if player doesn't have one
+        "Tool_Hatchet_Crude",         // 1 — has recipe cost
+        "Tool_Pickaxe_Crude",         // 2 — has recipe cost
+        "Bench_Light_Well",           // 3 — no cost, lit if player doesn't have one AND no territory stake
+        "Bench_WorkBench",            // 4 — has recipe cost
+        "Dimensional_Cube",           // 5 — no cost, lit if player doesn't have one
+    };
+
+    // cache of asset-json Recipe blocks, keyed by item id — populated once per item, never changes
+    private static final Map<String, BsonDocument> RECIPE_CACHE = new ConcurrentHashMap<>();
 
     // selection state — encodes source and index e.g. "storage:5", "armor:0", "utility:2", "hotbar:3"
     private String selectedSlotId = null;
@@ -90,6 +111,9 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         // bind utility slot clicks
         for (int i = 0; i < UTILITY_SLOTS; i++) events.addEventBinding(CustomUIEventBindingType.Activating, "#UtilitySlot" + i, EventData.of("Action", "select:utility:" + i));
 
+        // bind quick-craft slot clicks
+        for (int i = 0; i < QUICK_CRAFT_SLOTS; i++) events.addEventBinding(CustomUIEventBindingType.Activating, "#QuickCraftSlot" + i, EventData.of("Action", "quickcraft:" + i));
+
         // apply full initial state
         applyFullState(ref, store, cmd);
     }
@@ -102,6 +126,8 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
 
         if (data.action.startsWith("select:")) {
             handleSlotClick(data.action.substring("select:".length()), ref, store, cmd);
+        } else if (data.action.startsWith("quickcraft:")) {
+            handleQuickCraft(Integer.parseInt(data.action.substring("quickcraft:".length())), ref, store, cmd);
         } else {
             sendUpdate((UICommandBuilder) null, false);
             return;
@@ -111,6 +137,191 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     }
 
     // Slot click handler — selection, deselection, and equip/swap routing
+    // -------------------------------------------------------------------------
+    // Quick-craft logic
+    // -------------------------------------------------------------------------
+
+    // called when a quick-craft slot is clicked — checks availability and gives the item if valid
+    private void handleQuickCraft(int slot, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
+        if (slot < 0 || slot >= QUICK_CRAFT_SLOTS) return;
+
+        InventoryComponent.Storage storage = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        if (storage == null) return;
+
+        storage.getInventory().addItemStack(new ItemStack(QUICK_CRAFT_ITEM_IDS[slot], 1));
+
+        pushStorageSlots(ref, store, cmd);
+    }
+
+    // pushes the item icon and dim overlay state for all 6 quick-craft slots
+    private void pushQuickCraftStates(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
+        for (int i = 0; i < QUICK_CRAFT_SLOTS; i++) {
+            cmd.set("#QuickCraftItem" + i + ".ItemId", QUICK_CRAFT_ITEM_IDS[i]);
+            cmd.set("#QuickCraftDimOverlay" + i + ".Visible", false);
+        }
+    }
+
+    // returns true if the given quick-craft slot should be lit (available to click)
+    private boolean isQuickCraftAvailable(int slot, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        String itemId = QUICK_CRAFT_ITEM_IDS[slot];
+
+        return switch (slot) {
+            // HyARPG_How_To_Play_Guide — lit if player doesn't already have one
+            case 0 -> !playerHasItem(itemId, ref, store);
+
+            // Tool_Hatchet_Crude — lit if player has materials
+            case 1 -> playerHasMaterials(itemId, ref, store);
+
+            // Tool_Pickaxe_Crude — lit if player has materials
+            case 2 -> playerHasMaterials(itemId, ref, store);
+
+            // Bench_Light_Well — lit if no item on them AND no territory stake
+            case 3 -> !playerHasItem(itemId, ref, store) && !playerHasTerritoryStake(ref, store);
+
+            // Bench_WorkBench — lit if player has materials
+            case 4 -> playerHasMaterials(itemId, ref, store);
+
+            // Dimensional_Cube — lit if player doesn't already have one
+            case 5 -> !playerHasItem(itemId, ref, store);
+
+            default -> false;
+        };
+    }
+
+    // returns true if the player has at least one of the given item in storage or hotbar
+    private boolean playerHasItem(@Nonnull String itemId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        InventoryComponent.Storage storageComp = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        if (storageComp != null) {
+            ItemContainer inv = storageComp.getInventory();
+            for (short i = 0; i < inv.getCapacity(); i++) {
+                ItemStack stack = inv.getItemStack(i);
+                if (stack != null && !stack.isEmpty() && stack.getItem().getId().equals(itemId)) return true;
+            }
+        }
+        InventoryComponent.Hotbar hotbarComp = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+        if (hotbarComp != null) {
+            ItemContainer inv = hotbarComp.getInventory();
+            for (short i = 0; i < inv.getCapacity(); i++) {
+                ItemStack stack = inv.getItemStack(i);
+                if (stack != null && !stack.isEmpty() && stack.getItem().getId().equals(itemId)) return true;
+            }
+        }
+        return false;
+    }
+
+    // returns true if the player has all required materials from the item's Recipe.Input in storage or hotbar
+    private boolean playerHasMaterials(@Nonnull String itemId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        BsonDocument recipe = readRecipe(itemId);
+        if (recipe == null || !recipe.containsKey("Input")) return false;
+        BsonArray inputs = recipe.getArray("Input");
+        for (BsonValue entry : inputs) {
+            if (!entry.isDocument()) return false;
+            BsonDocument input = entry.asDocument();
+            String resourceId = input.getString("ResourceTypeId").getValue();
+            int required = input.getInt32("Quantity").getValue();
+            if (countItemInInventory(resourceId, ref, store) < required) return false;
+        }
+        return true;
+    }
+
+    // counts how many of a given item id the player has across storage and hotbar
+    private int countItemInInventory(@Nonnull String itemId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        int count = 0;
+        InventoryComponent.Storage storageComp = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        if (storageComp != null) {
+            ItemContainer inv = storageComp.getInventory();
+            for (short i = 0; i < inv.getCapacity(); i++) {
+                ItemStack stack = inv.getItemStack(i);
+                if (stack != null && !stack.isEmpty() && stack.getItem().getId().equals(itemId)) count += stack.getQuantity();
+            }
+        }
+        InventoryComponent.Hotbar hotbarComp = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+        if (hotbarComp != null) {
+            ItemContainer inv = hotbarComp.getInventory();
+            for (short i = 0; i < inv.getCapacity(); i++) {
+                ItemStack stack = inv.getItemStack(i);
+                if (stack != null && !stack.isEmpty() && stack.getItem().getId().equals(itemId)) count += stack.getQuantity();
+            }
+        }
+        return count;
+    }
+
+    // returns true if the player owns or co-owns any territory
+    private boolean playerHasTerritoryStake(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+        if (playerRef == null) return false;
+        UUID ownerUuid = playerRef.getUuid();
+        WorldRoomRegistry registry = WorldRoomRegistry.get(store.getExternalData().getWorld());
+        if (registry == null) return false;
+        return registry.getAllTerritories().stream()
+                .anyMatch(t -> ownerUuid.equals(t.getOwnerUuid()) || t.isCoOwner(ownerUuid));
+    }
+
+    // removes the required materials from storage and hotbar, returns false if materials are missing
+    private boolean consumeMaterials(@Nonnull BsonArray inputs, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        for (BsonValue entry : inputs) {
+            if (!entry.isDocument()) return false;
+            BsonDocument input = entry.asDocument();
+            String resourceId = input.getString("ResourceTypeId").getValue();
+            int required = input.getInt32("Quantity").getValue();
+            if (!consumeItem(resourceId, required, ref, store)) return false;
+        }
+        return true;
+    }
+
+    // removes the requested quantity of an item from storage then hotbar, returns false if insufficient
+    private boolean consumeItem(@Nonnull String itemId, int quantity, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        int remaining = quantity;
+
+        InventoryComponent.Storage storageComp = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        if (storageComp != null) {
+            ItemContainer inv = storageComp.getInventory();
+            for (short i = 0; i < inv.getCapacity() && remaining > 0; i++) {
+                ItemStack stack = inv.getItemStack(i);
+                if (stack == null || stack.isEmpty() || !stack.getItem().getId().equals(itemId)) continue;
+                int take = Math.min(stack.getQuantity(), remaining);
+                int left = stack.getQuantity() - take;
+                inv.replaceItemStackInSlot(i, stack, left > 0 ? stack.withQuantity(left) : null);
+                remaining -= take;
+            }
+        }
+
+        InventoryComponent.Hotbar hotbarComp = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+        if (hotbarComp != null) {
+            ItemContainer inv = hotbarComp.getInventory();
+            for (short i = 0; i < inv.getCapacity() && remaining > 0; i++) {
+                ItemStack stack = inv.getItemStack(i);
+                if (stack == null || stack.isEmpty() || !stack.getItem().getId().equals(itemId)) continue;
+                int take = Math.min(stack.getQuantity(), remaining);
+                int left = stack.getQuantity() - take;
+                inv.replaceItemStackInSlot(i, stack, left > 0 ? stack.withQuantity(left) : null);
+                remaining -= take;
+            }
+        }
+
+        return remaining == 0;
+    }
+
+    // reads and caches the Recipe block from a raw asset json — returns null if not present
+    @Nullable
+    private static BsonDocument readRecipe(@Nonnull String itemId) {
+        return RECIPE_CACHE.computeIfAbsent(itemId, id -> {
+            Path assetPath = Item.getAssetMap().getPath(id);
+            if (assetPath == null) return null;
+            try {
+                BsonDocument doc = BsonDocument.parse(Files.readString(assetPath));
+                BsonValue recipe = doc.get("Recipe");
+                return (recipe != null && recipe.isDocument()) ? recipe.asDocument() : null;
+            } catch (Exception e) {
+                return null;
+            }
+        });
+    }
+
+    // -------------------------------------------------------------------------
+    // Existing logic — unchanged below this line
+    // -------------------------------------------------------------------------
+
     private void handleSlotClick(@Nonnull String slotId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
         String[] parts = slotId.split(":");
         String source = parts[0];
@@ -228,6 +439,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         pushStats(event.getRef(), event.getStore(), cmd);
         sendUpdate(cmd, false);
     }
+
     private void onUnEquipEvent(Event_PlayerInventoryItemUnEquip event) {
         UICommandBuilder cmd = new UICommandBuilder();
         pushStats(event.getRef(), event.getStore(), cmd);
@@ -241,6 +453,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         pushArmorSlots(ref, store, cmd);
         pushUtilitySlots(ref, store, cmd);
         pushStats(ref, store, cmd);
+        pushQuickCraftStates(ref, store, cmd);
         updateInspectPanel(cmd, null);
     }
 
@@ -456,7 +669,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
 
     // Gear slot compatibility overlays — green = can equip, red = cannot
     private void applyGearSlotCompatibility(@Nonnull UICommandBuilder cmd, @Nonnull Item item, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
-        String  itemId    = item.getId();
         boolean isGear    = isGearItem(item);
         boolean isUtility = isUtilityItem(item);
 
@@ -507,10 +719,12 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
             }
         }
     }
+
     private void clearGearSlotOverlays(@Nonnull UICommandBuilder cmd) {
         for (int i = 0; i < ARMOR_SLOTS;   i++) { cmd.set("#ArmorValidOverlay" + i + ".Visible", false);   cmd.set("#ArmorInvalidOverlay" + i + ".Visible", false); }
         for (int i = 0; i < UTILITY_SLOTS; i++) { cmd.set("#UtilityValidOverlay" + i + ".Visible", false); cmd.set("#UtilityInvalidOverlay" + i + ".Visible", false); }
     }
+
     private void clearInventoryInvalidOverlays(@Nonnull UICommandBuilder cmd) {
         for (int i = 0; i < STORAGE_SLOTS; i++) cmd.set("#InvStorageInvalidOverlay" + i + ".Visible", false);
         for (int i = 0; i < HOTBAR_SLOTS;  i++) cmd.set("#InvHotbarInvalidOverlay" + i + ".Visible", false);
@@ -525,6 +739,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         this.selectedSlotId = null;
         this.selectedItem   = null;
     }
+
     private void applySelectedOverlay(@Nonnull UICommandBuilder cmd, @Nonnull String source, int index, boolean visible) {
         String element = switch (source) {
             case "storage" -> "#InvStorageSelectedOverlay" + index;
@@ -559,6 +774,7 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private static boolean isGearItem(@Nonnull Item item) {
         return item.getArmor() != null && item.getArmor().getArmorSlot() != null;
     }
+
     private static boolean isUtilityItem(@Nonnull Item item) {
         return item.getUtility().isUsable();
     }
@@ -571,18 +787,10 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         if (slot == 3) return item.getArmor().getArmorSlot() == ItemArmorSlot.Legs;
         return false;
     }
+
     private static String deriveRarity(@Nonnull String itemId) {
         for (String r : new String[]{"Legendary", "Epic", "Rare", "Uncommon", "Common"}) { if (itemId.endsWith("_" + r)) return r; }
         return "Common";
-    }
-    private static String rarityColor(@Nonnull String rarity) {
-        return switch (rarity) {
-            case "Uncommon"  -> COLOR_UNCOMMON;
-            case "Rare"      -> COLOR_RARE;
-            case "Epic"      -> COLOR_EPIC;
-            case "Legendary" -> COLOR_LEGENDARY;
-            default          -> COLOR_COMMON;
-        };
     }
 
     // checks if an item is compatible with a specific gear slot

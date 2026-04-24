@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Element_Rune_Embellishments_T4.json.name",
-    "Description": "server.items.components.Armor_Component_Element_Rune_Embellishments_T4.json.description"
+    "Name": "server.items.components.Element_Rune_Embellishments_T3.name",
+    "Description": "server.items.components.Element_Rune_Embellishments_T3.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

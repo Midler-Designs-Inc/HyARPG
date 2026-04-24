@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Stormward_Metal_Helmet_Shell_T1.json.name",
-    "Description": "server.items.components.Armor_Component_Stormward_Metal_Helmet_Shell_T1.json.description"
+    "Name": "server.items.components.Stormward_Metal_Helmet_Shell_T0.name",
+    "Description": "server.items.components.Stormward_Metal_Helmet_Shell_T0.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

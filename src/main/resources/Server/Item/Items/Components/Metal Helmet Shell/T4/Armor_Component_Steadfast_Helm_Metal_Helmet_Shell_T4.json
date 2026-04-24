@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Steadfast_Helm_Metal_Helmet_Shell_T4.json.name",
-    "Description": "server.items.components.Armor_Component_Steadfast_Helm_Metal_Helmet_Shell_T4.json.description"
+    "Name": "server.items.components.Steadfast_Helm_Metal_Helmet_Shell_T3.name",
+    "Description": "server.items.components.Steadfast_Helm_Metal_Helmet_Shell_T3.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Wellspring_Wrap_Cloth_Glove_Panel_T1.json.name",
-    "Description": "server.items.components.Armor_Component_Wellspring_Wrap_Cloth_Glove_Panel_T1.json.description"
+    "Name": "server.items.components.Wellspring_Wrap_Cloth_Glove_Panel_T0.name",
+    "Description": "server.items.components.Wellspring_Wrap_Cloth_Glove_Panel_T0.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

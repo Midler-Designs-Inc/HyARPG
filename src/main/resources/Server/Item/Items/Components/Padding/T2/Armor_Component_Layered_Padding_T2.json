@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Layered_Padding_T2.json.name",
-    "Description": "server.items.components.Armor_Component_Layered_Padding_T2.json.description"
+    "Name": "server.items.components.Layered_Padding_T1.name",
+    "Description": "server.items.components.Layered_Padding_T1.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

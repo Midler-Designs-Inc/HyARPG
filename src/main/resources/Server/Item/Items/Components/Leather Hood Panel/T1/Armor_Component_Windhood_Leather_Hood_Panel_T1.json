@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Windhood_Leather_Hood_Panel_T1.json.name",
-    "Description": "server.items.components.Armor_Component_Windhood_Leather_Hood_Panel_T1.json.description"
+    "Name": "server.items.components.Windhood_Leather_Hood_Panel_T0.name",
+    "Description": "server.items.components.Windhood_Leather_Hood_Panel_T0.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

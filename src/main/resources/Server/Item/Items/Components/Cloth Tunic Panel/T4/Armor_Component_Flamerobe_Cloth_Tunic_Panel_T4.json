@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Flamerobe_Cloth_Tunic_Panel_T4.json.name",
-    "Description": "server.items.components.Armor_Component_Flamerobe_Cloth_Tunic_Panel_T4.json.description"
+    "Name": "server.items.components.Flamerobe_Cloth_Tunic_Panel_T3.name",
+    "Description": "server.items.components.Flamerobe_Cloth_Tunic_Panel_T3.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Swiftgrip_Leather_Glove_Panel_T5.json.name",
-    "Description": "server.items.components.Armor_Component_Swiftgrip_Leather_Glove_Panel_T5.json.description"
+    "Name": "server.items.components.Swiftgrip_Leather_Glove_Panel_T4.name",
+    "Description": "server.items.components.Swiftgrip_Leather_Glove_Panel_T4.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

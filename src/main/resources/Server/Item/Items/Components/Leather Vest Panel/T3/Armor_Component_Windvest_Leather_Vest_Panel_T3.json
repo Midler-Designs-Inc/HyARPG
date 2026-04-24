@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Windvest_Leather_Vest_Panel_T3.json.name",
-    "Description": "server.items.components.Armor_Component_Windvest_Leather_Vest_Panel_T3.json.description"
+    "Name": "server.items.components.Windvest_Leather_Vest_Panel_T2.name",
+    "Description": "server.items.components.Windvest_Leather_Vest_Panel_T2.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Stormstitch_Stitching_T4.json.name",
-    "Description": "server.items.components.Armor_Component_Stormstitch_Stitching_T4.json.description"
+    "Name": "server.items.components.Stormstitch_Stitching_T3.name",
+    "Description": "server.items.components.Stormstitch_Stitching_T3.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

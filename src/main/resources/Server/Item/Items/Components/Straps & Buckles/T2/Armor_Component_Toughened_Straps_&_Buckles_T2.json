@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Armor_Component_Toughened_Straps_&_Buckles_T2.json.name",
-    "Description": "server.items.components.Armor_Component_Toughened_Straps_&_Buckles_T2.json.description"
+    "Name": "server.items.components.Toughened_Straps_&_Buckles_T1.name",
+    "Description": "server.items.components.Toughened_Straps_&_Buckles_T1.description"
   },
   "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",

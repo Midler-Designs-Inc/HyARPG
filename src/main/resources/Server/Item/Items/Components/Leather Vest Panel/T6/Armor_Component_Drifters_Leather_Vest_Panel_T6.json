@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Drifters_Leather_Vest_Panel_T5.name",
+    "Description": "server.items.components.Drifters_Leather_Vest_Panel_T5.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Dark",
+        "Quantity": 70
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 6,
+        "Categories": [
+          "Leather_Panels"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Leather Vest Panel",
+    "tier": 6,
+    "outputAssetID": "Armor_Leather_Dark_Chest",
+    "implicits": [
+      {
+        "stat": "STAMINA_FLAT",
+        "min": 1.8,
+        "max": 4.8
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

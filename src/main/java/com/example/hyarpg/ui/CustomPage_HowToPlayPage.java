@@ -291,11 +291,16 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
     private static List<Line> buildBaseBuilding() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Light Wells"));
-        lines.add(plain("The Light Well is your base anchor. Placing one claims the surrounding territory as yours."));
-        lines.add(bullet("Benches and beds can only be placed inside an active Light Well territory."));
+        lines.add(plain("The Light Well is your base anchor. Placing one claims the surrounding territory as yours and sets it as your spawn point. Breaking your active Light Well resets your spawn back to world spawn."));
+        lines.add(bullet("Benches can be placed inside an active Light Well territory. Beds can be placed anywhere."));
         lines.add(bullet("Each player can only have one Light Well."));
         lines.add(bullet("Placing a Light Well makes your base a potential raid target."));
         lines.add(plain("Use /home to teleport back to your Light Well from anywhere in the world."));
+        lines.add(spacer());
+        lines.add(heading("Co-Ownership"));
+        lines.add(plain("You can share ownership of your Light Well territory with other players. Co-owners can place and remove benches inside your territory and are included in raid defense."));
+        lines.add(bullet("Open the Light Well UI to manage co-owners."));
+        lines.add(bullet("Co-owners do not consume their own Light Well slot — they can still place their own base."));
         lines.add(spacer());
         lines.add(heading("The Room System"));
         lines.add(plain("The Room System rewards creative building. Build rooms inside your territory and experiment with size, decorations, benches, and contents to discover hidden room recipes that unlock new bonuses."));

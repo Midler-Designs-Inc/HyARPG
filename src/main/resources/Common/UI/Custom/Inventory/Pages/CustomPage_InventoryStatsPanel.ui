@@ -84,6 +84,9 @@ $Common = "../../Common.ui";
                 Label { Text: "Crit Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
                 Label #StatCritDamage { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
             }
+
+            // Weapon damage stats
+            Label { Text: "Weapons"; Style: (FontSize: 13, RenderBold: true, TextColor: #c8a84b); Anchor: (Bottom: 4); }
             Group { LayoutMode: Left; Anchor: (Bottom: 2);
                 Label { Text: "Axe Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
                 Label #StatAxeDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }

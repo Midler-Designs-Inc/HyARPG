@@ -95,6 +95,9 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public boolean showLootDrops = true;
     public boolean showCombatText = true;
 
+    // grave position — persisted so it survives restarts
+    public String gravePosition = null;
+
     // Register properties that needs to be persisted
     public static final BuilderCodec<Component_RPG_Player> CODEC = BuilderCodec.builder(
             Component_RPG_Player.class, Component_RPG_Player::new
@@ -158,6 +161,10 @@ public class Component_RPG_Player implements Component<EntityStore> {
         .append(new KeyedCodec<>("HyARPG_RPGPlayer_LastLogoutTime", Codec.LONG),
                 ((comp, value) -> comp.lastLogoutTime = value),
                 comp -> comp.lastLogoutTime
+        ).add()
+        .append(new KeyedCodec<>("HyARPG_RPGPlayer_GravePosition", Codec.STRING),
+                ((comp, value) -> comp.gravePosition = value),
+                comp -> comp.gravePosition
         ).add()
         .build();
 

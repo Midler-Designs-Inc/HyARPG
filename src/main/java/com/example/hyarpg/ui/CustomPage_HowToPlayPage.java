@@ -169,7 +169,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
     private static List<Line> buildProgression() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Levelling Up"));
-        lines.add(plain("Defeat enemies to earn XP. Use /stats to see your current level at any time."));
+        lines.add(plain("Defeat enemies to earn XP."));
         lines.add(plain("XP scales based on enemy level vs yours. Enemies 10+ levels below give no XP. Enemies up to 10 levels above give up to triple XP."));
         lines.add(spacer());
         lines.add(heading("Skill Trees"));
@@ -206,12 +206,13 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(spacer());
         lines.add(heading("Ore Progression"));
         lines.add(plain("Higher ore tiers appear the further you explore. Ranges below are defaults and are configurable."));
-        lines.add(bullet("Copper", "0-20k blocks, peaks ~10k."));
-        lines.add(bullet("Iron", "10-30k blocks, peaks ~20k."));
-        lines.add(bullet("Thorium", "20-40k blocks, peaks ~30k."));
-        lines.add(bullet("Cobalt", "30-50k blocks, peaks ~40k."));
-        lines.add(bullet("Adamantite", "40-60k blocks, peaks ~50k."));
-        lines.add(bullet("Mithril", "50-70k blocks, peaks ~60k."));
+        lines.add(bullet("Crude Tier", "0k-2k blocks, starter/basic materials drops, no ore spawns."));
+        lines.add(bullet("Copper Tier", "2k-22k blocks, peaks ~12k. Copper gear/materials drop and spawn."));
+        lines.add(bullet("Iron Tier", "12k-32k blocks, peaks ~22k. Iron gear/materials drop and spawn."));
+        lines.add(bullet("Thorium Tier", "22k-42k blocks, peaks ~32k. Thorium gear/materials drop and spawn."));
+        lines.add(bullet("Cobalt Tier", "32k-52k blocks, peaks ~42k. Cobalt gear/materials drop and spawn."));
+        lines.add(bullet("Adamantite Tier", "42k-62k blocks, peaks ~52k. Adamantite gear/materials drop and spawn."));
+        lines.add(bullet("Mithril Tier", "52k-72k blocks, peaks ~62k. Mithril gear/materials drop and spawn."));
         return lines;
     }
 
@@ -322,7 +323,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Player Commands"));
         lines.add(command("/skills", "Open your skill trees. Browse, invest skill points, and equip abilities."));
-        lines.add(command("/stats", "Open your stats page. View level, Gear Score, affixes, and implicit modifiers."));
+        lines.add(command("/stats", "Open character/gear management page. View and equip mod gear/items"));
         lines.add(command("/discovered", "Open your recipe book. Shows all discovered component and room recipes."));
         lines.add(command("/home", "Teleport to your Light Well from anywhere in the world."));
         lines.add(command("/HyARPG_Player_Settings_ShowCombatMessages <true|false>", "Toggle combat damage messages."));

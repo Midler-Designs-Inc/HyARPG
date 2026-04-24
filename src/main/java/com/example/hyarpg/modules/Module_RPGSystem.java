@@ -1,16 +1,22 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.components.Component_Grave;
 import com.example.hyarpg.utils.InterceptPocketCraftingWindow;
 import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3f;
 import com.hypixel.hytale.protocol.packets.window.WindowType;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
+import com.hypixel.hytale.server.core.entity.entities.BlockEntity;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.windows.Window;
 import com.hypixel.hytale.server.core.entity.entities.player.windows.WindowManager;
@@ -20,13 +26,18 @@ import com.hypixel.hytale.server.core.inventory.InventorySystems;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
+import com.hypixel.hytale.server.core.modules.entity.BlockEntitySystems;
+import com.hypixel.hytale.server.core.modules.entity.DespawnComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.player.PlayerSendInventorySystem;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
+import com.hypixel.hytale.server.core.modules.physics.component.Velocity;
+import com.hypixel.hytale.server.core.modules.time.TimeResource;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -46,8 +57,11 @@ import com.example.hyarpg.utils.affixes.AffixPool;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.example.hyarpg.utils.skills.SkillLibraryMigration;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ReferenceMap;
 
 // Java Imports
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.time.Instant;
 import java.util.*;
@@ -66,6 +80,7 @@ public class Module_RPGSystem {
     public static ComponentType<EntityStore, Component_RPG_Player> componentTypeRPGPlayer;
     public static ComponentType<EntityStore, Component_RPG_Enemy> componentTypeRPGEnemy;
     public static ComponentType<EntityStore, Component_CraftingKnowledge> componentTypeCraftingKnowledge;
+    public static ComponentType<ChunkStore, Component_Grave> componentTypeGrave;
 
     // properties that control enemy level as they get further from spawn
     private static final Random random = new Random();
@@ -98,6 +113,7 @@ public class Module_RPGSystem {
         componentTypeRPGPlayer = plugin.getEntityStoreRegistry().registerComponent(Component_RPG_Player.class, "RPGStatsComponent", Component_RPG_Player.CODEC);
         componentTypeRPGEnemy = plugin.getEntityStoreRegistry().registerComponent(Component_RPG_Enemy.class, "RPGEnemyComponent", Component_RPG_Enemy.CODEC);
         componentTypeCraftingKnowledge = plugin.getEntityStoreRegistry().registerComponent(Component_CraftingKnowledge.class, "CraftingKnowledgeComponent", Component_CraftingKnowledge.CODEC);
+        componentTypeGrave = plugin.getChunkStoreRegistry().registerComponent(Component_Grave.class, "PlayerGraveComponent", Component_Grave.CODEC);
 
         // Get the interaction registry and register the custom interactions
         final var interactionRegistry = plugin.getCodecRegistry(Interaction.CODEC);
@@ -110,6 +126,7 @@ public class Module_RPGSystem {
         interactionRegistry.register("Bench_Forge_Open_Crafting", Interaction_Bench_Forge_Open_Crafting.class, Interaction_Bench_Forge_Open_Crafting.CODEC);
         interactionRegistry.register("Bench_Forge_Open_Salvaging", Interaction_Bench_Forge_Open_Salvaging.class, Interaction_Bench_Forge_Open_Salvaging.CODEC);
         interactionRegistry.register("Open_Territory_Panel", Interaction_Open_Territory_Panel.class, Interaction_Open_Territory_Panel.CODEC);
+        interactionRegistry.register("Resurrect_Player_At_Grave", Interaction_RezPlayer.class, Interaction_RezPlayer.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
@@ -120,9 +137,11 @@ public class Module_RPGSystem {
         ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onPlayerInventoryItemEquip);
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
         ModEventBus.register(Event_ContainerSpawned.class, this::onContainerSpawned);
+        ModEventBus.register(Event_PlayerDeath.class, this::onPlayerDeath);
+        ModEventBus.register(Event_PlayerRespawn.class, this::onPlayerRespawn);
 
         // Replace the inventory open with our own window
-        Window.CLIENT_REQUESTABLE_WINDOW_TYPES.put(WindowType.PocketCrafting, () -> new InterceptPocketCraftingWindow());
+//        Window.CLIENT_REQUESTABLE_WINDOW_TYPES.put(WindowType.PocketCrafting, () -> new InterceptPocketCraftingWindow());
     }
 
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
@@ -384,6 +403,72 @@ public class Module_RPGSystem {
         // refresh gear score and affix stats
         rpgPlayer.calculateGearScore(ref, store);
         rpgPlayer.calculateAffixStats(ref, store);
+    }
+
+    // method for when a player dies
+    public void onPlayerDeath(Event_PlayerDeath event) {
+        Ref<EntityStore> ref = event.getRef();
+        Store<EntityStore> store = event.getStore();
+
+        TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
+        if (transform == null) return;
+
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+        if (playerRef == null) return;
+
+        Component_RPG_Player rpg = store.getComponent(ref, componentTypeRPGPlayer);
+        if (rpg == null) return;
+
+        UUID deadUuid = playerRef.getUuid();
+        Vector3d pos = transform.getPosition();
+        int x = (int) Math.floor(pos.x);
+        int y = (int) Math.floor(pos.y);
+        int z = (int) Math.floor(pos.z);
+
+        World world = store.getExternalData().getWorld();
+        world.execute(() -> {
+            // remove any existing grave for this player first
+            if (rpg.gravePosition != null) {
+                String[] parts = rpg.gravePosition.split(",");
+                world.breakBlock(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), 0);
+            }
+
+            long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
+            WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
+            if (chunk == null) return;
+
+            BlockType blockType = BlockType.getAssetMap().getAsset("HyARPG_Player_Grave");
+            if (blockType == null) return;
+
+            int blockIndex = BlockType.getAssetMap().getIndex("HyARPG_Player_Grave");
+
+            Holder<ChunkStore> graveHolder = ChunkStore.REGISTRY.newHolder();
+            graveHolder.addComponent(componentTypeGrave, new Component_Grave(deadUuid, ref));
+
+            chunk.setState(x, y, z, blockType, 0, graveHolder);
+            chunk.setBlock(x, y, z, blockIndex, blockType, 0, 0, 2);
+
+            // store grave position on player component
+            rpg.gravePosition = x + "," + y + "," + z;
+        });
+    }
+
+    // method for when a player respawns
+    public void onPlayerRespawn(Event_PlayerRespawn event) {
+        Ref<EntityStore> ref = event.ref();
+        Store<EntityStore> store = event.store();
+
+        Component_RPG_Player rpg = store.getComponent(ref, componentTypeRPGPlayer);
+        if (rpg == null || rpg.gravePosition == null) return;
+
+        String[] parts = rpg.gravePosition.split(",");
+        int x = Integer.parseInt(parts[0]);
+        int y = Integer.parseInt(parts[1]);
+        int z = Integer.parseInt(parts[2]);
+        rpg.gravePosition = null;
+
+        World world = store.getExternalData().getWorld();
+        world.execute(() -> world.breakBlock(x, y, z, 0));
     }
 
     // register an item a player picked up to their discovered list

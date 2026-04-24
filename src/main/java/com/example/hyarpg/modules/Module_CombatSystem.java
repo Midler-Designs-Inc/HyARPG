@@ -1,9 +1,6 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import com.example.hyarpg.configs.Config_World;
-import com.example.hyarpg.utils.affixes.StatType;
-import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.Message;
@@ -41,11 +38,13 @@ import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.events.*;
 import com.example.hyarpg.utils.affixes.EntityStats;
+import com.example.hyarpg.configs.Config_World;
+import com.example.hyarpg.utils.affixes.StatType;
+import com.example.hyarpg.utils.items.ItemFactory;
 import static com.example.hyarpg.modules.Module_RPGSystem.*;
 
 // Java Imports
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -146,9 +145,6 @@ public class Module_CombatSystem {
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
 
-        // only do loot and XP if a player attacked this enemy recently
-        if (getAttackingPlayers(ref, store).isEmpty()) return;
-
         // get the NPC component and rpgEnemy components
         NPCEntity npcComponent = commandBuffer.getComponent(ref, NPCEntity.getComponentType());
         Component_RPG_Enemy rpgEnemy = commandBuffer.getComponent(ref, componentTypeRPGEnemy);
@@ -174,6 +170,9 @@ public class Module_CombatSystem {
         InventoryComponent.Hotbar npcHotbar = commandBuffer.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
         if (npcStorage != null) npcStorage.getInventory().clear();
         if (npcHotbar != null) npcHotbar.getInventory().clear();
+
+        // only do loot and XP if a player attacked this enemy recently
+        if (getAttackingPlayers(ref, store).isEmpty()) return;
 
         // get transform early — needed for drop position and distance calculation
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());

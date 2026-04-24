@@ -1,6 +1,7 @@
 package com.example.hyarpg.listeners;
 
 // Hytale Imports
+import com.example.hyarpg.events.Event_PlayerRespawn;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
@@ -64,7 +65,13 @@ public class Listeners_Death extends DeathSystems.OnDeathSystem {
             @NonNullDecl DeathComponent component,
             @NonNullDecl Store<EntityStore> store,
             @NonNullDecl CommandBuffer<EntityStore> commandBuffer
-    ) {}
+    ) {
+        // Resolve PlayerRef from the entity
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+
+        // broadcast player respawn
+        ModEventBus.post(new Event_PlayerRespawn(ref, store));
+    }
 
     @Nonnull
     @Override

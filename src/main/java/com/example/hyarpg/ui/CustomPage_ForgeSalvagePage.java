@@ -259,6 +259,17 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         }
         if (pool.isEmpty()) { sendUpdate((UICommandBuilder) null, false); return; }
 
+        // add shard to pool based on item rarity
+        String rarity = deriveRarity(stack.getItem().getId());
+        String shardId = switch (rarity) {
+            case "Uncommon"  -> "Uncommon_Shards";
+            case "Rare"      -> "Rare_Shards";
+            case "Epic"      -> "Epic_Shards";
+            case "Legendary" -> "Legendary_Shards";
+            default -> null;
+        };
+        if (shardId != null) pool.add(shardId);
+
         // randomly pick SALVAGE_COMPONENT_COUNT components to return
         List<String> toReturn = new ArrayList<>();
         ThreadLocalRandom r = ThreadLocalRandom.current();

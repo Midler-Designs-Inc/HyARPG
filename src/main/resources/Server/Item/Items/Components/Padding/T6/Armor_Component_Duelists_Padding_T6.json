@@ -1,0 +1,53 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Duelists_Padding_T5.name",
+    "Description": "server.items.components.Duelists_Padding_T5.description"
+  },
+  "Icon": "Icons/Items/Armor_Components/Component_Padding_Icon.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 14,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Dark",
+        "Quantity": 35
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Shadoweave",
+        "Quantity": 35
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_Red",
+        "Quantity": 21
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 6,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Padding",
+    "tier": 6,
+    "outputAssetID": "Armor_Component_Duelist's_Padding",
+    "implicits": [
+      {
+        "stat": "PARRY_WINDOW_FLAT",
+        "min": 0.06,
+        "max": 0.6
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

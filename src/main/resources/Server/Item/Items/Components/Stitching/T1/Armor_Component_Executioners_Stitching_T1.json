@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Executioners_Stitching_T0.name",
+    "Description": "server.items.components.Executioners_Stitching_T0.description"
+  },
+  "Icon": "Icons/Items/Armor_Components/Component_Stitching_Icon.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Soft",
+        "Quantity": 10
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Wool",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Stitching_and_Embellishments"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Stitching",
+    "tier": 1,
+    "outputAssetID": "Armor_Component_Executioner's_Stitching",
+    "implicits": [
+      {
+        "stat": "CRITICAL_STRIKE_DAMAGE_PERCENT",
+        "min": 1,
+        "max": 3
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

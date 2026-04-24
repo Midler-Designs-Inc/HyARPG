@@ -3,7 +3,7 @@
     "Name": "server.items.components.Cushioned_Padding_T0.name",
     "Description": "server.items.components.Cushioned_Padding_T0.description"
   },
-  "Icon": "Icons/ItemsGenerated/Ingredient_Stud_Iron.png",
+  "Icon": "Icons/Items/Armor_Components/Component_Padding_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
   "Texture": "Resources/Materials/Stud_Iron_Texture.png",
   "Recipe": {
@@ -12,11 +12,15 @@
     "Input": [
       {
         "ItemId": "Ingredient_Leather_Soft",
-        "Quantity": 4
+        "Quantity": 10
       },
       {
-        "ItemId": "Cloth_Block_Wool_Blue",
-        "Quantity": 2
+        "ItemId": "Ingredient_Bolt_Wool",
+        "Quantity": 10
+      },
+      {
+        "ItemId": "Cloth_Block_Wool_White",
+        "Quantity": 4
       }
     ],
     "BenchRequirement": [
@@ -37,9 +41,9 @@
     "outputAssetID": "Armor_Component_Cushioned_Padding",
     "implicits": [
       {
-        "stat": "STAMINA_FLAT",
-        "min": 0.2,
-        "max": 0.5
+        "stat": "LIFE_REGEN_FLAT",
+        "min": 0.5,
+        "max": 1.5
       }
     ]
   },

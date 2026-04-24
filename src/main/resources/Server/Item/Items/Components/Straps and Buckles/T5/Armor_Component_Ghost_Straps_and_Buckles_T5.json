@@ -1,0 +1,49 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Ghost_Straps_and_Buckles_T4.name",
+    "Description": "server.items.components.Ghost_Straps_and_Buckles_T4.description"
+  },
+  "Icon": "Icons/Items/Armor_Components/Component_Straps_and_Buckles_Icon.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Leather_Storm",
+        "Quantity": 30
+      },
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 30
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Straps_and_Buckles"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Straps and Buckles",
+    "tier": 5,
+    "outputAssetID": "Armor_Component_Ghost_Straps_and_Buckles",
+    "implicits": [
+      {
+        "stat": "DODGE_CHANCE_PERCENT",
+        "min": 1.25,
+        "max": 7.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

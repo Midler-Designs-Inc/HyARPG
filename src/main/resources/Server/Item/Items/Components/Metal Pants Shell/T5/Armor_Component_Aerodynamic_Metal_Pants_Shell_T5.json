@@ -1,0 +1,45 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Aerodynamic_Metal_Pants_Shell_T4.name",
+    "Description": "server.items.components.Aerodynamic_Metal_Pants_Shell_T4.description"
+  },
+  "Icon": "Icons/Items/Armor_Components/Component_Metal_Pants_Shell_Icon.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 12,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 60
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 5,
+        "Categories": [
+          "Shells_and_Padding"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Metal Pants Shell",
+    "tier": 5,
+    "outputAssetID": "Armor_Adamantite_Legs",
+    "implicits": [
+      {
+        "stat": "RUN_SPEED_PERCENT",
+        "min": 1.25,
+        "max": 2.5
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

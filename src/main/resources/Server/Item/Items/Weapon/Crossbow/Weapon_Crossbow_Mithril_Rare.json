@@ -4,6 +4,8 @@
     "Name": "server.items.Weapon_Crossbow_Mithril.name"
   },
   "Quality": "Rare",
+  "Texture": "Items/Weapons/Crossbow/Crossbow_Mithril.png",
+  "Icon": "Icons/ItemsGenerated/Mithril_Crossbow_Icon.png",
   "ItemLevel": 60,
   "Recipe": {
     "TimeSeconds": 5,

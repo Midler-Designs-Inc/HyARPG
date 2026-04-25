@@ -4,6 +4,9 @@
     "Name": "server.items.Weapon_Crossbow_Crude.name"
   },
   "Quality": "Legendary",
+  "Model": "Items/Weapons/Crossbow/Crossbow_Crude.blockymodel",
+  "Texture": "Items/Weapons/Crossbow/Crossbow_Crude.png",
+  "Icon": "Icons/ItemsGenerated/Crude_Crossbow_Icon.png",
   "ItemLevel": 1,
   "Recipe": {
     "TimeSeconds": 3.5,

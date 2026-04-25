@@ -20,13 +20,17 @@ public class SwingDamageGroup {
     public String weaponType;
     private final ConcurrentHashMap<DamageCause, Float> totals = new ConcurrentHashMap<>();
     public volatile boolean readyToApply = false;
+    public boolean forceCrit = false;
+    public double critDamageBonus = 0.0;
 
-    public SwingDamageGroup(Ref<EntityStore> attacker, Ref<EntityStore> defender, boolean blocked, boolean isProjectile, @Nullable String weaponType) {
+    public SwingDamageGroup(Ref<EntityStore> attacker, Ref<EntityStore> defender, boolean blocked, boolean isProjectile, @Nullable String weaponType, boolean forceCrit, double critDamageBonus) {
         this.attacker = attacker;
         this.defender = defender;
         this.blocked = blocked;
         this.isProjectile = isProjectile;
         this.weaponType = weaponType;
+        this.forceCrit = forceCrit;
+        this.critDamageBonus = critDamageBonus;
     }
 
     public void add(DamageCause cause, float amount) {

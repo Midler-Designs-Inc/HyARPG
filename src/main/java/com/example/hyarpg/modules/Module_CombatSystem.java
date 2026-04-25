@@ -266,7 +266,7 @@ public class Module_CombatSystem {
 
             // get or create the swing group for this attacker/defender pair
             SwingDamageGroup group = swingGroups.computeIfAbsent(key, k -> {
-                SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, weaponType);
+                SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, weaponType, false, 0);
                 scheduler.schedule(() -> {
                     SwingDamageGroup pending = swingGroups.get(key);
                     if (pending != null) pending.readyToApply = true;
@@ -316,7 +316,7 @@ public class Module_CombatSystem {
 
             // get or create the swing group for this attacker/defender pair
             SwingDamageGroup group = swingGroups.computeIfAbsent(key, k -> {
-                SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, null);
+                SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, null, false, 0);
                 scheduler.schedule(() -> {
                     SwingDamageGroup pending = swingGroups.get(key);
                     if (pending != null) pending.readyToApply = true;
@@ -419,13 +419,10 @@ public class Module_CombatSystem {
         // roll for crit which applies to all packets
         float critChance = attackerStats.getCriticalStrikeChance();
         float critRoll = (float) (Math.random() * 100.0) ;
-        boolean crit = critRoll < critChance;
+        boolean crit = damageGroup.forceCrit || critRoll < critChance;
 
-        // check assassin mark count against this target before the damage loop — same target only,
-        // new targets won't have marks yet as onHit is called after damage
-        int assassinMarks = (attackerRPGStats != null && defender.equals(attackerRPGStats.marks.getLastHitTarget()))
-                ? attackerRPGStats.marks.count("ASSASSIN")
-                : 0;
+        // check assassin mark count against this target before the damage loop — same target only
+        int assassinMarks = (attackerRPGStats != null && defender.equals(attackerRPGStats.marks.getLastHitTarget())) ? attackerRPGStats.marks.count("ASSASSIN") : 0;
 
         // loop over the damage packets for each type and adjust them accordingly
         double finalDamage = 0;
@@ -452,7 +449,7 @@ public class Module_CombatSystem {
                 totalAmount += totalAmount * (assassinMarks * .02);
 
             // adjust the damage based on crit
-            if (crit) totalAmount *= attackerStats.getCriticalStrikeDamage();
+            if (crit) totalAmount *= attackerStats.getCriticalStrikeDamage() + (damageGroup.critDamageBonus / 100.0);
 
             // reduce the damage based on the defenders resistance stat
             totalAmount -= totalAmount * (defenderStats.getResistance(cause.getId()) / 100);
@@ -780,6 +777,18 @@ public class Module_CombatSystem {
 
         // return the attacking refs
         return attackingRefs;
+    }
+
+    // inject a pre-built damage group into the swing queue (used by abilities)
+    public void injectDamageGroup(Ref<EntityStore> attacker, Ref<EntityStore> defender, SwingDamageGroup group) {
+        String key = swingKey(attacker, defender);
+        swingGroups.computeIfAbsent(key, k -> {
+            scheduler.schedule(() -> {
+                SwingDamageGroup pending = swingGroups.get(key);
+                if (pending != null) pending.readyToApply = true;
+            }, FLUSH_DELAY_MS, TimeUnit.MILLISECONDS);
+            return group;
+        });
     }
 
 }

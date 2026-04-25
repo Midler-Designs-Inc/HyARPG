@@ -141,12 +141,12 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
                 }
             }
 
-            // create a new context for the interaction and init a new interaction chain
-            InteractionContext newCtx = InteractionContext.forInteraction(interactionManager, entityRef, InteractionType.Use, commandBuffer);
-            InteractionChain chain = interactionManager.initChain(InteractionType.Use, newCtx, rootInteraction, false);
-
-            // queue the interaction
-            interactionManager.queueExecuteChain(chain);
+            // only queue an interaction chain if the root interaction has operations defined
+            if (rootInteraction.getOperationMax() > 0) {
+                InteractionContext newCtx = InteractionContext.forInteraction(interactionManager, entityRef, InteractionType.Use, commandBuffer);
+                InteractionChain chain = interactionManager.initChain(InteractionType.Use, newCtx, rootInteraction, false);
+                interactionManager.queueExecuteChain(chain);
+            }
 
             // call the ability execute for any additional functionality that is ability dependent
             node.ability.execute(entityRef);

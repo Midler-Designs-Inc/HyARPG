@@ -1,6 +1,8 @@
 package com.example.hyarpg.utils.codecs;
 
 // Hytale Imports
+import com.example.hyarpg.utils.abilities.assassin.Reaper_Death_Seal;
+import com.example.hyarpg.utils.abilities.assassin.Shadow_Strike;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.ExtraInfo;
 import com.hypixel.hytale.codec.schema.SchemaContext;
@@ -46,7 +48,9 @@ public class Codec_SkillLibrary {
                 "Ability_Leap_Slam", new Leap_Slam(),
                 "Ability_Rain_Of_Arrows", new Rain_Of_Arrows(),
                 "Ability_Summon_Crossbow_Turret", new Summon_Crossbow_Turret(),
-                "Ability_Aerial_Maneuver", new Aerial_Maneuver()
+                "Ability_Aerial_Maneuver", new Aerial_Maneuver(),
+                "Ability_Shadow_Strike", new Shadow_Strike(),
+                "Ability_Reaper_Death_Seal", new Reaper_Death_Seal()
             );
         }
         return abilityRegistry;

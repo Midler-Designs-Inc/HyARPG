@@ -3,6 +3,8 @@
     "Name": "server.items.Weapon_Crossbow_Cobalt.name"
   },
   "Quality": "Uncommon",
+  "Texture": "Items/Weapons/Crossbow/Crossbow_Cobalt.png",
+  "Icon": "Icons/ItemsGenerated/Cobalt_Crossbow_Icon.png",
   "ItemLevel": 40,
   "Recipe": {
     "TimeSeconds": 3.5,

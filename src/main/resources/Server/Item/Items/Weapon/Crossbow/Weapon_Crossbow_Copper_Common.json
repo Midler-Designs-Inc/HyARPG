@@ -4,6 +4,8 @@
     "Name": "server.items.Weapon_Crossbow_Copper.name"
   },
   "Quality": "Common",
+  "Texture": "Items/Weapons/Crossbow/Crossbow_Copper.png",
+  "Icon": "Icons/ItemsGenerated/Copper_Crossbow_Icon.png",
   "ItemLevel": 10,
   "Recipe": {
     "TimeSeconds": 3,

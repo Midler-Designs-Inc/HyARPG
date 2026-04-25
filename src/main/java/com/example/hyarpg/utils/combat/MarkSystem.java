@@ -109,6 +109,19 @@ public final class MarkSystem {
         return stack != null ? stack.pruneAndCount() : 0;
     }
 
+    // Removes up to n stacks of the given mark type, oldest first. Returns count actually removed.
+    public int consume(String markName, int count) {
+        Stack stack = stacks.get(resolveType(markName));
+        if (stack == null) return 0;
+        stack.pruneAndCount();
+        int removed = 0;
+        for (int i = 0; i < count && !stack.timestamps.isEmpty(); i++) {
+            stack.timestamps.pollFirst(); // oldest first
+            removed++;
+        }
+        return removed;
+    }
+
     // get the last target hit by the owning entity
     public Ref<EntityStore> getLastHitTarget() { return lastHitTarget; }
 

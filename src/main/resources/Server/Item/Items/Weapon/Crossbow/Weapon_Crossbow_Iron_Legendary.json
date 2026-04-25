@@ -3,6 +3,8 @@
   "TranslationProperties": {
     "Name": "server.items.Weapon_Crossbow_Iron.name"
   },
+  "Texture": "Items/Weapons/Crossbow/Crossbow_Iron.png",
+  "Icon": "Icons/ItemsGenerated/Iron_Crossbow_Icon.png",
   "Quality": "Legendary",
   "ItemLevel": 20,
   "Recipe": {

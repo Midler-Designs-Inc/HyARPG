@@ -4,6 +4,8 @@
     "Name": "server.items.Weapon_Crossbow_Thorium.name"
   },
   "Quality": "Epic",
+  "Texture": "Items/Weapons/Crossbow/Crossbow_Thorium.png",
+  "Icon": "Icons/ItemsGenerated/Thorium_Crossbow_Icon.png",
   "ItemLevel": 30,
   "Recipe": {
     "TimeSeconds": 4,

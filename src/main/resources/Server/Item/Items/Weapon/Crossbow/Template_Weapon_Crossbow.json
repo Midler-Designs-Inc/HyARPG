@@ -8,9 +8,9 @@
   "Categories": [
     "Items.Weapons"
   ],
-  "Model": "Items/Weapons/Crossbow/Iron.blockymodel",
-  "Texture": "Items/Weapons/Crossbow/Iron_Texture.png",
-  "Icon": "Icons/ItemsGenerated/Weapon_Crossbow_Iron.png",
+  "Model": "Items/Weapons/Crossbow/Crossbow.blockymodel",
+  "Texture": "Items/Weapons/Crossbow/Crossbow_Iron.png",
+  "Icon": "Icons/ItemsGenerated/Iron_Crossbow_Icon.png",
   "Utility": {
     "Compatible": true
   },

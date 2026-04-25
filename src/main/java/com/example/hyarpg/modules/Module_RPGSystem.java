@@ -85,25 +85,8 @@ public class Module_RPGSystem {
     // properties that control enemy level as they get further from spawn
     private static final Random random = new Random();
 
-    // Create a map to match a rarity string to a java utils color
-    public class colorUtils {
-        // simple JS-style lookup map
-        private static final Map<String, Color> RARITY_COLORS = Map.of(
-            "Common", Color.WHITE,
-            "Uncommon", Color.GREEN,
-            "Rare", Color.BLUE,
-            "Epic", new Color(255, 0, 255),        // magenta
-            "Legendary", new Color(255, 180, 0)   // gold-orange
-        );
-
-        // usage
-        public static Color getRarityColor(String rarity) {
-            return RARITY_COLORS.getOrDefault(rarity, Color.WHITE);
-        }
-    }
-
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.9.0"; // 1.6.0
+    private final String SKILL_TREE_VERSION = "1.10.0"; // 1.6.0
 
     // initialize this module
     public Module_RPGSystem(HyARPGPlugin plugin) {

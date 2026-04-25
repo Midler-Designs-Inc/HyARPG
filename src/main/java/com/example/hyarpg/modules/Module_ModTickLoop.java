@@ -89,14 +89,16 @@ public final class Module_ModTickLoop {
 
                                 // get the player
                                 Player player = store.getComponent(ref, Player.getComponentType());
-                                if (player == null) continue;
+                                Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
+                                if (player == null || rpgPlayer == null) continue;
 
                                 // do our individual tick concerns
+                                rpgPlayer.marks.tick();
                                 tickHunger(ref, store, player);
                                 tickThirst(ref, store, player);
-                                tickGearRefresh(ref, store, player);
-                                tickResourceRegens(ref, store, player);
-                                tickRoomCheck(ref, store, player, playerRef);
+                                tickGearRefresh(ref, store, rpgPlayer);
+                                tickResourceRegens(ref, store, rpgPlayer);
+                                tickRoomCheck(ref, store, player, rpgPlayer);
                             } catch (Exception e) {}
                         }
                     });
@@ -206,10 +208,9 @@ public final class Module_ModTickLoop {
     }
 
     // function to update gear score
-    private void tickGearRefresh(Ref<EntityStore> ref, Store<EntityStore> store, Player player){
+    private void tickGearRefresh(Ref<EntityStore> ref, Store<EntityStore> store, Component_RPG_Player rpgPlayer){
         try {
             // get the RPG Player component
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             InventoryComponent.Utility utilityComp = store.getComponent(ref, InventoryComponent.Utility.getComponentType());
             if(rpgPlayer == null) return;
 
@@ -232,12 +233,8 @@ public final class Module_ModTickLoop {
     }
 
     // function to tick resource regen
-    private void tickResourceRegens(Ref<EntityStore> ref, Store<EntityStore> store, Player player) {
+    private void tickResourceRegens(Ref<EntityStore> ref, Store<EntityStore> store, Component_RPG_Player rpgPlayer) {
         try {
-            // get the rpg player component
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
-            if (rpgPlayer == null) return;
-
             // get the stat map component from the player
             ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
             EntityStatMap statMap = store.getComponent(ref, statMapType);
@@ -299,12 +296,11 @@ public final class Module_ModTickLoop {
     }
 
     // function to check if the player is inside a room or not
-    private void tickRoomCheck(Ref<EntityStore> ref, Store<EntityStore> store, Player player, PlayerRef playerRef) {
+    private void tickRoomCheck(Ref<EntityStore> ref, Store<EntityStore> store, Player player, Component_RPG_Player rpgPlayer) {
         try {
             // if the light well territory claim is disabled then we don't need to do any of this
             if (!ModConfig.get().building.allow_light_well_territory_claim) return;
 
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             TransformComponent transformComponent = store.getComponent(ref, TransformComponent.getComponentType());
             World world = player.getWorld();
 

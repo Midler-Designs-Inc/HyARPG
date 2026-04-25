@@ -1,13 +1,6 @@
 package com.example.hyarpg.components;
 
 // Hytale Imports
-import com.example.hyarpg.configs.ModConfig;
-import com.example.hyarpg.modules.Module_RaidSystem.RaidHudState;
-import com.example.hyarpg.utils.codecs.Codec_SkillLibrary;
-import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
-import com.example.hyarpg.utils.rooms.RoomData;
-import com.example.hyarpg.utils.rooms.TerritoryData;
-import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
@@ -37,10 +30,19 @@ import com.hypixel.hytale.server.core.util.EventTitleUtil;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.affixes.StatMapper;
 import com.example.hyarpg.utils.affixes.StatType;
+import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.modules.Module_RaidSystem.RaidHudState;
+import com.example.hyarpg.utils.codecs.Codec_SkillLibrary;
+import com.example.hyarpg.utils.combat.MarkSystem;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
+import com.example.hyarpg.utils.rooms.RoomData;
+import com.example.hyarpg.utils.rooms.TerritoryData;
+import com.example.hyarpg.utils.skills.SkillLibrary;
 
 // Java Imports
 
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class Component_RPG_Player implements Component<EntityStore> {
@@ -94,6 +96,10 @@ public class Component_RPG_Player implements Component<EntityStore> {
     // player settings
     public boolean showLootDrops = true;
     public boolean showCombatText = true;
+
+    // last enemy damaged by this player
+    public Ref<EntityStore> lastEnemyHit;
+    public final MarkSystem marks = new MarkSystem();
 
     // grave position — persisted so it survives restarts
     public String gravePosition = null;

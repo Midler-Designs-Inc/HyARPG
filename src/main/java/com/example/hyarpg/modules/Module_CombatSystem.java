@@ -421,6 +421,12 @@ public class Module_CombatSystem {
         float critRoll = (float) (Math.random() * 100.0) ;
         boolean crit = critRoll < critChance;
 
+        // check assassin mark count against this target before the damage loop — same target only,
+        // new targets won't have marks yet as onHit is called after damage
+        int assassinMarks = (attackerRPGStats != null && defender.equals(attackerRPGStats.marks.getLastHitTarget()))
+                ? attackerRPGStats.marks.count("ASSASSIN")
+                : 0;
+
         // loop over the damage packets for each type and adjust them accordingly
         double finalDamage = 0;
         for (var entry : damageGroup.packets()) {
@@ -440,6 +446,10 @@ public class Module_CombatSystem {
 
             // apply increased weapon damage if applicable
             if (damageGroup.weaponType != null) totalAmount += totalAmount * (attackerStats.getIncreasedDamage(damageGroup.weaponType) / 100);
+
+            // apply assassin mark damage if applicable
+            if (assassinMarks > 0)
+                totalAmount += totalAmount * (assassinMarks * .02);
 
             // adjust the damage based on crit
             if (crit) totalAmount *= attackerStats.getCriticalStrikeDamage();
@@ -661,13 +671,20 @@ public class Module_CombatSystem {
             if (sigEnergy != null) playerStatMap.setStatValue(sigEnergyIndex, sigEnergy.get() + 1f);
         }
 
+        // damage will be dealt, apply marks to the target now that damage has been calculated
+        if (attackerRPGStats != null) {
+            int toApply = attackerStats.getFlatApplyMarks("Assassin");
+            if (toApply > 0)
+                attackerRPGStats.marks.onHit(defender, Map.of("ASSASSIN", toApply));
+        }
+
         // apply the final damage to the player
         DamageSystems.executeDamage(defender, store,
-            new Damage(
-                new Damage.EntitySource(attacker),
-                DamageCause.getAssetMap().getAsset("Command"),
-                (float) finalDamage
-            )
+                new Damage(
+                        new Damage.EntitySource(attacker),
+                        DamageCause.getAssetMap().getAsset("Command"),
+                        (float) finalDamage
+                )
         );
     }
 

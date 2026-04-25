@@ -5,6 +5,7 @@ import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.utils.abilities.juggernaut.*;
 import com.example.hyarpg.utils.abilities.ranger.*;
 import com.example.hyarpg.utils.abilities.knight.*;
+import com.example.hyarpg.utils.abilities.assassin.*;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.utils.affixes.StatType;
 
@@ -24,6 +25,7 @@ public class SkillLibrary {
 
     public SkillLibrary(String version) {
         this.version = version;
+        registerAssassinTree();
         registerKnightTree();
         registerJuggernautTree();
         registerRangerTree();
@@ -35,6 +37,73 @@ public class SkillLibrary {
     }
 
     // Tree Registrations
+    public void registerAssassinTree() {
+        Map<String, SkillNode> nodes = new LinkedHashMap<>();
+        Map<String, SkillTree.GridPosition> layout = new LinkedHashMap<>();
+
+        // ---- Increased Daggers Damage Nodes ---- //
+        nodes.put("Assassin_Daggers_IncreasedDamage_1", new SkillNode("Assassin_Daggers_IncreasedDamage_1", "Increase daggers damage by 1% per rank.", "Assassin_Daggers_IncreasedDamage_1.png", StatType.DAGGERS_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Assassin_Daggers_IncreasedDamage_1", new SkillTree.GridPosition(0, 0));
+
+        nodes.put("Assassin_Daggers_IncreasedDamage_2", new SkillNode("Assassin_Daggers_IncreasedDamage_2", "Increase daggers damage by 3% per rank.", "Assassin_Daggers_IncreasedDamage_2.png", StatType.DAGGERS_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Assassin_Daggers_IncreasedDamage_1", 10)), "1.0.0"));
+        layout.put("Assassin_Daggers_IncreasedDamage_2", new SkillTree.GridPosition(0, 1));
+
+        nodes.put("Assassin_Daggers_IncreasedDamage_3", new SkillNode("Assassin_Daggers_IncreasedDamage_3", "Increase daggers damage by 25% per rank.", "Assassin_Daggers_IncreasedDamage_3.png", StatType.DAGGERS_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Assassin_Daggers_IncreasedDamage_2", 5)), "1.0.0"));
+        layout.put("Assassin_Daggers_IncreasedDamage_3", new SkillTree.GridPosition(0, 2));
+
+        // ---- Increased Kunai Damage Nodes ---- //
+        nodes.put("Assassin_Kunai_IncreasedDamage_1", new SkillNode("Assassin_Kunai_IncreasedDamage_1", "Increase kunai damage by 1% per rank.", "Assassin_Kunai_IncreasedDamage_1.png", StatType.KUNAI_DAMAGE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Assassin_Kunai_IncreasedDamage_1", new SkillTree.GridPosition(2, 0));
+
+        nodes.put("Assassin_Kunai_IncreasedDamage_2", new SkillNode("Assassin_Kunai_IncreasedDamage_2", "Increase kunai damage by 3% per rank.", "Assassin_Kunai_IncreasedDamage_2.png", StatType.KUNAI_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Assassin_Kunai_IncreasedDamage_1", 10)), "1.0.0"));
+        layout.put("Assassin_Kunai_IncreasedDamage_2", new SkillTree.GridPosition(2, 1));
+
+        nodes.put("Assassin_Kunai_IncreasedDamage_3", new SkillNode("Assassin_Kunai_IncreasedDamage_3", "Increase kunai damage by 25% per rank.", "Assassin_Kunai_IncreasedDamage_3.png", StatType.KUNAI_DAMAGE_PERCENT, 25f, 1, 1, List.of(Requirement.nodeRank("Assassin_Kunai_IncreasedDamage_2", 5)), "1.0.0"));
+        layout.put("Assassin_Kunai_IncreasedDamage_3", new SkillTree.GridPosition(2, 2));
+
+        // ---- Added Poison Damage Nodes ---- //
+        nodes.put("Assassin_Poison_AddedDamage_1", new SkillNode("Assassin_Poison_AddedDamage_1", "Add +0.25 flat poison damage per rank.", "Assassin_Poison_IncreasedDamage_1.png", StatType.POISON_DAMAGE_FLAT, 1f, 1, 8, List.of(), "1.0.0"));
+        layout.put("Assassin_Poison_AddedDamage_1", new SkillTree.GridPosition(4, 0));
+
+        nodes.put("Assassin_Poison_AddedDamage_2", new SkillNode("Assassin_Poison_AddedDamage_2", "Add +0.50 flat poison damage per rank.", "Assassin_Poison_IncreasedDamage_2.png", StatType.POISON_DAMAGE_FLAT, 3f, 1, 4, List.of(Requirement.nodeRank("Assassin_Poison_AddedDamage_1", 8)), "1.0.0"));
+        layout.put("Assassin_Poison_AddedDamage_2", new SkillTree.GridPosition(4, 1));
+
+        // ---- Increased Dodge Chance Nodes ---- //
+        nodes.put("Assassin_Dodge_IncreasedChance_1", new SkillNode("Assassin_Dodge_IncreasedChance_1", "Increase dodge chance by 1% per rank.", "Assassin_Dodge_IncreasedChance_1.png", StatType.DODGE_CHANCE_PERCENT, 1f, 1, 10, List.of(), "1.0.0"));
+        layout.put("Assassin_Dodge_IncreasedChance_1", new SkillTree.GridPosition(6, 0));
+
+        nodes.put("Assassin_Dodge_IncreasedChance_2", new SkillNode("Assassin_Dodge_IncreasedChance_2", "Increase dodge chance by 3% per rank.", "Assassin_Dodge_IncreasedChance_2.png", StatType.DODGE_CHANCE_PERCENT, 3f, 1, 5, List.of(Requirement.nodeRank("Assassin_Dodge_IncreasedChance_1", 10)), "1.0.0"));
+        layout.put("Assassin_Dodge_IncreasedChance_2", new SkillTree.GridPosition(6, 1));
+
+        // ---- Assassins Mark Ability ---- //
+        nodes.put("Assassin_LearnAbility_AssassinsMark", new SkillNode("Assassin_LearnAbility_AssassinsMark", "Learn 'Assassins Mark': A passive ability that marks the last enemy hit increasing damage you do against that target by 2% per Assassin Mark.\n\n* Assassin Marks can stack up to 10x and last for 10 seconds.\n* Hitting a new target clears all marks from prior targets.", "Assassin_Ability_AssassinsMark.png", StatType.APPLY_ASSASSIN_MARK_FLAT, 1f, 4, 1, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
+        layout.put("Assassin_LearnAbility_AssassinsMark", new SkillTree.GridPosition(8, 0));
+
+        // ---- Shadow Strike Ability ---- //
+        nodes.put("Assassin_LearnAbility_ShadowStrike", new SkillNode("Assassin_LearnAbility_ShadowStrike", "Learn 'Shadow Strike': An activated ability that teleports you behind the last enemy you hit, striking with your main hand weapon for a guaranteed critical strike.\n\n* Will consume up to 5 Assassin Marks on the target to increase critical damage of the strike by 40% per mark consumed.", "Assassin_Ability_ShadowStrike.png", new Shadow_Strike(), 4, 1, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
+        layout.put("Assassin_LearnAbility_ShadowStrike", new SkillTree.GridPosition(8, 2));
+
+        // ---- Reaper Death Seal Ability ---- //
+        nodes.put("Assassin_LearnAbility_ReaperDeathSeal", new SkillNode("Assassin_LearnAbility_ReaperDeathSeal", "Learn 'Reaper Death Seal': An activated ability that summons a death god to claim the soul of the last enemy you hit.\n\n* Will consume all Assassin Marks on the target to deal damage equal to 10% of the targets max health per Assassin Mark consumed.", "Assassin_Ability_ReaperDeathSeal.png", new Reaper_Death_Seal(), 10, 1, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
+        layout.put("Assassin_LearnAbility_ReaperDeathSeal", new SkillTree.GridPosition(8, 4));
+
+        // ---- Increased Critical Strike Chance Nodes ---- //
+        nodes.put("Assassin_CriticalStrike_IncreasedChance_1", new SkillNode("Assassin_CriticalStrike_IncreasedChance_1", "Increase critical strike chance by 1% per rank.", "Assassin_CriticalStrikeChance_IncreasedAmount_1.png", StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 1f, 1, 10, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
+        layout.put("Assassin_CriticalStrike_IncreasedChance_1", new SkillTree.GridPosition(0, 4));
+
+        nodes.put("Assassin_CriticalStrike_IncreasedChance_2", new SkillNode("Assassin_CriticalStrike_IncreasedChance_2", "Increase critical strike chance by 3% per rank.", "Assassin_CriticalStrikeChance_IncreasedAmount_2.png", StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 3f, 1, 5, List.of(Requirement.treePoints("Assassin", 15)), "1.0.0"));
+        layout.put("Assassin_CriticalStrike_IncreasedChance_2", new SkillTree.GridPosition(0, 5));
+
+        // ---- Increased Critical Strike Damage Nodes ---- //
+        nodes.put("Assassin_CriticalStrike_IncreasedDamage_1", new SkillNode("Assassin_CriticalStrike_IncreasedDamage_1", "Increase critical strike damage by 1% per rank.", "Assassin_CriticalStrikeDamage_IncreasedAmount_1.png", StatType.CRITICAL_STRIKE_DAMAGE_PERCENT, 1f, 1, 10, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
+        layout.put("Assassin_CriticalStrike_IncreasedDamage_1", new SkillTree.GridPosition(2, 4));
+
+        nodes.put("Assassin_CriticalStrike_IncreasedDamage_2", new SkillNode("Assassin_CriticalStrike_IncreasedDamage_2", "Increase critical strike damage by 3% per rank.", "Assassin_CriticalStrikeDamage_IncreasedAmount_2.png", StatType.CRITICAL_STRIKE_DAMAGE_PERCENT, 3f, 1, 5, List.of(Requirement.treePoints("Assassin", 15)), "1.0.0"));
+        layout.put("Assassin_CriticalStrike_IncreasedDamage_2", new SkillTree.GridPosition(2, 5));
+
+        // ---- Register the Tree ---- //
+        REGISTRY.put("Assassin", new SkillTree("Assassin", "Assassin", "Weapon", List.of(), List.of(), "1.0.0", nodes, layout, 8, 6));
+    }
     public void registerKnightTree() {
         Map<String, SkillNode> nodes = new LinkedHashMap<>();
         Map<String, SkillTree.GridPosition> layout = new LinkedHashMap<>();

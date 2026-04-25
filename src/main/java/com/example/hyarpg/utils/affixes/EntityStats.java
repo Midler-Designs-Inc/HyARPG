@@ -146,7 +146,7 @@ public final class EntityStats {
         }
     }
 
-    /* Crit */
+    // Crit
     public float getCriticalStrikeChance() {
         return clamp(getRaw(StatType.CRITICAL_STRIKE_CHANCE_PERCENT), MAX_CRIT_CHANCE);
     }
@@ -155,7 +155,7 @@ public final class EntityStats {
                 getRaw(StatType.CRITICAL_STRIKE_DAMAGE_PERCENT) / 100f);
     }
 
-    /* Ammo */
+    // Ammo
     public float getAddedAmmo() {
         return getRaw(StatType.AMMO_FLAT);
     }
@@ -184,7 +184,17 @@ public final class EntityStats {
         };
     }
 
-    /* Utility */
+    // Marks
+    public int getFlatApplyMarks(String markType) {
+        if (markType == null) return 0;
+
+        switch (markType) {
+            case "Assassin": return (int) getRaw(StatType.APPLY_ASSASSIN_MARK_FLAT);
+            default: return 0;
+        }
+    }
+
+    // Utility
     public float getDodgeChance() {
         return clamp(getRaw(StatType.DODGE_CHANCE_PERCENT), MAX_DODGE);
     }

@@ -103,7 +103,7 @@ public class Module_RPGSystem {
     }
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.5.0";
+    private final String SKILL_TREE_VERSION = "1.9.0"; // 1.6.0
 
     // initialize this module
     public Module_RPGSystem(HyARPGPlugin plugin) {

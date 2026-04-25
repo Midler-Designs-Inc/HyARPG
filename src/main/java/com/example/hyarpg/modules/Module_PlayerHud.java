@@ -71,6 +71,7 @@ public class Module_PlayerHud {
         createSkillsBar(world, entityRef, store);
         createRoomHud(world, entityRef, store);
         createRaidHud(world, entityRef, store);
+        createMarkHud(world, entityRef, store);
 
         // create the hud refresh logic
         startHUDRefresh(world, entityRef, store);
@@ -98,6 +99,9 @@ public class Module_PlayerHud {
                     float barrierOnBlockPercent;
                     int playerLevel = rpgPlayer.level;
                     int gearScore = rpgPlayer.gearScore;
+
+                    // marks
+                    int assassinMarkCount = rpgPlayer.marks.count("ASSASSIN");
 
                     // check for health and barrier stats
                     int barrierStatIndex = EntityStatType.getAssetMap().getIndex("BarrierOnBlock");
@@ -199,6 +203,15 @@ public class Module_PlayerHud {
                     );
                     hudRef.getById("skillIconOverlay_R", ImageBuilder.class).ifPresent(l -> l
                             .withVisible(secondsLeft_R_final > 0)
+                    );
+
+                    // Update Mark Icons
+                    hudRef.getById("assassinMark_Icon", ImageBuilder.class).ifPresent(l -> l
+                            .withVisible(assassinMarkCount > 0)
+                    );
+                    hudRef.getById("assassinMark_Count", LabelBuilder.class).ifPresent(l -> l
+                            .withText(String.valueOf(assassinMarkCount))
+                            .withVisible(assassinMarkCount > 0)
                     );
 
                     // update raid HUD — only visible during an active raid
@@ -659,6 +672,37 @@ public class Module_PlayerHud {
             )
             .withVisible(false)
             .withText("Survivors will explode!")
+        );
+    }
+
+    // function to show the player marks stack count
+    private void createMarkHud(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
+        hud.addElement(new ImageBuilder()
+            .withId("assassinMark_Icon")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(25)
+                .setHeight(25)
+                .setBottom(175)
+            )
+            .withPadding(new HyUIPadding().setRight(676))
+            .withVisible(false)
+            .withImage("Skill_Icons/Assassin_Ability_AssassinsMark.png")
+        )
+        .addElement(new LabelBuilder()
+            .withId("assassinMark_Count")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(25)
+                .setHeight(25)
+                .setBottom(183)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(11)
+                .setTextColor("#ffffff")
+                .setRenderBold(true)
+            )
+            .withPadding(new HyUIPadding().setLeft(-317))
+            .withVisible(false)
+            .withText("0")
         );
     }
 }

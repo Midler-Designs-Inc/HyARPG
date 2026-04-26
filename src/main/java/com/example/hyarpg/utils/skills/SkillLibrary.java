@@ -62,10 +62,10 @@ public class SkillLibrary {
         layout.put("Assassin_Kunai_IncreasedDamage_3", new SkillTree.GridPosition(2, 2));
 
         // ---- Added Poison Damage Nodes ---- //
-        nodes.put("Assassin_Poison_AddedDamage_1", new SkillNode("Assassin_Poison_AddedDamage_1", "Add +0.25 flat poison damage per rank.", "Assassin_Poison_IncreasedDamage_1.png", StatType.POISON_DAMAGE_FLAT, 1f, 1, 8, List.of(), "1.0.0"));
+        nodes.put("Assassin_Poison_AddedDamage_1", new SkillNode("Assassin_Poison_AddedDamage_1", "Add +0.25 flat poison damage per rank.", "Assassin_Poison_IncreasedDamage_1.png", StatType.POISON_DAMAGE_FLAT, 0.25f, 1, 8, List.of(), "1.0.0"));
         layout.put("Assassin_Poison_AddedDamage_1", new SkillTree.GridPosition(4, 0));
 
-        nodes.put("Assassin_Poison_AddedDamage_2", new SkillNode("Assassin_Poison_AddedDamage_2", "Add +0.50 flat poison damage per rank.", "Assassin_Poison_IncreasedDamage_2.png", StatType.POISON_DAMAGE_FLAT, 3f, 1, 4, List.of(Requirement.nodeRank("Assassin_Poison_AddedDamage_1", 8)), "1.0.0"));
+        nodes.put("Assassin_Poison_AddedDamage_2", new SkillNode("Assassin_Poison_AddedDamage_2", "Add +0.50 flat poison damage per rank.", "Assassin_Poison_IncreasedDamage_2.png", StatType.POISON_DAMAGE_FLAT, 0.50f, 1, 4, List.of(Requirement.nodeRank("Assassin_Poison_AddedDamage_1", 8)), "1.0.0"));
         layout.put("Assassin_Poison_AddedDamage_2", new SkillTree.GridPosition(4, 1));
 
         // ---- Increased Dodge Chance Nodes ---- //

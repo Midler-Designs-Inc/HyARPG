@@ -4,6 +4,9 @@
     "Name": "server.items.Weapon_Kunai_Adamantite.name",
     "Description": "server.items.Weapon_Kunai_Adamantite.description"
   },
+  "Model": "Items/Weapons/Throwing_Knife/HyARPG_Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/HyARPG_Kunai_Adamantite.png",
+  "Icon": "Icons/ItemsGenerated/HyARPG_Kunai_Adamantite_Icon.png",
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"

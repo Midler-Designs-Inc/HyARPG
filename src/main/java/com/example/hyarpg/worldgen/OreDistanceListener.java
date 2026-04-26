@@ -4,8 +4,11 @@ import com.example.hyarpg.worldgen.OreDistanceConfig.OreZone;
 import com.hypixel.hytale.event.EventPriority;
 import com.hypixel.hytale.event.EventRegistry;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.command.commands.world.chunk.ChunkLoadedCommand;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
+import com.hypixel.hytale.server.core.universe.world.events.ChunkEvent;
 import com.hypixel.hytale.server.core.universe.world.events.ChunkPreLoadProcessEvent;
+import com.hypixel.hytale.server.worldgen.chunk.ChunkGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

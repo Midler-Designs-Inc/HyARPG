@@ -7,6 +7,9 @@
   "Categories": [
     "Items.Weapons"
   ],
+  "Model": "Items/Weapons/Throwing_Knife/HyARPG_Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/HyARPG_Kunai_Crude.png",
+  "Icon": "Icons/ItemsGenerated/HyARPG_Kunai_Crude_Icon.png",
   "IconProperties": {
     "Scale": 0.5,
     "Rotation": [

@@ -4,6 +4,9 @@
     "Name": "server.items.Weapon_Kunai_Iron.name",
     "Description": "server.items.Weapon_Kunai_Iron.description"
   },
+  "Model": "Items/Weapons/Throwing_Knife/HyARPG_Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/HyARPG_Kunai_Iron.png",
+  "Icon": "Icons/ItemsGenerated/HyARPG_Kunai_Iron_Icon.png",
   "Categories": [
     "Items.Weapons",
     "Items.HyARPG.Gear"

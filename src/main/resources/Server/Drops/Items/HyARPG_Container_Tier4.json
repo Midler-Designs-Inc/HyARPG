@@ -212,6 +212,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Kunai_Cobalt_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Longsword_Cobalt_Common"
                 }
               },
@@ -366,6 +373,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Daggers_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Kunai_Cobalt_Uncommon"
                 }
               },
               {
@@ -532,6 +546,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Kunai_Cobalt_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Longsword_Cobalt_Rare"
                 }
               },
@@ -692,6 +713,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Kunai_Cobalt_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Longsword_Cobalt_Epic"
                 }
               },
@@ -846,6 +874,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Daggers_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Kunai_Cobalt_Legendary"
                 }
               },
               {

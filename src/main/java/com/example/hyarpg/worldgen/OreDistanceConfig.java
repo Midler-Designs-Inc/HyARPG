@@ -1,5 +1,20 @@
 package com.example.hyarpg.worldgen;
 
+import com.hypixel.hytale.builtin.worldgen.WorldGenPlugin;
+import com.hypixel.hytale.builtin.worldgen.modifier.WorldGenModifier;
+import com.hypixel.hytale.builtin.worldgen.modifier.event.EventType;
+import com.hypixel.hytale.builtin.worldgen.modifier.event.ModifyEvent;
+import com.hypixel.hytale.builtin.worldgen.modifier.event.ModifyEvents;
+import com.hypixel.hytale.server.core.prefab.PrefabStore;
+import com.hypixel.hytale.server.core.util.PrefabUtil;
+import com.hypixel.hytale.server.worldgen.biome.Biome;
+import com.hypixel.hytale.server.worldgen.chunk.populator.PrefabPopulator;
+import com.hypixel.hytale.server.worldgen.container.PrefabContainer;
+import com.hypixel.hytale.server.worldgen.loader.WorldGenPrefabLoader;
+import com.hypixel.hytale.server.worldgen.loader.WorldGenPrefabSupplier;
+import com.hypixel.hytale.server.worldgen.loader.prefab.PrefabPatternGeneratorJsonLoader;
+import com.hypixel.hytale.server.worldgen.prefab.PrefabPatternGenerator;
+
 import java.util.List;
 
 /**

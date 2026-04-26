@@ -1,0 +1,93 @@
+{
+  "Parent": "Template_Weapon_Kunai",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Kunai_Cobalt.name",
+    "Description": "server.items.Weapon_Kunai_Cobalt.description"
+  },
+  "Model": "Items/Weapons/Throwing_Knife/HyARPG_Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/HyARPG_Kunai_Cobalt.png",
+  "Icon": "Icons/ItemsGenerated/HyARPG_Kunai_Cobalt_Icon.png",
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "IconProperties": {
+    "Scale": 0.5,
+    "Rotation": [
+      315,
+      270,
+      0
+    ],
+    "Translation": [
+      -21,
+      -22
+    ]
+  },
+  "Quality": "Uncommon",
+  "ItemLevel": 40,
+  "PlayerAnimationsId": "Throwing_Knife",
+  "Utility": {
+    "Usable": true
+  },
+  "Weapon": {},
+  "InteractionVars": {
+    "Kunai_Projectile": {
+      "Interactions": [
+        {
+          "Type": "Projectile",
+          "Config": "Projectile_Config_Kunai_Cobalt"
+        }
+      ]
+    },
+    "Kunai_Hit_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Weapon_Kunai_Primary_Hit_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "OffHand": 1
+            }
+          }
+        }
+      ]
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ]
+  },
+  "Recipe": {
+    "TimeSeconds": 3,
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Daggers"
+        ],
+        "RequiredTierLevel": 1
+      }
+    ],
+    "Input": [
+      {
+        "Quantity": 3,
+        "ItemId": "Ingredient_Fibre"
+      },
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 4
+      },
+      {
+        "ItemId": "Uncommon_Shards",
+        "Quantity": 1
+      }
+    ]
+  },
+  "MaxDurability": 0,
+  "MaxStack": 1
+}

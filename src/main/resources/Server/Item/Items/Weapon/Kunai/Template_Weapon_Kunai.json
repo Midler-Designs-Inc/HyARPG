@@ -3,9 +3,9 @@
     "Name": "server.items.Template_Weapon_Kunai.name"
   },
   "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
-  "Model": "Items/Weapons/Throwing_Knife/Kunai.blockymodel",
-  "Texture": "Items/Weapons/Throwing_Knife/Kunai_Texture.png",
-  "Icon": "Icons/ItemsGenerated/Weapon_Kunai.png",
+  "Model": "Items/Weapons/Throwing_Knife/HyARPG_Kunai.blockymodel",
+  "Texture": "Items/Weapons/Throwing_Knife/HyARPG_Kunai_Iron.png",
+  "Icon": "Icons/ItemsGenerated/HyARPG_Kunai_Iron_Icon.png",
   "PlayerAnimationsId": "Throwing_Knife",
   "Reticle": "DefaultMelee",
   "Quality": "Template",

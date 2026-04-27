@@ -5,9 +5,17 @@ import de.bsommerfeld.jshepherd.annotation.Key;
 
 public class Config_World {
 
-    @Key("prefabDensity")
-    @Comment("Sets the density of prefabs to be seeded into the world. Lower value means prefabs spawn less frequently and should be generally farther apart. Higher value means prefabs spawn more frequently and thusly should be closer together. Default: 1")
-    public float prefabDensity = 1f;
+    @Key("prefabRegionSize")
+    @Comment("Controls spacing between prefab regions in blocks. Larger values result in prefabs being farther apart. Default: 256")
+    public int prefabRegionSize = 256;
+
+    @Key("prefabSpawnChance")
+    @Comment("Chance that a given region will spawn a prefab. Range: 0.0–1.0. Default: 0.4")
+    public double prefabSpawnChance = 0.4;
+
+    @Key("prefabMaxSize")
+    @Comment("Maximum half-width of the largest prefab in blocks. Used for spacing and collision safety. Default: 64")
+    public int prefabMaxSize = 64;
 
     @Key("ore_read_me")
     @Comment("IMPORTANT: This section only works for chunks that are newly generated. To use this section of the config, you must place it in a new world folder before making that world. Just go into your directory where your world saves are, make a new folder after the name of your new world and place this file in that directory under mods/HyARPG. Keep in mind ore spawn frequency ramps up and down peaking near the middle point. So if you set min distance to 0 and max distance to say 100k you will see very little (basically none) of that ore around 0 and 100k and a lot of that ore around 50k.")

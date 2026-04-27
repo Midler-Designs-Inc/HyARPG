@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.jar.JarFile;
@@ -107,6 +108,10 @@ public class HyARPGPlugin extends JavaPlugin {
             // Ore distance zone system
             new OreDistanceListener(buildOreConfig()).register(eventBus);
             LOGGER.at(Level.INFO).log("[HyARPG] Registered OreDistanceListener");
+
+            // prefab loading system
+            Path prefabFolder = Paths.get("").toAbsolutePath().resolve("mods/HyARPG/prefabs");
+            new PrefabWorldGenListener(prefabFolder).register(getEventRegistry());
 
             // log the registration
             LOGGER.at(Level.INFO).log("[HyARPG] Registered listeners");

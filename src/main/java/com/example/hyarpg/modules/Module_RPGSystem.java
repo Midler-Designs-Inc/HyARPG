@@ -2,42 +2,25 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.components.Component_Grave;
-import com.example.hyarpg.utils.InterceptPocketCraftingWindow;
 import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.protocol.packets.window.WindowType;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
-import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
-import com.hypixel.hytale.server.core.entity.entities.BlockEntity;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.entity.entities.player.windows.Window;
-import com.hypixel.hytale.server.core.entity.entities.player.windows.WindowManager;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
-import com.hypixel.hytale.server.core.inventory.InventoryComponent;
-import com.hypixel.hytale.server.core.inventory.InventorySystems;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
-import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
-import com.hypixel.hytale.server.core.modules.entity.BlockEntitySystems;
-import com.hypixel.hytale.server.core.modules.entity.DespawnComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
-import com.hypixel.hytale.server.core.modules.entity.player.PlayerSendInventorySystem;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
-import com.hypixel.hytale.server.core.modules.physics.component.Velocity;
-import com.hypixel.hytale.server.core.modules.time.TimeResource;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
-import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -57,24 +40,19 @@ import com.example.hyarpg.utils.affixes.AffixPool;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.example.hyarpg.utils.skills.SkillLibraryMigration;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ReferenceMap;
 
 // Java Imports
-import javax.annotation.Nonnull;
 import java.awt.*;
 import java.time.Instant;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 
 
 public class Module_RPGSystem {
 
     private final HyARPGPlugin plugin;
-    private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
 
     // Component Type references
     public static ComponentType<EntityStore, Component_RPG_Player> componentTypeRPGPlayer;
@@ -86,7 +64,7 @@ public class Module_RPGSystem {
     private static final Random random = new Random();
 
     // Skill Tree Version Constant
-    private final String SKILL_TREE_VERSION = "1.11.0"; // 1.6.0
+    private static final String SKILL_TREE_VERSION = "1.11.0"; // 1.6.0
 
     // initialize this module
     public Module_RPGSystem(HyARPGPlugin plugin) {
@@ -161,6 +139,7 @@ public class Module_RPGSystem {
     private void onPlayerDisconnect(Event_PlayerDisconnect event) {
         try {
             PlayerRef playerRef = event.getPlayer();
+            assert playerRef.getWorldUuid() != null;
             World world = Universe.get().getWorld(playerRef.getWorldUuid());
             if (world == null) return;
 
@@ -464,7 +443,7 @@ public class Module_RPGSystem {
             // Discover the item, then discover any new recipes
             craftingKnowledge.addDiscoveredItem(playerRef, query);
             craftingKnowledge.discoverRecipes(ref, store, query);
-        } catch (Exception e) {}
+        } catch (Exception _) {}
     }
 
     // determine the distance in a straight line from 0,0 the entity is and set it's level accordingly

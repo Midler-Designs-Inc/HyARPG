@@ -1,0 +1,15 @@
+{
+  "Model": "NPC_Spawn_Marker",
+  "NPCs": [
+    { "Name": "Trork_Brawler", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Trork_Chieftain", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Trork_Doctor_Witch", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Trork_Guard", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Trork_Hunter", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Trork_Mauler", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Trork_Sentry", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Trork_Warrior", "Weight": 100, "SpawnAfterGameTime": "P1D" }
+  ],
+  "MaxDropHeight": 4,
+  "DeactivationDistance": 150
+}

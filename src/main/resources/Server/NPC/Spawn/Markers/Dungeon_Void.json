@@ -1,0 +1,12 @@
+{
+  "Model": "NPC_Spawn_Marker",
+  "NPCs": [
+    { "Name": "Crawler_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Eye_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Larva_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Spawn_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Spectre_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" }
+  ],
+  "MaxDropHeight": 4,
+  "DeactivationDistance": 150
+}

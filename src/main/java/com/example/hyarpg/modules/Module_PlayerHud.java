@@ -8,6 +8,7 @@ import com.example.hyarpg.utils.skills.SkillNode;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
+import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
@@ -86,6 +87,9 @@ public class Module_PlayerHud {
             // Schedule component reads on the world thread
             world.execute(() -> {
                 try {
+                    // Guard: bail out if the entity ref is no longer valid
+                    if (entityRef == null || !entityRef.isValid()) return;
+
                     Component_Thirst thirst = store.getComponent(entityRef, componentTypeThirst);
                     Component_Hunger hunger = store.getComponent(entityRef, componentTypeHunger);
                     Component_RPG_Player rpgPlayer = store.getComponent(entityRef, componentTypeRPGPlayer);
@@ -264,7 +268,7 @@ public class Module_PlayerHud {
                     if (!showRoomInfo || rpgPlayer.territory.getOwnerUuid() == null) return;
 
                     // get the viewing player's uuid
-                    com.hypixel.hytale.server.core.entity.UUIDComponent viewerUuid = store.getComponent(entityRef, com.hypixel.hytale.server.core.entity.UUIDComponent.getComponentType());
+                    UUIDComponent viewerUuid = store.getComponent(entityRef, UUIDComponent.getComponentType());
 
                     // priority: room > outdoor space > territory label
                     PlayerRef territoryOwner = Universe.get().getPlayer(rpgPlayer.territory.getOwnerUuid());

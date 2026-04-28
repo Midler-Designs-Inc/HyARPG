@@ -1,0 +1,14 @@
+{
+  "Model": "NPC_Spawn_Marker",
+  "NPCs": [
+    { "Name": "Goblin_Duke", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Goblin_Hermit", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Goblin_Lobber", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Goblin_Miner", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Goblin_Ogre", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Goblin_Scavenger", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Goblin_Thief", "Weight": 100, "SpawnAfterGameTime": "P1D" }
+  ],
+  "MaxDropHeight": 4,
+  "DeactivationDistance": 150
+}

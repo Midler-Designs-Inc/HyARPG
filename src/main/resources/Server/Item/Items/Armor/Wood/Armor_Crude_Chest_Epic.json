@@ -1,0 +1,71 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Wood_Chest.name"
+  },
+  "Parent": "Armor_Iron_Chest",
+  "ItemLevel": 1,
+  "Icon": "Icons/ItemsGenerated/Armor_Wood_Chest.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.45,
+    "Translation": [
+      1.2,
+      -12.6
+    ]
+  },
+  "Model": "Items/Armors/Wood/Chest.blockymodel",
+  "Texture": "Items/Armors/Wood/Chest_Texture.png",
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 3
+      },
+      {
+        "Quantity": 15,
+        "ResourceTypeId": "Wood_Trunk"
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Chest"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false,
+    "TimeSeconds": 3
+  },
+  "Armor": {
+    "ArmorSlot": "Chest",
+    "CosmeticsToHide": [
+      "Overtop"
+    ]
+  },
+  "MaxDurability": 0,
+  "DurabilityLossOnHit": 1,
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Crude"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "Quality": "Epic",
+  "MaxStack": 1,
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
+}

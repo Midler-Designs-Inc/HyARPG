@@ -28,11 +28,11 @@ public class Listeners_ContainerSpawn extends HolderSystem<ChunkStore> {
     @Override
     public void onEntityAdd(@NonNullDecl Holder<ChunkStore> holder, @NonNullDecl AddReason reason, @NonNullDecl Store<ChunkStore> store) {
         // Get the ItemContainerBlock component or bail
-        ItemContainerBlock containerBlock = (ItemContainerBlock) holder.getComponent(ItemContainerBlock.getComponentType());
+        ItemContainerBlock containerBlock = holder.getComponent(ItemContainerBlock.getComponentType());
         if (containerBlock == null) return;
 
         // Only fire for newly spawned containers, not loaded ones
-        if (reason != AddReason.SPAWN) return;
+//        if (reason != AddReason.SPAWN) return;
 
         // Get BlockStateInfo
         BlockModule.BlockStateInfo blockStateInfo = holder.getComponent(BlockModule.BlockStateInfo.getComponentType());

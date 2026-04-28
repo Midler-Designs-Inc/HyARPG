@@ -1,0 +1,16 @@
+{
+  "Model": "NPC_Spawn_Marker",
+  "NPCs": [
+    { "Name": "Outlander_Berserker", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Outlander_Brute", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Outlander_Cultist", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Outlander_Hunter", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Outlander_Marauder", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Outlander_Peon", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Outlander_Priest", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Outlander_Sorcerer", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Outlander_Stalker", "Weight": 100, "SpawnAfterGameTime": "P1D" }
+  ],
+  "MaxDropHeight": 4,
+  "DeactivationDistance": 150
+}

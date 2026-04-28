@@ -1,0 +1,68 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Armor_Wood_Hands.name"
+  },
+  "Parent": "Armor_Iron_Hands",
+  "Quality": "Epic",
+  "ItemLevel": 1,
+  "Icon": "Icons/ItemsGenerated/Armor_Wood_Hands.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.7,
+    "Translation": [
+      1.5,
+      -0.9
+    ]
+  },
+  "Model": "Items/Armors/Wood/Hands.blockymodel",
+  "Texture": "Items/Armors/Wood/Hands_Texture.png",
+  "Recipe": {
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Ingredient_Fibre",
+        "Quantity": 2
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Armor_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Armor_Chest"
+        ]
+      }
+    ],
+    "KnowledgeRequired": false,
+    "TimeSeconds": 3
+  },
+  "Armor": {
+    "ArmorSlot": "Hands",
+    "BaseDamageResistance": 0
+  },
+  "MaxDurability": 0,
+  "ItemSoundSetId": "ISS_Armor_Heavy",
+  "Tags": {
+    "Type": [
+      "Armor"
+    ],
+    "Family": [
+      "Crude"
+    ]
+  },
+  "MaxStack": 1,
+  "Categories": [
+    "Items.HyARPG.Gear"
+  ]
+}

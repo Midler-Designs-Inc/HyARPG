@@ -234,11 +234,15 @@ public class Module_CombatSystem {
             float fallResist = defenderRPGStats.stats.getResistance("Fall");
             float multiplier = 1f - (Math.max(0f, Math.min(100f, fallResist)) / 100f);
             damage.setAmount(damage.getAmount() * multiplier);
+            absorbWithBarrier(damage, store, defender);
             return;
         }
 
         // bail if no attacker or command damage
-        if (attacker == null || Objects.equals(cause.getId(), "Command")) return;
+        if (attacker == null || Objects.equals(cause.getId(), "Command")) {
+            absorbWithBarrier(damage, store, defender);
+            return;
+        }
 
         // bail if neither party is a mod entity
         Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
@@ -789,6 +793,23 @@ public class Module_CombatSystem {
             }, FLUSH_DELAY_MS, TimeUnit.MILLISECONDS);
             return group;
         });
+    }
+
+    // calculate damage absorption due to barrier
+    private void absorbWithBarrier(Damage damage, Store<EntityStore> store, Ref<EntityStore> defender) {
+        EntityStatMap defenderStatMap = store.getComponent(defender, EntityStatsModule.get().getEntityStatMapComponentType());
+        if (defenderStatMap == null) return;
+
+        int barrierIndex = EntityStatType.getAssetMap().getIndex("BarrierOnBlock");
+        EntityStatValue barrierStat = defenderStatMap.get(barrierIndex);
+        if (barrierStat == null || barrierStat.get() <= 0) return;
+
+        float barrier = barrierStat.get();
+        float incoming = damage.getAmount();
+        float absorbed = Math.min(barrier, incoming);
+
+        defenderStatMap.setStatValue(barrierIndex, barrier - absorbed);
+        damage.setAmount(incoming - absorbed);
     }
 
 }

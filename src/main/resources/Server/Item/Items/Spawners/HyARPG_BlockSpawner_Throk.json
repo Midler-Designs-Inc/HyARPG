@@ -1,0 +1,70 @@
+{
+  "TranslationProperties": {
+    "Name": "server.spawners.HyARPG_BlockSpawner_Throk.name"
+  },
+  "Categories": [
+    "Blocks.Deco"
+  ],
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "Set": "Bones",
+  "BlockType": {
+    "DrawType": "Model",
+    "CustomModel": "Blocks/Dungeons/Skull_Shelf.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Dungeons/Skull_Shelf_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "Flags": {},
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "SoftBlocks"
+      }
+    },
+    "BlockParticleSetId": "Stone",
+    "BlockSoundSetId": "Bone",
+    "HitboxType": "Block_Vertical_Five_Eighth",
+    "VariantRotation": "NESW",
+    "Material": "Solid",
+    "Opacity": "Semitransparent",
+    "ParticleColor": "#dccd97",
+    "BlockEntity": {
+      "Components": {
+        "SpawnMarkerBlock": {
+          "Config": {
+            "SpawnMarker": "Dungeon_Throk"
+          }
+        }
+      }
+    }
+  },
+  "ResourceTypes": [
+    {
+      "Id": "Bone"
+    }
+  ],
+  "PlayerAnimationsId": "Item",
+  "IconProperties": {
+    "Scale": 0.58823,
+    "Translation": [
+      -9.3,
+      -14.1
+    ],
+    "Rotation": [
+      0,
+      316.7,
+      339.2
+    ]
+  },
+  "Icon": "Icons/ItemsGenerated/Deco_Bone_Skulls_Wall.png",
+  "Tags": {
+    "Type": [
+      "Spawner"
+    ]
+  },
+  "ItemSoundSetId": "ISS_Items_Bones"
+}

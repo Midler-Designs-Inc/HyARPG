@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Fortifying_Embellishments_T4.name",
-    "Description": "server.items.components.Fortifying_Embellishments_T4.description"
+    "Name": "server.items.components.Fortifying_Embellishments_T5.name",
+    "Description": "server.items.components.Fortifying_Embellishments_T5.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Embellishments_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "BARRIER_ON_BLOCK",
-        "min": 15,
-        "max": 30
+        "min": 18,
+        "max": 36
       }
     ]
   },

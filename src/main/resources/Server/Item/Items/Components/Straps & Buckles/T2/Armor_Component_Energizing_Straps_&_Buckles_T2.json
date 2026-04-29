@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Energizing_Straps_&_Buckles_T1.name",
-    "Description": "server.items.components.Energizing_Straps_&_Buckles_T1.description"
+    "Name": "server.items.components.Energizing_Straps_&_Buckles_T2.name",
+    "Description": "server.items.components.Energizing_Straps_&_Buckles_T2.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Straps_and_Buckles_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "STAMINA_LEECH_PERCENT",
-        "min": 1,
-        "max": 4
+        "min": 1.5,
+        "max": 6
       }
     ]
   },

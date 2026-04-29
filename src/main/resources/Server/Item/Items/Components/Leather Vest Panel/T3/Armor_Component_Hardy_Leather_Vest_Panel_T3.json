@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Hardy_Leather_Vest_Panel_T2.name",
-    "Description": "server.items.components.Hardy_Leather_Vest_Panel_T2.description"
+    "Name": "server.items.components.Hardy_Leather_Vest_Panel_T3.name",
+    "Description": "server.items.components.Hardy_Leather_Vest_Panel_T3.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Leather_Vest_Panel_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -34,13 +34,13 @@
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",
-        "min": 1.5,
-        "max": 6
+        "min": 2,
+        "max": 8
       },
       {
         "stat": "STAMINA_FLAT",
-        "min": 6,
-        "max": 24
+        "min": 8,
+        "max": 32
       }
     ]
   },

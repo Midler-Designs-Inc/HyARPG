@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Invigorating_Straps_&_Buckles_T4.name",
-    "Description": "server.items.components.Invigorating_Straps_&_Buckles_T4.description"
+    "Name": "server.items.components.Invigorating_Straps_&_Buckles_T5.name",
+    "Description": "server.items.components.Invigorating_Straps_&_Buckles_T5.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Straps_and_Buckles_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "LIFE_LEECH_PERCENT",
-        "min": 2.5,
-        "max": 10
+        "min": 3,
+        "max": 12
       }
     ]
   },

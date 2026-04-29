@@ -4,8 +4,10 @@ package com.example.hyarpg.listeners;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.HolderSystem;
+import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.modules.block.components.ItemContainerBlock;
+import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 
 // Mod Imports
@@ -34,12 +36,29 @@ public class Listeners_ContainerSpawn extends HolderSystem<ChunkStore> {
         // Only fire for newly spawned containers, not loaded ones
 //        if (reason != AddReason.SPAWN) return;
 
+
         // Get BlockStateInfo
         BlockModule.BlockStateInfo blockStateInfo = holder.getComponent(BlockModule.BlockStateInfo.getComponentType());
         if (blockStateInfo == null) return;
 
+        // Get the block's local location
+        int index = blockStateInfo.getIndex();
+        int localX = ChunkUtil.xFromBlockInColumn(index);
+        int localY = ChunkUtil.yFromBlockInColumn(index);
+        int localZ = ChunkUtil.zFromBlockInColumn(index);
+
+        // get the chunk
+        Ref<ChunkStore> chunkRef = blockStateInfo.getChunkRef();
+        WorldChunk worldChunk = (WorldChunk) store.getComponent(chunkRef, WorldChunk.getComponentType());
+        int chunkX = worldChunk.getX();
+        int chunkZ = worldChunk.getZ();
+
+        // get the blocks world location from the chunk
+        int worldX = ChunkUtil.worldCoordFromLocalCoord(chunkX, localX);
+        int worldZ = ChunkUtil.worldCoordFromLocalCoord(chunkZ, localZ);
+
         // fire off the event to the mod
-        ModEventBus.post(new Event_ContainerSpawned(containerBlock, blockStateInfo));
+        ModEventBus.post(new Event_ContainerSpawned(containerBlock, blockStateInfo, worldX, localY, worldZ));
     }
 
     @Override

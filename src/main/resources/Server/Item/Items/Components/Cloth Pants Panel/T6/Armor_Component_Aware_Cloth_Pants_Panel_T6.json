@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Aware_Cloth_Pants_Panel_T5.name",
-    "Description": "server.items.components.Aware_Cloth_Pants_Panel_T5.description"
+    "Name": "server.items.components.Aware_Cloth_Pants_Panel_T6.name",
+    "Description": "server.items.components.Aware_Cloth_Pants_Panel_T6.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Cloth_Pants_Panel_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -34,8 +34,8 @@
     "implicits": [
       {
         "stat": "MANA_PERCENT",
-        "min": 3,
-        "max": 12
+        "min": 3.5,
+        "max": 14
       }
     ]
   },

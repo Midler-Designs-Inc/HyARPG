@@ -50,6 +50,11 @@
           "Name": "server.benchCategories.workbench.crude_weapons"
         },
         {
+          "Id": "Workbench_Crude_Armor",
+          "Icon": "Icons/CraftingCategories/Crafting_Armor_Crude.png",
+          "Name": "server.benchCategories.workbench.crude_armor"
+        },
+        {
           "Id": "Workbench_Tools",
           "Icon": "Icons/CraftingCategories/Workbench/Tools.png",
           "Name": "server.benchCategories.workbench.tools"

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Draining_Stitching_T1.name",
-    "Description": "server.items.components.Draining_Stitching_T1.description"
+    "Name": "server.items.components.Draining_Stitching_T2.name",
+    "Description": "server.items.components.Draining_Stitching_T2.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Stitching_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "DAMAGE_TAKEN_FROM_STAMINA_PERCENT",
-        "min": 2,
-        "max": 8
+        "min": 3,
+        "max": 12
       }
     ]
   },

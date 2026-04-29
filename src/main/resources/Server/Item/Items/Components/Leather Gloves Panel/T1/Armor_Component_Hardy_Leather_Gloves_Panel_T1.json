@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Hardy_Leather_Gloves_Panel_T0.name",
-    "Description": "server.items.components.Hardy_Leather_Gloves_Panel_T0.description"
+    "Name": "server.items.components.Hardy_Leather_Gloves_Panel_T1.name",
+    "Description": "server.items.components.Hardy_Leather_Gloves_Panel_T1.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Leather_Gloves_Panel_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -34,13 +34,13 @@
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",
-        "min": 0.25,
-        "max": 1
+        "min": 0.5,
+        "max": 2
       },
       {
         "stat": "STAMINA_FLAT",
-        "min": 1,
-        "max": 4
+        "min": 2,
+        "max": 8
       }
     ]
   },

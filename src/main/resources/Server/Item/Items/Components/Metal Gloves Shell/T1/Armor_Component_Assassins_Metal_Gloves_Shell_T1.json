@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Assassins_Metal_Gloves_Shell_T0.name",
-    "Description": "server.items.components.Assassins_Metal_Gloves_Shell_T0.description"
+    "Name": "server.items.components.Assassins_Metal_Gloves_Shell_T1.name",
+    "Description": "server.items.components.Assassins_Metal_Gloves_Shell_T1.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Metal_Gloves_Shell_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -12,6 +12,10 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 20
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Wool",
         "Quantity": 20
       }
     ],
@@ -34,8 +38,8 @@
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_CHANCE_PERCENT",
-        "min": 1,
-        "max": 3
+        "min": 2,
+        "max": 6
       }
     ]
   },

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Aerodynamic_Cloth_Pants_Panel_T4.name",
-    "Description": "server.items.components.Aerodynamic_Cloth_Pants_Panel_T4.description"
+    "Name": "server.items.components.Aerodynamic_Cloth_Pants_Panel_T5.name",
+    "Description": "server.items.components.Aerodynamic_Cloth_Pants_Panel_T5.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Cloth_Pants_Panel_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -34,8 +34,8 @@
     "implicits": [
       {
         "stat": "RUN_SPEED_PERCENT",
-        "min": 3.75,
-        "max": 5
+        "min": 4.5,
+        "max": 6
       }
     ]
   },

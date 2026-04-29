@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Ghost_Straps_&_Buckles_T5.name",
-    "Description": "server.items.components.Ghost_Straps_&_Buckles_T5.description"
+    "Name": "server.items.components.Ghost_Straps_&_Buckles_T6.name",
+    "Description": "server.items.components.Ghost_Straps_&_Buckles_T6.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Straps_and_Buckles_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "DODGE_CHANCE_PERCENT",
-        "min": 1.5,
-        "max": 9
+        "min": 1.75,
+        "max": 10.5
       }
     ]
   },

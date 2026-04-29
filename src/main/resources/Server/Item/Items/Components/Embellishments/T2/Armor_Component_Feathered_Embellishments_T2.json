@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Feathered_Embellishments_T1.name",
-    "Description": "server.items.components.Feathered_Embellishments_T1.description"
+    "Name": "server.items.components.Feathered_Embellishments_T2.name",
+    "Description": "server.items.components.Feathered_Embellishments_T2.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Embellishments_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "FALL_RESIST_PERCENT",
-        "min": 2,
-        "max": 10
+        "min": 3,
+        "max": 15
       }
     ]
   },

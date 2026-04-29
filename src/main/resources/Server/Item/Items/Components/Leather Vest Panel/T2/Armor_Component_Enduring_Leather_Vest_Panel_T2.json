@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Enduring_Leather_Vest_Panel_T1.name",
-    "Description": "server.items.components.Enduring_Leather_Vest_Panel_T1.description"
+    "Name": "server.items.components.Enduring_Leather_Vest_Panel_T2.name",
+    "Description": "server.items.components.Enduring_Leather_Vest_Panel_T2.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Leather_Vest_Panel_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -34,8 +34,8 @@
     "implicits": [
       {
         "stat": "STAMINA_PERCENT",
-        "min": 2,
-        "max": 8
+        "min": 3,
+        "max": 12
       }
     ]
   },

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Focusing_Embellishments_T0.name",
-    "Description": "server.items.components.Focusing_Embellishments_T0.description"
+    "Name": "server.items.components.Focusing_Embellishments_T1.name",
+    "Description": "server.items.components.Focusing_Embellishments_T1.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Embellishments_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "MANA_REGEN_FLAT",
-        "min": 0.5,
-        "max": 1.5
+        "min": 1,
+        "max": 3
       }
     ]
   },

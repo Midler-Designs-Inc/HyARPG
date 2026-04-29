@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Vigorous_Metal_Helmet_Shell_T2.name",
-    "Description": "server.items.components.Vigorous_Metal_Helmet_Shell_T2.description"
+    "Name": "server.items.components.Vigorous_Metal_Helmet_Shell_T3.name",
+    "Description": "server.items.components.Vigorous_Metal_Helmet_Shell_T3.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Metal_Helmet_Shell_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -12,6 +12,10 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Thorium",
+        "Quantity": 40
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Cotton",
         "Quantity": 40
       }
     ],
@@ -34,13 +38,13 @@
     "implicits": [
       {
         "stat": "PHYSICAL_RESIST_PERCENT",
-        "min": 0.75,
-        "max": 3
+        "min": 1,
+        "max": 4
       },
       {
         "stat": "LIFE_FLAT",
-        "min": 3,
-        "max": 12
+        "min": 4,
+        "max": 16
       }
     ]
   },

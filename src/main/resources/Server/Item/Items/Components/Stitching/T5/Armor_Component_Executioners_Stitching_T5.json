@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Executioners_Stitching_T4.name",
-    "Description": "server.items.components.Executioners_Stitching_T4.description"
+    "Name": "server.items.components.Executioners_Stitching_T5.name",
+    "Description": "server.items.components.Executioners_Stitching_T5.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Stitching_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "CRITICAL_STRIKE_DAMAGE_PERCENT",
-        "min": 5,
-        "max": 15
+        "min": 6,
+        "max": 18
       }
     ]
   },

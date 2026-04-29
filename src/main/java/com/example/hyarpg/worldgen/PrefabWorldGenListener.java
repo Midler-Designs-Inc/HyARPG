@@ -1,18 +1,19 @@
 package com.example.hyarpg.worldgen;
 
 // Hytale Imports
-import com.hypixel.hytale.component.Holder;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.event.EventPriority;
 import com.hypixel.hytale.event.EventRegistry;
+import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.modules.block.components.ItemContainerBlock;
 import com.hypixel.hytale.server.core.prefab.PrefabStore;
-import com.hypixel.hytale.server.core.prefab.event.PrefabPasteEvent;
-import com.hypixel.hytale.server.core.prefab.event.PrefabPlaceEntityEvent;
 import com.hypixel.hytale.server.core.prefab.selection.standard.BlockSelection;
 import com.hypixel.hytale.server.core.universe.world.World;
+import com.hypixel.hytale.server.core.universe.world.chunk.ChunkColumn;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
-import com.hypixel.hytale.server.core.universe.world.events.ChunkEvent;
+import com.hypixel.hytale.server.core.universe.world.chunk.section.FluidSection;
 import com.hypixel.hytale.server.core.universe.world.events.ChunkPreLoadProcessEvent;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.worldgen.chunk.ChunkGenerator;
@@ -20,7 +21,6 @@ import com.hypixel.hytale.server.worldgen.chunk.ChunkGenerator;
 // Mod Imports
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.configs.Config_World;
-import com.hypixel.hytale.server.worldgen.prefab.PrefabPasteUtil;
 
 // Java Imports
 import java.io.IOException;
@@ -35,6 +35,7 @@ import java.util.logging.Logger;
 public class PrefabWorldGenListener {
 
     private static final Logger LOGGER = Logger.getLogger(PrefabWorldGenListener.class.getName());
+
     private static final int CHUNK_SIZE = 32;
     private static final int UNDERGROUND_FLOOR = -30;
     private static final int UNDERGROUND_PADDING = 20;
@@ -51,12 +52,16 @@ public class PrefabWorldGenListener {
         "HyARPG_BlockSpawner_Void"
     };
 
+    // prefab lists
     private final Path prefabFolder;
     private List<Path> surfacePrefabs = null;
     private List<Path> aquaticPrefabs = null;
     private List<Path> undergroundPrefabs = null;
     private List<Path> surfaceDungeonPrefabs = null;
     private List<Path> undergroundDungeonPrefabs = null;
+
+    // static list of prefab containers
+    public static final java.util.Set<Long> PREFAB_CONTAINER_POSITIONS = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
     public PrefabWorldGenListener(Path prefabFolder) { this.prefabFolder = prefabFolder; }
 
@@ -138,10 +143,25 @@ public class PrefabWorldGenListener {
         BlockSelection buffer = loadPrefab(surfacePrefabs.get(random.nextInt(surfacePrefabs.size())));
         if (buffer == null) return;
 
-        int anchorY = generator.getHeight((int) worldSeed, anchorX, anchorZ);
+        // Sample 4 corners of the prefab footprint
+        int[] prefabBoundsXZ = getPrefabFootprint(buffer);
+        int prefabMinX = anchorX + (prefabBoundsXZ[0] - buffer.getAnchorX());
+        int prefabMaxX = anchorX + (prefabBoundsXZ[1] - buffer.getAnchorX());
+        int prefabMinZ = anchorZ + (prefabBoundsXZ[2] - buffer.getAnchorZ());
+        int prefabMaxZ = anchorZ + (prefabBoundsXZ[3] - buffer.getAnchorZ());
+
+        int h1 = generator.getHeight((int)worldSeed, prefabMinX, prefabMinZ);
+        int h2 = generator.getHeight((int)worldSeed, prefabMaxX, prefabMinZ);
+        int h3 = generator.getHeight((int)worldSeed, prefabMinX, prefabMaxZ);
+        int h4 = generator.getHeight((int)worldSeed, prefabMaxX, prefabMaxZ);
+        int groundY = Math.min(Math.min(h1, h2), Math.min(h3, h4));
+
+        // Offset anchorY so prefab bottom aligns with groundY
+        int prefabBottomOffset = prefabBoundsXZ[4] - buffer.getAnchorY(); // min Y offset from anchor
+        int anchorY = groundY - prefabBottomOffset;
         if (anchorY <= 0 || anchorY >= 318) return;
 
-        pasteSlice(buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
+        pasteSlice(false, buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
     }
 
     // Aquatic: anchor placed at water floor — TODO: implement water detection
@@ -178,7 +198,7 @@ public class PrefabWorldGenListener {
         int anchorY = resolveUndergroundAnchorY(buffer, generator, worldSeed, anchorX, anchorZ, random);
         if (anchorY == Integer.MIN_VALUE) return;
 
-        pasteSlice(buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
+        pasteSlice(true, buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
     }
 
     // Surface dungeon: same as surface but also places spawner blocks
@@ -193,11 +213,26 @@ public class PrefabWorldGenListener {
         BlockSelection buffer = loadPrefab(surfaceDungeonPrefabs.get(random.nextInt(surfaceDungeonPrefabs.size())));
         if (buffer == null) return;
 
-        int anchorY = generator.getHeight((int) worldSeed, anchorX, anchorZ);
+        // Sample 4 corners of the prefab footprint
+        int[] prefabBoundsXZ = getPrefabFootprint(buffer);
+        int prefabMinX = anchorX + (prefabBoundsXZ[0] - buffer.getAnchorX());
+        int prefabMaxX = anchorX + (prefabBoundsXZ[1] - buffer.getAnchorX());
+        int prefabMinZ = anchorZ + (prefabBoundsXZ[2] - buffer.getAnchorZ());
+        int prefabMaxZ = anchorZ + (prefabBoundsXZ[3] - buffer.getAnchorZ());
+
+        int h1 = generator.getHeight((int)worldSeed, prefabMinX, prefabMinZ);
+        int h2 = generator.getHeight((int)worldSeed, prefabMaxX, prefabMinZ);
+        int h3 = generator.getHeight((int)worldSeed, prefabMinX, prefabMaxZ);
+        int h4 = generator.getHeight((int)worldSeed, prefabMaxX, prefabMaxZ);
+        int groundY = Math.min(Math.min(h1, h2), Math.min(h3, h4));
+
+        // Offset anchorY so prefab bottom aligns with groundY
+        int prefabBottomOffset = prefabBoundsXZ[4] - buffer.getAnchorY(); // min Y offset from anchor
+        int anchorY = groundY - prefabBottomOffset;
         if (anchorY <= 0 || anchorY >= 318) return;
 
         int[] bounds = computeBounds(buffer);
-        pasteSlice(buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
+        pasteSlice(true, buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
         placeSpawners(buffer, bounds, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ, random, cfg.prefabSurfaceDungeonSpawnerDensity);
     }
 
@@ -217,7 +252,7 @@ public class PrefabWorldGenListener {
         if (anchorY == Integer.MIN_VALUE) return;
 
         int[] bounds = computeBounds(buffer);
-        pasteSlice(buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
+        pasteSlice(true, buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
         placeSpawners(buffer, bounds, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ, random, cfg.prefabUndergroundDungeonSpawnerDensity);
     }
 
@@ -304,7 +339,7 @@ public class PrefabWorldGenListener {
     }
 
     // Write only the blocks from this prefab that fall within the chunk's XZ column
-    private void pasteSlice(BlockSelection buffer, WorldChunk chunk, int anchorX, int anchorY, int anchorZ, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ) {
+    private void pasteSlice(boolean fillAir, BlockSelection buffer, WorldChunk chunk, int anchorX, int anchorY, int anchorZ, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ) {
         int bufAnchorX = buffer.getAnchorX(), bufAnchorY = buffer.getAnchorY(), bufAnchorZ = buffer.getAnchorZ();
         BlockType airType = BlockType.getAssetMap().getAsset(0);
 
@@ -312,7 +347,7 @@ public class PrefabWorldGenListener {
         int[] b = computeBounds(buffer);
 
         // Fill bounding box with air to mark positions as touched so terrain gen skips them
-        if (airType != null && b[0] != Integer.MAX_VALUE) {
+        if (fillAir && airType != null && b[0] != Integer.MAX_VALUE) {
             for (int x = b[0]; x <= b[3]; x++) {
                 for (int y = b[1]; y <= b[4]; y++) {
                     for (int z = b[2]; z <= b[5]; z++) {
@@ -337,22 +372,17 @@ public class PrefabWorldGenListener {
             // Skip benches
             if (blockType.getId().startsWith("Bench_")) return;
 
+            // Track prefab container positions for loot table assignment
+            if (blockType.getBlockEntity() != null) {
+                ItemContainerBlock container = blockType.getBlockEntity().getComponent(ItemContainerBlock.getComponentType());
+                if (container != null) {
+                    PREFAB_CONTAINER_POSITIONS.add(posKey(wx, wy, wz));
+                }
+            }
+
             // set the block in place
             chunk.setBlock(wx, wy, wz, block.blockId(), blockType, block.rotation(), block.filler(), PLACEMENT_SETTINGS);
         });
-
-        // Paste fluids
-        int waterSourceId = BlockType.getAssetMap().getIndex("Fluid_Water");
-        BlockType waterSourceType = BlockType.getAssetMap().getAsset(waterSourceId);
-        if (waterSourceType != null) {
-            buffer.forEachFluid((x, y, z, fluidId, fluidLevel) -> {
-                if (fluidId == 0) return;
-                int wx = anchorX + (x - bufAnchorX), wy = anchorY + (y - bufAnchorY), wz = anchorZ + (z - bufAnchorZ);
-                if (wy < UNDERGROUND_FLOOR || wy > 318) return;
-                if (wx < chunkMinX || wx > chunkMaxX || wz < chunkMinZ || wz > chunkMaxZ) return;
-                chunk.setBlock(wx, wy, wz, waterSourceId, waterSourceType, 0, 0, PLACEMENT_SETTINGS);
-            });
-        }
     }
 
     // Load a prefab from disk via PrefabStore (results are cached)
@@ -369,5 +399,22 @@ public class PrefabWorldGenListener {
         } catch (IOException e) { LOGGER.log(Level.WARNING, "[HyARPG] Failed to scan prefab folder: " + folder, e); }
         LOGGER.info("[HyARPG] Found " + result.size() + " prefab(s) in " + folder);
         return result;
+    }
+
+    // get a position key for container positions
+    public static long posKey(int x, int y, int z) {
+        return ((long)(x & 0xFFFFF) << 40) | ((long)(y & 0xFFFFF) << 20) | (z & 0xFFFFF);
+    }
+
+    // Returns [minX, maxX, minZ, maxZ, minY] in buffer-local coords
+    private int[] getPrefabFootprint(BlockSelection buffer) {
+        int[] b = {Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE};
+        buffer.forEachBlock((x, y, z, block) -> {
+            if (block.blockId() == 0) return;
+            b[0] = Math.min(b[0], x); b[1] = Math.max(b[1], x);
+            b[2] = Math.min(b[2], z); b[3] = Math.max(b[3], z);
+            b[4] = Math.min(b[4], y);
+        });
+        return b;
     }
 }

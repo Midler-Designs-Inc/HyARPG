@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Aerodynamic_Metal_Pants_Shell_T1.name",
-    "Description": "server.items.components.Aerodynamic_Metal_Pants_Shell_T1.description"
+    "Name": "server.items.components.Aerodynamic_Metal_Pants_Shell_T2.name",
+    "Description": "server.items.components.Aerodynamic_Metal_Pants_Shell_T2.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Metal_Pants_Shell_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -12,6 +12,10 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Iron",
+        "Quantity": 30
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Linen",
         "Quantity": 30
       }
     ],
@@ -34,8 +38,8 @@
     "implicits": [
       {
         "stat": "RUN_SPEED_PERCENT",
-        "min": 0.5,
-        "max": 1
+        "min": 0.75,
+        "max": 1.5
       }
     ]
   },

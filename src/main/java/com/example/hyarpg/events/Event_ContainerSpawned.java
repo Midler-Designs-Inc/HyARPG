@@ -4,4 +4,10 @@ package com.example.hyarpg.events;
 import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.modules.block.components.ItemContainerBlock;
 
-public record Event_ContainerSpawned(ItemContainerBlock containerBlock, BlockModule.BlockStateInfo blockStateInfo) {}
+public record Event_ContainerSpawned(
+    ItemContainerBlock containerBlock,
+    BlockModule.BlockStateInfo blockStateInfo,
+    int worldX,
+    int worldY,
+    int worldZ
+) {}

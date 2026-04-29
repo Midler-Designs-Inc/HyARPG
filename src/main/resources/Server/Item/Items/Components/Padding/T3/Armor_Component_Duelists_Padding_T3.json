@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Duelists_Padding_T2.name",
-    "Description": "server.items.components.Duelists_Padding_T2.description"
+    "Name": "server.items.components.Duelists_Padding_T3.name",
+    "Description": "server.items.components.Duelists_Padding_T3.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Padding_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "PARRY_WINDOW_FLAT",
-        "min": 0.03,
-        "max": 0.3
+        "min": 0.04,
+        "max": 0.4
       }
     ]
   },

@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Resistant_Leather_Pants_Panel_T0.name",
-    "Description": "server.items.components.Resistant_Leather_Pants_Panel_T0.description"
+    "Name": "server.items.components.Resistant_Leather_Pants_Panel_T1.name",
+    "Description": "server.items.components.Resistant_Leather_Pants_Panel_T1.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Leather_Pants_Panel_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -34,8 +34,8 @@
     "implicits": [
       {
         "stat": "ELEMENTAL_RESIST_PERCENT",
-        "min": 0.5,
-        "max": 2
+        "min": 1,
+        "max": 4
       }
     ]
   },

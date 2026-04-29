@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Vigorous_Metal_Gloves_Shell_T5.name",
-    "Description": "server.items.components.Vigorous_Metal_Gloves_Shell_T5.description"
+    "Name": "server.items.components.Vigorous_Metal_Gloves_Shell_T6.name",
+    "Description": "server.items.components.Vigorous_Metal_Gloves_Shell_T6.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Metal_Gloves_Shell_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -12,6 +12,10 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Mithril",
+        "Quantity": 70
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Shadoweave",
         "Quantity": 70
       }
     ],
@@ -34,13 +38,13 @@
     "implicits": [
       {
         "stat": "PHYSICAL_RESIST_PERCENT",
-        "min": 1.5,
-        "max": 6
+        "min": 1.75,
+        "max": 7
       },
       {
         "stat": "LIFE_FLAT",
-        "min": 6,
-        "max": 24
+        "min": 7,
+        "max": 28
       }
     ]
   },

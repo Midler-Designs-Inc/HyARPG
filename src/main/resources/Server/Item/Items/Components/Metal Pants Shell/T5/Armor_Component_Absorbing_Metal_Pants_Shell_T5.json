@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Absorbing_Metal_Pants_Shell_T4.name",
-    "Description": "server.items.components.Absorbing_Metal_Pants_Shell_T4.description"
+    "Name": "server.items.components.Absorbing_Metal_Pants_Shell_T5.name",
+    "Description": "server.items.components.Absorbing_Metal_Pants_Shell_T5.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Metal_Pants_Shell_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -12,6 +12,10 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 60
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Cindercloth",
         "Quantity": 60
       }
     ],
@@ -34,8 +38,8 @@
     "implicits": [
       {
         "stat": "PHYSICAL_RESIST_PERCENT",
-        "min": 2.5,
-        "max": 10
+        "min": 3,
+        "max": 12
       }
     ]
   },

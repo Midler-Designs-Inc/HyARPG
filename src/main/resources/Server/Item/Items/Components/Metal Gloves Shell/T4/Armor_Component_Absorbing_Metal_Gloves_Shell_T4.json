@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Absorbing_Metal_Gloves_Shell_T3.name",
-    "Description": "server.items.components.Absorbing_Metal_Gloves_Shell_T3.description"
+    "Name": "server.items.components.Absorbing_Metal_Gloves_Shell_T4.name",
+    "Description": "server.items.components.Absorbing_Metal_Gloves_Shell_T4.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Metal_Gloves_Shell_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -12,6 +12,10 @@
     "Input": [
       {
         "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 50
+      },
+      {
+        "ItemId": "Ingredient_Bolt_Silk",
         "Quantity": 50
       }
     ],
@@ -34,8 +38,8 @@
     "implicits": [
       {
         "stat": "PHYSICAL_RESIST_PERCENT",
-        "min": 2,
-        "max": 8
+        "min": 2.5,
+        "max": 10
       }
     ]
   },

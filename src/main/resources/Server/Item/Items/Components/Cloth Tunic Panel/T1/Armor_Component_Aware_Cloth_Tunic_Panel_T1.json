@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Aware_Cloth_Tunic_Panel_T0.name",
-    "Description": "server.items.components.Aware_Cloth_Tunic_Panel_T0.description"
+    "Name": "server.items.components.Aware_Cloth_Tunic_Panel_T1.name",
+    "Description": "server.items.components.Aware_Cloth_Tunic_Panel_T1.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Cloth_Tunic_Panel_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -34,8 +34,8 @@
     "implicits": [
       {
         "stat": "MANA_PERCENT",
-        "min": 1,
-        "max": 4
+        "min": 2,
+        "max": 8
       }
     ]
   },

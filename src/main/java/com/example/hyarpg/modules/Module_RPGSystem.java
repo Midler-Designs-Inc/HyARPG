@@ -2,7 +2,9 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.components.Component_Grave;
+import com.example.hyarpg.configs.Config_World;
 import com.example.hyarpg.utils.items.ItemFactory;
+import com.example.hyarpg.worldgen.PrefabWorldGenListener;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
@@ -48,11 +50,13 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Module_RPGSystem {
 
     private final HyARPGPlugin plugin;
+    private static final Logger LOGGER = Logger.getLogger(Module_RPGSystem.class.getName());
 
     // Component Type references
     public static ComponentType<EntityStore, Component_RPG_Player> componentTypeRPGPlayer;
@@ -275,8 +279,10 @@ public class Module_RPGSystem {
         ItemContainerBlock containerBlock = event.containerBlock();
         BlockStateInfo blockStateInfo = event.blockStateInfo();
 
-        // if droplist is already null this chest was previously looted — leave it empty
-        if (containerBlock.getDroplist() == null) return;
+        // if droplist is already null this chest was previously looted (unless it loaded in with a prefab) — leave it empty
+        long key = PrefabWorldGenListener.posKey(event.worldX(), event.worldY(), event.worldZ());
+        boolean isPrefabContainer = PrefabWorldGenListener.PREFAB_CONTAINER_POSITIONS.remove(key);
+        if (!isPrefabContainer && containerBlock.getDroplist() == null) return;
 
         // getIndex() returns indexBlockInColumn — full column-relative coords
         int index = blockStateInfo.getIndex();

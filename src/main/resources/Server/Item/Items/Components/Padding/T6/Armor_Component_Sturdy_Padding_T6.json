@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Sturdy_Padding_T5.name",
-    "Description": "server.items.components.Sturdy_Padding_T5.description"
+    "Name": "server.items.components.Sturdy_Padding_T6.name",
+    "Description": "server.items.components.Sturdy_Padding_T6.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Padding_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
@@ -42,8 +42,8 @@
     "implicits": [
       {
         "stat": "STABILITY_PERCENT",
-        "min": 3,
-        "max": 6
+        "min": 3.5,
+        "max": 7
       }
     ]
   },

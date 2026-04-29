@@ -1,4 +1,5 @@
 {
+  "Parent": "Template_Weapon_Axe",
   "TranslationProperties": {
     "Name": "server.items.Weapon_Axe_Crude.name"
   },
@@ -51,9 +52,6 @@
   "PlayerAnimationsId": "Axe",
   "Utility": {
     "Compatible": true
-  },
-  "Interactions": {
-    "Primary": "Axe_Attack"
   },
   "InteractionVars": {
     "Axe_Swing_Down_Left_Effect": {

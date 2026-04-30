@@ -34,7 +34,7 @@
       {
         "stat": "STAMINA_REGEN_FLAT",
         "min": 3,
-        "max": 18
+        "max": 12
       }
     ]
   },

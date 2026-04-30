@@ -17,8 +17,8 @@ public class Config_Raids {
     public int raid_chance = 10;
 
     @Key("raid_cooldown_in_minutes")
-    @Comment("Determines the amount of time (after a player has been raided) that must occur before a player is applicable to be raided again. Default: 45")
-    public int raid_cooldown_in_minutes = 45;
+    @Comment("Determines the amount of time (after a player has been raided) that must occur before a player is applicable to be raided again. Default: 90")
+    public int raid_cooldown_in_minutes = 90;
 
     @Key("seconds_before_first_wave")
     @Comment("Determines how many seconds should pass before the first wave is spawned. Default: 30")

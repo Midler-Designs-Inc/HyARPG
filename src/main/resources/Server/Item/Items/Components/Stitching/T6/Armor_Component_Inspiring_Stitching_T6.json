@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "MANA_LEECH_PERCENT",
-        "min": 3.5,
-        "max": 14
+        "min": 7,
+        "max": 35
       }
     ]
   },

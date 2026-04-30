@@ -59,7 +59,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_1",
           "DamageCalculator": {
             "BaseDamage": {
-              "MainHand": 1.25
+              "MainHand": 2
             }
           }
         }
@@ -71,7 +71,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_2",
           "DamageCalculator": {
             "BaseDamage": {
-              "MainHand": 1.5
+              "MainHand": 3
             }
           }
         }
@@ -83,7 +83,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_3",
           "DamageCalculator": {
             "BaseDamage": {
-              "MainHand": 1.75
+              "MainHand": 4
             }
           }
         }
@@ -95,7 +95,7 @@
           "Parent": "Weapon_Shortbow_Primary_Shoot_Damage_Strength_4",
           "DamageCalculator": {
             "BaseDamage": {
-              "MainHand": 2
+              "MainHand": 5
             }
           }
         }

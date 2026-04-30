@@ -1,0 +1,136 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Teleporter.name",
+    "Description": "server.items.Teleporter.description"
+  },
+  "Icon": "Icons/ItemsGenerated/Teleporter.png",
+  "Categories": [
+    "Blocks.Portals"
+  ],
+  "MaxStack": 1,
+  "PlayerAnimationsId": "Block",
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        "Teleporter_Place"
+      ]
+    }
+  },
+  "BlockType": {
+    "Material": "Solid",
+    "DrawType": "Model",
+    "CustomModel": "Blocks/Miscellaneous/Teleporter_Pad.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Miscellaneous/Teleporter_Pad_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "Flags": {
+      "IsUsable": true
+    },
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Benches",
+        "Quality": 1
+      }
+    },
+    "BlockEntity": {
+      "Components": {
+        "Teleporter": {
+          "WarpNameWordList": "Runes"
+        },
+        "TrackedPlacement": {}
+      }
+    },
+    "BlockParticleSetId": "Stone",
+    "BlockSoundSetId": "Stone",
+    "State": {
+      "Definitions": {
+        "Active": {
+          "AmbientSoundEventId": "SFX_Portal_Neutral",
+          "Particles": [
+            {
+              "SystemId": "Portal_Square_Blue_Fit",
+              "PositionOffset": {
+                "Y": -1,
+                "Z": -0.3,
+                "X": 0.0
+              },
+              "RotationOffset": {
+                "Yaw": 0.0
+              },
+              "Scale": 1.0
+            }
+          ],
+          "Interactions": {
+            "CollisionEnter": {
+              "Cooldown": {
+                "Cooldown": 1
+              },
+              "Interactions": [
+                {
+                  "Type": "Teleporter",
+                  "Particle": "Teleport",
+                  "Next": {
+                    "Type": "ApplyEffect",
+                    "EffectId": "Portal_Teleport",
+                    "Effects": {
+                      "WorldSoundEventId": "SFX_Potion_Drink_Success"
+                    }
+                  }
+                }
+              ]
+            },
+            "Use": {
+              "Interactions": [
+                {
+                  "Type": "OpenCustomUI",
+                  "Page": {
+                    "Id": "Teleporter",
+                    "Mode": "Warp",
+                    "ActiveState": "Active",
+                    "WarpNameWordList": "Runes"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Interactions": {
+      "Use": {
+        "Interactions": [
+          {
+            "Type": "OpenCustomUI",
+            "Page": {
+              "Id": "Teleporter",
+              "Mode": "Warp",
+              "ActiveState": "Active",
+              "WarpNameWordList": "Runes"
+            }
+          }
+        ]
+      }
+    },
+    "ParticleColor": "#4e534c",
+    "VariantRotation": "NESW",
+    "HitboxType": "Teleporter"
+  },
+  "IconProperties": {
+    "Scale": 0.25,
+    "Rotation": [
+      22.5,
+      45.0,
+      22.5
+    ],
+    "Translation": [
+      3.0,
+      -42.0
+    ]
+  },
+  "ItemLevel": 60,
+  "Quality": "Legendary",
+  "ItemSoundSetId": "ISS_Blocks_Stone"
+}

@@ -34,7 +34,7 @@
       {
         "stat": "LIFE_REGEN_FLAT",
         "min": 1.5,
-        "max": 9
+        "max": 6
       }
     ]
   },

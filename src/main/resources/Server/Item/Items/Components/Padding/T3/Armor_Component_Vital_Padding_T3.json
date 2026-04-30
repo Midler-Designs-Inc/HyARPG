@@ -1,33 +1,33 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.components.Cushioned_Padding_T6.name",
-    "Description": "server.items.components.Cushioned_Padding_T6.description"
+    "Name": "server.items.components.Vital_Padding_T3.name",
+    "Description": "server.items.components.Vital_Padding_T3.description"
   },
   "Icon": "Icons/Items/Armor_Components/Component_Padding_Icon.png",
   "Model": "Resources/Materials/Stud_Iron.blockymodel",
   "Texture": "Resources/Materials/Stud_Iron_Texture.png",
   "Recipe": {
-    "TimeSeconds": 14,
+    "TimeSeconds": 8,
     "KnowledgeRequired": true,
     "Input": [
       {
-        "ItemId": "Ingredient_Leather_Dark",
-        "Quantity": 35
+        "ItemId": "Ingredient_Leather_Medium",
+        "Quantity": 20
       },
       {
-        "ItemId": "Ingredient_Bolt_Shadoweave",
-        "Quantity": 35
+        "ItemId": "Ingredient_Bolt_Cotton",
+        "Quantity": 20
       },
       {
         "ItemId": "Cloth_Block_Wool_White",
-        "Quantity": 14
+        "Quantity": 8
       }
     ],
     "BenchRequirement": [
       {
         "Id": "Armor_Bench",
         "Type": "Crafting",
-        "RequiredTierLevel": 6,
+        "RequiredTierLevel": 3,
         "Categories": [
           "Shells_and_Padding"
         ]
@@ -37,13 +37,13 @@
   "MaxStack": 1,
   "CraftingComponent": {
     "type": "Padding",
-    "tier": 6,
-    "outputAssetID": "Armor_Component_Cushioned_Padding",
+    "tier": 3,
+    "outputAssetID": "Armor_Component_Vital_Padding",
     "implicits": [
       {
         "stat": "LIFE_REGEN_FLAT",
-        "min": 3.5,
-        "max": 10.5
+        "min": 1,
+        "max": 3
       }
     ]
   },

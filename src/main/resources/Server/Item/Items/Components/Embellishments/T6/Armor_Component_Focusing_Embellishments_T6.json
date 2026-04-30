@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "MANA_REGEN_FLAT",
-        "min": 3.5,
-        "max": 10.5
+        "min": 1.75,
+        "max": 5.25
       }
     ]
   },

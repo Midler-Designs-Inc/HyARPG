@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "STAMINA_LEECH_PERCENT",
-        "min": 2.5,
-        "max": 10
+        "min": 5,
+        "max": 25
       }
     ]
   },

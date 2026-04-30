@@ -1,0 +1,4217 @@
+{
+  "version": 8,
+  "blockIdVersion": 11,
+  "anchorX": 0,
+  "anchorY": 0,
+  "anchorZ": 0,
+  "blocks": [
+    {
+      "x": -3,
+      "y": 0,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": -3,
+      "name": "Furniture_Temple_Light_Lantern"
+    },
+    {
+      "x": -3,
+      "y": 3,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 5,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": -3,
+      "name": "*Rock_Marble_Brick_Roof_Hollow_State_Definitions_Corner_Right",
+      "rotation": 3
+    },
+    {
+      "x": -3,
+      "y": 7,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 8,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 9,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 3,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 5,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -3,
+      "y": 7,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 8,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 9,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 3,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 5,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -3,
+      "y": 7,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 8,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 9,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 3,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 5,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -3,
+      "y": 7,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 8,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 9,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 3,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 5,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -3,
+      "y": 7,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 8,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 9,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 3,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 5,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -3,
+      "y": 7,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 8,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 9,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": 3,
+      "name": "*Furniture_Temple_Light_Lantern_State_Definitions_On"
+    },
+    {
+      "x": -3,
+      "y": 3,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 4,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 5,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": 3,
+      "name": "*Rock_Marble_Brick_Roof_Hollow_State_Definitions_Corner_Right"
+    },
+    {
+      "x": -3,
+      "y": 7,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 8,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -3,
+      "y": 9,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 8,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 9,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Base"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Base",
+      "rotation": 8
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": -2,
+      "name": "*Rock_Marble_Brick_Roof_State_Definitions_Corner_Left",
+      "rotation": 2
+    },
+    {
+      "x": -2,
+      "y": 8,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 9,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Stairs",
+      "rotation": 3
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -2,
+      "y": 8,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 9,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Stairs",
+      "rotation": 3
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -2,
+      "y": 8,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 9,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Stairs",
+      "rotation": 3
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -2,
+      "y": 8,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 9,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Base"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Base",
+      "rotation": 8
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": 2,
+      "name": "*Rock_Marble_Brick_Roof_State_Definitions_Corner_Left",
+      "rotation": 3
+    },
+    {
+      "x": -2,
+      "y": 8,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 9,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 8,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -2,
+      "y": 9,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 5,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 9,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Wall"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 5,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 9,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Smooth"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 5,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": -1,
+      "name": "*Rock_Marble_Brick_Roof_Hollow_State_Definitions_Corner_Left",
+      "rotation": 2
+    },
+    {
+      "x": -1,
+      "y": 9,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Smooth"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 5,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 3
+    },
+    {
+      "x": -1,
+      "y": 9,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Smooth"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 5,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": 1,
+      "name": "*Rock_Marble_Brick_Roof_Hollow_State_Definitions_Corner_Left",
+      "rotation": 3
+    },
+    {
+      "x": -1,
+      "y": 9,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Wall"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 5,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 9,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 5,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": -1,
+      "y": 9,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Wall"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Smooth"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Smooth"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "z": 0,
+      "name": "*Rock_Marble_Brick_Roof_State_Definitions_Topper",
+      "rotation": 3
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Smooth"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Wall"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Wall"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Smooth"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -1,
+      "name": "Teleporter",
+      "filler": 992,
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": -1,
+      "name": "Teleporter",
+      "filler": 2016,
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": -1,
+      "name": "Teleporter",
+      "filler": 3040,
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": -1,
+      "name": "*Rock_Marble_Brick_Roof_Hollow_State_Definitions_Corner_Right",
+      "rotation": 2
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 0,
+      "name": "Rock_Bedrock"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 0,
+      "name": "Teleporter",
+      "components": {
+        "Components": {
+          "TrackedPlacement": {
+            "BlockName": "Teleporter"
+          },
+          "PlacedByInteraction": {
+            "WhoPlacedUuid": {
+              "$binary": "RAMxSqmuSfWFpgCfDHh6Dg==",
+              "$type": "04"
+            }
+          },
+          "Teleporter": {
+            "Relative": 0,
+            "OwnedWarp": "Ansur",
+            "IsCustomName": false,
+            "WarpNameWordList": "Runes"
+          }
+        }
+      },
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 0,
+      "name": "Teleporter",
+      "filler": 1024,
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 0,
+      "name": "Teleporter",
+      "filler": 2048,
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Smooth"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 1,
+      "name": "Teleporter",
+      "filler": 32,
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 1,
+      "name": "Teleporter",
+      "filler": 1056,
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 1,
+      "name": "Teleporter",
+      "filler": 2080,
+      "rotation": 3
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": 1,
+      "name": "*Rock_Marble_Brick_Roof_Hollow_State_Definitions_Corner_Right",
+      "rotation": 1
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Wall"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 1,
+      "y": 9,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 2
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Base"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Pillar_Base",
+      "rotation": 8
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": -2,
+      "name": "*Rock_Marble_Brick_Roof_State_Definitions_Corner_Right",
+      "rotation": 2
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Wall",
+      "rotation": 1
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Wall",
+      "rotation": 1
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Wall",
+      "rotation": 1
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Base"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Middle"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Pillar_Base",
+      "rotation": 8
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": 2,
+      "name": "*Rock_Marble_Brick_Roof_State_Definitions_Corner_Left"
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Roof_Hollow"
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 8,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 2,
+      "y": 9,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": -3,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": -3,
+      "name": "Furniture_Temple_Light_Lantern"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": -3,
+      "name": "*Rock_Marble_Brick_Roof_Hollow_State_Definitions_Corner_Right",
+      "rotation": 2
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "z": -3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": -2,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "z": -2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": -1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "z": -1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": 0,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "z": 0,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": 1,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "z": 1,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": 2,
+      "name": "Rock_Marble_Brick_Roof_Hollow",
+      "rotation": 1
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "z": 2,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Decorative"
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": 3,
+      "name": "Rock_Marble_Brick_Ornate"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": 3,
+      "name": "Furniture_Temple_Light_Lantern"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 4,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": 3,
+      "name": "*Rock_Marble_Brick_Roof_Hollow_State_Definitions_Corner_Left"
+    },
+    {
+      "x": 3,
+      "y": 7,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 8,
+      "z": 3,
+      "name": "Empty"
+    },
+    {
+      "x": 3,
+      "y": 9,
+      "z": 3,
+      "name": "Empty"
+    }
+  ],
+  "fluids": [
+    {
+      "x": -3,
+      "y": 0,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 0,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -3,
+      "y": 6,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 7,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -2,
+      "y": 6,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 8,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 7,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 0,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": -1,
+      "y": 6,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 9,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 8,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 7,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 8,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 7,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 1,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 7,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 2,
+      "y": 6,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": -3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": -2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": -1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": 0,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": 1,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": 2,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    },
+    {
+      "x": 3,
+      "y": 6,
+      "z": 3,
+      "name": "Empty",
+      "level": 0
+    }
+  ]
+}

@@ -5,13 +5,25 @@ import de.bsommerfeld.jshepherd.annotation.Key;
 
 public class Config_World {
 
+    @Key("prefabWaywardShrineRegionSize")
+    @Comment("Controls spacing between Wayward Shrine regions in blocks. Larger values result in shrines being farther apart. Default: 1024")
+    public int prefabWaywardShrineRegionSize = 1024;
+
+    @Key("prefabWaywardShrineSpawnChance")
+    @Comment("Chance that a given region will spawn a Wayward Shrine. Range: 0.0–1.0. Default: 1")
+    public double prefabWaywardShrineSpawnChance = 1;
+
+    @Key("prefabSurfaceCornerShrineChance")
+    @Comment("Chance that a surface prefab will also spawn a Wayward Shrine in one of its corners. Range: 0.0–1.0. Default: 0.2")
+    public double prefabSurfaceCornerShrineChance = 0.2;
+
     @Key("prefabSurfaceRegionSize")
     @Comment("Controls spacing between surface prefab regions in blocks. Larger values result in prefabs being farther apart. Default: 512")
     public int prefabSurfaceRegionSize = 512;
 
     @Key("prefabSurfaceSpawnChance")
-    @Comment("Chance that a given region will spawn a surface prefab. Range: 0.0–1.0. Default: 0.6")
-    public double prefabSurfaceSpawnChance = 0.6;
+    @Comment("Chance that a given region will spawn a surface prefab. Range: 0.0–1.0. Default: 0.4")
+    public double prefabSurfaceSpawnChance = 0.4;
 
     @Key("prefabSurfaceMaxSize")
     @Comment("Maximum half-width of the largest surface prefab in blocks. Used for overlap detection. Default: 64")
@@ -34,8 +46,8 @@ public class Config_World {
     public int prefabUndergroundRegionSize = 256;
 
     @Key("prefabUndergroundSpawnChance")
-    @Comment("Chance that a given region will spawn an underground prefab. Range: 0.0–1.0. Default: 0.5")
-    public double prefabUndergroundSpawnChance = 0.5;
+    @Comment("Chance that a given region will spawn an underground prefab. Range: 0.0–1.0. Default: 0.66")
+    public double prefabUndergroundSpawnChance = 0.66;
 
     @Key("prefabUndergroundMaxSize")
     @Comment("Maximum half-width of the largest underground prefab in blocks. Used for overlap detection. Default: 64")
@@ -46,8 +58,8 @@ public class Config_World {
     public int prefabSurfaceDungeonRegionSize = 512;
 
     @Key("prefabSurfaceDungeonSpawnChance")
-    @Comment("Chance that a given region will spawn a surface dungeon. Range: 0.0-1.0. Default: 0.6")
-    public double prefabSurfaceDungeonSpawnChance = 0.6;
+    @Comment("Chance that a given region will spawn a surface dungeon. Range: 0.0-1.0. Default: 0.4")
+    public double prefabSurfaceDungeonSpawnChance = 0.4;
 
     @Key("prefabSurfaceDungeonMaxSize")
     @Comment("Maximum half-width of the largest surface dungeon prefab in blocks. Default: 64")

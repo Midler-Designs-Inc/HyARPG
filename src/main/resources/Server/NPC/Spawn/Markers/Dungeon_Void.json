@@ -7,6 +7,6 @@
     { "Name": "Spawn_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Spectre_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" }
   ],
-  "MaxDropHeight": 4,
+  "MaxDropHeight": 20,
   "DeactivationDistance": 150
 }

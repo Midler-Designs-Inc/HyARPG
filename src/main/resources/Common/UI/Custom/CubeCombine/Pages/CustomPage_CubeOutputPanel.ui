@@ -1,0 +1,69 @@
+$Common = "../../Common.ui";
+
+@CubeOutputPanel = Group {
+    LayoutMode: Top;
+    Anchor: (Width: 222, Left: 8);
+
+    Group {
+        Background: (TexturePath: "../../Common/ContainerPanelPatch.png", Border: 4);
+        FlexWeight: 1;
+
+        Group {
+            LayoutMode: Top;
+            Anchor: (Full: 0);
+
+            // descriptive label above output slot
+            Label {
+                Text: "Place items to combine";
+                Style: (FontSize: 12, TextColor: #888888, Alignment: Center);
+                Anchor: (Top: 8, Height: 20);
+                Padding: (Horizontal: 8);
+            }
+
+            // single output preview slot centered
+            Group {
+                Anchor: (Height: 74, Top: 8, Horizontal: 0);
+                LayoutMode: Center;
+
+                Button #CubeOutputSlot {
+                    Anchor: (Width: 74, Height: 74);
+                    ItemSlot #CubeOutputItem { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                    Label #CubeOutputQty { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                }
+            }
+
+            // item info — only visible when a matching recipe is found
+            Group #CubeOutputItemStats {
+                Visible: false;
+                LayoutMode: Top;
+                Anchor: (Horizontal: 8, Top: 10);
+
+                // separator
+                Group {
+                    Background: #9c8863(0.2);
+                    Anchor: (Height: 1, Bottom: 6);
+                }
+
+                // item display name from translation library
+                Label #CubeOutputItemName {
+                    Anchor: (Top: 6);
+                    Style: (FontSize: 11, TextColor: #ffffff, RenderBold: true, RenderUppercase: true, Wrap: true);
+                }
+
+                // item description from translation library
+                Label #CubeOutputItemDescription {
+                    Anchor: (Top: 4);
+                    Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true);
+                }
+            }
+
+            Group { FlexWeight: 1; }
+
+            $Common.@TextButton #CombineButton {
+                @Text = "COMBINE";
+                @Anchor = (Horizontal: 8, Bottom: 8);
+                Disabled: true;
+            }
+        }
+    }
+};

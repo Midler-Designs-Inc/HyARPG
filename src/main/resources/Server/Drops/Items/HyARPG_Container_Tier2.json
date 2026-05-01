@@ -15,14 +15,6 @@
                 "Type": "Single",
                 "Weight": 300,
                 "Item": {
-                  "ItemId": "Ore_Copper",
-                  "QuantityMax": 5
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 300,
-                "Item": {
                   "ItemId": "Ingredient_Hide_Soft",
                   "QuantityMax": 5
                 }
@@ -33,14 +25,6 @@
                 "Item": {
                   "ItemId": "Ingredient_Fabric_Scrap_Wool",
                   "QuantityMax": 5
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ore_Iron",
-                  "QuantityMax": 2
                 }
               },
               {
@@ -63,14 +47,6 @@
                 "Type": "Single",
                 "Weight": 400,
                 "Item": {
-                  "ItemId": "Ingredient_Fibre",
-                  "QuantityMax": 5
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 400,
-                "Item": {
                   "ItemId": "Plant_Fruit_Apple",
                   "QuantityMax": 2
                 }
@@ -85,18 +61,34 @@
               },
               {
                 "Type": "Single",
-                "Weight": 400,
+                "Weight": 60,
                 "Item": {
-                  "ItemId": "Rock_Stone",
-                  "QuantityMax": 10
+                  "ItemId": "Ingredient_Uncommon_Shard_Dust",
+                  "QuantityMax": 1
                 }
               },
               {
                 "Type": "Single",
-                "Weight": 400,
+                "Weight": 40,
                 "Item": {
-                  "ItemId": "Wood_Beech_Trunk",
-                  "QuantityMax": 10
+                  "ItemId": "Ingredient_Rare_Shard_Dust",
+                  "QuantityMax": 1
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 20,
+                "Item": {
+                  "ItemId": "Ingredient_Epic_Shard_Dust",
+                  "QuantityMax": 1
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 10,
+                "Item": {
+                  "ItemId": "Ingredient_Legendary_Shard_Dust",
+                  "QuantityMax": 1
                 }
               }
             ]

@@ -9,6 +9,7 @@ import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
@@ -16,6 +17,7 @@ import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
@@ -91,6 +93,7 @@ public class Module_RPGSystem {
         interactionRegistry.register("Bench_Forge_Open_Crafting", Interaction_Bench_Forge_Open_Crafting.class, Interaction_Bench_Forge_Open_Crafting.CODEC);
         interactionRegistry.register("Bench_Forge_Open_Salvaging", Interaction_Bench_Forge_Open_Salvaging.class, Interaction_Bench_Forge_Open_Salvaging.CODEC);
         interactionRegistry.register("Open_Territory_Panel", Interaction_Open_Territory_Panel.class, Interaction_Open_Territory_Panel.CODEC);
+        interactionRegistry.register("Open_Cube_Combine", Interaction_Bench_Open_CubeCombine.class, Interaction_Bench_Open_CubeCombine.CODEC);
         interactionRegistry.register("Resurrect_Player_At_Grave", Interaction_RezPlayer.class, Interaction_RezPlayer.CODEC);
 
         // Listen to applicable events on the mods internal event bus
@@ -279,10 +282,8 @@ public class Module_RPGSystem {
         ItemContainerBlock containerBlock = event.containerBlock();
         BlockStateInfo blockStateInfo = event.blockStateInfo();
 
-        // if droplist is already null this chest was previously looted (unless it loaded in with a prefab) — leave it empty
-        long key = PrefabWorldGenListener.posKey(event.worldX(), event.worldY(), event.worldZ());
-        boolean isPrefabContainer = PrefabWorldGenListener.PREFAB_CONTAINER_POSITIONS.remove(key);
-        if (!isPrefabContainer && containerBlock.getDroplist() == null) return;
+        // if droplist is already null this chest was previously looted — leave it empty
+        if ("Empty".equals(containerBlock.getDroplist())) return;
 
         // getIndex() returns indexBlockInColumn — full column-relative coords
         int index = blockStateInfo.getIndex();
@@ -319,7 +320,7 @@ public class Module_RPGSystem {
 
         // resolve the droplist into raw stacks then null it out so the container can't re-populate on open or break
         List<ItemStack> rawDrops = ItemModule.get().getRandomItemDrops("HyARPG_Container_Tier" + tier);
-        containerBlock.setDroplist(null);
+        containerBlock.setDroplist("Empty");
 
         // loop over raw drops and replace any mod gear with a factory-generated equivalent
         List<ItemStack> finalItems = new ArrayList<>();

@@ -121,12 +121,12 @@
             ],
             "BenchRequirement": [
               {
-                "Type": "Crafting",
-                "Id": "Cookingbench",
-                "Categories": ["Prepared"]
+                "Type": "Processing",
+                "Id": "Campfire"
               }
             ],
-            "TimeSeconds": 5
+            "OutputQuantity": 1,
+            "TimeSeconds": 25
           },
           "MaxDurability": 3,
           "Interactions": {

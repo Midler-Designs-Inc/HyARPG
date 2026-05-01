@@ -40,7 +40,7 @@ Group {
             Padding: (Left: 20, Top: 0, Bottom: 0);
 
             Label #TitleLabel {
-                Text: "CRAFTING";
+                Text: "CRAFT";
                 Style: (...$Common.@TitleStyle, TextColor: #5a8ab0, VerticalAlignment: Center);
                 Anchor: (Height: 38);
             }

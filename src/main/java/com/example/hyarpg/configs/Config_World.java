@@ -14,8 +14,8 @@ public class Config_World {
     public double prefabWaywardShrineSpawnChance = 1;
 
     @Key("prefabSurfaceCornerShrineChance")
-    @Comment("Chance that a surface prefab will also spawn a Wayward Shrine in one of its corners. Range: 0.0–1.0. Default: 0.2")
-    public double prefabSurfaceCornerShrineChance = 0.2;
+    @Comment("Chance that a surface prefab will also spawn a Wayward Shrine in one of its corners. Range: 0.0–1.0. Default: 0.4")
+    public double prefabSurfaceCornerShrineChance = 0.4;
 
     @Key("prefabSurfaceRegionSize")
     @Comment("Controls spacing between surface prefab regions in blocks. Larger values result in prefabs being farther apart. Default: 512")

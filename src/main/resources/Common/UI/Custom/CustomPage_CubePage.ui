@@ -1,0 +1,57 @@
+$Common = "Common.ui";
+$InventoryPanel = "CubeCombine/Pages/CustomPage_CubeInventory.ui";
+$CubeInputSlots = "CubeCombine/Pages/CustomPage_CubeInputSlots.ui";
+$CubeOutputPanel = "CubeCombine/Pages/CustomPage_CubeOutputPanel.ui";
+
+SceneBlur {}
+
+Group {
+  Background: #000000(0.55);
+}
+
+Group {
+  LayoutMode: Center;
+
+  Group {
+    Anchor: (Width: 720);
+    LayoutMode: Top;
+    Padding: (Top: 15);
+
+    // Top Window — Cube Combine Panel
+    Group {
+      LayoutMode: Top;
+
+      $Common.@Container #CubePanel {
+        #Title {
+            LayoutMode: Left;
+            Padding: (Left: 20, Top: 0, Bottom: 0);
+
+            Label #TitleLabel {
+                Text: "COMBINE";
+                Style: (...$Common.@TitleStyle, TextColor: #5a8ab0, VerticalAlignment: Center);
+                Anchor: (Height: 38);
+            }
+
+            Group { FlexWeight: 1; }
+        }
+
+        #Content {
+          LayoutMode: Left;
+          Padding: (Left: 14, Top: 5, Bottom: 5);
+
+          // Left Column — 3x3 input grid (items to combine)
+          $CubeInputSlots.@CubeInputSlots #CubeInputArea {}
+
+          // Vertical separator
+          $Common.@VerticalSeparator {}
+
+          // Right Column — output preview slot + item name/description + combine button
+          $CubeOutputPanel.@CubeOutputPanel #CubeOutputInfo {}
+        }
+      }
+    }
+
+    // Bottom Window — Inventory Panel (duplicate of salvage inventory with unique path)
+    $InventoryPanel.@InventoryPanel {}
+  }
+}

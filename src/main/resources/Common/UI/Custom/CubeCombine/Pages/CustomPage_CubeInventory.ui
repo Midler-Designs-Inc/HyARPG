@@ -1,0 +1,371 @@
+$Common = "../../Common.ui";
+
+@InventorySlotSelectedBackground = (TexturePath: "../../HyARPG_Selected_Item.png", Border: 3);
+
+@InventoryPanel = Group {
+    LayoutMode: Top;
+    Anchor: (Top: 8);
+
+    $Common.@Container #InventoryPanel {
+        #Title {
+            LayoutMode: Left;
+            Padding: (Left: 14, Top: 0);
+
+            Label {
+                Text: "INVENTORY";
+                Style: (...$Common.@TitleStyle, TextColor: #b4c8c9, VerticalAlignment: Center);
+                Anchor: (Height: 38);
+            }
+
+            Group { FlexWeight: 1; }
+        }
+
+        #Content {
+            LayoutMode: Top;
+
+            Group #StorageArea {
+                FlexWeight: 1;
+                Anchor: (Top: 0);
+                LayoutMode: Top;
+
+                Group { LayoutMode: Left; Anchor: (Height: 76, Top: 0);
+                    Button #StorageSlot0 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem0 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay0 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay0 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay0 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty0 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot1 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay1 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay1 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay1 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty1 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot2 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay2 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay2 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay2 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty2 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot3 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay3 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay3 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay3 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty3 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot4 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay4 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay4 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay4 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty4 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot5 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem5 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay5 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay5 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay5 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty5 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot6 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem6 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay6 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay6 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay6 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty6 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot7 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem7 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay7 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay7 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay7 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty7 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot8 { Anchor: (Width: 74, Height: 74);
+                        ItemSlot #StorageItem8 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay8 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay8 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay8 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty8 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                }
+
+                Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
+                    Button #StorageSlot9 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem9 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay9 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay9 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay9 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty9 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot10 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem10 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay10 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay10 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay10 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty10 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot11 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem11 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay11 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay11 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay11 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty11 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot12 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem12 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay12 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay12 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay12 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty12 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot13 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem13 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay13 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay13 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay13 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty13 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot14 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem14 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay14 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay14 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay14 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty14 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot15 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem15 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay15 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay15 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay15 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty15 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot16 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem16 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay16 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay16 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay16 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty16 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot17 { Anchor: (Width: 74, Height: 74);
+                        ItemSlot #StorageItem17 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay17 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay17 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay17 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty17 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                }
+
+                Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
+                    Button #StorageSlot18 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem18 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay18 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay18 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay18 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty18 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot19 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem19 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay19 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay19 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay19 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty19 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot20 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem20 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay20 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay20 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay20 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty20 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot21 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem21 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay21 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay21 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay21 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty21 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot22 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem22 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay22 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay22 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay22 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty22 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot23 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem23 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay23 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay23 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay23 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty23 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot24 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem24 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay24 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay24 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay24 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty24 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot25 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem25 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay25 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay25 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay25 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty25 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot26 { Anchor: (Width: 74, Height: 74);
+                        ItemSlot #StorageItem26 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay26 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay26 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay26 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty26 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                }
+
+                Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
+                    Button #StorageSlot27 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem27 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay27 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay27 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay27 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty27 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot28 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem28 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay28 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay28 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay28 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty28 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot29 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem29 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay29 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay29 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay29 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty29 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot30 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem30 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay30 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay30 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay30 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty30 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot31 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem31 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay31 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay31 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay31 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty31 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot32 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem32 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay32 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay32 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay32 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty32 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot33 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem33 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay33 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay33 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay33 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty33 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot34 { Anchor: (Width: 74, Height: 74, Right: 2);
+                        ItemSlot #StorageItem34 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay34 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay34 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay34 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty34 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                    Button #StorageSlot35 { Anchor: (Width: 74, Height: 74);
+                        ItemSlot #StorageItem35 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                        Group #StorageSelectedOverlay35 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                        Group #StorageInUseOverlay35 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                        Group #StorageInvalidOverlay35 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                        Label #StorageQty35 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                    }
+                }
+
+                Group {
+                    Background: #9c8863(0.15);
+                    Anchor: (Height: 2, Top: 6, Bottom: 6);
+                }
+
+               Group #HotbarArea {
+                   Anchor: (Height: 76, Bottom: 0);
+                   LayoutMode: Left;
+
+                   Button #HotbarSlot0 { Anchor: (Width: 74, Height: 74, Right: 2);
+                       ItemSlot #HotbarItem0 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay0 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay0 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay0 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty0 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+                   Button #HotbarSlot1 { Anchor: (Width: 74, Height: 74, Right: 2);
+                       ItemSlot #HotbarItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay1 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay1 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay1 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty1 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+                   Button #HotbarSlot2 { Anchor: (Width: 74, Height: 74, Right: 2);
+                       ItemSlot #HotbarItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay2 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay2 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay2 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty2 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+                   Button #HotbarSlot3 { Anchor: (Width: 74, Height: 74, Right: 2);
+                       ItemSlot #HotbarItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay3 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay3 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay3 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty3 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+                   Button #HotbarSlot4 { Anchor: (Width: 74, Height: 74, Right: 2);
+                       ItemSlot #HotbarItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay4 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay4 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay4 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty4 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+                   Button #HotbarSlot5 { Anchor: (Width: 74, Height: 74, Right: 2);
+                       ItemSlot #HotbarItem5 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay5 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay5 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay5 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty5 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+                   Button #HotbarSlot6 { Anchor: (Width: 74, Height: 74, Right: 2);
+                       ItemSlot #HotbarItem6 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay6 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay6 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay6 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty6 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+                   Button #HotbarSlot7 { Anchor: (Width: 74, Height: 74, Right: 2);
+                       ItemSlot #HotbarItem7 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay7 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay7 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay7 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty7 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+                   Button #HotbarSlot8 { Anchor: (Width: 74, Height: 74);
+                       ItemSlot #HotbarItem8 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
+                       Group #HotbarSelectedOverlay8 { Anchor: (Full: 0); Visible: false; Background: @InventorySlotSelectedBackground; }
+                       Group #HotbarInUseOverlay8 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
+                       Group #HotbarInvalidOverlay8 { Anchor: (Full: 0); Visible: false; Background:#220000(0.5); }
+                       Label #HotbarQty8 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
+                   }
+               }
+            }
+        }
+    }
+};

@@ -38,5 +38,21 @@
     "ParticleSystemId": null
   },
   "ItemSoundSetId": "ISS_Items_Gems",
-  "DropOnDeath": true
+  "DropOnDeath": true,
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Legendary_Shard_Dust",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Processing",
+        "Id": "Furnace"
+      }
+    ],
+    "OutputQuantity": 1,
+    "TimeSeconds": 25
+  }
 }

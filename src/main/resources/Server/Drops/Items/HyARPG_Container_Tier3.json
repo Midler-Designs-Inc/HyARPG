@@ -15,14 +15,6 @@
                 "Type": "Single",
                 "Weight": 300,
                 "Item": {
-                  "ItemId": "Ore_Iron",
-                  "QuantityMax": 5
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 300,
-                "Item": {
                   "ItemId": "Ingredient_Hide_Light",
                   "QuantityMax": 5
                 }
@@ -33,14 +25,6 @@
                 "Item": {
                   "ItemId": "Ingredient_Fabric_Scrap_Linen",
                   "QuantityMax": 5
-                }
-              },
-              {
-                "Type": "Single",
-                "Weight": 200,
-                "Item": {
-                  "ItemId": "Ore_Thorium",
-                  "QuantityMax": 2
                 }
               },
               {
@@ -69,18 +53,34 @@
               },
               {
                 "Type": "Single",
-                "Weight": 400,
+                "Weight": 60,
                 "Item": {
-                  "ItemId": "Soil_Sand",
-                  "QuantityMax": 10
+                  "ItemId": "Ingredient_Uncommon_Shard_Dust",
+                  "QuantityMax": 1
                 }
               },
               {
                 "Type": "Single",
-                "Weight": 400,
+                "Weight": 40,
                 "Item": {
-                  "ItemId": "Wood_Beech_Trunk",
-                  "QuantityMax": 10
+                  "ItemId": "Ingredient_Rare_Shard_Dust",
+                  "QuantityMax": 1
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 20,
+                "Item": {
+                  "ItemId": "Ingredient_Epic_Shard_Dust",
+                  "QuantityMax": 1
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 10,
+                "Item": {
+                  "ItemId": "Ingredient_Legendary_Shard_Dust",
+                  "QuantityMax": 1
                 }
               }
             ]

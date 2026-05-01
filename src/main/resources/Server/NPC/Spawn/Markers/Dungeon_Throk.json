@@ -10,6 +10,6 @@
     { "Name": "Trork_Sentry", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Trork_Warrior", "Weight": 100, "SpawnAfterGameTime": "P1D" }
   ],
-  "MaxDropHeight": 4,
+  "MaxDropHeight": 20,
   "DeactivationDistance": 150
 }

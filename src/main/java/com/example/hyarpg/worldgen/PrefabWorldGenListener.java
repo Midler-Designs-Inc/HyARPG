@@ -1,12 +1,15 @@
 package com.example.hyarpg.worldgen;
 
 // Hytale Imports
+import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.event.EventPriority;
 import com.hypixel.hytale.event.EventRegistry;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
+import com.hypixel.hytale.server.core.modules.block.BlockEntity;
+import com.hypixel.hytale.server.core.modules.block.BlockModule;
 import com.hypixel.hytale.server.core.modules.block.components.ItemContainerBlock;
 import com.hypixel.hytale.server.core.prefab.PrefabStore;
 import com.hypixel.hytale.server.core.prefab.selection.standard.BlockSelection;
@@ -34,10 +37,10 @@ public class PrefabWorldGenListener {
     private static final int CHUNK_SIZE = 32;
     private static final int UNDERGROUND_FLOOR = -30;
     private static final int UNDERGROUND_PADDING = 20;
-    private static final int PLACEMENT_SETTINGS = 0x04 | 0x08 | 0x10;
+    private static final int PLACEMENT_SETTINGS = 0x02 | 0x04 | 0x08 | 0x10;
 
     private static final String[] SPAWNER_BLOCKS = {
-            "HyARPG_BlockSpawner_Goblin", "HyARPG_BlockSpawner_Outlanders", "HyARPG_BlockSpawner_Throk", "HyARPG_BlockSpawner_Undead", "HyARPG_BlockSpawner_Void"
+        "HyARPG_BlockSpawner_Goblin", "HyARPG_BlockSpawner_Outlanders", "HyARPG_BlockSpawner_Throk", "HyARPG_BlockSpawner_Undead", "HyARPG_BlockSpawner_Void"
     };
 
     private final Path prefabFolder;
@@ -48,8 +51,6 @@ public class PrefabWorldGenListener {
     private List<Path> undergroundDungeonPrefabs = null;
     private BlockSelection waywardShrinePrefab = null;
     private boolean waywardShrineLoaded = false;
-
-    public static final java.util.Set<Long> PREFAB_CONTAINER_POSITIONS = java.util.concurrent.ConcurrentHashMap.newKeySet();
 
     public PrefabWorldGenListener(Path prefabFolder) { this.prefabFolder = prefabFolder; }
 
@@ -187,7 +188,7 @@ public class PrefabWorldGenListener {
         int shrineAnchorY = resolveMinCornerAnchorY(waywardShrinePrefab, generator, worldSeed, shrineAnchorX, shrineAnchorZ);
         if (shrineAnchorY <= 0 || shrineAnchorY >= 318) return;
 
-        pasteSlice(false, false, waywardShrinePrefab, chunk, shrineAnchorX, shrineAnchorY, shrineAnchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
+        pasteSlice(true, false, waywardShrinePrefab, chunk, shrineAnchorX, shrineAnchorY, shrineAnchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
     }
 
     // resolve anchor Y by grounding to the minimum of the 4 prefab footprint corners
@@ -197,7 +198,10 @@ public class PrefabWorldGenListener {
         int prefabMaxX = anchorX + (fp[1] - buffer.getAnchorX());
         int prefabMinZ = anchorZ + (fp[2] - buffer.getAnchorZ());
         int prefabMaxZ = anchorZ + (fp[3] - buffer.getAnchorZ());
-        int groundY = Math.min(Math.min(generator.getHeight((int)worldSeed, prefabMinX, prefabMinZ), generator.getHeight((int)worldSeed, prefabMaxX, prefabMinZ)), Math.min(generator.getHeight((int)worldSeed, prefabMinX, prefabMaxZ), generator.getHeight((int)worldSeed, prefabMaxX, prefabMaxZ)));
+        int groundY = Math.min(
+                Math.min(generator.getHeight((int)worldSeed, prefabMinX, prefabMinZ), generator.getHeight((int)worldSeed, prefabMaxX, prefabMinZ)),
+                Math.min(generator.getHeight((int)worldSeed, prefabMinX, prefabMaxZ), generator.getHeight((int)worldSeed, prefabMaxX, prefabMaxZ))
+        );
         int prefabBottomOffset = fp[4] - buffer.getAnchorY();
         return groundY - prefabBottomOffset;
     }
@@ -283,7 +287,7 @@ public class PrefabWorldGenListener {
     private void placeSpawners(BlockSelection buffer, int[] bounds, WorldChunk chunk, int anchorX, int anchorY, int anchorZ, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, Random random, double density) {
         int bufAnchorX = buffer.getAnchorX(), bufAnchorY = buffer.getAnchorY(), bufAnchorZ = buffer.getAnchorZ();
         int volume = Math.max(1, (bounds[3] - bounds[0]) * (bounds[4] - bounds[1]) * (bounds[5] - bounds[2]));
-        int spawnerCount = (int) ((volume / 10000.0) * density);
+        int spawnerCount = (int) ((volume / 1000.0) * density);
         if (spawnerCount <= 0) return;
 
         List<int[]> blockPositions = new ArrayList<>();
@@ -295,7 +299,10 @@ public class PrefabWorldGenListener {
 
         int[] spawnerIds = new int[SPAWNER_BLOCKS.length];
         BlockType[] spawnerTypes = new BlockType[SPAWNER_BLOCKS.length];
-        for (int i = 0; i < SPAWNER_BLOCKS.length; i++) { spawnerIds[i] = BlockType.getAssetMap().getIndex(SPAWNER_BLOCKS[i]); spawnerTypes[i] = BlockType.getAssetMap().getAsset(spawnerIds[i]); }
+        for (int i = 0; i < SPAWNER_BLOCKS.length; i++) {
+            spawnerIds[i] = BlockType.getAssetMap().getIndex(SPAWNER_BLOCKS[i]);
+            spawnerTypes[i] = BlockType.getAssetMap().getAsset(spawnerIds[i]);
+        }
 
         int[] dx = {1, -1, 0, 0, 0, 0}, dy = {0, 0, 1, -1, 0, 0}, dz = {0, 0, 0, 0, 1, -1};
 
@@ -334,11 +341,12 @@ public class PrefabWorldGenListener {
 
         // air-fill the bounding box to prevent terrain bleed inside the prefab
         if (fillAir && airType != null && b[0] != Integer.MAX_VALUE) {
+            int airSettings = PLACEMENT_SETTINGS | 0x02;
             for (int x = b[0]; x <= b[3]; x++) for (int y = b[1]; y <= b[4]; y++) for (int z = b[2]; z <= b[5]; z++) {
                 int wx = anchorX + (x - bufAnchorX), wy = anchorY + (y - bufAnchorY), wz = anchorZ + (z - bufAnchorZ);
                 if (wy < UNDERGROUND_FLOOR || wy > 318) continue;
                 if (wx < chunkMinX || wx > chunkMaxX || wz < chunkMinZ || wz > chunkMaxZ) continue;
-                chunk.setBlock(wx, wy, wz, 0, airType, 0, 0, PLACEMENT_SETTINGS);
+                chunk.setBlock(wx, wy, wz, 0, airType, 0, 0, airSettings);
             }
         }
 
@@ -351,12 +359,13 @@ public class PrefabWorldGenListener {
             BlockType blockType = BlockType.getAssetMap().getAsset(block.blockId());
             if (blockType == null) return;
 
-            // Empty and Bench blocks are replaced with air
-            if (blockType.getId().equals("Empty") || blockType.getId().startsWith("Bench_") || (skipTeleporter && blockType.getId().equals("Teleporter"))) { if (airType != null) chunk.setBlock(wx, wy, wz, 0, airType, 0, 0, PLACEMENT_SETTINGS); return; }
+            // Empty, Bench, and optionally Teleporter blocks are replaced with air
+            if (blockType.getId().equals("Empty") || blockType.getId().startsWith("Bench_") || (skipTeleporter && blockType.getId().equals("Teleporter"))) {
+                if (airType != null) chunk.setBlock(wx, wy, wz, 0, airType, 0, 0, PLACEMENT_SETTINGS);
+                return;
+            }
 
-            // track containers for loot table assignment
-            if (blockType.getBlockEntity() != null) { ItemContainerBlock container = blockType.getBlockEntity().getComponent(ItemContainerBlock.getComponentType()); if (container != null) PREFAB_CONTAINER_POSITIONS.add(posKey(wx, wy, wz)); }
-
+            // Place the block
             chunk.setBlock(wx, wy, wz, block.blockId(), blockType, block.rotation(), block.filler(), PLACEMENT_SETTINGS);
         });
     }
@@ -370,7 +379,9 @@ public class PrefabWorldGenListener {
     private List<Path> scanFolder(Path folder) {
         List<Path> result = new ArrayList<>();
         if (!Files.exists(folder)) return result;
-        try (var stream = Files.walk(folder)) { stream.filter(p -> p.toString().endsWith(".prefab.json")).forEach(result::add); } catch (IOException e) { LOGGER.log(Level.WARNING, "[HyARPG] Failed to scan prefab folder: " + folder, e); }
+        try (var stream = Files.walk(folder)) {
+            stream.filter(p -> p.toString().endsWith(".prefab.json")).forEach(result::add);
+        } catch (IOException e) { LOGGER.log(Level.WARNING, "[HyARPG] Failed to scan prefab folder: " + folder, e); }
         LOGGER.info("[HyARPG] Found " + result.size() + " prefab(s) in " + folder);
         return result;
     }

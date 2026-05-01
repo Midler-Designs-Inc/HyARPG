@@ -33,9 +33,11 @@ public class Listeners_ContainerSpawn extends HolderSystem<ChunkStore> {
         ItemContainerBlock containerBlock = holder.getComponent(ItemContainerBlock.getComponentType());
         if (containerBlock == null) return;
 
-        // Only fire for newly spawned containers, not loaded ones
-//        if (reason != AddReason.SPAWN) return;
-
+        // player-placed containers have null droplist on SPAWN — mark them so they get no loot
+        if (reason == AddReason.SPAWN && containerBlock.getDroplist() == null) {
+            containerBlock.setDroplist("Empty");
+            return;
+        }
 
         // Get BlockStateInfo
         BlockModule.BlockStateInfo blockStateInfo = holder.getComponent(BlockModule.BlockStateInfo.getComponentType());

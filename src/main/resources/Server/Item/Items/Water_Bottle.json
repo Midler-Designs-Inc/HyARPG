@@ -17,8 +17,11 @@
     ],
     "BenchRequirement": [
       {
-        "Type": "Processing",
-        "Id": "Furnace"
+        "Type": "Crafting",
+        "Categories": [
+          "Tools"
+        ],
+        "Id": "Fieldcraft"
       }
     ]
   },
@@ -54,7 +57,7 @@
       "Texture": "Items/Consumables/Potions/Potion_Textures/Blue.png",
       "Model": "Items/Consumables/Potions/Potion_Small.blockymodel",
       "Icon": "Icons/ItemsGenerated/Potion_Mana_Small.png",
-      "MaxDurability": 3,
+      "MaxDurability": 10,
       "DurabilityLossOnDeath": false,
       "Weapon": {},
       "Scale": 1.3,

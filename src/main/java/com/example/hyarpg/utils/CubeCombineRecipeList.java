@@ -79,6 +79,36 @@ public class CubeCombineRecipeList {
             .requires("Epic_Shards", 3)
             .outputs("Legendary_Shards")
             .build());
+
+        // 3 pickaxes -> 1 pickaxe same tier
+        RECIPES.add(new RecipeBuilder()
+            .requires("Tool_Pickaxe_Crude", 3)
+            .outputs("Tool_Pickaxe_Crude")
+            .build());
+        RECIPES.add(new RecipeBuilder()
+            .requires("Tool_Pickaxe_Copper", 3)
+            .outputs("Tool_Pickaxe_Copper")
+            .build());
+        RECIPES.add(new RecipeBuilder()
+            .requires("Tool_Pickaxe_Iron", 3)
+            .outputs("Tool_Pickaxe_Iron")
+            .build());
+        RECIPES.add(new RecipeBuilder()
+            .requires("Tool_Pickaxe_Thorium", 3)
+            .outputs("Tool_Pickaxe_Thorium")
+            .build());
+        RECIPES.add(new RecipeBuilder()
+            .requires("Tool_Pickaxe_Cobalt", 3)
+            .outputs("Tool_Pickaxe_Cobalt")
+            .build());
+        RECIPES.add(new RecipeBuilder()
+            .requires("Tool_Pickaxe_Adamantite", 3)
+            .outputs("Tool_Pickaxe_Adamantite")
+            .build());
+        RECIPES.add(new RecipeBuilder()
+            .requires("Tool_Pickaxe_Mithril", 3)
+            .outputs("Tool_Pickaxe_Mithril")
+            .build());
     }
 
     // find the best-matching recipe for the given item counts — returns null if nothing scores above zero

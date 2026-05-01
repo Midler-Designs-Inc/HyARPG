@@ -131,7 +131,7 @@
             "OutputQuantity": 1,
             "TimeSeconds": 25
           },
-          "MaxDurability": 3,
+          "MaxDurability": 10,
           "Interactions": {
             "Secondary": {
               "Interactions": [
@@ -193,7 +193,7 @@
       "Scale": 1.3,
       "Texture": "Items/Consumables/Potions/Potion_Textures/Blue.png",
       "PlayerAnimationsId": "Watering_Can",
-      "MaxDurability": 3,
+      "MaxDurability": 10,
       "Interactions": {
         "Secondary": {
           "Interactions": [

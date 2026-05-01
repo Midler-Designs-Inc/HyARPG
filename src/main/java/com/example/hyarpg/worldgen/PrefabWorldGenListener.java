@@ -52,6 +52,9 @@ public class PrefabWorldGenListener {
     private BlockSelection waywardShrinePrefab = null;
     private boolean waywardShrineLoaded = false;
 
+    private static final java.util.concurrent.ConcurrentHashMap<BlockSelection, int[]> BOUNDS_CACHE = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final java.util.concurrent.ConcurrentHashMap<BlockSelection, int[]> FOOTPRINT_CACHE = new java.util.concurrent.ConcurrentHashMap<>();
+
     public PrefabWorldGenListener(Path prefabFolder) { this.prefabFolder = prefabFolder; }
 
     public void register(EventRegistry eventRegistry) {
@@ -137,11 +140,6 @@ public class PrefabWorldGenListener {
         if (anchorY <= 0 || anchorY >= 318) return;
 
         pasteSlice(true, true, buffer, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
-
-        // optionally place a wayward shrine in a corner of this surface prefab
-        if (waywardShrinePrefab != null && random.nextDouble() < Math.max(0.0, Math.min(1.0, cfg.prefabSurfaceCornerShrineChance))) {
-            placeShrineInCorner(buffer, anchorX, anchorY, anchorZ, regionSeed, generator, worldSeed, chunk, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
-        }
     }
 
     // wayward shrine standalone — own region grid, same min-corner grounding as surface
@@ -160,37 +158,6 @@ public class PrefabWorldGenListener {
         pasteSlice(true, false, waywardShrinePrefab, chunk, anchorX, anchorY, anchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
     }
 
-    // place wayward shrine at a corner just outside the given surface prefab's footprint
-    private void placeShrineInCorner(BlockSelection parentBuffer, int parentAnchorX, int parentAnchorY, int parentAnchorZ, long regionSeed, ChunkGenerator generator, long worldSeed, WorldChunk chunk, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ) {
-        int[] fp = getPrefabFootprint(parentBuffer);
-        int parentMinX = parentAnchorX + (fp[0] - parentBuffer.getAnchorX());
-        int parentMaxX = parentAnchorX + (fp[1] - parentBuffer.getAnchorX());
-        int parentMinZ = parentAnchorZ + (fp[2] - parentBuffer.getAnchorZ());
-        int parentMaxZ = parentAnchorZ + (fp[3] - parentBuffer.getAnchorZ());
-
-        // shrine footprint size to offset placement outside parent bounds
-        int[] sfp = getPrefabFootprint(waywardShrinePrefab);
-        int shrineWidth = sfp[1] - sfp[0];
-        int shrineDepth = sfp[3] - sfp[2];
-
-        // pick a random corner and place shrine just outside that corner
-        Random cornerRandom = new Random(regionSeed ^ 0xC04E4EL);
-        int cornerIndex = cornerRandom.nextInt(4);
-        int shrineAnchorX, shrineAnchorZ;
-        switch (cornerIndex) {
-            case 0 -> { shrineAnchorX = parentMinX - shrineWidth; shrineAnchorZ = parentMinZ - shrineDepth; }
-            case 1 -> { shrineAnchorX = parentMaxX; shrineAnchorZ = parentMinZ - shrineDepth; }
-            case 2 -> { shrineAnchorX = parentMinX - shrineWidth; shrineAnchorZ = parentMaxZ; }
-            default -> { shrineAnchorX = parentMaxX; shrineAnchorZ = parentMaxZ; }
-        }
-
-        // ground the shrine to min corner terrain height at its position
-        int shrineAnchorY = resolveMinCornerAnchorY(waywardShrinePrefab, generator, worldSeed, shrineAnchorX, shrineAnchorZ);
-        if (shrineAnchorY <= 0 || shrineAnchorY >= 318) return;
-
-        pasteSlice(true, false, waywardShrinePrefab, chunk, shrineAnchorX, shrineAnchorY, shrineAnchorZ, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ);
-    }
-
     // resolve anchor Y by grounding to the minimum of the 4 prefab footprint corners
     private int resolveMinCornerAnchorY(BlockSelection buffer, ChunkGenerator generator, long worldSeed, int anchorX, int anchorZ) {
         int[] fp = getPrefabFootprint(buffer);
@@ -205,9 +172,6 @@ public class PrefabWorldGenListener {
         int prefabBottomOffset = fp[4] - buffer.getAnchorY();
         return groundY - prefabBottomOffset;
     }
-
-    // aquatic — TODO: water detection
-    private void processAquatic(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldChunk chunk, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {}
 
     // underground prefab — randomized depth with push-down logic
     private void processUnderground(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldChunk chunk, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
@@ -290,13 +254,28 @@ public class PrefabWorldGenListener {
         int spawnerCount = (int) ((volume / 1000.0) * density);
         if (spawnerCount <= 0) return;
 
-        List<int[]> blockPositions = new ArrayList<>();
+        // collect all prefab block world positions
+        final List<int[]> allPositions = new ArrayList<>();
         buffer.forEachBlock((x, y, z, block) -> {
             if (block.blockId() == 0) return;
-            blockPositions.add(new int[]{anchorX + (x - bufAnchorX), anchorY + (y - bufAnchorY), anchorZ + (z - bufAnchorZ)});
+            allPositions.add(new int[]{anchorX + (x - bufAnchorX), anchorY + (y - bufAnchorY), anchorZ + (z - bufAnchorZ)});
         });
-        if (blockPositions.isEmpty()) return;
+        if (allPositions.isEmpty()) return;
 
+        // filter to blocks within 75% radius from center and bottom 65% of height
+        int centerX = anchorX + (bounds[0] + bounds[3]) / 2 - bufAnchorX;
+        int centerZ = anchorZ + (bounds[2] + bounds[5]) / 2 - bufAnchorZ;
+        int minY = anchorY + (bounds[1] - bufAnchorY);
+        int maxY = minY + (int)((bounds[4] - bounds[1]) * 0.65);
+        double maxRadius = Math.max(bounds[3] - bounds[0], bounds[5] - bounds[2]) * 0.75 / 2.0;
+        List<int[]> blockPositions = new ArrayList<>();
+        for (int[] pos : allPositions) {
+            double ddx = pos[0] - centerX, ddz = pos[2] - centerZ;
+            if (pos[1] <= maxY && Math.sqrt(ddx * ddx + ddz * ddz) <= maxRadius) blockPositions.add(pos);
+        }
+        if (blockPositions.isEmpty()) blockPositions = allPositions;
+
+        // resolve spawner block types once
         int[] spawnerIds = new int[SPAWNER_BLOCKS.length];
         BlockType[] spawnerTypes = new BlockType[SPAWNER_BLOCKS.length];
         for (int i = 0; i < SPAWNER_BLOCKS.length; i++) {
@@ -306,18 +285,20 @@ public class PrefabWorldGenListener {
 
         int[] dx = {1, -1, 0, 0, 0, 0}, dy = {0, 0, 1, -1, 0, 0}, dz = {0, 0, 0, 0, 1, -1};
 
+        // place each spawner on top of a random inner block, only within this chunk
         for (int i = 0; i < spawnerCount; i++) {
             int[] target = blockPositions.get(random.nextInt(blockPositions.size()));
             int[] faceOrder = {0, 1, 2, 3, 4, 5};
             for (int a = 5; a > 0; a--) { int swap = random.nextInt(a + 1); int tmp = faceOrder[a]; faceOrder[a] = faceOrder[swap]; faceOrder[swap] = tmp; }
             int spawnerIndex = random.nextInt(SPAWNER_BLOCKS.length);
             for (int face : faceOrder) {
+                if (dy[face] != 1) continue;
                 int sx = target[0] + dx[face], sy = target[1] + dy[face], sz = target[2] + dz[face];
                 if (sy < UNDERGROUND_FLOOR || sy > 318) continue;
                 if (sx < chunkMinX || sx > chunkMaxX || sz < chunkMinZ || sz > chunkMaxZ) continue;
                 if (chunk.getBlock(sx, sy, sz) != 0) continue;
                 if (spawnerTypes[spawnerIndex] == null) continue;
-                chunk.setBlock(sx, sy, sz, spawnerIds[spawnerIndex], spawnerTypes[spawnerIndex], 0, 0, PLACEMENT_SETTINGS);
+                chunk.setBlock(sx, sy, sz, spawnerIds[spawnerIndex], spawnerTypes[spawnerIndex], 0, 0, PLACEMENT_SETTINGS & ~0x02);
                 break;
             }
         }
@@ -325,12 +306,14 @@ public class PrefabWorldGenListener {
 
     // bounding box of all non-air blocks in buffer-local coords
     private int[] computeBounds(BlockSelection buffer) {
-        int[] b = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};
-        buffer.forEachBlock((x, y, z, block) -> {
-            b[0] = Math.min(b[0], x); b[1] = Math.min(b[1], y); b[2] = Math.min(b[2], z);
-            b[3] = Math.max(b[3], x); b[4] = Math.max(b[4], y); b[5] = Math.max(b[5], z);
+        return BOUNDS_CACHE.computeIfAbsent(buffer, b -> {
+            int[] r = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};
+            b.forEachBlock((x, y, z, block) -> {
+                r[0] = Math.min(r[0], x); r[1] = Math.min(r[1], y); r[2] = Math.min(r[2], z);
+                r[3] = Math.max(r[3], x); r[4] = Math.max(r[4], y); r[5] = Math.max(r[5], z);
+            });
+            return r;
         });
-        return b;
     }
 
     // paste prefab blocks for this chunk's XZ column, respecting Empty blocks and optional air fill
@@ -386,18 +369,17 @@ public class PrefabWorldGenListener {
         return result;
     }
 
-    // pack world XYZ into a single long key for container position tracking
-    public static long posKey(int x, int y, int z) { return ((long)(x & 0xFFFFF) << 40) | ((long)(y & 0xFFFFF) << 20) | (z & 0xFFFFF); }
-
     // footprint bounds [minX, maxX, minZ, maxZ, minY] in buffer-local coords
     private int[] getPrefabFootprint(BlockSelection buffer) {
-        int[] b = {Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE};
-        buffer.forEachBlock((x, y, z, block) -> {
-            if (block.blockId() == 0) return;
-            b[0] = Math.min(b[0], x); b[1] = Math.max(b[1], x);
-            b[2] = Math.min(b[2], z); b[3] = Math.max(b[3], z);
-            b[4] = Math.min(b[4], y);
+        return FOOTPRINT_CACHE.computeIfAbsent(buffer, b -> {
+            int[] r = {Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE};
+            b.forEachBlock((x, y, z, block) -> {
+                if (block.blockId() == 0) return;
+                r[0] = Math.min(r[0], x); r[1] = Math.max(r[1], x);
+                r[2] = Math.min(r[2], z); r[3] = Math.max(r[3], z);
+                r[4] = Math.min(r[4], y);
+            });
+            return r;
         });
-        return b;
     }
 }

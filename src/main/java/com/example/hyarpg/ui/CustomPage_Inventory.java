@@ -86,12 +86,16 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private String selectedSlotId = null;
     private Item   selectedItem   = null;
 
+    private Ref<EntityStore> ownerRef;
+
     public CustomPage_Inventory(@Nonnull PlayerRef playerRef) {
         super(playerRef, CustomPageLifetime.CanDismiss, PageData.CODEC);
     }
 
     @Override
     public void build(@Nonnull Ref<EntityStore> ref, @Nonnull UICommandBuilder cmd, @Nonnull UIEventBuilder events, @Nonnull Store<EntityStore> store) {
+        this.ownerRef = ref;
+
         // load main UI file
         cmd.append("CustomPage_Inventory.ui");
 
@@ -435,15 +439,19 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
 
     // Equip event handler — fires when gear is equipped or unequipped, refreshes stats
     private void onEquipEvent(Event_PlayerInventoryItemEquip event) {
-        UICommandBuilder cmd = new UICommandBuilder();
-        pushStats(event.getRef(), event.getStore(), cmd);
-        sendUpdate(cmd, false);
+        try {
+            UICommandBuilder cmd = new UICommandBuilder();
+            pushStats(event.getRef(), event.getStore(), cmd);
+            sendUpdate(cmd, false);
+        } catch (Exception _) {}
     }
 
     private void onUnEquipEvent(Event_PlayerInventoryItemUnEquip event) {
-        UICommandBuilder cmd = new UICommandBuilder();
-        pushStats(event.getRef(), event.getStore(), cmd);
-        sendUpdate(cmd, false);
+        try {
+            UICommandBuilder cmd = new UICommandBuilder();
+            pushStats(event.getRef(), event.getStore(), cmd);
+            sendUpdate(cmd, false);
+        } catch (Exception _) {}
     }
 
     // Full state push — called on open and after any equip/unequip
@@ -510,84 +518,86 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
 
     // push all stat values to the left panel labels
     private void pushStats(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
-        Component_RPG_Player rpg = store.getComponent(ref, componentTypeRPGPlayer);
-        if (rpg == null) return;
+        try {
+            Component_RPG_Player rpg = store.getComponent(ref, componentTypeRPGPlayer);
+            if (rpg == null) return;
 
-        var stats = rpg.stats;
+            var stats = rpg.stats;
 
-        // overview
-        cmd.set("#StatPlayerLevel.Text", String.valueOf(rpg.level));
-        cmd.set("#StatGearScore.Text",   String.valueOf(rpg.gearScore));
+            // overview
+            cmd.set("#StatPlayerLevel.Text", String.valueOf(rpg.level));
+            cmd.set("#StatGearScore.Text",   String.valueOf(rpg.gearScore));
 
-        // offense
-        cmd.set("#StatPhysDmgFlat.Text",     "+" + fmt(stats.getFlatDamage("Physical")));
-        cmd.set("#StatPhysDmgPct.Text",      "+" + fmtPct(stats.getIncreasedDamage("Physical")));
-        cmd.set("#StatMagicDmgFlat.Text",    "+" + fmt(stats.getFlatDamage("Magic")));
-        cmd.set("#StatMagicDmgPct.Text",     "+" + fmtPct(stats.getIncreasedDamage("Magic")));
-        cmd.set("#StatFireDmgFlat.Text",     "+" + fmt(stats.getFlatDamage("Fire")));
-        cmd.set("#StatFireDmgPct.Text",      "+" + fmtPct(stats.getIncreasedDamage("Fire")));
-        cmd.set("#StatIceDmgFlat.Text",      "+" + fmt(stats.getFlatDamage("Ice")));
-        cmd.set("#StatIceDmgPct.Text",       "+" + fmtPct(stats.getIncreasedDamage("Ice")));
-        cmd.set("#StatLightningDmgFlat.Text","+" + fmt(stats.getFlatDamage("Lightning")));
-        cmd.set("#StatLightningDmgPct.Text", "+" + fmtPct(stats.getIncreasedDamage("Lightning")));
-        cmd.set("#StatPoisonDmgFlat.Text",   "+" + fmt(stats.getFlatDamage("Poison")));
-        cmd.set("#StatPoisonDmgPct.Text",    "+" + fmtPct(stats.getIncreasedDamage("Poison")));
-        cmd.set("#StatCritChance.Text",      fmtPct(stats.getCriticalStrikeChance()));
-        cmd.set("#StatCritDamage.Text",      fmt(stats.getCriticalStrikeDamage()) + "x");
-        cmd.set("#StatAxeDmg.Text",          fmtPct(stats.getIncreasedDamage("Axe")));
-        cmd.set("#StatBattleaxeDmg.Text",    fmtPct(stats.getIncreasedDamage("Battleaxe")));
-        cmd.set("#StatClubDmg.Text",         fmtPct(stats.getIncreasedDamage("Club")));
-        cmd.set("#StatDaggersDmg.Text",      fmtPct(stats.getIncreasedDamage("Daggers")));
-        cmd.set("#StatKunaiDmg.Text",        fmtPct(stats.getIncreasedDamage("Kunai")));
-        cmd.set("#StatLongswordDmg.Text",    fmtPct(stats.getIncreasedDamage("Longsword")));
-        cmd.set("#StatMaceDmg.Text",         fmtPct(stats.getIncreasedDamage("Mace")));
-        cmd.set("#StatShortbowDmg.Text",     fmtPct(stats.getIncreasedDamage("Shortbow")));
-        cmd.set("#StatCrossbowDmg.Text",     fmtPct(stats.getIncreasedDamage("Crossbow")));
-        cmd.set("#StatSwordDmg.Text",        fmtPct(stats.getIncreasedDamage("Sword")));
+            // offense
+            cmd.set("#StatPhysDmgFlat.Text",     "+" + fmt(stats.getFlatDamage("Physical")));
+            cmd.set("#StatPhysDmgPct.Text",      "+" + fmtPct(stats.getIncreasedDamage("Physical")));
+            cmd.set("#StatMagicDmgFlat.Text",    "+" + fmt(stats.getFlatDamage("Magic")));
+            cmd.set("#StatMagicDmgPct.Text",     "+" + fmtPct(stats.getIncreasedDamage("Magic")));
+            cmd.set("#StatFireDmgFlat.Text",     "+" + fmt(stats.getFlatDamage("Fire")));
+            cmd.set("#StatFireDmgPct.Text",      "+" + fmtPct(stats.getIncreasedDamage("Fire")));
+            cmd.set("#StatIceDmgFlat.Text",      "+" + fmt(stats.getFlatDamage("Ice")));
+            cmd.set("#StatIceDmgPct.Text",       "+" + fmtPct(stats.getIncreasedDamage("Ice")));
+            cmd.set("#StatLightningDmgFlat.Text","+" + fmt(stats.getFlatDamage("Lightning")));
+            cmd.set("#StatLightningDmgPct.Text", "+" + fmtPct(stats.getIncreasedDamage("Lightning")));
+            cmd.set("#StatPoisonDmgFlat.Text",   "+" + fmt(stats.getFlatDamage("Poison")));
+            cmd.set("#StatPoisonDmgPct.Text",    "+" + fmtPct(stats.getIncreasedDamage("Poison")));
+            cmd.set("#StatCritChance.Text",      fmtPct(stats.getCriticalStrikeChance()));
+            cmd.set("#StatCritDamage.Text",      fmt(stats.getCriticalStrikeDamage()) + "x");
+            cmd.set("#StatAxeDmg.Text",          fmtPct(stats.getIncreasedDamage("Axe")));
+            cmd.set("#StatBattleaxeDmg.Text",    fmtPct(stats.getIncreasedDamage("Battleaxe")));
+            cmd.set("#StatClubDmg.Text",         fmtPct(stats.getIncreasedDamage("Club")));
+            cmd.set("#StatDaggersDmg.Text",      fmtPct(stats.getIncreasedDamage("Daggers")));
+            cmd.set("#StatKunaiDmg.Text",        fmtPct(stats.getIncreasedDamage("Kunai")));
+            cmd.set("#StatLongswordDmg.Text",    fmtPct(stats.getIncreasedDamage("Longsword")));
+            cmd.set("#StatMaceDmg.Text",         fmtPct(stats.getIncreasedDamage("Mace")));
+            cmd.set("#StatShortbowDmg.Text",     fmtPct(stats.getIncreasedDamage("Shortbow")));
+            cmd.set("#StatCrossbowDmg.Text",     fmtPct(stats.getIncreasedDamage("Crossbow")));
+            cmd.set("#StatSwordDmg.Text",        fmtPct(stats.getIncreasedDamage("Sword")));
 
-        // defense
-        cmd.set("#StatDodgeChance.Text",    fmtPct(stats.getDodgeChance()));
-        cmd.set("#StatStability.Text",      fmtPct(stats.getStabilityPercent(false)));
-        cmd.set("#StatParryWindow.Text",    "+" + fmt(stats.getParryWindow()) + "(s)");
-        cmd.set("#StatBarrierOnBlock.Text", fmtPct(stats.getBarrierOnBlock()));
+            // defense
+            cmd.set("#StatDodgeChance.Text",    fmtPct(stats.getDodgeChance()));
+            cmd.set("#StatStability.Text",      fmtPct(stats.getStabilityPercent(false)));
+            cmd.set("#StatParryWindow.Text",    "+" + fmt(stats.getParryWindow()) + "(s)");
+            cmd.set("#StatBarrierOnBlock.Text", fmtPct(stats.getBarrierOnBlock()));
 
-        // resources
-        cmd.set("#StatLifeFlat.Text",    "+" + fmt(stats.getFlatResource("Life")));
-        cmd.set("#StatLifePct.Text",     "+" + fmtPct(stats.getIncreasedResource("Life")));
-        cmd.set("#StatStaminaFlat.Text", "+" + fmt(stats.getFlatResource("Stamina")));
-        cmd.set("#StatStaminaPct.Text",  "+" + fmtPct(stats.getIncreasedResource("Stamina")));
-        cmd.set("#StatManaFlat.Text",    "+" + fmt(stats.getFlatResource("Mana")));
-        cmd.set("#StatManaPct.Text",     "+" + fmtPct(stats.getIncreasedResource("Mana")));
+            // resources
+            cmd.set("#StatLifeFlat.Text",    "+" + fmt(stats.getFlatResource("Life")));
+            cmd.set("#StatLifePct.Text",     "+" + fmtPct(stats.getIncreasedResource("Life")));
+            cmd.set("#StatStaminaFlat.Text", "+" + fmt(stats.getFlatResource("Stamina")));
+            cmd.set("#StatStaminaPct.Text",  "+" + fmtPct(stats.getIncreasedResource("Stamina")));
+            cmd.set("#StatManaFlat.Text",    "+" + fmt(stats.getFlatResource("Mana")));
+            cmd.set("#StatManaPct.Text",     "+" + fmtPct(stats.getIncreasedResource("Mana")));
 
-        // regeneration
-        cmd.set("#StatLifeRegenFlat.Text",    "+" + fmt(stats.getFlatResourceRegen("Life")) + "s");
-        cmd.set("#StatLifeRegenPct.Text",     "+" + fmtPct(stats.getFlatResourceRegen("Life")));
-        cmd.set("#StatStaminaRegenFlat.Text", "+" + fmt(stats.getFlatResourceRegen("Stamina")) + "s");
-        cmd.set("#StatStaminaRegenPct.Text",  "+" + fmtPct(stats.getFlatResourceRegen("Stamina")));
-        cmd.set("#StatManaRegenFlat.Text",    "+" + fmt(stats.getFlatResourceRegen("Mana")) + "s");
-        cmd.set("#StatManaRegenPct.Text",     "+" + fmtPct(stats.getFlatResourceRegen("Mana")));
+            // regeneration
+            cmd.set("#StatLifeRegenFlat.Text",    "+" + fmt(stats.getFlatResourceRegen("Life")) + "s");
+            cmd.set("#StatLifeRegenPct.Text",     "+" + fmtPct(stats.getIncreasedResourceRegen("Life")));
+            cmd.set("#StatStaminaRegenFlat.Text", "+" + fmt(stats.getFlatResourceRegen("Stamina")) + "s");
+            cmd.set("#StatStaminaRegenPct.Text",  "+" + fmtPct(stats.getIncreasedResourceRegen("Stamina")));
+            cmd.set("#StatManaRegenFlat.Text",    "+" + fmt(stats.getFlatResourceRegen("Mana")) + "s");
+            cmd.set("#StatManaRegenPct.Text",     "+" + fmtPct(stats.getIncreasedResourceRegen("Mana")));
 
-        // resistances
-        cmd.set("#StatPhysResist.Text",      fmtPct(stats.getResistance("Physical")));
-        cmd.set("#StatMagicResist.Text",     fmtPct(stats.getResistance("Magic")));
-        cmd.set("#StatElementalResist.Text", fmtPct(stats.getResistance("Elemental")));
-        cmd.set("#StatFireResist.Text",      fmtPct(stats.getResistance("Fire")));
-        cmd.set("#StatIceResist.Text",       fmtPct(stats.getResistance("Ice")));
-        cmd.set("#StatLightningResist.Text", fmtPct(stats.getResistance("Lightning")));
-        cmd.set("#StatPoisonResist.Text",    fmtPct(stats.getResistance("Poison")));
-        cmd.set("#StatFallResist.Text",      fmtPct(stats.getResistance("Fall")));
+            // resistances
+            cmd.set("#StatPhysResist.Text",      fmtPct(stats.getResistance("Physical")));
+            cmd.set("#StatMagicResist.Text",     fmtPct(stats.getResistance("Magic")));
+            cmd.set("#StatElementalResist.Text", fmtPct(stats.getResistance("Elemental")));
+            cmd.set("#StatFireResist.Text",      fmtPct(stats.getResistance("Fire")));
+            cmd.set("#StatIceResist.Text",       fmtPct(stats.getResistance("Ice")));
+            cmd.set("#StatLightningResist.Text", fmtPct(stats.getResistance("Lightning")));
+            cmd.set("#StatPoisonResist.Text",    fmtPct(stats.getResistance("Poison")));
+            cmd.set("#StatFallResist.Text",      fmtPct(stats.getResistance("Fall")));
 
-        // advanced
-        cmd.set("#StatLifeLeech.Text",      fmtPct(stats.getLeech("Life")));
-        cmd.set("#StatManaLeech.Text",      fmtPct(stats.getLeech("Mana")));
-        cmd.set("#StatStaminaLeech.Text",   fmtPct(stats.getLeech("Stamina")));
-        cmd.set("#StatDmgFromMana.Text",    fmtPct(stats.getDamageTakenFrom("Mana")));
-        cmd.set("#StatDmgFromStamina.Text", fmtPct(stats.getDamageTakenFrom("Stamina")));
+            // advanced
+            cmd.set("#StatLifeLeech.Text",      fmtPct(stats.getLeech("Life")));
+            cmd.set("#StatManaLeech.Text",      fmtPct(stats.getLeech("Mana")));
+            cmd.set("#StatStaminaLeech.Text",   fmtPct(stats.getLeech("Stamina")));
+            cmd.set("#StatDmgFromMana.Text",    fmtPct(stats.getDamageTakenFrom("Mana")));
+            cmd.set("#StatDmgFromStamina.Text", fmtPct(stats.getDamageTakenFrom("Stamina")));
 
-        // utility
-        cmd.set("#StatRunSpeed.Text", "+" + fmtPct(stats.getRunSpeedPercent()));
-        cmd.set("#StatAmmo.Text",     "+" + fmt(stats.getAddedAmmo()));
-        cmd.set("#StatAmmoRegen.Text","+" + fmtPct(stats.getAmmoRegenPercent()));
+            // utility
+            cmd.set("#StatRunSpeed.Text", "+" + fmtPct(stats.getRunSpeedPercent()));
+            cmd.set("#StatAmmo.Text",     "+" + fmt(stats.getAddedAmmo()));
+            cmd.set("#StatAmmoRegen.Text","+" + fmtPct(stats.getAmmoRegenPercent()));
+        } catch (Exception _) {}
     }
 
     // Inspect panel — populated when any item is selected

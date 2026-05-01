@@ -95,6 +95,7 @@ public class Module_RPGSystem {
         interactionRegistry.register("Open_Territory_Panel", Interaction_Open_Territory_Panel.class, Interaction_Open_Territory_Panel.CODEC);
         interactionRegistry.register("Open_Cube_Combine", Interaction_Bench_Open_CubeCombine.class, Interaction_Bench_Open_CubeCombine.CODEC);
         interactionRegistry.register("Resurrect_Player_At_Grave", Interaction_RezPlayer.class, Interaction_RezPlayer.CODEC);
+        interactionRegistry.register("Use_Wayward_Compass", Interaction_WaywardShrineCompass.class, Interaction_WaywardShrineCompass.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);

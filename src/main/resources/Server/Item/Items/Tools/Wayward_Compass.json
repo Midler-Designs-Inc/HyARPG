@@ -1,0 +1,51 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Water_Bottle.name",
+    "Description": "server.items.Water_Bottle.description"
+  },
+  "Recipe": {
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Trunk",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Ore_Gold",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Categories": [
+          "Tools"
+        ],
+        "Id": "Fieldcraft"
+      }
+    ]
+  },
+  "Model": "Blocks/Miscellaneous/ComputerOld.blockymodel",
+  "Texture": "Blocks/Miscellaneous/ComputerOld_default.png",
+  "MaxStack": 1,
+  "Quality": "Legendary",
+  "ItemLevel": 1,
+  "Icon": "Icons/ItemsGenerated/Deco_Computer_Old.png",
+  "UsePlayerAnimations": false,
+  "Scale": 1,
+  "Interactions": {
+    "Secondary": {
+      "Cooldown": {
+        "Cooldown": 10
+      },
+      "Interactions": [
+        {
+          "Type": "Use_Wayward_Compass"
+        }
+      ]
+    }
+  }
+}

@@ -61,7 +61,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 60,
+                "Weight": 300,
                 "Item": {
                   "ItemId": "Ingredient_Uncommon_Shard_Dust",
                   "QuantityMax": 1
@@ -69,7 +69,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 40,
+                "Weight": 100,
                 "Item": {
                   "ItemId": "Ingredient_Rare_Shard_Dust",
                   "QuantityMax": 1
@@ -77,7 +77,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 20,
+                "Weight": 33,
                 "Item": {
                   "ItemId": "Ingredient_Epic_Shard_Dust",
                   "QuantityMax": 1
@@ -85,7 +85,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 10,
+                "Weight": 11,
                 "Item": {
                   "ItemId": "Ingredient_Legendary_Shard_Dust",
                   "QuantityMax": 1

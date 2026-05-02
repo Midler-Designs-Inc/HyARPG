@@ -86,22 +86,14 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private String selectedSlotId = null;
     private Item   selectedItem   = null;
 
-    private Ref<EntityStore> ownerRef;
-
     public CustomPage_Inventory(@Nonnull PlayerRef playerRef) {
         super(playerRef, CustomPageLifetime.CanDismiss, PageData.CODEC);
     }
 
     @Override
     public void build(@Nonnull Ref<EntityStore> ref, @Nonnull UICommandBuilder cmd, @Nonnull UIEventBuilder events, @Nonnull Store<EntityStore> store) {
-        this.ownerRef = ref;
-
         // load main UI file
         cmd.append("CustomPage_Inventory.ui");
-
-        // bind to inventory equip/unequip
-        ModEventBus.register(Event_PlayerInventoryItemEquip.class, this::onEquipEvent);
-        ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onUnEquipEvent);
 
         // bind storage slot clicks
         for (int i = 0; i < STORAGE_SLOTS; i++) events.addEventBinding(CustomUIEventBindingType.Activating, "#InvStorageSlot" + i, EventData.of("Action", "select:storage:" + i));
@@ -422,36 +414,24 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         ItemStack fromStack = fromInv.getItemStack((short) fromIndex);
         ItemStack toStack   = toInv.getItemStack((short) toIndex);
 
-        // perform the swap
         toInv.replaceItemStackInSlot((short) toIndex, toStack, fromStack);
         fromInv.replaceItemStackInSlot((short) fromIndex, fromStack, toStack != null && !toStack.isEmpty() ? toStack : null);
 
         clearSelection(cmd); clearGearSlotOverlays(cmd); clearInventoryInvalidOverlays(cmd);
         applyFullState(ref, store, cmd);
 
-        // schedule a delayed stat refresh to capture stat recalculation after equip
+        // delayed refresh to catch async stat recalculation after equip
         store.getExternalData().getWorld().execute(() -> {
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, componentTypeRPGPlayer);
+            if (rpgPlayer == null) return;
+
+            rpgPlayer.calculateGearScore(ref, store);
+            rpgPlayer.calculateAffixStats(ref, store);
+
             UICommandBuilder refreshCmd = new UICommandBuilder();
             pushStats(ref, store, refreshCmd);
             sendUpdate(refreshCmd, false);
         });
-    }
-
-    // Equip event handler — fires when gear is equipped or unequipped, refreshes stats
-    private void onEquipEvent(Event_PlayerInventoryItemEquip event) {
-        try {
-            UICommandBuilder cmd = new UICommandBuilder();
-            pushStats(event.getRef(), event.getStore(), cmd);
-            sendUpdate(cmd, false);
-        } catch (Exception _) {}
-    }
-
-    private void onUnEquipEvent(Event_PlayerInventoryItemUnEquip event) {
-        try {
-            UICommandBuilder cmd = new UICommandBuilder();
-            pushStats(event.getRef(), event.getStore(), cmd);
-            sendUpdate(cmd, false);
-        } catch (Exception _) {}
     }
 
     // Full state push — called on open and after any equip/unequip

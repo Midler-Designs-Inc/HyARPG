@@ -109,6 +109,9 @@ public class HyARPGPlugin extends JavaPlugin {
             new OreDistanceListener(buildOreConfig()).register(eventBus);
             LOGGER.at(Level.INFO).log("[HyARPG] Registered OreDistanceListener");
 
+            // prefab placement registry — tracks every placed prefab for compass and explorer systems
+            PrefabRegistry.register();
+
             // prefab loading system
             Path prefabFolder = Paths.get("").toAbsolutePath().resolve("mods/HyARPG/prefabs");
             new PrefabWorldGenListener(prefabFolder).register(getEventRegistry());

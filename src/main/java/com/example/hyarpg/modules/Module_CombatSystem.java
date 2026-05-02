@@ -57,7 +57,7 @@ public class Module_CombatSystem {
         "Fire", new Color(249, 146, 32),
         "Ice", new Color(219, 241, 253),
         "Lightning", new Color(0, 92, 165),
-        "Poison",  new Color(0, 255, 0),
+        "Poison",  new Color(0, 175, 0),
         "Magic", new Color(242, 89, 255),
         "Physical",  new Color(175, 175, 175)
     );

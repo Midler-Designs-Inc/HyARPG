@@ -15,27 +15,23 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
+import java.awt.*;
+
 public class Interaction_WaywardShrineCompassFindBoss extends SimpleInstantInteraction {
 
-    public static final BuilderCodec<Interaction_WaywardShrineCompassFindBoss> CODEC = BuilderCodec.builder(
-            Interaction_WaywardShrineCompassFindBoss.class,
-            Interaction_WaywardShrineCompassFindBoss::new,
-            SimpleInstantInteraction.CODEC
-    ).build();
+    public static final BuilderCodec<Interaction_WaywardShrineCompassFindBoss> CODEC = BuilderCodec.builder(Interaction_WaywardShrineCompassFindBoss.class, Interaction_WaywardShrineCompassFindBoss::new, SimpleInstantInteraction.CODEC).build();
 
     @Override
-    protected void firstRun(
-            @NonNullDecl InteractionType interactionType,
-            @NonNullDecl InteractionContext context,
-            @NonNullDecl CooldownHandler cooldownHandler
-    ) {
+    protected void firstRun(@NonNullDecl InteractionType interactionType, @NonNullDecl InteractionContext context, @NonNullDecl CooldownHandler cooldownHandler) {
+        // get the entity ref
         Ref<EntityStore> ref = context.getEntity();
-        if (ref == null || !ref.isValid()) return;
+        if (!ref.isValid()) return;
 
+        // get the store and player ref from the entity ref
         Store<EntityStore> entityStore = ref.getStore();
         PlayerRef playerRef = entityStore.getComponent(ref, PlayerRef.getComponentType());
         if (playerRef == null) return;
 
-        playerRef.sendMessage(Message.raw("The deep ones still slumber beyond this realm."));
+        playerRef.sendMessage(Message.raw("The deep ones still slumber beyond this realm.").color(Color.GRAY));
     }
 }

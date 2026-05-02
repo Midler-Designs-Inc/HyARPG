@@ -1,6 +1,7 @@
 package com.example.hyarpg.worldgen;
 
 // Hytale Imports
+import com.hypixel.hytale.codec.ExtraInfo;
 import com.hypixel.hytale.codec.codecs.array.ArrayCodec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
@@ -31,6 +32,10 @@ public class PrefabRegistry {
     private static final HytaleLogger LOGGER = HytaleLogger.forEnclosingClass();
     private static final String SAVE_FILE = "prefabs.json";
 
+    // Static access
+    @Nullable public static PrefabRegistry get(World world)      { return REGISTRIES.get(world.getName()); }
+    @Nullable public static PrefabRegistry get(String worldName) { return REGISTRIES.get(worldName); }
+
     // one registry per world, keyed by world name
     private static final Map<String, PrefabRegistry> REGISTRIES = new ConcurrentHashMap<>();
 
@@ -49,19 +54,22 @@ public class PrefabRegistry {
         ModEventBus.register(Event_WorldStart.class, event -> {
             World world = event.world();
             load(world).thenAccept(registry -> {
-                REGISTRIES.put(world.getName(), registry);
+                put(world.getName(), registry);
                 LOGGER.at(Level.INFO).log("[PrefabRegistry] Loaded %d prefab records for world '%s'", registry.records.size(), world.getName());
             });
         });
     }
 
     // load from disk asynchronously, returns empty registry if no save file exists yet
-    private static CompletableFuture<PrefabRegistry> load(World world) {
+    public static CompletableFuture<PrefabRegistry> load(World world) {
         Path path = world.getSavePath().resolve(SAVE_FILE);
         return CompletableFuture.supplyAsync(() -> {
             PrefabRegistry registry = new PrefabRegistry(world.getName());
             try {
-                SaveData saved = (SaveData) RawJsonReader.readSyncWithBak(path, SaveData.CODEC, LOGGER);
+                if (!java.nio.file.Files.exists(path)) return registry;
+                String json = java.nio.file.Files.readString(path);
+                ExtraInfo extraInfo = (ExtraInfo) ExtraInfo.THREAD_LOCAL.get();
+                SaveData saved = SaveData.CODEC.decodeJson(new RawJsonReader(json.toCharArray()), extraInfo);
                 if (saved != null && saved.records != null)
                     for (PrefabRecord record : saved.records) registry.records.add(record);
             } catch (Exception e) {
@@ -69,6 +77,11 @@ public class PrefabRegistry {
             }
             return registry;
         });
+    }
+
+    // add put
+    public static void put(String worldName, PrefabRegistry registry) {
+        REGISTRIES.put(worldName, registry);
     }
 
     // save to disk synchronously
@@ -92,13 +105,6 @@ public class PrefabRegistry {
         pendingSave = saveScheduler.schedule(() -> save(world), 3, TimeUnit.SECONDS);
     }
 
-    // find all records whose 3D bounds contain the given world position
-    public List<PrefabRecord> getAt(int x, int y, int z) {
-        List<PrefabRecord> result = new ArrayList<>();
-        for (PrefabRecord r : records) if (r.contains(x, y, z)) result.add(r);
-        return result;
-    }
-
     // find the closest record of a given type to an XZ position, or null if none within maxDistance
     @Nullable
     public PrefabRecord getClosest(PrefabRecord.Type type, int x, int z, double maxDistance) {
@@ -112,24 +118,8 @@ public class PrefabRegistry {
         return closest;
     }
 
-    // --- static access ---
-
-    @Nullable public static PrefabRegistry get(World world)      { return REGISTRIES.get(world.getName()); }
-    @Nullable public static PrefabRegistry get(String worldName) { return REGISTRIES.get(worldName); }
-
-    // cancel any pending debounced save and do a final synchronous flush before removing
-    public static void saveAndRemove(World world) {
-        PrefabRegistry registry = REGISTRIES.remove(world.getName());
-        if (registry == null) return;
-        if (registry.pendingSave != null && !registry.pendingSave.isDone()) registry.pendingSave.cancel(false);
-        registry.saveScheduler.shutdownNow();
-        registry.save(world);
-    }
-
     // --- persistence wrapper ---
-
-    @SuppressWarnings("unchecked")
-    private static class SaveData {
+    public static class SaveData {
         public static final BuilderCodec<SaveData> CODEC = BuilderCodec
                 .builder(SaveData.class, SaveData::new)
                 .append(new KeyedCodec<>("Records", new ArrayCodec<>(PrefabRecord.CODEC, PrefabRecord[]::new)),

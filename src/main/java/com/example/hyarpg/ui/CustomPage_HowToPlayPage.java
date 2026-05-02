@@ -15,6 +15,10 @@ import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+// Mod Imports
+import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.configs.Config_World;
+
 // Java Imports
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -27,17 +31,20 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
 
     // all section ids in nav order
     private static final String[][] SECTIONS = {
-        { "getting_started", "HTPBtnGettingStarted" },
-        { "survival",        "HTPBtnSurvival"       },
-        { "progression",     "HTPBtnProgression"    },
-        { "gear",            "HTPBtnGear"           },
-        { "crafting",        "HTPBtnCrafting"       },
-        { "salvaging",       "HTPBtnSalvaging"      },
-        { "combat",          "HTPBtnCombat"         },
-        { "base_building",   "HTPBtnBaseBuilding"   },
-        { "raids",           "HTPBtnRaids"          },
-        { "commands",        "HTPBtnCommands"       },
-        { "configuration",   "HTPBtnConfiguration"  }
+            { "getting_started", "HTPBtnGettingStarted" },
+            { "survival",        "HTPBtnSurvival"       },
+            { "progression",     "HTPBtnProgression"    },
+            { "gear",            "HTPBtnGear"           },
+            { "crafting",        "HTPBtnCrafting"       },
+            { "cube_combine",    "HTPBtnCubeCombine"    },
+            { "salvaging",       "HTPBtnSalvaging"      },
+            { "combat",          "HTPBtnCombat"         },
+            { "base_building",   "HTPBtnBaseBuilding"   },
+            { "raids",           "HTPBtnRaids"          },
+            { "prefabs",         "HTPBtnPrefabs"        },
+            { "wayward_shrines", "HTPBtnWaywardShrines" },
+            { "commands",        "HTPBtnCommands"       },
+            { "configuration",   "HTPBtnConfiguration"  }
     };
 
     // currently active section
@@ -53,18 +60,10 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
 
     @Override
     public void build(@Nonnull Ref<EntityStore> ref, @Nonnull UICommandBuilder cmd, @Nonnull UIEventBuilder events, @Nonnull Store<EntityStore> store) {
-        // load the UI file
         cmd.append("HowToPlayPanel.ui");
-
-        // bind close button
         events.addEventBinding(CustomUIEventBindingType.Activating, "#CloseButton", EventData.of("Action", "close"));
-
-        // bind section nav buttons
-        for (String[] section : SECTIONS) {
+        for (String[] section : SECTIONS)
             events.addEventBinding(CustomUIEventBindingType.Activating, "#" + section[1], EventData.of("Action", "section:" + section[0]));
-        }
-
-        // apply initial section content
         applySection(cmd, this.activeSection);
     }
 
@@ -86,20 +85,13 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         }
     }
 
-    // apply section title and content lines to the UI
     private void applySection(@Nonnull UICommandBuilder cmd, @Nonnull String sectionId) {
-        // set section title
         cmd.set("#HTPSectionTitle.Text", getSectionTitle(sectionId));
-
-        // build content lines for this section
         List<Line> lines = buildSectionContent(sectionId);
-
-        // populate lines — set used ones, clear the rest
         for (int i = 0; i < TOTAL_LINES; i++) {
             String element = "#HTPLine" + (i + 1);
             if (i < lines.size()) {
-                Line line = lines.get(i);
-                cmd.set(element + ".TextSpans", line.message);
+                cmd.set(element + ".TextSpans", lines.get(i).message);
                 cmd.set(element + ".Visible", true);
             } else {
                 cmd.set(element + ".Text", "");
@@ -109,7 +101,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
     }
 
     // -------------------------------------------------------------------------
-    // Line builders — each method returns a list of Lines for a section
+    // Section builders
     // -------------------------------------------------------------------------
 
     private List<Line> buildSectionContent(@Nonnull String sectionId) {
@@ -119,17 +111,20 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
             case "progression"     -> buildProgression();
             case "gear"            -> buildGear();
             case "crafting"        -> buildCrafting();
+            case "cube_combine"    -> buildCubeCombine();
             case "salvaging"       -> buildSalvaging();
             case "combat"          -> buildCombat();
             case "base_building"   -> buildBaseBuilding();
             case "raids"           -> buildRaids();
+            case "prefabs"         -> buildPrefabs();
+            case "wayward_shrines" -> buildWaywardShrines();
             case "commands"        -> buildCommands();
             case "configuration"   -> buildConfiguration();
             default                -> List.of(plain("Section not found."));
         };
     }
 
-    private static List<Line> buildGettingStarted() {
+    private List<Line> buildGettingStarted() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Welcome to the Survival ARPG Overhaul"));
         lines.add(plain("This mod transforms Hytale into a full-scale Action RPG with new progression, combat, and building systems. Starting a fresh world is recommended."));
@@ -145,15 +140,17 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(spacer());
         lines.add(heading("Things To Do"));
         lines.add(plain("There is no strict order — explore at your own pace. Some good early goals:"));
-        lines.add(bullet("Gather ingredients to discover gear component recipes."));
         lines.add(bullet("Gather berries and fruit early — they restore both hunger and thirst."));
+        lines.add(bullet("Craft a Water Bottle and purify dirty water at a Campfire."));
         lines.add(bullet("Kill enemies to level up and earn gear drops."));
         lines.add(bullet("Invest skill points into a skill tree using /skills."));
         lines.add(bullet("Place a Light Well to claim territory and start building a base."));
+        lines.add(bullet("Look for Shard Dust — find it in the world or from enemies, then craft it into Rarity Shards at a Furnace to enhance your gear."));
+        lines.add(bullet("Craft a Wayward Compass to help you find Wayward Shrines while exploring. Use the located shrines to get around and travel long distances."));
         return lines;
     }
 
-    private static List<Line> buildSurvival() {
+    private List<Line> buildSurvival() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Hunger"));
         lines.add(plain("Hunger drains passively over time. It is restored by eating vanilla foods, which carry T1-T3 hunger restore buffs."));
@@ -162,11 +159,11 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(plain("Thirst also drains passively over time. Fruit such as berries and apples restore both thirst and hunger at the same time."));
         lines.add(spacer());
         lines.add(heading("Water"));
-        lines.add(plain("You cannot drink water directly from the world. You need a Water Bottle to collect dirty water, which must be cooked at a Cooking Station before it can be consumed."));
+        lines.add(plain("You cannot drink water directly from the world. Craft a Water Bottle to collect dirty water, then purify it at a Campfire before consuming it."));
         return lines;
     }
 
-    private static List<Line> buildProgression() {
+    private List<Line> buildProgression() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Levelling Up"));
         lines.add(plain("Defeat enemies to earn XP."));
@@ -185,7 +182,8 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         return lines;
     }
 
-    private static List<Line> buildGear() {
+    private List<Line> buildGear() {
+        Config_World world = ModConfig.get().world;
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Item Rarities"));
         lines.add(plain("All weapons and armour use a five-tier rarity system: Common -> Uncommon -> Rare -> Epic -> Legendary."));
@@ -204,26 +202,27 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Dropped gear", "Matches the killed enemy's level."));
         lines.add(bullet("Found gear", "Matches the enemy level of the area."));
         lines.add(spacer());
-        lines.add(heading("Ore Progression"));
-        lines.add(plain("Higher ore tiers appear the further you explore. Ranges below are defaults and are configurable."));
-        lines.add(bullet("Crude Tier", "0k-2k blocks, starter/basic materials drops, no ore spawns."));
-        lines.add(bullet("Copper Tier", "2k-22k blocks, peaks ~12k. Copper gear/materials drop and spawn."));
-        lines.add(bullet("Iron Tier", "12k-32k blocks, peaks ~22k. Iron gear/materials drop and spawn."));
-        lines.add(bullet("Thorium Tier", "22k-42k blocks, peaks ~32k. Thorium gear/materials drop and spawn."));
-        lines.add(bullet("Cobalt Tier", "32k-52k blocks, peaks ~42k. Cobalt gear/materials drop and spawn."));
-        lines.add(bullet("Adamantite Tier", "42k-62k blocks, peaks ~52k. Adamantite gear/materials drop and spawn."));
-        lines.add(bullet("Mithril Tier", "52k-72k blocks, peaks ~62k. Mithril gear/materials drop and spawn."));
+        lines.add(heading("World Tiers & Material Progression"));
+        lines.add(plain("Materials like metals, leather, and cloth are gated by world tiers T0–T6. The tier of an area increases the further you travel from the world origin (" + world.origin_spawn_point_x + ", " + world.origin_spawn_point_z + ")."));
+        lines.add(plain("Enemies and loot in each zone reflect the tier. Push further out to access higher-tier crafting materials. Ore frequency ramps up and peaks near the middle of each range."));
+        lines.add(bullet("T0 — Crude",      "0 – " + (int) world.min_distance_for_copper_spawn + " blocks from origin. Starter materials, no ore, no leather, no fabric."));
+        lines.add(bullet("T1 — Copper",     (int) world.min_distance_for_copper_spawn + " – " + (int) world.max_distance_for_copper_spawn + " blocks. Copper, Soft Leather and Wool Fabric."));
+        lines.add(bullet("T2 — Iron",       (int) world.min_distance_for_iron_spawn + " – " + (int) world.max_distance_for_iron_spawn + " blocks. Iron, Light Leather and Linen Fabric."));
+        lines.add(bullet("T3 — Thorium",    (int) world.min_distance_for_thorium_spawn + " – " + (int) world.max_distance_for_thorium_spawn + " blocks. Thorium, Medium Leather and Cotton Fabric."));
+        lines.add(bullet("T4 — Cobalt",     (int) world.min_distance_for_cobalt_spawn + " – " + (int) world.max_distance_for_cobalt_spawn + " blocks. Cobalt, Heavy Leather and Silk Fabric."));
+        lines.add(bullet("T5 — Adamantite", (int) world.min_distance_for_adamantite_spawn + " – " + (int) world.max_distance_for_adamantite_spawn + " blocks. Adamantite, Storm Leather and Cindercloth Fabric."));
+        lines.add(bullet("T6 — Mithril",    (int) world.min_distance_for_mithril_spawn + " – " + (int) world.max_distance_for_mithril_spawn + " blocks. Mithril, Dark Leather and Shadoweave Fabric."));
         return lines;
     }
 
-    private static List<Line> buildCrafting() {
+    private List<Line> buildCrafting() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("The Horradrix Cube"));
-        lines.add(plain("An ancient puzzle cube that has magical transmutational properties. You can use this cube to combine weapon and armor components into completed pieces of gear."));
+        lines.add(plain("An ancient puzzle cube with magical transmutational properties. Use it to combine weapon and armor components into completed gear, combine items into new ones, and salvage gear back into components."));
         lines.add(spacer());
         lines.add(heading("Components"));
         lines.add(plain("Components are the building blocks of gear. Each has a type (e.g. Axe Head, Handle, Shaft) and a tier (T0-T5)."));
-        lines.add(plain("Components are crafted from various respective benches (weapon components at the weapon bench, armor at the armor bench, etc.) from raw ingredients found in the world. Each component has its own implicit stats that carry through to the finished item."));
+        lines.add(plain("Components are crafted at their respective benches from raw ingredients. Each component carries implicit stats through to the finished item."));
         lines.add(spacer());
         lines.add(heading("Rarity"));
         lines.add(plain("Use a Rarity Shard when combining components to influence the rarity of the resulting gear."));
@@ -233,32 +232,50 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Epic", "+3 random stat affixes."));
         lines.add(bullet("Legendary", "+4 random stat affixes."));
         lines.add(spacer());
+        lines.add(heading("Shard Dust"));
+        lines.add(plain("Shard Dust can be found in the world or dropped by enemies. Collect enough and craft it into Rarity Shards at the Furnace — giving a reliable path to higher-rarity gear without relying purely on drops."));
+        lines.add(spacer());
         lines.add(heading("Output Panel"));
         lines.add(plain("As you slot components the output panel updates to show the weapon type, base damage, implicit stats, and affix count before you commit to crafting."));
         return lines;
     }
 
-    private static List<Line> buildSalvaging() {
+    private List<Line> buildCubeCombine() {
+        List<Line> lines = new ArrayList<>();
+        lines.add(heading("Cube Combine"));
+        lines.add(plain("The Horradrix Cube has another trick — Cube Combine. Place items into the combine slots and experiment to discover new recipes. More recipes will be added over time."));
+        lines.add(spacer());
+        lines.add(heading("How It Works"));
+        lines.add(plain("Slot items into the Cube. If the combination of items match a known recipe the output item appears in the output slot. Hit the combine button to confirm the transaction consuming the appropriate amount of input items and returning an appropriate amount of output items."));
+        lines.add(plain("There is no recipe book — experimentation is the point. Trade knowledge with other players or discover it yourself."));
+        lines.add(spacer());
+        lines.add(heading("Known Recipes (Starter Hints)"));
+        lines.add(bullet("3x Shard Dust (same tier)", "Combines into 1 higher-tier Shard Dust. A reliable way to upgrade your dust stockpile toward better shards."));
+        lines.add(bullet("3x Broken Pickaxe", "Combines into 1 new working Pickaxe. Salvaging broken tools pays off."));
+        return lines;
+    }
+
+    private List<Line> buildSalvaging() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("The Horradrix Cube"));
-        lines.add(plain("An ancient puzzle cube that has magical transmutational properties. You can use it to break down gear into components and break down components into material."));
+        lines.add(plain("An ancient puzzle cube with magical transmutational properties. Use it to break down gear into components and components into raw materials."));
         lines.add(spacer());
         lines.add(heading("Salvaging Gear"));
         lines.add(plain("Place a weapon or armour piece into the input slot. The output slots show the components and shard that could be returned."));
-        lines.add(plain("Salvaging randomly returns one of the three components or the rarity shard (except for with common items)"));
+        lines.add(plain("Salvaging randomly returns one of the three components or the rarity shard (except for common items)."));
         lines.add(spacer());
         lines.add(heading("Salvaging Components"));
         lines.add(plain("Components can also be salvaged back into raw ingredients. Place a component in the input slot to see what ingredients it could return."));
-        lines.add(plain("Salvaging randomly returns one of the up to 4 materials used to craft the component. The amount of material returned is random — you could get anywhere from 1 to the full crafting cost."));
+        lines.add(plain("Salvaging randomly returns one of the up to 4 materials used to craft the component. The amount returned is random — anywhere from 1 to the full crafting cost."));
         lines.add(spacer());
         lines.add(heading("Tips"));
         lines.add(bullet("Salvage low-quality gear to fund crafting of higher-tier items."));
-        lines.add(bullet("A component that rolled good implicits is worth keeping — salvaging loses those rolls."));
+        lines.add(bullet("A component with good implicits is worth keeping — salvaging loses those rolls."));
         lines.add(bullet("Check the output panel before salvaging to see exactly what you might get back."));
         return lines;
     }
 
-    private static List<Line> buildCombat() {
+    private List<Line> buildCombat() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Damage"));
         lines.add(plain("All damage runs through a custom ARPG pipeline. Your Gear Score is the primary driver."));
@@ -281,14 +298,14 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Signature Energy", "Builds over time. Required to cast Ultimate abilities."));
         lines.add(spacer());
         lines.add(heading("Enemy Rarities"));
-        lines.add(bullet("Common",  "1 affix.",  "#ffffff"));
-        lines.add(bullet("Magical", "2 affixes.", "#0000FF"));
-        lines.add(bullet("Rare",    "3 affixes.", "#FF00CC"));
-        lines.add(bullet("Elite",   "4 affixes.", "#FFFF00"));
+        lines.add(bullet("Common",  "1 affix.",   "#ffffff"));
+        lines.add(bullet("Magical", "2 affixes.",  "#0000FF"));
+        lines.add(bullet("Rare",    "3 affixes.",  "#FF00CC"));
+        lines.add(bullet("Elite",   "4 affixes.",  "#FFFF00"));
         return lines;
     }
 
-    private static List<Line> buildBaseBuilding() {
+    private List<Line> buildBaseBuilding() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Light Wells"));
         lines.add(plain("The Light Well is your base anchor. Placing one claims the surrounding territory as yours and sets it as your spawn point. Breaking your active Light Well resets your spawn back to world spawn."));
@@ -308,7 +325,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         return lines;
     }
 
-    private static List<Line> buildRaids() {
+    private List<Line> buildRaids() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("What Are Raids?"));
         lines.add(plain("Once you have an active Light Well your base can be raided. There is a variety of curated raid events, each bringing different enemy types and challenges."));
@@ -318,18 +335,63 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(plain("After the last wave spawns there is a 5-minute window to clear all remaining enemies."));
         lines.add(plain("Important: Any raid enemies still alive when the raid ends will EXPLODE, destroying chunks of your base around them."));
         lines.add(spacer());
+        lines.add(heading("Raid Cooldown"));
+        lines.add(plain("After a raid concludes there is a cooldown before your base can be targeted again. By default this is 90 minutes. This is configurable."));
+        lines.add(spacer());
         lines.add(heading("Your Base When Away"));
         lines.add(plain("Your base can be raided even while you are offline. Use /home when a raid begins so you can handle it directly."));
         lines.add(plain("If your Light Well is destroyed all benches and beds in your territory will also break and drop in place."));
         return lines;
     }
 
-    private static List<Line> buildCommands() {
+    private List<Line> buildPrefabs() {
+        Config_World world = ModConfig.get().world;
+        List<Line> lines = new ArrayList<>();
+        lines.add(heading("World Prefabs"));
+        lines.add(plain("The world generates prefab structures automatically as you explore. These are hand-crafted builds placed into the world at regular intervals as you push into new regions."));
+        lines.add(plain("All prefabs are stripped of crafting benches before placement, but chests are left intact and may contain loot."));
+        lines.add(spacer());
+        lines.add(heading("Prefab Types"));
+        lines.add(bullet("Surface",             "Above-ground structures with no enemies. Appear every " + world.prefabSurfaceRegionSize + " blocks, " + (int)(world.prefabSurfaceSpawnChance * 100) + "% chance per region."));
+        lines.add(bullet("Surface Dungeon",      "Above-ground structures with enemy spawners. More dangerous. Appear every " + world.prefabSurfaceDungeonRegionSize + " blocks, " + (int)(world.prefabSurfaceDungeonSpawnChance * 100) + "% chance per region."));
+        lines.add(bullet("Underground",          "Below-ground structures with no enemies. Appear every " + world.prefabUndergroundRegionSize + " blocks, " + (int)(world.prefabUndergroundSpawnChance * 100) + "% chance per region."));
+        lines.add(bullet("Underground Dungeon",  "Below-ground structures with enemy spawners. Expect a fight. Appear every " + world.prefabUndergroundDungeonRegionSize + " blocks, " + (int)(world.prefabUndergroundDungeonSpawnChance * 100) + "% chance per region."));
+        lines.add(spacer());
+        lines.add(heading("Adding Custom Prefabs"));
+        lines.add(plain("Drop your own '*.prefab.json' files into any of the four prefab folders. The game will seed them randomly across your world. Only newly generated chunks are affected."));
+        lines.add(bullet("mods/HyARPG/prefabs/surface"));
+        lines.add(bullet("mods/HyARPG/prefabs/surface_dungeon"));
+        lines.add(bullet("mods/HyARPG/prefabs/underground"));
+        lines.add(bullet("mods/HyARPG/prefabs/underground_dungeon"));
+        return lines;
+    }
+
+    private List<Line> buildWaywardShrines() {
+        Config_World world = ModConfig.get().world;
+        List<Line> lines = new ArrayList<>();
+        lines.add(heading("Wayward Shrines"));
+        lines.add(plain("Exploring far from home is risky — Wayward Shrines make it more approachable. These teleporter shrines appear throughout the world at regular intervals and let you warp between them. Pro Tip: Build your base near one and you will have instant access anytime you are ready to head out!"));
+        lines.add(spacer());
+        lines.add(heading("How They Work"));
+        lines.add(plain("Interact with a Wayward Shrine, give it a name (or leave the default) and hit save to active it. From that point forward that shrine will now appear as a warp point, by name, from any other shrine you find."));
+        lines.add(plain("Shrines are a one-way safety net for deep exploration — push further out knowing you can always get back."));
+        lines.add(spacer());
+        lines.add(heading("Shrine Spacing"));
+        lines.add(plain("Shrines appear every " + world.prefabWaywardShrineRegionSize + " blocks with a " + (int)(world.prefabWaywardShrineSpawnChance * 100) + "% spawn chance per region. Both values are configurable."));
+        lines.add(spacer());
+        lines.add(heading("Tips"));
+        lines.add(bullet("Find a shrine before pushing into a new tier zone — it gives you a safe return point."));
+        lines.add(bullet("Shrines are surface structures. Look above ground, not underground."));
+        lines.add(bullet("If you are having a hard time finding a shrine, craft a Wayward Compass. It can guide you to your heart's desire."));
+        return lines;
+    }
+
+    private List<Line> buildCommands() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Player Commands"));
         lines.add(command("/skills", "Open your skill trees. Browse, invest skill points, and equip abilities."));
-        lines.add(command("/stats", "Open character/gear management page. View and equip mod gear/items"));
-        lines.add(command("/discovered", "Open your recipe book. Shows all discovered component and room recipes."));
+        lines.add(command("/stats", "Open character/gear management page. View and equip mod gear/items."));
+        lines.add(command("/discovered", "Open your recipe book. Shows all discovered room recipes."));
         lines.add(command("/home", "Teleport to your Light Well from anywhere in the world."));
         lines.add(command("/HyARPG_Player_Settings_ShowCombatMessages <true|false>", "Toggle combat damage messages."));
         lines.add(spacer());
@@ -346,7 +408,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         return lines;
     }
 
-    private static List<Line> buildConfiguration() {
+    private List<Line> buildConfiguration() {
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Configuration File"));
         lines.add(plain("The configuration file is generated automatically on first run at:"));
@@ -361,7 +423,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Players", "Base regeneration rates for Health, Mana, Stamina, and Ammo."));
         lines.add(bullet("Building", "Light Well territory claiming and bench placement rules."));
         lines.add(bullet("Raids", "Enable/disable raids, raid chance, cooldowns, wave timing, explosion damage settings."));
-        lines.add(bullet("World", "Ore spawn distances, vein sizes, vein counts, Y level ranges per tier."));
+        lines.add(bullet("World", "Ore spawn distances, vein sizes and counts, Y level ranges, prefab region sizes and spawn chances, Wayward Shrine spacing."));
         return lines;
     }
 
@@ -371,9 +433,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
 
     private static final Message EMPTY = Message.raw("");
 
-    private static Line spacer() {
-        return new Line(EMPTY);
-    }
+    private static Line spacer() { return new Line(EMPTY); }
 
     private static Line plain(@Nonnull String text) {
         return new Line(Message.raw(text).color("#cccccc"));
@@ -416,7 +476,6 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         ));
     }
 
-    // maps section id to display title
     private static String getSectionTitle(@Nonnull String sectionId) {
         return switch (sectionId) {
             case "getting_started" -> "Getting Started";
@@ -424,17 +483,19 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
             case "progression"     -> "Levels & Skill Trees";
             case "gear"            -> "Gear & Loot";
             case "crafting"        -> "Crafting";
+            case "cube_combine"    -> "Cube Combine";
             case "salvaging"       -> "Salvaging";
             case "combat"          -> "Combat";
             case "base_building"   -> "Base Building & Rooms";
             case "raids"           -> "Raids";
+            case "prefabs"         -> "World Prefabs";
+            case "wayward_shrines" -> "Wayward Shrines";
             case "commands"        -> "Commands";
             case "configuration"   -> "Configuration";
             default                -> sectionId;
         };
     }
 
-    // simple wrapper so we can store a Message per line
     private record Line(Message message) {}
 
     // -------------------------------------------------------------------------
@@ -446,7 +507,6 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
                 .<PageData>builder(PageData.class, PageData::new)
                 .append(new KeyedCodec<>("Action", Codec.STRING), (d, v) -> d.action = v, d -> d.action).add()
                 .build();
-
         public String action;
     }
 }

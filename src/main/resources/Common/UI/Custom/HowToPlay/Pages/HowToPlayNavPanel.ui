@@ -15,10 +15,13 @@ $Common = "../../Common.ui";
     $Common.@HeaderTextButton #HTPBtnProgression     { Text: "Levels & Skills";  Anchor: (Bottom: 4);}
     $Common.@HeaderTextButton #HTPBtnGear            { Text: "Gear & Loot";     Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnCrafting        { Text: "Crafting";        Anchor: (Bottom: 4); }
+    $Common.@HeaderTextButton #HTPBtnCubeCombine     { Text: "Cube Combine";    Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnSalvaging       { Text: "Salvaging";       Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnCombat          { Text: "Combat";          Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnBaseBuilding    { Text: "Base Building";   Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnRaids           { Text: "Raids";           Anchor: (Bottom: 4); }
+    $Common.@HeaderTextButton #HTPBtnPrefabs         { Text: "World Prefabs";   Anchor: (Bottom: 4); }
+    $Common.@HeaderTextButton #HTPBtnWaywardShrines  { Text: "Wayward Shrines"; Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnCommands        { Text: "Commands";        Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnConfiguration   { Text: "Configuration";   Anchor: (Bottom: 4); }
 };

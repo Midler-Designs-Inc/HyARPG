@@ -26,16 +26,16 @@
       {
         "Type": "Crafting",
         "Categories": [
-          "none"
+          "Workbench_Survival"
         ],
-        "Id": "Workbench"
+        "Id": "None"
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "none"
+          "Weapon_Bow"
         ],
-        "Id": "Weapon_Bench"
+        "Id": "None"
       }
     ]
   },

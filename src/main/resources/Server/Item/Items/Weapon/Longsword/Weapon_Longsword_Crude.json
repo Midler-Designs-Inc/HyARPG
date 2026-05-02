@@ -133,18 +133,19 @@
     ],
     "BenchRequirement": [
       {
-        "Id": "Fieldcraft",
+        "Id": "None",
         "Type": "Crafting",
         "Categories": [
-          "none"
+          "Tools",
+          "Discoverable"
         ]
       },
       {
         "Type": "Crafting",
         "Categories": [
-          "none"
+          "Weapon_Longsword"
         ],
-        "Id": "Workbench"
+        "Id": "None"
       }
     ]
   },

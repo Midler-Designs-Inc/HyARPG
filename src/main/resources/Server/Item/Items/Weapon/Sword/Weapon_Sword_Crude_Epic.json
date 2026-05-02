@@ -32,17 +32,17 @@
     ],
     "BenchRequirement": [
       {
-        "Id": "Fieldcraft",
+        "Id": "None",
         "Type": "Crafting",
         "Categories": [
-          "none"
+          "Tools"
         ]
       },
       {
-        "Id": "Workbench",
+        "Id": "None",
         "Type": "Crafting",
         "Categories": [
-          "none"
+          "Workbench_Survival"
         ]
       }
     ]

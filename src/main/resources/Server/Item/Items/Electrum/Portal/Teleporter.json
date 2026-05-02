@@ -132,5 +132,32 @@
   },
   "ItemLevel": 60,
   "Quality": "Legendary",
-  "ItemSoundSetId": "ISS_Blocks_Stone"
+  "ItemSoundSetId": "ISS_Blocks_Stone",
+  "Recipe": {
+    "TimeSeconds": 2,
+    "Input": [
+      {
+        "ItemId": "Wood_Azure_Trunk",
+        "Quantity": 8
+      },
+      {
+        "ItemId": "Plant_Crop_Mana3",
+        "Quantity": 2
+      },
+      {
+        "Quantity": 10,
+        "ResourceTypeId": "Rock"
+      }
+    ],
+    "OutputQuantity": 2,
+    "BenchRequirement": [
+      {
+        "Id": "None",
+        "Type": "Crafting",
+        "Categories": [
+          "Arcane_Portals"
+        ]
+      }
+    ]
+  }
 }

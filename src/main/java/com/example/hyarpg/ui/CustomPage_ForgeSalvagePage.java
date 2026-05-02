@@ -44,11 +44,6 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
     // category string that identifies mod gear items
     private static final String GEAR_CATEGORY = "Items.HyARPG.Gear";
 
-    // known shard item ids — used to determine shard for non-common rarity items
-    private static final java.util.Set<String> SHARD_IDS = java.util.Set.of(
-        "Uncommon_Shards", "Rare_Shards", "Epic_Shards", "Legendary_Shards"
-    );
-
     // number of components to return on salvage — 1 now, designed to scale with crafting level later
     private static final int SALVAGE_COMPONENT_COUNT = 1;
     private static final int SALVAGE_MATERIAL_COUNT = 1;

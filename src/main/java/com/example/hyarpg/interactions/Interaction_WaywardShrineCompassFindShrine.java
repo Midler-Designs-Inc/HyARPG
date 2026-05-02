@@ -23,11 +23,11 @@ import com.example.hyarpg.configs.Config_World;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 import java.util.Random;
 
-public class Interaction_WaywardShrineCompass extends SimpleInstantInteraction {
+public class Interaction_WaywardShrineCompassFindShrine extends SimpleInstantInteraction {
 
-    public static final BuilderCodec<Interaction_WaywardShrineCompass> CODEC = BuilderCodec.builder(
-            Interaction_WaywardShrineCompass.class,
-            Interaction_WaywardShrineCompass::new,
+    public static final BuilderCodec<Interaction_WaywardShrineCompassFindShrine> CODEC = BuilderCodec.builder(
+            Interaction_WaywardShrineCompassFindShrine.class,
+            Interaction_WaywardShrineCompassFindShrine::new,
             SimpleInstantInteraction.CODEC
     ).build();
 
@@ -92,7 +92,7 @@ public class Interaction_WaywardShrineCompass extends SimpleInstantInteraction {
 
             // no shrine found within search radius or cutoff distance
             if (!found || closestDist > MAX_DISTANCE) {
-                playerRef.sendMessage(Message.raw("No Wayward Shrine detected nearby."));
+                playerRef.sendMessage(Message.raw("The compass fails to locate what you desire."));
                 return;
             }
 

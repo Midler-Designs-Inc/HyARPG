@@ -95,7 +95,13 @@ public class Module_RPGSystem {
         interactionRegistry.register("Open_Territory_Panel", Interaction_Open_Territory_Panel.class, Interaction_Open_Territory_Panel.CODEC);
         interactionRegistry.register("Open_Cube_Combine", Interaction_Bench_Open_CubeCombine.class, Interaction_Bench_Open_CubeCombine.CODEC);
         interactionRegistry.register("Resurrect_Player_At_Grave", Interaction_RezPlayer.class, Interaction_RezPlayer.CODEC);
-        interactionRegistry.register("Use_Wayward_Compass", Interaction_WaywardShrineCompass.class, Interaction_WaywardShrineCompass.CODEC);
+
+        // Register the wayward compass interactions specifically
+        interactionRegistry.register("Wayward_Compass_Find_Prefab", Interaction_WaywardShrineCompassFindPrefab.class, Interaction_WaywardShrineCompassFindPrefab.CODEC);
+        interactionRegistry.register("Wayward_Compass_Find_Shrine", Interaction_WaywardShrineCompassFindShrine.class, Interaction_WaywardShrineCompassFindShrine.CODEC);
+        interactionRegistry.register("Wayward_Compass_Find_Dungeon", Interaction_WaywardShrineCompassFindDungeon.class, Interaction_WaywardShrineCompassFindDungeon.CODEC);
+        interactionRegistry.register("Wayward_Compass_Find_Boss", Interaction_WaywardShrineCompassFindBoss.class, Interaction_WaywardShrineCompassFindBoss.CODEC);
+        interactionRegistry.register("Wayward_Compass_Find_Puzzle_Key", Interaction_WaywardShrineCompassFindPuzzleKey.class, Interaction_WaywardShrineCompassFindPuzzleKey.CODEC);
 
         // Listen to applicable events on the mods internal event bus
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);

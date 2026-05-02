@@ -8,7 +8,7 @@
   ],
   "ItemLevel": 10,
   "Recipe": {
-    "TimeSeconds": 10,
+    "TimeSeconds": 0,
     "Input": [
       {
         "Quantity": 1,

@@ -1,0 +1,41 @@
+package com.example.hyarpg.interactions;
+
+// Hytale Imports
+import com.hypixel.hytale.codec.builder.BuilderCodec;
+import com.hypixel.hytale.component.Ref;
+import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.protocol.InteractionType;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.entity.InteractionContext;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
+import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+
+// Java Imports
+import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
+
+public class Interaction_WaywardShrineCompassFindBoss extends SimpleInstantInteraction {
+
+    public static final BuilderCodec<Interaction_WaywardShrineCompassFindBoss> CODEC = BuilderCodec.builder(
+            Interaction_WaywardShrineCompassFindBoss.class,
+            Interaction_WaywardShrineCompassFindBoss::new,
+            SimpleInstantInteraction.CODEC
+    ).build();
+
+    @Override
+    protected void firstRun(
+            @NonNullDecl InteractionType interactionType,
+            @NonNullDecl InteractionContext context,
+            @NonNullDecl CooldownHandler cooldownHandler
+    ) {
+        Ref<EntityStore> ref = context.getEntity();
+        if (ref == null || !ref.isValid()) return;
+
+        Store<EntityStore> entityStore = ref.getStore();
+        PlayerRef playerRef = entityStore.getComponent(ref, PlayerRef.getComponentType());
+        if (playerRef == null) return;
+
+        playerRef.sendMessage(Message.raw("The deep ones still slumber beyond this realm."));
+    }
+}

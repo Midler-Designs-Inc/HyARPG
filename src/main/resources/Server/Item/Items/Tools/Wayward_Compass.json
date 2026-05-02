@@ -1,7 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.Water_Bottle.name",
-    "Description": "server.items.Water_Bottle.description"
+    "Name": "server.items.Wayward_Compass.name",
+    "Description": "server.items.Wayward_Compass.description"
   },
   "Recipe": {
     "Input": [
@@ -28,22 +28,49 @@
       }
     ]
   },
-  "Model": "Blocks/Miscellaneous/ComputerOld.blockymodel",
-  "Texture": "Blocks/Miscellaneous/ComputerOld_default.png",
+  "Model": "Items/Tools/Compass/Wayward_Compass.blockymodel",
+  "Texture": "Items/Tools/Compass/Wayward_Compass.png",
   "MaxStack": 1,
   "Quality": "Legendary",
   "ItemLevel": 1,
-  "Icon": "Icons/ItemsGenerated/Deco_Computer_Old.png",
-  "UsePlayerAnimations": false,
-  "Scale": 1,
+  "Icon": "Icons/ItemsGenerated/Wayward_Compass_Icon.png",
+  "UsePlayerAnimations": true,
+  "PlayerAnimationsId": "Item",
+  "Animation": "Items/Tools/Compass/Wayward_Compass.blockyanim",
+  "Scale": 0.3,
   "Interactions": {
-    "Secondary": {
-      "Cooldown": {
-        "Cooldown": 10
-      },
+    "Primary": {
       "Interactions": [
         {
-          "Type": "Use_Wayward_Compass"
+          "Type": "Wayward_Compass_Find_Prefab"
+        }
+      ]
+    },
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "Wayward_Compass_Find_Shrine"
+        }
+      ]
+    },
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Wayward_Compass_Find_Dungeon"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Wayward_Compass_Find_Boss"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Wayward_Compass_Find_Puzzle_Key"
         }
       ]
     }

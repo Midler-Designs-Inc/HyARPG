@@ -244,10 +244,12 @@ public class Module_CombatSystem {
             return;
         }
 
-        // bail if neither party is a mod entity
+        // bail if neither party is a mod entity — check both player and enemy components
         Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
         Component_RPG_Player defenderRPGStats = store.getComponent(defender, componentTypeRPGPlayer);
-        if (attackerRPGStats == null && defenderRPGStats == null) return;
+        Component_RPG_Enemy attackerRPGEnemy = store.getComponent(attacker, componentTypeRPGEnemy);
+        Component_RPG_Enemy defenderRPGEnemy = store.getComponent(defender, componentTypeRPGEnemy);
+        if (attackerRPGStats == null && defenderRPGStats == null && attackerRPGEnemy == null && defenderRPGEnemy == null) return;
 
         // prep swing group keys shared across all paths
         String key = swingKey(attacker, defender);
@@ -315,8 +317,7 @@ public class Module_CombatSystem {
         }
         else {
             // remap unrecognized damage types to physical
-            if (!MOD_DAMAGE_TYPES.contains(cause.getId()))
-                cause = DamageCause.getAssetMap().getAsset("Physical");
+            if (!MOD_DAMAGE_TYPES.contains(cause.getId())) cause = DamageCause.getAssetMap().getAsset("Physical");
 
             // get or create the swing group for this attacker/defender pair
             SwingDamageGroup group = swingGroups.computeIfAbsent(key, k -> {
@@ -328,8 +329,16 @@ public class Module_CombatSystem {
                 return g;
             });
 
-            // add the damage packet
-            group.add(cause, damage.getInitialAmount());
+            // if attacker is a known enemy replace vanilla damage with their level-scaled base hit
+            float baseDamage = damage.getInitialAmount();
+            if (attackerRPGEnemy != null && attackerRPGEnemy.damageType != null) {
+                baseDamage = attackerRPGEnemy.level * 10f * attackerRPGEnemy.damageMultiplier;
+                DamageCause enemyCause = DamageCause.getAssetMap().getAsset(attackerRPGEnemy.damageType);
+                if (enemyCause != null) cause = enemyCause;
+            }
+
+            // push the damage packet to its damage group
+            group.add(cause, baseDamage);
         }
 
         // cancel the original damage event, will be handled by the mod pipeline

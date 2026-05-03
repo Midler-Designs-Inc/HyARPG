@@ -1,0 +1,426 @@
+[
+  {
+    "id": "Antelope",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Armadillo",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Bear_Grizzly",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Bear_Polar",
+    "faction": "beast",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Cactee",
+    "faction": "plant",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Crocodile",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Deer_Doe",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Deer_Stag",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Emberwulf",
+    "faction": "beast",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "berserker",
+    "nature": "neutral"
+  },
+  {
+    "id": "Fen_Stalker",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Fox",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Frog_Green",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Goblin_Scrapper",
+    "faction": "goblin",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Hyena",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Larva_Silk",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Leopard_Snow",
+    "faction": "beast",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Lizard_Sand",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Molerat",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Moose_Bull",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Moose_Cow",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Mosshorn",
+    "faction": "nature",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Raptor_Cave",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Rat",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Rex_Cave",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "neutral"
+  },
+  {
+    "id": "Scarak_Broodmother",
+    "faction": "scarak",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Scarak_Defender",
+    "faction": "scarak",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Scarak_Fighter",
+    "faction": "scarak",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Scarak_Louse",
+    "faction": "scarak",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Scarak_Seeker",
+    "faction": "scarak",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Scorpion",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Skeleton_Knight",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Skeleton_Sand_Archer",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "neutral"
+  },
+  {
+    "id": "Skeleton_Sand_Assassin",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Skeleton_Sand_Soldier",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Slug_Magma",
+    "faction": "beast",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Snail_Frost",
+    "faction": "beast",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Snail_Magma",
+    "faction": "beast",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Snake_Cobra",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Snake_Marsh",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Snake_Rattle",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Snapdragon",
+    "faction": "nature",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Spark_Living",
+    "faction": "spirit",
+    "damageType": "Lightning",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "neutral"
+  },
+  {
+    "id": "Spider",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Spider_Cave",
+    "faction": "beast",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "neutral"
+  },
+  {
+    "id": "Tiger_Sabertooth",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "berserker",
+    "nature": "neutral"
+  },
+  {
+    "id": "Toad_Rhino",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Toad_Rhino_Magma",
+    "faction": "beast",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Tortoise",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "neutral"
+  },
+  {
+    "id": "Trillodon",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "neutral"
+  },
+  {
+    "id": "Trork_Shaman",
+    "faction": "trork",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "neutral"
+  },
+  {
+    "id": "Wolf_Black",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Wolf_White",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "neutral"
+  },
+  {
+    "id": "Yeti",
+    "faction": "beast",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "neutral"
+  }
+]

@@ -1,0 +1,730 @@
+[
+  {
+    "id": "Chicken_Undead",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "hostile"
+  },
+  {
+    "id": "Cow_Undead",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Crawler_Void",
+    "faction": "void",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "hostile"
+  },
+  {
+    "id": "Eye_Void",
+    "faction": "void",
+    "damageType": "Magic",
+    "operationalSpace": "air",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Ghoul1",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Goblin_Duke",
+    "faction": "goblin",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Goblin_Hermit",
+    "faction": "goblin",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Goblin_Lobber",
+    "faction": "goblin",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Goblin_Miner",
+    "faction": "goblin",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Goblin_Ogre",
+    "faction": "goblin",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Goblin_Scavenger",
+    "faction": "goblin",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Goblin_Thief",
+    "faction": "goblin",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "hostile"
+  },
+  {
+    "id": "Golem_Crystal_Earth",
+    "faction": "golem",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "hostile"
+  },
+  {
+    "id": "Golem_Crystal_Flame",
+    "faction": "golem",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "hostile"
+  },
+  {
+    "id": "Golem_Crystal_Frost",
+    "faction": "golem",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "hostile"
+  },
+  {
+    "id": "Golem_Crystal_Sand",
+    "faction": "golem",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "hostile"
+  },
+  {
+    "id": "Golem_Crystal_Thunder",
+    "faction": "golem",
+    "damageType": "Lightning",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "hostile"
+  },
+  {
+    "id": "Golem_Firesteel",
+    "faction": "golem",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "hostile"
+  },
+  {
+    "id": "Hedera",
+    "faction": "void",
+    "damageType": "Magic",
+    "operationalSpace": "air",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Horse_Skeleton",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Horse_Skeleton_Armored",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Hound_Bleached",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "hostile"
+  },
+  {
+    "id": "Larva_Void",
+    "faction": "void",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Berserker",
+    "faction": "outlander",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "berserker",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Brute",
+    "faction": "outlander",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Cultist",
+    "faction": "outlander",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "berserker",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Hunter",
+    "faction": "outlander",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Marauder",
+    "faction": "outlander",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Peon",
+    "faction": "outlander",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "zerg",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Priest",
+    "faction": "outlander",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Sorcerer",
+    "faction": "outlander",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Outlander_Stalker",
+    "faction": "outlander",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "ranged",
+    "nature": "hostile"
+  },
+  {
+    "id": "Pig_Undead",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "hostile"
+  },
+  {
+    "id": "Scarak_Broodmother_Young",
+    "faction": "scarak",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Shadow_Knight",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Archer",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Archmage",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Burnt_Alchemist",
+    "faction": "undead",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "ranged",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Burnt_Archer",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Burnt_Gunner",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Burnt_Knight",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Burnt_Lancer",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Burnt_Praetorian",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Burnt_Soldier",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Burnt_Wizard",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Fighter",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Frost_Archer",
+    "faction": "undead",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Frost_Archmage",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Frost_Fighter",
+    "faction": "undead",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Frost_Knight",
+    "faction": "undead",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Frost_Mage",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Frost_Ranger",
+    "faction": "undead",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Frost_Scout",
+    "faction": "undead",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Frost_Soldier",
+    "faction": "undead",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Incandescent_Fighter",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Incandescent_Footman",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Incandescent_Head",
+    "faction": "spirit",
+    "damageType": "Fire",
+    "operationalSpace": "air",
+    "combatType": "zerg",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Incandescent_Mage",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Mage",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Pirate_Captain",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Pirate_Gunner",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Pirate_Striker",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Ranger",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Sand_Archmage",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Sand_Guard",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Sand_Mage",
+    "faction": "undead",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Sand_Ranger",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Sand_Scout",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Scout",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "hostile"
+  },
+  {
+    "id": "Skeleton_Soldier",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Spawn_Void",
+    "faction": "void",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Spectre_Void",
+    "faction": "void",
+    "damageType": "Magic",
+    "operationalSpace": "air",
+    "combatType": "berserker",
+    "nature": "hostile"
+  },
+  {
+    "id": "Spirit_Ember",
+    "faction": "spirit",
+    "damageType": "Fire",
+    "operationalSpace": "air",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Spirit_Frost",
+    "faction": "spirit",
+    "damageType": "Ice",
+    "operationalSpace": "air",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Spirit_Root",
+    "faction": "spirit",
+    "damageType": "Poison",
+    "operationalSpace": "air",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Spirit_Thunder",
+    "faction": "spirit",
+    "damageType": "Lightning",
+    "operationalSpace": "air",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Trork_Brawler",
+    "faction": "trork",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "berserker",
+    "nature": "hostile"
+  },
+  {
+    "id": "Trork_Chieftain",
+    "faction": "trork",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Trork_Doctor_Witch",
+    "faction": "trork",
+    "damageType": "Poison",
+    "operationalSpace": "ground",
+    "combatType": "caster",
+    "nature": "hostile"
+  },
+  {
+    "id": "Trork_Guard",
+    "faction": "trork",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Trork_Hunter",
+    "faction": "trork",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "sniper",
+    "nature": "hostile"
+  },
+  {
+    "id": "Trork_Mauler",
+    "faction": "trork",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "bruiser",
+    "nature": "hostile"
+  },
+  {
+    "id": "Trork_Sentry",
+    "faction": "trork",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Trork_Warrior",
+    "faction": "trork",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Werewolf",
+    "faction": "beast",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "berserker",
+    "nature": "hostile"
+  },
+  {
+    "id": "Wraith",
+    "faction": "spirit",
+    "damageType": "Magic",
+    "operationalSpace": "ground",
+    "combatType": "skirmisher",
+    "nature": "hostile"
+  },
+  {
+    "id": "Zombie",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Zombie_Aberrant",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "juggernaut",
+    "nature": "hostile"
+  },
+  {
+    "id": "Zombie_Burnt",
+    "faction": "undead",
+    "damageType": "Fire",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Zombie_Frost",
+    "faction": "undead",
+    "damageType": "Ice",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  },
+  {
+    "id": "Zombie_Sand",
+    "faction": "undead",
+    "damageType": "Physical",
+    "operationalSpace": "ground",
+    "combatType": "fighter",
+    "nature": "hostile"
+  }
+]

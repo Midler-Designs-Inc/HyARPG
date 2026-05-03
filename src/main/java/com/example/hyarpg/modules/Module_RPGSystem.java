@@ -1,20 +1,14 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import com.example.hyarpg.components.Component_Grave;
-import com.example.hyarpg.utils.items.ItemFactory;
-import com.example.hyarpg.utils.rooms.RoomFloodFill;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.gameplay.DeathConfig;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
-import com.hypixel.hytale.server.core.blocktype.component.BlockPhysics;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
@@ -22,7 +16,11 @@ import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
-import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.Modifier;
+import com.hypixel.hytale.server.core.modules.entitystats.modifier.StaticModifier;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -47,6 +45,11 @@ import com.example.hyarpg.utils.affixes.AffixPool;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.utils.skills.SkillLibrary;
 import com.example.hyarpg.utils.skills.SkillLibraryMigration;
+import com.example.hyarpg.components.Component_Grave;
+import com.example.hyarpg.utils.affixes.StatType;
+import com.example.hyarpg.utils.combat.EnemyConfigLoader;
+import com.example.hyarpg.utils.items.ItemFactory;
+import com.example.hyarpg.utils.rooms.RoomFloodFill;
 
 // Java Imports
 import java.awt.*;
@@ -62,6 +65,11 @@ public class Module_RPGSystem {
 
     private final HyARPGPlugin plugin;
     private static final Logger LOGGER = Logger.getLogger(Module_RPGSystem.class.getName());
+
+    // loads enemy classification data from jsons
+    List<EnemyConfigLoader.EnemyConfig> hostiles = EnemyConfigLoader.loadHostile();
+    List<EnemyConfigLoader.EnemyConfig> neutrals = EnemyConfigLoader.loadNeutral();
+    Map<String, EnemyConfigLoader.EnemyConfig> enemyConfigMap = new HashMap<>();
 
     // Component Type references
     public static ComponentType<EntityStore, Component_RPG_Player> componentTypeRPGPlayer;
@@ -116,7 +124,10 @@ public class Module_RPGSystem {
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
         ModEventBus.register(Event_ContainerSpawned.class, this::onContainerSpawned);
         ModEventBus.register(Event_PlayerDeath.class, this::onPlayerDeath);
-//        ModEventBus.register(Event_PlayerRespawn.class, this::onPlayerRespawn);
+
+        // merge the enemy configs
+        hostiles.forEach(e -> enemyConfigMap.put(e.id, e));
+        neutrals.forEach(e -> enemyConfigMap.put(e.id, e));
 
         // Replace the inventory open with our own window
 //        Window.CLIENT_REQUESTABLE_WINDOW_TYPES.put(WindowType.PocketCrafting, () -> new InterceptPocketCraftingWindow());
@@ -182,48 +193,97 @@ public class Module_RPGSystem {
         // get the entity holder Ref
         Holder<EntityStore> holder = event.getHolder();
 
-        // If the RPG Enemy component doesn't exist, add it
+        // if the RPG Enemy component doesn't exist, add it
         Component_RPG_Enemy rpgEnemy = holder.getComponent(componentTypeRPGEnemy);
         if (rpgEnemy == null) {
-            // Create an RPGEnemy component and assign a monster level
             int enemyLevel = calculateEnemyLevel(holder);
             rpgEnemy = new Component_RPG_Enemy(enemyLevel);
-
-            // Add the component to the NPC
             holder.putComponent(componentTypeRPGEnemy, rpgEnemy);
         }
 
         // prep a list of affixes for the enemy
         List<Affix> affixes = new ArrayList<>();
 
-        // add critical strike chance affix no matter what
-        Affix affixCritChance = AffixPool.getAffixByStatName("Stat_Increased_Critical_Strike_Chance");
-        affixCritChance.rollTier(rpgEnemy.level);
-        affixes.add(affixCritChance);
-
         // if monster is at least rarity 1 get a damage stat also
-        if(rpgEnemy.monsterRarity >= 1) {
+        if (rpgEnemy.monsterRarity >= 1) {
             Affix affixFlatDamage = AffixPool.randomFlatDamageAffix();
             affixFlatDamage.rollTier(rpgEnemy.level);
             affixes.add(affixFlatDamage);
-        };
+        }
 
         // if monster is at least rarity 2 get a resistance stat also
-        if(rpgEnemy.monsterRarity >= 2) {
-            Affix affixFlatDamage = AffixPool.randomResistanceAffix();
-            affixFlatDamage.rollTier(rpgEnemy.level);
-            affixes.add(affixFlatDamage);
-        };
+        if (rpgEnemy.monsterRarity >= 2) {
+            Affix affixResistance = AffixPool.randomResistanceAffix();
+            affixResistance.rollTier(rpgEnemy.level);
+            affixes.add(affixResistance);
+        }
 
         // if monster is at least rarity 3 increase their crit damage
-        if(rpgEnemy.monsterRarity >= 3) {
+        if (rpgEnemy.monsterRarity >= 3) {
             Affix affixCritDamage = AffixPool.getAffixByStatName("Stat_Increased_Critical_Strike_Damage");
             affixCritDamage.rollTier(rpgEnemy.level);
             affixes.add(affixCritDamage);
-        };
+        }
 
         // apply the affixes to the NPC
         rpgEnemy.applyAffixes(affixes.toArray(new Affix[0]));
+
+        // 25% chance to roll a prefix — applies a flat damage bonus of the prefix type
+        if (random.nextFloat() < 0.25f) {
+            String[][] prefixes = {
+                    {"Flameborne", "Fire"},
+                    {"Iceborne", "Ice"},
+                    {"Skyborne", "Lightning"},
+                    {"Filthborne", "Poison"},
+                    {"Strengthborne", "Physical"},
+                    {"Aetherborne", "Magic"}
+            };
+            String[] chosen = prefixes[random.nextInt(prefixes.length)];
+            rpgEnemy.prefix = chosen[0];
+
+            // apply flat damage of 2 * level for the prefix damage type
+            StatType prefixStat = switch (chosen[1]) {
+                case "Fire"     -> StatType.FIRE_DAMAGE_FLAT;
+                case "Ice"      -> StatType.ICE_DAMAGE_FLAT;
+                case "Lightning"-> StatType.LIGHTNING_DAMAGE_FLAT;
+                case "Poison"   -> StatType.POISON_DAMAGE_FLAT;
+                case "Physical" -> StatType.PHYSICAL_DAMAGE_FLAT;
+                case "Magic"    -> StatType.MAGIC_DAMAGE_FLAT;
+                default         -> null;
+            };
+            if (prefixStat != null) rpgEnemy.stats.add(prefixStat, 2f * rpgEnemy.level);
+        }
+
+        // check if this NPC is in our enemy registry — skip extra setup if not
+        NPCEntity npcEntity = holder.getComponent(NPCEntity.getComponentType());
+        if (npcEntity == null) return;
+        String roleId = npcEntity.getRoleName();
+        EnemyConfigLoader.EnemyConfig config = enemyConfigMap.get(roleId);
+        if (config == null) return;
+
+        // read vanilla max health then apply the delta needed to reach our target
+        ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatMap.getComponentType();
+        EntityStatMap statMap = holder.getComponent(statMapType);
+        if (statMap != null) {
+            // get the base life for this combat type and get the entity stat health values
+            float baseLife = getBaseLifeForCombatType(config.combatType);
+            int healthIndex = DefaultEntityStatTypes.getHealth();
+
+            // get the current max and determine the delta between that and our desired max
+            EntityStatValue healthValue = statMap.get(healthIndex);
+            float currentMax = healthValue != null ? healthValue.getMax() : 0f;
+            float delta = baseLife - currentMax;
+
+            // apply a modifier to max life to bring the enemy to the threshold we want
+            statMap.putModifier(healthIndex, "HP_BALANCE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, delta));
+        }
+
+        // write damage type and multiplier from config onto the RPG component
+        rpgEnemy.damageType = capitalize(config.damageType);
+        rpgEnemy.damageMultiplier = getDamageMultiplierForCombatType(config.combatType);
+
+        // apply combat-type-specific affix stats
+        applyCombatTypeStats(rpgEnemy, config.combatType);
     }
 
     // This function runs whenever an NPCSpawn event is posted
@@ -252,7 +312,8 @@ public class Module_RPGSystem {
         }
         else if (ModConfig.get().enemies.show_enemy_nameplates) {
             String roleName = npcEntity.getRoleName().replace("_", " ");
-            String nameplateText = rarityString + roleName + " (Lv. " + level + ")";
+            String prefixString = rpgEnemy.prefix != null ? rpgEnemy.prefix + " " : "";
+            String nameplateText = prefixString + rarityString + roleName + " (Lv. " + level + ")";
 
             // Nameplate is what actually shows above the head
             Nameplate nameplate = store.getComponent(ref, Nameplate.getComponentType());
@@ -509,5 +570,83 @@ public class Module_RPGSystem {
 
         // Minimum level 1 regardless of roll
         return Math.max(1, baseLevel + variance);
+    }
+
+    // helper functions for assigning enemy props/stats on spawn
+    private float getBaseLifeForCombatType(String combatType) {
+        switch (combatType) {
+            case "juggernaut":  return 350f;
+            case "bruiser":     return 220f;
+            case "fighter":     return 160f;
+            case "berserker":   return 120f;
+            case "skirmisher":  return 100f;
+            case "sniper":      return 90f;
+            case "caster":      return 80f;
+            case "zerg":        return 60f;
+            default:            return 100f;
+        }
+    }
+    private float getDamageMultiplierForCombatType(String combatType) {
+        switch (combatType) {
+            case "berserker":   return 2.0f;
+            case "juggernaut":  return 1.6f;
+            case "sniper":      return 1.6f;
+            case "bruiser":     return 1.3f;
+            case "fighter":     return 1.0f;
+            case "skirmisher":  return 0.9f;
+            case "caster":      return 1.6f;
+            case "zerg":        return 0.5f;
+            default:            return 1.0f;
+        }
+    }
+    private void applyCombatTypeStats(Component_RPG_Enemy rpgEnemy, String combatType) {
+        switch (combatType) {
+            case "juggernaut":
+                // high resists all around, immovable
+                rpgEnemy.stats.add(StatType.PHYSICAL_RESIST_PERCENT, 25f);
+                rpgEnemy.stats.add(StatType.ELEMENTAL_RESIST_PERCENT, 20f);
+                rpgEnemy.stats.add(StatType.STABILITY_PERCENT, 40f);
+                break;
+            case "bruiser":
+                // tough and hits hard, resists physical punishment
+                rpgEnemy.stats.add(StatType.PHYSICAL_RESIST_PERCENT, 15f);
+                rpgEnemy.stats.add(StatType.ELEMENTAL_RESIST_PERCENT, 10f);
+                rpgEnemy.stats.add(StatType.LIFE_REGEN_FLAT, 2f);
+                break;
+            case "berserker":
+                // glass cannon — big damage, sustains through leech
+                rpgEnemy.stats.add(StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 15f);
+                rpgEnemy.stats.add(StatType.CRITICAL_STRIKE_DAMAGE_PERCENT, 30f);
+                rpgEnemy.stats.add(StatType.LIFE_LEECH_PERCENT, 5f);
+                break;
+            case "sniper":
+                // precision attacker — crits and ammo efficiency
+                rpgEnemy.stats.add(StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 20f);
+                rpgEnemy.stats.add(StatType.CRITICAL_STRIKE_DAMAGE_PERCENT, 25f);
+                rpgEnemy.stats.add(StatType.AMMO_REGEN_PERCENT, 20f);
+                break;
+            case "skirmisher":
+                // hard to pin down — dodges and moves fast
+                rpgEnemy.stats.add(StatType.DODGE_CHANCE_PERCENT, 15f);
+                rpgEnemy.stats.add(StatType.RUN_SPEED_PERCENT, 15f);
+                break;
+            case "zerg":
+                // pure swarm — fast but fragile
+                rpgEnemy.stats.add(StatType.RUN_SPEED_PERCENT, 25f);
+                break;
+            case "caster":
+                // magical threat — resists magic blowback, deals it back
+                rpgEnemy.stats.add(StatType.MAGIC_RESIST_PERCENT, 15f);
+                rpgEnemy.stats.add(StatType.MAGIC_DAMAGE_PERCENT, 20f);
+                break;
+            case "fighter":
+                // well-rounded — small boost across offense
+                rpgEnemy.stats.add(StatType.PHYSICAL_DAMAGE_PERCENT, 10f);
+                break;
+        }
+    }
+    private String capitalize(String s) {
+        if (s == null || s.isEmpty()) return s;
+        return Character.toUpperCase(s.charAt(0)) + s.substring(1);
     }
 }

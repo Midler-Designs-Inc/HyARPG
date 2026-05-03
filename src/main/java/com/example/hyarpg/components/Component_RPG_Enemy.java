@@ -34,6 +34,13 @@ public class Component_RPG_Enemy implements Component<EntityStore> {
     public int level;
     public int monsterRarity = 0;
 
+    // Enemy damage stats
+    public float damageMultiplier = 1;
+    public String damageType = "Physical";
+
+    // Enemy Prefix
+    public String prefix = null;
+
     // stat class to hold affix stats
     public EntityStats stats = new EntityStats();
 
@@ -42,6 +49,9 @@ public class Component_RPG_Enemy implements Component<EntityStore> {
             .builder(Component_RPG_Enemy.class, Component_RPG_Enemy::new)
             .append(new KeyedCodec<>("Level", Codec.INTEGER), (c, v) -> c.level = v, c -> c.level).add()
             .append(new KeyedCodec<>("MonsterRarity", Codec.INTEGER), (c, v) -> c.monsterRarity = v, c -> c.monsterRarity).add()
+            .append(new KeyedCodec<>("DamageMultiplier", Codec.FLOAT), (c, v) -> c.damageMultiplier = v, c -> c.damageMultiplier).add()
+            .append(new KeyedCodec<>("DamageType", Codec.STRING), (c, v) -> c.damageType = v, c -> c.damageType).add()
+            .append(new KeyedCodec<>("Prefix", Codec.STRING), (c, v) -> c.prefix = v, c -> c.prefix).add()
             .build();
 
     // Default no-arg constructor (required for component registration)
@@ -93,7 +103,11 @@ public class Component_RPG_Enemy implements Component<EntityStore> {
     public Component<EntityStore> clone() {
         Component_RPG_Enemy copy = new Component_RPG_Enemy(level);
         copy.monsterRarity = this.monsterRarity;
-        copy.stats = this.stats;
+        copy.damageType = this.damageType;
+        copy.damageMultiplier = this.damageMultiplier;
+        copy.prefix = this.prefix;
+        // merge into the fresh EntityStats instance rather than sharing the reference
+        copy.stats.merge(this.stats);
         return copy;
     }
 }

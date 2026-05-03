@@ -94,6 +94,7 @@ public class Interaction_RezPlayer extends SimpleInstantInteraction {
                             ItemStack stack = graveContainer.getItemContainer().getItemStack(i);
                             if (stack != null && !stack.isEmpty()) storage.getInventory().addItemStack(stack);
                         }
+                        graveContainer.getItemContainer().clear();
                     }
                 }
             }

@@ -138,6 +138,12 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Gear Score", "The average score of your equipped gear. Scales all damage dealt and received."));
         lines.add(bullet("Ability Slots", "E (Primary), R (Secondary), Q (Ultimate). Unlocked from your skill trees."));
         lines.add(spacer());
+        lines.add(heading("Death"));
+        lines.add(plain("Dying is inevitable, but it doesn't have to be the end of the world. When you die you will drop a gravestone at the location of your death."));
+        lines.add(bullet("Allies near your grave can revive you by channeling your grave uninterrupted for 10 seconds."));
+        lines.add(bullet("Your items will be stored in your grave as a lootable container for as long as the gravestone exists. Currently any player is able to loot your gravestone, we might lock it down in the future."));
+        lines.add(bullet("Dying and creating a new gravestone (with your current items), while an old gravestone exists, will cause the old gravestone to break and drop its items on the ground around it."));
+        lines.add(spacer());
         lines.add(heading("Things To Do"));
         lines.add(plain("There is no strict order — explore at your own pace. Some good early goals:"));
         lines.add(bullet("Gather berries and fruit early — they restore both hunger and thirst."));
@@ -152,6 +158,12 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
 
     private List<Line> buildSurvival() {
         List<Line> lines = new ArrayList<>();
+        lines.add(heading("Death"));
+        lines.add(plain("Dying is inevitable, but it doesn't have to be the end of the world. When you die you will drop a gravestone at the location of your death."));
+        lines.add(bullet("Allies near your grave can revive you by channeling your grave uninterrupted for 10 seconds."));
+        lines.add(bullet("Your items will be stored in your grave as a lootable container for as long as the gravestone exists. Currently any player is able to loot your gravestone, we might lock it down in the future."));
+        lines.add(bullet("Dying and creating a new gravestone (with your current items), while an old gravestone exists, will cause the old gravestone to break and drop its items on the ground around it."));
+        lines.add(spacer());
         lines.add(heading("Hunger"));
         lines.add(plain("Hunger drains passively over time. It is restored by eating vanilla foods, which carry T1-T3 hunger restore buffs."));
         lines.add(spacer());

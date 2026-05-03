@@ -41,31 +41,21 @@ public class Listeners_Death extends DeathSystems.OnDeathSystem {
 
     // fired when something dies
     @Override
-    public void onComponentAdded(
-            @NonNullDecl Ref<EntityStore> ref,
-            @NonNullDecl DeathComponent deathComponent,
-            @NonNullDecl Store<EntityStore> store,
-            @NonNullDecl CommandBuffer<EntityStore> commandBuffer
-    ) {
+    public void onComponentAdded(@NonNullDecl Ref<EntityStore> ref, @NonNullDecl DeathComponent deathComponent, @NonNullDecl Store<EntityStore> store, @NonNullDecl CommandBuffer<EntityStore> commandBuffer) {
         // Resolve PlayerRef from the entity
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
         NPCEntity npcEntity = store.getComponent(ref, NPCEntity.getComponentType());
 
         // broadcast player death
         if (playerRef != null)
-            ModEventBus.post(new Event_PlayerDeath(ref, store));
+            ModEventBus.post(new Event_PlayerDeath(ref, store, deathComponent));
         else if (npcEntity != null)
             ModEventBus.post(new Event_NPCDeath(ref, store, commandBuffer));
     }
 
     // fired when player hits respawn
     @Override
-    public void onComponentRemoved(
-            @NonNullDecl Ref<EntityStore> ref,
-            @NonNullDecl DeathComponent component,
-            @NonNullDecl Store<EntityStore> store,
-            @NonNullDecl CommandBuffer<EntityStore> commandBuffer
-    ) {
+    public void onComponentRemoved(@NonNullDecl Ref<EntityStore> ref, @NonNullDecl DeathComponent component, @NonNullDecl Store<EntityStore> store, @NonNullDecl CommandBuffer<EntityStore> commandBuffer) {
         // Resolve PlayerRef from the entity
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
 
@@ -76,6 +66,9 @@ public class Listeners_Death extends DeathSystems.OnDeathSystem {
     @Nonnull
     @Override
     public Set<Dependency<EntityStore>> getDependencies() {
-        return Set.of(new SystemDependency(Order.BEFORE, RoleSystems.BehaviourTickSystem.class));
+        return Set.of(
+            new SystemDependency(Order.AFTER, DeathSystems.PlayerDropItemsConfig.class),
+            new SystemDependency(Order.BEFORE, DeathSystems.DropPlayerDeathItems.class)
+        );
     }
 }

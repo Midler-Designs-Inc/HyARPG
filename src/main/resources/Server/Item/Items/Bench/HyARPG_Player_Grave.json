@@ -1,7 +1,72 @@
 {
+  "TranslationProperties": {
+    "Name": "server.items.Furniture_Village_Chest_Small.name"
+  },
   "PlayerAnimationsId": "Block",
-  "Set": "Furniture_Castle",
   "Icon": "Icons/ItemsGenerated/Furniture_Village_Tombstone.png",
+  "BlockType": {
+    "BlockParticleSetId": "Stone",
+    "BlockSoundSetId": "Stone",
+    "CustomModel": "Blocks/Decorative_Sets/Village/Gravestone.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Decorative_Sets/Village/Gravestone_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "DrawType": "Model",
+    "Flags": {
+      "IsUsable": true
+    },
+    "Material": "Solid",
+    "Opacity": "Transparent",
+    "State": {
+      "Definitions": {
+        "CloseWindow": {
+          "InteractionSoundEventId": "SFX_Chest_Wooden_Close"
+        },
+        "OpenWindow": {
+          "InteractionSoundEventId": "SFX_Chest_Wooden_Open"
+        }
+      }
+    },
+    "BlockEntity": {
+      "Components": {
+        "ItemContainerBlock": {
+          "Capacity": 45
+        }
+      }
+    },
+    "VariantRotation": "NESW",
+    "InteractionHint": "server.interactionHints.playerGrave",
+    "Interactions": {
+      "Use": {
+        "Interactions": [
+          {
+            "Type": "Charging",
+            "RunTime": 10,
+            "HorizontalSpeedMultiplier": 0,
+            "FailOnDamage": true,
+            "DisplayProgress": true,
+            "Next": {
+              "0": {
+                "Type": "OpenContainer"
+              },
+              "0.3": {
+                "Type": "Simple"
+              },
+              "10": {
+                "Type": "Resurrect_Player_At_Grave"
+              }
+            },
+            "AllowIndefiniteHold": false
+          }
+        ],
+        "RequireNewClick": true
+      }
+    },
+    "ParticleColor": "#5b3222"
+  },
   "IconProperties": {
     "Rotation": [
       22.5,
@@ -14,58 +79,5 @@
       -22.7
     ]
   },
-  "BlockType": {
-    "BlockParticleSetId": "Stone",
-    "BlockSoundSetId": "Stone",
-    "CustomModel": "Blocks/Decorative_Sets/Village/Gravestone.blockymodel",
-    "CustomModelTexture": [
-      {
-        "Texture": "Blocks/Decorative_Sets/Village/Gravestone_Texture.png",
-        "Weight": 1
-      }
-    ],
-    "DrawType": "Model",
-    "Flags": {},
-    "HitboxType": "Tombstone_Village",
-    "Material": "Solid",
-    "Opacity": "Transparent",
-    "ParticleColor": "#797668",
-    "SupportDropType": "Destroy",
-    "Support": {
-      "Down": [
-        {
-          "FaceType": "Full"
-        }
-      ]
-    },
-    "VariantRotation": "NESW",
-    "Interactions": {
-      "Use": {
-        "Interactions": [
-          {
-            "Type": "Charging",
-            "RunTime": 10,
-            "HorizontalSpeedMultiplier": 0,
-            "FailOnDamage": true,
-            "DisplayProgress": true,
-            "Next": {
-              "10": {
-                "Type": "Resurrect_Player_At_Grave"
-              }
-            }
-          }
-        ],
-        "RequireNewClick": false
-      }
-    }
-  },
-  "ResourceTypes": [
-    {
-      "Id": "Fuel"
-    },
-    {
-      "Id": "Charcoal"
-    }
-  ],
   "ItemSoundSetId": "ISS_Blocks_Stone"
 }

@@ -3,19 +3,26 @@ package com.example.hyarpg.modules;
 // Hytale Imports
 import com.example.hyarpg.components.Component_Grave;
 import com.example.hyarpg.utils.items.ItemFactory;
+import com.example.hyarpg.utils.rooms.RoomFloodFill;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.math.vector.Vector3f;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
+import com.hypixel.hytale.server.core.asset.type.gameplay.DeathConfig;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.blocktype.component.BlockPhysics;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
+import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.Interaction;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
@@ -109,7 +116,7 @@ public class Module_RPGSystem {
         ModEventBus.register(Event_PlayerInventoryItemUnEquip.class, this::onPlayerInventoryItemUnEquip);
         ModEventBus.register(Event_ContainerSpawned.class, this::onContainerSpawned);
         ModEventBus.register(Event_PlayerDeath.class, this::onPlayerDeath);
-        ModEventBus.register(Event_PlayerRespawn.class, this::onPlayerRespawn);
+//        ModEventBus.register(Event_PlayerRespawn.class, this::onPlayerRespawn);
 
         // Replace the inventory open with our own window
 //        Window.CLIENT_REQUESTABLE_WINDOW_TYPES.put(WindowType.PocketCrafting, () -> new InterceptPocketCraftingWindow());
@@ -378,19 +385,23 @@ public class Module_RPGSystem {
     }
 
     // method for when a player dies
-    public void onPlayerDeath(Event_PlayerDeath event) {
+    private void onPlayerDeath(Event_PlayerDeath event) {
+        // get required components — bail if anything is missing
         Ref<EntityStore> ref = event.getRef();
         Store<EntityStore> store = event.getStore();
-
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
-        if (transform == null) return;
-
         PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
-        if (playerRef == null) return;
-
         Component_RPG_Player rpg = store.getComponent(ref, componentTypeRPGPlayer);
-        if (rpg == null) return;
+        InventoryComponent.Storage storage = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        if (transform == null || playerRef == null || rpg == null || storage == null) return;
 
+        // intercept items before vanilla drops them — they go into the grave instead
+        var deathComponent = event.getDeathComponent();
+        List<ItemStack> itemsToGrave = new ArrayList<>(storage.getInventory().dropAllItemStacks());
+        deathComponent.setItemsLossMode(DeathConfig.ItemsLossMode.NONE);
+        deathComponent.setItemsLostOnDeath(itemsToGrave);
+
+        // capture death position and identity for grave placement
         UUID deadUuid = playerRef.getUuid();
         Vector3d pos = transform.getPosition();
         int x = (int) Math.floor(pos.x);
@@ -399,48 +410,57 @@ public class Module_RPGSystem {
 
         World world = store.getExternalData().getWorld();
         world.execute(() -> {
-            // remove any existing grave for this player first
+            // if a previous grave exists, force load its chunk and remove it — breaking it drops its items
             if (rpg.gravePosition != null) {
                 String[] parts = rpg.gravePosition.split(",");
-                world.breakBlock(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]), 0);
+                int gx = Integer.parseInt(parts[0]);
+                int gy = Integer.parseInt(parts[1]);
+                int gz = Integer.parseInt(parts[2]);
+
+                // force load the chunk so the break can execute regardless of load state
+                long oldChunkIndex = ChunkUtil.indexChunkFromBlock(gx, gz);
+                world.getChunkAsync(oldChunkIndex).thenAccept(oldChunk -> {
+                    if (oldChunk == null) return;
+
+                    // break the old grave — the engine drops its container contents automatically
+                    world.breakBlock(gx, gy, gz, 0);
+                });
             }
 
+            // force load the chunk at the death position so we can place the grave
             long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-            WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-            if (chunk == null) return;
+            world.getChunkAsync(chunkIndex).thenAccept(chunk -> {
+                if (chunk == null) return;
 
-            BlockType blockType = BlockType.getAssetMap().getAsset("HyARPG_Player_Grave");
-            if (blockType == null) return;
+                // resolve the grave block type — bail if not registered
+                BlockType blockType = BlockType.getAssetMap().getAsset("HyARPG_Player_Grave");
+                if (blockType == null) return;
+                int blockIndex = BlockType.getAssetMap().getIndex("HyARPG_Player_Grave");
 
-            int blockIndex = BlockType.getAssetMap().getIndex("HyARPG_Player_Grave");
+                // scan downward from death position to find the ground so the grave doesn't float
+                int groundY = y;
+                for (int scanY = y - 1; scanY >= -30; scanY--) {
+                    BlockType below = BlockType.getAssetMap().getAsset(chunk.getBlock(x, scanY, z));
+                    if (RoomFloodFill.isStructural(below)) { groundY = scanY + 1; break; }
+                }
 
-            Holder<ChunkStore> graveHolder = ChunkStore.REGISTRY.newHolder();
-            graveHolder.addComponent(componentTypeGrave, new Component_Grave(deadUuid, ref));
+                // build the grave holder with the player's identity component and place the block
+                Holder<ChunkStore> graveHolder = ChunkStore.REGISTRY.newHolder();
+                graveHolder.addComponent(componentTypeGrave, new Component_Grave(deadUuid, ref));
 
-            chunk.setState(x, y, z, blockType, 0, graveHolder);
-            chunk.setBlock(x, y, z, blockIndex, blockType, 0, 0, 2);
+                // get the container from the holder, fill it with this death's items, and mark it as non-droppable
+                ItemContainerBlock container = graveHolder.ensureAndGetComponent(ItemContainerBlock.getComponentType());
+                container.setDroplist("Empty");
+                for (ItemStack stack : itemsToGrave) container.getItemContainer().addItemStack(stack);
 
-            // store grave position on player component
-            rpg.gravePosition = x + "," + y + "," + z;
+                // set the block and update it's state
+                chunk.setBlock(x, groundY, z, blockIndex, blockType, 0, 0, 2);
+                chunk.setState(x, groundY, z, blockType, 0, graveHolder);
+
+                // record the grave position on the player component
+                rpg.gravePosition = x + "," + groundY + "," + z;
+            });
         });
-    }
-
-    // method for when a player respawns
-    public void onPlayerRespawn(Event_PlayerRespawn event) {
-        Ref<EntityStore> ref = event.ref();
-        Store<EntityStore> store = event.store();
-
-        Component_RPG_Player rpg = store.getComponent(ref, componentTypeRPGPlayer);
-        if (rpg == null || rpg.gravePosition == null) return;
-
-        String[] parts = rpg.gravePosition.split(",");
-        int x = Integer.parseInt(parts[0]);
-        int y = Integer.parseInt(parts[1]);
-        int z = Integer.parseInt(parts[2]);
-        rpg.gravePosition = null;
-
-        World world = store.getExternalData().getWorld();
-        world.execute(() -> world.breakBlock(x, y, z, 0));
     }
 
     // register an item a player picked up to their discovered list

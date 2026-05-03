@@ -1,15 +1,16 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-import com.example.hyarpg.modules.Module_RPGSystem;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.protocol.BlockPosition;
 import com.hypixel.hytale.protocol.InteractionType;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
+import com.hypixel.hytale.server.core.inventory.InventoryComponent;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.modules.block.components.ItemContainerBlock;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
@@ -19,10 +20,12 @@ import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
+import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.math.vector.Vector3d;
 
 // Mod Imports
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.components.Component_Grave;
 
 // Java Imports
@@ -32,18 +35,10 @@ import java.util.UUID;
 
 public class Interaction_RezPlayer extends SimpleInstantInteraction {
 
-    public static final BuilderCodec<Interaction_RezPlayer> CODEC = BuilderCodec.builder(
-            Interaction_RezPlayer.class,
-            Interaction_RezPlayer::new,
-            SimpleInstantInteraction.CODEC
-    ).build();
+    public static final BuilderCodec<Interaction_RezPlayer> CODEC = BuilderCodec.builder(Interaction_RezPlayer.class, Interaction_RezPlayer::new, SimpleInstantInteraction.CODEC).build();
 
     @Override
-    protected void firstRun(
-            @NonNullDecl InteractionType interactionType,
-            @NonNullDecl InteractionContext context,
-            @NonNullDecl CooldownHandler cooldownHandler
-    ) {
+    protected void firstRun(@NonNullDecl InteractionType interactionType, @NonNullDecl InteractionContext context, @NonNullDecl CooldownHandler cooldownHandler) {
         Ref<EntityStore> rezzingPlayerRef = context.getEntity();
         if (rezzingPlayerRef == null || !rezzingPlayerRef.isValid()) return;
 
@@ -73,24 +68,42 @@ public class Interaction_RezPlayer extends SimpleInstantInteraction {
             Component_Grave grave = bcc.getComponent(blockInColumnIndex, Module_RPGSystem.componentTypeGrave);
             if (grave == null) return;
 
-            // get the dead players UUID
+            // get the dead player — bail if they're not found or already alive
             UUID deadUuid = grave.deadPlayerUuid;
-
-            // break the grave block first
-            world.breakBlock(x, y, z, 0);
-
-            // find the dead player and respawn them at the grave position
             PlayerRef deadPlayerRef = Universe.get().getPlayer(deadUuid);
             if (deadPlayerRef == null) return;
 
             Ref<EntityStore> deadRef = deadPlayerRef.getReference();
             if (deadRef == null || !deadRef.isValid()) return;
 
-            TransformComponent deadTransform = entityStore.getComponent(deadRef, TransformComponent.getComponentType());
-            if (deadTransform != null) {
-                deadTransform.setPosition(new Vector3d(x + 0.5, y, z + 0.5));
+            // bail if the player is not actually dead — no death component means they're alive
+            DeathComponent deathComponent = entityStore.getComponent(deadRef, DeathComponent.getComponentType());
+            if (deathComponent == null) return;
+
+            // get the grave's item container and return all items to the dead player's storage
+            Ref<ChunkStore> graveRef = chunk.getBlockComponentEntity(x, y, z);
+            if (graveRef != null && graveRef.isValid()) {
+                Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
+                ItemContainerBlock graveContainer = chunkStore.getComponent(graveRef, ItemContainerBlock.getComponentType());
+
+                // collect all items from the grave and add them back to the player's storage
+                if (graveContainer != null) {
+                    InventoryComponent.Storage storage = entityStore.getComponent(deadRef, InventoryComponent.Storage.getComponentType());
+                    if (storage != null) {
+                        for (short i = 0; i < graveContainer.getItemContainer().getCapacity(); i++) {
+                            ItemStack stack = graveContainer.getItemContainer().getItemStack(i);
+                            if (stack != null && !stack.isEmpty()) storage.getInventory().addItemStack(stack);
+                        }
+                    }
+                }
             }
 
+            // break the grave block now that items are returned
+            world.breakBlock(x, y, z, 0);
+
+            // reposition the player at the grave and remove their death component to respawn them
+            TransformComponent deadTransform = entityStore.getComponent(deadRef, TransformComponent.getComponentType());
+            if (deadTransform != null) deadTransform.setPosition(new Vector3d(x + 0.5, y, z + 0.5));
             entityStore.removeComponent(deadRef, DeathComponent.getComponentType());
         });
     }

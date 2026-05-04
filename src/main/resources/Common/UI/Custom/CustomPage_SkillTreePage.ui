@@ -1,0 +1,66 @@
+$Common = "Common.ui";
+$SkillTreeNav     = "Skills/Pages/CustomPage_SkillTreeNav.ui";
+$SkillTreeGrid    = "Skills/Pages/CustomPage_SkillTreeGrid.ui";
+$SkillTreeTooltip = "Skills/Pages/CustomPage_SkillTreeTooltip.ui";
+
+SceneBlur {}
+
+Group {
+    Background: #000000(0.55);
+}
+
+Group {
+    LayoutMode: Center;
+
+    Group {
+        Anchor: (Width: 1000);
+        LayoutMode: Top;
+        Padding: (Top: 15);
+
+        // main skill tree window
+        Group {
+            LayoutMode: Top;
+
+            $Common.@Container #SkillTreePanel {
+                #Title {
+                    LayoutMode: Left;
+                    Padding: (Left: 20, Top: 0, Bottom: 0);
+
+                    Label {
+                        Text: "SKILL TREES";
+                        Style: (...$Common.@TitleStyle, TextColor: #5a8ab0, VerticalAlignment: Center);
+                        Anchor: (Height: 38);
+                    }
+
+                    Label #ActiveTreeNameLabel {
+                        Anchor: (Height: 38, Left: 16);
+                        Style: (FontSize: 13, TextColor: #888888, VerticalAlignment: Center);
+                    }
+
+                    Group { FlexWeight: 1; }
+                }
+
+                #Content {
+                    LayoutMode: Left;
+                    Padding: (Left: 5, Top: 3, Bottom: 5, Right: 5);
+
+                    // left column — nav list with inline skill points
+                    $SkillTreeNav.@SkillTreeNav #SkillTreeNavArea {}
+
+                    // vertical separator
+                    $Common.@VerticalSeparator {}
+
+                    // right column — grid with tooltip overlaid in top-right
+                    // tooltip declared after grid so it renders on top without affecting layout
+                    Group {
+                        FlexWeight: 1;
+
+                        $SkillTreeGrid.@SkillTreeGrid #SkillTreeGridArea {}
+
+                        $SkillTreeTooltip.@SkillTreeTooltip #TooltipPanel {}
+                    }
+                }
+            }
+        }
+    }
+}

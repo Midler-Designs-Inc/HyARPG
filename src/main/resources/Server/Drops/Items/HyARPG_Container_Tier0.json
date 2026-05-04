@@ -45,7 +45,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 300,
+                "Weight": 600,
                 "Item": {
                   "ItemId": "Ingredient_Uncommon_Shard_Dust",
                   "QuantityMax": 1
@@ -53,7 +53,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 100,
+                "Weight": 75,
                 "Item": {
                   "ItemId": "Ingredient_Rare_Shard_Dust",
                   "QuantityMax": 1

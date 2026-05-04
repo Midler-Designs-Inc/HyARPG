@@ -1,0 +1,38 @@
+// Tooltip overlay — fixed position outside all layout flow.
+// Shown/hidden by Java on hover. Never participates in parent layout.
+
+@SkillTreeTooltip = Group {
+    Anchor: (Width: 240, Top: 8, Right: -240);
+    Visible: false;
+    Background: #080c12(0.97);
+    LayoutMode: Top;
+    Padding: (Left: 10, Right: 10, Top: 8, Bottom: 10);
+
+    // gold top strip
+    Group {
+        Background: #9c8863(0.6);
+        Anchor: (Height: 2, Bottom: 6);
+    }
+
+    // node display name
+    Label #TooltipTitle {
+        Anchor: (Top: 0);
+        Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true, Wrap: true);
+    }
+
+    // separator
+    Group {
+        Background: #9c8863(0.25);
+        Anchor: (Height: 1, Top: 6, Bottom: 4);
+    }
+
+    // up to 8 content lines
+    Label #TooltipLine1 { Anchor: (Top: 3); Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true); }
+    Label #TooltipLine2 { Anchor: (Top: 2); Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true); }
+    Label #TooltipLine3 { Anchor: (Top: 2); Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true); }
+    Label #TooltipLine4 { Anchor: (Top: 2); Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true); }
+    Label #TooltipLine5 { Anchor: (Top: 2); Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true); }
+    Label #TooltipLine6 { Anchor: (Top: 2); Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true); }
+    Label #TooltipLine7 { Anchor: (Top: 2); Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true); }
+    Label #TooltipLine8 { Anchor: (Top: 2); Style: (FontSize: 11, TextColor: #aaaaaa, Wrap: true); }
+};

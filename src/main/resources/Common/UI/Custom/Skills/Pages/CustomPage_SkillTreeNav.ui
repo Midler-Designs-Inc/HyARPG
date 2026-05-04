@@ -1,0 +1,669 @@
+$Common = "../../Common.ui";
+
+@SkillTreeNav = Group {
+    Anchor: (Width: 190);
+    LayoutMode: Top;
+    Background: #0d141c;
+
+    // skill points — label and value inline on the same row
+    Group {
+        Anchor: (Height: 36, Top: 0);
+        LayoutMode: Left;
+        Padding: (Left: 10, Top: 0);
+
+        Label {
+            Text: "Skill Points:";
+            Style: (FontSize: 11, TextColor: #888888, VerticalAlignment: Center);
+            Anchor: (Height: 36);
+        }
+        Label #SkillPointsLabel {
+            Anchor: (Height: 36, Left: 6);
+            Style: (FontSize: 14, TextColor: #c8a84b, RenderBold: true, VerticalAlignment: Center);
+        }
+    }
+
+    // separator
+    Group { Background: #9c8863(0.3); Anchor: (Height: 1); }
+
+    // scrollable tree list
+    Group {
+        FlexWeight: 1;
+        LayoutMode: TopScrolling;
+
+        Group {
+            LayoutMode: Top;
+            Padding: (Left: 8, Top: 6, Right: 8);
+
+            // nav slot 0
+            Group #NavSlot0 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight0 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn0 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel0 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 1
+            Group #NavSlot1 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight1 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn1 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel1 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 2
+            Group #NavSlot2 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight2 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn2 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel2 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 3
+            Group #NavSlot3 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight3 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn3 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel3 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 4
+            Group #NavSlot4 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight4 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn4 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel4 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 5
+            Group #NavSlot5 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight5 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn5 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel5 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 6
+            Group #NavSlot6 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight6 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn6 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel6 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 7
+            Group #NavSlot7 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight7 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn7 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel7 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 8
+            Group #NavSlot8 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight8 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn8 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel8 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 9
+            Group #NavSlot9 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight9 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn9 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel9 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 10
+            Group #NavSlot10 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight10 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn10 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel10 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 11
+            Group #NavSlot11 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight11 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn11 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel11 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 12
+            Group #NavSlot12 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight12 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn12 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel12 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 13
+            Group #NavSlot13 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight13 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn13 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel13 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 14
+            Group #NavSlot14 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight14 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn14 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel14 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 15
+            Group #NavSlot15 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight15 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn15 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel15 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 16
+            Group #NavSlot16 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight16 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn16 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel16 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 17
+            Group #NavSlot17 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight17 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn17 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel17 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 18
+            Group #NavSlot18 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight18 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn18 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel18 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 19
+            Group #NavSlot19 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight19 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn19 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel19 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 20
+            Group #NavSlot20 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight20 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn20 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel20 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 21
+            Group #NavSlot21 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight21 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn21 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel21 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 22
+            Group #NavSlot22 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight22 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn22 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel22 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 23
+            Group #NavSlot23 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight23 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn23 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel23 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 24
+            Group #NavSlot24 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight24 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn24 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel24 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 25
+            Group #NavSlot25 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight25 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn25 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel25 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 26
+            Group #NavSlot26 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight26 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn26 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel26 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 27
+            Group #NavSlot27 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight27 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn27 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel27 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 28
+            Group #NavSlot28 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight28 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn28 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel28 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // nav slot 29
+            Group #NavSlot29 {
+                Anchor: (Height: 36, Bottom: 4);
+                Visible: false;
+
+                // active highlight
+                Group #NavActiveHighlight29 {
+                    Anchor: (Full: 0);
+                    Visible: false;
+                    Background: #1e3a5f;
+                }
+
+                Button #NavBtn29 {
+                    Anchor: (Full: 0);
+                    Label #NavBtnLabel29 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 12, TextColor: #cccccc, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+        }
+    }
+};

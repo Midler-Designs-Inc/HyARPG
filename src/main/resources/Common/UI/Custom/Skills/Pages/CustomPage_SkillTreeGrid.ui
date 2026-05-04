@@ -1,0 +1,3786 @@
+$Common = "../../Common.ui";
+
+@SkillTreeGrid = Group {
+    FlexWeight: 1;
+    LayoutMode: Top;
+
+    // scrollable grid — explicit height, scrollbar matches other pages
+    Group {
+        Anchor: (Height: 700, Horizontal: 0, Top: 0);
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+        Padding: 10;
+
+        Group {
+            LayoutMode: Top;
+            Padding: (Top: 10, Right: 10);
+
+            // row 0
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 138, Bottom: 4);
+
+                // cell R0C0 — always rendered so empty cells hold their space
+                Button #NodeCellR0C0 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C0 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C0 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C0 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C0 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C0 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C0 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C0 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C0 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C0 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R0C1 — always rendered so empty cells hold their space
+                Button #NodeCellR0C1 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C1 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C1 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C1 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C1 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C1 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C1 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C1 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C1 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C1 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R0C2 — always rendered so empty cells hold their space
+                Button #NodeCellR0C2 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C2 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C2 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C2 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C2 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C2 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C2 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C2 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C2 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C2 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R0C3 — always rendered so empty cells hold their space
+                Button #NodeCellR0C3 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C3 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C3 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C3 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C3 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C3 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C3 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C3 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C3 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C3 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R0C4 — always rendered so empty cells hold their space
+                Button #NodeCellR0C4 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C4 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C4 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C4 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C4 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C4 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C4 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C4 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C4 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C4 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R0C5 — always rendered so empty cells hold their space
+                Button #NodeCellR0C5 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C5 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C5 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C5 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C5 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C5 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C5 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C5 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C5 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C5 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R0C6 — always rendered so empty cells hold their space
+                Button #NodeCellR0C6 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C6 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C6 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C6 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C6 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C6 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C6 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C6 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C6 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C6 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R0C7 — always rendered so empty cells hold their space
+                Button #NodeCellR0C7 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C7 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C7 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C7 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C7 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C7 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C7 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C7 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C7 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C7 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R0C8 — always rendered so empty cells hold their space
+                Button #NodeCellR0C8 {
+                    Anchor: (Width: 80, Height: 138);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR0C8 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR0C8 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR0C8 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR0C8 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR0C8 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR0C8 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR0C8 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR0C8 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR0C8 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+            }
+
+            // row 1
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 138, Bottom: 4);
+
+                // cell R1C0 — always rendered so empty cells hold their space
+                Button #NodeCellR1C0 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C0 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C0 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C0 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C0 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C0 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C0 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C0 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C0 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C0 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R1C1 — always rendered so empty cells hold their space
+                Button #NodeCellR1C1 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C1 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C1 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C1 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C1 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C1 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C1 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C1 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C1 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C1 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R1C2 — always rendered so empty cells hold their space
+                Button #NodeCellR1C2 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C2 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C2 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C2 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C2 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C2 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C2 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C2 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C2 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C2 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R1C3 — always rendered so empty cells hold their space
+                Button #NodeCellR1C3 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C3 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C3 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C3 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C3 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C3 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C3 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C3 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C3 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C3 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R1C4 — always rendered so empty cells hold their space
+                Button #NodeCellR1C4 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C4 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C4 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C4 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C4 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C4 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C4 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C4 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C4 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C4 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R1C5 — always rendered so empty cells hold their space
+                Button #NodeCellR1C5 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C5 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C5 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C5 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C5 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C5 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C5 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C5 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C5 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C5 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R1C6 — always rendered so empty cells hold their space
+                Button #NodeCellR1C6 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C6 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C6 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C6 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C6 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C6 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C6 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C6 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C6 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C6 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R1C7 — always rendered so empty cells hold their space
+                Button #NodeCellR1C7 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C7 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C7 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C7 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C7 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C7 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C7 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C7 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C7 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C7 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R1C8 — always rendered so empty cells hold their space
+                Button #NodeCellR1C8 {
+                    Anchor: (Width: 80, Height: 138);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR1C8 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR1C8 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR1C8 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR1C8 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR1C8 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR1C8 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR1C8 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR1C8 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR1C8 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+            }
+
+            // row 2
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 138, Bottom: 4);
+
+                // cell R2C0 — always rendered so empty cells hold their space
+                Button #NodeCellR2C0 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C0 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C0 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C0 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C0 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C0 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C0 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C0 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C0 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C0 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R2C1 — always rendered so empty cells hold their space
+                Button #NodeCellR2C1 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C1 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C1 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C1 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C1 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C1 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C1 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C1 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C1 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C1 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R2C2 — always rendered so empty cells hold their space
+                Button #NodeCellR2C2 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C2 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C2 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C2 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C2 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C2 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C2 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C2 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C2 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C2 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R2C3 — always rendered so empty cells hold their space
+                Button #NodeCellR2C3 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C3 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C3 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C3 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C3 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C3 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C3 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C3 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C3 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C3 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R2C4 — always rendered so empty cells hold their space
+                Button #NodeCellR2C4 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C4 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C4 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C4 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C4 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C4 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C4 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C4 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C4 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C4 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R2C5 — always rendered so empty cells hold their space
+                Button #NodeCellR2C5 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C5 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C5 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C5 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C5 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C5 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C5 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C5 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C5 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C5 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R2C6 — always rendered so empty cells hold their space
+                Button #NodeCellR2C6 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C6 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C6 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C6 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C6 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C6 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C6 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C6 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C6 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C6 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R2C7 — always rendered so empty cells hold their space
+                Button #NodeCellR2C7 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C7 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C7 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C7 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C7 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C7 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C7 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C7 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C7 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C7 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R2C8 — always rendered so empty cells hold their space
+                Button #NodeCellR2C8 {
+                    Anchor: (Width: 80, Height: 138);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR2C8 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR2C8 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR2C8 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR2C8 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR2C8 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR2C8 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR2C8 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR2C8 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR2C8 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+            }
+
+            // row 3
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 138, Bottom: 4);
+
+                // cell R3C0 — always rendered so empty cells hold their space
+                Button #NodeCellR3C0 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C0 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C0 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C0 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C0 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C0 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C0 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C0 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C0 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C0 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R3C1 — always rendered so empty cells hold their space
+                Button #NodeCellR3C1 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C1 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C1 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C1 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C1 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C1 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C1 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C1 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C1 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C1 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R3C2 — always rendered so empty cells hold their space
+                Button #NodeCellR3C2 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C2 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C2 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C2 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C2 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C2 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C2 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C2 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C2 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C2 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R3C3 — always rendered so empty cells hold their space
+                Button #NodeCellR3C3 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C3 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C3 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C3 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C3 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C3 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C3 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C3 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C3 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C3 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R3C4 — always rendered so empty cells hold their space
+                Button #NodeCellR3C4 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C4 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C4 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C4 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C4 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C4 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C4 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C4 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C4 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C4 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R3C5 — always rendered so empty cells hold their space
+                Button #NodeCellR3C5 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C5 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C5 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C5 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C5 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C5 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C5 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C5 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C5 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C5 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R3C6 — always rendered so empty cells hold their space
+                Button #NodeCellR3C6 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C6 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C6 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C6 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C6 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C6 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C6 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C6 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C6 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C6 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R3C7 — always rendered so empty cells hold their space
+                Button #NodeCellR3C7 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C7 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C7 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C7 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C7 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C7 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C7 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C7 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C7 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C7 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R3C8 — always rendered so empty cells hold their space
+                Button #NodeCellR3C8 {
+                    Anchor: (Width: 80, Height: 138);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR3C8 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR3C8 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR3C8 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR3C8 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR3C8 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR3C8 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR3C8 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR3C8 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR3C8 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+            }
+
+            // row 4
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 138, Bottom: 4);
+
+                // cell R4C0 — always rendered so empty cells hold their space
+                Button #NodeCellR4C0 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C0 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C0 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C0 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C0 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C0 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C0 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C0 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C0 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C0 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R4C1 — always rendered so empty cells hold their space
+                Button #NodeCellR4C1 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C1 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C1 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C1 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C1 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C1 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C1 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C1 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C1 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C1 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R4C2 — always rendered so empty cells hold their space
+                Button #NodeCellR4C2 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C2 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C2 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C2 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C2 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C2 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C2 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C2 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C2 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C2 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R4C3 — always rendered so empty cells hold their space
+                Button #NodeCellR4C3 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C3 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C3 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C3 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C3 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C3 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C3 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C3 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C3 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C3 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R4C4 — always rendered so empty cells hold their space
+                Button #NodeCellR4C4 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C4 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C4 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C4 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C4 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C4 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C4 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C4 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C4 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C4 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R4C5 — always rendered so empty cells hold their space
+                Button #NodeCellR4C5 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C5 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C5 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C5 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C5 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C5 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C5 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C5 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C5 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C5 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R4C6 — always rendered so empty cells hold their space
+                Button #NodeCellR4C6 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C6 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C6 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C6 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C6 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C6 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C6 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C6 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C6 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C6 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R4C7 — always rendered so empty cells hold their space
+                Button #NodeCellR4C7 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C7 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C7 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C7 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C7 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C7 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C7 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C7 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C7 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C7 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R4C8 — always rendered so empty cells hold their space
+                Button #NodeCellR4C8 {
+                    Anchor: (Width: 80, Height: 138);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR4C8 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR4C8 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR4C8 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR4C8 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR4C8 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR4C8 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR4C8 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR4C8 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR4C8 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+            }
+
+            // row 5
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 138, Bottom: 4);
+
+                // cell R5C0 — always rendered so empty cells hold their space
+                Button #NodeCellR5C0 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C0 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C0 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C0 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C0 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C0 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C0 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C0 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C0 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C0 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R5C1 — always rendered so empty cells hold their space
+                Button #NodeCellR5C1 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C1 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C1 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C1 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C1 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C1 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C1 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C1 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C1 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C1 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R5C2 — always rendered so empty cells hold their space
+                Button #NodeCellR5C2 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C2 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C2 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C2 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C2 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C2 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C2 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C2 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C2 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C2 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R5C3 — always rendered so empty cells hold their space
+                Button #NodeCellR5C3 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C3 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C3 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C3 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C3 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C3 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C3 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C3 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C3 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C3 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R5C4 — always rendered so empty cells hold their space
+                Button #NodeCellR5C4 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C4 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C4 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C4 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C4 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C4 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C4 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C4 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C4 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C4 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R5C5 — always rendered so empty cells hold their space
+                Button #NodeCellR5C5 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C5 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C5 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C5 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C5 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C5 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C5 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C5 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C5 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C5 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R5C6 — always rendered so empty cells hold their space
+                Button #NodeCellR5C6 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C6 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C6 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C6 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C6 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C6 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C6 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C6 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C6 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C6 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R5C7 — always rendered so empty cells hold their space
+                Button #NodeCellR5C7 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C7 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C7 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C7 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C7 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C7 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C7 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C7 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C7 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C7 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R5C8 — always rendered so empty cells hold their space
+                Button #NodeCellR5C8 {
+                    Anchor: (Width: 80, Height: 138);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR5C8 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR5C8 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR5C8 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR5C8 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR5C8 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR5C8 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR5C8 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR5C8 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR5C8 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+            }
+
+            // row 6
+            Group {
+                LayoutMode: Left;
+                Anchor: (Height: 138, Bottom: 4);
+
+                // cell R6C0 — always rendered so empty cells hold their space
+                Button #NodeCellR6C0 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C0 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C0 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C0 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C0 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C0 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C0 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C0 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C0 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C0 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R6C1 — always rendered so empty cells hold their space
+                Button #NodeCellR6C1 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C1 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C1 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C1 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C1 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C1 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C1 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C1 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C1 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C1 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R6C2 — always rendered so empty cells hold their space
+                Button #NodeCellR6C2 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C2 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C2 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C2 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C2 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C2 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C2 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C2 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C2 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C2 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R6C3 — always rendered so empty cells hold their space
+                Button #NodeCellR6C3 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C3 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C3 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C3 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C3 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C3 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C3 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C3 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C3 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C3 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R6C4 — always rendered so empty cells hold their space
+                Button #NodeCellR6C4 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C4 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C4 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C4 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C4 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C4 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C4 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C4 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C4 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C4 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R6C5 — always rendered so empty cells hold their space
+                Button #NodeCellR6C5 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C5 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C5 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C5 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C5 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C5 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C5 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C5 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C5 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C5 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R6C6 — always rendered so empty cells hold their space
+                Button #NodeCellR6C6 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C6 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C6 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C6 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C6 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C6 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C6 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C6 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C6 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C6 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R6C7 — always rendered so empty cells hold their space
+                Button #NodeCellR6C7 {
+                    Anchor: (Width: 80, Height: 138, Right: 4);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C7 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C7 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C7 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C7 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C7 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C7 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C7 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C7 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C7 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+                // cell R6C8 — always rendered so empty cells hold their space
+                Button #NodeCellR6C8 {
+                    Anchor: (Width: 80, Height: 138);
+                    LayoutMode: Top;
+
+                    // icon and lock overlay share the same fixed area
+                    Group #NodeIconAreaR6C8 {
+                        Anchor: (Width: 64, Height: 64, Top: 0);
+                        Visible: false;
+
+                        Group #NodeIconR6C8 { Anchor: (Full: 0); }
+
+                        // lock overlay on top of icon
+                        Group #NodeLockOverlayR6C8 {
+                            Anchor: (Full: 0);
+                            Visible: false;
+                            Background: "../Icons/Skills_Locked_Overlay.png";
+                        }
+                    }
+
+                    // rank label e.g. 3/10
+                    Label #NodeRankLabelR6C8 {
+                        Anchor: (Top: 2, Height: 16);
+                        Visible: false;
+                        Style: (FontSize: 11, TextColor: #aaaaaa, Alignment: Center);
+                    }
+
+                    // invest button
+                    $Common.@SecondaryTextButton #NodePlusBtnR6C8 {
+                        @Text = "+";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // Q button — ultimate ability equip
+                    $Common.@SecondaryTextButton #NodeQBtnR6C8 {
+                        @Text = "Q";
+                        @Anchor = (Height: 24, Top: 2, Horizontal: 4);
+                        Visible: false;
+                    }
+
+                    // E + R side by side — non-ultimate ability equip
+                    Group #NodeERBtnsR6C8 {
+                        Anchor: (Height: 24, Top: 10, Horizontal: 4);
+                        LayoutMode: Left;
+                        Visible: false;
+
+                        $Common.@SecondaryTextButton #NodeEBtnR6C8 {
+                            @Text = "E";
+                            @Anchor = (Right: 2);
+                            FlexWeight: 1;
+                        }
+                        $Common.@SecondaryTextButton #NodeRBtnR6C8 {
+                            @Text = "R";
+                            FlexWeight: 1;
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
+};

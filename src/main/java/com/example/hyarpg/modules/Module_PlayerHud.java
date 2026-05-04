@@ -189,15 +189,15 @@ public class Module_PlayerHud {
                                     "SP " + rpgPlayer.skillPoints + "  |  GS " + String.valueOf(gearScore) + "  |  Lv " + String.valueOf(playerLevel)
                             ));
                             hudRef.getById("skillIcon_Q", ImageBuilder.class).ifPresent(l -> l
-                                    .withImage(rpgPlayer.ultimateAbilityIcon == null ? "" : "Skill_Icons/" + rpgPlayer.ultimateAbilityIcon)
+                                    .withImage(rpgPlayer.ultimateAbilityIcon == null ? "" : "Skills/Icons/" + rpgPlayer.ultimateAbilityIcon)
                                     .withVisible(rpgPlayer.ultimateAbilityIcon != null)
                             );
                             hudRef.getById("skillIcon_E", ImageBuilder.class).ifPresent(l -> l
-                                    .withImage(rpgPlayer.primaryAbilityIcon == null ? "" : "Skill_Icons/" + rpgPlayer.primaryAbilityIcon)
+                                    .withImage(rpgPlayer.primaryAbilityIcon == null ? "" : "Skills/Icons/" + rpgPlayer.primaryAbilityIcon)
                                     .withVisible(rpgPlayer.primaryAbilityIcon != null)
                             );
                             hudRef.getById("skillIcon_R", ImageBuilder.class).ifPresent(l -> l
-                                    .withImage(rpgPlayer.secondaryAbilityIcon == null ? "" : "Skill_Icons/" + rpgPlayer.secondaryAbilityIcon)
+                                    .withImage(rpgPlayer.secondaryAbilityIcon == null ? "" : "Skills/Icons/" + rpgPlayer.secondaryAbilityIcon)
                                     .withVisible(rpgPlayer.secondaryAbilityIcon != null)
                             );
                             hudRef.getById("skillSlotOverlay_Label_E", LabelBuilder.class).ifPresent(l -> l
@@ -752,7 +752,7 @@ public class Module_PlayerHud {
             )
             .withPadding(new HyUIPadding().setRight(676))
             .withVisible(false)
-            .withImage("Skill_Icons/Assassin_Ability_AssassinsMark.png")
+            .withImage("Skills/Icons/Assassin_Ability_AssassinsMark.png")
         )
         .addElement(new LabelBuilder()
             .withId("assassinMark_Count")

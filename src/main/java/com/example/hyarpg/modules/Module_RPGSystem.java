@@ -229,19 +229,19 @@ public class Module_RPGSystem {
         rpgEnemy.applyAffixes(affixes.toArray(new Affix[0]));
 
         // 25% chance to roll a prefix — applies a flat damage bonus of the prefix type
-        if (random.nextFloat() < 0.25f) {
+        if (random.nextFloat() < ModConfig.get().enemies.prefix_chance) {
             String[][] prefixes = {
-                    {"Flameborne", "Fire"},
-                    {"Iceborne", "Ice"},
-                    {"Skyborne", "Lightning"},
-                    {"Filthborne", "Poison"},
-                    {"Strengthborne", "Physical"},
-                    {"Aetherborne", "Magic"}
+                {"Flameborne", "Fire"},
+                {"Iceborne", "Ice"},
+                {"Skyborne", "Lightning"},
+                {"Filthborne", "Poison"},
+                {"Strengthborne", "Physical"},
+                {"Aetherborne", "Magic"}
             };
             String[] chosen = prefixes[random.nextInt(prefixes.length)];
             rpgEnemy.prefix = chosen[0];
 
-            // apply flat damage of 2 * level for the prefix damage type
+            // apply flat damage * level for the prefix damage type
             StatType prefixStat = switch (chosen[1]) {
                 case "Fire"     -> StatType.FIRE_DAMAGE_FLAT;
                 case "Ice"      -> StatType.ICE_DAMAGE_FLAT;
@@ -251,7 +251,7 @@ public class Module_RPGSystem {
                 case "Magic"    -> StatType.MAGIC_DAMAGE_FLAT;
                 default         -> null;
             };
-            if (prefixStat != null) rpgEnemy.stats.add(prefixStat, 2f * rpgEnemy.level);
+            if (prefixStat != null) rpgEnemy.stats.add(prefixStat, ModConfig.get().combat.enemy_prefix_damage * rpgEnemy.level);
         }
 
         // check if this NPC is in our enemy registry — skip extra setup if not

@@ -332,7 +332,7 @@ public class Module_CombatSystem {
             // if attacker is a known enemy replace vanilla damage with their level-scaled base hit
             float baseDamage = damage.getInitialAmount();
             if (attackerRPGEnemy != null && attackerRPGEnemy.damageType != null) {
-                baseDamage = attackerRPGEnemy.level * 10f * attackerRPGEnemy.damageMultiplier;
+                baseDamage = attackerRPGEnemy.level * ModConfig.get().combat.enemy_base_damage * attackerRPGEnemy.damageMultiplier;
                 DamageCause enemyCause = DamageCause.getAssetMap().getAsset(attackerRPGEnemy.damageType);
                 if (enemyCause != null) cause = enemyCause;
             }

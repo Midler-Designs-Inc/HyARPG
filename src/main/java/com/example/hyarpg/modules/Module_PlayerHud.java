@@ -10,6 +10,7 @@ import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
+import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
@@ -74,6 +75,7 @@ public class Module_PlayerHud {
         createRoomHud(world, entityRef, store);
         createRaidHud(world, entityRef, store);
         createMarkHud(world, entityRef, store);
+        createWorldTierHud(world, entityRef, store);
 
         // create the hud refresh logic
         startHUDRefresh(world, entityRef, store);
@@ -267,6 +269,34 @@ public class Module_PlayerHud {
                                 hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withText(countdownFinal));
                                 hudRef.getById("raidHud_RemainingEnemies", LabelBuilder.class).ifPresent(b -> b.withText(String.valueOf(enemiesRemaining) + " Enemies Remain"));
                             }
+
+                            // calculate world tier and avg enemy level from player's current distance from origin
+                            TransformComponent playerTransform = store.getComponent(entityRef, TransformComponent.getComponentType());
+                            int worldTier = 0;
+                            int avgEnemyLevel = 1;
+                            if (playerTransform != null) {
+                                double pdx = playerTransform.getPosition().x - ModConfig.get().world.origin_spawn_point_x;
+                                double pdy = playerTransform.getPosition().y - ModConfig.get().world.origin_spawn_point_y;
+                                double pdz = playerTransform.getPosition().z - ModConfig.get().world.origin_spawn_point_z;
+                                double playerDistance = Math.sqrt(pdx * pdx + pdy * pdy + pdz * pdz);
+
+                                // tier thresholds match the container spawn logic
+                                if (playerDistance >= ModConfig.get().world.min_distance_for_mithril_spawn)         worldTier = 6;
+                                else if (playerDistance >= ModConfig.get().world.min_distance_for_adamantite_spawn)  worldTier = 5;
+                                else if (playerDistance >= ModConfig.get().world.min_distance_for_cobalt_spawn)      worldTier = 4;
+                                else if (playerDistance >= ModConfig.get().world.min_distance_for_thorium_spawn)     worldTier = 3;
+                                else if (playerDistance >= ModConfig.get().world.min_distance_for_iron_spawn)        worldTier = 2;
+                                else if (playerDistance >= ModConfig.get().world.min_distance_for_copper_spawn)      worldTier = 1;
+
+                                // base enemy level without variance — matches calculateEnemyLevel but display-only
+                                avgEnemyLevel = Math.max(1, (int)(playerDistance / ModConfig.get().enemies.blocks_per_level_threshold) + 1);
+                            }
+
+                            // update world tier and avg enemy level labels
+                            final int worldTierFinal = worldTier;
+                            final int avgEnemyLevelFinal = avgEnemyLevel;
+                            hudRef.getById("worldTier_Label", LabelBuilder.class).ifPresent(l -> l.withText("World Tier " + worldTierFinal));
+                            hudRef.getById("worldTier_EnemyLevel", LabelBuilder.class).ifPresent(l -> l.withText("Avg Enemy Lv " + avgEnemyLevelFinal));
 
                             // determine if we should show the room info or not
                             boolean showRoomInfo = ModConfig.get().building.allow_light_well_territory_claim && rpgPlayer.territory != null;
@@ -739,6 +769,41 @@ public class Module_PlayerHud {
             .withPadding(new HyUIPadding().setLeft(-317))
             .withVisible(false)
             .withText("0")
+        );
+    }
+
+    // function to show the players world tier and average enemy level in the bottom left
+    private void createWorldTierHud(World world, Ref<EntityStore> entityRef, Store<EntityStore> store) {
+        hud.addElement(new LabelBuilder()
+            .withId("worldTier_Label")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(120)
+                .setHeight(20)
+                .setBottom(41)
+                .setLeft(25)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(16)
+                .setTextColor("#999999")
+                .setRenderBold(true)
+            )
+            .withText("World Tier 0")
+        );
+
+        hud.addElement(new LabelBuilder()
+            .withId("worldTier_EnemyLevel")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(120)
+                .setHeight(14)
+                .setBottom(25)
+                .setLeft(25)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(10)
+                .setTextColor("#666666")
+                .setRenderBold(false)
+            )
+            .withText("Avg Enemy Lv 1")
         );
     }
 }

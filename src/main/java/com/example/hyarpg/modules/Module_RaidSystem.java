@@ -28,6 +28,7 @@ import com.hypixel.hytale.server.npc.NPCPlugin;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 
 // Mod Imports
+import com.example.hyarpg.components.Component_RPG_Enemy;
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.utils.rooms.RoomFloodFill;
@@ -235,25 +236,27 @@ public class Module_RaidSystem {
     // Active raid groups — CopyOnWriteArrayList for thread safety between scheduler and world executor threads
     private final List<RaidGroup> activeRaids = new CopyOnWriteArrayList<>();
 
-    // Tracks a single active raid's spawned NPCs, target players, and end time
-    private static class RaidGroup {
-        final List<Ref<EntityStore>> targetPlayerRefs; // all online owners/co-owners for base raids, single entry for player raids
+    // Tracks a single active raid's spawned NPCs, target players, wave state, and level
+    private class RaidGroup {
+        final List<Ref<EntityStore>> targetPlayerRefs;
         final boolean isBaseRaid;
         final World world;
         final List<Ref<EntityStore>> npcRefs = new ArrayList<>();
         final long raidEndMs;
         final int waveCount;
         final RaidHudState hudState;
-        final TerritoryData territory; // null for player raids
+        final TerritoryData territory;
         final RaidDefinition definition;
+        final int raidLevel; // average level of online stakeholders at raid start
 
-        RaidGroup(List<Ref<EntityStore>> targetPlayerRefs, boolean isBaseRaid, World world, RaidDefinition definition, TerritoryData territory) {
+        RaidGroup(List<Ref<EntityStore>> targetPlayerRefs, boolean isBaseRaid, World world, RaidDefinition definition, TerritoryData territory, int raidLevel) {
             this.targetPlayerRefs = new ArrayList<>(targetPlayerRefs);
             this.isBaseRaid = isBaseRaid;
             this.world = world;
             this.definition = definition;
             this.waveCount = definition.waves.size();
             this.territory = territory;
+            this.raidLevel = raidLevel;
 
             this.raidEndMs = System.currentTimeMillis()
                     + ((long) ModConfig.get().raids.seconds_before_first_wave * 1000L)
@@ -261,33 +264,56 @@ public class Module_RaidSystem {
                     + ((long) ModConfig.get().raids.seconds_after_last_wave_before_raid_end * 1000L);
             long firstWaveSpawnAtMs = System.currentTimeMillis()
                     + ((long) ModConfig.get().raids.seconds_before_first_wave * 1000L);
-            this.hudState = new RaidHudState(waveCount, firstWaveSpawnAtMs, raidEndMs, ModConfig.get().raids.seconds_between_waves);
+            this.hudState = new RaidHudState(waveCount, firstWaveSpawnAtMs, raidEndMs, ModConfig.get().raids.seconds_between_waves, this);
         }
 
         void addNpc(Ref<EntityStore> npcRef) { npcRefs.add(npcRef); }
 
-        void pruneDeadNpcs() { npcRefs.removeIf(ref -> !ref.isValid()); }
+        public void pruneDeadNpcs() { npcRefs.removeIf(ref -> !ref.isValid()); }
 
-        boolean isAlive() {
-            for (Ref<EntityStore> ref : npcRefs) if (ref.isValid()) return true;
-            return false;
+        int livingNpcCount() {
+            int count = 0;
+            for (Ref<EntityStore> ref : npcRefs) if (ref.isValid()) count++;
+            return count;
+        }
+
+        boolean isAlive() { return livingNpcCount() > 0; }
+
+        // prunes dead refs, checks for early completion, and ends the raid if all waves spawned and all enemies are dead
+        void pruneAndCheckCompletion(World world) {
+            pruneDeadNpcs();
+            if (livingNpcCount() > 0 || hudState.currentWave < waveCount) return;
+
+            // all waves spawned and all enemies killed — end the raid early
+            onRaidEnd(this, world);
         }
     }
 
-    // Public snapshot of raid state for the HUD to read — set on the player component during an active raid
+    // Public snapshot of raid state for the HUD — set on the player component during an active raid
     public static class RaidHudState {
         public final int totalWaves;
         public final long firstWaveSpawnAtMs;
         public final long raidEndMs;
         public final int secondsBetweenWaves;
         public volatile int currentWave;
+        public volatile int enemiesRemaining;
+        final RaidGroup raidGroup;
 
-        RaidHudState(int totalWaves, long firstWaveSpawnAtMs, long raidEndMs, int secondsBetweenWaves) {
+        RaidHudState(int totalWaves, long firstWaveSpawnAtMs, long raidEndMs, int secondsBetweenWaves, RaidGroup raidGroup) {
             this.totalWaves = totalWaves;
             this.firstWaveSpawnAtMs = firstWaveSpawnAtMs;
             this.raidEndMs = raidEndMs;
             this.secondsBetweenWaves = secondsBetweenWaves;
             this.currentWave = 0;
+            this.enemiesRemaining = 0;
+            this.raidGroup = raidGroup;
+        }
+
+        // prunes dead NPC refs and returns the current live enemy count — ends the raid early if all enemies are killed
+        public int getLiveEnemyCount(World world) {
+            if (raidGroup == null) return 0;
+            raidGroup.pruneAndCheckCompletion(world);
+            return raidGroup.livingNpcCount();
         }
     }
 
@@ -300,9 +326,11 @@ public class Module_RaidSystem {
     private RaidDefinition rollRaidDefinition() {
         if (RAID_REGISTRY.isEmpty()) return null;
 
+        // sum total weight across all definitions
         int totalWeight = 0;
         for (RaidDefinition def : RAID_REGISTRY) totalWeight += def.weight;
 
+        // walk the list accumulating weight until we exceed the roll
         int roll = random.nextInt(totalWeight);
         int accumulated = 0;
         for (RaidDefinition def : RAID_REGISTRY) {
@@ -310,6 +338,7 @@ public class Module_RaidSystem {
             if (roll < accumulated) return def;
         }
 
+        // fallback — should never be reached if weights are valid
         return RAID_REGISTRY.get(0);
     }
 
@@ -322,17 +351,30 @@ public class Module_RaidSystem {
         return null;
     }
 
+    // Calculates the average player level across a set of entity refs — used to set raid enemy level
+    private int calculateRaidLevel(Store<EntityStore> store, List<Ref<EntityStore>> ownerRefs) {
+        int total = 0;
+        int count = 0;
+        for (Ref<EntityStore> ref : ownerRefs) {
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
+            if (rpgPlayer != null) { total += rpgPlayer.level; count++; }
+        }
+        return count > 0 ? Math.round((float) total / count) : 1;
+    }
+
     // Outer tick — called externally several times per second
     public void outerTick() {
         if (!ModConfig.get().building.allow_light_well_territory_claim) return;
 
+        // run the inner evaluation tick once per minute
         long secondsSinceLastTick = Instant.now().getEpochSecond() - lastInnerTick.getEpochSecond();
         if (secondsSinceLastTick >= INNER_TICK_INTERVAL_SECONDS) innerTick();
 
+        // keep active raid chunks ticking every outer tick
         tickActiveRaids();
     }
 
-    // Inner tick — runs once per minute, evaluates territories for base raids and players for player raids independently
+    // Inner tick — evaluates territories for base raids and players for player raids once per minute
     private void innerTick() {
         lastInnerTick = Instant.now();
 
@@ -342,189 +384,204 @@ public class Module_RaidSystem {
         for (World world : Universe.get().getWorlds().values().toArray(new World[0])) {
             world.execute(() -> {
                 Store<EntityStore> store = world.getEntityStore().getStore();
+
+                // bail if no registry exists for this world
                 WorldRoomRegistry registry = WorldRoomRegistry.get(world);
                 if (registry == null) return;
 
-                // --- Base raid flow: loop over territories --- //
-                if (ModConfig.get().raids.allow_base_raids) {
-                    for (TerritoryData territory : registry.getAllTerritories()) {
-                        try {
-                            // collect all online owners/co-owners for this territory
-                            List<PlayerRef> onlineStakeholders = getOnlineStakeholders(territory);
+                // evaluate each territory for a potential base raid
+                if (ModConfig.get().raids.allow_base_raids) evaluateBaseRaids(store, world, registry, nowEpochSeconds, raidCooldownSeconds);
 
-                            // no owners online — mark skipped to pause the raid clock and move on
-                            if (onlineStakeholders.isEmpty()) {
-                                territory.markSkipped(nowEpochSeconds);
-                                registry.saveAsync(world);
-                                continue;
-                            }
-
-                            // at least one owner online — resume the clock if it was paused
-                            territory.resumeOnline(nowEpochSeconds);
-
-                            // pre-roll a raid definition for this territory if it doesn't have one yet
-                            if (territory.nextRaid == null) {
-                                RaidDefinition rolled = rollRaidDefinition();
-                                if (rolled != null) territory.nextRaid = rolled.name;
-                                registry.saveAsync(world);
-                            }
-
-                            // resolve the queued definition
-                            RaidDefinition nextDefinition = findDefinitionByName(territory.nextRaid);
-                            if (nextDefinition == null) continue;
-
-                            // skip if this territory is already being actively raided
-                            boolean alreadyRaiding = activeRaids.stream().anyMatch(g -> g.isBaseRaid && g.territory == territory);
-                            if (alreadyRaiding) continue;
-
-                            // skip if the territory hasn't earned enough online time yet
-                            if (!territory.isRaidEligible(nowEpochSeconds, raidCooldownSeconds)) continue;
-
-                            // resolve entity refs for all online stakeholders
-                            List<Ref<EntityStore>> onlineOwnerRefs = new ArrayList<>();
-                            for (PlayerRef pr : onlineStakeholders) {
-                                Ref<EntityStore> ref = pr.getReference();
-                                if (ref != null) onlineOwnerRefs.add(ref);
-                            }
-
-                            if (random.nextInt(100) < ModConfig.get().raids.raid_chance) {
-                                // fire the raid — reset territory clock and start
-                                territory.onRaidStarted(nowEpochSeconds);
-                                registry.saveAsync(world);
-                                startBaseRaid(onlineStakeholders, onlineOwnerRefs, store, world, territory, nextDefinition);
-                            } else {
-                                // send prelude message to all online stakeholders
-                                for (PlayerRef pr : onlineStakeholders)
-                                    sendRaidMessage(pr, nextDefinition.prePhrase, new Color(0x888888));
-                            }
-
-                        } catch (Exception e) {
-                            System.err.println("[RaidSystem] Error evaluating base raid for territory: " + e.getMessage());
-                        }
-                    }
-                }
-
-                // --- Player raid flow: loop over players --- //
-                if (ModConfig.get().raids.allow_player_raids) {
-                    for (PlayerRef playerRef : Universe.get().getPlayers()) {
-                        try {
-                            if (!playerRef.isValid()) continue;
-
-                            Ref<EntityStore> ref = playerRef.getReference();
-                            if (ref == null) continue;
-
-                            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
-                            if (rpgPlayer == null) continue;
-
-                            // skip players already in any raid
-                            if (rpgPlayer.activeRaidHudState != null) continue;
-
-                            // pre-roll next raid for this player if they don't have one
-                            if (rpgPlayer.nextRaid == null) {
-                                RaidDefinition rolled = rollRaidDefinition();
-                                if (rolled != null) rpgPlayer.nextRaid = rolled.name;
-                            }
-
-                            // resolve the queued definition
-                            RaidDefinition nextDefinition = findDefinitionByName(rpgPlayer.nextRaid);
-                            if (nextDefinition == null) continue;
-
-                            // skip if not yet due for a player raid
-                            long secondsSinceLastPlayerRaid = nowEpochSeconds - rpgPlayer.lastPlayerRaid;
-                            if (secondsSinceLastPlayerRaid < raidCooldownSeconds) continue;
-
-                            if (random.nextInt(100) < ModConfig.get().raids.raid_chance) {
-                                rpgPlayer.nextRaid = null;
-                                startPlayerRaid(playerRef, ref, store, world, nextDefinition);
-                            } else {
-                                sendRaidMessage(playerRef, nextDefinition.prePhrase, new Color(0x888888));
-                            }
-
-                        } catch (Exception e) {
-                            System.err.println("[RaidSystem] Error evaluating player raid for player: " + e.getMessage());
-                        }
-                    }
-                }
+                // evaluate each online player for a potential player raid
+                if (ModConfig.get().raids.allow_player_raids) evaluatePlayerRaids(store, world, nowEpochSeconds, raidCooldownSeconds);
             });
         }
     }
 
+    // Loops over all territories and fires or preludes a base raid if conditions are met
+    private void evaluateBaseRaids(Store<EntityStore> store, World world, WorldRoomRegistry registry, long nowEpochSeconds, long raidCooldownSeconds) {
+        for (TerritoryData territory : registry.getAllTerritories()) {
+            try {
+                // collect all online owners/co-owners for this territory
+                List<PlayerRef> onlineStakeholders = getOnlineStakeholders(territory);
+
+                // no owners online — pause the raid clock and move on
+                if (onlineStakeholders.isEmpty()) {
+                    territory.markSkipped(nowEpochSeconds);
+                    registry.saveAsync(world);
+                    continue;
+                }
+
+                // at least one owner is online — resume the clock if it was paused
+                territory.resumeOnline(nowEpochSeconds);
+
+                // pre-roll a raid definition for this territory if it doesn't have one queued yet
+                if (territory.nextRaid == null) {
+                    RaidDefinition rolled = rollRaidDefinition();
+                    if (rolled != null) territory.nextRaid = rolled.name;
+                    registry.saveAsync(world);
+                }
+
+                // resolve the queued definition — skip if somehow unresolvable
+                RaidDefinition nextDefinition = findDefinitionByName(territory.nextRaid);
+                if (nextDefinition == null) continue;
+
+                // skip if this territory is already being actively raided
+                boolean alreadyRaiding = activeRaids.stream().anyMatch(g -> g.isBaseRaid && g.territory == territory);
+                if (alreadyRaiding) continue;
+
+                // skip if the territory hasn't earned enough online time since the last raid
+                if (!territory.isRaidEligible(nowEpochSeconds, raidCooldownSeconds)) continue;
+
+                // resolve entity refs for all online stakeholders
+                List<Ref<EntityStore>> onlineOwnerRefs = new ArrayList<>();
+                for (PlayerRef pr : onlineStakeholders) {
+                    Ref<EntityStore> ref = pr.getReference();
+                    if (ref != null) onlineOwnerRefs.add(ref);
+                }
+
+                // calculate the raid level from the average of all online stakeholder levels
+                int raidLevel = calculateRaidLevel(store, onlineOwnerRefs);
+
+                // roll to fire — reset the territory clock and start the raid
+                if (random.nextInt(100) < ModConfig.get().raids.raid_chance) {
+                    territory.onRaidStarted(nowEpochSeconds);
+                    registry.saveAsync(world);
+                    startBaseRaid(onlineStakeholders, onlineOwnerRefs, store, world, territory, nextDefinition, raidLevel);
+                } else {
+                    // roll failed — send the prelude message as a warning that a raid is coming
+                    for (PlayerRef pr : onlineStakeholders) sendRaidMessage(pr, nextDefinition.prePhrase, new Color(0x888888));
+                }
+
+            } catch (Exception e) {
+                System.err.println("[RaidSystem] Error evaluating base raid for territory: " + e.getMessage());
+            }
+        }
+    }
+
+    // Loops over all online players and fires or preludes a player raid if conditions are met
+    private void evaluatePlayerRaids(Store<EntityStore> store, World world, long nowEpochSeconds, long raidCooldownSeconds) {
+        for (PlayerRef playerRef : Universe.get().getPlayers()) {
+            try {
+                // skip invalid or unresolvable player refs
+                if (!playerRef.isValid()) continue;
+                Ref<EntityStore> ref = playerRef.getReference();
+                if (ref == null) continue;
+
+                // skip players without an RPG component
+                Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
+                if (rpgPlayer == null) continue;
+
+                // skip players already in any active raid
+                if (rpgPlayer.activeRaidHudState != null) continue;
+
+                // pre-roll next raid for this player if they don't have one queued
+                if (rpgPlayer.nextRaid == null) {
+                    RaidDefinition rolled = rollRaidDefinition();
+                    if (rolled != null) rpgPlayer.nextRaid = rolled.name;
+                }
+
+                // resolve the queued definition — skip if somehow unresolvable
+                RaidDefinition nextDefinition = findDefinitionByName(rpgPlayer.nextRaid);
+                if (nextDefinition == null) continue;
+
+                // skip if the player's cooldown hasn't elapsed since their last raid
+                long secondsSinceLastPlayerRaid = nowEpochSeconds - rpgPlayer.lastPlayerRaid;
+                if (secondsSinceLastPlayerRaid < raidCooldownSeconds) continue;
+
+                // raid level for player raids is just the player's own level
+                int raidLevel = rpgPlayer.level;
+
+                // roll to fire — clear the queued raid and start
+                if (random.nextInt(100) < ModConfig.get().raids.raid_chance) {
+                    rpgPlayer.nextRaid = null;
+                    startPlayerRaid(playerRef, ref, store, world, nextDefinition, raidLevel);
+                } else {
+                    // roll failed — send the prelude message as a warning that a raid is coming
+                    sendRaidMessage(playerRef, nextDefinition.prePhrase, new Color(0x888888));
+                }
+
+            } catch (Exception e) {
+                System.err.println("[RaidSystem] Error evaluating player raid for player: " + e.getMessage());
+            }
+        }
+    }
+
     // Base raid — targets all online owners/co-owners of the territory
-    public void startBaseRaid(List<PlayerRef> onlineStakeholders, List<Ref<EntityStore>> onlineOwnerRefs, Store<EntityStore> store, World world, TerritoryData territory, RaidDefinition definition) {
+    public void startBaseRaid(List<PlayerRef> onlineStakeholders, List<Ref<EntityStore>> onlineOwnerRefs, Store<EntityStore> store, World world, TerritoryData territory, RaidDefinition definition, int raidLevel) {
         if (territory == null) return;
 
-        // force-end any active player raids for stakeholders — base raids take priority, leave spawned NPCs alive
+        // force-end any active player raids for stakeholders — base raids take priority
         for (Ref<EntityStore> entityRef : onlineOwnerRefs) {
             RaidGroup existingPlayerRaid = activeRaids.stream()
                     .filter(g -> !g.isBaseRaid && g.targetPlayerRefs.contains(entityRef))
                     .findFirst().orElse(null);
-            if (existingPlayerRaid != null) {
-                activeRaids.remove(existingPlayerRaid);
-                clearRaidHudState(store, entityRef);
-                PlayerRef pr = store.getComponent(entityRef, PlayerRef.getComponentType());
-                if (pr != null) sendRaidMessage(pr,
-                        "The darkness closes in from all sides — your wandering quarrel must wait. Your home calls for blood.",
-                        new Color(0xFF8800));
-            }
+            if (existingPlayerRaid == null) continue;
+
+            // clear the player raid and notify the stakeholder their home needs them
+            activeRaids.remove(existingPlayerRaid);
+            clearRaidHudState(store, entityRef);
+            PlayerRef pr = store.getComponent(entityRef, PlayerRef.getComponentType());
+            if (pr != null) sendRaidMessage(pr, "The darkness closes in from all sides — your wandering quarrel must wait. Your home calls for blood.", new Color(0xFF8800));
         }
 
-        // get the territory center for spawning
+        // resolve the territory center as the raid spawn anchor
         int cx = territory.getCenter().x;
         int cy = territory.getCenter().y;
         int cz = territory.getCenter().z;
 
-        // build the raid group with all online stakeholders and start waves
-        RaidGroup group = new RaidGroup(onlineOwnerRefs, true, world, definition, territory);
+        // build the raid group and schedule all waves
+        RaidGroup group = new RaidGroup(onlineOwnerRefs, true, world, definition, territory, raidLevel);
         spawnWaves(world, store, cx, cy, cz, true, group, definition);
         activeRaids.add(group);
 
-        // keep territory chunks loaded for the duration of the raid
+        // keep territory chunks loaded so NPCs and blocks stay active for the raid duration
         keepTerritoryChunksLoaded(world, territory, true);
 
         // push the shared HUD state to all online stakeholders
-        for (Ref<EntityStore> entityRef : onlineOwnerRefs)
-            setRaidHudState(store, entityRef, group.hudState);
+        for (Ref<EntityStore> entityRef : onlineOwnerRefs) setRaidHudState(store, entityRef, group.hudState);
 
-        // send raid start message to all online stakeholders
-        for (PlayerRef pr : onlineStakeholders)
-            sendRaidMessage(pr, definition.phrase, new Color(0xFF8800));
+        // notify all online stakeholders the raid has begun
+        for (PlayerRef pr : onlineStakeholders) sendRaidMessage(pr, definition.phrase, new Color(0xFF8800));
 
-        System.out.println("[RaidSystem] Base raid '" + definition.name + "' started at territory (" + cx + ", " + cy + ", " + cz + ")");
+        System.out.println("[RaidSystem] Base raid '" + definition.name + "' started at territory (" + cx + ", " + cy + ", " + cz + ") — raid level " + raidLevel);
     }
 
     // Player raid — targets the player's current position
-    public void startPlayerRaid(PlayerRef playerRef, Ref<EntityStore> ref, Store<EntityStore> store, World world, RaidDefinition definition) {
+    public void startPlayerRaid(PlayerRef playerRef, Ref<EntityStore> ref, Store<EntityStore> store, World world, RaidDefinition definition, int raidLevel) {
+        // bail if the player has no RPG component or is already in a raid
         Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
         if (rpgPlayer == null) return;
-
-        // skip if player is already in a base raid
         if (rpgPlayer.activeRaidHudState != null) return;
 
+        // stamp the raid timestamp and clear the queued definition
         rpgPlayer.lastPlayerRaid = Instant.now().getEpochSecond();
         rpgPlayer.nextRaid = null;
 
+        // resolve the player's current position as the raid spawn anchor
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
         if (transform == null) return;
-
         int cx = (int) Math.floor(transform.getPosition().getX());
         int cy = (int) Math.floor(transform.getPosition().getY());
         int cz = (int) Math.floor(transform.getPosition().getZ());
 
-        RaidGroup group = new RaidGroup(List.of(ref), false, world, definition, null);
+        // build the raid group and schedule all waves
+        RaidGroup group = new RaidGroup(List.of(ref), false, world, definition, null, raidLevel);
         spawnWaves(world, store, cx, cy, cz, false, group, definition);
         activeRaids.add(group);
 
+        // push the HUD state and notify the player
         setRaidHudState(store, ref, group.hudState);
-
         sendRaidMessage(playerRef, definition.phrase, new Color(0xFF8800));
-        System.out.println("[RaidSystem] Player raid '" + definition.name + "' started for " + playerRef.getUsername() + " at (" + cx + ", " + cy + ", " + cz + ")");
+
+        System.out.println("[RaidSystem] Player raid '" + definition.name + "' started for " + playerRef.getUsername() + " at (" + cx + ", " + cy + ", " + cz + ") — raid level " + raidLevel);
     }
 
     // Called from the login hook — adds a joining player to any active base raid on their territory
     public void onPlayerJoinedWhileRaidActive(Ref<EntityStore> playerEntityRef) {
         Store<EntityStore> store = playerEntityRef.getStore();
 
-        // get the player's UUID to check territory access
+        // resolve the joining player's UUID to check territory access
         UUIDComponent uuidComp = store.getComponent(playerEntityRef, UUIDComponent.getComponentType());
         if (uuidComp == null) return;
         UUID playerUuid = uuidComp.getUuid();
@@ -534,108 +591,103 @@ public class Module_RaidSystem {
             if (!group.isBaseRaid || group.territory == null) continue;
             if (!group.territory.hasAccess(playerUuid)) continue;
 
-            // add to the group's target list if not already present
-            if (!group.targetPlayerRefs.contains(playerEntityRef))
-                group.targetPlayerRefs.add(playerEntityRef);
+            // add them to the group target list if not already present
+            if (!group.targetPlayerRefs.contains(playerEntityRef)) group.targetPlayerRefs.add(playerEntityRef);
 
             // inject the current shared HUD state so they see what other owners see
             setRaidHudState(store, playerEntityRef, group.hudState);
 
-            // notify them they've joined an active raid
+            // notify them they've arrived mid-raid
             PlayerRef pr = store.getComponent(playerEntityRef, PlayerRef.getComponentType());
-            if (pr != null) sendRaidMessage(pr,
-                    "You arrive to find your home under siege. The fight is already underway — steel yourself.",
-                    new Color(0xFF8800));
+            if (pr != null) sendRaidMessage(pr, "You arrive to find your home under siege. The fight is already underway — steel yourself.", new Color(0xFF8800));
 
             return;
         }
     }
 
-    // Wave scheduling — fires each wave seconds apart based on config, then schedules the raid end callback
+    // Wave scheduling — fires each wave after a delay, then schedules the raid end callback
     private void spawnWaves(World world, Store<EntityStore> store, int cx, int cy, int cz, boolean spawnOutsideTerritory, RaidGroup group, RaidDefinition definition) {
         long firstWaveDelayMs = (long) ModConfig.get().raids.seconds_before_first_wave * 1000L;
 
+        // schedule each wave on a virtual thread with its staggered delay
         for (int waveIndex = 0; waveIndex < definition.waves.size(); waveIndex++) {
             final int wave = waveIndex;
             final long delayMs = firstWaveDelayMs + ((long) wave * ModConfig.get().raids.seconds_between_waves * 1000L);
-
             Thread.ofVirtual().start(() -> {
-                try {
-                    Thread.sleep(delayMs);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
+                try { Thread.sleep(delayMs); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return; }
                 world.execute(() -> spawnWave(world, store, cx, cy, cz, wave, spawnOutsideTerritory, group, definition));
             });
         }
 
+        // schedule the raid end callback after all waves have had time to play out
         Thread.ofVirtual().start(() -> {
-            try {
-                Thread.sleep(group.raidEndMs - System.currentTimeMillis());
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                return;
-            }
+            try { Thread.sleep(group.raidEndMs - System.currentTimeMillis()); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return; }
             world.execute(() -> onRaidEnd(group, world));
         });
     }
 
-    // Single wave spawn
+    // Spawns a single wave of NPCs at staggered positions around the raid anchor
     private void spawnWave(World world, Store<EntityStore> store, int cx, int cy, int cz, int waveIndex, boolean spawnOutsideTerritory, RaidGroup group, RaidDefinition definition) {
         List<String> npcsToSpawn = definition.waves.get(waveIndex);
-        System.out.println("[RaidSystem] Spawning wave " + (waveIndex + 1) + " of raid '" + definition.name + "' (" + npcsToSpawn.size() + " enemies)");
+        System.out.println("[RaidSystem] Spawning wave " + (waveIndex + 1) + " of raid '" + definition.name + "' (" + npcsToSpawn.size() + " enemies) at level " + group.raidLevel);
 
         for (String npcId : npcsToSpawn) {
+            // find a safe ground position and pick a random facing
             Vector3d spawnPos = findSafeSpawnPosition(world, cx, cy, cz, spawnOutsideTerritory);
             Vector3f rotation = new Vector3f(0f, (float)(random.nextDouble() * Math.PI * 2), 0f);
 
-            var spawnResult = NPCPlugin.get().spawnNPC(store, npcId, null, spawnPos, rotation);
+            // resolve the role index — needed to call spawnEntity with a preAddToWorld hook
+            int roleIndex = NPCPlugin.get().getIndex(npcId);
+            if (roleIndex < 0) continue;
+
+            // pre-populate the RPG enemy component before onNPCPreSpawn fires so the raid level is used instead of the distance-based level
+            var spawnResult = NPCPlugin.get().spawnEntity(store, roleIndex, spawnPos, rotation, null,
+                    (npcEntity, holder, s) -> holder.putComponent(Module_RPGSystem.componentTypeRPGEnemy, new Component_RPG_Enemy(group.raidLevel)),
+                    (npcEntity, ref, s) -> {
+                        // save leash info and register the NPC with the raid group after spawn
+                        npcEntity.saveLeashInformation(new Vector3d(cx, cy, cz), rotation);
+                        group.addNpc(ref);
+                    }
+            );
             if (spawnResult == null) continue;
-
-            Ref<EntityStore> npcRef = spawnResult.first();
-            NPCEntity npcEntity = (NPCEntity) spawnResult.second();
-
-            npcEntity.saveLeashInformation(new Vector3d(cx, cy, cz), rotation);
-            group.addNpc(npcRef);
         }
 
+        // update the HUD wave counter and enemy count now that the wave is fully spawned
         group.hudState.currentWave = waveIndex + 1;
+        group.hudState.enemiesRemaining = group.livingNpcCount();
     }
 
-    // Raid end callback — explodes any surviving NPCs and cleans up the group
+    // Raid end callback — explodes surviving NPCs, unloads chunks, clears HUD, and sends the post message
     private void onRaidEnd(RaidGroup group, World world) {
         Store<EntityStore> store = world.getEntityStore().getStore();
         Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
 
+        // prune any already-dead NPC refs before evaluating survivors
         group.pruneDeadNpcs();
 
-        // remove this group from the active raids list
+        // remove this group from the active list
         activeRaids.remove(group);
 
-        // explode any NPCs that are still alive
+        // explode any NPCs that survived the raid timer
         if (group.isAlive()) {
             System.out.println("[RaidSystem] Raid ended with " + group.npcRefs.size() + " surviving NPCs — detonating.");
             for (Ref<EntityStore> npcRef : group.npcRefs) {
                 if (!npcRef.isValid()) continue;
-                try {
-                    explodeNpc(npcRef, store, chunkStore);
-                } catch (Exception e) {
-                    System.err.println("[RaidSystem] Error exploding NPC: " + e.getMessage());
-                }
+                try { explodeNpc(npcRef, store, chunkStore); }
+                catch (Exception e) { System.err.println("[RaidSystem] Error exploding NPC: " + e.getMessage()); }
             }
         }
 
+        // release the territory chunk keep-loaded locks
         if (group.territory != null) keepTerritoryChunksLoaded(group.world, group.territory, false);
 
-        // clear HUD and send the post-phrase to all targets
+        // clear HUD state and send the post-raid message to all raid targets
         for (Ref<EntityStore> targetRef : group.targetPlayerRefs) {
             clearRaidHudState(store, targetRef);
             try {
-                if (targetRef.isValid()) {
-                    PlayerRef playerRef = store.getComponent(targetRef, PlayerRef.getComponentType());
-                    if (playerRef != null) sendRaidMessage(playerRef, group.definition.postPhrase, new Color(0xFF8800));
-                }
+                if (!targetRef.isValid()) continue;
+                PlayerRef playerRef = store.getComponent(targetRef, PlayerRef.getComponentType());
+                if (playerRef != null) sendRaidMessage(playerRef, group.definition.postPhrase, new Color(0xFF8800));
             } catch (Exception e) {
                 System.err.println("[RaidSystem] Error sending post-raid message: " + e.getMessage());
             }
@@ -644,8 +696,9 @@ public class Module_RaidSystem {
         System.out.println("[RaidSystem] Raid group cleaned up.");
     }
 
-    // Explodes a single surviving raid NPC — damages nearby blocks and players, then removes the NPC cleanly
+    // Explodes a single surviving raid NPC — damages nearby blocks and entities, then removes the NPC
     private static void explodeNpc(Ref<EntityStore> npcRef, Store<EntityStore> store, Store<ChunkStore> chunkStore) {
+        // resolve the NPC's position — bail if no transform exists
         TransformComponent transform = store.getComponent(npcRef, TransformComponent.getComponentType());
         if (transform == null) return;
 
@@ -655,23 +708,26 @@ public class Module_RaidSystem {
         int cz = (int) Math.floor(pos.z);
 
         if (ModConfig.get().raids.unkilled_raid_enemies_explode) {
-            // damage blocks in explosion radius
+            // damage all structural blocks within the explosion block radius
             for (int x = cx - ModConfig.get().raids.explosion_hit_radius_blocks; x <= cx + ModConfig.get().raids.explosion_hit_radius_blocks; x++) {
                 for (int y = cy - ModConfig.get().raids.explosion_hit_radius_blocks; y <= cy + ModConfig.get().raids.explosion_hit_radius_blocks; y++) {
                     for (int z = cz - ModConfig.get().raids.explosion_hit_radius_blocks; z <= cz + ModConfig.get().raids.explosion_hit_radius_blocks; z++) {
+                        // skip blocks outside the spherical radius
                         if (Math.sqrt((x-cx)*(x-cx) + (y-cy)*(y-cy) + (z-cz)*(z-cz)) > ModConfig.get().raids.explosion_hit_radius_blocks) continue;
                         try {
+                            // resolve the chunk for this block position
                             long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
                             Ref<ChunkStore> chunkRef = ((ChunkStore) chunkStore.getExternalData()).getChunkReference(chunkIndex);
                             if (chunkRef == null || !chunkRef.isValid()) continue;
 
+                            // resolve the block and skip if non-structural
                             WorldChunk worldChunk = (WorldChunk) chunkStore.getComponent(chunkRef, WorldChunk.getComponentType());
                             if (worldChunk == null) continue;
-
                             int blockId = worldChunk.getBlock(x, y, z);
                             BlockType bt = BlockType.getAssetMap().getAsset(blockId);
                             if (bt == null || !RoomFloodFill.isStructural(bt)) continue;
 
+                            // apply block damage
                             BlockHarvestUtils.performBlockDamage(null, null, new Vector3i(x, y, z), null, null, null, false, ModConfig.get().raids.explosion_hit_damage_blocks, 2048 | 1024, chunkRef, store, chunkStore);
                         } catch (Exception e) {
                             System.err.println("[RaidSystem] Error breaking block during explosion: " + e.getMessage());
@@ -680,21 +736,26 @@ public class Module_RaidSystem {
                 }
             }
 
-            // damage entities in explosion radius
+            // collect all entities within the explosion entity radius
             Damage.EnvironmentSource explosionSource = new Damage.EnvironmentSource("explosion");
             List<Ref<EntityStore>> nearby = TargetUtil.getAllEntitiesInBox(
                     new Vector3d(pos.x - ModConfig.get().raids.explosion_hit_radius_entities, pos.y - ModConfig.get().raids.explosion_hit_radius_entities, pos.z - ModConfig.get().raids.explosion_hit_radius_entities),
                     new Vector3d(pos.x + ModConfig.get().raids.explosion_hit_radius_entities, pos.y + ModConfig.get().raids.explosion_hit_radius_entities, pos.z + ModConfig.get().raids.explosion_hit_radius_entities),
                     store
             );
+
+            // damage each nearby player entity with falloff based on distance
             for (Ref<EntityStore> targetRef : nearby) {
                 if (!targetRef.isValid() || targetRef.equals(npcRef)) continue;
                 if (store.getComponent(targetRef, NPCEntity.getComponentType()) != null) continue;
                 try {
+                    // skip entities outside the spherical radius
                     TransformComponent targetTransform = store.getComponent(targetRef, TransformComponent.getComponentType());
                     if (targetTransform == null) continue;
                     double distance = pos.distanceTo(targetTransform.getPosition());
                     if (distance > ModConfig.get().raids.explosion_hit_radius_entities) continue;
+
+                    // apply damage scaled by distance from the explosion center
                     float damage = ModConfig.get().raids.explosion_hit_damage_entities * (1f - (float)(distance / ModConfig.get().raids.explosion_hit_radius_entities));
                     if (damage > 0) DamageSystems.executeDamage(targetRef, store, new Damage(explosionSource, DamageCause.getAssetMap().getAsset("Environment"), damage));
                 } catch (Exception e) {
@@ -703,41 +764,45 @@ public class Module_RaidSystem {
             }
         }
 
+        // remove the NPC from the world
         store.removeEntity(npcRef, RemoveReason.REMOVE);
     }
 
-    // Safe spawn position search
+    // Searches outward from the anchor in a ring pattern to find a safe ground-level spawn position
     private Vector3d findSafeSpawnPosition(World world, int cx, int cy, int cz, boolean spawnOutsideTerritory) {
         int radius = spawnOutsideTerritory ? SPAWN_RING_RADIUS : (SPAWN_RING_RADIUS / 2);
         double startAngle = random.nextDouble() * 2 * Math.PI;
 
+        // try evenly-spaced angles around the ring until a solid ground position is found
         for (int attempt = 0; attempt < SPAWN_SEARCH_ATTEMPTS; attempt++) {
             double angle = startAngle + (2 * Math.PI / SPAWN_SEARCH_ATTEMPTS) * attempt;
             int offsetX = (int) Math.round(Math.cos(angle) * radius);
             int offsetZ = (int) Math.round(Math.sin(angle) * radius);
 
             int groundY = findGroundY(world, cx + offsetX, cy + SPAWN_SCAN_HEIGHT_OFFSET, cz + offsetZ);
-            if (groundY != Integer.MIN_VALUE) {
-                return new Vector3d(cx + offsetX + 0.5, groundY + 1.0, cz + offsetZ + 0.5);
-            }
+            if (groundY != Integer.MIN_VALUE) return new Vector3d(cx + offsetX + 0.5, groundY + 1.0, cz + offsetZ + 0.5);
         }
 
+        // all attempts failed — use a simple fallback position and log the miss
         System.err.println("[RaidSystem] Could not find safe spawn ground after " + SPAWN_SEARCH_ATTEMPTS + " attempts, using fallback position.");
         return new Vector3d(cx + radius + 0.5, cy + 1.0, cz + 0.5);
     }
 
-    // Scan down from (x, startY, z) and returns the Y of the first solid non-fluid block, or Integer.MIN_VALUE if none found
+    // Scans downward from startY to find the first solid non-fluid block, returns Integer.MIN_VALUE if none found
     private int findGroundY(World world, int x, int startY, int z) {
+        // bail early if the chunk isn't in memory
         long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
         WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
         if (chunk == null) return Integer.MIN_VALUE;
 
+        // scan downward from the clamped start height
         int clampedStart = Math.min(startY, 319);
         for (int y = clampedStart; y >= 1; y--) {
             int blockId = chunk.getBlock(x, y, z);
             BlockType bt = BlockType.getAssetMap().getAsset(blockId);
             if (bt != null && RoomFloodFill.isStructural(bt)) return y;
         }
+
         return Integer.MIN_VALUE;
     }
 
@@ -765,7 +830,7 @@ public class Module_RaidSystem {
         rpgPlayer.activeRaidHudState = null;
     }
 
-    // Method to load and keep loaded chunks of a territory actively being raided
+    // Loads or unloads territory chunks to keep the raid area active for its duration
     private void keepTerritoryChunksLoaded(World world, TerritoryData territory, boolean load) {
         int minChunkX = ChunkUtil.chunkCoordinate(territory.getMinX());
         int maxChunkX = ChunkUtil.chunkCoordinate(territory.getMaxX());
@@ -776,15 +841,16 @@ public class Module_RaidSystem {
             for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
                 long index = ChunkUtil.indexChunk(cx, cz);
                 if (load) {
+                    // request the chunk async and mark it as keep-loaded once available
                     world.getChunkAsync(index).thenAcceptAsync(chunk -> {
-                        if (chunk != null) {
-                            chunk.addKeepLoaded();
-                            chunk.resetKeepAlive();
-                            chunk.resetActiveTimer();
-                            world.loadChunkIfInMemory(index);
-                        }
+                        if (chunk == null) return;
+                        chunk.addKeepLoaded();
+                        chunk.resetKeepAlive();
+                        chunk.resetActiveTimer();
+                        world.loadChunkIfInMemory(index);
                     }, world);
                 } else {
+                    // release the keep-loaded lock so the chunk can unload naturally
                     WorldChunk chunk = world.getChunkIfInMemory(index);
                     if (chunk != null) chunk.removeKeepLoaded();
                 }
@@ -792,21 +858,22 @@ public class Module_RaidSystem {
         }
     }
 
-    // Keeps territory chunks ticking during active raids so NPCs and blocks remain active
+    // Resets the active timer on all territory chunks every outer tick so NPCs and blocks keep ticking
     private void tickActiveRaids() {
         for (RaidGroup group : activeRaids) {
             if (group.territory == null) continue;
+
             int minChunkX = ChunkUtil.chunkCoordinate(group.territory.getMinX());
             int maxChunkX = ChunkUtil.chunkCoordinate(group.territory.getMaxX());
             int minChunkZ = ChunkUtil.chunkCoordinate(group.territory.getMinZ());
             int maxChunkZ = ChunkUtil.chunkCoordinate(group.territory.getMaxZ());
+
             for (int cx = minChunkX; cx <= maxChunkX; cx++) {
                 for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
                     WorldChunk chunk = group.world.getChunkIfInMemory(ChunkUtil.indexChunk(cx, cz));
-                    if (chunk != null) {
-                        chunk.resetActiveTimer();
-                        chunk.resetKeepAlive();
-                    }
+                    if (chunk == null) continue;
+                    chunk.resetActiveTimer();
+                    chunk.resetKeepAlive();
                 }
             }
         }
@@ -814,21 +881,19 @@ public class Module_RaidSystem {
 
     // Sends a colored chat message to a player
     private static void sendRaidMessage(PlayerRef playerRef, String text, Color color) {
-        try {
-            playerRef.sendMessage(Message.raw(text).color(color));
-        } catch (Exception e) {}
+        try { playerRef.sendMessage(Message.raw(text).color(color)); } catch (Exception e) {}
     }
 
-    // Trigger a raid via command, using the territory's queued nextRaid for base raids or the player's for player raids
+    // Triggers a raid via admin command — resolves or rolls a definition and fires the appropriate raid type
     public void triggerRaidByCommand(PlayerRef playerRef, Ref<EntityStore> ref, Store<EntityStore> store, World world, String raidType) {
         if (raidType.equals("base")) {
-            // resolve the territory and bail if not found
+            // resolve the registry and the player's territory — bail if either is missing
             WorldRoomRegistry registry = WorldRoomRegistry.get(world);
             if (registry == null) return;
             TerritoryData territory = getTerritoryForPlayer(registry, playerRef);
             if (territory == null) return;
 
-            // bail if this territory is already being raided
+            // bail if this territory is already mid-raid
             boolean alreadyRaiding = activeRaids.stream().anyMatch(g -> g.isBaseRaid && g.territory == territory);
             if (alreadyRaiding) return;
 
@@ -837,15 +902,19 @@ public class Module_RaidSystem {
             if (definition == null) definition = rollRaidDefinition();
             if (definition == null) return;
 
-            // resolve all online stakeholders and fire
+            // resolve all online stakeholders and calculate raid level
             List<PlayerRef> stakeholders = getOnlineStakeholders(territory);
             List<Ref<EntityStore>> stakeholderRefs = new ArrayList<>();
             for (PlayerRef pr : stakeholders) { Ref<EntityStore> r = pr.getReference(); if (r != null) stakeholderRefs.add(r); }
+            int raidLevel = calculateRaidLevel(store, stakeholderRefs);
+
+            // stamp the raid start and fire
             territory.onRaidStarted(Instant.now().getEpochSecond());
             registry.saveAsync(world);
-            startBaseRaid(stakeholders, stakeholderRefs, store, world, territory, definition);
+            startBaseRaid(stakeholders, stakeholderRefs, store, world, territory, definition, raidLevel);
+
         } else {
-            // bail if the player is already in any raid
+            // bail if the player has no RPG component or is already in a raid
             Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
             if (rpgPlayer == null || rpgPlayer.activeRaidHudState != null) return;
 
@@ -853,7 +922,10 @@ public class Module_RaidSystem {
             RaidDefinition definition = findDefinitionByName(rpgPlayer.nextRaid);
             if (definition == null) definition = rollRaidDefinition();
             if (definition == null) return;
-            startPlayerRaid(playerRef, ref, store, world, definition);
+
+            // raid level is the player's own level
+            int raidLevel = rpgPlayer.level;
+            startPlayerRaid(playerRef, ref, store, world, definition, raidLevel);
         }
     }
 
@@ -861,6 +933,14 @@ public class Module_RaidSystem {
     private TerritoryData getTerritoryForPlayer(WorldRoomRegistry registry, PlayerRef playerRef) {
         for (TerritoryData t : registry.getAllTerritories()) {
             if (t.hasAccess(playerRef.getUuid())) return t;
+        }
+        return null;
+    }
+
+    // Returns the active raid group that targets the given player ref, or null if none
+    public RaidGroup getActiveRaidGroupForPlayer(Ref<EntityStore> ref) {
+        for (RaidGroup group : activeRaids) {
+            if (group.targetPlayerRefs.contains(ref)) return group;
         }
         return null;
     }

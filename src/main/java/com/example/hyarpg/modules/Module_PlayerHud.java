@@ -228,6 +228,7 @@ public class Module_PlayerHud {
                             hudRef.getById("raidHud_Icon", ImageBuilder.class).ifPresent(b -> b.withVisible(raidActive));
                             hudRef.getById("raidHud_WaveStatus", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
                             hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
+                            hudRef.getById("raidHud_RemainingEnemies", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive));
                             hudRef.getById("raidHud_ExplosionWarning", LabelBuilder.class).ifPresent(b -> b.withVisible(raidActive && ModConfig.get().raids.unkilled_raid_enemies_explode));
 
                             if (raidActive) {
@@ -255,10 +256,16 @@ public class Module_PlayerHud {
                                     countdownText = "Raid ends in " + secondsUntilEnd + "s";
                                 }
 
+                                // prune dead NPC refs and read the live enemy count directly from the raid group
+                                int enemiesRemaining;
+                                if (raidState.raidGroup != null) enemiesRemaining = raidState.getLiveEnemyCount(world);
+                                else enemiesRemaining = 0;
+
                                 final String waveStatusFinal = waveStatusText;
                                 final String countdownFinal = countdownText;
                                 hudRef.getById("raidHud_WaveStatus", LabelBuilder.class).ifPresent(b -> b.withText(waveStatusFinal));
                                 hudRef.getById("raidHud_Countdown", LabelBuilder.class).ifPresent(b -> b.withText(countdownFinal));
+                                hudRef.getById("raidHud_RemainingEnemies", LabelBuilder.class).ifPresent(b -> b.withText(String.valueOf(enemiesRemaining) + " Enemies Remain"));
                             }
 
                             // determine if we should show the room info or not
@@ -648,6 +655,24 @@ public class Module_PlayerHud {
             .withText("Wave 1 / 3")
         );
 
+        // Remaining Enemies in the raid
+        hud.addElement(new LabelBuilder()
+            .withId("raidHud_RemainingEnemies")
+            .withAnchor(new HyUIAnchor()
+                .setWidth(200)
+                .setHeight(20)
+                .setLeft(75)
+                .setTop(270)
+            )
+            .withStyle(new HyUIStyle()
+                .setFontSize(12)
+                .setTextColor("#ffffff")
+                .setRenderBold(true)
+            )
+            .withVisible(false)
+            .withText("x Enemies Remaining...")
+        );
+
         // Countdown label — e.g. "First wave in 30s" or "Next wave in 45s" or "Raid ends in 60s"
         hud.addElement(new LabelBuilder()
             .withId("raidHud_Countdown")
@@ -655,7 +680,7 @@ public class Module_PlayerHud {
                 .setWidth(200)
                 .setHeight(20)
                 .setLeft(75)
-                .setTop(270)
+                .setTop(290)
             )
             .withStyle(new HyUIStyle()
                 .setFontSize(13)
@@ -664,7 +689,8 @@ public class Module_PlayerHud {
             )
             .withVisible(false)
             .withText("")
-    );
+        );
+
 
         // Explosion warning label — only shown if unkilled_raid_enemies_explode is set
         hud.addElement(new LabelBuilder()
@@ -673,7 +699,7 @@ public class Module_PlayerHud {
                 .setWidth(200)
                 .setHeight(20)
                 .setLeft(75)
-                .setTop(290)
+                .setTop(310)
             )
             .withStyle(new HyUIStyle()
                 .setFontSize(12)

@@ -79,7 +79,7 @@ public class Config_World {
 
     @Key("prefabUndergroundDungeonSpawnerDensity")
     @Comment("Density of enemy spawners for Underground Dungeon Prefabs. Higher values mean more spawners, lower values mean less spawners. Default: 1")
-    public double prefabUndergroundDungeonSpawnerDensity = 5.0;
+    public double prefabUndergroundDungeonSpawnerDensity = 1.0;
 
     @Key("ore_read_me")
     @Comment("IMPORTANT: This section only works for chunks that are newly generated. To use this section of the config, you must place it in a new world folder before making that world. Just go into your directory where your world saves are, make a new folder after the name of your new world and place this file in that directory under mods/HyARPG. Keep in mind ore spawn frequency ramps up and down peaking near the middle point. So if you set min distance to 0 and max distance to say 100k you will see very little (basically none) of that ore around 0 and 100k and a lot of that ore around 50k.")

@@ -9,8 +9,8 @@ public class Config_Enemies {
     public int blocks_per_level_threshold = 500;
 
     @Key("random_level_offset")
-    @Comment("The +/- random level variance of enemies (base level determined by distance). Default: 5")
-    public int random_level_offset = 5;
+    @Comment("The +/- random level variance of enemies (base level determined by distance). Default: 3")
+    public int random_level_offset = 3;
 
     @Key("prefix_chance")
     @Comment("The chance an enemy will spawn with 1 of 6 prefixes. Prefixes grant additional flat damage of a type determined by the rolled prefix. Default: 0.25")

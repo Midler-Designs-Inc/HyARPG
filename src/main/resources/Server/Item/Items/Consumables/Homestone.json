@@ -1,0 +1,72 @@
+{
+  "Icon": "Icons/ItemsGenerated/WinterHoliday_WinterRoll.png",
+  "Categories": [
+    "Items.Consumables"
+  ],
+  "TranslationProperties": {
+    "Name": "server.items.consumables.Homestone.name",
+    "Description": "server.items.consumables.Homestone.description"
+  },
+  "ItemLevel": 5,
+  "MaxStack": 1,
+  "Quality": "Rare",
+  "Model": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll.blockymodel",
+  "Texture": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll_Texture.png",
+  "PlayerAnimationsId": "Item",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": false,
+    "Input": [
+      {
+        "ResourceTypeId": "Rubble",
+        "Quantity": 5
+      },
+      {
+        "ItemId": "Ingredient_Life_Essence",
+        "Quantity": 10
+      },
+      {
+        "ItemId": "Rare_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Id": "Fieldcraft",
+        "Categories": [
+          "Tools"
+        ]
+      }
+    ]
+  },
+  "MaxDurability": 10,
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "Charging",
+          "RunTime": 5,
+          "HorizontalSpeedMultiplier": 0,
+          "FailOnDamage": true,
+          "DisplayProgress": true,
+          "Next": {
+            "5": {
+              "Type": "ModifyInventory",
+              "AdjustHeldItemDurability": -1,
+              "Next": {
+                "Type": "Warp_Home"
+              },
+              "NotifyOnBreak": true,
+              "Rules": {},
+              "Settings": {},
+              "BrokenItem": "Rubble_Stone"
+            }
+          },
+          "AllowIndefiniteHold": false
+        }
+      ],
+      "RequireNewClick": true
+    }
+  }
+}

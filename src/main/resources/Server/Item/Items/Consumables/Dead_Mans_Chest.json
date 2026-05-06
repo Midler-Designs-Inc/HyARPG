@@ -1,0 +1,69 @@
+{
+  "Icon": "Icons/ItemsGenerated/WinterHoliday_WinterRoll.png",
+  "Categories": [
+    "Items.Consumables"
+  ],
+  "TranslationProperties": {
+    "Name": "server.items.consumables.Dead_Mans_Chest.name",
+    "Description": "server.items.consumables.Dead_Mans_Chest.description"
+  },
+  "ItemLevel": 5,
+  "MaxStack": 1,
+  "Quality": "epic",
+  "Model": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll.blockymodel",
+  "Texture": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll_Texture.png",
+  "PlayerAnimationsId": "Item",
+  "Recipe": {
+    "TimeSeconds": 0,
+    "KnowledgeRequired": false,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Voidheart",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Furniture_Crude_Chest_Small",
+        "Quantity": 1
+      },
+      {
+        "ItemId": "Epic_Shards",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Type": "Crafting",
+        "Id": "Fieldcraft",
+        "Categories": [
+          "Tools"
+        ]
+      }
+    ]
+  },
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        {
+          "Type": "Charging",
+          "RunTime": 10,
+          "HorizontalSpeedMultiplier": 0,
+          "FailOnDamage": true,
+          "DisplayProgress": true,
+          "Next": {
+            "10": {
+              "Type": "ModifyInventory",
+              "AdjustHeldItemQuantity": -1,
+              "Next": {
+                "Type": "Recall_Player_Grave"
+              },
+              "Rules": {},
+              "Settings": {}
+            }
+          },
+          "AllowIndefiniteHold": false
+        }
+      ],
+      "RequireNewClick": true
+    }
+  }
+}

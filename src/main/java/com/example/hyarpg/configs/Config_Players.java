@@ -19,4 +19,8 @@ public class Config_Players {
     @Key("base_ammo_regen_per_second")
     @Comment("The starting base amount of ammo players regenerate per second. Default: 1")
     public float base_ammo_regen_per_second = 1f;
+
+    @Key("base_health_per_level")
+    @Comment("The amount of health added to the player for each level up. Default: 10")
+    public float base_health_per_level = 10f;
 }

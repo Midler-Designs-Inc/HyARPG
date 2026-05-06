@@ -47,8 +47,24 @@
                 "Type": "Single",
                 "Weight": 400,
                 "Item": {
-                  "ItemId": "Food_Bread",
-                  "QuantityMax": 2
+                  "ItemId": "Major_Rune_Of_Powering",
+                  "QuantityMax": 1
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 400,
+                "Item": {
+                  "ItemId": "Plant_Fruit_Berries_Red",
+                  "QuantityMax": 5
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Homestone",
+                  "QuantityMax": 1
                 }
               },
               {

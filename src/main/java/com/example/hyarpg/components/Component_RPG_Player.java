@@ -1,6 +1,7 @@
 package com.example.hyarpg.components;
 
 // Hytale Imports
+import com.example.hyarpg.modules.Module_RPGSystem;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
@@ -319,6 +320,11 @@ public class Component_RPG_Player implements Component<EntityStore> {
             ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
             EntityStatMap statMap = store.getComponent(ref, statMapType);
 
+            // get the player level
+            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
+            int level = 1;
+            if (rpgPlayer != null) level = rpgPlayer.level;
+
             // Get the health stat from the stat map
             int healthIndex = DefaultEntityStatTypes.getHealth();
             int staminaIndex = DefaultEntityStatTypes.getStamina();
@@ -328,6 +334,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
 
             // set players max resources based on stats instance
             statMap.putModifier(healthIndex, "FLAT_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getFlatResource("Life")));
+            statMap.putModifier(healthIndex, "FLAT_LIFE_FROM_LEVEL", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, (ModConfig.get().players.base_health_per_level * (level - 1))));
             statMap.putModifier(healthIndex, "INCREASED_LIFE", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.MULTIPLICATIVE, 1f + (stats.getIncreasedResource("Life") / 100f)));
             statMap.putModifier(manaIndex, "FLAT_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, stats.getFlatResource("Mana")));
             statMap.putModifier(manaIndex, "INCREASED_MANA", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.MULTIPLICATIVE, 1f + (stats.getIncreasedResource("Mana") / 100f)));
@@ -429,6 +436,9 @@ public class Component_RPG_Player implements Component<EntityStore> {
         while (calculateXPRequiredToLevelUp() <= 0) {
             levelUp(playerRef);
         }
+
+        // apply stats again
+        applyStatsToPlayer(playerRef.getReference(), playerRef.getReference().getStore());
     }
     public void awardXP(PlayerRef playerRef, double xpGained) {
         // apply the XP
@@ -438,6 +448,9 @@ public class Component_RPG_Player implements Component<EntityStore> {
         while (calculateXPRequiredToLevelUp() <= 0) {
             levelUp(playerRef);
         }
+
+        // apply stats again
+        applyStatsToPlayer(playerRef.getReference(), playerRef.getReference().getStore());
     }
 
     // Method to level up

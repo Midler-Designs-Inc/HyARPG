@@ -152,6 +152,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Invest skill points into a skill tree using /skills."));
         lines.add(bullet("Place a Light Well to claim territory and start building a base."));
         lines.add(bullet("Look for Shard Dust — find it in the world or from enemies, then craft it into Rarity Shards at a Furnace to enhance your gear."));
+        lines.add(bullet("Look for Runes of Powering — find it in the world or from enemies, use them to enhance your gear's gear score to your player level."));
         lines.add(bullet("Craft a Wayward Compass to help you find Wayward Shrines while exploring. Use the located shrines to get around and travel long distances."));
         return lines;
     }
@@ -163,6 +164,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Allies near your grave can revive you by channeling your grave uninterrupted for 10 seconds."));
         lines.add(bullet("Your items will be stored in your grave as a lootable container for as long as the gravestone exists. Currently any player is able to loot your gravestone, we might lock it down in the future."));
         lines.add(bullet("Dying and creating a new gravestone (with your current items), while an old gravestone exists, will cause the old gravestone to break and drop its items on the ground around it."));
+        lines.add(bullet("Dead Mans Chest", "Craft this item and consume it to instantly recover all items from your gravestone, breaking it in the process."));
         lines.add(spacer());
         lines.add(heading("Hunger"));
         lines.add(plain("Hunger drains passively over time. It is restored by eating vanilla foods, which carry T1-T3 hunger restore buffs."));
@@ -180,10 +182,12 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(heading("Levelling Up"));
         lines.add(plain("Defeat enemies to earn XP."));
         lines.add(plain("XP scales based on enemy level vs yours. Enemies 10+ levels below give no XP. Enemies up to 10 levels above give up to triple XP."));
+        lines.add(bullet("Players gain +" + ModConfig.get().players.base_health_per_level + " Max HP per level. (configurable)"));
         lines.add(spacer());
         lines.add(heading("Skill Trees"));
         lines.add(plain("Open your skill trees with /skills. You are not locked into a single class — mix and match across trees freely."));
         lines.add(plain("Each tree contains stat nodes and active abilities. Some trees may not appear until certain requirements are met."));
+        lines.add(bullet("Sphere of Regret", "Craft these if you want to respec your skills."));
         lines.add(spacer());
         lines.add(heading("Abilities"));
         lines.add(plain("Abilities are unlocked and equipped directly from their skill trees. Assign them to:"));
@@ -213,6 +217,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Crafted gear", "Matches your player level."));
         lines.add(bullet("Dropped gear", "Matches the killed enemy's level."));
         lines.add(bullet("Found gear", "Matches the enemy level of the area."));
+        lines.add(bullet("Runes of Powering", "Use these in the Horradrix Cube to raise the gear score of gear."));
         lines.add(spacer());
         lines.add(heading("World Tiers & Material Progression"));
         lines.add(plain("Materials like metals, leather, and cloth are gated by world tiers T0–T6. The tier of an area increases the further you travel from the world origin (" + world.origin_spawn_point_x + ", " + world.origin_spawn_point_z + ")."));
@@ -261,6 +266,9 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(plain("Slot items into the Cube. If the combination of items match a known recipe the output item appears in the output slot. Hit the combine button to confirm the transaction consuming the appropriate amount of input items and returning an appropriate amount of output items."));
         lines.add(plain("There is no recipe book — experimentation is the point. Trade knowledge with other players or discover it yourself."));
         lines.add(spacer());
+        lines.add(heading("Crafting Runes"));
+        lines.add(plain("Crafting Runes can be found in the world or dropped by enemies and are used in the Horradrix Cube to modify gear in specific ways. Runes provide deterministic ways to modify pre-existing crafted or looted gear."));
+        lines.add(spacer());
         lines.add(heading("Known Recipes (Starter Hints)"));
         lines.add(bullet("3x Shard Dust (same tier)", "Combines into 1 higher-tier Shard Dust. A reliable way to upgrade your dust stockpile toward better shards."));
         lines.add(bullet("3x Broken Pickaxe", "Combines into 1 new working Pickaxe. Salvaging broken tools pays off."));
@@ -292,6 +300,20 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(heading("Damage"));
         lines.add(plain("All damage runs through a custom ARPG pipeline. Your Gear Score is the primary driver."));
         lines.add(plain("Abilities that scale off Weapon damage use your main hand weapon's damage as their base."));
+        lines.add(bullet("Enemy Base Damage", "All enemies will do a base damage of " + ModConfig.get().combat.enemy_base_damage + " which is then multiplied by their level. (configurable)"));
+        lines.add(bullet("Enemy Prefix", "Enemies have a " + (ModConfig.get().enemies.prefix_chance * 100) + "% (configurable) chance to spawn with a randomly rolled prefix from 1 of 6 different choices based on the mods 6 damage types. The rolled prefix adds flat damage to the enemy's attacks equal to +" + ModConfig.get().combat.enemy_prefix_damage + " (configurable) which is then multiplied by the enemy's level."));
+        lines.add(bullet("Enemy Rarity", "Enemies deal " + ((ModConfig.get().combat.rarity_diff_damage_multiplier - 1) * 100) + "% (configurable) more damage per rarity and take " + ((ModConfig.get().combat.rarity_diff_damage_multiplier - 1) * 100) + " (configurable) less damage per rarity."));
+        lines.add(spacer());
+        lines.add(heading("Enemy Combat Types"));
+        lines.add(plain("All enemies belong to one of 8 combat types. Each type changes how much damage they deal, how tough they are, and how they behave in combat. Learning these patterns will help you react faster and choose better targets."));
+        lines.add(bullet("Zerg", "Very fragile but extremely fast. Deals low damage individually, but dangerous in groups due to their speed and numbers."));
+        lines.add(bullet("Skirmisher", "Fast and evasive. Hard to hit and constantly moving, but deals slightly less damage and isn’t very durable."));
+        lines.add(bullet("Fighter", "Balanced in all areas. Average health, average damage, and no major weaknesses or strengths."));
+        lines.add(bullet("Berserker", "Very high damage with frequent critical hits. Low durability, but can quickly overwhelm you if ignored."));
+        lines.add(bullet("Bruiser", "High health and solid damage. Can take a beating and deal consistent damage, especially against physical attacks."));
+        lines.add(bullet("Juggernaut", "Extremely tough with the highest health and strong resistances. Hits hard and is slow to bring down."));
+        lines.add(bullet("Sniper", "Low health but very high damage from critical hits. Can deal heavy burst damage if left unchecked."));
+        lines.add(bullet("Caster", "Fragile but dangerous magic users. Deal high magical damage and are more resistant to magic attacks."));
         lines.add(spacer());
         lines.add(heading("Blocking"));
         lines.add(plain("Most weapons support blocking. When a blocked hit comes in:"));
@@ -324,7 +346,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Benches can be placed inside an active Light Well territory. Beds can be placed anywhere."));
         lines.add(bullet("Each player can only have one Light Well."));
         lines.add(bullet("Placing a Light Well makes your base a potential raid target."));
-        lines.add(plain("Use /home to teleport back to your Light Well from anywhere in the world."));
+        lines.add(plain("Use Homestones (crafted from inventory) to teleport back to your Light Well from anywhere in the world."));
         lines.add(spacer());
         lines.add(heading("Co-Ownership"));
         lines.add(plain("You can share ownership of your Light Well territory with other players. Co-owners can place and remove benches inside your territory and are included in raid defense."));
@@ -343,16 +365,18 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(plain("Once you have an active Light Well your base can be raided. There is a variety of curated raid events, each bringing different enemy types and challenges."));
         lines.add(spacer());
         lines.add(heading("How Raids Work"));
-        lines.add(plain("When a raid begins a raid HUD icon appears showing the current state. There is a short grace window before the first wave, and time between each subsequent wave."));
-        lines.add(plain("After the last wave spawns there is a 5-minute window to clear all remaining enemies."));
-        lines.add(plain("Important: Any raid enemies still alive when the raid ends will EXPLODE, destroying chunks of your base around them."));
+        lines.add(bullet("When a raid begins a raid HUD icon appears showing the current state."));
+        lines.add(bullet("There is a short grace window before the first wave, and a grace window between each subsequent wave."));
+        lines.add(bullet("Enemies spawned during the raid will have an enemy level equal to the average level of all online owners/co-owners for base raids, and equal to the player level for player raids."));
+        lines.add(bullet("After the last wave spawns there is a 5-minute window to clear all remaining enemies. Raids will end successfully when all enemies are cleared."));
+        lines.add(bullet("Important:", "Any raid enemies still alive when the raid ends will EXPLODE, destroying chunks of your base around them. (configurable)"));
         lines.add(spacer());
         lines.add(heading("Raid Cooldown"));
-        lines.add(plain("After a raid concludes there is a cooldown before your base can be targeted again. By default this is 90 minutes. This is configurable."));
+        lines.add(plain("After a raid concludes there is a cooldown before your base can be targeted again. By default this is " + ModConfig.get().raids.raid_cooldown_in_minutes + " minutes. (configurable)"));
         lines.add(spacer());
         lines.add(heading("Your Base When Away"));
-        lines.add(plain("Your base can be raided even while you are offline. Use /home when a raid begins so you can handle it directly."));
-        lines.add(plain("If your Light Well is destroyed all benches and beds in your territory will also break and drop in place."));
+        lines.add(plain("Your base can be raided even when you are not nearby. When a raid begins, its critical to use a Homestone or get back quickly to prevent your base from being destroyed."));
+        lines.add(plain("If your Light Well is destroyed all benches and beds in your territory will also break and drop in place. This will cause you to lose any bench upgrades you may have invested in."));
         return lines;
     }
 
@@ -404,7 +428,6 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(command("/skills", "Open your skill trees. Browse, invest skill points, and equip abilities."));
         lines.add(command("/stats", "Open character/gear management page. View and equip mod gear/items."));
         lines.add(command("/discovered", "Open your recipe book. Shows all discovered room recipes."));
-        lines.add(command("/home", "Teleport to your Light Well from anywhere in the world."));
         lines.add(command("/HyARPG_Player_Settings_ShowCombatMessages <true|false>", "Toggle combat damage messages."));
         lines.add(spacer());
         lines.add(heading("Admin Commands"));

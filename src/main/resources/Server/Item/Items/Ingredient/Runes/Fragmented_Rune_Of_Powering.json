@@ -1,0 +1,17 @@
+{
+  "Icon": "Icons/ItemsGenerated/WinterHoliday_WinterRoll.png",
+  "Categories": [
+    "Items.Ingredients"
+  ],
+  "SubCategory": "Rune Crafting",
+  "TranslationProperties": {
+    "Name": "server.items.runes.Fragmented_Rune_Of_Powering.name",
+    "Description": "server.items.runes.Fragmented_Rune_Of_Powering.description"
+  },
+  "ItemLevel": 30,
+  "MaxStack": 999,
+  "Quality": "Common",
+  "Model": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll.blockymodel",
+  "Texture": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll_Texture.png",
+  "PlayerAnimationsId": "Item"
+}

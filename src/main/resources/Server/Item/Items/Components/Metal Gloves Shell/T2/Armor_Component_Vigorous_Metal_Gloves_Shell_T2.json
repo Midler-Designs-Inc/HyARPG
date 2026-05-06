@@ -42,9 +42,9 @@
         "max": 3
       },
       {
-        "stat": "LIFE_FLAT",
-        "min": 3,
-        "max": 12
+        "stat": "LIFE_PERCENT",
+        "min": 0.75,
+        "max": 3
       }
     ]
   },

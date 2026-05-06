@@ -25,6 +25,7 @@ import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntitySta
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.role.Role;
@@ -216,7 +217,6 @@ public class Module_CombatSystem {
         awardXPToPlayers(event);
     }
 
-    // This function fires right before an entity takes damage
     private void onEntityPreDamage(Event_EntityPreDamaged event) {
         Ref<EntityStore> attacker = event.getAttacker();
         Ref<EntityStore> defender = event.getDefender();
@@ -258,19 +258,14 @@ public class Module_CombatSystem {
 
         // weapon damage path — MainHand, OffHand, or Weapon (ability) causes
         if (Set.of("MainHand", "OffHand", "Weapon").contains(cause.getId())) {
-            // get the cause id and appropriate item stack for evaluation
             String causeId = cause.getId();
             ItemStack weaponStack = causeId.equals("OffHand")
                     ? (attackerRPGStats != null ? attackerRPGStats.offHandItem : null)
                     : (attackerRPGStats != null ? attackerRPGStats.mainHandItem : null);
 
-            // derive the weapon sub-type e.g. "Axe", "Sword" from the item id for weapon bonus lookup
             String weaponType = weaponStack != null ? ItemFactory.deriveItemType(weaponStack.getItem().getId()) : null;
-
-            // read weapon damage implicits from the item
             List<String> damageImplicits = weaponStack != null ? ItemFactory.getWeaponDamageImplicits(weaponStack) : Collections.emptyList();
 
-            // get or create the swing group for this attacker/defender pair
             SwingDamageGroup group = swingGroups.computeIfAbsent(key, k -> {
                 SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, weaponType, false, 0);
                 scheduler.schedule(() -> {
@@ -280,18 +275,12 @@ public class Module_CombatSystem {
                 return g;
             });
 
-            // if implicits were found add one packet per damage type scaled by the initial amount
             if (!damageImplicits.isEmpty()) {
                 for (String implicit : damageImplicits) {
-                    // parse the implicit string format: "STAT_TYPE|value|display"
                     String[] parts = implicit.split("\\|");
                     if (parts.length < 3) continue;
-
-                    // resolve the stat type from the encoded string
                     StatType stat;
                     try { stat = StatType.valueOf(parts[0]); } catch (Exception e) { continue; }
-
-                    // parse the implicit value and map the stat type to a damage cause id
                     float implicitValue = Float.parseFloat(parts[1]);
                     String dmgTypeId = switch (stat) {
                         case MAIN_HAND_FIRE_DAMAGE_FLAT,      OFF_HAND_FIRE_DAMAGE_FLAT      -> "Fire";
@@ -303,23 +292,16 @@ public class Module_CombatSystem {
                         default -> null;
                     };
                     if (dmgTypeId == null) continue;
-
-                    // look up the damage cause asset and add the scaled packet to the group
                     DamageCause resolvedCause = DamageCause.getAssetMap().getAsset(dmgTypeId);
                     if (resolvedCause == null) continue;
                     group.add(resolvedCause, implicitValue * damage.getInitialAmount());
                 }
-            }
-            else {
-                // no implicits found on the weapon, fall back to physical
+            } else {
                 group.add(DamageCause.getAssetMap().getAsset("Physical"), damage.getInitialAmount());
             }
-        }
-        else {
-            // remap unrecognized damage types to physical
+        } else {
             if (!MOD_DAMAGE_TYPES.contains(cause.getId())) cause = DamageCause.getAssetMap().getAsset("Physical");
 
-            // get or create the swing group for this attacker/defender pair
             SwingDamageGroup group = swingGroups.computeIfAbsent(key, k -> {
                 SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, null, false, 0);
                 scheduler.schedule(() -> {
@@ -337,11 +319,9 @@ public class Module_CombatSystem {
                 if (enemyCause != null) cause = enemyCause;
             }
 
-            // push the damage packet to its damage group
             group.add(cause, baseDamage);
         }
 
-        // cancel the original damage event, will be handled by the mod pipeline
         damage.setCancelled(true);
     }
 
@@ -636,8 +616,11 @@ public class Module_CombatSystem {
             }
         }
 
+        // if final damage at this point is 0 or less nothing else needs to happen
+        if(finalDamage <= 0) return;
+
         // apply leech — attacker recovers a portion of damage dealt as a resource
-        if (attackerRPGStats != null && finalDamage > 0) {
+        if (attackerRPGStats != null) {
             EntityStatMap attackerStatMap = store.getComponent(attacker, EntityStatsModule.get().getEntityStatMapComponentType());
             if (attackerStatMap != null) {
                 float lifeLeech = attackerStats.getLeech("Life");
@@ -668,7 +651,7 @@ public class Module_CombatSystem {
             }
         }
 
-        // damage will be dealt so check for signature energy awarding
+        // check for signature energy awarding
         Ref<EntityStore> refPlayer = attackerRPGStats != null ? attacker : defenderRPGStats != null ? defender : null;
         if (refPlayer != null) {
             // get the players stat map
@@ -680,20 +663,23 @@ public class Module_CombatSystem {
             if (sigEnergy != null) playerStatMap.setStatValue(sigEnergyIndex, sigEnergy.get() + 1f);
         }
 
-        // damage will be dealt, apply marks to the target now that damage has been calculated
+        // capture last target hit and apply marks to the target now that damage has been calculated
         if (attackerRPGStats != null) {
+            // update last target hit
+            attackerRPGStats.lastEnemyHit = defender;
+
+            // apply marks
             int toApply = attackerStats.getFlatApplyMarks("Assassin");
-            if (toApply > 0)
-                attackerRPGStats.marks.onHit(defender, Map.of("ASSASSIN", toApply));
+            if (toApply > 0) attackerRPGStats.marks.onHit(defender, Map.of("ASSASSIN", toApply));
         }
 
         // apply the final damage to the player
         DamageSystems.executeDamage(defender, store,
-            new Damage(
-                new Damage.EntitySource(attacker),
-                DamageCause.getAssetMap().getAsset("Command"),
-                (float) finalDamage
-            )
+                new Damage(
+                        new Damage.EntitySource(attacker),
+                        DamageCause.getAssetMap().getAsset("Command"),
+                        (float) finalDamage
+                )
         );
     }
 

@@ -1,14 +1,12 @@
 package com.example.hyarpg.utils.codecs;
 
 // Hytale Imports
-import com.example.hyarpg.utils.abilities.assassin.Reaper_Death_Seal;
-import com.example.hyarpg.utils.abilities.assassin.Shadow_Strike;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.ExtraInfo;
 import com.hypixel.hytale.codec.schema.SchemaContext;
 import com.hypixel.hytale.codec.schema.config.Schema;
 import com.hypixel.hytale.codec.util.RawJsonReader;
-import org.bson.BsonValue;
+
 
 // Mod Imports
 import com.example.hyarpg.utils.skills.SkillLibrary;
@@ -17,6 +15,8 @@ import com.example.hyarpg.utils.skills.Requirement;
 import com.example.hyarpg.utils.abilities.Ability;
 import com.example.hyarpg.utils.abilities.knight.*;
 import com.example.hyarpg.utils.abilities.juggernaut.*;
+import com.example.hyarpg.utils.abilities.mage.*;
+import com.example.hyarpg.utils.abilities.assassin.*;
 import com.example.hyarpg.utils.abilities.ranger.Aerial_Maneuver;
 import com.example.hyarpg.utils.abilities.ranger.Rain_Of_Arrows;
 import com.example.hyarpg.utils.abilities.ranger.Summon_Crossbow_Turret;
@@ -28,7 +28,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-
+import org.bson.BsonValue;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.List;
@@ -40,17 +40,20 @@ public class Codec_SkillLibrary {
 
     private static Map<String, Ability> getAbilityRegistry() {
         if (abilityRegistry == null) {
-            abilityRegistry = Map.of(
-                "Ability_Taunt", new Taunt(),
-                "Ability_Rallying_Cry", new Rallying_Cry(),
-                "Ability_Chain_Pull", new Chain_Pull(),
-                "Ability_Cyclone", new Cyclone(),
-                "Ability_Leap_Slam", new Leap_Slam(),
-                "Ability_Rain_Of_Arrows", new Rain_Of_Arrows(),
-                "Ability_Summon_Crossbow_Turret", new Summon_Crossbow_Turret(),
-                "Ability_Aerial_Maneuver", new Aerial_Maneuver(),
-                "Ability_Shadow_Strike", new Shadow_Strike(),
-                "Ability_Reaper_Death_Seal", new Reaper_Death_Seal()
+            abilityRegistry = Map.ofEntries(
+                Map.entry("Ability_Taunt", new Taunt()),
+                Map.entry("Ability_Rallying_Cry", new Rallying_Cry()),
+                Map.entry("Ability_Chain_Pull", new Chain_Pull()),
+                Map.entry("Ability_Cyclone", new Cyclone()),
+                Map.entry("Ability_Leap_Slam", new Leap_Slam()),
+                Map.entry("Ability_Rain_Of_Arrows", new Rain_Of_Arrows()),
+                Map.entry("Ability_Summon_Crossbow_Turret", new Summon_Crossbow_Turret()),
+                Map.entry("Ability_Aerial_Maneuver", new Aerial_Maneuver()),
+                Map.entry("Ability_Shadow_Strike", new Shadow_Strike()),
+                Map.entry("Ability_Reaper_Death_Seal", new Reaper_Death_Seal()),
+                Map.entry("Ability_Arcane_Missiles", new Arcane_Missiles()),
+                Map.entry("Ability_Arcane_Meteor", new Arcane_Meteor()),
+                Map.entry("Ability_Simulacrum", new Simulacrum())
             );
         }
         return abilityRegistry;

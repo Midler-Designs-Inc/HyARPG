@@ -1,6 +1,7 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
@@ -14,6 +15,7 @@ import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
+import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
@@ -81,7 +83,7 @@ public class Module_RPGSystem {
     private static final Random random = new Random();
 
     // Skill Tree Version Constant
-    private static final String SKILL_TREE_VERSION = "1.11.0"; // 1.6.0
+    private static final String SKILL_TREE_VERSION = "1.1.0"; // 1.6.0
 
     // initialize this module
     public Module_RPGSystem(HyARPGPlugin plugin) {
@@ -106,6 +108,11 @@ public class Module_RPGSystem {
         interactionRegistry.register("Open_Territory_Panel", Interaction_Open_Territory_Panel.class, Interaction_Open_Territory_Panel.CODEC);
         interactionRegistry.register("Open_Cube_Combine", Interaction_Bench_Open_CubeCombine.class, Interaction_Bench_Open_CubeCombine.CODEC);
         interactionRegistry.register("Resurrect_Player_At_Grave", Interaction_RezPlayer.class, Interaction_RezPlayer.CODEC);
+
+        // Consumable Interactions
+        interactionRegistry.register("Warp_Home", Interaction_WarpHome.class, Interaction_WarpHome.CODEC);
+        interactionRegistry.register("Respec_Skill_Tree", Interaction_RespecSkillTree.class, Interaction_RespecSkillTree.CODEC);
+        interactionRegistry.register("Recall_Player_Grave", Interaction_RecallPlayerGrave.class, Interaction_RecallPlayerGrave.CODEC);
 
         // Register the wayward compass interactions specifically
         interactionRegistry.register("Wayward_Compass_Find_Prefab", Interaction_WaywardShrineCompassFindPrefab.class, Interaction_WaywardShrineCompassFindPrefab.CODEC);
@@ -199,6 +206,9 @@ public class Module_RPGSystem {
             int enemyLevel = calculateEnemyLevel(holder);
             rpgEnemy = new Component_RPG_Enemy(enemyLevel);
             holder.putComponent(componentTypeRPGEnemy, rpgEnemy);
+        } else {
+            // reset stats to prevent stacking on chunk reload
+            rpgEnemy.stats = new EntityStats();
         }
 
         // prep a list of affixes for the enemy
@@ -458,7 +468,7 @@ public class Module_RPGSystem {
 
         // intercept items before vanilla drops them — they go into the grave instead
         var deathComponent = event.getDeathComponent();
-        List<ItemStack> itemsToGrave = new ArrayList<>(storage.getInventory().dropAllItemStacks());
+        List<ItemStack> itemsToGrave = new ArrayList<>(storage.getInventory().removeAllItemStacks());
         deathComponent.setItemsLossMode(DeathConfig.ItemsLossMode.NONE);
         deathComponent.setItemsLostOnDeath(itemsToGrave);
 
@@ -512,7 +522,8 @@ public class Module_RPGSystem {
                 // get the container from the holder, fill it with this death's items, and mark it as non-droppable
                 ItemContainerBlock container = graveHolder.ensureAndGetComponent(ItemContainerBlock.getComponentType());
                 container.setDroplist("Empty");
-                for (ItemStack stack : itemsToGrave) container.getItemContainer().addItemStack(stack);
+                container.setItemContainer(new SimpleItemContainer((short) 36));
+                container.getItemContainer().addItemStacks(itemsToGrave);
 
                 // set the block and update it's state
                 chunk.setBlock(x, groundY, z, blockIndex, blockType, 0, 0, 2);
@@ -605,25 +616,21 @@ public class Module_RPGSystem {
                 // high resists all around, immovable
                 rpgEnemy.stats.add(StatType.PHYSICAL_RESIST_PERCENT, 25f);
                 rpgEnemy.stats.add(StatType.ELEMENTAL_RESIST_PERCENT, 20f);
-                rpgEnemy.stats.add(StatType.STABILITY_PERCENT, 40f);
                 break;
             case "bruiser":
                 // tough and hits hard, resists physical punishment
                 rpgEnemy.stats.add(StatType.PHYSICAL_RESIST_PERCENT, 15f);
                 rpgEnemy.stats.add(StatType.ELEMENTAL_RESIST_PERCENT, 10f);
-                rpgEnemy.stats.add(StatType.LIFE_REGEN_FLAT, 2f);
                 break;
             case "berserker":
                 // glass cannon — big damage, sustains through leech
                 rpgEnemy.stats.add(StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 15f);
                 rpgEnemy.stats.add(StatType.CRITICAL_STRIKE_DAMAGE_PERCENT, 30f);
-                rpgEnemy.stats.add(StatType.LIFE_LEECH_PERCENT, 5f);
                 break;
             case "sniper":
                 // precision attacker — crits and ammo efficiency
                 rpgEnemy.stats.add(StatType.CRITICAL_STRIKE_CHANCE_PERCENT, 20f);
                 rpgEnemy.stats.add(StatType.CRITICAL_STRIKE_DAMAGE_PERCENT, 25f);
-                rpgEnemy.stats.add(StatType.AMMO_REGEN_PERCENT, 20f);
                 break;
             case "skirmisher":
                 // hard to pin down — dodges and moves fast

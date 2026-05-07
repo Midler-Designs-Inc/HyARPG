@@ -1,77 +1,102 @@
 package com.example.hyarpg.utils.abilities.mage;
 
 // Hytale Imports
+import com.example.hyarpg.ticking_systems.System_HomingMissile;
+import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
-import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
-import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
-import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
+import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
+import com.hypixel.hytale.server.core.modules.physics.util.PhysicsMath;
+import com.hypixel.hytale.server.core.modules.projectile.ProjectileModule;
+import com.hypixel.hytale.server.core.modules.projectile.config.ProjectileConfig;
+import com.hypixel.hytale.server.core.modules.projectile.interaction.ProjectileInteraction;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
+import com.example.hyarpg.components.Component_HomingMissile;
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.abilities.Ability;
 
 // Java Imports
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 public class Arcane_Missiles extends Ability {
+
+    private static final String PROJECTILE_CONFIG = "ProjectileConfig_Arcane_Missiles";
+    private static final int MISSILE_COUNT = 5;
+    private static final long STAGGER_MS = 100L;
+    private static final float ARM_TIME = 0.5f;
+    private static final float TURN_RATE = 15f;
+
+    // yaw and pitch offsets per missile so they fan out on launch
+    private static final float[] YAW_OFFSETS   = { -20f, -10f,  0f, 10f, 20f };
+    private static final float[] PITCH_OFFSETS = { 55f, 60f, 65f, 60f, 55f };
 
     public Arcane_Missiles() {
         super("Ability_Arcane_Missiles", DefaultEntityStatTypes.getMana(), 10f, false, 5, false, List.of());
     }
 
     @Override
-    public void execute(Ref<EntityStore> ref) {
-//        Store<EntityStore> store = ref.getStore();
-//        World world = store.getExternalData().getWorld();
-//
-//        // get the rpg player component
-//        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
-//        Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
-//        if (rpgPlayer == null || playerRef == null) return;
-//
-//        // get the last hit target — bail if none
-//        Ref<EntityStore> target = rpgPlayer.marks.getLastHitTarget();
-//        if (target == null || !target.isValid()) {
-//            playerRef.sendMessage(Message.raw("You must have a valid target to use this ability. Hit an enemy to acquire them as a target.").color(Color.RED));
-//            return;
-//        }
-//
-//        world.execute(() -> {
-//            // get the target's stat map to read max health
-//            EntityStatMap targetStatMap = store.getComponent(target, EntityStatsModule.get().getEntityStatMapComponentType());
-//            if (targetStatMap == null) return;
-//
-//            // get the target's max health
-//            EntityStatValue healthStat = targetStatMap.get(DefaultEntityStatTypes.getHealth());
-//            if (healthStat == null) return;
-//            float maxHealth = healthStat.getMax();
-//
-//            // consume all assassin marks on the target
-//            int marksConsumed = rpgPlayer.marks.count("ASSASSIN");
-//            if (marksConsumed > 0) rpgPlayer.marks.clear("ASSASSIN");
-//
-//            // calculate final damage — 10% of target max health per mark consumed
-//            float finalDamage = (float) (maxHealth * DAMAGE_PER_MARK * marksConsumed);
-//
-//            // apply the damage directly via command cause, bypassing the swing pipeline
-//            DamageSystems.executeDamage(target, store,
-//                new Damage(
-//                    new Damage.EntitySource(ref),
-//                    DamageCause.getAssetMap().getAsset("Command"),
-//                    finalDamage
-//                )
-//            );
-//        });
+    public void execute(Ref<EntityStore> ref, CommandBuffer<EntityStore> commandBuffer) {
+        Store<EntityStore> store = ref.getStore();
+        World world = store.getExternalData().getWorld();
+
+        // get required components
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+        Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
+        if (rpgPlayer == null || playerRef == null) return;
+
+        // get last target — bail with message if none
+        Ref<EntityStore> targetRef = rpgPlayer.lastEnemyHit;
+        if (targetRef == null || !targetRef.isValid()) {
+            playerRef.sendMessage(Message.raw("No target — hit an enemy to acquire one.").color(Color.RED));
+            return;
+        }
+
+        // resolve projectile config — bail if not found
+        ProjectileConfig config = ProjectileConfig.getAssetMap().getAsset(PROJECTILE_CONFIG);
+        if (config == null) return;
+
+        // get player transform for launch origin and yaw
+        TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
+        if (transform == null) return;
+        Vector3d launchOrigin = transform.getPosition().clone().add(0, 1.6, 0);
+        float playerYaw = transform.getRotation().getYaw();
+
+        // capture target ref for lambda
+        final Ref<EntityStore> capturedTargetRef = targetRef;
+
+        // stagger each missile launch on a virtual thread like raid wave spawning
+        for (int i = 0; i < MISSILE_COUNT; i++) {
+            final int missileIndex = i;
+            Thread.ofVirtual().start(() -> {
+                try { Thread.sleep(STAGGER_MS * missileIndex); } catch (InterruptedException e) { Thread.currentThread().interrupt(); return; }
+                world.execute(() -> {
+                    float yawRad = playerYaw + (float) Math.toRadians(YAW_OFFSETS[missileIndex]);
+
+                    // build upward launch direction directly — positive Y is up in Hytale
+                    double upAmount = Math.sin(Math.toRadians(PITCH_OFFSETS[missileIndex]));
+                    double forwardAmount = Math.cos(Math.toRadians(PITCH_OFFSETS[missileIndex]));
+
+                    Vector3d dir = new Vector3d(
+                        Math.sin(yawRad) * forwardAmount,
+                        upAmount,
+                        Math.cos(yawRad) * forwardAmount
+                    );
+                    dir.normalize();
+
+                    Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(null, ref, commandBuffer, config, launchOrigin.clone(), dir);
+                    commandBuffer.putComponent(missileRef, Component_HomingMissile.getComponentType(), new Component_HomingMissile(ref, capturedTargetRef, TURN_RATE, ARM_TIME));
+                });
+            });
+        }
     }
 }

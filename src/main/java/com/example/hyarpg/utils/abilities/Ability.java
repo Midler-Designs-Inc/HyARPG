@@ -1,6 +1,7 @@
 package com.example.hyarpg.utils.abilities;
 
 // Hytale Imports
+import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
@@ -37,7 +38,7 @@ public class Ability {
     public long getLastUse() { return lastUse; }
 
     // Execute fires when teh ability is triggered (override on children as needed)
-    public void execute(Ref<EntityStore> ref) {}
+    public void execute(Ref<EntityStore> ref, CommandBuffer<EntityStore> commandBuffer) {}
 
     // Interaction vars changes parts of the ability's interaction (override on children as needed)
     @Nullable

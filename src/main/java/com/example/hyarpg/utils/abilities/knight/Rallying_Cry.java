@@ -14,7 +14,4 @@ public class Rallying_Cry extends Ability {
         super("Ability_Rallying_Cry", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of());
     }
 
-    @Override
-    public void execute(Ref<EntityStore> ref) {}
-
 }

@@ -1,15 +1,15 @@
 package com.example.hyarpg;
 
 // Hytale Imports
+import com.example.hyarpg.components.Component_HomingMissile;
+import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.subclasses.FixedDeployableAoeConfig;
 import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
+import com.example.hyarpg.ticking_systems.System_HomingMissile;
 import com.example.hyarpg.utils.items.ItemFactory;
-import com.hypixel.hytale.assetstore.AssetUpdateQuery;
 import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
-import com.hypixel.hytale.protocol.BenchRequirement;
+import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.server.core.HytaleServer;
-import com.hypixel.hytale.server.core.asset.type.item.config.CraftingRecipe;
-import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.plugin.JavaPlugin;
 import com.hypixel.hytale.server.core.plugin.JavaPluginInit;
 import com.hypixel.hytale.event.EventRegistry;
@@ -21,14 +21,13 @@ import com.example.hyarpg.modules.*;
 import com.example.hyarpg.worldgen.*;
 import com.example.hyarpg.commands.*;
 import com.example.hyarpg.configs.ModConfig;
+import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Java Imports
 import javax.annotation.Nonnull;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.jar.JarFile;
 import java.util.logging.Level;
@@ -43,6 +42,9 @@ public class HyARPGPlugin extends JavaPlugin {
     public Module_RPGSystem rpgSystem;
     public Module_RaidSystem raidSystem;
     public Module_CombatSystem combatSystem;
+
+    // components
+    public ComponentType<EntityStore, Component_HomingMissile> componentTypeHomingMissile;
 
     // required super function??
     public HyARPGPlugin(@Nonnull JavaPluginInit init) {
@@ -61,6 +63,9 @@ public class HyARPGPlugin extends JavaPlugin {
         // Create or Read a Config File
         ModConfig.load();
 
+        // register components
+        registerComponents();
+
         // Register event listeners
         registerListeners();
 
@@ -77,6 +82,11 @@ public class HyARPGPlugin extends JavaPlugin {
         preloadClasses();
 
         LOGGER.at(Level.INFO).log("[HyARPG] Setup complete!");
+    }
+
+    // Register mod components
+    private void registerComponents() {
+        componentTypeHomingMissile = getEntityStoreRegistry().registerComponent(Component_HomingMissile.class, "HomingMissileComponent", Component_HomingMissile.CODEC);
     }
 
     // Register event listeners
@@ -101,6 +111,9 @@ public class HyARPGPlugin extends JavaPlugin {
             getEntityStoreRegistry().registerSystem(new Listeners_PlaceBlock());
             getEntityStoreRegistry().registerSystem(new Listeners_BreakBlock());
             getEntityStoreRegistry().registerSystem(new Listeners_UtilitySlot());
+
+            // Register the homing missile ticking system/component
+            getEntityStoreRegistry().registerSystem(new System_HomingMissile(componentTypeHomingMissile));
 
             // Register chunk listeners
             getChunkStoreRegistry().registerSystem(new Listeners_ContainerSpawn());

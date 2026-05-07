@@ -1,6 +1,7 @@
 package com.example.hyarpg.utils.abilities.mage;
 
 // Hytale Imports
+import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.server.core.Message;
@@ -31,7 +32,7 @@ public class Simulacrum extends Ability {
     }
 
     @Override
-    public void execute(Ref<EntityStore> ref) {
+    public void execute(Ref<EntityStore> ref, CommandBuffer<EntityStore> commandBuffer) {
 //        Store<EntityStore> store = ref.getStore();
 //        World world = store.getExternalData().getWorld();
 //

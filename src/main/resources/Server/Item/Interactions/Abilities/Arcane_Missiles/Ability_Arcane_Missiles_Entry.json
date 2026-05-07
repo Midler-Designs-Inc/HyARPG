@@ -1,0 +1,24 @@
+{
+  "Type": "DamageEntity",
+  "DamageCalculator": {
+    "BaseDamage": {
+      "Physical": 1
+    },
+    "RandomPercentageModifier": 0.1
+  },
+  "DamageEffects": {
+    "Knockback": {
+      "Force": 1.5,
+      "RelativeX": 0,
+      "RelativeZ": -5,
+      "VelocityY": 2
+    },
+    "WorldParticles": [
+      {
+        "SystemId": "Impact_Blade_01"
+      }
+    ],
+    "LocalSoundEventId": "SFX_Soft_Hit",
+    "WorldSoundEventId": "SFX_Soft_Hit"
+  }
+}

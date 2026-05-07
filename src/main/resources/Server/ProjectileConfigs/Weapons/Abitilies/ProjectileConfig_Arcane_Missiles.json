@@ -1,0 +1,23 @@
+{
+  "Model": "Magic_Missile",
+  "Physics": {
+    "Type": "Standard",
+    "Gravity": 0,
+    "TerminalVelocityAir": 50,
+    "TerminalVelocityWater": 15,
+    "RotationMode": "VelocityDamped",
+    "Bounciness": 1,
+    "BounceCount": 8,
+    "BounceLimit": 0.0
+  },
+  "LaunchForce": 10,
+  "Interactions": {
+    "ProjectileMiss": {
+      "Interactions": [
+        {
+          "Type": "Simple"
+        }
+      ]
+    }
+  }
+}

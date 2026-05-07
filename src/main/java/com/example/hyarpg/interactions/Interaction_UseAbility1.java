@@ -138,7 +138,7 @@ public class Interaction_UseAbility1 extends SimpleInstantInteraction {
             }
 
             // call the ability execute for any additional functionality that is ability dependent
-            node.ability.execute(entityRef);
+            node.ability.execute(entityRef, context.getCommandBuffer());
             node.ability.setLastUse(now);
         } catch (Exception e) {
             HytaleLogger.getLogger().at(Level.WARNING).log("UseAbility1 failed: %s", e.getMessage());

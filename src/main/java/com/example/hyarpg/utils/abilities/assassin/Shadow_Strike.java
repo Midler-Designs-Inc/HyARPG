@@ -2,6 +2,7 @@ package com.example.hyarpg.utils.abilities.assassin;
 
 // Hytale Imports
 import com.example.hyarpg.modules.Module_RPGSystem;
+import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Vector3d;
@@ -42,7 +43,7 @@ public class Shadow_Strike extends Ability {
     }
 
     @Override
-    public void execute(Ref<EntityStore> ref) {
+    public void execute(Ref<EntityStore> ref, CommandBuffer<EntityStore> commandBuffer) {
         Store<EntityStore> store = ref.getStore();
         World world = store.getExternalData().getWorld();
 

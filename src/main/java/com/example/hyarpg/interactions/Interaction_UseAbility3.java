@@ -149,7 +149,7 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
             }
 
             // call the ability execute for any additional functionality that is ability dependent
-            node.ability.execute(entityRef);
+            node.ability.execute(entityRef, context.getCommandBuffer());
             node.ability.setLastUse(now);
         } catch (NoClassDefFoundError e) {
             // Class not yet loaded, retry on next tick or log

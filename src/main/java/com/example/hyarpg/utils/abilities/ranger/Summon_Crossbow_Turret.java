@@ -16,7 +16,4 @@ public class Summon_Crossbow_Turret extends Ability {
         super("Ability_Summon_Crossbow_Turret", DefaultEntityStatTypes.getStamina(), 7f, false, 0, false, List.of());
     }
 
-    @Override
-    public void execute(Ref<EntityStore> ref) {}
-
 }

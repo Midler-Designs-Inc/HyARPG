@@ -1,6 +1,7 @@
 package com.example.hyarpg.utils.abilities.ranger;
 
 import com.example.hyarpg.utils.abilities.Ability;
+import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Vector3d;
@@ -26,7 +27,7 @@ public class Aerial_Maneuver extends Ability {
     }
 
     @Override
-    public void execute(Ref<EntityStore> ref) {
+    public void execute(Ref<EntityStore> ref, CommandBuffer<EntityStore> commandBuffer) {
         Store<EntityStore> store = ref.getStore();
 
         Velocity velocity = store.getComponent(ref, Velocity.getComponentType());

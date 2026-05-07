@@ -1,6 +1,7 @@
 package com.example.hyarpg.utils.abilities.knight;
 
 // Hytale Imports
+import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Vector3d;
@@ -26,7 +27,7 @@ public class Taunt extends Ability {
     }
 
     @Override
-    public void execute(Ref<EntityStore> ref) {
+    public void execute(Ref<EntityStore> ref, CommandBuffer<EntityStore> commandBuffer) {
         Store<EntityStore> store = ref.getStore();
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
         if (transform == null) return;

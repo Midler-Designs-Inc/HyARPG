@@ -30,7 +30,7 @@ public class Reaper_Death_Seal extends Ability {
     private static final double DAMAGE_PER_MARK = 0.10; // 10% of target max health per mark
 
     public Reaper_Death_Seal() {
-        super("Ability_Reaper_Death_Seal", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 300, false, List.of());
+        super("Ability_Reaper_Death_Seal", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of());
     }
 
     @Override

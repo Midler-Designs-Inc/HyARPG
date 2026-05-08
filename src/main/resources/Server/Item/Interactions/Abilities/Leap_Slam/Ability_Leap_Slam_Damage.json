@@ -2,7 +2,7 @@
   "Parent": "DamageEntityParent",
   "DamageCalculator": {
     "BaseDamage": {
-      "Weapon": 0
+      "MainHand_Scalar": 20
     },
     "RandomPercentageModifier": 0.1
   },

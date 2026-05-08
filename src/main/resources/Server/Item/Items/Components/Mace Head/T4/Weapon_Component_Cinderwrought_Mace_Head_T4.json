@@ -38,8 +38,8 @@
     "implicits": [
       {
         "stat": "MAIN_HAND_FIRE_DAMAGE_FLAT",
-        "min": 50,
-        "max": 50
+        "min": 35,
+        "max": 35
       }
     ]
   },

@@ -153,7 +153,7 @@ public class SkillLibrary {
         layout.put("Juggernaut_IncreasedStability_3", new SkillTree.GridPosition(6, 2));
 
         // ---- Cyclone Ability ---- //
-        nodes.put("Juggernaut_LearnAbility_Cyclone", new SkillNode("Juggernaut_LearnAbility_Cyclone", "Learn 'Cyclone': A channeled ability causing the user to spin in a circle damaging all nearby enemies with their equipped weapon.", "Juggernaut_Ability_Cyclone.png", new Cyclone(), 2, 1, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
+        nodes.put("Juggernaut_LearnAbility_Cyclone", new SkillNode("Juggernaut_LearnAbility_Cyclone", "Learn 'Cyclone': A channeled ability causing the user to spin in a circle damaging all nearby enemies with their weapon.\n\nDamage scales at x0.75 Main Hand weapon damage.", "Juggernaut_Ability_Cyclone.png", new Cyclone(), 2, 1, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
         layout.put("Juggernaut_LearnAbility_Cyclone", new SkillTree.GridPosition(8, 0));
 
         // ---- Chain Pull Ability ---- //
@@ -161,7 +161,7 @@ public class SkillLibrary {
         layout.put("Juggernaut_LearnAbility_Chain_Pull", new SkillTree.GridPosition(8, 2));
 
         // ---- Leap Slam Ability ---- //
-        nodes.put("Juggernaut_LearnAbility_Leap_Slam", new SkillNode("Juggernaut_LearnAbility_Leap_Slam", "Learn 'Leap Slam': An activated ultimate ability that causes the user to leap into the air and then slam down with their weapon causing massive AoE damage and stun.", "Juggernaut_Ability_LeapSlam.png", new Leap_Slam(), 6, 1, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
+        nodes.put("Juggernaut_LearnAbility_Leap_Slam", new SkillNode("Juggernaut_LearnAbility_Leap_Slam", "Learn 'Leap Slam': An activated ultimate ability that causes the user to leap into the air and then slam down with their weapon causing massive AoE damage and stun.\n\nDamage scales at x15 Main Hand weapon damage.", "Juggernaut_Ability_LeapSlam.png", new Leap_Slam(), 6, 1, List.of(Requirement.treePoints("Juggernaut", 10)), "1.0.0"));
         layout.put("Juggernaut_LearnAbility_Leap_Slam", new SkillTree.GridPosition(8, 4));
 
         // ---- Increased Physical Resistance Nodes ---- //
@@ -295,7 +295,7 @@ public class SkillLibrary {
         layout.put("Mage_Magic_AddedDamage_2", new SkillTree.GridPosition(4, 1));
 
         // ---- Arcane Missiles Ability ---- //
-        nodes.put("Mage_LearnAbility_Arcane_Missiles", new SkillNode("Mage_LearnAbility_Arcane_Missiles", "Learn 'Arcane Missiles': An activated ability that fires off 5 magic based homing projectiles at the last target you hit.", "Mage_Ability_Arcane_Missiles.png", new Arcane_Missiles(), 4, 1, List.of(Requirement.treePoints("Mage", 10)), "1.0.0"));
+        nodes.put("Mage_LearnAbility_Arcane_Missiles", new SkillNode("Mage_LearnAbility_Arcane_Missiles", "Learn 'Arcane Missiles': An activated ability that fires off 5 magic based homing projectiles at the last target you hit.\n\nDamage scales at x0.50 Main Hand weapon damage.", "Mage_Ability_Arcane_Missiles.png", new Arcane_Missiles(), 4, 1, List.of(Requirement.treePoints("Mage", 10)), "1.0.0"));
         layout.put("Mage_LearnAbility_Arcane_Missiles", new SkillTree.GridPosition(8, 0));
 
         // ---- Simulacrum Ability ---- //
@@ -303,7 +303,7 @@ public class SkillLibrary {
         layout.put("Mage_LearnAbility_Simulacrum", new SkillTree.GridPosition(8, 2));
 
         // ---- Arcane Meteor Ability ---- //
-        nodes.put("Mage_LearnAbility_Arcane_Meteor", new SkillNode("Mage_LearnAbility_Arcane_Meteor", "Learn 'Arcane Meteor': An activated ability that summons an arcane meteor to rain from the sky on all nearby enemies.", "Mage_Ability_Arcane_Meteor.png", new Arcane_Meteor(), 10, 1, List.of(Requirement.treePoints("Mage", 10)), "1.0.0"));
+        nodes.put("Mage_LearnAbility_Arcane_Meteor", new SkillNode("Mage_LearnAbility_Arcane_Meteor", "Learn 'Arcane Meteor': An activated ability that summons an arcane meteor to rain down on the last enemy hit damaging all nearby enemies on impact.\n\nDamage scales at x15 Main Hand weapon damage.", "Mage_Ability_Arcane_Meteor.png", new Arcane_Meteor(), 10, 1, List.of(Requirement.treePoints("Mage", 10)), "1.0.0"));
         layout.put("Mage_LearnAbility_Arcane_Meteor", new SkillTree.GridPosition(8, 4));
 
         // ---- Added Flat Mana / Increased Mana Regen ---- //
@@ -380,7 +380,7 @@ public class SkillLibrary {
 //        layout.put("Ranger_LearnAbility_SummonCrossbowTurret", new SkillTree.GridPosition(8, 2));
 
         // ---- Rain of Arrows Ability ---- //
-        nodes.put("Ranger_LearnAbility_RainOfArrows", new SkillNode("Ranger_LearnAbility_RainOfArrows", "Learn 'Rain of Arrows': An activated ultimate ability that causes arrows to rain down on all nearby enemies damaging them and pinning them in place for the duration.", "Ranger_LearnAbility_RainOfArrows.png", new Rain_Of_Arrows(), 6, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
+        nodes.put("Ranger_LearnAbility_RainOfArrows", new SkillNode("Ranger_LearnAbility_RainOfArrows", "Learn 'Rain of Arrows': An activated ultimate ability that causes arrows to rain down at the targeted location damaging and pinning any enemies hit.\n\nDamage scales at x5 Main Hand weapon damage.", "Ranger_LearnAbility_RainOfArrows.png", new Rain_Of_Arrows(), 6, 1, List.of(Requirement.treePoints("Ranger", 10)), "1.0.0"));
         layout.put("Ranger_LearnAbility_RainOfArrows", new SkillTree.GridPosition(8, 5));
 
         // ---- Increased Critical Strike Chance Nodes ---- //

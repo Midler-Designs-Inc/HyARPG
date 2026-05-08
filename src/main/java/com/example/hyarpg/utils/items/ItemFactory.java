@@ -213,6 +213,10 @@ public class ItemFactory {
         ItemStack stack = new ItemStack(itemId);
         stack = stack.withMetadata("components", Codec.STRING_ARRAY, components);
 
+        // determine 2H multiplier — only applies to weapons, not armor
+        boolean isTwoHanded = itemId.startsWith("Weapon_") && !isOneHanded(itemId);
+        float twoHandedMultiplier = isTwoHanded ? 2.0f : 1.0f;
+
         // read implicits from each component and apply them
         List<String> implicitStrings = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
@@ -231,7 +235,7 @@ public class ItemFactory {
 
                 double min = minVal.isDouble() ? minVal.asDouble().getValue() : (double) minVal.asInt32().getValue();
                 double max = maxVal.isDouble() ? maxVal.asDouble().getValue() : (double) maxVal.asInt32().getValue();
-                float value = StatTypeInfo.rollValue((float) min, (float) max);
+                float value = StatTypeInfo.rollValue((float) min, (float) max) * twoHandedMultiplier;
 
                 String display = statVal.asString().getValue();
                 try {
@@ -251,7 +255,8 @@ public class ItemFactory {
             List<Affix> affixes = AffixPool.randomAffixes(affixCount);
             for (Affix affix : affixes) {
                 affix.rollTier(gearScore);
-                affixStrings.add(affix.stat() + "|" + affix.value() + "|" + affix.tier());
+                float affixValue = affix.value() * twoHandedMultiplier;
+                affixStrings.add(affix.stat() + "|" + affixValue + "|" + affix.tier());
             }
         }
         stack = stack.withMetadata("affixes", Codec.STRING_ARRAY, affixStrings.toArray(new String[0]));
@@ -352,5 +357,20 @@ public class ItemFactory {
             } catch (Exception ignored) {}
         }
         return result;
+    }
+
+    // returns true if (Utility.Compatible == true in its asset json)
+    public static boolean isOneHanded(@Nonnull String itemId) {
+        Path assetPath = Item.getAssetMap().getPath(itemId);
+        if (assetPath == null) return false;
+        try {
+            BsonDocument doc = BsonDocument.parse(Files.readString(assetPath));
+            BsonValue utilityVal = doc.get("Utility");
+            if (utilityVal == null || !utilityVal.isDocument()) return false;
+            BsonValue compatibleVal = utilityVal.asDocument().get("Compatible");
+            return compatibleVal != null && compatibleVal.isBoolean() && compatibleVal.asBoolean().getValue();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

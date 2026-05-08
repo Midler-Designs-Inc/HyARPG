@@ -16,6 +16,9 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_HomingMissile;
+import com.hypixel.hytale.server.core.util.TargetUtil;
+import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import com.hypixel.hytale.server.npc.role.Role;
 
 // Java Imports
 import javax.annotation.Nonnull;
@@ -62,24 +65,48 @@ public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
         Vector3d missilePos = missileTransform.getPosition();
         Vector3d targetPos = targetTransform.getPosition().clone().add(0, 1.0, 0);
 
-        // get current velocity and speed so we preserve it while steering
+        // get current velocity and speed
         Velocity velocity = store.getComponent(ref, Velocity.getComponentType());
         if (velocity == null) return;
 
         Vector3d vel = velocity.getVelocity().clone();
         double speed = vel.length();
 
-        // missile has stopped — it hit something, apply damage and clean up
+        // missile has stopped — apply damage and clean up
         if (speed < 5) {
             homing.slowTime += dt;
             if (homing.slowTime > 0.1f) {
-                DamageSystems.executeDamage(homing.targetRef, commandBuffer,
-                    new Damage(
-                        new Damage.EntitySource(homing.casterRef),
-                        DamageCause.getAssetMap().getAsset("MainHand"),
-                        1f
-                    )
-                );
+                if (homing.aoeDamageRange > 0) {
+                    // AOE damage — hit all hostile and neutral NPCs in range of impact
+                    Vector3d impactPos = missileTransform.getPosition();
+                    Vector3d min = new Vector3d(impactPos.x - homing.aoeDamageRange, impactPos.y - homing.aoeDamageHeight, impactPos.z - homing.aoeDamageRange);
+                    Vector3d max = new Vector3d(impactPos.x + homing.aoeDamageRange, impactPos.y + homing.aoeDamageHeight, impactPos.z + homing.aoeDamageRange);
+                    for (Ref<EntityStore> aoeTarget : TargetUtil.getAllEntitiesInBox(min, max, store)) {
+                        if (!aoeTarget.isValid() || aoeTarget.equals(ref)) continue;
+                        NPCEntity npc = store.getComponent(aoeTarget, NPCEntity.getComponentType());
+                        if (npc == null) continue;
+                        Role role = npc.getRole();
+                        if (role == null) continue;
+                        if (!role.isFriendly(homing.casterRef, store)) {
+                            DamageSystems.executeDamage(aoeTarget, commandBuffer,
+                                new Damage(
+                                    new Damage.EntitySource(homing.casterRef),
+                                    DamageCause.getAssetMap().getAsset(homing.damageType),
+                                    homing.damageValue
+                                )
+                            );
+                        }
+                    }
+                } else {
+                    // single target damage
+                    DamageSystems.executeDamage(homing.targetRef, commandBuffer,
+                        new Damage(
+                            new Damage.EntitySource(homing.casterRef),
+                            DamageCause.getAssetMap().getAsset(homing.damageType),
+                            homing.damageValue
+                        )
+                    );
+                }
                 commandBuffer.removeComponent(ref, this.componentType);
                 commandBuffer.removeEntity(ref, RemoveReason.REMOVE);
             }
@@ -88,7 +115,7 @@ public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
             homing.slowTime = 0f;
         }
 
-        // turn off collision if we haven't already
+        // disable block collision once per missile
         if (!homing.blockCollisionDisabled) {
             StandardPhysicsProvider spp = store.getComponent(ref, StandardPhysicsProvider.getComponentType());
             if (spp != null) {
@@ -97,19 +124,18 @@ public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
             }
         }
 
-
         // get the current direction and direction to target
         Vector3d currentDir = vel.clone().normalize();
         Vector3d toTarget = Vector3d.directionTo(missilePos, targetPos);
 
         // blend current direction toward target direction by turn rate — this gives the curve
         Vector3d newDir = new Vector3d(
-            currentDir.x + (toTarget.x - currentDir.x) * homing.turnRate * dt,
-            currentDir.y + (toTarget.y - currentDir.y) * homing.turnRate * dt,
-            currentDir.z + (toTarget.z - currentDir.z) * homing.turnRate * dt
+                currentDir.x + (toTarget.x - currentDir.x) * homing.turnRate * dt,
+                currentDir.y + (toTarget.y - currentDir.y) * homing.turnRate * dt,
+                currentDir.z + (toTarget.z - currentDir.z) * homing.turnRate * dt
         ).normalize();
 
-        // write back at original speed
+        // write back at homing speed
         velocity.getVelocity().assign(newDir.scale(35));
     }
 }

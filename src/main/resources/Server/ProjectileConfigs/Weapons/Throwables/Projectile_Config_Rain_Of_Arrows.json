@@ -72,11 +72,11 @@
             "StartRadius": 8,
             "EndRadius": 8,
             "Height": 8,
-            "DamageAmount": 1,
+            "DamageAmount": 5,
             "AttackEnemies": true,
             "AttackTeam": false,
             "AttackOwner": false,
-            "DamageCause": "Weapon",
+            "DamageCause": "MainHand_Scalar",
             "Model": "Projectile",
             "ApplyEffects": [
               {

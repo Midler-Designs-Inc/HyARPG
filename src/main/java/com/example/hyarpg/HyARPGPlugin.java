@@ -3,9 +3,11 @@ package com.example.hyarpg;
 // Hytale Imports
 import com.example.hyarpg.components.Component_HomingMissile;
 import com.example.hyarpg.components.Component_RPG_Player;
+import com.example.hyarpg.components.Component_Simulacrum;
 import com.example.hyarpg.subclasses.FixedDeployableAoeConfig;
 import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
 import com.example.hyarpg.ticking_systems.System_HomingMissile;
+import com.example.hyarpg.ticking_systems.System_Simulacrum;
 import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
 import com.hypixel.hytale.component.ComponentType;
@@ -45,6 +47,7 @@ public class HyARPGPlugin extends JavaPlugin {
 
     // components
     public ComponentType<EntityStore, Component_HomingMissile> componentTypeHomingMissile;
+    public ComponentType<EntityStore, Component_Simulacrum> componentTypeSimulacrum;
 
     // required super function??
     public HyARPGPlugin(@Nonnull JavaPluginInit init) {
@@ -87,6 +90,7 @@ public class HyARPGPlugin extends JavaPlugin {
     // Register mod components
     private void registerComponents() {
         componentTypeHomingMissile = getEntityStoreRegistry().registerComponent(Component_HomingMissile.class, "HomingMissileComponent", Component_HomingMissile.CODEC);
+        componentTypeSimulacrum = getEntityStoreRegistry().registerComponent(Component_Simulacrum.class, "SimulacrumComponent", Component_Simulacrum.CODEC);
     }
 
     // Register event listeners
@@ -112,8 +116,9 @@ public class HyARPGPlugin extends JavaPlugin {
             getEntityStoreRegistry().registerSystem(new Listeners_BreakBlock());
             getEntityStoreRegistry().registerSystem(new Listeners_UtilitySlot());
 
-            // Register the homing missile ticking system/component
+            // Register component ticking systems
             getEntityStoreRegistry().registerSystem(new System_HomingMissile(componentTypeHomingMissile));
+            getEntityStoreRegistry().registerSystem(new System_Simulacrum(componentTypeSimulacrum, componentTypeHomingMissile));
 
             // Register chunk listeners
             getChunkStoreRegistry().registerSystem(new Listeners_ContainerSpawn());

@@ -1,28 +1,38 @@
 package com.example.hyarpg.subclasses;
 
+// Hytale Imports
 import com.hypixel.hytale.builtin.deployables.component.DeployableComponent;
 import com.hypixel.hytale.builtin.deployables.config.DeployableAoeConfig;
+import com.hypixel.hytale.codec.Codec;
+import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
-import com.hypixel.hytale.component.ArchetypeChunk;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.vector.Vector3d;
+import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.TargetUtil;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 
+// Java Imports
 import javax.annotation.Nonnull;
 
 public class FixedDeployableAoeConfig extends DeployableAoeConfig {
 
     public static final BuilderCodec<FixedDeployableAoeConfig> CODEC = BuilderCodec.builder(
-            FixedDeployableAoeConfig.class, FixedDeployableAoeConfig::new, DeployableAoeConfig.CODEC).build();
+                    FixedDeployableAoeConfig.class, FixedDeployableAoeConfig::new, DeployableAoeConfig.CODEC)
+            .append(new KeyedCodec<>("DamageAmount", Codec.FLOAT),
+                    (o, i) -> o.damageAmount = i,
+                    (o) -> o.damageAmount)
+            .add()
+            .build();
 
     @Override
     protected void attackTarget(@Nonnull Ref<EntityStore> targetRef, @Nonnull Ref<EntityStore> ownerRef, @Nonnull DamageCause damageCause, @Nonnull CommandBuffer<EntityStore> commandBuffer) {
@@ -30,7 +40,6 @@ public class FixedDeployableAoeConfig extends DeployableAoeConfig {
         DeployableComponent dc = commandBuffer.getComponent(ownerRef, DeployableComponent.getComponentType());
         Ref<EntityStore> playerRef = dc != null ? dc.getOwner() : ownerRef;
         Ref<EntityStore> damageSource = (playerRef != null && playerRef.isValid()) ? playerRef : ownerRef;
-
         if (damageAmount <= 0.0F) return;
         Damage damageEntry = new Damage(new Damage.EntitySource(damageSource), damageCause, damageAmount);
         if (targetRef.equals(damageSource)) damageEntry.setSource(Damage.NULL_SOURCE);

@@ -217,6 +217,7 @@ public class Module_CombatSystem {
         awardXPToPlayers(event);
     }
 
+    // this function fires right before an entity is due to take damage
     private void onEntityPreDamage(Event_EntityPreDamaged event) {
         Ref<EntityStore> attacker = event.getAttacker();
         Ref<EntityStore> defender = event.getDefender();
@@ -257,11 +258,11 @@ public class Module_CombatSystem {
         boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
 
         // weapon damage path — MainHand, OffHand, or Weapon (ability) causes
-        if (Set.of("MainHand", "OffHand", "Weapon").contains(cause.getId())) {
+        if (Set.of("MainHand", "OffHand", "Weapon", "MainHand_Scalar").contains(cause.getId())) {
             String causeId = cause.getId();
-            ItemStack weaponStack = causeId.equals("OffHand")
-                    ? (attackerRPGStats != null ? attackerRPGStats.offHandItem : null)
-                    : (attackerRPGStats != null ? attackerRPGStats.mainHandItem : null);
+            boolean isScalar = causeId.equals("MainHand_Scalar");
+
+            ItemStack weaponStack = causeId.equals("OffHand") ? (attackerRPGStats != null ? attackerRPGStats.offHandItem : null) : (attackerRPGStats != null ? attackerRPGStats.mainHandItem : null);
 
             String weaponType = weaponStack != null ? ItemFactory.deriveItemType(weaponStack.getItem().getId()) : null;
             List<String> damageImplicits = weaponStack != null ? ItemFactory.getWeaponDamageImplicits(weaponStack) : Collections.emptyList();
@@ -282,6 +283,10 @@ public class Module_CombatSystem {
                     StatType stat;
                     try { stat = StatType.valueOf(parts[0]); } catch (Exception e) { continue; }
                     float implicitValue = Float.parseFloat(parts[1]);
+
+                    // for scalar damage, multiply implicit by the scalar value passed as initial damage amount
+                    float finalValue = isScalar ? implicitValue * damage.getInitialAmount() : implicitValue;
+
                     String dmgTypeId = switch (stat) {
                         case MAIN_HAND_FIRE_DAMAGE_FLAT,      OFF_HAND_FIRE_DAMAGE_FLAT      -> "Fire";
                         case MAIN_HAND_LIGHTNING_DAMAGE_FLAT, OFF_HAND_LIGHTNING_DAMAGE_FLAT -> "Lightning";
@@ -294,12 +299,16 @@ public class Module_CombatSystem {
                     if (dmgTypeId == null) continue;
                     DamageCause resolvedCause = DamageCause.getAssetMap().getAsset(dmgTypeId);
                     if (resolvedCause == null) continue;
-                    group.add(resolvedCause, implicitValue * damage.getInitialAmount());
+                    group.add(resolvedCause, finalValue);
                 }
-            } else {
-                group.add(DamageCause.getAssetMap().getAsset("Physical"), damage.getInitialAmount());
             }
-        } else {
+
+            // no implicits — fall back to physical scaled by scalar or flat
+            else group.add(DamageCause.getAssetMap().getAsset("Physical"), damage.getInitialAmount());
+        }
+
+        // Not a special replacement type damage, so check if it's a standard mod damage
+        else {
             if (!MOD_DAMAGE_TYPES.contains(cause.getId())) cause = DamageCause.getAssetMap().getAsset("Physical");
 
             SwingDamageGroup group = swingGroups.computeIfAbsent(key, k -> {

@@ -1,0 +1,55 @@
+{
+  "Model": "Items/Projectiles/Magic_Missile.blockymodel",
+  "Texture": "Items/Projectiles/Magic_Missile.png",
+  "HitBox": {
+    "Max": {
+      "X": 0.1,
+      "Y": 0.1,
+      "Z": 0.1
+    },
+    "Min": {
+      "X": -0.1,
+      "Y": -0.1,
+      "Z": -0.1
+    }
+  },
+  "MinScale": 1,
+  "MaxScale": 1,
+  "Particles": [
+    {
+      "PositionOffset": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0
+      },
+      "SystemId": "Projectile_Magic_Missile",
+      "TargetNodeName": "",
+      "Scale": 10
+    }
+  ],
+  "Light": {
+    "Color": "#909"
+  },
+  "Trails": [
+    {
+      "TrailId": "Void_Meteor",
+      "TargetEntityPart": "Self",
+      "TargetNodeName": "Missile",
+      "PositionOffset": {
+        "Z": -0.1,
+        "Y": 1
+      }
+    },
+    {
+      "TrailId": "Void_Meteor",
+      "RotationOffset": {
+        "Roll": 90
+      },
+      "TargetNodeName": "Missile",
+      "PositionOffset": {
+        "Z": -0.1,
+        "Y": 1
+      }
+    }
+  ]
+}

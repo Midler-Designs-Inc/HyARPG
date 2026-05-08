@@ -1,0 +1,15 @@
+{
+  "Type": "Generic",
+  "MotionControllerList": [{ "Type": "Walk" }],
+  "Appearance": "Mannequin",
+  "MaxHealth": { "Compute": "MaxHealth" },
+  "Parameters": {
+    "MaxHealth": {
+      "Value": 100,
+      "Description": "Max health for the NPC"
+    }
+  },
+  "DisableDamageGroups": ["Self", "Player"],
+  "Instructions": [{ }],
+  "NameTranslationKey": "server.npcRoles.Simulacrum_Role.name"
+}

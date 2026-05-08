@@ -94,7 +94,7 @@ public class Arcane_Missiles extends Ability {
                     dir.normalize();
 
                     Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(null, ref, commandBuffer, config, launchOrigin.clone(), dir);
-                    commandBuffer.putComponent(missileRef, Component_HomingMissile.getComponentType(), new Component_HomingMissile(ref, capturedTargetRef, TURN_RATE, ARM_TIME));
+                    commandBuffer.putComponent(missileRef, Component_HomingMissile.getComponentType(), new Component_HomingMissile(ref, capturedTargetRef, TURN_RATE, ARM_TIME, "MainHand_Scalar", 0.5f));
                 });
             });
         }

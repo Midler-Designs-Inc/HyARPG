@@ -80,7 +80,7 @@ public class Module_RPGSystem {
     private static final Random random = new Random();
 
     // Skill Tree Version Constant
-    private static final String SKILL_TREE_VERSION = "1.1.0"; // 1.6.0
+    private static final String SKILL_TREE_VERSION = "1.9.0"; // 1.6.0
 
     // initialize this module
     public Module_RPGSystem(HyARPGPlugin plugin) {
@@ -197,6 +197,14 @@ public class Module_RPGSystem {
         // get the entity holder Ref
         Holder<EntityStore> holder = event.getHolder();
 
+        // get the NPC entity or bail
+        NPCEntity npcEntity = holder.getComponent(NPCEntity.getComponentType());
+        if (npcEntity == null) return;
+
+        // if the role type is simulacrum bail
+        String roleId = npcEntity.getRoleName();
+        if ("Role_Simulacrum".equals(npcEntity.getRoleName())) return;
+
         // if the RPG Enemy component doesn't exist, add it
         Component_RPG_Enemy rpgEnemy = holder.getComponent(componentTypeRPGEnemy);
         if (rpgEnemy == null) {
@@ -261,10 +269,7 @@ public class Module_RPGSystem {
             if (prefixStat != null) rpgEnemy.stats.add(prefixStat, ModConfig.get().combat.enemy_prefix_damage * rpgEnemy.level);
         }
 
-        // check if this NPC is in our enemy registry — skip extra setup if not
-        NPCEntity npcEntity = holder.getComponent(NPCEntity.getComponentType());
-        if (npcEntity == null) return;
-        String roleId = npcEntity.getRoleName();
+        // Check if this NPC is in our enemyConfigMap
         EnemyConfigLoader.EnemyConfig config = enemyConfigMap.get(roleId);
         if (config == null) return;
 
@@ -300,9 +305,11 @@ public class Module_RPGSystem {
         Store<EntityStore> store = event.getStore();
         CommandBuffer<EntityStore> commandBuffer = event.getCommandBuffer();
 
-        // get the rpg enemy component
+        // get the rpg enemy component or bail
         Component_RPG_Enemy rpgEnemy = store.getComponent(ref, componentTypeRPGEnemy);
         if (rpgEnemy == null) return;
+
+        // get the enemy level and rarity
         int level = rpgEnemy.level;
         String rarityString = rpgEnemy.monsterRarity > 0 ? (rpgEnemy.getRarityString() + " ") : "";
 

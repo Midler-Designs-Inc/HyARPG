@@ -42,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.example.hyarpg.modules.Module_RPGSystem.componentTypeRPGPlayer;
+import static com.example.hyarpg.utils.items.ItemFactory.isOneHanded;
 
 public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<CustomPage_ForgeCraftingPage.PageData> implements ItemContainerWindow {
 
@@ -777,9 +778,15 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
 
             // read output asset id from slot 0's CraftingComponent and set output item
             BsonDocument slot0Component = readCraftingComponent(this.inputSlotItems[0].item().getId());
+            float displayMultiplier = 1.0f;
             if (slot0Component != null) {
                 BsonValue outputId = slot0Component.get("outputAssetID");
                 if (outputId != null && outputId.isString()) {
+                    // set twoHanded multiplier
+                    String outputWeaponId = outputId.asString().getValue();
+                    if (outputWeaponId.startsWith("Weapon_") && !isOneHanded(outputWeaponId)) displayMultiplier = 2.0f;
+
+                    // update the output icon
                     cmd.set("#OutputItem.ItemId", outputId.asString().getValue() + "_" + rarity);
                 }
             }
@@ -811,8 +818,8 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
                     try { stat = StatType.valueOf(statVal.asString().getValue()); }
                     catch (Exception e) { continue; }
 
-                    float min = minVal.isDouble() ? (float) minVal.asDouble().getValue() : (float) minVal.asInt32().getValue();
-                    float max = maxVal.isDouble() ? (float) maxVal.asDouble().getValue() : (float) maxVal.asInt32().getValue();
+                    float min = (minVal.isDouble() ? (float) minVal.asDouble().getValue() : (float) minVal.asInt32().getValue()) * displayMultiplier;
+                    float max = (maxVal.isDouble() ? (float) maxVal.asDouble().getValue() : (float) maxVal.asInt32().getValue()) * displayMultiplier;
 
                     // slot 0's first main/off hand damage flat is the weapon damage — shown separately
                     if (i == 0 && weaponDamageText.isEmpty() && StatTypeInfo.isWeaponDamageStat(stat)) {

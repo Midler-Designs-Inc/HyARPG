@@ -2,7 +2,7 @@
   "Type": "DamageEntity",
   "DamageCalculator": {
     "BaseDamage": {
-      "Physical": 1
+      "MainHand_Scalar": 0.75
     },
     "RandomPercentageModifier": 0.1
   },

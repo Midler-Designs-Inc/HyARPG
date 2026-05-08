@@ -40,7 +40,7 @@
       }
     ]
   },
-  "MaxDurability": 10,
+  "MaxDurability": 5,
   "Interactions": {
     "Secondary": {
       "Interactions": [

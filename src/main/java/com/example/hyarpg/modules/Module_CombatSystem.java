@@ -102,6 +102,13 @@ public class Module_CombatSystem {
         "HyARPG_Container_Tier6",
     };
 
+    private static final Set<String> WEAPON_CAUSE_IDS = Set.of(
+        "MainHand", "OffHand",
+        "MainHand_Scalar",
+        "MainHand_Fire_Scalar", "MainHand_Lightning_Scalar", "MainHand_Ice_Scalar",
+        "MainHand_Poison_Scalar", "MainHand_Magic_Scalar", "MainHand_Physical_Scalar"
+    );
+
     // initialize this module
     public Module_CombatSystem() {
 
@@ -258,17 +265,28 @@ public class Module_CombatSystem {
         boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
 
         // weapon damage path — MainHand, OffHand, or Weapon (ability) causes
-        if (Set.of("MainHand", "OffHand", "Weapon", "MainHand_Scalar").contains(cause.getId())) {
+        if (WEAPON_CAUSE_IDS.contains(cause.getId())) {
             String causeId = cause.getId();
-            boolean isScalar = causeId.equals("MainHand_Scalar");
+            boolean isScalar = causeId.equals("MainHand_Scalar") || causeId.startsWith("MainHand_") && causeId.endsWith("_Scalar");
 
+            // extract the forced type from typed scalars (e.g. "MainHand_Fire_Scalar" → "Fire"), null for untyped
+            String forcedDamageType = null;
+            if (isScalar && !causeId.equals("MainHand_Scalar")) {
+                // strip "MainHand_" prefix and "_Scalar" suffix
+                forcedDamageType = causeId.substring("MainHand_".length(), causeId.length() - "_Scalar".length());
+            }
+
+            // check for the appropriate hand item from the RPGPlayer comp
             ItemStack weaponStack = causeId.equals("OffHand") ? (attackerRPGStats != null ? attackerRPGStats.offHandItem : null) : (attackerRPGStats != null ? attackerRPGStats.mainHandItem : null);
 
+            // Get the weapon type and the weapon damage implicits
             String weaponType = weaponStack != null ? ItemFactory.deriveItemType(weaponStack.getItem().getId()) : null;
             List<String> damageImplicits = weaponStack != null ? ItemFactory.getWeaponDamageImplicits(weaponStack) : Collections.emptyList();
 
+            // Add the damage group if it does not yet exist
+            String groupWeaponType = forcedDamageType != null ? null : weaponType;
             SwingDamageGroup group = swingGroups.computeIfAbsent(key, k -> {
-                SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, weaponType, false, 0);
+                SwingDamageGroup g = new SwingDamageGroup(attacker, defender, blocked, isProjectile, groupWeaponType, false, 0);
                 scheduler.schedule(() -> {
                     SwingDamageGroup pending = swingGroups.get(key);
                     if (pending != null) pending.readyToApply = true;
@@ -276,6 +294,7 @@ public class Module_CombatSystem {
                 return g;
             });
 
+            // apply the damage implicits
             if (!damageImplicits.isEmpty()) {
                 for (String implicit : damageImplicits) {
                     String[] parts = implicit.split("\\|");
@@ -284,7 +303,6 @@ public class Module_CombatSystem {
                     try { stat = StatType.valueOf(parts[0]); } catch (Exception e) { continue; }
                     float implicitValue = Float.parseFloat(parts[1]);
 
-                    // for scalar damage, multiply implicit by the scalar value passed as initial damage amount
                     float finalValue = isScalar ? implicitValue * damage.getInitialAmount() : implicitValue;
 
                     String dmgTypeId = switch (stat) {
@@ -297,14 +315,21 @@ public class Module_CombatSystem {
                         default -> null;
                     };
                     if (dmgTypeId == null) continue;
-                    DamageCause resolvedCause = DamageCause.getAssetMap().getAsset(dmgTypeId);
+
+                    // typed scalar overrides the implicit's natural damage type
+                    String resolvedTypeId = forcedDamageType != null ? forcedDamageType : dmgTypeId;
+
+                    DamageCause resolvedCause = DamageCause.getAssetMap().getAsset(resolvedTypeId);
                     if (resolvedCause == null) continue;
                     group.add(resolvedCause, finalValue);
                 }
             }
 
-            // no implicits — fall back to physical scaled by scalar or flat
-            else group.add(DamageCause.getAssetMap().getAsset("Physical"), damage.getInitialAmount());
+            // no implicits — fall back to physical (or forced type) scaled by scalar or flat
+            else {
+                String fallbackTypeId = forcedDamageType != null ? forcedDamageType : "Physical";
+                group.add(DamageCause.getAssetMap().getAsset(fallbackTypeId), damage.getInitialAmount());
+            }
         }
 
         // Not a special replacement type damage, so check if it's a standard mod damage

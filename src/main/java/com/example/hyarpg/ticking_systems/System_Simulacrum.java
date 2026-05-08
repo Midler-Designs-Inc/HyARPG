@@ -129,7 +129,7 @@ public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
                 Vector3d launchOrigin = pos.clone().add(0, 1.6, 0).add(dir.x * 1.5, 0, dir.z * 1.5);
 
                 Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(null, capturedCaster, commandBuffer, config, launchOrigin.clone(), dir);
-                commandBuffer.putComponent(missileRef, homingComponentType, new Component_HomingMissile(capturedCaster, capturedTarget, TURN_RATE, ARM_TIME, "MainHand_Scalar", 0.1f));
+                commandBuffer.putComponent(missileRef, homingComponentType, new Component_HomingMissile(capturedCaster, capturedTarget, TURN_RATE, ARM_TIME, "MainHand_Magic_Scalar", 0.1f));
             });
         }
     }

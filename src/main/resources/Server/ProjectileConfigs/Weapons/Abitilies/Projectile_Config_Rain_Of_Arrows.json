@@ -35,7 +35,7 @@
             "AttackEnemies": true,
             "AttackTeam": false,
             "AttackOwner": false,
-            "DamageCause": "Weapon",
+            "DamageCause": "Physical",
             "Model": "Projectile",
             "ApplyEffects": [
               {
@@ -76,7 +76,7 @@
             "AttackEnemies": true,
             "AttackTeam": false,
             "AttackOwner": false,
-            "DamageCause": "MainHand_Scalar",
+            "DamageCause": "MainHand_Physical_Scalar",
             "Model": "Projectile",
             "ApplyEffects": [
               {

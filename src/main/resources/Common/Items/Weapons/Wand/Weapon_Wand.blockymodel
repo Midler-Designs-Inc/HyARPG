@@ -3,7 +3,7 @@
     {
       "id": "1",
       "name": "R_Hand",
-      "position": {"x": 0, "y": 20, "z": 0},
+      "position": {"x": 0, "y": 8.5, "z": 0},
       "orientation": {"x": 0, "y": 0, "z": 0, "w": 1},
       "shape": {
         "type": "none",
@@ -22,7 +22,7 @@
         {
           "id": "2",
           "name": "Handle",
-          "position": {"x": 0, "y": 14, "z": 0},
+          "position": {"x": 0, "y": 25.5, "z": 0},
           "orientation": {"x": 0, "y": 0, "z": 0, "w": 1},
           "shape": {
             "type": "box",
@@ -231,7 +231,7 @@
         {
           "id": "6",
           "name": "Tip",
-          "position": {"x": 0.9, "y": 77, "z": 2},
+          "position": {"x": 0.9, "y": 88.5, "z": 2},
           "orientation": {"x": 0, "y": 0, "z": 0, "w": 1},
           "shape": {
             "type": "box",
@@ -387,7 +387,7 @@
               "id": "9",
               "name": "cube--C3",
               "position": {"x": 0, "y": 0, "z": 6.5},
-              "orientation": {"x": 0, "y": -1, "z": 0, "w": 0},
+              "orientation": {"x": 0, "y": 1, "z": 0, "w": 0},
               "shape": {
                 "type": "box",
                 "offset": {"x": 0, "y": 0, "z": 0},
@@ -439,7 +439,7 @@
               "id": "10",
               "name": "cube--C4",
               "position": {"x": 0, "y": 15, "z": 6},
-              "orientation": {"x": 0, "y": -1, "z": 0, "w": 0},
+              "orientation": {"x": 0, "y": 1, "z": 0, "w": 0},
               "shape": {
                 "type": "box",
                 "offset": {"x": 0, "y": 0, "z": 0},

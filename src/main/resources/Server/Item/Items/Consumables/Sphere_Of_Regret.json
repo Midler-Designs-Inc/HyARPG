@@ -1,5 +1,5 @@
 {
-  "Icon": "Icons/ItemsGenerated/WinterHoliday_WinterRoll.png",
+  "Icon": "Icons/Items/Consumables/Sphere_of_Regret.png",
   "Categories": [
     "Items.Consumables"
   ],
@@ -10,8 +10,9 @@
   "ItemLevel": 5,
   "MaxStack": 1,
   "Quality": "legendary",
-  "Model": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll.blockymodel",
-  "Texture": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll_Texture.png",
+  "Model": "Items/Consumables/Sphere_Of_Regret/Sphere_Of_Regret.blockymodel",
+  "Texture": "Items/Consumables/Sphere_Of_Regret/Sphere_Of_Regret.png",
+  "Animation": "Items/Consumables/Sphere_Of_Regret/Sphere_Of_Regret_Rotation.blockyanim",
   "PlayerAnimationsId": "Item",
   "Recipe": {
     "TimeSeconds": 0,
@@ -65,5 +66,6 @@
       ],
       "RequireNewClick": true
     }
-  }
+  },
+  "Scale": 0.25
 }

@@ -62,7 +62,7 @@
     "Compatible": true
   },
   "ItemSoundSetId": "ISS_Weapons_Wand",
-  "Scale": 0.75,
+  "Scale": 0.5,
   "ItemAppearanceConditions": {},
   "MaxStack": 1
 }

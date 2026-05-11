@@ -6,8 +6,8 @@
   "AllowIndefiniteHold": true,
   "HorizontalSpeedMultiplier": 0.5,
   "Next": {
-    "2": "Staff_Cast_Charged_1",
-    "4": "Staff_Cast_Charged_2",
-    "6": "Staff_Cast_Charged_3"
+    "0.5": "Staff_Cast_Charged_1",
+    "1.5": "Staff_Cast_Charged_2",
+    "2.5": "Staff_Cast_Charged_3"
   }
 }

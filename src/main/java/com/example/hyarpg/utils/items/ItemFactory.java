@@ -359,16 +359,39 @@ public class ItemFactory {
         return result;
     }
 
-    // returns true if (Utility.Compatible == true in its asset json)
+    // returns true if (Utility.Compatible == true in its asset json, checks parent if not found on child)
     public static boolean isOneHanded(@Nonnull String itemId) {
         Path assetPath = Item.getAssetMap().getPath(itemId);
         if (assetPath == null) return false;
         try {
             BsonDocument doc = BsonDocument.parse(Files.readString(assetPath));
+
+            // check child first — if found, use it regardless of parent
             BsonValue utilityVal = doc.get("Utility");
-            if (utilityVal == null || !utilityVal.isDocument()) return false;
-            BsonValue compatibleVal = utilityVal.asDocument().get("Compatible");
+            if (utilityVal != null && utilityVal.isDocument()) {
+                BsonValue compatibleVal = utilityVal.asDocument().get("Compatible");
+                if (compatibleVal != null && compatibleVal.isBoolean())
+                    return compatibleVal.asBoolean().getValue();
+            }
+
+            // not found on child — walk up to parent if one exists
+            BsonValue parentVal = doc.get("Parent");
+            if (parentVal == null || !parentVal.isString()) return false;
+            String parentId = parentVal.asString().getValue();
+
+            // Get the parent asset
+            Path parentPath = Item.getAssetMap().getPath(parentId);
+            if (parentPath == null) return false;
+
+            // Read the parent asset and check the utility
+            BsonDocument parentDoc = BsonDocument.parse(Files.readString(parentPath));
+            BsonValue parentUtilityVal = parentDoc.get("Utility");
+            if (parentUtilityVal == null || !parentUtilityVal.isDocument()) return false;
+
+            // get the utility value
+            BsonValue compatibleVal = parentUtilityVal.asDocument().get("Compatible");
             return compatibleVal != null && compatibleVal.isBoolean() && compatibleVal.asBoolean().getValue();
+
         } catch (Exception e) {
             return false;
         }

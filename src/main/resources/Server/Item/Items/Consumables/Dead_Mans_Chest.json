@@ -1,5 +1,5 @@
 {
-  "Icon": "Icons/ItemsGenerated/WinterHoliday_WinterRoll.png",
+  "Icon": "Icons/ItemsGenerated/Dead_Mans_Chest.png",
   "Categories": [
     "Items.Consumables"
   ],
@@ -9,9 +9,7 @@
   },
   "ItemLevel": 5,
   "MaxStack": 1,
-  "Quality": "epic",
-  "Model": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll.blockymodel",
-  "Texture": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll_Texture.png",
+  "Quality": "Epic",
   "PlayerAnimationsId": "Item",
   "Recipe": {
     "TimeSeconds": 0,
@@ -65,5 +63,22 @@
       ],
       "RequireNewClick": true
     }
+  },
+  "BlockType": {
+    "CustomModel": "Blocks/Decorative_Sets/Temple_Dark/Chest_Small.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Decorative_Sets/Temple_Dark/Chest_Small_Texture.png"
+      }
+    ],
+    "Material": "Solid",
+    "Opacity": "Solid",
+    "DrawType": "Model",
+    "Particles": [
+      {
+        "SystemId": "Fire_Teal",
+        "Scale": 1.5
+      }
+    ]
   }
 }

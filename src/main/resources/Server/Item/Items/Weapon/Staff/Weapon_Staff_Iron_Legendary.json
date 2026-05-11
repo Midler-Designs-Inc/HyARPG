@@ -1,0 +1,72 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Staff_Iron.name"
+  },
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ],
+  "Recipe": {
+    "TimeSeconds": 4.5,
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Daggers"
+        ],
+        "RequiredTierLevel": 3
+      }
+    ],
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 9
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
+      }
+    ]
+  },
+  "Quality": "Legendary",
+  "ItemLevel": 20,
+  "Model": "Items/Weapons/Staff/Iron.blockymodel",
+  "Texture": "Items/Weapons/Staff/Iron_Texture.png",
+  "PlayerAnimationsId": "Staff",
+  "IconProperties": {
+    "Scale": 0.3,
+    "Translation": [
+      -51,
+      -51
+    ],
+    "Rotation": [
+      45,
+      90,
+      0
+    ]
+  },
+  "Icon": "Icons/ItemsGenerated/Weapon_Staff_Iron.png",
+  "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ],
+    "Family": [
+      "Staff"
+    ]
+  },
+  "Weapon": {},
+  "ItemSoundSetId": "ISS_Weapons_Wood",
+  "Parent": "Template_Weapon_Staff",
+  "MaxDurability": 0,
+  "MaxStack": 1
+}

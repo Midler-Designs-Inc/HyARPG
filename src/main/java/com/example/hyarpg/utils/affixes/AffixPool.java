@@ -33,6 +33,8 @@ public final class AffixPool {
             new Affix("Stat_Increased_Shortbow_Damage",     "Shortbow Damage: +%s%%",         3.33f,  10f),
             new Affix("Stat_Increased_Crossbow_Damage",     "Crossbow Damage: +%s%%",         3.33f,  10f),
             new Affix("Stat_Increased_Sword_Damage",        "Sword Damage: +%s%%",            3.33f,  10f),
+            new Affix("Stat_Increased_Staff_Damage",        "Staff Damage: +%s%%",            3.33f,  10f),
+            new Affix("Stat_Increased_Wand_Damage",         "Wand Damage: +%s%%",             3.33f,  10f),
 
             // Increased Resistances
             new Affix("Stat_Increased_Fire_Resist",         "Fire Resistance: +%s%%",         1.666f, 5f),

@@ -1,0 +1,44 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Inspiring_Magic_Core_T4.name",
+    "Description": "server.items.components.Inspiring_Magic_Core_T4.description"
+  },
+  "Icon": "Icons/Items/Weapon_Components/Component_Magic_Core_Icon.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 10,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Cobalt",
+        "Quantity": 50
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Arcanebench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 4,
+        "Categories": [
+          "Magic_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Magic Core",
+    "tier": 4,
+    "implicits": [
+      {
+        "stat": "MANA_LEECH_PERCENT",
+        "min": 25,
+        "max": 75
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

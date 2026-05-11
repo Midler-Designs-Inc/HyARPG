@@ -1,0 +1,44 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.components.Inspiring_Magic_Core_T1.name",
+    "Description": "server.items.components.Inspiring_Magic_Core_T1.description"
+  },
+  "Icon": "Icons/Items/Weapon_Components/Component_Magic_Core_Icon.png",
+  "Model": "Resources/Materials/Stud_Iron.blockymodel",
+  "Texture": "Resources/Materials/Stud_Iron_Texture.png",
+  "Recipe": {
+    "TimeSeconds": 4,
+    "KnowledgeRequired": true,
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Copper",
+        "Quantity": 20
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Arcanebench",
+        "Type": "Crafting",
+        "RequiredTierLevel": 1,
+        "Categories": [
+          "Magic_Parts"
+        ]
+      }
+    ]
+  },
+  "MaxStack": 1,
+  "CraftingComponent": {
+    "type": "Magic Core",
+    "tier": 1,
+    "implicits": [
+      {
+        "stat": "MANA_LEECH_PERCENT",
+        "min": 10,
+        "max": 30
+      }
+    ]
+  },
+  "Categories": [
+    "Items.CraftingComponent"
+  ]
+}

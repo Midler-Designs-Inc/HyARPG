@@ -1,0 +1,13 @@
+{
+  "Parent": "Staff_Wood_Rotten_Corruption_Orb",
+  "Damage": 25,
+  "Appearance": "Eye_Void_Blast",
+  "HitSoundEventId": "SFX_Eye_Void_Attack_Blast",
+  "MissSoundEventId": "SFX_Eye_Void_Attack_Blast",
+  "HitParticles": {
+    "SystemId": "PurpleOrbImpact"
+  },
+  "DeathParticles": {
+    "SystemId": "PurpleOrbImpact"
+  }
+}

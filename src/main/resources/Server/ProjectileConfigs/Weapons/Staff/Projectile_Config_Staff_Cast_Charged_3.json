@@ -1,0 +1,110 @@
+{
+  "Model": "Staff_Shot_3",
+  "SpawnRotationOffset": {
+    "Pitch": 2.5,
+    "Yaw": -0.5,
+    "Roll": 75
+  },
+  "Physics": {
+    "Type": "Standard",
+    "Gravity": 0,
+    "TerminalVelocityAir": 50,
+    "TerminalVelocityWater": 15,
+    "RotationMode": "VelocityDamped",
+    "Bounciness": 0,
+    "SticksVertically": true
+  },
+  "LaunchForce": 40,
+  "Interactions": {
+    "ProjectileHit": {
+      "Interactions": [
+        {
+          "Type": "Selector",
+          "Selector": {
+            "Id": "AOECylinder",
+            "Range": 15,
+            "Height": 30,
+            "Offset": {
+              "Y": -15
+            }
+          },
+          "IgnoreOwner": true,
+          "HitEntityRules": [
+            {
+              "Next": {
+                "Interactions": [
+                  {
+                    "Type": "DamageEntity",
+                    "DamageCalculator": {
+                      "BaseDamage": {
+                        "MainHand_Scalar": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              "Matchers": [
+                {
+                  "Type": "Player",
+                  "Invert": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Type": "Simple",
+          "RunTime": 0.5,
+          "Next": {
+            "Type": "RemoveEntity"
+          }
+        }
+      ]
+    },
+    "ProjectileMiss": {
+      "Interactions": [
+        {
+          "Type": "Selector",
+          "Selector": {
+            "Id": "AOECylinder",
+            "Range": 15,
+            "Height": 30,
+            "Offset": {
+              "Y": -15
+            }
+          },
+          "IgnoreOwner": true,
+          "HitEntityRules": [
+            {
+              "Next": {
+                "Interactions": [
+                  {
+                    "Type": "DamageEntity",
+                    "DamageCalculator": {
+                      "BaseDamage": {
+                        "MainHand_Scalar": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              "Matchers": [
+                {
+                  "Type": "Player",
+                  "Invert": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "Type": "Simple",
+          "RunTime": 0.5,
+          "Next": {
+            "Type": "RemoveEntity"
+          }
+        }
+      ]
+    }
+  }
+}

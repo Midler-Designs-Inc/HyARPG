@@ -263,6 +263,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Adamantite_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Adamantite_Common"
                 }
               }
@@ -424,6 +431,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Shortbow_Adamantite_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Staff_Adamantite_Uncommon"
                 }
               },
               {
@@ -597,6 +611,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Adamantite_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Adamantite_Rare"
                 }
               }
@@ -764,6 +785,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Adamantite_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Adamantite_Epic"
                 }
               }
@@ -925,6 +953,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Shortbow_Adamantite_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Staff_Adamantite_Legendary"
                 }
               },
               {

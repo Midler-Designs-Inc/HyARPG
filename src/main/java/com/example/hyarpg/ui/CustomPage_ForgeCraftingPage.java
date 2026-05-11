@@ -569,8 +569,7 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
             cmd.set(ALL_TAB_OVERLAYS[i] + ".Visible", ALL_TAB_CATEGORIES[i].equals(this.activeCategory));
         }
 
-        // overlay visible = inactive state, overlay hidden = active state
-        // use full key for armor categories since ALL_ICON_ITEMS stores full names
+        // overlay visible = inactive state, overlay hidden = active state, use full key for armor categories since ALL_ICON_ITEMS stores full names
         String activeItemKey = getActiveItemKey();
         for (int i = 0; i < ALL_ICON_OVERLAYS.length; i++) {
             cmd.set(ALL_ICON_OVERLAYS[i] + ".Visible", ALL_ICON_ITEMS[i].equals(activeItemKey));
@@ -592,14 +591,8 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
             cmd.set("#" + getItemSlotId(this.selectedSlotId) + ".Visible", false);
         }
 
-        // todo RIP THIS OUT LATER when supported
         // temporarily hidden weapons — remove this block when ready to enable
-        for (String hidden : new String[]{ "#IconSpear", "#IconClaws", "#IconScythe", "#IconSickles", "#IconLongbow", "#IconSpellbook", "#IconStaff", "#IconWand" }) {
-            cmd.set(hidden + ".Visible", false);
-        }
-
-        // temporarily hidden weapons — remove this block when ready to enable
-        for (String hidden : new String[]{ "#IconSpear", "#IconClaws", "#IconScythe", "#IconSickles", "#IconLongbow", "#IconSpellbook", "#IconStaff", "#IconWand", "#TabMagic" }) {
+        for (String hidden : new String[]{ "#IconSpear", "#IconClaws", "#IconScythe", "#IconSickles", "#IconLongbow" }) {
             cmd.set(hidden + ".Visible", false);
         }
     }

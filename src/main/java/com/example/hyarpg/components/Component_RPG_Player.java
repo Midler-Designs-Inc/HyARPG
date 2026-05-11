@@ -406,7 +406,7 @@ public class Component_RPG_Player implements Component<EntityStore> {
     }
 
     // Method to award XP
-    public void awardXP(int enemyLevel, int enemyRarity, PlayerRef playerRef) {
+    public void awardXP(int enemyLevel, int enemyRarity, boolean enemyHasPrefix, PlayerRef playerRef) {
         // Calculate level difference (positive if enemy is higher)
         int levelDiff = enemyLevel - level;
 
@@ -424,10 +424,11 @@ public class Component_RPG_Player implements Component<EntityStore> {
             scaleFactor = 1.0f + (levelDiff / 10.0f);
         }
 
-        // Calculate scaled XP and rarity bonus
+        // Calculate scaled XP, rarity bonus, and prefix bonus
         float xpSummedBase = xpGainedFromEqualLevelMonster * scaleFactor;
         float rarityBonus = xpSummedBase * (enemyRarity * .33f);
-        int xpGained = Math.max(Math.round(xpSummedBase + rarityBonus), 0);
+        float prefixBonus = enemyHasPrefix ? (xpSummedBase + rarityBonus) * 0.5f : 0f;
+        int xpGained = Math.max(Math.round(xpSummedBase + rarityBonus + prefixBonus), 0);
 
         // apply the XP
         xp += xpGained;

@@ -41,6 +41,8 @@
     ]
   },
   "MaxDurability": 5,
+  "DurabilityLossOnDeath": false,
+  "DurabilityLossOnHit": 0,
   "Interactions": {
     "Secondary": {
       "Interactions": [

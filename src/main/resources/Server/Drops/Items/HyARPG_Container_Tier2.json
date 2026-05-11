@@ -263,6 +263,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Iron_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Iron_Common"
                 }
               }
@@ -424,6 +431,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Shortbow_Iron_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Staff_Iron_Uncommon"
                 }
               },
               {
@@ -597,6 +611,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Iron_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Iron_Rare"
                 }
               }
@@ -764,6 +785,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Iron_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Iron_Epic"
                 }
               }
@@ -925,6 +953,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Shortbow_Iron_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Staff_Iron_Legendary"
                 }
               },
               {

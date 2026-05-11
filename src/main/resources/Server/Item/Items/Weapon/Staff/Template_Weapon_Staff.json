@@ -1,0 +1,111 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Staff_Iron.name"
+  },
+  "Categories": [
+    "Items.Weapons"
+  ],
+  "Quality": "Template",
+  "Model": "Items/Weapons/Staff/Iron.blockymodel",
+  "Texture": "Items/Weapons/Staff/Iron_Texture.png",
+  "PlayerAnimationsId": "Staff",
+  "Interactions": {
+    "Primary": "Root_Staff_Primary_HyARPG",
+    "Secondary": "Root_Staff_Secondary_HyARPG",
+    "Ability1": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_1"
+        }
+      ]
+    },
+    "Ability2": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_2"
+        }
+      ]
+    },
+    "Ability3": {
+      "Interactions": [
+        {
+          "Type": "Use_Ability_3"
+        }
+      ]
+    }
+  },
+  "InteractionVars": {
+    "Spear_Swing_Left_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Spear_Swing_Left_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "MainHand_Scalar": 0.25
+            },
+            "Type": "Absolute"
+          },
+          "DamageEffects": {
+            "Knockback": {
+              "Force": 3,
+              "RelativeX": 0,
+              "RelativeZ": -5,
+              "VelocityY": 5
+            },
+            "WorldSoundEventId": "SFX_Spear_Impact"
+          }
+        }
+      ]
+    },
+    "Spear_Swing_Right_Damage": {
+      "Interactions": [
+        {
+          "Parent": "Spear_Swing_Right_Damage",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "MainHand_Scalar": 0.25
+            },
+            "Type": "Absolute"
+          },
+          "DamageEffects": {
+            "Knockback": {
+              "Force": 3,
+              "RelativeX": 0,
+              "RelativeZ": -5,
+              "VelocityY": 5
+            },
+            "WorldSoundEventId": "SFX_Spear_Impact"
+          }
+        }
+      ]
+    },
+    "Spear_Swing_Left_Effect": "Spear_Swing_Left_Effect",
+    "Spear_Swing_Right_Effect": "Spear_Swing_Right_Effect"
+  },
+  "IconProperties": {
+    "Scale": 0.3,
+    "Translation": [
+      -51,
+      -51
+    ],
+    "Rotation": [
+      45,
+      90,
+      0
+    ]
+  },
+  "Icon": "Icons/ItemsGenerated/Weapon_Staff_Iron.png",
+  "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
+  "Tags": {
+    "Type": [
+      "Weapon"
+    ],
+    "Family": [
+      "Staff"
+    ]
+  },
+  "Weapon": {},
+  "ItemSoundSetId": "ISS_Weapons_Wood",
+  "ItemAppearanceConditions": {},
+  "MaxStack": 1
+}

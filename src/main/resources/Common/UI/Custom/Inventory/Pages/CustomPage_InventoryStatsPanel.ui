@@ -100,6 +100,10 @@ $Common = "../../Common.ui";
                 Label #StatClubDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
             }
             Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Crossbow Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatCrossbowDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
                 Label { Text: "Daggers Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
                 Label #StatDaggersDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
             }
@@ -120,12 +124,16 @@ $Common = "../../Common.ui";
                 Label #StatShortbowDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
             }
             Group { LayoutMode: Left; Anchor: (Bottom: 2);
-                Label { Text: "Crossbow Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
-                Label #StatCrossbowDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+                Label { Text: "Staff Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatStaffDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
             }
             Group { LayoutMode: Left; Anchor: (Bottom: 10);
                 Label { Text: "Sword Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
                 Label #StatSwordDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
+            }
+            Group { LayoutMode: Left; Anchor: (Bottom: 2);
+                Label { Text: "Wand Damage"; Style: (FontSize: 12, TextColor: #aaaaaa); FlexWeight: 1; }
+                Label #StatWandDmg { Style: (FontSize: 12, TextColor: #ffffff); Anchor: (Width: 50); }
             }
 
             // Defense

@@ -263,7 +263,6 @@ public class Module_CombatSystem {
         String key = swingKey(attacker, defender);
         boolean blocked = Boolean.TRUE.equals(damage.getMetaStore().getMetaObject(Damage.BLOCKED));
         boolean isProjectile = damage.getSource() instanceof Damage.ProjectileSource;
-
         // weapon damage path — MainHand, OffHand, or Weapon (ability) causes
         if (WEAPON_CAUSE_IDS.contains(cause.getId())) {
             String causeId = cause.getId();
@@ -742,10 +741,11 @@ public class Module_CombatSystem {
                 Component_RPG_Enemy rpgEnemy = store.getComponent(defender, componentTypeRPGEnemy);
                 int enemyLevel = (rpgEnemy != null) ? rpgEnemy.level : 1;
                 int enemyRarity = (rpgEnemy != null) ? rpgEnemy.monsterRarity : 0;
+                boolean enemyHasPrefix = (rpgEnemy != null) && rpgEnemy.prefix != null;
 
                 // award XP to the player
                 Component_RPG_Player attackerRPGStats = store.getComponent(attacker, componentTypeRPGPlayer);
-                attackerRPGStats.awardXP(enemyLevel, enemyRarity, playerRef);
+                attackerRPGStats.awardXP(enemyLevel, enemyRarity, enemyHasPrefix, playerRef);
             });
         });
     }

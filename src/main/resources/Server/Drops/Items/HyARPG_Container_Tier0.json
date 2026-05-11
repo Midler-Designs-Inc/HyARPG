@@ -175,6 +175,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Crude_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Crude_Common"
                 }
               }
@@ -280,6 +287,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Shortbow_Crude_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Staff_Crude_Uncommon"
                 }
               },
               {
@@ -397,6 +411,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Crude_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Crude_Rare"
                 }
               }
@@ -508,6 +529,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Crude_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Crude_Epic"
                 }
               }
@@ -613,6 +641,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Shortbow_Crude_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Staff_Crude_Legendary"
                 }
               },
               {

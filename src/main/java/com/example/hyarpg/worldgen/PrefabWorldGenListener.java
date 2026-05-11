@@ -74,10 +74,10 @@ public class PrefabWorldGenListener {
 
         // scan prefab folders the first time a chunk is generated this session
         if (surfacePrefabs == null) surfacePrefabs = scanFolder(prefabFolder.resolve("surface"));
-        if (aquaticPrefabs == null) aquaticPrefabs = scanFolder(prefabFolder.resolve("aquatic"));
+//        if (aquaticPrefabs == null) aquaticPrefabs = scanFolder(prefabFolder.resolve("aquatic"));
         if (undergroundPrefabs == null) undergroundPrefabs = scanFolder(prefabFolder.resolve("underground"));
-        if (surfaceDungeonPrefabs == null) surfaceDungeonPrefabs = scanFolder(prefabFolder.resolve("surface_dungeon"));
-        if (undergroundDungeonPrefabs == null) undergroundDungeonPrefabs = scanFolder(prefabFolder.resolve("underground_dungeon"));
+//        if (surfaceDungeonPrefabs == null) surfaceDungeonPrefabs = scanFolder(prefabFolder.resolve("surface_dungeon"));
+//        if (undergroundDungeonPrefabs == null) undergroundDungeonPrefabs = scanFolder(prefabFolder.resolve("underground_dungeon"));
 
         // load the wayward shrine prefab from asset packs the first time we need it
         if (!waywardShrineLoaded) {
@@ -108,16 +108,16 @@ public class PrefabWorldGenListener {
             int rMinZ = Math.floorDiv(chunkMinZ - cfg.prefabUndergroundMaxSize, cfg.prefabUndergroundRegionSize), rMaxZ = Math.floorDiv(chunkMaxZ + cfg.prefabUndergroundMaxSize, cfg.prefabUndergroundRegionSize);
             for (int rx = rMinX; rx <= rMaxX; rx++) for (int rz = rMinZ; rz <= rMaxZ; rz++) processUnderground(rx, rz, cfg, worldSeed, chunk, world, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ, generator);
         }
-        if (!surfaceDungeonPrefabs.isEmpty()) {
-            int rMinX = Math.floorDiv(chunkMinX - cfg.prefabSurfaceDungeonMaxSize, cfg.prefabSurfaceDungeonRegionSize), rMaxX = Math.floorDiv(chunkMaxX + cfg.prefabSurfaceDungeonMaxSize, cfg.prefabSurfaceDungeonRegionSize);
-            int rMinZ = Math.floorDiv(chunkMinZ - cfg.prefabSurfaceDungeonMaxSize, cfg.prefabSurfaceDungeonRegionSize), rMaxZ = Math.floorDiv(chunkMaxZ + cfg.prefabSurfaceDungeonMaxSize, cfg.prefabSurfaceDungeonRegionSize);
-            for (int rx = rMinX; rx <= rMaxX; rx++) for (int rz = rMinZ; rz <= rMaxZ; rz++) processSurfaceDungeon(rx, rz, cfg, worldSeed, chunk, world, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ, generator);
-        }
-        if (!undergroundDungeonPrefabs.isEmpty()) {
-            int rMinX = Math.floorDiv(chunkMinX - cfg.prefabUndergroundDungeonMaxSize, cfg.prefabUndergroundDungeonRegionSize), rMaxX = Math.floorDiv(chunkMaxX + cfg.prefabUndergroundDungeonMaxSize, cfg.prefabUndergroundDungeonRegionSize);
-            int rMinZ = Math.floorDiv(chunkMinZ - cfg.prefabUndergroundDungeonMaxSize, cfg.prefabUndergroundDungeonRegionSize), rMaxZ = Math.floorDiv(chunkMaxZ + cfg.prefabUndergroundDungeonMaxSize, cfg.prefabUndergroundDungeonRegionSize);
-            for (int rx = rMinX; rx <= rMaxX; rx++) for (int rz = rMinZ; rz <= rMaxZ; rz++) processUndergroundDungeon(rx, rz, cfg, worldSeed, chunk, world, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ, generator);
-        }
+//        if (!surfaceDungeonPrefabs.isEmpty()) {
+//            int rMinX = Math.floorDiv(chunkMinX - cfg.prefabSurfaceDungeonMaxSize, cfg.prefabSurfaceDungeonRegionSize), rMaxX = Math.floorDiv(chunkMaxX + cfg.prefabSurfaceDungeonMaxSize, cfg.prefabSurfaceDungeonRegionSize);
+//            int rMinZ = Math.floorDiv(chunkMinZ - cfg.prefabSurfaceDungeonMaxSize, cfg.prefabSurfaceDungeonRegionSize), rMaxZ = Math.floorDiv(chunkMaxZ + cfg.prefabSurfaceDungeonMaxSize, cfg.prefabSurfaceDungeonRegionSize);
+//            for (int rx = rMinX; rx <= rMaxX; rx++) for (int rz = rMinZ; rz <= rMaxZ; rz++) processSurfaceDungeon(rx, rz, cfg, worldSeed, chunk, world, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ, generator);
+//        }
+//        if (!undergroundDungeonPrefabs.isEmpty()) {
+//            int rMinX = Math.floorDiv(chunkMinX - cfg.prefabUndergroundDungeonMaxSize, cfg.prefabUndergroundDungeonRegionSize), rMaxX = Math.floorDiv(chunkMaxX + cfg.prefabUndergroundDungeonMaxSize, cfg.prefabUndergroundDungeonRegionSize);
+//            int rMinZ = Math.floorDiv(chunkMinZ - cfg.prefabUndergroundDungeonMaxSize, cfg.prefabUndergroundDungeonRegionSize), rMaxZ = Math.floorDiv(chunkMaxZ + cfg.prefabUndergroundDungeonMaxSize, cfg.prefabUndergroundDungeonRegionSize);
+//            for (int rx = rMinX; rx <= rMaxX; rx++) for (int rz = rMinZ; rz <= rMaxZ; rz++) processUndergroundDungeon(rx, rz, cfg, worldSeed, chunk, world, chunkMinX, chunkMaxX, chunkMinZ, chunkMaxZ, generator);
+//        }
         if (waywardShrinePrefab != null) {
             int rMinX = Math.floorDiv(chunkMinX - cfg.prefabWaywardShrineRegionSize / 2, cfg.prefabWaywardShrineRegionSize), rMaxX = Math.floorDiv(chunkMaxX + cfg.prefabWaywardShrineRegionSize / 2, cfg.prefabWaywardShrineRegionSize);
             int rMinZ = Math.floorDiv(chunkMinZ - cfg.prefabWaywardShrineRegionSize / 2, cfg.prefabWaywardShrineRegionSize), rMaxZ = Math.floorDiv(chunkMaxZ + cfg.prefabWaywardShrineRegionSize / 2, cfg.prefabWaywardShrineRegionSize);

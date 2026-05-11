@@ -1,0 +1,50 @@
+{
+  "Model": "Staff_Shot_1",
+  "SpawnRotationOffset": {
+    "Pitch": 2.5,
+    "Yaw": -0.5,
+    "Roll": 75
+  },
+  "Physics": {
+    "Type": "Standard",
+    "Gravity": 0,
+    "TerminalVelocityAir": 50,
+    "TerminalVelocityWater": 15,
+    "RotationMode": "VelocityDamped",
+    "Bounciness": 0,
+    "SticksVertically": false
+  },
+  "LaunchForce": 40,
+  "SpawnOffset": {
+    "X": -0.15,
+    "Y": -0.25,
+    "Z": -1
+  },
+  "Interactions": {
+    "ProjectileHit": {
+      "Interactions": [
+        {
+          "Type": "DamageEntity",
+          "DamageCalculator": {
+            "BaseDamage": {
+              "MainHand_Scalar": 1
+            }
+          }
+        },
+        {
+          "Type": "Simple",
+          "RunTime": 0.5,
+          "Next": {
+            "Type": "RemoveEntity"
+          }
+        }
+      ]
+    },
+    "ProjectileMiss": {
+      "Interactions": [{
+        "Type": "RemoveEntity",
+        "Entity": "User"
+      }]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "Type": "Charging",
+  "Effects": {
+    "ItemAnimationId": "CastSummonCharging"
+  },
+  "AllowIndefiniteHold": true,
+  "HorizontalSpeedMultiplier": 0.5,
+  "Next": {
+    "2": "Staff_Cast_Charged_1",
+    "4": "Staff_Cast_Charged_2",
+    "6": "Staff_Cast_Charged_3"
+  }
+}

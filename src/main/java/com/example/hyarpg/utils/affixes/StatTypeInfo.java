@@ -51,6 +51,8 @@ public class StatTypeInfo {
             Map.entry(StatType.SHORTBOW_DAMAGE_PERCENT,       "+{value}% Shortbow Damage"),
             Map.entry(StatType.CROSSBOW_DAMAGE_PERCENT,       "+{value}% Crossbow Damage"),
             Map.entry(StatType.SWORD_DAMAGE_PERCENT,          "+{value}% Sword Damage"),
+            Map.entry(StatType.STAFF_DAMAGE_PERCENT,          "+{value}% Staff Damage"),
+            Map.entry(StatType.WAND_DAMAGE_PERCENT,          "+{value}% Wand Damage"),
 
             // Weapon Specific
             Map.entry(StatType.SHIELD_STABILITY_PERCENT,      "+{value}% Shield Stability"),

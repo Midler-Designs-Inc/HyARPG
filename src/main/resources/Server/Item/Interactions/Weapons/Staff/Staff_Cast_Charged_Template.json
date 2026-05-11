@@ -1,0 +1,9 @@
+{
+  "Type": "Projectile",
+  "RunTime": 0.2,
+  "Effects": {
+    "ItemAnimationId": "CastSummonCharged",
+    "ClearAnimationOnFinish": true
+  },
+  "Config": "Projectile_Config_Staff_Cast_Charged_1"
+}

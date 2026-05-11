@@ -247,6 +247,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Copper_Common"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Copper_Common"
                 }
               }
@@ -408,6 +415,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Shortbow_Copper_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Staff_Copper_Uncommon"
                 }
               },
               {
@@ -581,6 +595,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Copper_Rare"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Copper_Rare"
                 }
               }
@@ -748,6 +769,13 @@
                 "Type": "Single",
                 "Weight": 100,
                 "Item": {
+                  "ItemId": "Weapon_Staff_Copper_Epic"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
                   "ItemId": "Weapon_Sword_Copper_Epic"
                 }
               }
@@ -909,6 +937,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Shortbow_Copper_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Staff_Copper_Legendary"
                 }
               },
               {

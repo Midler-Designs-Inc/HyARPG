@@ -132,11 +132,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         sendUpdate(cmd, false);
     }
 
-    // Slot click handler — selection, deselection, and equip/swap routing
-    // -------------------------------------------------------------------------
-    // Quick-craft logic
-    // -------------------------------------------------------------------------
-
     // called when a quick-craft slot is clicked — checks availability and gives the item if valid
     private void handleQuickCraft(int slot, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
         if (slot < 0 || slot >= QUICK_CRAFT_SLOTS) return;
@@ -533,6 +528,8 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
             cmd.set("#StatShortbowDmg.Text",     fmtPct(stats.getIncreasedDamage("Shortbow")));
             cmd.set("#StatCrossbowDmg.Text",     fmtPct(stats.getIncreasedDamage("Crossbow")));
             cmd.set("#StatSwordDmg.Text",        fmtPct(stats.getIncreasedDamage("Sword")));
+            cmd.set("#StatStaffDmg.Text",        fmtPct(stats.getIncreasedDamage("Staff")));
+            cmd.set("#StatWandDmg.Text",        fmtPct(stats.getIncreasedDamage("Wand")));
 
             // defense
             cmd.set("#StatDodgeChance.Text",    fmtPct(stats.getDodgeChance()));

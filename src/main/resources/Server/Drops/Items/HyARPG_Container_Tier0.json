@@ -184,6 +184,13 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Crude_Common"
                 }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Crude_Common"
+                }
               }
             ]
           },
@@ -301,6 +308,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Sword_Crude_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Crude_Uncommon"
                 }
               }
             ]
@@ -420,6 +434,13 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Crude_Rare"
                 }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Crude_Rare"
+                }
               }
             ]
           },
@@ -538,6 +559,13 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Crude_Epic"
                 }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Crude_Epic"
+                }
               }
             ]
           },
@@ -655,6 +683,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Sword_Crude_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Crude_Legendary"
                 }
               }
             ]

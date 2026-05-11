@@ -12,7 +12,7 @@
     "TerminalVelocityWater": 15,
     "RotationMode": "VelocityDamped",
     "Bounciness": 0,
-    "SticksVertically": false
+    "SticksVertically": true
   },
   "LaunchForce": 40,
   "SpawnOffset": {

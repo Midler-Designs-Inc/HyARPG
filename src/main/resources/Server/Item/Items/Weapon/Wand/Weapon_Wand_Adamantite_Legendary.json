@@ -1,0 +1,48 @@
+{
+  "Parent": "Template_Weapon_Wand",
+  "TranslationProperties": {
+    "Name": "server.items.Weapon_Wand_Adamantite.name",
+    "Description": "server.items.Weapon_Wand_Adamantite.description"
+  },
+  "Quality": "Legendary",
+  "ItemLevel": 50,
+  "Icon": "Icons/ItemsGenerated/Weapon_Wand_Adamantite_Icon.png",
+  "Texture": "Items/Weapons/Wand/Weapon_Wand_Adamantite.png",
+  "Recipe": {
+    "TimeSeconds": 4.5,
+    "BenchRequirement": [
+      {
+        "Id": "Weapon_Bench",
+        "Type": "Crafting",
+        "Categories": [
+          "Weapon_Daggers"
+        ],
+        "RequiredTierLevel": 3
+      }
+    ],
+    "Input": [
+      {
+        "ItemId": "Ingredient_Bar_Adamantite",
+        "Quantity": 9
+      },
+      {
+        "ItemId": "Ingredient_Leather_Heavy",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Ingredient_Fabric_Scrap_Cindercloth",
+        "Quantity": 3
+      },
+      {
+        "ItemId": "Legendary_Shards",
+        "Quantity": 1
+      }
+    ]
+  },
+  "MaxDurability": 0,
+  "MaxStack": 1,
+  "Categories": [
+    "Items.Weapons",
+    "Items.HyARPG.Gear"
+  ]
+}

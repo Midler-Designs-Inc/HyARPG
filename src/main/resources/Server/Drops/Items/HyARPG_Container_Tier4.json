@@ -272,6 +272,13 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Cobalt_Common"
                 }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Cobalt_Common"
+                }
               }
             ]
           },
@@ -445,6 +452,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Sword_Cobalt_Uncommon"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Cobalt_Uncommon"
                 }
               }
             ]
@@ -620,6 +634,13 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Cobalt_Rare"
                 }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Cobalt_Rare"
+                }
               }
             ]
           },
@@ -794,6 +815,13 @@
                 "Item": {
                   "ItemId": "Weapon_Sword_Cobalt_Epic"
                 }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Cobalt_Epic"
+                }
               }
             ]
           },
@@ -967,6 +995,13 @@
                 "Weight": 100,
                 "Item": {
                   "ItemId": "Weapon_Sword_Cobalt_Legendary"
+                }
+              },
+              {
+                "Type": "Single",
+                "Weight": 100,
+                "Item": {
+                  "ItemId": "Weapon_Wand_Cobalt_Legendary"
                 }
               }
             ]

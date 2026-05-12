@@ -80,7 +80,7 @@ public class Module_RPGSystem {
     private static final Random random = new Random();
 
     // Skill Tree Version Constant
-    private static final String SKILL_TREE_VERSION = "1.9.0"; // 1.6.0
+    private static final String SKILL_TREE_VERSION = "1.7.0"; // 1.7.0
 
     // initialize this module
     public Module_RPGSystem(HyARPGPlugin plugin) {

@@ -36,8 +36,7 @@ public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
     private final ComponentType<EntityStore, Component_Simulacrum> componentType;
     private final ComponentType<EntityStore, Component_HomingMissile> homingComponentType;
 
-    public System_Simulacrum(ComponentType<EntityStore, Component_Simulacrum> componentType,
-                             ComponentType<EntityStore, Component_HomingMissile> homingComponentType) {
+    public System_Simulacrum(ComponentType<EntityStore, Component_Simulacrum> componentType, ComponentType<EntityStore, Component_HomingMissile> homingComponentType) {
         this.componentType = componentType;
         this.homingComponentType = homingComponentType;
     }

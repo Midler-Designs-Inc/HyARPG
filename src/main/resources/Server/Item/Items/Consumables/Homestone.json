@@ -1,5 +1,5 @@
 {
-  "Icon": "Icons/ItemsGenerated/WinterHoliday_WinterRoll.png",
+  "Icon": "Icons/Items/Consumables/Homestone.png",
   "Categories": [
     "Items.Consumables"
   ],
@@ -10,8 +10,8 @@
   "ItemLevel": 5,
   "MaxStack": 1,
   "Quality": "Rare",
-  "Model": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll.blockymodel",
-  "Texture": "Items/Hypixel/Event_Decoration/Winter Holiday_Props/WinterHoliday_Ornament_WinterRoll_Texture.png",
+  "Model": "Items/Consumables/Homestone/Homestone.blockymodel",
+  "Texture": "Items/Consumables/Homestone/Homestone.png",
   "PlayerAnimationsId": "Item",
   "Recipe": {
     "TimeSeconds": 0,
@@ -70,5 +70,6 @@
       ],
       "RequireNewClick": true
     }
-  }
+  },
+  "Scale": 0.5
 }

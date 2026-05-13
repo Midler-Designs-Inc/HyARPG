@@ -12,7 +12,7 @@ import java.util.List;
 public class Cyclone extends Ability {
 
     public Cyclone() {
-        super("Ability_Cyclone", DefaultEntityStatTypes.getStamina(), 1f, false, 0, true, List.of("Battleaxe", "Mace", "Longsword"));
+        super("Ability_Cyclone", DefaultEntityStatTypes.getStamina(), 1f, false, 0, true, List.of("Battleaxe", "Mace", "Longsword"), false);
     }
 
 }

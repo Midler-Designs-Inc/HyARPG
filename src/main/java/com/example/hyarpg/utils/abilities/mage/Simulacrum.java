@@ -51,7 +51,7 @@ public class Simulacrum extends Ability {
     private static final String SIMULACRUM_ROLE = "Role_Simulacrum";
 
     public Simulacrum() {
-        super("Ability_Simulacrum", DefaultEntityStatTypes.getMana(), 10f, false, 30, false, List.of());
+        super("Ability_Simulacrum", DefaultEntityStatTypes.getMana(), 10f, false, 30, false, List.of(), false);
     }
 
     @Override

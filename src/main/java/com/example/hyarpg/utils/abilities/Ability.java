@@ -18,12 +18,13 @@ public class Ability {
     public final int cooldownSeconds;
     public final boolean isChanneled;
     public final List<String> requiredWeapons;
+    public final boolean requiresTarget;
 
     // instantiated properties
     private long lastUse;
 
     // constructor
-    public Ability(String abilityId, int abilityResourceStatIndex, float abilityResourceCost, boolean ultimateAbility, int cooldownSeconds, boolean isChanneled, List<String> requiredWeapons) {
+    public Ability(String abilityId, int abilityResourceStatIndex, float abilityResourceCost, boolean ultimateAbility, int cooldownSeconds, boolean isChanneled, List<String> requiredWeapons, boolean requiresTarget) {
         this.abilityId = abilityId;
         this.abilityResourceStatIndex = abilityResourceStatIndex;
         this.abilityResourceCost = abilityResourceCost;
@@ -31,6 +32,7 @@ public class Ability {
         this.cooldownSeconds = cooldownSeconds;
         this.isChanneled = isChanneled;
         this.requiredWeapons = requiredWeapons;
+        this.requiresTarget = requiresTarget;
     }
 
     // getter/setter for last user value
@@ -40,7 +42,4 @@ public class Ability {
     // Execute fires when teh ability is triggered (override on children as needed)
     public void execute(Ref<EntityStore> ref, CommandBuffer<EntityStore> commandBuffer) {}
 
-    // Interaction vars changes parts of the ability's interaction (override on children as needed)
-    @Nullable
-    public Map<String, String> getInteractionVars(Ref<EntityStore> ref) { return null; }
 }

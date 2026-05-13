@@ -2,6 +2,7 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.components.*;
+import com.example.hyarpg.ticking_systems.System_SoftTargeting;
 import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
@@ -132,6 +133,9 @@ public class Module_RPGSystem {
         // merge the enemy configs
         hostiles.forEach(e -> enemyConfigMap.put(e.id, e));
         neutrals.forEach(e -> enemyConfigMap.put(e.id, e));
+
+        // Register ESO like targeting system (look to target)
+        plugin.getEntityStoreRegistry().registerSystem(new System_SoftTargeting(componentTypeRPGPlayer));
 
         // Replace the inventory open with our own window
 //        Window.CLIENT_REQUESTABLE_WINDOW_TYPES.put(WindowType.PocketCrafting, () -> new InterceptPocketCraftingWindow());

@@ -16,7 +16,7 @@ import java.util.List;
 public class Rain_Of_Arrows extends Ability {
 
     public Rain_Of_Arrows() {
-        super("Ability_Rain_Of_Arrows", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of("Shortbow", "Crossbow", "Longbow"));
+        super("Ability_Rain_Of_Arrows", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of("Shortbow", "Crossbow", "Longbow"), false);
     }
 
 }

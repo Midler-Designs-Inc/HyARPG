@@ -12,7 +12,7 @@ import java.util.List;
 public class Leap_Slam extends Ability {
 
     public Leap_Slam() {
-        super("Ability_Leap_Slam", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of("Battleaxe", "Mace", "Longsword"));
+        super("Ability_Leap_Slam", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of("Battleaxe", "Mace", "Longsword"), false);
     }
 
 }

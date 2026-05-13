@@ -23,7 +23,7 @@ public class Taunt extends Ability {
     private static final float HEIGHT = 5f;
 
     public Taunt() {
-        super("Ability_Taunt", DefaultEntityStatTypes.getStamina(), 5f, false, 3, false, List.of());
+        super("Ability_Taunt", DefaultEntityStatTypes.getStamina(), 5f, false, 3, false, List.of(), false);
     }
 
     @Override

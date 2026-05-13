@@ -64,8 +64,14 @@ public class Interaction_UseAbility1 extends SimpleInstantInteraction {
 
             // check that we can find the skill node which has the ability data, bail if we cant find it
             SkillNode node = rpgPlayer.skillLibrary.findNode(rpgPlayer.ultimateAbility);
-            if(node == null) {
+            if(node == null || node.ability == null) {
                 player.sendMessage(Message.raw("Ability not found.").color(Color.RED));
+                return;
+            }
+
+            // check if the ability requires a target and that the player has a target
+            if(node.ability.requiresTarget && (rpgPlayer.currentTarget == null || !rpgPlayer.currentTarget.isValid())) {
+                player.sendMessage(Message.raw("Ability requires a valid living target.").color(Color.RED));
                 return;
             }
 
@@ -77,7 +83,7 @@ public class Interaction_UseAbility1 extends SimpleInstantInteraction {
                 return;
             }
 
-            // validate the player has enough of the resource to file the ability
+            // validate the player has enough of the resource to fire the ability
             EntityStatValue resourceStat = statMap.get(node.ability.abilityResourceStatIndex);
             float currentValue = resourceStat.get();
             if (currentValue < node.ability.abilityResourceCost) {

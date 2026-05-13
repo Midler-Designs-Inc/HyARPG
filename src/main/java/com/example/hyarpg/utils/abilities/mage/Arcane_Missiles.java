@@ -41,7 +41,7 @@ public class Arcane_Missiles extends Ability {
     private static final float[] PITCH_OFFSETS = { 55f, 60f, 65f, 60f, 55f };
 
     public Arcane_Missiles() {
-        super("Ability_Arcane_Missiles", DefaultEntityStatTypes.getMana(), 10f, false, 5, false, List.of());
+        super("Ability_Arcane_Missiles", DefaultEntityStatTypes.getMana(), 10f, false, 5, false, List.of(), true);
     }
 
     @Override
@@ -54,12 +54,9 @@ public class Arcane_Missiles extends Ability {
         Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
         if (rpgPlayer == null || playerRef == null) return;
 
-        // get last target — bail with message if none
-        Ref<EntityStore> targetRef = rpgPlayer.lastEnemyHit;
-        if (targetRef == null || !targetRef.isValid()) {
-            playerRef.sendMessage(Message.raw("No target — hit an enemy to acquire one.").color(Color.RED));
-            return;
-        }
+        // get the currently targeted enemy or bail
+        Ref<EntityStore> target = rpgPlayer.currentTarget;
+        if (target == null || !target.isValid()) return;
 
         // resolve projectile config — bail if not found
         ProjectileConfig config = ProjectileConfig.getAssetMap().getAsset(PROJECTILE_CONFIG);
@@ -72,7 +69,7 @@ public class Arcane_Missiles extends Ability {
         float playerYaw = transform.getRotation().getYaw();
 
         // capture target ref for lambda
-        final Ref<EntityStore> capturedTargetRef = targetRef;
+        final Ref<EntityStore> capturedTargetRef = target;
 
         // stagger each missile launch on a virtual thread like raid wave spawning
         for (int i = 0; i < MISSILE_COUNT; i++) {

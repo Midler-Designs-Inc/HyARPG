@@ -38,8 +38,7 @@ public class Shadow_Strike extends Ability {
     private static final double CRIT_DMG_PER_MARK   = 40.0; // +40% crit damage per mark consumed
 
     public Shadow_Strike() {
-        super("Ability_Shadow_Strike", DefaultEntityStatTypes.getMana(), 10f, false, 3, false,
-                List.of("Axe", "Battleaxe", "Club", "Daggers", "Longsword", "Mace", "Sword"));
+        super("Ability_Shadow_Strike", DefaultEntityStatTypes.getMana(), 10f, false, 3, false, List.of("Axe", "Battleaxe", "Club", "Daggers", "Longsword", "Mace", "Sword"), true);
     }
 
     @Override
@@ -52,16 +51,13 @@ public class Shadow_Strike extends Ability {
         Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
         if (rpgPlayer == null || playerRef == null) return;
 
-        // get the last hit target — bail if none
-        Ref<EntityStore> target = rpgPlayer.marks.getLastHitTarget();
-        if (target == null || !target.isValid()) {
-            playerRef.sendMessage(Message.raw("You must have a valid target to use this ability. Hit an enemy to acquire them as a target.").color(Color.RED));
-            return;
-        }
+        // get the currently targeted enemy or bail
+        Ref<EntityStore> target = rpgPlayer.currentTarget;
+        if (target == null || !target.isValid()) return;
 
         // consume up to 5 assassin marks if this is the same last hit target
         int marksConsumed = 0;
-        if (target.equals(rpgPlayer.marks.getLastHitTarget())) {
+        if (target.equals(rpgPlayer.currentTarget)) {
             int available = rpgPlayer.marks.count("ASSASSIN");
             marksConsumed = Math.min(available, MAX_MARKS_CONSUME);
             if (marksConsumed > 0) rpgPlayer.marks.consume("ASSASSIN", marksConsumed);

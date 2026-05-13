@@ -40,7 +40,7 @@ public class Arcane_Meteor extends Ability {
     private static final float ARM_TIME = 0f;
 
     public Arcane_Meteor() {
-        super("Ability_Arcane_Meteor", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of());
+        super("Ability_Arcane_Meteor", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of(), true);
     }
 
     @Override
@@ -53,19 +53,16 @@ public class Arcane_Meteor extends Ability {
         Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
         if (rpgPlayer == null || playerRef == null) return;
 
-        // get last target — bail with message if none
-        Ref<EntityStore> targetRef = rpgPlayer.lastEnemyHit;
-        if (targetRef == null || !targetRef.isValid()) {
-            playerRef.sendMessage(Message.raw("No target — hit an enemy to acquire one.").color(Color.RED));
-            return;
-        }
+        // get the currently targeted enemy or bail
+        Ref<EntityStore> target = rpgPlayer.currentTarget;
+        if (target == null || !target.isValid()) return;
 
         // resolve projectile config — bail if not found
         ProjectileConfig config = ProjectileConfig.getAssetMap().getAsset(PROJECTILE_CONFIG);
         if (config == null) return;
 
         // get target position and spawn meteor far above it
-        TransformComponent targetTransform = store.getComponent(targetRef, TransformComponent.getComponentType());
+        TransformComponent targetTransform = store.getComponent(target, TransformComponent.getComponentType());
         if (targetTransform == null) return;
         Vector3d targetPos = targetTransform.getPosition().clone();
         Vector3d spawnPos = targetPos.clone().add(0, SPAWN_HEIGHT, 0);
@@ -74,7 +71,7 @@ public class Arcane_Meteor extends Ability {
         Vector3d dir = new Vector3d(0, -1, 0);
 
         // spawn the projectile on next world execute
-        final Ref<EntityStore> capturedTargetRef = targetRef;
+        final Ref<EntityStore> capturedTargetRef = target;
         world.execute(() -> {
             Ref<EntityStore> meteorRef = ProjectileModule.get().spawnProjectile(null, ref, commandBuffer, config, spawnPos, dir);
             commandBuffer.putComponent(meteorRef, Component_HomingMissile.getComponentType(), new Component_HomingMissile(ref, capturedTargetRef, TURN_RATE, ARM_TIME, "MainHand_Magic_Scalar", 15f, AOE_RANGE, AOE_HEIGHT));

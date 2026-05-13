@@ -1,14 +1,6 @@
 package com.example.hyarpg;
 
 // Hytale Imports
-import com.example.hyarpg.components.Component_HomingMissile;
-import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.components.Component_Simulacrum;
-import com.example.hyarpg.subclasses.FixedDeployableAoeConfig;
-import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
-import com.example.hyarpg.ticking_systems.System_HomingMissile;
-import com.example.hyarpg.ticking_systems.System_Simulacrum;
-import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.server.core.HytaleServer;
@@ -24,6 +16,13 @@ import com.example.hyarpg.worldgen.*;
 import com.example.hyarpg.commands.*;
 import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.example.hyarpg.components.Component_HomingMissile;
+import com.example.hyarpg.components.Component_Simulacrum;
+import com.example.hyarpg.subclasses.FixedDeployableAoeConfig;
+import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
+import com.example.hyarpg.ticking_systems.System_HomingMissile;
+import com.example.hyarpg.ticking_systems.System_Simulacrum;
+import com.example.hyarpg.utils.items.ItemFactory;
 
 // Java Imports
 import javax.annotation.Nonnull;

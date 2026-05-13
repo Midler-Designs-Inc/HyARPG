@@ -23,7 +23,7 @@ public class Aerial_Maneuver extends Ability {
     private static final float HORIZONTAL_THRESHOLD = 0.1f;
 
     public Aerial_Maneuver() {
-        super("Ability_Aerial_Maneuver", DefaultEntityStatTypes.getStamina(), 5f, false, 3, false, List.of());
+        super("Ability_Aerial_Maneuver", DefaultEntityStatTypes.getStamina(), 5f, false, 3, false, List.of(), false);
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
 public class Summon_Crossbow_Turret extends Ability {
 
     public Summon_Crossbow_Turret() {
-        super("Ability_Summon_Crossbow_Turret", DefaultEntityStatTypes.getStamina(), 7f, false, 0, false, List.of());
+        super("Ability_Summon_Crossbow_Turret", DefaultEntityStatTypes.getStamina(), 7f, false, 0, false, List.of(), false);
     }
 
 }

@@ -30,7 +30,7 @@ public class Reaper_Death_Seal extends Ability {
     private static final double DAMAGE_PER_MARK = 0.10; // 10% of target max health per mark
 
     public Reaper_Death_Seal() {
-        super("Ability_Reaper_Death_Seal", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of());
+        super("Ability_Reaper_Death_Seal", DefaultEntityStatTypes.getSignatureEnergy(), 100f, true, 0, false, List.of(), true);
     }
 
     @Override
@@ -43,12 +43,9 @@ public class Reaper_Death_Seal extends Ability {
         Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
         if (rpgPlayer == null || playerRef == null) return;
 
-        // get the last hit target — bail if none
-        Ref<EntityStore> target = rpgPlayer.marks.getLastHitTarget();
-        if (target == null || !target.isValid()) {
-            playerRef.sendMessage(Message.raw("You must have a valid target to use this ability. Hit an enemy to acquire them as a target.").color(Color.RED));
-            return;
-        }
+        // get the currently targeted enemy or bail
+        Ref<EntityStore> target = rpgPlayer.currentTarget;
+        if (target == null || !target.isValid()) return;
 
         world.execute(() -> {
             // get the target's stat map to read max health

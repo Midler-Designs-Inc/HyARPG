@@ -56,16 +56,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private static final int ARMOR_SLOTS   = 4;
     private static final int UTILITY_SLOTS = 4;
 
-    // armor slot indices — Helmet=0, Chest=1, Gloves=2, Pants=3
-    private static final String[] ARMOR_SLOT_LABELS = { "Helmet", "Chest", "Gloves", "Pants" };
-
-    // rarity display colors
-    private static final String COLOR_COMMON    = "#aaaaaa";
-    private static final String COLOR_UNCOMMON  = "#55ff55";
-    private static final String COLOR_RARE      = "#5588ff";
-    private static final String COLOR_EPIC      = "#cc44cc";
-    private static final String COLOR_LEGENDARY = "#ffaa00";
-
     // Quick-craft slot definitions - Index maps directly to the UI slot number (0-5)
     private static final int QUICK_CRAFT_SLOTS = 6;
 

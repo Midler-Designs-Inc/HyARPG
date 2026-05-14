@@ -1,9 +1,6 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import com.example.hyarpg.components.*;
-import com.example.hyarpg.ticking_systems.System_SoftTargeting;
-import com.example.hyarpg.utils.affixes.EntityStats;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
@@ -37,6 +34,10 @@ import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.core.modules.block.components.ItemContainerBlock;
 
 // Mod Imports
+import com.example.hyarpg.components.*;
+import com.example.hyarpg.ticking_systems.System_PlayerHud;
+import com.example.hyarpg.ticking_systems.System_SoftTargeting;
+import com.example.hyarpg.utils.affixes.EntityStats;
 import com.example.hyarpg.events.*;
 import com.example.hyarpg.HyARPGPlugin;
 import com.example.hyarpg.ModEventBus;
@@ -96,7 +97,6 @@ public class Module_RPGSystem {
         // Get the interaction registry and register the custom interactions
         final var interactionRegistry = plugin.getCodecRegistry(Interaction.CODEC);
         interactionRegistry.register("ShowHowToPlay", Interaction_ShowHowToPlay.class, Interaction_ShowHowToPlay.CODEC);
-        interactionRegistry.register("ChangeItemState", Interaction_ChangeItemStateInteraction.class, Interaction_ChangeItemStateInteraction.CODEC);
         interactionRegistry.register("Use_Ability_1", Interaction_UseAbility1.class, Interaction_UseAbility1.CODEC);
         interactionRegistry.register("Use_Ability_2", Interaction_UseAbility2.class, Interaction_UseAbility2.CODEC);
         interactionRegistry.register("Use_Ability_3", Interaction_UseAbility3.class, Interaction_UseAbility3.CODEC);
@@ -134,8 +134,11 @@ public class Module_RPGSystem {
         hostiles.forEach(e -> enemyConfigMap.put(e.id, e));
         neutrals.forEach(e -> enemyConfigMap.put(e.id, e));
 
-        // Register ESO like targeting system (look to target)
+        // Register ticking system for the ESO like targeting system (look to target)
         plugin.getEntityStoreRegistry().registerSystem(new System_SoftTargeting(componentTypeRPGPlayer));
+
+        // Register ticking system for the Player Hud
+        plugin.getEntityStoreRegistry().registerSystem(new System_PlayerHud(componentTypeRPGPlayer));
 
         // Replace the inventory open with our own window
 //        Window.CLIENT_REQUESTABLE_WINDOW_TYPES.put(WindowType.PocketCrafting, () -> new InterceptPocketCraftingWindow());
@@ -384,17 +387,18 @@ public class Module_RPGSystem {
         Ref<ChunkStore> chunkRef = blockStateInfo.getChunkRef();
         Store<ChunkStore> store = chunkRef.getStore();
         WorldChunk worldChunk = (WorldChunk) store.getComponent(chunkRef, WorldChunk.getComponentType());
+        if(worldChunk == null) return;
+
         int chunkX = worldChunk.getX();
         int chunkZ = worldChunk.getZ();
 
         // Reconstruct world coordinates — no sectionY needed, localY is already full column Y
         int worldX = ChunkUtil.worldCoordFromLocalCoord(chunkX, localX);
-        int worldY = localY;
         int worldZ = ChunkUtil.worldCoordFromLocalCoord(chunkZ, localZ);
 
         // Compute distance from config origin
         double dx = worldX - ModConfig.get().world.origin_spawn_point_x;
-        double dy = worldY - ModConfig.get().world.origin_spawn_point_y;
+        double dy = localY - ModConfig.get().world.origin_spawn_point_y;
         double dz = worldZ - ModConfig.get().world.origin_spawn_point_z;
         double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
@@ -416,7 +420,6 @@ public class Module_RPGSystem {
         int gearLevel = Math.max(1, (int)(distance / ModConfig.get().enemies.blocks_per_level_threshold) + 1);
         for (ItemStack drop : rawDrops) {
             Item item = drop.getItem();
-            if (item == null) continue;
 
             String[] categories = item.getCategories();
             boolean isModGear = categories != null && Arrays.asList(categories).contains("Items.HyARPG.Gear");

@@ -297,7 +297,7 @@ public class Module_RaidSystem {
         public final int secondsBetweenWaves;
         public volatile int currentWave;
         public volatile int enemiesRemaining;
-        final RaidGroup raidGroup;
+        public final RaidGroup raidGroup;
 
         RaidHudState(int totalWaves, long firstWaveSpawnAtMs, long raidEndMs, int secondsBetweenWaves, RaidGroup raidGroup) {
             this.totalWaves = totalWaves;

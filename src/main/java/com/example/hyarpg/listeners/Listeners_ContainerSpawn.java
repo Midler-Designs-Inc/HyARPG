@@ -17,7 +17,7 @@ import com.example.hyarpg.events.Event_ContainerSpawned;
 // Checker annotations
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
-import org.jetbrains.annotations.NotNull;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class Listeners_ContainerSpawn extends HolderSystem<ChunkStore> {
 
@@ -52,6 +52,8 @@ public class Listeners_ContainerSpawn extends HolderSystem<ChunkStore> {
         // get the chunk
         Ref<ChunkStore> chunkRef = blockStateInfo.getChunkRef();
         WorldChunk worldChunk = (WorldChunk) store.getComponent(chunkRef, WorldChunk.getComponentType());
+        if(worldChunk == null) return;
+
         int chunkX = worldChunk.getX();
         int chunkZ = worldChunk.getZ();
 
@@ -64,5 +66,5 @@ public class Listeners_ContainerSpawn extends HolderSystem<ChunkStore> {
     }
 
     @Override
-    public void onEntityRemoved(@NotNull Holder<ChunkStore> holder, @NotNull RemoveReason removeReason, @NotNull Store<ChunkStore> store) {}
+    public void onEntityRemoved(@NonNull Holder<ChunkStore> holder, @NonNull RemoveReason removeReason, @NonNull Store<ChunkStore> store) {}
 }

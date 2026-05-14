@@ -105,9 +105,12 @@ public class Component_RPG_Player implements Component<EntityStore> {
     // grave position — persisted so it survives restarts
     public String gravePosition = null;
 
-    // Add to Component_RPG_Player
+    // currently hi-lighted target
     public Ref<EntityStore> currentTarget = null;
     public long targetLastUpdated = 0;
+
+    // hud refresh tracker
+    public long hudAccumulatorNs;
 
     // Register properties that needs to be persisted
     public static final BuilderCodec<Component_RPG_Player> CODEC = BuilderCodec.builder(

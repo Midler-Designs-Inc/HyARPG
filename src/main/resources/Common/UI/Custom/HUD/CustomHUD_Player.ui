@@ -1,0 +1,220 @@
+Group {
+
+    // XP bar
+    Group {
+        Anchor: (Width: 700, Height: 10, Bottom: 5);
+        Background: #222222;
+        ProgressBar #xpBar {
+            Anchor: (Width: 700, Height: 10);
+            BarTexturePath: "../d3e582.png";
+        }
+    }
+    Label #xpLevelCurrent {
+        Anchor: (Width: 75, Height: 15, Bottom: 4);
+        Padding: (Left: -410);
+        Style: (FontSize: 12, TextColor: #cccccc, RenderBold: true);
+        Text: "GS 0  |  Lv 1";
+    }
+
+    // Hunger icon
+    Group {
+        Anchor: (Width: 25, Height: 25, Bottom: 145);
+        Padding: (Left: -340);
+
+        Group {
+            Anchor: (Width: 25, Height: 25, Left: 0);
+            Background: "HyARPG_Texture_Hunger_Icon.png";
+        }
+    }
+
+    // Hunger bar
+    Group {
+        Anchor: (Width: 155, Height: 12, Bottom: 150);
+        Padding: (Left: -237);
+
+        Group {
+            Anchor: (Width: 155, Height: 12, Left: 0);
+            Background: #222222;
+            ProgressBar #hungerBar {
+                Anchor: (Width: 155, Height: 12);
+                BarTexturePath: "../FF9760.png";
+            }
+        }
+    }
+
+    // Thirst bar
+    Group {
+        Anchor: (Width: 155, Height: 12, Bottom: 150);
+        Padding: (Right: -237);
+
+        Group {
+            Anchor: (Width: 155, Height: 12, Right: 0);
+            Background: #222222;
+            ProgressBar #thirstBar {
+                Anchor: (Width: 155, Height: 12);
+                BarTexturePath: "../0687cc.png";
+                Direction: Start;
+            }
+        }
+    }
+
+    // Thirst icon
+    Group {
+        Anchor: (Width: 20, Height: 22, Bottom: 145);
+        Padding: (Right: -340);
+
+        Group {
+            Anchor: (Width: 20, Height: 22, Right: 0);
+            Background: "HyARPG_Texture_Thirst_Icon.png";
+        }
+    }
+
+    // Barrier bar
+    Group {
+        Anchor: (Width: 309, Height: 6, Bottom: 133);
+        Padding: (Left: -320);
+        ProgressBar #barrierBar {
+            Anchor: (Width: 309, Height: 6);
+            BarTexturePath: "../abd4f9.png";
+        }
+    }
+
+    // Assassin mark stack
+    Group {
+        Anchor: (Width: 620, Height: 25, Bottom: 183);
+
+        Group #assassinMarkIcon {
+            Anchor: (Width: 25, Height: 25, Left: 0);
+            Background: "../Skills/Icons/Assassin_Ability_AssassinsMark.png";
+            Visible: true;
+        }
+    }
+    Label #assassinMarkCount {
+        Anchor: (Width: 25, Height: 25, Bottom: 195);
+        Padding: (Left: -567);
+        Visible: false;
+        Style: (FontSize: 11, TextColor: #ffffff, RenderBold: true, Alignment: Center);
+        Text: "0";
+    }
+
+    // Skill slot Q
+    Group {
+        Anchor: (Width: 37, Height: 37, Bottom: 153, Right: 269);
+        Background: "HyARPG_Texture_EmptySkillSlot.png";
+    }
+    Group #skillIconQ {
+        Anchor: (Width: 31, Height: 31, Bottom: 156, Right: 271);
+        Visible: false;
+        Background: "";
+    }
+
+    // Skill slot E
+    Group {
+        Anchor: (Width: 56, Height: 56, Bottom: 135, Right: 165);
+        Background: "HyARPG_Texture_EmptySkillSlot.png";
+    }
+    Group #skillIconE {
+        Anchor: (Width: 48, Height: 48, Bottom: 139, Right: 169);
+        Visible: false;
+        Background: "";
+    }
+    Group #skillIconOverlayE {
+        Anchor: (Width: 48, Height: 48, Bottom: 139, Right: 169);
+        Visible: false;
+        Background: "../Black_Alpha_75.png";
+    }
+    Label #skillSlotOverlayLabelE {
+        Anchor: (Width: 48, Height: 48, Bottom: 139, Right: 169);
+        Visible: false;
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true, Alignment: Center, VerticalAlignment: Center);
+        Text: "0";
+    }
+    Label {
+        Anchor: (Width: 5, Height: 5, Bottom: 143, Right: 192);
+        Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true);
+        Text: "E";
+    }
+
+    // Skill slot R
+    Group {
+        Anchor: (Width: 56, Height: 56, Bottom: 135, Right: 80);
+        Background: "HyARPG_Texture_EmptySkillSlot.png";
+    }
+    Group #skillIconR {
+        Anchor: (Width: 48, Height: 48, Bottom: 139, Right: 84);
+        Visible: false;
+        Background: "";
+    }
+    Group #skillIconOverlayR {
+        Anchor: (Width: 48, Height: 48, Bottom: 139, Right: 84);
+        Visible: false;
+        Background: "../Black_Alpha_75.png";
+    }
+    Label #skillSlotOverlayLabelR {
+        Anchor: (Width: 48, Height: 48, Bottom: 139, Right: 84);
+        Visible: false;
+        Style: (FontSize: 18, TextColor: #ffffff, RenderBold: true, Alignment: Center, VerticalAlignment: Center);
+        Text: "0";
+    }
+    Label {
+        Anchor: (Width: 5, Height: 5, Bottom: 143, Right: 107);
+        Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true);
+        Text: "R";
+    }
+
+    // World tier and average enemy level
+    Label #worldTierLabel {
+        Anchor: (Width: 120, Height: 20, Bottom: 41, Left: 25);
+        Style: (FontSize: 16, TextColor: #bbbbbb, RenderBold: true);
+        Text: "World Tier 0";
+    }
+    Label #worldTierEnemyLevel {
+        Anchor: (Width: 120, Height: 14, Bottom: 25, Left: 25);
+        Style: (FontSize: 10, TextColor: #888888, RenderBold: false);
+        Text: "Avg Enemy Lv 1";
+    }
+
+    // Room and territory label
+    Group #currentRoomBorder {
+        Anchor: (Width: 250, Height: 15, Top: 99);
+        Visible: false;
+        Background: "../Common/ContainerDecorationTop.png";
+    }
+    Label #currentRoom {
+        Anchor: (Width: 500, Height: 30, Top: 75);
+        Visible: false;
+        Style: (FontSize: 18, TextColor: #cccccc, RenderBold: true, Alignment: Center);
+        Text: "";
+    }
+
+    // Raid HUD shown during an active raid
+    Group #raidHudIcon {
+        Anchor: (Width: 120, Height: 50, Left: 25, Top: 200);
+        Visible: false;
+        Background: "HyARPG_Raid_Notification.png";
+    }
+    Label #raidHudWaveStatus {
+        Anchor: (Width: 200, Height: 20, Left: 25, Top: 250);
+        Visible: false;
+        Style: (FontSize: 13, TextColor: #ffffff, RenderBold: true);
+        Text: "";
+    }
+    Label #raidHudRemainingEnemies {
+        Anchor: (Width: 200, Height: 20, Left: 25, Top: 270);
+        Visible: false;
+        Style: (FontSize: 12, TextColor: #ffffff, RenderBold: true);
+        Text: "";
+    }
+    Label #raidHudCountdown {
+        Anchor: (Width: 200, Height: 20, Left: 25, Top: 290);
+        Visible: false;
+        Style: (FontSize: 13, TextColor: #ffaa00, RenderBold: true);
+        Text: "";
+    }
+    Label #raidHudExplosionWarning {
+        Anchor: (Width: 200, Height: 20, Left: 25, Top: 310);
+        Visible: false;
+        Style: (FontSize: 12, TextColor: #ff4400, RenderBold: true);
+        Text: "Survivors will explode!";
+    }
+}

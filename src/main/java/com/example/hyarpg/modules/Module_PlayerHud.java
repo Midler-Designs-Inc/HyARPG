@@ -36,12 +36,6 @@ public class Module_PlayerHud {
         // get the existing HudManager — always present on a player, holds the native HUD components
         HudManager hudManager = player.getHudManager();
 
-        // guard against another mod having already claimed the custom HUD slot — we don't evict, just log and skip
-        if (hudManager.getCustomHud() != null) {
-            System.err.println("[HyARPG] HudManager already has a custom HUD registered for " + playerRef.getUsername() + " — skipping registration.");
-            return;
-        }
-
         // register our HUD layer — setCustomHud calls show() internally which triggers build()
         hudManager.setCustomHud(playerRef, new CustomHUD_Player(playerRef));
     }

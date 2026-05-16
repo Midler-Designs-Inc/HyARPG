@@ -4,21 +4,13 @@ package com.example.hyarpg.utils.abilities.mage;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
-import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.modules.projectile.ProjectileModule;
 import com.hypixel.hytale.server.core.modules.projectile.config.ProjectileConfig;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import com.hypixel.hytale.server.core.util.TargetUtil;
-import com.hypixel.hytale.server.npc.entities.NPCEntity;
-import com.hypixel.hytale.server.npc.role.Role;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_HomingMissile;
@@ -27,8 +19,8 @@ import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.abilities.Ability;
 
 // Java Imports
-import java.awt.Color;
 import java.util.List;
+import org.joml.Vector3d;
 
 public class Arcane_Meteor extends Ability {
 
@@ -64,8 +56,8 @@ public class Arcane_Meteor extends Ability {
         // get target position and spawn meteor far above it
         TransformComponent targetTransform = store.getComponent(target, TransformComponent.getComponentType());
         if (targetTransform == null) return;
-        Vector3d targetPos = targetTransform.getPosition().clone();
-        Vector3d spawnPos = targetPos.clone().add(0, SPAWN_HEIGHT, 0);
+        Vector3d targetPos = new Vector3d(targetTransform.getPosition());
+        Vector3d spawnPos = new Vector3d(targetPos).add(0, SPAWN_HEIGHT, 0);
 
         // direction straight down toward target
         Vector3d dir = new Vector3d(0, -1, 0);

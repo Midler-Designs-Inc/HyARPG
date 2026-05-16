@@ -6,9 +6,7 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.RemoveReason;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.math.vector.Vector3i;
+import com.hypixel.hytale.math.vector.Rotation3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
@@ -42,6 +40,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+import org.joml.Vector3d;
+import org.joml.Vector3i;
 
 public class Module_RaidSystem {
 
@@ -68,158 +68,158 @@ public class Module_RaidSystem {
     private static final List<RaidDefinition> RAID_REGISTRY = List.of(
 
             new RaidDefinition("the_risen_tide", 100, List.of(
-                    List.of("Chicken_Undead", "Chicken_Undead", "Pig_Undead", "Pig_Undead", "Zombie"),
-                    List.of("Cow_Undead", "Cow_Undead", "Zombie", "Zombie", "Ghoul"),
-                    List.of("Ghoul", "Ghoul", "Zombie_Aberrant", "Wraith")
+                List.of("Chicken_Undead", "Chicken_Undead", "Pig_Undead", "Pig_Undead", "Zombie"),
+                List.of("Cow_Undead", "Cow_Undead", "Zombie", "Zombie", "Ghoul"),
+                List.of("Ghoul", "Ghoul", "Zombie_Aberrant", "Wraith")
             ),
-                    "Something stirs beneath the soil of your farm...",
-                    "The dead livestock have risen — and they remember who fed them last!",
-                    "The undead herd is put down. Your base smells worse than before, somehow."
+                "Something stirs beneath the soil of your farm...",
+                "The dead livestock have risen — and they remember who fed them last!",
+                "The undead herd is put down. Your base smells worse than before, somehow."
             ),
 
             new RaidDefinition("cold_front", 95, List.of(
-                    List.of("Skeleton_Frost_Scout", "Skeleton_Frost_Scout", "Skeleton_Frost_Ranger", "Zombie_Frost"),
-                    List.of("Skeleton_Frost_Soldier", "Skeleton_Frost_Fighter", "Skeleton_Frost_Mage", "Spirit_Frost"),
-                    List.of("Skeleton_Frost_Knight", "Skeleton_Frost_Archmage", "Golem_Crystal_Frost", "Zombie_Frost", "Spirit_Frost")
+                List.of("Skeleton_Frost_Scout", "Skeleton_Frost_Scout", "Skeleton_Frost_Ranger", "Zombie_Frost"),
+                List.of("Skeleton_Frost_Soldier", "Skeleton_Frost_Fighter", "Skeleton_Frost_Mage", "Spirit_Frost"),
+                List.of("Skeleton_Frost_Knight", "Skeleton_Frost_Archmage", "Golem_Crystal_Frost", "Zombie_Frost", "Spirit_Frost")
             ),
-                    "An unnatural chill settles over your territory...",
-                    "A frost legion descends — the temperature drops and so will you!",
-                    "The cold front passes. You survived the freeze, but your toes may not recover."
+                "An unnatural chill settles over your territory...",
+                "A frost legion descends — the temperature drops and so will you!",
+                "The cold front passes. You survived the freeze, but your toes may not recover."
             ),
 
             new RaidDefinition("the_goblin_economy", 110, List.of(
-                    List.of("Goblin_Miner", "Goblin_Miner", "Goblin_Scavenger", "Goblin_Hermit"),
-                    List.of("Goblin_Lobber", "Goblin_Lobber", "Goblin_Thief", "Goblin_Ogre"),
-                    List.of("Goblin_Duke", "Goblin_Ogre", "Goblin_Lobber", "Goblin_Scavenger", "Goblin_Thief")
+                List.of("Goblin_Miner", "Goblin_Miner", "Goblin_Scavenger", "Goblin_Hermit"),
+                List.of("Goblin_Lobber", "Goblin_Lobber", "Goblin_Thief", "Goblin_Ogre"),
+                List.of("Goblin_Duke", "Goblin_Ogre", "Goblin_Lobber", "Goblin_Scavenger", "Goblin_Thief")
             ),
-                    "You hear the distant jingle of stolen coins...",
-                    "The goblins have assessed your property value and decided to liquidate your assets!",
-                    "The goblin delegation has been... dismissed. Your stuff is mostly still here."
+                "You hear the distant jingle of stolen coins...",
+                "The goblins have assessed your property value and decided to liquidate your assets!",
+                "The goblin delegation has been... dismissed. Your stuff is mostly still here."
             ),
 
             new RaidDefinition("desert_awakening", 90, List.of(
-                    List.of("Skeleton_Sand_Scout", "Skeleton_Sand_Ranger", "Zombie_Sand", "Zombie_Sand"),
-                    List.of("Skeleton_Sand_Guard", "Skeleton_Sand_Mage", "Skeleton_Sand_Archmage", "Golem_Crystal_Sand"),
-                    List.of("Golem_Crystal_Sand", "Skeleton_Sand_Archmage", "Zombie_Sand", "Skeleton_Sand_Guard", "Skeleton_Sand_Ranger")
+                List.of("Skeleton_Sand_Scout", "Skeleton_Sand_Ranger", "Zombie_Sand", "Zombie_Sand"),
+                List.of("Skeleton_Sand_Guard", "Skeleton_Sand_Mage", "Skeleton_Sand_Archmage", "Golem_Crystal_Sand"),
+                List.of("Golem_Crystal_Sand", "Skeleton_Sand_Archmage", "Zombie_Sand", "Skeleton_Sand_Guard", "Skeleton_Sand_Ranger")
             ),
-                    "The wind carries sand from a distant, forgotten place...",
-                    "Ancient guardians of the sands have found your territory unworthy of existence!",
-                    "The sands recede. The ancients return to their slumber, unimpressed but defeated."
+                "The wind carries sand from a distant, forgotten place...",
+                "Ancient guardians of the sands have found your territory unworthy of existence!",
+                "The sands recede. The ancients return to their slumber, unimpressed but defeated."
             ),
 
             new RaidDefinition("spirits_of_the_wild", 75, List.of(
-                    List.of("Spirit_Root", "Spirit_Root", "Spirit_Ember"),
-                    List.of("Spirit_Frost", "Spirit_Thunder", "Spirit_Root", "Spirit_Ember"),
-                    List.of("Spirit_Thunder", "Spirit_Thunder", "Spirit_Frost", "Spirit_Ember", "Hedera")
+                List.of("Spirit_Root", "Spirit_Root", "Spirit_Ember"),
+                List.of("Spirit_Frost", "Spirit_Thunder", "Spirit_Root", "Spirit_Ember"),
+                List.of("Spirit_Thunder", "Spirit_Thunder", "Spirit_Frost", "Spirit_Ember", "Hedera")
             ),
-                    "The elements grow restless around your territory...",
-                    "Nature itself has taken offense to your construction — the spirits converge!",
-                    "The wild spirits scatter. Nature is displeased, but apparently willing to let it go."
+                "The elements grow restless around your territory...",
+                "Nature itself has taken offense to your construction — the spirits converge!",
+                "The wild spirits scatter. Nature is displeased, but apparently willing to let it go."
             ),
 
             new RaidDefinition("the_outlander_vanguard", 85, List.of(
-                    List.of("Outlander_Peon", "Outlander_Stalker", "Outlander_Hunter", "Outlander_Hunter"),
-                    List.of("Outlander_Marauder", "Outlander_Berserker", "Outlander_Brute", "Outlander_Sorcerer"),
-                    List.of("Outlander_Priest", "Outlander_Cultist", "Outlander_Brute", "Outlander_Sorcerer", "Outlander_Berserker")
+                List.of("Outlander_Peon", "Outlander_Stalker", "Outlander_Hunter", "Outlander_Hunter"),
+                List.of("Outlander_Marauder", "Outlander_Berserker", "Outlander_Brute", "Outlander_Sorcerer"),
+                List.of("Outlander_Priest", "Outlander_Cultist", "Outlander_Brute", "Outlander_Sorcerer", "Outlander_Berserker")
             ),
-                    "Shadows move at the edge of your vision...",
-                    "The Outlander Vanguard emerges from the dark — your territory is their next conquest!",
-                    "The vanguard retreats into the shadows. They'll report back. You probably don't want to know what they say."
+                "Shadows move at the edge of your vision...",
+                "The Outlander Vanguard emerges from the dark — your territory is their next conquest!",
+                "The vanguard retreats into the shadows. They'll report back. You probably don't want to know what they say."
             ),
 
             new RaidDefinition("fire_and_ash", 90, List.of(
-                    List.of("Skeleton_Burnt_Archer", "Skeleton_Burnt_Gunner", "Zombie_Burnt", "Zombie_Burnt"),
-                    List.of("Skeleton_Burnt_Knight", "Skeleton_Burnt_Lancer", "Skeleton_Burnt_Alchemist", "Spirit_Ember"),
-                    List.of("Skeleton_Burnt_Praetorian", "Skeleton_Burnt_Wizard", "Golem_Crystal_Flame", "Skeleton_Burnt_Soldier"),
-                    List.of("Golem_Crystal_Flame", "Golem_Firesteel", "Skeleton_Burnt_Praetorian", "Spirit_Ember", "Zombie_Burnt")
+                List.of("Skeleton_Burnt_Archer", "Skeleton_Burnt_Gunner", "Zombie_Burnt", "Zombie_Burnt"),
+                List.of("Skeleton_Burnt_Knight", "Skeleton_Burnt_Lancer", "Skeleton_Burnt_Alchemist", "Spirit_Ember"),
+                List.of("Skeleton_Burnt_Praetorian", "Skeleton_Burnt_Wizard", "Golem_Crystal_Flame", "Skeleton_Burnt_Soldier"),
+                List.of("Golem_Crystal_Flame", "Golem_Firesteel", "Skeleton_Burnt_Praetorian", "Spirit_Ember", "Zombie_Burnt")
             ),
-                    "The air tastes of smoke and something older than fire...",
-                    "The charred legion marches — they burned once and liked it!",
-                    "The flames die down. Your base is still standing. Barely counts as a win, but it counts."
+                "The air tastes of smoke and something older than fire...",
+                "The charred legion marches — they burned once and liked it!",
+                "The flames die down. Your base is still standing. Barely counts as a win, but it counts."
             ),
 
             new RaidDefinition("the_void_rupture", 70, List.of(
-                    List.of("Larva_Void", "Larva_Void", "Larva_Void", "Eye_Void", "Eye_Void"),
-                    List.of("Crawler_Void", "Crawler_Void", "Spawn_Void", "Eye_Void"),
-                    List.of("Spawn_Void", "Spawn_Void", "Spectre_Void", "Crawler_Void", "Larva_Void"),
-                    List.of("Spectre_Void", "Spectre_Void", "Spawn_Void", "Shadow_Knight")
+                List.of("Larva_Void", "Larva_Void", "Larva_Void", "Eye_Void", "Eye_Void"),
+                List.of("Crawler_Void", "Crawler_Void", "Spawn_Void", "Eye_Void"),
+                List.of("Spawn_Void", "Spawn_Void", "Spectre_Void", "Crawler_Void", "Larva_Void"),
+                List.of("Spectre_Void", "Spectre_Void", "Spawn_Void", "Shadow_Knight")
             ),
-                    "Reality flickers. Something on the other side has noticed you...",
-                    "The void tears open — creatures from beyond pour through the rift!",
-                    "The rift seals. Whatever came through is gone. Whatever watched from the other side is not."
+                "Reality flickers. Something on the other side has noticed you...",
+                "The void tears open — creatures from beyond pour through the rift!",
+                "The rift seals. Whatever came through is gone. Whatever watched from the other side is not."
             ),
 
             new RaidDefinition("bone_corsairs", 95, List.of(
-                    List.of("Skeleton_Pirate_Gunner", "Skeleton_Pirate_Gunner", "Skeleton_Pirate_Striker", "Skeleton_Scout"),
-                    List.of("Skeleton_Pirate_Captain", "Skeleton_Pirate_Striker", "Horse_Skeleton", "Skeleton_Ranger"),
-                    List.of("Skeleton_Pirate_Captain", "Horse_Skeleton_Armored", "Skeleton_Pirate_Gunner", "Skeleton_Pirate_Striker", "Skeleton_Mage")
+                List.of("Skeleton_Pirate_Gunner", "Skeleton_Pirate_Gunner", "Skeleton_Pirate_Striker", "Skeleton_Scout"),
+                List.of("Skeleton_Pirate_Captain", "Skeleton_Pirate_Striker", "Horse_Skeleton", "Skeleton_Ranger"),
+                List.of("Skeleton_Pirate_Captain", "Horse_Skeleton_Armored", "Skeleton_Pirate_Gunner", "Skeleton_Pirate_Striker", "Skeleton_Mage")
             ),
-                    "You catch the distant sound of a sea shanty with no sea in sight...",
-                    "The Bone Corsairs have made port — and your base is the treasure they're after!",
-                    "The corsairs retreat, cursing your name in three dead languages. High praise, really."
+                "You catch the distant sound of a sea shanty with no sea in sight...",
+                "The Bone Corsairs have made port — and your base is the treasure they're after!",
+                "The corsairs retreat, cursing your name in three dead languages. High praise, really."
             ),
 
             new RaidDefinition("thunder_and_earth", 80, List.of(
-                    List.of("Golem_Crystal_Earth", "Golem_Crystal_Earth", "Spirit_Thunder"),
-                    List.of("Golem_Crystal_Thunder", "Golem_Crystal_Earth", "Spirit_Thunder", "Spirit_Ember"),
-                    List.of("Golem_Crystal_Thunder", "Golem_Firesteel", "Golem_Crystal_Earth", "Spirit_Thunder", "Wraith")
+                List.of("Golem_Crystal_Earth", "Golem_Crystal_Earth", "Spirit_Thunder"),
+                List.of("Golem_Crystal_Thunder", "Golem_Crystal_Earth", "Spirit_Thunder", "Spirit_Ember"),
+                List.of("Golem_Crystal_Thunder", "Golem_Firesteel", "Golem_Crystal_Earth", "Spirit_Thunder", "Wraith")
             ),
-                    "The ground trembles and the sky crackles without a cloud in sight...",
-                    "Earth and thunder converge — the golems have declared your territory a hazard!",
-                    "The storm settles and the earth stills. The golems return to wherever golems go when not destroying things."
+                "The ground trembles and the sky crackles without a cloud in sight...",
+                "Earth and thunder converge — the golems have declared your territory a hazard!",
+                "The storm settles and the earth stills. The golems return to wherever golems go when not destroying things."
             ),
 
             new RaidDefinition("the_night_hunt", 75, List.of(
-                    List.of("Hound_Bleached", "Hound_Bleached", "Zombie", "Ghoul", "Ghoul"),
-                    List.of("Werewolf", "Ghoul", "Ghoul", "Wraith", "Zombie_Aberrant"),
-                    List.of("Werewolf", "Werewolf", "Wraith", "Wraith", "Shadow_Knight")
+                List.of("Hound_Bleached", "Hound_Bleached", "Zombie", "Ghoul", "Ghoul"),
+                List.of("Werewolf", "Ghoul", "Ghoul", "Wraith", "Zombie_Aberrant"),
+                List.of("Werewolf", "Werewolf", "Wraith", "Wraith", "Shadow_Knight")
             ),
-                    "The night grows heavier than it should. Something is hunting...",
-                    "The Night Hunt has chosen your territory as its quarry — run is not an option!",
-                    "Dawn breaks and the hunters scatter. You were the prey that fought back."
+                "The night grows heavier than it should. Something is hunting...",
+                "The Night Hunt has chosen your territory as its quarry — run is not an option!",
+                "Dawn breaks and the hunters scatter. You were the prey that fought back."
             ),
 
             new RaidDefinition("the_incandescent_crusade", 85, List.of(
-                    List.of("Skeleton_Incandescent_Footman", "Skeleton_Incandescent_Footman", "Skeleton_Incandescent_Fighter"),
-                    List.of("Skeleton_Incandescent_Fighter", "Skeleton_Incandescent_Mage", "Skeleton_Incandescent_Head", "Skeleton_Soldier"),
-                    List.of("Skeleton_Incandescent_Head", "Skeleton_Incandescent_Mage", "Skeleton_Incandescent_Fighter", "Skeleton_Archmage", "Wraith")
+                List.of("Skeleton_Incandescent_Footman", "Skeleton_Incandescent_Footman", "Skeleton_Incandescent_Fighter"),
+                List.of("Skeleton_Incandescent_Fighter", "Skeleton_Incandescent_Mage", "Skeleton_Incandescent_Head", "Skeleton_Soldier"),
+                List.of("Skeleton_Incandescent_Head", "Skeleton_Incandescent_Mage", "Skeleton_Incandescent_Fighter", "Skeleton_Archmage", "Wraith")
             ),
-                    "A distant glow pulses on the horizon with unsettling regularity...",
-                    "The Incandescent Crusade arrives — glowing, disciplined, and absolutely certain you must go!",
-                    "The crusade dims and withdraws. Their conviction was unshaken. Their bones, less so."
+                "A distant glow pulses on the horizon with unsettling regularity...",
+                "The Incandescent Crusade arrives — glowing, disciplined, and absolutely certain you must go!",
+                "The crusade dims and withdraws. Their conviction was unshaken. Their bones, less so."
             ),
 
             new RaidDefinition("trork_warpath", 100, List.of(
-                    List.of("Trork_Brawler", "Trork_Brawler", "Trork_Guard", "Trork_Sentry"),
-                    List.of("Trork_Hunter", "Trork_Mauler", "Trork_Doctor_Witch", "Trork_Guard", "Trork_Brawler"),
-                    List.of("Trork_Warrior", "Trork_Chieftain", "Trork_Doctor_Witch", "Trork_Mauler", "Trork_Hunter"),
-                    List.of("Trork_Chieftain", "Trork_Warrior", "Trork_Doctor_Witch", "Trork_Doctor_Witch", "Trork_Mauler", "Golem_Crystal_Earth")
+                List.of("Trork_Brawler", "Trork_Brawler", "Trork_Guard", "Trork_Sentry"),
+                List.of("Trork_Hunter", "Trork_Mauler", "Trork_Doctor_Witch", "Trork_Guard", "Trork_Brawler"),
+                List.of("Trork_Warrior", "Trork_Chieftain", "Trork_Doctor_Witch", "Trork_Mauler", "Trork_Hunter"),
+                List.of("Trork_Chieftain", "Trork_Warrior", "Trork_Doctor_Witch", "Trork_Doctor_Witch", "Trork_Mauler", "Golem_Crystal_Earth")
             ),
-                    "War drums echo from somewhere uncomfortably close...",
-                    "The Trork warband has you in their sights — and they brought a witch doctor!",
-                    "The warband withdraws, chanting something that sounds like a compliment. For Trorks, it might be."
+                "War drums echo from somewhere uncomfortably close...",
+                "The Trork warband has you in their sights — and they brought a witch doctor!",
+                "The warband withdraws, chanting something that sounds like a compliment. For Trorks, it might be."
             ),
 
             new RaidDefinition("the_grand_convergence", 40, List.of(
-                    List.of("Goblin_Ogre", "Outlander_Berserker", "Zombie_Aberrant", "Trork_Warrior", "Skeleton_Burnt_Praetorian"),
-                    List.of("Skeleton_Frost_Knight", "Outlander_Brute", "Werewolf", "Ghoul", "Skeleton_Incandescent_Head"),
-                    List.of("Golem_Crystal_Thunder", "Golem_Crystal_Flame", "Scarak_Broodmother_Young", "Wraith", "Spawn_Void"),
-                    List.of("Shadow_Knight", "Goblin_Duke", "Trork_Chieftain", "Outlander_Cultist", "Skeleton_Archmage", "Spirit_Thunder"),
-                    List.of("Hedera", "Werewolf", "Wraith", "Shadow_Knight", "Spectre_Void", "Golem_Firesteel", "Scarak_Broodmother_Young")
+                List.of("Goblin_Ogre", "Outlander_Berserker", "Zombie_Aberrant", "Trork_Warrior", "Skeleton_Burnt_Praetorian"),
+                List.of("Skeleton_Frost_Knight", "Outlander_Brute", "Werewolf", "Ghoul", "Skeleton_Incandescent_Head"),
+                List.of("Golem_Crystal_Thunder", "Golem_Crystal_Flame", "Scarak_Broodmother_Young", "Wraith", "Spawn_Void"),
+                List.of("Shadow_Knight", "Goblin_Duke", "Trork_Chieftain", "Outlander_Cultist", "Skeleton_Archmage", "Spirit_Thunder"),
+                List.of("Hedera", "Werewolf", "Wraith", "Shadow_Knight", "Spectre_Void", "Golem_Firesteel", "Scarak_Broodmother_Young")
             ),
-                    "Every faction goes quiet at once. That's never good...",
-                    "The Grand Convergence — every enemy you've ever made has compared notes and arrived together!",
-                    "The last of them fall. Silence returns. You're not sure the world will remember what just happened, but you will."
+                "Every faction goes quiet at once. That's never good...",
+                "The Grand Convergence — every enemy you've ever made has compared notes and arrived together!",
+                "The last of them fall. Silence returns. You're not sure the world will remember what just happened, but you will."
             ),
 
             new RaidDefinition("broodmothers_calling", 65, List.of(
-                    List.of("Larva_Void", "Larva_Void", "Larva_Void", "Larva_Void", "Eye_Void", "Eye_Void"),
-                    List.of("Crawler_Void", "Crawler_Void", "Spawn_Void", "Larva_Void", "Larva_Void"),
-                    List.of("Scarak_Broodmother_Young", "Spawn_Void", "Crawler_Void", "Spectre_Void", "Eye_Void", "Larva_Void")
+                List.of("Larva_Void", "Larva_Void", "Larva_Void", "Larva_Void", "Eye_Void", "Eye_Void"),
+                List.of("Crawler_Void", "Crawler_Void", "Spawn_Void", "Larva_Void", "Larva_Void"),
+                List.of("Scarak_Broodmother_Young", "Spawn_Void", "Crawler_Void", "Spectre_Void", "Eye_Void", "Larva_Void")
             ),
-                    "A chittering sound rises and falls just below the threshold of comfort...",
-                    "The Broodmother has called her children home — and your base is the nest!",
-                    "The swarm retreats. The Broodmother survives somewhere in the dark. She is patient."
+                "A chittering sound rises and falls just below the threshold of comfort...",
+                "The Broodmother has called her children home — and your base is the nest!",
+                "The swarm retreats. The Broodmother survives somewhere in the dark. She is patient."
             )
     );
 
@@ -561,9 +561,9 @@ public class Module_RaidSystem {
         // resolve the player's current position as the raid spawn anchor
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
         if (transform == null) return;
-        int cx = (int) Math.floor(transform.getPosition().getX());
-        int cy = (int) Math.floor(transform.getPosition().getY());
-        int cz = (int) Math.floor(transform.getPosition().getZ());
+        int cx = (int) Math.floor(transform.getPosition().x);
+        int cy = (int) Math.floor(transform.getPosition().y);
+        int cz = (int) Math.floor(transform.getPosition().z);
 
         // build the raid group and schedule all waves
         RaidGroup group = new RaidGroup(List.of(ref), false, world, definition, null, raidLevel);
@@ -634,22 +634,21 @@ public class Module_RaidSystem {
         for (String npcId : npcsToSpawn) {
             // find a safe ground position and pick a random facing
             Vector3d spawnPos = findSafeSpawnPosition(world, cx, cy, cz, spawnOutsideTerritory);
-            Vector3f rotation = new Vector3f(0f, (float)(random.nextDouble() * Math.PI * 2), 0f);
+            Rotation3f rotation = new Rotation3f();
 
             // resolve the role index — needed to call spawnEntity with a preAddToWorld hook
             int roleIndex = NPCPlugin.get().getIndex(npcId);
             if (roleIndex < 0) continue;
 
             // pre-populate the RPG enemy component before onNPCPreSpawn fires so the raid level is used instead of the distance-based level
-            var spawnResult = NPCPlugin.get().spawnEntity(store, roleIndex, spawnPos, rotation, null,
-                    (npcEntity, holder, s) -> holder.putComponent(Module_RPGSystem.componentTypeRPGEnemy, new Component_RPG_Enemy(group.raidLevel)),
-                    (npcEntity, ref, s) -> {
-                        // save leash info and register the NPC with the raid group after spawn
-                        npcEntity.saveLeashInformation(new Vector3d(cx, cy, cz), rotation);
-                        group.addNpc(ref);
-                    }
+            NPCPlugin.get().spawnEntity(store, roleIndex, spawnPos, rotation, null,
+                (npcEntity, holder, s) -> holder.putComponent(Module_RPGSystem.componentTypeRPGEnemy, new Component_RPG_Enemy(group.raidLevel)),
+                (npcEntity, ref, s) -> {
+                    // save leash info and register the NPC with the raid group after spawn
+                    npcEntity.saveLeashInformation(new Vector3d(cx, cy, cz), rotation);
+                    group.addNpc(ref);
+                }
             );
-            if (spawnResult == null) continue;
         }
 
         // update the HUD wave counter and enemy count now that the wave is fully spawned
@@ -728,7 +727,7 @@ public class Module_RaidSystem {
                             if (bt == null || !RoomFloodFill.isStructural(bt)) continue;
 
                             // apply block damage
-                            BlockHarvestUtils.performBlockDamage(null, null, new Vector3i(x, y, z), null, null, null, false, ModConfig.get().raids.explosion_hit_damage_blocks, 2048 | 1024, chunkRef, store, chunkStore);
+                            BlockHarvestUtils.performBlockDamage(null, new Vector3i(x, y, z), null, null, null, false, ModConfig.get().raids.explosion_hit_damage_blocks, 2048 | 1024, chunkRef, store, chunkStore);
                         } catch (Exception e) {
                             System.err.println("[RaidSystem] Error breaking block during explosion: " + e.getMessage());
                         }
@@ -752,7 +751,7 @@ public class Module_RaidSystem {
                     // skip entities outside the spherical radius
                     TransformComponent targetTransform = store.getComponent(targetRef, TransformComponent.getComponentType());
                     if (targetTransform == null) continue;
-                    double distance = pos.distanceTo(targetTransform.getPosition());
+                    double distance = pos.distance(targetTransform.getPosition());
                     if (distance > ModConfig.get().raids.explosion_hit_radius_entities) continue;
 
                     // apply damage scaled by distance from the explosion center
@@ -933,14 +932,6 @@ public class Module_RaidSystem {
     private TerritoryData getTerritoryForPlayer(WorldRoomRegistry registry, PlayerRef playerRef) {
         for (TerritoryData t : registry.getAllTerritories()) {
             if (t.hasAccess(playerRef.getUuid())) return t;
-        }
-        return null;
-    }
-
-    // Returns the active raid group that targets the given player ref, or null if none
-    public RaidGroup getActiveRaidGroupForPlayer(Ref<EntityStore> ref) {
-        for (RaidGroup group : activeRaids) {
-            if (group.targetPlayerRefs.contains(ref)) return group;
         }
         return null;
     }

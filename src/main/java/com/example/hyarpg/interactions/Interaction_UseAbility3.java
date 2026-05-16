@@ -27,6 +27,7 @@ import com.hypixel.hytale.server.core.modules.interaction.InteractionModule;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.RootInteraction;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction;
+import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
@@ -53,28 +54,28 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
 
         try {
             // get applicable entity components and validate we got them
-            Player player = store.getComponent(entityRef, Player.getComponentType());
+            PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
             Component_RPG_Player rpgPlayer = store.getComponent(entityRef, Module_RPGSystem.componentTypeRPGPlayer);
             ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
             EntityStatMap statMap = store.getComponent(entityRef, statMapType);
-            if (player == null || rpgPlayer == null || statMap == null) return;
+            if (playerRef == null || rpgPlayer == null || statMap == null) return;
 
             // if no ability set, alert the player
             if (rpgPlayer.secondaryAbility == null) {
-                player.sendMessage(Message.raw("You do not have an ability equipped in that slot.").color(Color.GRAY));
+                playerRef.sendMessage(Message.raw("You do not have an ability equipped in that slot.").color(Color.GRAY));
                 return;
             }
 
             // check that we can find the skill node which has the ability data, bail if we cant find it
             SkillNode node = rpgPlayer.skillLibrary.findNode(rpgPlayer.secondaryAbility);
             if(node == null || node.ability == null) {
-                player.sendMessage(Message.raw("Ability not found.").color(Color.RED));
+                playerRef.sendMessage(Message.raw("Ability not found.").color(Color.RED));
                 return;
             }
 
             // check if the ability requires a target and that the player has a target
             if(node.ability.requiresTarget && (rpgPlayer.currentTarget == null || !rpgPlayer.currentTarget.isValid())) {
-                player.sendMessage(Message.raw("Ability requires a valid living target.").color(Color.RED));
+                playerRef.sendMessage(Message.raw("Ability requires a valid living target.").color(Color.RED));
                 return;
             }
 
@@ -82,7 +83,7 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
             String rootInteractionId = "Root_Interaction_" + node.ability.abilityId;
             RootInteraction rootInteraction = RootInteraction.getAssetMap().getAsset(rootInteractionId);
             if (rootInteraction == null) {
-                player.sendMessage(Message.raw("Ability not found: " + rootInteractionId).color(Color.RED));
+                playerRef.sendMessage(Message.raw("Ability not found: " + rootInteractionId).color(Color.RED));
                 return;
             }
 
@@ -90,7 +91,7 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
             EntityStatValue resourceStat = statMap.get(node.ability.abilityResourceStatIndex);
             float currentValue = resourceStat.get();
             if (currentValue < node.ability.abilityResourceCost) {
-                player.sendMessage(Message.raw("You do not have enough " + resourceStat.getId() + " to do that.").color(Color.RED));
+                playerRef.sendMessage(Message.raw("You do not have enough " + resourceStat.getId() + " to do that.").color(Color.RED));
                 return;
             }
 
@@ -99,7 +100,7 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
             long cooldownNanos = node.ability.cooldownSeconds * 1_000_000_000L;
             if (now - node.ability.getLastUse() < cooldownNanos) {
                 long remainingSeconds = (cooldownNanos - (now - node.ability.getLastUse())) / 1_000_000_000L;
-                player.sendMessage(Message.raw("Ability on cooldown for " + remainingSeconds + "s.").color(Color.RED));
+                playerRef.sendMessage(Message.raw("Ability on cooldown for " + remainingSeconds + "s.").color(Color.RED));
                 return;
             }
 
@@ -123,7 +124,7 @@ public class Interaction_UseAbility3 extends SimpleInstantInteraction {
                 }
 
                 if (!requirementMet) {
-                    player.sendMessage(Message.raw("You are not wielding the required weapon to use this ability.").color(Color.RED));
+                    playerRef.sendMessage(Message.raw("You are not wielding the required weapon to use this ability.").color(Color.RED));
                     return;
                 }
             }

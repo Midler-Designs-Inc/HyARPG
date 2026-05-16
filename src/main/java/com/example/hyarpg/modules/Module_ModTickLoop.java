@@ -1,19 +1,12 @@
 package com.example.hyarpg.modules;
 
 // Hytale imports
-import com.example.hyarpg.configs.ModConfig;
-import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
-import com.example.hyarpg.utils.rooms.RoomData;
-import com.example.hyarpg.utils.rooms.TerritoryData;
-import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.GameMode;
 import com.hypixel.hytale.protocol.MovementStates;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.entity.entities.player.hud.CustomUIHud;
 import com.hypixel.hytale.server.core.entity.movement.MovementStatesComponent;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
@@ -31,11 +24,17 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Mod imports
 import com.example.hyarpg.components.*;
 import com.example.hyarpg.HyARPGPlugin;
+import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
+import com.example.hyarpg.utils.rooms.RoomData;
+import com.example.hyarpg.utils.rooms.TerritoryData;
+import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 
 // Java imports
 import java.util.Objects;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import org.joml.Vector3d;
 
 public final class Module_ModTickLoop {
 
@@ -306,9 +305,9 @@ public final class Module_ModTickLoop {
             World world = player.getWorld();
 
             Vector3d pos = transformComponent.getPosition();
-            int x = (int) Math.floor(pos.getX());
-            int y = (int) Math.floor(pos.getY());
-            int z = (int) Math.floor(pos.getZ());
+            int x = (int) Math.floor(pos.x);
+            int y = (int) Math.floor(pos.y);
+            int z = (int) Math.floor(pos.z);
 
             WorldRoomRegistry registry = WorldRoomRegistry.get(world);
             RoomData currentRoom = registry != null ? registry.getRoomAt(x, y, z) : null;

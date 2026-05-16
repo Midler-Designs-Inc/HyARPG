@@ -1,12 +1,9 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-import com.example.hyarpg.worldgen.PrefabRecord;
-import com.example.hyarpg.worldgen.PrefabRegistry;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
@@ -18,9 +15,13 @@ import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.worldgen.chunk.ChunkGenerator;
 
+// Mod Imports
+import com.example.hyarpg.worldgen.PrefabRecord;
+import com.example.hyarpg.worldgen.PrefabRegistry;
+
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
-
+import org.joml.Vector3d;
 import java.awt.*;
 
 public class Interaction_WaywardShrineCompassFindDungeon extends SimpleInstantInteraction {

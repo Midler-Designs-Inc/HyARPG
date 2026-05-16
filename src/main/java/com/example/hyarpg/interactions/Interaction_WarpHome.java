@@ -1,50 +1,38 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-import com.example.hyarpg.utils.rooms.RoomFloodFill;
-import com.example.hyarpg.utils.rooms.TerritoryData;
-import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 import com.hypixel.hytale.builtin.teleport.components.TeleportHistory;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.math.vector.Vector3i;
-import com.hypixel.hytale.protocol.BlockPosition;
+import com.hypixel.hytale.math.vector.Rotation3f;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.entity.UUIDComponent;
-import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.inventory.InventoryComponent;
-import com.hypixel.hytale.server.core.inventory.ItemStack;
-import com.hypixel.hytale.server.core.modules.block.components.ItemContainerBlock;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
-import com.hypixel.hytale.server.core.modules.entity.damage.DeathComponent;
 import com.hypixel.hytale.server.core.modules.entity.teleport.Teleport;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHandler;
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
-import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
-import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
-import com.example.hyarpg.components.Component_Grave;
-import com.example.hyarpg.modules.Module_RPGSystem;
+import com.example.hyarpg.utils.rooms.RoomFloodFill;
+import com.example.hyarpg.utils.rooms.TerritoryData;
+import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
-
 import javax.annotation.Nullable;
 import java.util.UUID;
+import org.joml.Vector3d;
+import org.joml.Vector3i;
 
 public class Interaction_WarpHome extends SimpleInstantInteraction {
 
@@ -60,14 +48,14 @@ public class Interaction_WarpHome extends SimpleInstantInteraction {
         final World world = store.getExternalData().getWorld();
 
         // Get the player's UUID to find their territory
-        UUIDComponent uuidComponent = (UUIDComponent) store.getComponent(ref, UUIDComponent.getComponentType());
-        Player player = store.getComponent(ref, Player.getComponentType());
-        if (uuidComponent == null || player == null) return;
+        UUIDComponent uuidComponent = store.getComponent(ref, UUIDComponent.getComponentType());
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+        if (uuidComponent == null || playerRef == null) return;
 
         // Get the world room registry
         WorldRoomRegistry registry = WorldRoomRegistry.get(world);
         if (registry == null) {
-            player.sendMessage(Message.raw("No territory data loaded for this world."));
+            playerRef.sendMessage(Message.raw("No territory data loaded for this world."));
             return;
         }
 
@@ -82,7 +70,7 @@ public class Interaction_WarpHome extends SimpleInstantInteraction {
         }
 
         if (territory == null) {
-            player.sendMessage(Message.raw("You don't have a territory yet."));
+            playerRef.sendMessage(Message.raw("You don't have a territory yet."));
             return;
         }
 
@@ -99,17 +87,17 @@ public class Interaction_WarpHome extends SimpleInstantInteraction {
         // Save to teleport history so /tp back works
         final Vector3d destination = safePos;
         world.execute(() -> {
-            TransformComponent transform = (TransformComponent) store.getComponent(ref, TransformComponent.getComponentType());
-            HeadRotation headRotation = (HeadRotation) store.getComponent(ref, HeadRotation.getComponentType());
+            TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
+            HeadRotation headRotation = store.getComponent(ref, HeadRotation.getComponentType());
             if (transform != null && headRotation != null) {
-                Vector3d previousPos = transform.getPosition().clone();
-                Vector3f previousHeadRotation = headRotation.getRotation().clone();
-                TeleportHistory history = (TeleportHistory) store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
+                Vector3d previousPos = new Vector3d(transform.getPosition());
+                Rotation3f previousHeadRotation = headRotation.getRotation();
+                TeleportHistory history = store.ensureAndGetComponent(ref, TeleportHistory.getComponentType());
                 history.append(world, previousPos, previousHeadRotation, "Home");
             }
 
             // Perform the teleport
-            Teleport teleportComponent = Teleport.createForPlayer((World) null, destination, new Vector3f(0, 0, 0));
+            Teleport teleportComponent = Teleport.createForPlayer(null, destination, new Rotation3f(0, 0, 0));
             store.addComponent(ref, Teleport.getComponentType(), teleportComponent);
         });
     }

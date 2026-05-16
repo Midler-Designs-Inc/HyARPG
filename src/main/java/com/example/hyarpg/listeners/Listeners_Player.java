@@ -51,25 +51,12 @@ public class Listeners_Player {
 
     // Handle player connect event
     private void onPlayerConnect(PlayerConnectEvent event) {
-        // get player and world details
-        String playerName = event.getPlayerRef() != null ? event.getPlayerRef().getUsername() : "Unknown";
-        String worldName = event.getWorld() != null ? event.getWorld().getName() : "unknown";
-
-        // Log player world join
-        LOGGER.at(Level.INFO).log("[HyARPG] Player %s connected to world %s", playerName, worldName);
-
         // Emit the event on the internal mod bus
         ModEventBus.post(new Event_PlayerJoin(event.getPlayerRef(), event.getWorld()));
     }
 
     // Handle player disconnect event
     private void onPlayerDisconnect(PlayerDisconnectEvent event) {
-        // get player name
-        String playerName = event.getPlayerRef() != null ? event.getPlayerRef().getUsername() : "Unknown";
-
-        // log player disconnect
-        LOGGER.at(Level.INFO).log("[HyARPG] Player %s disconnected", playerName);
-
         // Emit the event on the internal mod bus
         ModEventBus.post(new Event_PlayerDisconnect(event.getPlayerRef()));
     }
@@ -77,9 +64,6 @@ public class Listeners_Player {
     // Handle player ready event
     private void onPlayerReady(PlayerReadyEvent event) {
         Player player = event.getPlayer();
-
-        // Log player world join
-        LOGGER.at(Level.INFO).log("[HyARPG] Player %s is ready", player.getDisplayName());
 
         // Emit the event on the internal mod bus
         ModEventBus.post(new Event_PlayerReady(player, event.getPlayer().getWorld()));

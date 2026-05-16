@@ -1,16 +1,11 @@
 package com.example.hyarpg.utils.abilities.mage;
 
 // Hytale Imports
-import com.example.hyarpg.components.Component_RPG_Enemy;
-import com.example.hyarpg.components.Component_Simulacrum;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.attitude.Attitude;
+import com.hypixel.hytale.math.vector.Rotation3f;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.modules.entity.DespawnComponent;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
@@ -28,22 +23,22 @@ import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.core.util.TargetUtil;
 import com.hypixel.hytale.server.npc.NPCPlugin;
+import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import com.hypixel.hytale.server.npc.role.Role;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.abilities.Ability;
 import com.example.hyarpg.utils.rooms.RoomFloodFill;
-import com.hypixel.hytale.server.npc.config.AttitudeGroup;
-import com.hypixel.hytale.server.npc.entities.NPCEntity;
-import com.hypixel.hytale.server.npc.role.Role;
-import com.hypixel.hytale.server.npc.role.support.CombatSupport;
-import com.hypixel.hytale.server.npc.systems.RoleSystems;
+import com.example.hyarpg.components.Component_RPG_Enemy;
+import com.example.hyarpg.components.Component_Simulacrum;
 
 // Java Imports
-import java.awt.Color;
 import java.time.Duration;
 import java.util.List;
+import org.joml.Vector3f;
+import org.joml.Vector3d;
 
 public class Simulacrum extends Ability {
 
@@ -69,7 +64,7 @@ public class Simulacrum extends Ability {
         if (transform == null) return;
 
         // capture spawn origin — simulacrum spawns here
-        Vector3d spawnOrigin = transform.getPosition().clone();
+        Vector3d spawnOrigin = new Vector3d(transform.getPosition());
 
         // get player max mana — simulacrum HP will be set to this value
         EntityStatMap statMap = store.getComponent(ref, EntityStatsModule.get().getEntityStatMapComponentType());
@@ -81,7 +76,7 @@ public class Simulacrum extends Ability {
         // get look transform for blink direction
         var look = com.hypixel.hytale.server.core.util.TargetUtil.getLook(ref, commandBuffer);
         Vector3d lookOrigin = look.getPosition();
-        Vector3d lookDir = look.getDirection().clone().normalize();
+        Vector3d lookDir = new Vector3d(look.getDirection()).normalize();
 
         world.execute(() -> {
             // raycast up to MAX_BLINK_DISTANCE blocks along look direction
@@ -98,8 +93,7 @@ public class Simulacrum extends Ability {
             int roleIndex = NPCPlugin.get().getIndex(SIMULACRUM_ROLE);
             if (roleIndex < 0) return;
 
-            var spawnResult = NPCPlugin.get().spawnEntity(store, roleIndex, spawnOrigin,
-                new Vector3f(0, transform.getRotation().getYaw(), 0), null, null,
+            NPCPlugin.get().spawnEntity(store, roleIndex, spawnOrigin, new Rotation3f(0, transform.getRotation().yaw(), 0), null, null,
                 (npcEntity, simulacrumRef, s) -> {
                     // add the simulacrum component so the ticking system can fire the arcane missiles
                     s.addComponent(simulacrumRef, Component_Simulacrum.getComponentType(), new Component_Simulacrum(ref));
@@ -146,7 +140,7 @@ public class Simulacrum extends Ability {
 
     // steps along look direction until hitting a solid block or reaching max distance
     private Vector3d raycastToSolid(World world, Vector3d origin, Vector3d dir, int maxBlocks) {
-        Vector3d pos = origin.clone();
+        Vector3d pos = new Vector3d(origin);
         for (int i = 0; i < maxBlocks; i++) {
             pos.add(dir.x, dir.y, dir.z);
             long chunkIndex = ChunkUtil.indexChunkFromBlock((int) pos.x, (int) pos.z);
@@ -156,7 +150,7 @@ public class Simulacrum extends Ability {
             BlockType blockType = BlockType.getAssetMap().getAsset(blockId);
             if (blockType != null && RoomFloodFill.isStructural(blockType)) {
                 // hit a solid — step back one to stay in air
-                pos.subtract(dir.x, dir.y, dir.z);
+                pos.sub(dir.x, dir.y, dir.z);
                 break;
             }
         }

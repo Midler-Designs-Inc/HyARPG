@@ -4,7 +4,6 @@ package com.example.hyarpg.modules;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.gameplay.DeathConfig;
@@ -51,6 +50,7 @@ import com.example.hyarpg.utils.affixes.StatType;
 import com.example.hyarpg.utils.combat.EnemyConfigLoader;
 import com.example.hyarpg.utils.items.ItemFactory;
 import com.example.hyarpg.utils.rooms.RoomFloodFill;
+import org.joml.Vector3d;
 
 // Java Imports
 import java.awt.*;

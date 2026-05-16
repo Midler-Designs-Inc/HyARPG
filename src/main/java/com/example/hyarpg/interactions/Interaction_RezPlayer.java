@@ -22,7 +22,6 @@ import com.hypixel.hytale.server.core.universe.world.chunk.BlockComponentChunk;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import com.hypixel.hytale.math.vector.Vector3d;
 
 // Mod Imports
 import com.example.hyarpg.modules.Module_RPGSystem;
@@ -30,7 +29,7 @@ import com.example.hyarpg.components.Component_Grave;
 
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
-
+import org.joml.Vector3d;
 import java.util.UUID;
 
 public class Interaction_RezPlayer extends SimpleInstantInteraction {

@@ -1,15 +1,6 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
-import com.example.hyarpg.components.Component_CraftingKnowledge;
-import com.example.hyarpg.configs.ModConfig;
-import com.example.hyarpg.events.Event_RemoveBlock;
-import com.example.hyarpg.utils.HookedNotificationHandler;
-import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
-import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomFloodFill;
-import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomType;
-import com.hypixel.hytale.builtin.beds.BedsPlugin;
-import com.hypixel.hytale.builtin.beds.interactions.BedInteraction;
 import com.hypixel.hytale.builtin.crafting.component.BenchBlock;
 import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.Holder;
@@ -17,19 +8,14 @@ import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.math.vector.Vector3i;
+import com.hypixel.hytale.math.vector.Rotation3f;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
-import com.hypixel.hytale.server.core.asset.type.gameplay.respawn.WorldSpawnPoint;
 import com.hypixel.hytale.server.core.entity.entities.Player;
-import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerConfigData;
 import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerRespawnPointData;
 import com.hypixel.hytale.server.core.entity.entities.player.data.PlayerWorldData;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
-import com.hypixel.hytale.server.core.modules.entity.damage.DamageSystems;
 import com.hypixel.hytale.server.core.modules.entity.item.ItemComponent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.Universe;
@@ -47,12 +33,22 @@ import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 import com.hypixel.hytale.server.core.universe.world.storage.ChunkStore;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
+import com.example.hyarpg.components.Component_CraftingKnowledge;
+import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.events.Event_RemoveBlock;
+import com.example.hyarpg.utils.HookedNotificationHandler;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomFloodFill;
+import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomType;
 
 // Java Imports
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
+import org.joml.Vector3f;
+import org.joml.Vector3d;
+import org.joml.Vector3i;
 
 public class Module_BuildSystem {
 
@@ -285,8 +281,8 @@ public class Module_BuildSystem {
             }
 
             HytaleLogger.getLogger().at(Level.INFO).log(
-                    "[BuildSystem] Territory removed at (%d, %d, %d), rooms de-registered",
-                    finalTerritory.getCenter().x, finalTerritory.getCenter().y, finalTerritory.getCenter().z
+                "[BuildSystem] Territory removed at (%d, %d, %d), rooms de-registered",
+                finalTerritory.getCenter().x, finalTerritory.getCenter().y, finalTerritory.getCenter().z
             );
         });
     }
@@ -563,7 +559,7 @@ public class Module_BuildSystem {
 
                         // Spawn the item drop at block center
                         Vector3d dropPos = new Vector3d(x + 0.5, y + 0.5, z + 0.5);
-                        Holder<EntityStore> holder = ItemComponent.generateItemDrop(entityStore, new ItemStack(dropKey, 1), dropPos, Vector3f.ZERO, 0f, 0f, 0f);
+                        Holder<EntityStore> holder = ItemComponent.generateItemDrop(entityStore, new ItemStack(dropKey, 1), dropPos, new Rotation3f(0f, 0f, 0f), 0f, 0f, 0f);
                         if (holder != null) {
                             entityStore.addEntities(new Holder[]{holder}, AddReason.SPAWN);
                         }

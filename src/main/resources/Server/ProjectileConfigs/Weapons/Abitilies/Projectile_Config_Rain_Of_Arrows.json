@@ -15,9 +15,9 @@
     "ProjectileHit": {
       "Interactions": [
         {
-          "Type": "SpawnDeployableAtHitLocationFixed",
+          "Type": "SpawnDeployableAtHitLocation",
           "Config": {
-            "Type": "FixedAoe",
+            "Type": "Aoe",
             "Invulnerable": true,
             "LiveDuration": 10,
             "DeploySoundEventId": "SFX_Arrow_Whistle",
@@ -56,9 +56,9 @@
     "ProjectileMiss": {
       "Interactions": [
         {
-          "Type": "SpawnDeployableAtHitLocationFixed",
+          "Type": "SpawnDeployableAtHitLocation",
           "Config": {
-            "Type": "FixedAoe",
+            "Type": "Aoe",
             "Invulnerable": true,
             "LiveDuration": 10,
             "DeploySoundEventId": "SFX_Arrow_Whistle",

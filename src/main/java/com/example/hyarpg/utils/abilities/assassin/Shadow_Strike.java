@@ -1,13 +1,11 @@
 package com.example.hyarpg.utils.abilities.assassin;
 
 // Hytale Imports
-import com.example.hyarpg.modules.Module_RPGSystem;
+
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.math.vector.Vector3f;
-import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.math.vector.Rotation3f;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
@@ -25,11 +23,13 @@ import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.utils.abilities.Ability;
 import com.example.hyarpg.utils.combat.SwingDamageGroup;
 import com.example.hyarpg.utils.items.ItemFactory;
+import com.example.hyarpg.modules.Module_RPGSystem;
 
 // Java Imports
 import java.awt.*;
 import java.util.Collections;
 import java.util.List;
+import org.joml.Vector3d;
 
 public class Shadow_Strike extends Ability {
 
@@ -111,7 +111,7 @@ public class Shadow_Strike extends Ability {
 
             // compute the behind position — step back from the target along its facing direction
             Vector3d targetPos = targetTransform.getPosition();
-            double targetYaw = targetRotation.getRotation().getYaw();
+            double targetYaw = targetRotation.getRotation().yaw();
             double yawRad = Math.toRadians(targetYaw);
 
             // offset 90 degrees to get behind instead of to the side
@@ -125,7 +125,7 @@ public class Shadow_Strike extends Ability {
             double faceYaw = targetYaw;
 
             // Teleport the player
-            Teleport teleport = Teleport.createForPlayer(world, teleportPos, new Vector3f(0, (float) faceYaw, 0));
+            Teleport teleport = Teleport.createForPlayer(world, teleportPos, new Rotation3f(0, (float) faceYaw, 0));
             store.addComponent(ref, Teleport.getComponentType(), teleport);
 
             // inject into the combat pipeline via the swing queue

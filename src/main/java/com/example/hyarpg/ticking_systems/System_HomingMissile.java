@@ -4,8 +4,6 @@ package com.example.hyarpg.ticking_systems;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.server.core.modules.collision.BlockCollisionProvider;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entity.damage.Damage;
 import com.hypixel.hytale.server.core.modules.entity.damage.DamageCause;
@@ -22,6 +20,7 @@ import com.hypixel.hytale.server.npc.role.Role;
 
 // Java Imports
 import javax.annotation.Nonnull;
+import org.joml.Vector3d;
 
 public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
 
@@ -63,13 +62,13 @@ public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
 
         // compute direction from missile to target center mass
         Vector3d missilePos = missileTransform.getPosition();
-        Vector3d targetPos = targetTransform.getPosition().clone().add(0, 1.0, 0);
+        Vector3d targetPos = new Vector3d(targetTransform.getPosition()).add(0, 1.0, 0);
 
         // get current velocity and speed
         Velocity velocity = store.getComponent(ref, Velocity.getComponentType());
         if (velocity == null) return;
 
-        Vector3d vel = velocity.getVelocity().clone();
+        Vector3d vel = new Vector3d(velocity.getVelocity());
         double speed = vel.length();
 
         // missile has stopped — apply damage and clean up
@@ -125,17 +124,17 @@ public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
         }
 
         // get the current direction and direction to target
-        Vector3d currentDir = vel.clone().normalize();
-        Vector3d toTarget = Vector3d.directionTo(missilePos, targetPos);
+        Vector3d currentDir = new Vector3d(vel).normalize();
+        Vector3d toTarget = new Vector3d(targetPos).sub(missilePos).normalize();
 
         // blend current direction toward target direction by turn rate — this gives the curve
         Vector3d newDir = new Vector3d(
-                currentDir.x + (toTarget.x - currentDir.x) * homing.turnRate * dt,
-                currentDir.y + (toTarget.y - currentDir.y) * homing.turnRate * dt,
-                currentDir.z + (toTarget.z - currentDir.z) * homing.turnRate * dt
+            currentDir.x + (toTarget.x - currentDir.x) * homing.turnRate * dt,
+            currentDir.y + (toTarget.y - currentDir.y) * homing.turnRate * dt,
+            currentDir.z + (toTarget.z - currentDir.z) * homing.turnRate * dt
         ).normalize();
 
         // write back at homing speed
-        velocity.getVelocity().assign(newDir.scale(35));
+        velocity.getVelocity().set(new Vector3d(newDir).mul(35));
     }
 }

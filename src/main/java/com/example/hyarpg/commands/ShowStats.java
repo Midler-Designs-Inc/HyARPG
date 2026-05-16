@@ -30,16 +30,16 @@ public class ShowStats extends CommandBase {
 
     @Override
     protected void executeSync(@Nonnull CommandContext commandContext) {
-        Player sender = commandContext.senderAs(Player.class);
-        Ref<EntityStore> ref = sender.getReference();
+        Ref<EntityStore> ref = commandContext.senderAsPlayerRef();
         Store<EntityStore> store = ref.getStore();
 
-        World world = sender.getWorld();
-
+        // Get world
+        World world = store.getExternalData().getWorld();
         world.execute(() -> {
             PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+            Player player = store.getComponent(ref, Player.getComponentType());
 
-            sender.getPageManager().openCustomPage(ref, store, new CustomPage_Inventory(playerRef));
+            player.getPageManager().openCustomPage(ref, store, new CustomPage_Inventory(playerRef));
         });
     }
 }

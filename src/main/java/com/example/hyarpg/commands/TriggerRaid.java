@@ -42,12 +42,17 @@ public class TriggerRaid extends CommandBase {
 
     @Override
     protected void executeSync(@Nonnull CommandContext commandContext) {
-        Player sender = commandContext.senderAs(Player.class);
+        // Get command context
+        Ref<EntityStore> ref = commandContext.senderAsPlayerRef();
+        Store<EntityStore> store = ref.getStore();
+        PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+
+        // Get command variables
         String playerName = commandContext.get(PLAYER);
         String raidType = commandContext.get(RAID_TYPE).toLowerCase();
 
         if (!raidType.equals("base") && !raidType.equals("player")) {
-            sender.sendMessage(Message.raw("[TriggerRaid] Invalid raid type '" + raidType + "' — must be 'base' or 'player'."));
+            playerRef.sendMessage(Message.raw("[TriggerRaid] Invalid raid type '" + raidType + "' — must be 'base' or 'player'."));
             return;
         }
 
@@ -60,29 +65,29 @@ public class TriggerRaid extends CommandBase {
 
         // if the targeted player was not found, bail
         if (targetedPlayer == null) {
-            sender.sendMessage(Message.raw("[TriggerRaid] Player '" + playerName + "' not found."));
+            playerRef.sendMessage(Message.raw("[TriggerRaid] Player '" + playerName + "' not found."));
             return;
         }
 
         final PlayerRef lambdaSafeTargetedPlayer = targetedPlayer;
         final String lambdaSafeRaidType = raidType;
 
-        Ref<EntityStore> ref = targetedPlayer.getReference();
-        Store<EntityStore> store = ref.getStore();
-
+        // get the targeted entity ref and the entity store for their world
+        Ref<EntityStore> targetdRef = targetedPlayer.getReference();
         World world = Universe.get().getWorld(targetedPlayer.getWorldUuid());
+
         world.execute(() -> {
-            Component_RPG_Player rpgPlayer = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
+            Component_RPG_Player rpgPlayer = targetdRef.getStore().getComponent(targetdRef, Module_RPGSystem.componentTypeRPGPlayer);
             if (rpgPlayer == null) return;
 
             // bail if a raid is already in progress for this player
             if (rpgPlayer.activeRaidHudState != null) {
-                sender.sendMessage(Message.raw("[TriggerRaid] Player " + lambdaSafeTargetedPlayer.getUsername() + " already has an active raid in progress."));
+                playerRef.sendMessage(Message.raw("[TriggerRaid] Player " + lambdaSafeTargetedPlayer.getUsername() + " already has an active raid in progress."));
                 return;
             }
 
-            plugin.raidSystem.triggerRaidByCommand(lambdaSafeTargetedPlayer, ref, store, world, lambdaSafeRaidType);
-            sender.sendMessage(Message.raw("[TriggerRaid] Manually triggered '" + lambdaSafeRaidType + "' raid for player " + lambdaSafeTargetedPlayer.getUsername()));
+            plugin.raidSystem.triggerRaidByCommand(lambdaSafeTargetedPlayer, targetdRef, targetdRef.getStore(), world, lambdaSafeRaidType);
+            playerRef.sendMessage(Message.raw("[TriggerRaid] Manually triggered '" + lambdaSafeRaidType + "' raid for player " + lambdaSafeTargetedPlayer.getUsername()));
         });
     }
 }

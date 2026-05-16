@@ -1,20 +1,14 @@
 package com.example.hyarpg.utils.abilities.mage;
 
 // Hytale Imports
-import com.example.hyarpg.ticking_systems.System_HomingMissile;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Vector3d;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
-import com.hypixel.hytale.server.core.modules.physics.util.PhysicsMath;
 import com.hypixel.hytale.server.core.modules.projectile.ProjectileModule;
 import com.hypixel.hytale.server.core.modules.projectile.config.ProjectileConfig;
-import com.hypixel.hytale.server.core.modules.projectile.interaction.ProjectileInteraction;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
@@ -25,8 +19,8 @@ import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.abilities.Ability;
 
 // Java Imports
-import java.awt.Color;
 import java.util.List;
+import org.joml.Vector3d;
 
 public class Arcane_Missiles extends Ability {
 
@@ -65,8 +59,8 @@ public class Arcane_Missiles extends Ability {
         // get player transform for launch origin and yaw
         TransformComponent transform = store.getComponent(ref, TransformComponent.getComponentType());
         if (transform == null) return;
-        Vector3d launchOrigin = transform.getPosition().clone().add(0, 1.6, 0);
-        float playerYaw = transform.getRotation().getYaw();
+        Vector3d launchOrigin = new Vector3d(transform.getPosition()).add(0, 1.6, 0);
+        float playerYaw = transform.getRotation().yaw();
 
         // capture target ref for lambda
         final Ref<EntityStore> capturedTargetRef = target;
@@ -90,7 +84,7 @@ public class Arcane_Missiles extends Ability {
                     );
                     dir.normalize();
 
-                    Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(null, ref, commandBuffer, config, launchOrigin.clone(), dir);
+                    Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(null, ref, commandBuffer, config, new Vector3d(launchOrigin), dir);
                     commandBuffer.putComponent(missileRef, Component_HomingMissile.getComponentType(), new Component_HomingMissile(ref, capturedTargetRef, TURN_RATE, ARM_TIME, "MainHand_Magic_Scalar", 0.5f));
                 });
             });

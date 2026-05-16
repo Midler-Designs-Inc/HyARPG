@@ -28,12 +28,11 @@ public class ClearCurrentTerritory extends CommandBase {
 
     @Override
     protected void executeSync(@Nonnull CommandContext commandContext) {
-        Player sender = commandContext.senderAs(Player.class);
-        Ref<EntityStore> ref = sender.getReference();
+        Ref<EntityStore> ref = commandContext.senderAsPlayerRef();
         Store<EntityStore> store = ref.getStore();
 
-        // Get world without any component access
-        World world = sender.getWorld();
+        // Get world
+        World world = store.getExternalData().getWorld();
 
         world.execute(() -> {
             PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
@@ -60,7 +59,7 @@ public class ClearCurrentTerritory extends CommandBase {
             registry.saveAsync(world);
 
             playerRef.sendMessage(Message.raw(
-                    "Territory at (" + territory.getCenter().x + ", " + territory.getCenter().y + ", " + territory.getCenter().z + ") cleared."
+                "Territory at (" + territory.getCenter().x + ", " + territory.getCenter().y + ", " + territory.getCenter().z + ") cleared."
             ));
         });
     }

@@ -1,10 +1,9 @@
 package com.example.hyarpg.utils.abilities.ranger;
 
-import com.example.hyarpg.utils.abilities.Ability;
+// Hytale Imports
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
 import com.hypixel.hytale.server.core.entity.movement.MovementStatesComponent;
 import com.hypixel.hytale.server.core.modules.entity.player.PlayerInput;
@@ -13,7 +12,12 @@ import com.hypixel.hytale.server.core.modules.physics.component.Velocity;
 import com.hypixel.hytale.server.core.modules.splitvelocity.VelocityConfig;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
+// Mod Imports
+import com.example.hyarpg.utils.abilities.Ability;
+
+// Java Imports
 import java.util.List;
+import org.joml.Vector3d;
 
 public class Aerial_Maneuver extends Ability {
 

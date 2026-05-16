@@ -129,7 +129,6 @@ public class CustomPage_SkillTreePage extends InteractiveCustomUIPage<CustomPage
             rpg.calculateGearScore(player.getReference(), store);
             rpg.calculateAffixStats(player.getReference(), store);
         } catch (Exception e) {
-            player.sendMessage(Message.raw("Error investing skill point: " + e));
             sendUpdate((UICommandBuilder) null, false);
             return;
         }

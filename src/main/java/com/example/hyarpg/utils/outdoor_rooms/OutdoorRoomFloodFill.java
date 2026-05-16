@@ -2,33 +2,19 @@ package com.example.hyarpg.utils.outdoor_rooms;
 
 // Hytale Imports
 import com.hypixel.hytale.math.util.ChunkUtil;
-import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.BlockMaterial;
 import com.hypixel.hytale.protocol.DrawType;
-import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
-import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 
 // Java Imports
 import javax.annotation.Nullable;
 import java.util.*;
+import org.joml.Vector3i;
 
 public class OutdoorRoomFloodFill {
-
-//    // --- Debug broadcast --- //
-//    private static void broadcast(String msg) {
-//        for (PlayerRef player : Universe.get().getPlayers()) {
-//            player.sendMessage(Message.raw("[Outdoor] " + msg));
-//        }
-//    }
-
-    // =========================================================================
-    // --- Public entry points --- //
-    // =========================================================================
-
+    
     public static List<OutdoorRoomData> detectOutdoorSpacesFromPlacedBlock(World world, Vector3i placedPos, BlockType placingBlockType) {
         List<OutdoorRoomData> results = new ArrayList<>();
 
@@ -53,10 +39,7 @@ public class OutdoorRoomFloodFill {
         return results;
     }
 
-    // =========================================================================
-    // --- Layer scan --- //
-    // =========================================================================
-
+    // Layer scan
     private static void detectAtLayer(World world, Vector3i origin, @Nullable BlockType originBlockType, int scanY, @Nullable Vector3i pendingAdd, @Nullable BlockType pendingAddType, @Nullable Vector3i pendingRemove, List<OutdoorRoomData> results) {
         List<Vector3i> scanOrigins = Arrays.asList(
                 new Vector3i(origin.x - 1, origin.y, origin.z - 1),  // NW
@@ -80,10 +63,7 @@ public class OutdoorRoomFloodFill {
         }
     }
 
-    // =========================================================================
-    // --- Scan origin resolution (shared wall handling) --- //
-    // =========================================================================
-
+    // Scan origin resolution (shared wall handling)
     private static List<Vector3i> resolveScanOrigins(World world, Vector3i origin, int scanY,
                                                      @Nullable Vector3i pendingAdd, @Nullable BlockType pendingAddType,
                                                      @Nullable Vector3i pendingRemove) {
@@ -123,13 +103,11 @@ public class OutdoorRoomFloodFill {
         return origins;
     }
 
-    // =========================================================================
-    // --- Cross scan and room detection from a single origin --- //
-    // =========================================================================
 
+    // Cross scan and room detection from a single origin
     @Nullable
     private static OutdoorRoomData detectFromOrigin(World world, Vector3i scanOrigin, int scanY, @Nullable Vector3i pendingAdd, @Nullable BlockType pendingAddType, @Nullable Vector3i pendingRemove) {
-        // --- Cross scan: find the first fence in each cardinal direction --- //
+        // Cross scan: find the first fence in each cardinal direction
         int northZ = crossScan(world, scanOrigin, scanY, 0,  -1, pendingAdd, pendingAddType, pendingRemove);
         int southZ = crossScan(world, scanOrigin, scanY, 0,   1, pendingAdd, pendingAddType, pendingRemove);
         int eastX  = crossScan(world, scanOrigin, scanY, 1,   0, pendingAdd, pendingAddType, pendingRemove);
@@ -170,10 +148,6 @@ public class OutdoorRoomFloodFill {
         return space;
     }
 
-    // =========================================================================
-    // --- Cross scan --- //
-    // =========================================================================
-
     // Walk from origin in (dx, dz) direction at scanY, return coordinate of first fence hit or MIN_VALUE
     private static int crossScan(World world, Vector3i origin, int scanY, int dx, int dz,
                                  @Nullable Vector3i pendingAdd, @Nullable BlockType pendingAddType,
@@ -190,10 +164,6 @@ public class OutdoorRoomFloodFill {
         }
         return Integer.MIN_VALUE;
     }
-
-    // =========================================================================
-    // --- Perimeter validation --- //
-    // =========================================================================
 
     // Validate all four sides are continuous fence using exactly the wall coords from the cross scan
     private static boolean validatePerimeter(World world, int minX, int maxX, int minZ, int maxZ, int fenceY,
@@ -212,10 +182,6 @@ public class OutdoorRoomFloodFill {
         return true;
     }
 
-    // =========================================================================
-    // --- Floor validation --- //
-    // =========================================================================
-
     // Validate solid floor at fenceY-1 across full footprint including under fence
     private static boolean validateFloor(World world, int minX, int maxX, int minZ, int maxZ, int fenceY,
                                          @Nullable Vector3i pendingAdd, @Nullable Vector3i pendingRemove) {
@@ -228,10 +194,6 @@ public class OutdoorRoomFloodFill {
         }
         return true;
     }
-
-    // =========================================================================
-    // --- Content scan --- //
-    // =========================================================================
 
     // Scan all blocks within the outdoor space bounds (interior + fence perimeter + floor)
     // Fence and floor blocks are included so requirements can match on them
@@ -270,10 +232,6 @@ public class OutdoorRoomFloodFill {
             space.addBlockKey(entry.getKey());
         }
     }
-
-    // =========================================================================
-    // --- Block type helpers --- //
-    // =========================================================================
 
     // Fence check by block key naming convention — all fences contain _Fence or Fence_
     public static boolean isBoundary(BlockType bt) {

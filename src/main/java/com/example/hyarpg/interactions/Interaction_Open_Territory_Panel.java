@@ -1,15 +1,10 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-import com.example.hyarpg.ui.CustomPage_ForgeSalvagePage;
-import com.example.hyarpg.ui.CustomPage_TerritoryPanel;
-import com.example.hyarpg.utils.rooms.TerritoryData;
-import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.logger.HytaleLogger;
-import com.hypixel.hytale.math.vector.Vector3i;
 import com.hypixel.hytale.protocol.BlockPosition;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
@@ -18,9 +13,16 @@ import com.hypixel.hytale.server.core.modules.interaction.interaction.CooldownHa
 import com.hypixel.hytale.server.core.modules.interaction.interaction.config.SimpleInstantInteraction;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
-import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
+// Mod Imports
+import com.example.hyarpg.ui.CustomPage_TerritoryPanel;
+import com.example.hyarpg.utils.rooms.TerritoryData;
+import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
+
+
+// Java Imports
 import java.util.logging.Level;
+import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 
 public class Interaction_Open_Territory_Panel extends SimpleInstantInteraction {
     public static final BuilderCodec<Interaction_Open_Territory_Panel> CODEC = BuilderCodec.builder(

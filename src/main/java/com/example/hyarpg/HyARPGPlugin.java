@@ -18,8 +18,6 @@ import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.example.hyarpg.components.Component_HomingMissile;
 import com.example.hyarpg.components.Component_Simulacrum;
-import com.example.hyarpg.subclasses.FixedDeployableAoeConfig;
-import com.example.hyarpg.subclasses.FixedDeployableTurretConfig;
 import com.example.hyarpg.ticking_systems.System_HomingMissile;
 import com.example.hyarpg.ticking_systems.System_Simulacrum;
 import com.example.hyarpg.utils.items.ItemFactory;
@@ -77,9 +75,6 @@ public class HyARPGPlugin extends JavaPlugin {
         // Register mod commands
         registerCommands();
 
-        // Register codec
-        registerCodecs();
-
         // force load my mod classes
         preloadClasses();
 
@@ -113,7 +108,6 @@ public class HyARPGPlugin extends JavaPlugin {
             getEntityStoreRegistry().registerSystem(new Listeners_Crafting());
             getEntityStoreRegistry().registerSystem(new Listeners_PlaceBlock());
             getEntityStoreRegistry().registerSystem(new Listeners_BreakBlock());
-            getEntityStoreRegistry().registerSystem(new Listeners_UtilitySlot());
 
             // Register component ticking systems
             getEntityStoreRegistry().registerSystem(new System_HomingMissile(componentTypeHomingMissile));
@@ -188,12 +182,6 @@ public class HyARPGPlugin extends JavaPlugin {
         } catch (Exception e) {
             LOGGER.at(Level.WARNING).withCause(e).log("[HyARPG] Failed to register commands");
         }
-    }
-
-    // Register codecs for this mod
-    private void registerCodecs(){
-        getCodecRegistry(DeployableConfig.CODEC).register("FixedTurret", FixedDeployableTurretConfig.class, FixedDeployableTurretConfig.CODEC);
-        getCodecRegistry(DeployableConfig.CODEC).register("FixedAoe", FixedDeployableAoeConfig.class, FixedDeployableAoeConfig.CODEC);
     }
 
     @Override

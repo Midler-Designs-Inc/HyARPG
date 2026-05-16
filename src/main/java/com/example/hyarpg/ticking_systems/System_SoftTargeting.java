@@ -1,14 +1,13 @@
 package com.example.hyarpg.ticking_systems;
 
 // Hytale Imports
-import com.example.hyarpg.modules.Module_RPGSystem;
+import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.dependency.Dependency;
 import com.hypixel.hytale.component.dependency.Order;
 import com.hypixel.hytale.component.dependency.SystemGroupDependency;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.EffectOp;
 import com.hypixel.hytale.protocol.EntityEffectUpdate;
 import com.hypixel.hytale.protocol.EntityEffectsUpdate;
@@ -21,11 +20,12 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.hypixel.hytale.server.npc.entities.NPCEntity;
+import com.example.hyarpg.modules.Module_RPGSystem;
 
 // Java Imports
 import javax.annotation.Nonnull;
 import java.util.Set;
+import org.joml.Vector3d;
 
 public class System_SoftTargeting extends EntityTickingSystem<EntityStore> {
 
@@ -66,8 +66,8 @@ public class System_SoftTargeting extends EntityTickingSystem<EntityStore> {
         if (rpg == null || playerTransform == null || headRotation == null || viewer == null) return;
 
         // build eye-level origin and normalized look direction from head rotation
-        Vector3d origin  = playerTransform.getPosition().clone().add(0, 1.5, 0);
-        Vector3d lookDir = headRotation.getDirection().clone();
+        Vector3d origin  = new Vector3d(playerTransform.getPosition()).add(0, 1.5, 0);
+        Vector3d lookDir = new Vector3d(headRotation.getDirection());
 
         // scan visible entities for the closest NPC inside the aim cone
         Ref<EntityStore> bestTarget = null;
@@ -85,12 +85,12 @@ public class System_SoftTargeting extends EntityTickingSystem<EntityStore> {
             Vector3d npcPos;
             if (modelComponent != null && modelComponent.getModel() != null) {
                 var bb = modelComponent.getModel().getBoundingBox();
-                npcPos = npcTransform.getPosition().clone().add(bb.middleX(), bb.middleY(), bb.middleZ());
+                npcPos = new Vector3d(npcTransform.getPosition()).add(bb.middleX(), bb.middleY(), bb.middleZ());
             } else {
                 // fallback center estimate if no model available
-                npcPos = npcTransform.getPosition().clone().add(0, 1, 0);
+                npcPos = new Vector3d(npcTransform.getPosition()).add(0, 1, 0);
             }
-            Vector3d toNPC  = npcPos.clone().subtract(origin);
+            Vector3d toNPC  = new Vector3d(npcPos).sub(origin);
 
             // reject if beyond max range
             double dist = toNPC.length();

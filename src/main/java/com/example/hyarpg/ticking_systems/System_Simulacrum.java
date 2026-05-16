@@ -4,7 +4,6 @@ package com.example.hyarpg.ticking_systems;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.query.Query;
 import com.hypixel.hytale.component.system.tick.EntityTickingSystem;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.projectile.ProjectileModule;
 import com.hypixel.hytale.server.core.modules.projectile.config.ProjectileConfig;
@@ -19,8 +18,7 @@ import com.example.hyarpg.components.Component_Simulacrum;
 
 // Java Imports
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import org.joml.Vector3d;
 
 public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
 
@@ -90,7 +88,7 @@ public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
             // track nearest for missile targeting
             TransformComponent targetTransform = store.getComponent(nearbyRef, TransformComponent.getComponentType());
             if (targetTransform == null) continue;
-            double dist = pos.distanceTo(targetTransform.getPosition());
+            double dist = pos.distance(targetTransform.getPosition());
             if (dist < nearestDist) {
                 nearestDist = dist;
                 nearestTarget = nearbyRef;
@@ -105,7 +103,7 @@ public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
         if (config == null) return;
 
         // launch origin slightly above simulacrum
-        float simulacrumYaw = transform.getRotation().getYaw();
+        float simulacrumYaw = transform.getRotation().yaw();
         final Ref<EntityStore> capturedTarget = nearestTarget;
         final Ref<EntityStore> capturedCaster = simulacrum.casterRef;
 
@@ -125,9 +123,9 @@ public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
                 dir.normalize();
 
                 // offset forward in the launch direction so missile spawns outside simulacrum hitbox
-                Vector3d launchOrigin = pos.clone().add(0, 1.6, 0).add(dir.x * 1.5, 0, dir.z * 1.5);
+                Vector3d launchOrigin = new Vector3d(pos).add(0, 1.6, 0).add(dir.x * 1.5, 0, dir.z * 1.5);
 
-                Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(null, capturedCaster, commandBuffer, config, launchOrigin.clone(), dir);
+                Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(null, capturedCaster, commandBuffer, config, new Vector3d(launchOrigin), dir);
                 commandBuffer.putComponent(missileRef, homingComponentType, new Component_HomingMissile(capturedCaster, capturedTarget, TURN_RATE, ARM_TIME, "MainHand_Magic_Scalar", 0.1f));
             });
         }

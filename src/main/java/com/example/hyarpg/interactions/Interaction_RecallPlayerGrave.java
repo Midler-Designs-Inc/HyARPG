@@ -1,14 +1,12 @@
 package com.example.hyarpg.interactions;
 
 // Hytale Imports
-import com.example.hyarpg.components.Component_RPG_Player;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.Holder;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
 import com.hypixel.hytale.math.util.ChunkUtil;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.InteractionType;
 import com.hypixel.hytale.server.core.entity.InteractionContext;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
@@ -29,11 +27,13 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Mod Imports
 import com.example.hyarpg.components.Component_Grave;
 import com.example.hyarpg.modules.Module_RPGSystem;
+import com.example.hyarpg.components.Component_RPG_Player;
 
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
 import java.util.ArrayList;
 import java.util.List;
+import org.joml.Vector3d;
 
 public class Interaction_RecallPlayerGrave extends SimpleInstantInteraction {
 
@@ -94,7 +94,7 @@ public class Interaction_RecallPlayerGrave extends SimpleInstantInteraction {
                     TransformComponent ownerTransform = store.getComponent(ref, TransformComponent.getComponentType());
                     HeadRotation ownerHeadRotation = store.getComponent(ref, HeadRotation.getComponentType());
                     if (ownerTransform != null && ownerHeadRotation != null) {
-                        Vector3d dropPosition = ownerTransform.getPosition().clone().add(0.0, 1.0, 0.0);
+                        Vector3d dropPosition = new Vector3d(ownerTransform.getPosition()).add(0.0, 1.0, 0.0);
                         Holder<EntityStore>[] dropEntities = ItemComponent.generateItemDrops(store, overflow, dropPosition, ownerHeadRotation.getRotation().clone());
                         store.addEntities(dropEntities, AddReason.SPAWN);
                     }

@@ -4,7 +4,6 @@ package com.example.hyarpg.utils.abilities.juggernaut;
 import com.hypixel.hytale.component.CommandBuffer;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.protocol.ChangeVelocityType;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
@@ -20,6 +19,7 @@ import com.hypixel.hytale.server.npc.role.Role;
 
 // Java Imports
 import java.util.List;
+import org.joml.Vector3d;
 
 public class Chain_Pull extends Ability {
 
@@ -71,9 +71,7 @@ public class Chain_Pull extends Ability {
 
             // Pull toward player, scaled by distance so they stop near player
             double distance = Math.sqrt(dx * dx + dz * dz);
-            Vector3d pull = new Vector3d(origin.x - targetPos.x, 0, origin.z - targetPos.z);
-            pull.normalize();
-            pull.scale(distance * PULL_STRENGTH_MULTIPLIER);
+            Vector3d pull = new Vector3d(origin.x - targetPos.x, 0, origin.z - targetPos.z).normalize().mul(distance * PULL_STRENGTH_MULTIPLIER);
             vc.addInstruction(pull, new VelocityConfig(), ChangeVelocityType.Add);
         }
     }

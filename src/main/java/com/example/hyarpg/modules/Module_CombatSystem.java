@@ -2,14 +2,12 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.hypixel.hytale.component.*;
-import com.hypixel.hytale.math.vector.Vector3d;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.OverlapBehavior;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.Frozen;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
-import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.modules.entity.component.HeadRotation;
@@ -25,7 +23,6 @@ import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntitySta
 import com.hypixel.hytale.server.core.modules.entitystats.asset.EntityStatType;
 import com.hypixel.hytale.server.core.modules.item.ItemModule;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.World;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.hypixel.hytale.server.npc.role.Role;
@@ -50,6 +47,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
+import org.joml.Vector3d;
 
 public class Module_CombatSystem {
 
@@ -215,7 +213,7 @@ public class Module_CombatSystem {
 
         // spawn all drops
         if (!allDrops.isEmpty()) {
-            Vector3d dropPosition = pos.clone().add(0.0, 1.0, 0.0);
+            Vector3d dropPosition = new Vector3d(pos).add(0.0, 1.0, 0.0);
             Holder<EntityStore>[] dropEntities = ItemComponent.generateItemDrops(store, allDrops, dropPosition, headRotation.getRotation().clone());
             commandBuffer.addEntities(dropEntities, AddReason.SPAWN);
         }
@@ -381,7 +379,7 @@ public class Module_CombatSystem {
         if (attackerRPGStats != null) {
             attackerLevel = attackerRPGStats.gearScore;
             attackerStats = attackerRPGStats.stats;
-            attackerName = store.getComponent(attacker, Player.getComponentType()).getDisplayName();
+            attackerName = store.getComponent(attacker, PlayerRef.getComponentType()).getUsername();
         }
         else if(attackerRPGEnemy != null) {
             attackerLevel = attackerRPGEnemy.level;
@@ -406,7 +404,7 @@ public class Module_CombatSystem {
         if(defenderRPGStats != null) {
             defenderLevel = defenderRPGStats.gearScore;
             defenderStats = defenderRPGStats.stats;
-            defenderName = store.getComponent(defender, Player.getComponentType()).getDisplayName();
+            defenderName = store.getComponent(defender, PlayerRef.getComponentType()).getUsername();
 
             // defender is a player, set some things
             defenderStatMap = store.getComponent(defender, EntityStatsModule.get().getEntityStatMapComponentType());

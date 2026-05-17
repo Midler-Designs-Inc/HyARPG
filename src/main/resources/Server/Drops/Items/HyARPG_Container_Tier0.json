@@ -29,7 +29,7 @@
               },
               {
                 "Type": "Single",
-                "Weight": 10,
+                "Weight": 5,
                 "Item": {
                   "ItemId": "Homestone",
                   "QuantityMax": 1

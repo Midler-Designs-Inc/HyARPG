@@ -294,7 +294,8 @@ public class CustomPage_CubeCombinePage extends InteractiveCustomUIPage<CustomPa
             case POWER_UP -> {
                 Component_RPG_Player rpg = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
                 int playerLevel  = rpg != null ? rpg.level : 1;
-                int newGearScore = Math.min(playerLevel, recipe.maxLevel());
+                int currentScore = gearStack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null ? gearStack.getFromMetadataOrNull("GearScore", Codec.INTEGER) : 0;
+                int newGearScore = Math.max(currentScore, Math.min(playerLevel, recipe.maxLevel()));
 
                 // replace gear stack in place with updated gear score metadata
                 ItemStack updatedGear = gearStack.withMetadata("GearScore", Codec.INTEGER, newGearScore);
@@ -403,9 +404,8 @@ public class CustomPage_CubeCombinePage extends InteractiveCustomUIPage<CustomPa
             case POWER_UP -> {
                 Component_RPG_Player rpg = store.getComponent(ref, Module_RPGSystem.componentTypeRPGPlayer);
                 int playerLevel   = rpg != null ? rpg.level : 1;
-                int currentScore  = gearStack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null
-                        ? gearStack.getFromMetadataOrNull("GearScore", Codec.INTEGER) : 0;
-                int newScore      = Math.min(playerLevel, recipe.maxLevel());
+                int currentScore  = gearStack.getFromMetadataOrNull("GearScore", Codec.INTEGER) != null ? gearStack.getFromMetadataOrNull("GearScore", Codec.INTEGER) : 0;
+                int newScore      = Math.max(currentScore, Math.min(playerLevel, recipe.maxLevel()));
                 yield "Gear Score: " + currentScore + " -> " + newScore + "\n(capped at " + recipe.maxLevel() + ")";
             }
             // additional modifier types return their own description strings as implemented

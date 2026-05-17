@@ -7,7 +7,7 @@
         "Weight": 100,
         "Containers": [
           { "Type": "Single", "Weight": 400, "Item": { "ItemId": "Fragmented_Rune_Of_Powering", "QuantityMax": 1 }},
-          { "Type": "Single", "Weight": 50, "Item": { "ItemId": "Homestone", "QuantityMax": 1 }},
+          { "Type": "Single", "Weight": 25, "Item": { "ItemId": "Homestone", "QuantityMax": 1 }},
           { "Type": "Single", "Weight": 600, "Item": { "ItemId": "Ingredient_Uncommon_Shard_Dust", "QuantityMax": 1 }},
           { "Type": "Single", "Weight": 75, "Item": { "ItemId": "Ingredient_Rare_Shard_Dust", "QuantityMax": 1 }},
           { "Type": "Single", "Weight": 33, "Item": { "ItemId": "Ingredient_Epic_Shard_Dust", "QuantityMax": 1 }},

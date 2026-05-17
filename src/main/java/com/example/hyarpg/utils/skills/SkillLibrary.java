@@ -84,11 +84,11 @@ public class SkillLibrary {
         layout.put("Assassin_LearnAbility_AssassinsMark", new SkillTree.GridPosition(8, 0));
 
         // ---- Shadow Strike Ability ---- //
-        nodes.put("Assassin_LearnAbility_ShadowStrike", new SkillNode("Assassin_LearnAbility_ShadowStrike", "Learn 'Shadow Strike': An activated ability that teleports you behind the last enemy you hit, striking with your main hand weapon for a guaranteed critical strike.\n\n* Will consume up to 5 Assassin Marks on the target to increase critical damage of the strike by 40% per mark consumed.", "Assassin_Ability_ShadowStrike.png", new Shadow_Strike(), 4, 1, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
+        nodes.put("Assassin_LearnAbility_ShadowStrike", new SkillNode("Assassin_LearnAbility_ShadowStrike", "Learn 'Shadow Strike': An activated ability that teleports you behind the targeted enemy, striking with your main hand weapon for a guaranteed critical strike.\n\n* Will consume up to 5 Assassin Marks on the target to increase critical damage of the strike by 40% per mark consumed.", "Assassin_Ability_ShadowStrike.png", new Shadow_Strike(), 4, 1, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
         layout.put("Assassin_LearnAbility_ShadowStrike", new SkillTree.GridPosition(8, 2));
 
         // ---- Reaper Death Seal Ability ---- //
-        nodes.put("Assassin_LearnAbility_ReaperDeathSeal", new SkillNode("Assassin_LearnAbility_ReaperDeathSeal", "Learn 'Reaper Death Seal': An activated ability that summons a death god to claim the soul of the last enemy you hit.\n\n* Will consume all Assassin Marks on the target to deal damage equal to 10% of the targets max health per Assassin Mark consumed.", "Assassin_Ability_ReaperDeathSeal.png", new Reaper_Death_Seal(), 10, 1, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
+        nodes.put("Assassin_LearnAbility_ReaperDeathSeal", new SkillNode("Assassin_LearnAbility_ReaperDeathSeal", "Learn 'Reaper Death Seal': An activated ability that summons a death god to claim the soul of the targeted enemy.\n\n* Will consume all Assassin Marks on the target to deal damage equal to 10% of the targets max health per Assassin Mark consumed.", "Assassin_Ability_ReaperDeathSeal.png", new Reaper_Death_Seal(), 10, 1, List.of(Requirement.treePoints("Assassin", 10)), "1.0.0"));
         layout.put("Assassin_LearnAbility_ReaperDeathSeal", new SkillTree.GridPosition(8, 4));
 
         // ---- Increased Critical Strike Chance Nodes ---- //
@@ -295,7 +295,7 @@ public class SkillLibrary {
         layout.put("Mage_Magic_AddedDamage_2", new SkillTree.GridPosition(4, 1));
 
         // ---- Arcane Missiles Ability ---- //
-        nodes.put("Mage_LearnAbility_Arcane_Missiles", new SkillNode("Mage_LearnAbility_Arcane_Missiles", "Learn 'Arcane Missiles': An activated ability that fires off 5 magic based homing projectiles at the last target you hit.\n\nDamage scales at x0.50 Main Hand weapon damage.", "Mage_Ability_Arcane_Missiles.png", new Arcane_Missiles(), 4, 1, List.of(Requirement.treePoints("Mage", 10)), "1.0.0"));
+        nodes.put("Mage_LearnAbility_Arcane_Missiles", new SkillNode("Mage_LearnAbility_Arcane_Missiles", "Learn 'Arcane Missiles': An activated ability that fires off 5 magic based homing projectiles at the targeted enemy.\n\nDamage scales at x0.50 Main Hand weapon damage.", "Mage_Ability_Arcane_Missiles.png", new Arcane_Missiles(), 4, 1, List.of(Requirement.treePoints("Mage", 10)), "1.0.0"));
         layout.put("Mage_LearnAbility_Arcane_Missiles", new SkillTree.GridPosition(8, 0));
 
         // ---- Simulacrum Ability ---- //
@@ -303,7 +303,7 @@ public class SkillLibrary {
         layout.put("Mage_LearnAbility_Simulacrum", new SkillTree.GridPosition(8, 2));
 
         // ---- Arcane Meteor Ability ---- //
-        nodes.put("Mage_LearnAbility_Arcane_Meteor", new SkillNode("Mage_LearnAbility_Arcane_Meteor", "Learn 'Arcane Meteor': An activated ability that summons an arcane meteor to rain down on the last enemy hit damaging all nearby enemies on impact.\n\nDamage scales at x15 Main Hand weapon damage.", "Mage_Ability_Arcane_Meteor.png", new Arcane_Meteor(), 10, 1, List.of(Requirement.treePoints("Mage", 10)), "1.0.0"));
+        nodes.put("Mage_LearnAbility_Arcane_Meteor", new SkillNode("Mage_LearnAbility_Arcane_Meteor", "Learn 'Arcane Meteor': An activated ability that summons an arcane meteor to rain down on the targeted enemy damaging all other nearby enemies on impact as well.\n\nDamage scales at x15 Main Hand weapon damage.", "Mage_Ability_Arcane_Meteor.png", new Arcane_Meteor(), 10, 1, List.of(Requirement.treePoints("Mage", 10)), "1.0.0"));
         layout.put("Mage_LearnAbility_Arcane_Meteor", new SkillTree.GridPosition(8, 4));
 
         // ---- Added Flat Mana / Increased Mana Regen ---- //

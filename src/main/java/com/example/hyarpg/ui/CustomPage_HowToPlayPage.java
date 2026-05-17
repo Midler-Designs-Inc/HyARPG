@@ -297,6 +297,11 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
 
     private List<Line> buildCombat() {
         List<Line> lines = new ArrayList<>();
+        lines.add(heading("Targeting"));
+        lines.add(bullet("You can target enemies by simply looking at them while within range of them."));
+        lines.add(bullet("Targeted enemies will light up red to indicate they are being targeted."));
+        lines.add(bullet("Some skills will require you to have a target to be used."));
+        lines.add(spacer());
         lines.add(heading("Damage"));
         lines.add(plain("All damage runs through a custom ARPG pipeline. Your Gear Score is the primary driver."));
         lines.add(plain("Abilities that scale off Weapon damage use your main hand weapon's damage as their base."));

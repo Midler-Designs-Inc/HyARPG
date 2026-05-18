@@ -9,6 +9,7 @@ items.Water_Bottle_Blessed.description=Water that has been blessed by a benevole
 hyarpg.notifications.discovered_item=Discovered {item}
 hyarpg.notifications.learned_recipe=Learned {item}
 hyarpg.notifications.discovered_room=Discovered {room}
+hyarpg.notifications.gained_job_xp={job} +{xp} XP
 items.Uncommon_Shards.name=Uncommon Shards
 items.Uncommon_Shards.Description=Crystal shards radiating a weak magical aura.
 items.Rare_Shards.name=Rare Shards

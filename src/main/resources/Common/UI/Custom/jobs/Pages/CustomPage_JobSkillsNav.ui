@@ -1,0 +1,472 @@
+$Common = "../../Common.ui";
+
+@JobSkillsNav = Group {
+    Anchor: (Width: 190);
+    LayoutMode: Top;
+    Background: #0d141c;
+
+    // separator at top
+    Group { Background: #9c8863(0.3); Anchor: (Height: 1); }
+
+    // fixed job list — 13 jobs, each showing name, level, and XP
+    Group {
+        LayoutMode: Top;
+        Padding: (Left: 8, Top: 6, Right: 8);
+
+        // job 0
+        Group #JobNavSlot0 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight0 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn0 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel0 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel0 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel0 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 1
+        Group #JobNavSlot1 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight1 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn1 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel1 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel1 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel1 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 2
+        Group #JobNavSlot2 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight2 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn2 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel2 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel2 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel2 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 3
+        Group #JobNavSlot3 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight3 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn3 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel3 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel3 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel3 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 4
+        Group #JobNavSlot4 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight4 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn4 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel4 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel4 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel4 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 5
+        Group #JobNavSlot5 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight5 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn5 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel5 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel5 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel5 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 6
+        Group #JobNavSlot6 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight6 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn6 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel6 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel6 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel6 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 7
+        Group #JobNavSlot7 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight7 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn7 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel7 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel7 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel7 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 8
+        Group #JobNavSlot8 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight8 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn8 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel8 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel8 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel8 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 9
+        Group #JobNavSlot9 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight9 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn9 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel9 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel9 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel9 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 10
+        Group #JobNavSlot10 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight10 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn10 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel10 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel10 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel10 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 11
+        Group #JobNavSlot11 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight11 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn11 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel11 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel11 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel11 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+        // job 12
+        Group #JobNavSlot12 {
+            Anchor: (Height: 48, Bottom: 4);
+
+            Group #JobNavHighlight12 {
+                Anchor: (Full: 0);
+                Visible: false;
+                Background: #1e3a5f;
+            }
+
+            Button #JobNavBtn12 {
+                Anchor: (Full: 0);
+                LayoutMode: Top;
+                Padding: (Left: 10, Right: 10, Top: 4, Bottom: 4);
+
+                Label #JobNavLabel12 {
+                    Anchor: (Height: 18);
+                    Style: (FontSize: 14, TextColor: #cccccc);
+                }
+
+                Group {
+                    Anchor: (Height: 16);
+                    LayoutMode: Left;
+
+                    Label #JobNavLevelLabel12 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 12, TextColor: #c8a84b);
+                    }
+                    Label #JobNavXpLabel12 {
+                        Style: (FontSize: 12, TextColor: #888888);
+                    }
+                }
+            }
+        }
+
+    }
+};

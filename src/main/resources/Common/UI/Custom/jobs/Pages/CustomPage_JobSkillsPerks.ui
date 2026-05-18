@@ -1,0 +1,482 @@
+$Common = "../../Common.ui";
+
+@JobSkillsPerks = Group {
+    FlexWeight: 1;
+    LayoutMode: Top;
+
+    // job description shown above the perk list
+    Group {
+        Padding: (Left: 16, Right: 16, Top: 6, Bottom: 6);
+
+        Label #JobDescriptionLabel {
+            Anchor: (Full: 0);
+            Style: (FontSize: 14, TextColor: #ffffff, Wrap: true);
+        }
+    }
+
+    // Separator between gear and inventory
+    Group { Background: #9c8863(0.2); Anchor: (Height: 1, Bottom: 1); }
+
+    // scrollable perk list
+    Group {
+        FlexWeight: 1;
+        LayoutMode: TopScrolling;
+        ScrollbarStyle: $Common.@DefaultScrollbarStyle;
+        Padding: (Left: 12, Right: 12, Top: 8, Bottom: 8);
+
+        Group {
+            LayoutMode: Top;
+
+            // perk row 0
+            Group #PerkRow0 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName0 {
+                        Anchor: (Height: 18);
+                        Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true);
+                    }
+                    Label #PerkDesc0 {
+                        FlexWeight: 1;
+                        Style: (FontSize: 14, TextColor: #888888);
+                    }
+                }
+
+                Group #PerkBadge0 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+
+                    Label #PerkLevel0 {
+                        Anchor: (Full: 0);
+                        Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center);
+                    }
+                }
+            }
+
+            // perk row 1
+            Group #PerkRow1 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName1 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc1 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge1 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel1 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 2
+            Group #PerkRow2 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName2 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc2 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge2 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel2 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 3
+            Group #PerkRow3 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName3 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc3 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge3 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel3 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 4
+            Group #PerkRow4 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName4 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc4 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge4 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel4 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 5
+            Group #PerkRow5 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName5 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc5 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge5 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel5 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 6
+            Group #PerkRow6 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName6 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc6 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge6 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel6 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 7
+            Group #PerkRow7 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName7 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc7 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge7 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel7 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 8
+            Group #PerkRow8 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName8 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc8 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge8 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel8 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 9
+            Group #PerkRow9 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName9 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc9 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge9 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel9 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 10
+            Group #PerkRow10 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName10 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc10 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge10 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel10 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 11
+            Group #PerkRow11 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName11 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc11 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge11 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel11 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 12
+            Group #PerkRow12 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName12 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc12 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge12 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel12 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 13
+            Group #PerkRow13 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName13 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc13 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge13 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel13 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 14
+            Group #PerkRow14 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName14 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc14 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge14 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel14 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 15
+            Group #PerkRow15 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName15 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc15 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge15 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel15 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 16
+            Group #PerkRow16 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName16 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc16 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge16 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel16 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 17
+            Group #PerkRow17 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName17 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc17 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge17 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel17 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 18
+            Group #PerkRow18 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName18 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc18 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge18 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel18 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+            // perk row 19
+            Group #PerkRow19 {
+                Anchor: (Height: 72, Bottom: 6);
+                LayoutMode: Left;
+                Visible: false;
+
+                Group {
+                    FlexWeight: 1;
+                    LayoutMode: Top;
+                    Padding: (Left: 12, Top: 8, Right: 12, Bottom: 8);
+
+                    Label #PerkName19 { Anchor: (Height: 18); Style: (FontSize: 16, TextColor: #dddddd, RenderBold: true); }
+                    Label #PerkDesc19 { FlexWeight: 1; Style: (FontSize: 14, TextColor: #888888); }
+                }
+
+                Group #PerkBadge19 {
+                    Anchor: (Width: 72, Height: 72);
+                    Background: #0d141c;
+                    Label #PerkLevel19 { Anchor: (Full: 0); Style: (FontSize: 28, TextColor: #c8a84b, RenderBold: true, Alignment: Center, VerticalAlignment: Center); }
+                }
+            }
+
+        }
+    }
+};

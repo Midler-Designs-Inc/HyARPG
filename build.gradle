@@ -30,7 +30,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'de.bsommerfeld.jshepherd:core:4.0.2'
     implementation 'de.bsommerfeld.jshepherd:toml:4.0.2'
-    implementation "curse.maven:multiplehud-1423634:7840485"
 }
 
 java {

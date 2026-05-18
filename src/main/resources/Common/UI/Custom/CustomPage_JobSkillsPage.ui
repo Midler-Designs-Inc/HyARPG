@@ -1,0 +1,57 @@
+$Common = "Common.ui";
+$JobSkillsNav   = "Jobs/Pages/CustomPage_JobSkillsNav.ui";
+$JobSkillsPerks = "Jobs/Pages/CustomPage_JobSkillsPerks.ui";
+
+SceneBlur {}
+
+Group {
+    Background: #000000(0.55);
+}
+
+Group {
+    LayoutMode: Center;
+
+    Group {
+        Anchor: (Width: 900, Height: 700);
+        LayoutMode: Top;
+        Padding: (Top: 15);
+
+        Group {
+            LayoutMode: Top;
+
+            $Common.@Container #JobSkillsPanel {
+                #Title {
+                    LayoutMode: Left;
+                    Padding: (Left: 20, Top: 0, Bottom: 0);
+
+                    Label {
+                        Text: "JOB SKILLS";
+                        Style: (...$Common.@TitleStyle, TextColor: #5a8ab0, VerticalAlignment: Center);
+                        Anchor: (Height: 38);
+                    }
+
+                    Label #ActiveJobNameLabel {
+                        Anchor: (Height: 38, Left: 16);
+                        Style: (FontSize: 13, TextColor: #888888, VerticalAlignment: Center);
+                    }
+
+                    Group { FlexWeight: 1; }
+                }
+
+                #Content {
+                    LayoutMode: Left;
+                    Padding: (Left: 5, Top: 3, Bottom: 5, Right: 5);
+
+                    // left column — job nav with level and xp bar
+                    $JobSkillsNav.@JobSkillsNav #JobSkillsNavArea {}
+
+                    // vertical separator
+                    $Common.@VerticalSeparator {}
+
+                    // right column — perk list
+                    $JobSkillsPerks.@JobSkillsPerks #JobSkillsPerksArea {}
+                }
+            }
+        }
+    }
+}

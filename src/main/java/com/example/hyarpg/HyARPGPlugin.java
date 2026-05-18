@@ -1,6 +1,7 @@
 package com.example.hyarpg;
 
 // Hytale Imports
+import com.example.hyarpg.components.Component_JobSkills;
 import com.hypixel.hytale.builtin.deployables.config.DeployableConfig;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.server.core.HytaleServer;
@@ -45,6 +46,7 @@ public class HyARPGPlugin extends JavaPlugin {
     // components
     public ComponentType<EntityStore, Component_HomingMissile> componentTypeHomingMissile;
     public ComponentType<EntityStore, Component_Simulacrum> componentTypeSimulacrum;
+    public ComponentType<EntityStore, Component_JobSkills> componentTypeJobSkills;
 
     // required super function??
     public HyARPGPlugin(@Nonnull JavaPluginInit init) {
@@ -85,6 +87,7 @@ public class HyARPGPlugin extends JavaPlugin {
     private void registerComponents() {
         componentTypeHomingMissile = getEntityStoreRegistry().registerComponent(Component_HomingMissile.class, "HomingMissileComponent", Component_HomingMissile.CODEC);
         componentTypeSimulacrum = getEntityStoreRegistry().registerComponent(Component_Simulacrum.class, "SimulacrumComponent", Component_Simulacrum.CODEC);
+        componentTypeJobSkills = getEntityStoreRegistry().registerComponent(Component_JobSkills.class, "JobSkillsComponent", Component_JobSkills.CODEC);
     }
 
     // Register event listeners
@@ -108,6 +111,7 @@ public class HyARPGPlugin extends JavaPlugin {
             getEntityStoreRegistry().registerSystem(new Listeners_Crafting());
             getEntityStoreRegistry().registerSystem(new Listeners_PlaceBlock());
             getEntityStoreRegistry().registerSystem(new Listeners_BreakBlock());
+            getEntityStoreRegistry().registerSystem(new Listeners_DamageBlock());
 
             // Register component ticking systems
             getEntityStoreRegistry().registerSystem(new System_HomingMissile(componentTypeHomingMissile));
@@ -145,6 +149,7 @@ public class HyARPGPlugin extends JavaPlugin {
             combatSystem = new Module_CombatSystem();
             new Module_PlayerHud(this);
             new Module_BuildSystem();
+            new Module_JobsSystem();
             raidSystem = new Module_RaidSystem();
 
             // create an instance of our global tick event (not OOP but better for processing I guess)
@@ -162,6 +167,7 @@ public class HyARPGPlugin extends JavaPlugin {
         try {
             getCommandRegistry().registerCommand(new ShowStats());
             getCommandRegistry().registerCommand(new ShowSkills());
+            getCommandRegistry().registerCommand(new ShowJobs());
             getCommandRegistry().registerCommand(new ShowDiscovered());
             getCommandRegistry().registerCommand(new ToggleHunger());
             getCommandRegistry().registerCommand(new ToggleThirst());
@@ -170,6 +176,7 @@ public class HyARPGPlugin extends JavaPlugin {
             getCommandRegistry().registerCommand(new AddPlayerLevels());
             getCommandRegistry().registerCommand(new ResetDiscoveredIngredients());
             getCommandRegistry().registerCommand(new ResetDiscoveredRecipes());
+            getCommandRegistry().registerCommand(new ResetJobXp());
             getCommandRegistry().registerCommand(new ResetDiscoveredRooms());
             getCommandRegistry().registerCommand(new SetShowCombatTextSetting());
             getCommandRegistry().registerCommand(new TriggerRaid(this));

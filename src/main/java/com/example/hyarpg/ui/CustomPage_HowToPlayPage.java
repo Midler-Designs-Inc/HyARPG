@@ -152,6 +152,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(bullet("Craft a Water Bottle and purify dirty water at a Campfire."));
         lines.add(bullet("Kill enemies to level up and earn gear drops."));
         lines.add(bullet("Invest skill points into a skill tree using /skills."));
+        lines.add(bullet("Chop trees or other such activities to level up a job skill."));
         lines.add(bullet("Place a Light Well to claim territory and start building a base."));
         lines.add(bullet("Look for Shard Dust — find it in the world or from enemies, then craft it into Rarity Shards at a Furnace to enhance your gear."));
         lines.add(bullet("Look for Runes of Powering — find it in the world or from enemies, use them to enhance your gear's gear score to your player level."));
@@ -391,7 +392,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         List<Line> lines = new ArrayList<>();
         lines.add(heading("Job Skills"));
         lines.add(plain("Job Skills are passive progression systems tied to specific activities. Unlike combat levels, job levels are earned by performing the job itself — not by killing enemies. Each job has its own XP pool, level cap of 100, and a unique set of perks that unlock as you level up."));
-        lines.add(plain("Job levels do not reset on death and are not affected by respeccing your skill trees."));
+        lines.add(bullet("Job levels do not reset on death and are not affected by respeccing your skill trees."));
         lines.add(spacer());
 
         lines.add(heading("Available Job Skills"));
@@ -479,7 +480,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         lines.add(heading("What Can Be Configured"));
         lines.add(bullet("Combat", "Damage multipliers, parry window timing, global player damage in/out multipliers, combat log broadcasting."));
         lines.add(bullet("Enemies", "Level scaling rate per distance, random level variance, nameplate display options."));
-        lines.add(bullet("Experience", "Base XP to level up, XP scaling per level, XP gained from kills."));
+        lines.add(bullet("Experience", "Base XP to level up, XP scaling per level, XP gained from kills, xp for job skills."));
         lines.add(bullet("Hunger & Thirst", "Enable/disable each system, drain rates, death timers, food restore values per tier."));
         lines.add(bullet("Players", "Base regeneration rates for Health, Mana, Stamina, and Ammo."));
         lines.add(bullet("Building", "Light Well territory claiming and bench placement rules."));

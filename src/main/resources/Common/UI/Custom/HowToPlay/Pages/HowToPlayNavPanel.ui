@@ -20,6 +20,7 @@ $Common = "../../Common.ui";
     $Common.@HeaderTextButton #HTPBtnCombat          { Text: "Combat";          Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnBaseBuilding    { Text: "Base Building";   Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnRaids           { Text: "Raids";           Anchor: (Bottom: 4); }
+    $Common.@HeaderTextButton #HTPBtnJobSkills       { Text: "Job Skills";      Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnPrefabs         { Text: "World Prefabs";   Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnWaywardShrines  { Text: "Wayward Shrines"; Anchor: (Bottom: 4); }
     $Common.@HeaderTextButton #HTPBtnCommands        { Text: "Commands";        Anchor: (Bottom: 4); }

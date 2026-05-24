@@ -172,8 +172,15 @@ public class Listeners_PlayerInventory extends EntityEventSystem<EntityStore, In
                     ModEventBus.post(new Event_PlayerInventoryItemAdded(ref, store, changeEvent, slot, after));
                 else if (!beforeEmpty && afterEmpty)
                     ModEventBus.post(new Event_PlayerInventoryItemRemoved(ref, store, changeEvent, slot, before));
-                else if (!beforeEmpty && !afterEmpty)
-                    ModEventBus.post(new Event_PlayerInventoryItemAdded(ref, store, changeEvent, slot, after));
+                else if (!beforeEmpty && !afterEmpty) {
+                    // fire added if item type changed (swap) or quantity increased (stack merge/pickup)
+                    if (!before.getItemId().equals(after.getItemId())) {
+                        ModEventBus.post(new Event_PlayerInventoryItemAdded(ref, store, changeEvent, slot, after));
+                        ModEventBus.post(new Event_PlayerInventoryItemRemoved(ref, store, changeEvent, slot, before));
+                    } else if (after.getQuantity() > before.getQuantity()) {
+                        ModEventBus.post(new Event_PlayerInventoryItemAdded(ref, store, changeEvent, slot, after));
+                    }
+                }
             }
         }
     }

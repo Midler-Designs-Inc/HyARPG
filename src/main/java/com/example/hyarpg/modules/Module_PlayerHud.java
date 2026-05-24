@@ -37,6 +37,6 @@ public class Module_PlayerHud {
         HudManager hudManager = player.getHudManager();
 
         // register our HUD layer — setCustomHud calls show() internally which triggers build()
-        hudManager.setCustomHud(playerRef, new CustomHUD_Player(playerRef));
+        hudManager.addCustomHud(playerRef, new CustomHUD_Player(playerRef));
     }
 }

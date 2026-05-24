@@ -7,7 +7,6 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.component.ComponentType;
-import com.hypixel.hytale.protocol.packets.interface_.NotificationStyle;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
@@ -15,7 +14,6 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Mod Imports
 import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.server.core.util.EventTitleUtil;
-import com.hypixel.hytale.server.core.util.NotificationUtil;
 
 public class Component_JobSkills implements Component<EntityStore> {
 
@@ -23,7 +21,7 @@ public class Component_JobSkills implements Component<EntityStore> {
     private final int xpToFirstLevel     = ModConfig.get().experience.xp_to_first_job_level;
     private final float xpPerLevelModifier = ModConfig.get().experience.xp_increase_per_job_level_modifier;
 
-    // persisted XP pool per job — level is derived on the fly via calculateLevelFromXp()
+    // persisted XP pool per job — level is derived on the fly via calculateLevelFromXP()
     public int alchemyXp      = 0;
     public int barteringXp    = 0;
     public int beastmasteryXp = 0;
@@ -40,25 +38,25 @@ public class Component_JobSkills implements Component<EntityStore> {
 
     // persisted component data — one codec entry per job XP pool
     public static final BuilderCodec<Component_JobSkills> CODEC = BuilderCodec.builder(Component_JobSkills.class, Component_JobSkills::new)
-            .append(new KeyedCodec<>("AlchemyXp",      Codec.INTEGER), (c, v) -> c.alchemyXp      = v, c -> c.alchemyXp).add()
-            .append(new KeyedCodec<>("BarteringXp",    Codec.INTEGER), (c, v) -> c.barteringXp    = v, c -> c.barteringXp).add()
-            .append(new KeyedCodec<>("BeastmasteryXp", Codec.INTEGER), (c, v) -> c.beastmasteryXp = v, c -> c.beastmasteryXp).add()
-            .append(new KeyedCodec<>("BuildingXp",     Codec.INTEGER), (c, v) -> c.buildingXp     = v, c -> c.buildingXp).add()
-            .append(new KeyedCodec<>("CookingXp",      Codec.INTEGER), (c, v) -> c.cookingXp      = v, c -> c.cookingXp).add()
-            .append(new KeyedCodec<>("CraftingXp",     Codec.INTEGER), (c, v) -> c.craftingXp     = v, c -> c.craftingXp).add()
-            .append(new KeyedCodec<>("ExploringXp",    Codec.INTEGER), (c, v) -> c.exploringXp    = v, c -> c.exploringXp).add()
-            .append(new KeyedCodec<>("FarmingXp",      Codec.INTEGER), (c, v) -> c.farmingXp      = v, c -> c.farmingXp).add()
-            .append(new KeyedCodec<>("FishingXp",      Codec.INTEGER), (c, v) -> c.fishingXp      = v, c -> c.fishingXp).add()
-            .append(new KeyedCodec<>("LoggingXp",      Codec.INTEGER), (c, v) -> c.loggingXp      = v, c -> c.loggingXp).add()
-            .append(new KeyedCodec<>("MiningXp",       Codec.INTEGER), (c, v) -> c.miningXp       = v, c -> c.miningXp).add()
-            .append(new KeyedCodec<>("PerformingXp",   Codec.INTEGER), (c, v) -> c.performingXp   = v, c -> c.performingXp).add()
-            .append(new KeyedCodec<>("ThieveryXp",     Codec.INTEGER), (c, v) -> c.thieveryXp     = v, c -> c.thieveryXp).add()
-            .build();
+        .append(new KeyedCodec<>("AlchemyXp",      Codec.INTEGER), (c, v) -> c.alchemyXp      = v, c -> c.alchemyXp).add()
+        .append(new KeyedCodec<>("BarteringXp",    Codec.INTEGER), (c, v) -> c.barteringXp    = v, c -> c.barteringXp).add()
+        .append(new KeyedCodec<>("BeastmasteryXp", Codec.INTEGER), (c, v) -> c.beastmasteryXp = v, c -> c.beastmasteryXp).add()
+        .append(new KeyedCodec<>("BuildingXp",     Codec.INTEGER), (c, v) -> c.buildingXp     = v, c -> c.buildingXp).add()
+        .append(new KeyedCodec<>("CookingXp",      Codec.INTEGER), (c, v) -> c.cookingXp      = v, c -> c.cookingXp).add()
+        .append(new KeyedCodec<>("CraftingXp",     Codec.INTEGER), (c, v) -> c.craftingXp     = v, c -> c.craftingXp).add()
+        .append(new KeyedCodec<>("ExploringXp",    Codec.INTEGER), (c, v) -> c.exploringXp    = v, c -> c.exploringXp).add()
+        .append(new KeyedCodec<>("FarmingXp",      Codec.INTEGER), (c, v) -> c.farmingXp      = v, c -> c.farmingXp).add()
+        .append(new KeyedCodec<>("FishingXp",      Codec.INTEGER), (c, v) -> c.fishingXp      = v, c -> c.fishingXp).add()
+        .append(new KeyedCodec<>("LoggingXp",      Codec.INTEGER), (c, v) -> c.loggingXp      = v, c -> c.loggingXp).add()
+        .append(new KeyedCodec<>("MiningXp",       Codec.INTEGER), (c, v) -> c.miningXp       = v, c -> c.miningXp).add()
+        .append(new KeyedCodec<>("PerformingXp",   Codec.INTEGER), (c, v) -> c.performingXp   = v, c -> c.performingXp).add()
+        .append(new KeyedCodec<>("ThieveryXp",     Codec.INTEGER), (c, v) -> c.thieveryXp     = v, c -> c.thieveryXp).add()
+        .build();
 
     // default no-arg constructor (required for component registration)
     public Component_JobSkills() {}
 
-    public int calculateLevelFromXp(int xp) {
+    public int calculateLevelFromXP(int xp) {
         if (xp <= 0) return 1;
         double growthFactor = 1 + xpPerLevelModifier;
         double epsilon = 1e-6;
@@ -67,7 +65,7 @@ public class Component_JobSkills implements Component<EntityStore> {
     }
 
     // calculate total XP required to reach the start of a specific level
-    public int calculateTotalXpForLevel(int targetLevel) {
+    public int calculateTotalXPForLevel(int targetLevel) {
         double growthFactor = 1 + xpPerLevelModifier;
         double total = xpToFirstLevel * (Math.pow(growthFactor, targetLevel - 1) - 1) / xpPerLevelModifier;
         return (int) Math.max(0, Math.round(total));
@@ -75,26 +73,20 @@ public class Component_JobSkills implements Component<EntityStore> {
 
     // calculate XP progress within the current level as a 0-1 float
     public float calculateLevelProgress(int xp) {
-        int currentLevel      = calculateLevelFromXp(xp);
-        int xpForCurrentLevel = calculateTotalXpForLevel(currentLevel);
-        int xpForNextLevel    = calculateTotalXpForLevel(currentLevel + 1);
+        int currentLevel      = calculateLevelFromXP(xp);
+        int xpForCurrentLevel = calculateTotalXPForLevel(currentLevel);
+        int xpForNextLevel    = calculateTotalXPForLevel(currentLevel + 1);
         double progress = (double)(xp - xpForCurrentLevel) / (xpForNextLevel - xpForCurrentLevel);
         return (float) Math.max(0.0, Math.min(1.0, progress));
     }
 
     // award XP to a job, fire a level-up notification for each level gained, and return the updated XP total
-    public void awardXp(PlayerRef playerRef, String jobId, int xpGained) {
+    public void awardXP(PlayerRef playerRef, String jobId, int xpGained) {
+        // get applicable variables/values
         int currentXp   = getXP(jobId);
-        int levelBefore = calculateLevelFromXp(currentXp);
+        int levelBefore = calculateLevelFromXP(currentXp);
         int newXP       = currentXp + xpGained;
-        int levelAfter  = calculateLevelFromXp(newXP);
-
-//        // notify XP gain
-//        NotificationUtil.sendNotification(
-//            playerRef.getPacketHandler(),
-//            Message.translation("server.hyarpg.notifications.gained_job_xp").param("job", Message.translation(jobId)).param("xp", Message.translation(String.valueOf(xpGained))),
-//            NotificationStyle.Success
-//        );
+        int levelAfter  = calculateLevelFromXP(newXP);
 
         // notify if the player gained at least one level
         if (levelAfter > levelBefore) {
@@ -106,6 +98,7 @@ public class Component_JobSkills implements Component<EntityStore> {
             );
         }
 
+        // update the xp value of the applicable job
         setXP(jobId, newXP);
     }
 
@@ -148,7 +141,7 @@ public class Component_JobSkills implements Component<EntityStore> {
         }
     }
 
-    public void resetAllXp() {
+    public void resetAllXP() {
         alchemyXp = barteringXp = beastmasteryXp = buildingXp = cookingXp = craftingXp =
                 exploringXp = farmingXp = fishingXp = loggingXp = miningXp = performingXp = thieveryXp = 0;
     }

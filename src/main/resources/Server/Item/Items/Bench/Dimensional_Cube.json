@@ -27,7 +27,7 @@
   "Model": "Items/Dimensional_Cube/Dimensional_Cube.blockymodel",
   "Texture": "Items/Dimensional_Cube/Cube_Texture.png",
   "Scale": 0.16,
-  "Animation": "Items/Dimensional_Cube/Cube_Rotation - Temp.blockyanim",
+  "Animation": "Items/Dimensional_Cube/Cube_Rotation.blockyanim",
   "MaxStack": 1,
   "Quality": "Legendary",
   "Interactions": {

@@ -706,11 +706,11 @@ public class Module_CombatSystem {
 
         // apply the final damage to the player
         DamageSystems.executeDamage(defender, store,
-                new Damage(
-                        new Damage.EntitySource(attacker),
-                        DamageCause.getAssetMap().getAsset("Command"),
-                        (float) finalDamage
-                )
+            new Damage(
+                new Damage.EntitySource(attacker),
+                DamageCause.getAssetMap().getAsset("Command"),
+                (float) finalDamage
+            )
         );
     }
 

@@ -73,7 +73,7 @@ public class System_PlayerHud extends EntityTickingSystem<EntityStore> {
 
         // only push updates if our HUD is currently the registered one — another mod could have claimed the slot
         HudManager hudManager = player.getHudManager();
-        CustomUIHud registeredHud = hudManager.getCustomHud();
+        CustomUIHud registeredHud = hudManager.getCustomHud("HyARPG_HUD");
         if (!(registeredHud instanceof CustomHUD_Player playerHUD)) return;
 
         // bail if any of the core components we depend on are missing

@@ -18,19 +18,8 @@ import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 // Mod Imports
 import com.example.hyarpg.components.Component_JobSkills;
 import com.example.hyarpg.utils.jobs.JobSkill;
-//import com.example.hyarpg.utils.jobs.JobSkill_Alchemy;
-//import com.example.hyarpg.utils.jobs.JobSkill_Bartering;
-//import com.example.hyarpg.utils.jobs.JobSkill_Beastmastery;
-//import com.example.hyarpg.utils.jobs.JobSkill_Building;
-//import com.example.hyarpg.utils.jobs.JobSkill_Cooking;
-//import com.example.hyarpg.utils.jobs.JobSkill_Crafting;
-//import com.example.hyarpg.utils.jobs.JobSkill_Exploring;
-//import com.example.hyarpg.utils.jobs.JobSkill_Farming;
-//import com.example.hyarpg.utils.jobs.JobSkill_Fishing;
+import com.example.hyarpg.utils.jobs.JobSkill_Mining;
 import com.example.hyarpg.utils.jobs.JobSkill_Logging;
-//import com.example.hyarpg.utils.jobs.JobSkill_Mining;
-//import com.example.hyarpg.utils.jobs.JobSkill_Performing;
-//import com.example.hyarpg.utils.jobs.JobSkill_Thievery;
 
 // Java Imports
 import javax.annotation.Nonnull;
@@ -52,8 +41,8 @@ public class CustomPage_JobSkillsPage extends InteractiveCustomUIPage<CustomPage
 //            JobSkill_Exploring.INSTANCE,
 //            JobSkill_Farming.INSTANCE,
 //            JobSkill_Fishing.INSTANCE,
-            JobSkill_Logging.INSTANCE
-//            JobSkill_Mining.INSTANCE,
+            JobSkill_Logging.INSTANCE,
+            JobSkill_Mining.INSTANCE
 //            JobSkill_Performing.INSTANCE,
 //            JobSkill_Thievery.INSTANCE
     );
@@ -106,7 +95,7 @@ public class CustomPage_JobSkillsPage extends InteractiveCustomUIPage<CustomPage
         for (int i = 0; i < ALL_JOBS.size(); i++) {
             String jobId = ALL_JOBS.get(i).getId();
             int jobXp = jobSkills.getXP(jobId);
-            int jobLevel = jobSkills.calculateLevelFromXp(jobXp);
+            int jobLevel = jobSkills.calculateLevelFromXP(jobXp);
             int percent = (int)(jobSkills.calculateLevelProgress(jobXp) * 100);
             boolean isActive = i == activeJobIndex;
 
@@ -127,7 +116,7 @@ public class CustomPage_JobSkillsPage extends InteractiveCustomUIPage<CustomPage
         JobSkill job   = ALL_JOBS.get(activeJobIndex);
         String jobId   = job.getId();
         int xp         = jobSkills.getXP(jobId);
-        int level      = jobSkills.calculateLevelFromXp(xp);
+        int level      = jobSkills.calculateLevelFromXP(xp);
 
         // push job description
         cmd.set("#JobDescriptionLabel.Text", job.getDescription());

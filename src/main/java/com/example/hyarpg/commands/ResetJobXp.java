@@ -64,7 +64,7 @@ public class ResetJobXp extends CommandBase {
                 jobSkills.setXP(finalJobId, 0);
             } else {
                 // reset all jobs
-                jobSkills.resetAllXp();
+                jobSkills.resetAllXP();
             }
         });
     }

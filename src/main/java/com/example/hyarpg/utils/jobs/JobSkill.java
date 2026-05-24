@@ -1,6 +1,7 @@
 package com.example.hyarpg.utils.jobs;
 
 // Java Imports
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,24 +19,26 @@ public abstract class JobSkill {
     public abstract List<JobPerk> getPerks();
 
     // return only the highest tier unlocked perk per unique ID
-    public List<JobPerk> getUnlockedPerks(int level) {
+    public Map<String, JobPerk> getUnlockedPerks(int level) {
         // create an empty map to store the filtered perks into
-        Map<String, JobPerk> highestPerTier = new java.util.HashMap<>();
+        Map<String, JobPerk> highestPerTier = new HashMap<>();
 
         // loop over perks
         for (JobPerk perk : getPerks()) {
             // filter out those that are not unlocked by level yet
             if (level < perk.unlockLevel()) continue;
 
-            // check if this perk already exists in the list, if not add it or replace it with a higher tier
+            // check if this perk already exists in the map,
+            // if not add it or replace it with a higher tier
             JobPerk existing = highestPerTier.get(perk.id());
+
             if (existing == null || perk.tier() > existing.tier()) {
                 highestPerTier.put(perk.id(), perk);
             }
         }
 
-        // return the filtered values
-        return new java.util.ArrayList<>(highestPerTier.values());
+        // return the filtered map
+        return highestPerTier;
     }
 
 }

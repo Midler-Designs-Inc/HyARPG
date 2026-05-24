@@ -344,15 +344,14 @@ public class Module_RPGSystem {
 
         // Add rarity effect if applicable
         if (rpgEnemy.monsterRarity > 0) {
+            // get the applicable glow effect
             String entityEffectStr = rpgEnemy.getRarityString() + "_Glow";
-            EntityEffect specialEffect = (EntityEffect) EntityEffect.getAssetMap().getAsset(entityEffectStr);
+            EntityEffect specialEffect = EntityEffect.getAssetMap().getAsset(entityEffectStr);
             if (specialEffect == null) return;
 
+            // apply the rarity glow to the NPC
             EffectControllerComponent effectController = store.getComponent(ref, EffectControllerComponent.getComponentType());
-            if (effectController != null) {
-                effectController.addEffect(ref, specialEffect, commandBuffer);
-                effectController.addEffect(ref, specialEffect, commandBuffer);
-            }
+            if (effectController != null) effectController.addEffect(ref, specialEffect, commandBuffer);
         }
     }
 

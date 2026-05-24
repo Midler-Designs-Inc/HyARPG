@@ -174,6 +174,7 @@ public class HyARPGPlugin extends JavaPlugin {
             getCommandRegistry().registerCommand(new RefundSkillLibrary());
             getCommandRegistry().registerCommand(new SetSkillPoints());
             getCommandRegistry().registerCommand(new AddPlayerLevels());
+            getCommandRegistry().registerCommand(new AddJobLevels());
             getCommandRegistry().registerCommand(new ResetDiscoveredIngredients());
             getCommandRegistry().registerCommand(new ResetDiscoveredRecipes());
             getCommandRegistry().registerCommand(new ResetJobXp());

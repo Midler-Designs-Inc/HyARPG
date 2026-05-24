@@ -9,12 +9,12 @@
         {
           "time": 0,
           "delta": {"x": 0, "y": 0, "z": 0, "w": 1},
-          "interpolationType": "step"
+          "interpolationType": "linear"
         },
         {
-          "time": 120,
-          "delta": {"x": -0.70711, "y": 0, "z": 0, "w": 0.70711},
-          "interpolationType": "step"
+          "time": 1,
+          "delta": {"x": 1, "y": 0, "z": 0, "w": 0},
+          "interpolationType": "linear"
         }
       ],
       "shapeStretch": [],

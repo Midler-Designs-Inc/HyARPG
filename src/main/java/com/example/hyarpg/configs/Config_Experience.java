@@ -22,13 +22,13 @@ public class Config_Experience {
 
     @Key("xp_increase_per_job_level_modifier")
     @Comment("Percentage increase in XP required per job level. 0.50 = 50% more XP each level (e.g. 20, 30, 45, 67...). Default: 0.50")
-    public float xp_increase_per_job_level_modifier = 0.50f;
+    public float xp_increase_per_job_level_modifier = 0.15f;
 
     @Key("xp_increase_from_minor_activity")
-    @Comment("How much XP a player should get from performing a minor activity related to a job skill. Ex: Damaging a wooden block awards minor logging XP. Default: 1")
+    @Comment("How much XP a player should get from performing a minor activity related to a job skill. Ex: Damaging an ore block awards minor mining XP. Default: 1")
     public int xp_increase_from_minor_activity = 1;
 
     @Key("xp_increase_from_major_activity")
-    @Comment("How much XP a player should get from performing a major activity related to a job skill. Ex: Breaking a wooden block awards major logging XP. Default: 10")
+    @Comment("How much XP a player should get from performing a major activity related to a job skill. Ex: Breaking an ore block awards major mining XP. Default: 10")
     public int xp_increase_from_major_activity = 10;
 }

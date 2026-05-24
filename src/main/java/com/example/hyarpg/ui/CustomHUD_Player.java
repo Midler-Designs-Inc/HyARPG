@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 public class CustomHUD_Player extends CustomUIHud {
 
     public CustomHUD_Player(@Nonnull PlayerRef playerRef) {
-        super(playerRef);
+        super(playerRef, "HyARPG_HUD");
     }
 
     // load the UI layout file — called once by show() when the HUD is first registered

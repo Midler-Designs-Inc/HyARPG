@@ -1,6 +1,7 @@
 {
   "TranslationProperties": {
-    "Name": "server.items.Template_Weapon_Kunai.name"
+    "Name": "server.items.Weapon_Kunai_Iron.name",
+    "Description": "server.items.Weapon_Kunai_Iron.description"
   },
   "DroppedItemAnimation": "Items/Animations/Dropped/Dropped_Diagonal_Left.blockyanim",
   "Model": "Items/Weapons/Throwing_Knife/HyARPG_Kunai.blockymodel",

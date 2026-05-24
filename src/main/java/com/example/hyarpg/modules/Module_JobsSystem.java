@@ -2,14 +2,19 @@ package com.example.hyarpg.modules;
 
 // Hytale Imports
 import com.example.hyarpg.events.Event_PlayerInventoryItemAdded;
+import com.example.hyarpg.utils.jobs.JobSkill_Mining;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.math.vector.Rotation3f;
 import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockBreakingDropType;
+import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockGathering;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemDrop;
+import com.hypixel.hytale.server.core.asset.type.item.config.ItemDropList;
 import com.hypixel.hytale.server.core.entity.ExplosionUtils;
 import com.hypixel.hytale.server.core.entity.ItemUtils;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
@@ -37,6 +42,7 @@ import com.example.hyarpg.utils.jobs.JobSkill;
 import com.example.hyarpg.utils.jobs.JobSkill.*;
 import com.example.hyarpg.utils.jobs.JobSkill_Logging;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import org.joml.Vector3d;
 import org.joml.Vector3i;
 
@@ -117,12 +123,12 @@ public class Module_JobsSystem {
         // using pickaxe and was ore
         else if (usingPickaxe && isOre) {
             // get skill level and unlocked skill perks
-            int skillLevel = jobSkills.calculateLevelFromXP(jobSkills.loggingXp);
-            Map<String, JobSkill.JobPerk> unlockedPerks = JobSkill_Logging.INSTANCE.getUnlockedPerks(skillLevel);
+            int skillLevel = jobSkills.calculateLevelFromXP(jobSkills.miningXp);
+            Map<String, JobSkill.JobPerk> unlockedPerks = JobSkill_Mining.INSTANCE.getUnlockedPerks(skillLevel);
 
             // award XP and apply the perks
             jobSkills.awardXP(playerRef, "Mining", ModConfig.get().experience.xp_increase_from_minor_activity);
-            applyMiningPerks(ref, store, playerRef, unlockedPerks, false);
+            applyMiningDamagePerks(ref, store, unlockedPerks);
         }
     }
 
@@ -175,12 +181,12 @@ public class Module_JobsSystem {
         // using pickaxe and was ore
         else if (usingPickaxe && isOre) {
             // get skill level and unlocked skill perks
-            int skillLevel = jobSkills.calculateLevelFromXP(jobSkills.loggingXp);
-            Map<String, JobSkill.JobPerk> unlockedPerks = JobSkill_Logging.INSTANCE.getUnlockedPerks(skillLevel);
+            int skillLevel = jobSkills.calculateLevelFromXP(jobSkills.miningXp);
+            Map<String, JobSkill.JobPerk> unlockedPerks = JobSkill_Mining.INSTANCE.getUnlockedPerks(skillLevel);
 
             // award XP and apply the perks
             jobSkills.awardXP(playerRef, "Mining", ModConfig.get().experience.xp_increase_from_major_activity);
-            applyMiningPerks(ref, store, playerRef, unlockedPerks, true);
+            applyMiningBreakPerks(ref, store, event.event().getBlockType(), unlockedPerks);
         }
     }
 
@@ -222,7 +228,7 @@ public class Module_JobsSystem {
         // get the durability perk
         JobPerk durability = unlockedPerks.get("Durability");
         if (durability != null) {
-            // wait for next world execute so the pickaxe damage is already done
+            // wait for next world execute so the tool damage is already done
             store.getExternalData().getWorld().execute(() -> {
                 // get the players hotbar
                 InventoryComponent.Hotbar hotbar = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
@@ -232,7 +238,7 @@ public class Module_JobsSystem {
                 ItemStack heldItem = hotbar.getActiveItem();
                 if (heldItem == null || heldItem.isEmpty()) return;
 
-                // restore durability to the player's hatchet equal to .05f x perk tier (each swing vanilla takes off .25 durability)
+                // restore durability to the player's tool equal to .05f x perk tier (each swing vanilla takes off .25 durability)
                 double restoreAmount = .05d * (double) durability.tier();
                 ItemUtils.updateItemStackDurability(ref, heldItem, hotbar.getInventory(), hotbar.getActiveSlot(), restoreAmount, store);
             });
@@ -308,8 +314,131 @@ public class Module_JobsSystem {
         }
     }
 
-    // apply mining perks
-    private void applyMiningPerks (Ref<EntityStore> ref, Store<EntityStore> store, PlayerRef playerRef, Map<String, JobPerk> unlockedPerks, boolean breakEvent) {
+    // apply mining perks when damaging a block
+    private void applyMiningDamagePerks(Ref<EntityStore> ref, Store<EntityStore> store, Map<String, JobPerk> unlockedPerks) {
+        // get the durability perk
+        JobPerk durability = unlockedPerks.get("Durability");
+        if (durability != null) {
+            // wait for next world execute so the tool damage is already done
+            store.getExternalData().getWorld().execute(() -> {
+                // get the players hotbar
+                InventoryComponent.Hotbar hotbar = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+                if (hotbar == null) return;
 
+                // get the players active item
+                ItemStack heldItem = hotbar.getActiveItem();
+                if (heldItem == null || heldItem.isEmpty()) return;
+
+                // restore durability to the player's tool equal to .05f x perk tier (each swing vanilla takes off .25 durability)
+                double restoreAmount = .05d * (double) durability.tier();
+                ItemUtils.updateItemStackDurability(ref, heldItem, hotbar.getInventory(), hotbar.getActiveSlot(), restoreAmount, store);
+            });
+        }
     }
+
+    // apply mining perks when breaking a block
+    private void applyMiningBreakPerks(Ref<EntityStore> ref, Store<EntityStore> store, BlockType blockType, Map<String, JobPerk> unlockedPerks) {
+        // get the world and ref/player transform component or bail
+        World world = store.getExternalData().getWorld();
+        TransformComponent transformComp = store.getComponent(ref, TransformComponent.getComponentType());
+        if (transformComp == null) return;
+
+        // get the players current position
+        Vector3d dropPos = new Vector3d(transformComp.getPosition());
+
+        // get the drop list from the block type
+        BlockGathering blockGathering = blockType.getGathering();
+        if(blockGathering == null) return;
+        BlockBreakingDropType blockBreaking = blockGathering.getBreaking();
+        if (blockBreaking == null) return;
+        String dropListID = blockBreaking.getDropListId();
+        if (dropListID == null) return;
+        ItemDropList dropList = ItemDropList.getAssetMap().getAsset(dropListID);
+        if (dropList == null) return;
+
+        // get the ore item from the drop list
+        List<ItemDrop> allDrops = dropList.getContainer().getAllDrops(new ObjectArrayList<>());
+        String blockItemId = null;
+        for (ItemDrop drop : allDrops) {
+            if (drop.getItemId().startsWith("Ore_")) {
+                blockItemId = drop.getItemId();
+                break;
+            }
+        }
+        if (blockItemId == null) return;
+
+
+        // apply the yield perk
+        JobPerk yield = unlockedPerks.get("Yield");
+        if (yield != null) {
+            // roll a 10% x perk tier chance and if success drop one extra ore
+            float chance = 0.10f * yield.tier();
+            double roll = Math.random();
+            if (roll < chance) {
+                Holder<EntityStore>[] drops = ItemComponent.generateItemDrops(store, List.of(new ItemStack(blockItemId, 1)), dropPos, Rotation3f.IDENTITY);
+                world.execute(() -> store.addEntities(drops, AddReason.SPAWN));
+            }
+        }
+
+        // apply the shard finder (uncommon) perk
+        JobPerk shardFinder1 = unlockedPerks.get("ShardFinder1");
+        if (shardFinder1 != null) {
+            // roll a 25% chance to drop an uncommon shard
+            if (Math.random() < 0.25f) {
+                Holder<EntityStore>[] drops = ItemComponent.generateItemDrops(store, List.of(new ItemStack("Uncommon_Shards", 1)), dropPos, Rotation3f.IDENTITY);
+                world.execute(() -> store.addEntities(drops, AddReason.SPAWN));
+            }
+        }
+
+        // apply the shard finder (rare) perk
+        JobPerk shardFinder2 = unlockedPerks.get("ShardFinder2");
+        if (shardFinder2 != null) {
+            // roll a 15% chance to drop a rare shard
+            if (Math.random() < 0.15f) {
+                Holder<EntityStore>[] drops = ItemComponent.generateItemDrops(store, List.of(new ItemStack("Rare_Shards", 1)), dropPos, Rotation3f.IDENTITY);
+                world.execute(() -> store.addEntities(drops, AddReason.SPAWN));
+            }
+        }
+
+        // apply the shard finder (epic) perk
+        JobPerk shardFinder3 = unlockedPerks.get("ShardFinder3");
+        if (shardFinder3 != null) {
+            // roll a 07% chance to drop an epic shard
+            if (Math.random() < 0.07f) {
+                Holder<EntityStore>[] drops = ItemComponent.generateItemDrops(store, List.of(new ItemStack("Epic_Shards", 1)), dropPos, Rotation3f.IDENTITY);
+                world.execute(() -> store.addEntities(drops, AddReason.SPAWN));
+            }
+        }
+
+        // apply the shard finder (legendary) perk
+        JobPerk shardFinder4 = unlockedPerks.get("ShardFinder4");
+        if (shardFinder4 != null) {
+            // roll a 03% chance to drop an epic shard
+            if (Math.random() < 0.03f) {
+                Holder<EntityStore>[] drops = ItemComponent.generateItemDrops(store, List.of(new ItemStack("Legendary_Shards", 1)), dropPos, Rotation3f.IDENTITY);
+                world.execute(() -> store.addEntities(drops, AddReason.SPAWN));
+            }
+        }
+
+        // apply the yahtzee perk
+        JobPerk yahtzee = unlockedPerks.get("Yahtzee");
+        if (yahtzee != null) {
+            // roll a 50% chance to drop a second extra ore
+            if (Math.random() < 0.50f) {
+                Holder<EntityStore>[] drops = ItemComponent.generateItemDrops(store, List.of(new ItemStack(blockItemId, 1)), dropPos, Rotation3f.IDENTITY);
+                world.execute(() -> store.addEntities(drops, AddReason.SPAWN));
+            }
+        }
+
+        // apply the bonus yahtzee perk
+        JobPerk bonusYahtzee = unlockedPerks.get("BonusYahtzee");
+        if (bonusYahtzee != null) {
+            // roll a 50% chance to drop a third extra ore
+            if (Math.random() < 0.50f) {
+                Holder<EntityStore>[] drops = ItemComponent.generateItemDrops(store, List.of(new ItemStack(blockItemId, 1)), dropPos, Rotation3f.IDENTITY);
+                world.execute(() -> store.addEntities(drops, AddReason.SPAWN));
+            }
+        }
+    }
+
 }

@@ -72,7 +72,7 @@ public class AddJobLevels extends CommandBase {
             if (jobSkills == null) return;
 
             // get the job xp based on the passed job name, then find it's level
-            int jobXP = switch (jobSkill) {
+            long jobXP = switch (jobSkill) {
                 case "Alchemy" -> jobSkills.alchemyXp;
                 case "Bartering" -> jobSkills.barteringXp;
                 case "Beastmastery" -> jobSkills.beastmasteryXp;
@@ -91,7 +91,7 @@ public class AddJobLevels extends CommandBase {
 
             // calculate the amount of xp needed to reach the desired level
             int jobLevel = jobSkills.calculateLevelFromXP(jobXP);
-            int requiredXP = jobSkills.calculateTotalXPForLevel(jobLevel + levelsToAdd) - jobXP;
+            long requiredXP = jobSkills.calculateTotalXPForLevel(jobLevel + levelsToAdd) - jobXP;
 
             // award the required XP to bring the players job skill up to the desired level
             jobSkills.awardXP(lambdaSafeTargetedPlayer, jobSkill, requiredXP);

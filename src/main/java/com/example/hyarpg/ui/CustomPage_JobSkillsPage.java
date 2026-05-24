@@ -94,7 +94,7 @@ public class CustomPage_JobSkillsPage extends InteractiveCustomUIPage<CustomPage
 
         for (int i = 0; i < ALL_JOBS.size(); i++) {
             String jobId = ALL_JOBS.get(i).getId();
-            int jobXp = jobSkills.getXP(jobId);
+            long jobXp = jobSkills.getXP(jobId);
             int jobLevel = jobSkills.calculateLevelFromXP(jobXp);
             int percent = (int)(jobSkills.calculateLevelProgress(jobXp) * 100);
             boolean isActive = i == activeJobIndex;
@@ -115,7 +115,7 @@ public class CustomPage_JobSkillsPage extends InteractiveCustomUIPage<CustomPage
 
         JobSkill job   = ALL_JOBS.get(activeJobIndex);
         String jobId   = job.getId();
-        int xp         = jobSkills.getXP(jobId);
+        long xp         = jobSkills.getXP(jobId);
         int level      = jobSkills.calculateLevelFromXP(xp);
 
         // push job description

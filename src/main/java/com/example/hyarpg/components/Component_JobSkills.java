@@ -9,6 +9,7 @@ import com.hypixel.hytale.component.Component;
 import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
@@ -22,79 +23,90 @@ public class Component_JobSkills implements Component<EntityStore> {
     private final float xpPerLevelModifier = ModConfig.get().experience.xp_increase_per_job_level_modifier;
 
     // persisted XP pool per job — level is derived on the fly via calculateLevelFromXP()
-    public int alchemyXp      = 0;
-    public int barteringXp    = 0;
-    public int beastmasteryXp = 0;
-    public int buildingXp     = 0;
-    public int cookingXp      = 0;
-    public int craftingXp     = 0;
-    public int exploringXp    = 0;
-    public int farmingXp      = 0;
-    public int fishingXp      = 0;
-    public int loggingXp      = 0;
-    public int miningXp       = 0;
-    public int performingXp   = 0;
-    public int thieveryXp     = 0;
+    public long alchemyXp      = 0;
+    public long barteringXp    = 0;
+    public long beastmasteryXp = 0;
+    public long buildingXp     = 0;
+    public long cookingXp      = 0;
+    public long craftingXp     = 0;
+    public long exploringXp    = 0;
+    public long farmingXp      = 0;
+    public long fishingXp      = 0;
+    public long loggingXp      = 0;
+    public long miningXp       = 0;
+    public long performingXp   = 0;
+    public long thieveryXp     = 0;
 
     // persisted component data — one codec entry per job XP pool
     public static final BuilderCodec<Component_JobSkills> CODEC = BuilderCodec.builder(Component_JobSkills.class, Component_JobSkills::new)
-        .append(new KeyedCodec<>("AlchemyXp",      Codec.INTEGER), (c, v) -> c.alchemyXp      = v, c -> c.alchemyXp).add()
-        .append(new KeyedCodec<>("BarteringXp",    Codec.INTEGER), (c, v) -> c.barteringXp    = v, c -> c.barteringXp).add()
-        .append(new KeyedCodec<>("BeastmasteryXp", Codec.INTEGER), (c, v) -> c.beastmasteryXp = v, c -> c.beastmasteryXp).add()
-        .append(new KeyedCodec<>("BuildingXp",     Codec.INTEGER), (c, v) -> c.buildingXp     = v, c -> c.buildingXp).add()
-        .append(new KeyedCodec<>("CookingXp",      Codec.INTEGER), (c, v) -> c.cookingXp      = v, c -> c.cookingXp).add()
-        .append(new KeyedCodec<>("CraftingXp",     Codec.INTEGER), (c, v) -> c.craftingXp     = v, c -> c.craftingXp).add()
-        .append(new KeyedCodec<>("ExploringXp",    Codec.INTEGER), (c, v) -> c.exploringXp    = v, c -> c.exploringXp).add()
-        .append(new KeyedCodec<>("FarmingXp",      Codec.INTEGER), (c, v) -> c.farmingXp      = v, c -> c.farmingXp).add()
-        .append(new KeyedCodec<>("FishingXp",      Codec.INTEGER), (c, v) -> c.fishingXp      = v, c -> c.fishingXp).add()
-        .append(new KeyedCodec<>("LoggingXp",      Codec.INTEGER), (c, v) -> c.loggingXp      = v, c -> c.loggingXp).add()
-        .append(new KeyedCodec<>("MiningXp",       Codec.INTEGER), (c, v) -> c.miningXp       = v, c -> c.miningXp).add()
-        .append(new KeyedCodec<>("PerformingXp",   Codec.INTEGER), (c, v) -> c.performingXp   = v, c -> c.performingXp).add()
-        .append(new KeyedCodec<>("ThieveryXp",     Codec.INTEGER), (c, v) -> c.thieveryXp     = v, c -> c.thieveryXp).add()
+        .append(new KeyedCodec<>("AlchemyXp",      Codec.LONG), (c, v) -> c.alchemyXp      = v, c -> c.alchemyXp).add()
+        .append(new KeyedCodec<>("BarteringXp",    Codec.LONG), (c, v) -> c.barteringXp    = v, c -> c.barteringXp).add()
+        .append(new KeyedCodec<>("BeastmasteryXp", Codec.LONG), (c, v) -> c.beastmasteryXp = v, c -> c.beastmasteryXp).add()
+        .append(new KeyedCodec<>("BuildingXp",     Codec.LONG), (c, v) -> c.buildingXp     = v, c -> c.buildingXp).add()
+        .append(new KeyedCodec<>("CookingXp",      Codec.LONG), (c, v) -> c.cookingXp      = v, c -> c.cookingXp).add()
+        .append(new KeyedCodec<>("CraftingXp",     Codec.LONG), (c, v) -> c.craftingXp     = v, c -> c.craftingXp).add()
+        .append(new KeyedCodec<>("ExploringXp",    Codec.LONG), (c, v) -> c.exploringXp    = v, c -> c.exploringXp).add()
+        .append(new KeyedCodec<>("FarmingXp",      Codec.LONG), (c, v) -> c.farmingXp      = v, c -> c.farmingXp).add()
+        .append(new KeyedCodec<>("FishingXp",      Codec.LONG), (c, v) -> c.fishingXp      = v, c -> c.fishingXp).add()
+        .append(new KeyedCodec<>("LoggingXp",      Codec.LONG), (c, v) -> c.loggingXp      = v, c -> c.loggingXp).add()
+        .append(new KeyedCodec<>("MiningXp",       Codec.LONG), (c, v) -> c.miningXp       = v, c -> c.miningXp).add()
+        .append(new KeyedCodec<>("PerformingXp",   Codec.LONG), (c, v) -> c.performingXp   = v, c -> c.performingXp).add()
+        .append(new KeyedCodec<>("ThieveryXp",     Codec.LONG), (c, v) -> c.thieveryXp     = v, c -> c.thieveryXp).add()
         .build();
 
     // default no-arg constructor (required for component registration)
     public Component_JobSkills() {}
 
-    public int calculateLevelFromXP(int xp) {
+    // calculate the current level based on the given XP value
+    public int calculateLevelFromXP(long xp) {
         if (xp <= 0) return 1;
         double growthFactor = 1 + xpPerLevelModifier;
-        double epsilon = 1e-6;
-        double L = Math.log(1 + (xp * xpPerLevelModifier) / (double) xpToFirstLevel + epsilon) / Math.log(growthFactor);
+        double L = Math.log(1 + ((double) xp * xpPerLevelModifier) / (double) xpToFirstLevel) / Math.log(growthFactor);
         return (int) Math.floor(L) + 1;
     }
 
     // calculate total XP required to reach the start of a specific level
-    public int calculateTotalXPForLevel(int targetLevel) {
+    public long calculateTotalXPForLevel(int targetLevel) {
         double growthFactor = 1 + xpPerLevelModifier;
         double total = xpToFirstLevel * (Math.pow(growthFactor, targetLevel - 1) - 1) / xpPerLevelModifier;
-        return (int) Math.max(0, Math.round(total));
+        return Math.max(0, Math.round(total));
     }
 
     // calculate XP progress within the current level as a 0-1 float
-    public float calculateLevelProgress(int xp) {
+    public float calculateLevelProgress(long xp) {
         int currentLevel      = calculateLevelFromXP(xp);
-        int xpForCurrentLevel = calculateTotalXPForLevel(currentLevel);
-        int xpForNextLevel    = calculateTotalXPForLevel(currentLevel + 1);
+        long xpForCurrentLevel = calculateTotalXPForLevel(currentLevel);
+        long xpForNextLevel    = calculateTotalXPForLevel(currentLevel + 1);
         double progress = (double)(xp - xpForCurrentLevel) / (xpForNextLevel - xpForCurrentLevel);
         return (float) Math.max(0.0, Math.min(1.0, progress));
     }
 
-    // award XP to a job, fire a level-up notification for each level gained, and return the updated XP total
-    public void awardXP(PlayerRef playerRef, String jobId, int xpGained) {
+    // award XP to a job, fire a level-up notification if level(s) gained, and return the updated XP total
+    public void awardXP(PlayerRef playerRef, String jobId, long xpGained) {
         // get applicable variables/values
-        int currentXp   = getXP(jobId);
+        long currentXp  = getXP(jobId);
         int levelBefore = calculateLevelFromXP(currentXp);
-        int newXP       = currentXp + xpGained;
-        int levelAfter  = calculateLevelFromXP(newXP);
+
+        // if already at max level, do nothing
+        if (levelBefore >= 100) return;
+
+        // calculate the new XP and level
+        long newXP     = currentXp + xpGained;
+        int levelAfter = calculateLevelFromXP(newXP);
+
+        // cap XP at exactly the start of level 100, no progress beyond
+        if (levelAfter >= 100) {
+            newXP      = calculateTotalXPForLevel(100);
+            levelAfter = 100;
+        }
 
         // notify if the player gained at least one level
         if (levelAfter > levelBefore) {
             EventTitleUtil.showEventTitleToPlayer(
-                playerRef,
-                Message.raw(String.valueOf(levelAfter)),
-                Message.raw(jobId.toUpperCase() + " LEVEL UP"),
-                true
+                    playerRef,
+                    Message.raw(String.valueOf(levelAfter)),
+                    Message.raw(jobId.toUpperCase() + " LEVEL UP"),
+                    true
             );
         }
 
@@ -103,7 +115,7 @@ public class Component_JobSkills implements Component<EntityStore> {
     }
 
     // get a job's xp by ID
-    public int getXP(String jobId) {
+    public long getXP(String jobId) {
         return switch (jobId) {
             case "Alchemy"      -> alchemyXp;
             case "Bartering"    -> barteringXp;
@@ -123,7 +135,7 @@ public class Component_JobSkills implements Component<EntityStore> {
     }
 
     // set a job's xp by ID
-    public void setXP(String jobId, int xp) {
+    public void setXP(String jobId, long xp) {
         switch (jobId) {
             case "Alchemy"      -> alchemyXp      = xp;
             case "Bartering"    -> barteringXp    = xp;

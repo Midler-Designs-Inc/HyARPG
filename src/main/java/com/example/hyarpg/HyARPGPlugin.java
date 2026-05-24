@@ -183,7 +183,6 @@ public class HyARPGPlugin extends JavaPlugin {
             getCommandRegistry().registerCommand(new TriggerRaid(this));
             getCommandRegistry().registerCommand(new TriggerRaid(this));
             getCommandRegistry().registerCommand(new ClearCurrentTerritory());
-            getCommandRegistry().registerCommand(new ShowSalvagePage());
 
             // log the instantiation
             LOGGER.at(Level.INFO).log("[HyARPG] Instantiated commands");

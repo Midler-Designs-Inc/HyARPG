@@ -32,8 +32,8 @@ public class JobSkill_Logging extends JobSkill {
             new JobPerk("Durability",    4,  75,  "Careful Swing IV",     "Hatchets lose minimal durability while chopping trees."),
             new JobPerk("Yield",         8,  80,  "Better Yield VIII",    "You have a 80% chance to gain extra logs when picking up chopped logs."),
             new JobPerk("InstantFell",   1,  85,  "Instant Fell I",       "You have a 25% chance to instantly break wood trunks."),
-            new JobPerk("Yield",         9, 90,  "Better Yield X",        "You have a 90% chance to gain extra logs when picking up chopped logs."),
-            new JobPerk("Yield",         10, 95,  "Better Yield XI",      "You have a 100% chance to gain extra logs when picking up chopped logs."),
+            new JobPerk("Yield",         9, 90,   "Better Yield XI",      "You have a 90% chance to gain extra logs when picking up chopped logs."),
+            new JobPerk("Yield",         10, 95,  "Better Yield X",       "You have a 100% chance to gain extra logs when picking up chopped logs."),
             new JobPerk("InstantFell",   2,  100, "Instant Fell II",      "You have a 50% chance to instantly break wood trunks.")
         );
     }

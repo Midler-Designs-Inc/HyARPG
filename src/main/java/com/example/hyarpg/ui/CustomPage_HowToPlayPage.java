@@ -31,20 +31,21 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
 
     // all section ids in nav order
     private static final String[][] SECTIONS = {
-            { "getting_started", "HTPBtnGettingStarted" },
-            { "survival",        "HTPBtnSurvival"       },
-            { "progression",     "HTPBtnProgression"    },
-            { "gear",            "HTPBtnGear"           },
-            { "crafting",        "HTPBtnCrafting"       },
-            { "cube_combine",    "HTPBtnCubeCombine"    },
-            { "salvaging",       "HTPBtnSalvaging"      },
-            { "combat",          "HTPBtnCombat"         },
-            { "base_building",   "HTPBtnBaseBuilding"   },
-            { "raids",           "HTPBtnRaids"          },
-            { "prefabs",         "HTPBtnPrefabs"        },
-            { "wayward_shrines", "HTPBtnWaywardShrines" },
-            { "commands",        "HTPBtnCommands"       },
-            { "configuration",   "HTPBtnConfiguration"  }
+        { "getting_started", "HTPBtnGettingStarted" },
+        { "survival",        "HTPBtnSurvival"       },
+        { "progression",     "HTPBtnProgression"    },
+        { "gear",            "HTPBtnGear"           },
+        { "crafting",        "HTPBtnCrafting"       },
+        { "cube_combine",    "HTPBtnCubeCombine"    },
+        { "salvaging",       "HTPBtnSalvaging"      },
+        { "combat",          "HTPBtnCombat"         },
+        { "base_building",   "HTPBtnBaseBuilding"   },
+        { "raids",           "HTPBtnRaids"          },
+        { "job_skills",      "HTPBtnJobSkills"      },
+        { "prefabs",         "HTPBtnPrefabs"        },
+        { "wayward_shrines", "HTPBtnWaywardShrines" },
+        { "commands",        "HTPBtnCommands"       },
+        { "configuration",   "HTPBtnConfiguration"  }
     };
 
     // currently active section
@@ -116,6 +117,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
             case "combat"          -> buildCombat();
             case "base_building"   -> buildBaseBuilding();
             case "raids"           -> buildRaids();
+            case "job_skills"      -> buildJobSkills();
             case "prefabs"         -> buildPrefabs();
             case "wayward_shrines" -> buildWaywardShrines();
             case "commands"        -> buildCommands();
@@ -385,6 +387,19 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
         return lines;
     }
 
+    private List<Line> buildJobSkills() {
+        List<Line> lines = new ArrayList<>();
+        lines.add(heading("Job Skills"));
+        lines.add(plain("Job Skills are passive progression systems tied to specific activities. Unlike combat levels, job levels are earned by performing the job itself — not by killing enemies. Each job has its own XP pool, level cap of 100, and a unique set of perks that unlock as you level up."));
+        lines.add(plain("Job levels do not reset on death and are not affected by respeccing your skill trees."));
+        lines.add(spacer());
+
+        lines.add(heading("Available Job Skills"));
+        lines.add(bullet("Logging", "Logging levels up by chopping and breaking wood blocks with a Hatchet. Minor XP is awarded on each swing, major XP is awarded for any wood block picked up within 2 seconds of breaking a wood block."));
+        lines.add(bullet("Mining", "Mining levels up by striking and breaking ore blocks with a Pickaxe. Minor XP is awarded on each swing, major XP is awarded when an ore block is fully broken."));
+        return lines;
+    }
+
     private List<Line> buildPrefabs() {
         Config_World world = ModConfig.get().world;
         List<Line> lines = new ArrayList<>();
@@ -429,22 +444,28 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
 
     private List<Line> buildCommands() {
         List<Line> lines = new ArrayList<>();
+        lines.add(heading("Discovering Commands"));
+        lines.add(plain("Hytale has built-in command autocomplete now! Type /hyarpg in chat and a suggestion dropdown will appear showing all available commands. Use the arrow keys to navigate and Tab to select."));
+        lines.add(spacer());
         lines.add(heading("Player Commands"));
         lines.add(command("/skills", "Open your skill trees. Browse, invest skill points, and equip abilities."));
         lines.add(command("/stats", "Open character/gear management page. View and equip mod gear/items."));
+        lines.add(command("/jobs", "Open your job skills page. View your job skills level/progress & perks."));
         lines.add(command("/discovered", "Open your recipe book. Shows all discovered room recipes."));
         lines.add(command("/HyARPG_Player_Settings_ShowCombatMessages <true|false>", "Toggle combat damage messages."));
         lines.add(spacer());
         lines.add(heading("Admin Commands"));
+        lines.add(command("/HyARPG_Add_Job_Levels <player> <job> <amount>", "Add levels to a player's job skill."));
         lines.add(command("/HyARPG_Add_Player_Levels <player> <amount>", "Add levels to a player."));
-        lines.add(command("/HyARPG_Set_Skill_Points <player> <amount>", "Set a player's skill point total."));
+        lines.add(command("/HyARPG_Clear_Current_Territory", "Clear territory at your current location."));
+        lines.add(command("/HyARPG_Hunger_TickEnabled <true|false>", "Enable or disable the hunger system."));
         lines.add(command("/HyARPG_Refund_Skills <player>", "Refund all spent skill points for a player."));
         lines.add(command("/HyARPG_Reset_Discovered_Ingredient <player>", "Reset discovered crafting ingredients."));
         lines.add(command("/HyARPG_Reset_Discovered_Rooms <player>", "Reset discovered room recipes."));
-        lines.add(command("/HyARPG_Hunger_TickEnabled <true|false>", "Enable or disable the hunger system."));
+        lines.add(command("/HyARPG_Reset_Job_Xp <player>", "Reset all job skill XP for a player."));
+        lines.add(command("/HyARPG_Set_Skill_Points <player> <amount>", "Set a player's skill point total."));
         lines.add(command("/HyARPG_Thirst_TickEnabled <true|false>", "Enable or disable the thirst system."));
         lines.add(command("/HyARPG_Trigger_Raid <player> <base|player>", "Manually trigger a raid for testing."));
-        lines.add(command("/HyARPG_Clear_Current_Territory", "Clear territory at your current location."));
         return lines;
     }
 
@@ -528,6 +549,7 @@ public class CustomPage_HowToPlayPage extends InteractiveCustomUIPage<CustomPage
             case "combat"          -> "Combat";
             case "base_building"   -> "Base Building & Rooms";
             case "raids"           -> "Raids";
+            case "job_skills"      -> "Job Skills";
             case "prefabs"         -> "World Prefabs";
             case "wayward_shrines" -> "Wayward Shrines";
             case "commands"        -> "Commands";

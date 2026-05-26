@@ -33,7 +33,6 @@
       "Staff"
     ]
   },
-  "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Wood",
   "Parent": "Template_Weapon_Staff",
   "Recipe": {

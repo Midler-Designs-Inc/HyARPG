@@ -63,9 +63,6 @@
       "Daggers"
     ]
   },
-  "Weapon": {
-    "RenderDualWielded": true
-  },
   "ItemAppearanceConditions": {},
   "MaxDurability": 80,
   "DurabilityLossOnHit": 0.1,

@@ -59,7 +59,6 @@
       "Mace"
     ]
   },
-  "Weapon": {},
   "ItemAppearanceConditions": {},
   "MaxDurability": 80,
   "DurabilityLossOnHit": 0.5,

@@ -343,7 +343,7 @@ public class Module_RPGSystem {
         }
 
         // Add rarity effect if applicable
-        if (rpgEnemy.monsterRarity > 0) {
+        if (ModConfig.get().enemies.show_enemy_rarity_glow && rpgEnemy.monsterRarity > 0) {
             // get the applicable glow effect
             String entityEffectStr = rpgEnemy.getRarityString() + "_Glow";
             EntityEffect specialEffect = EntityEffect.getAssetMap().getAsset(entityEffectStr);

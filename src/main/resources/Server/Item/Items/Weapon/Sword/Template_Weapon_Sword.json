@@ -61,7 +61,6 @@
       "Sword"
     ]
   },
-  "Weapon": {},
   "ItemAppearanceConditions": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
   "MaxDurability": 80,

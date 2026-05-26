@@ -184,10 +184,10 @@ public class RoomFloodFill {
         if (bt == null) return false;
         if (bt.getMaterial() != BlockMaterial.Solid) return false;
 
-        if (bt.getDrawType() == DrawType.Cube) return true;
-
         String hitboxType = bt.getHitboxType();
         if (hitboxType != null && (hitboxType.contains("Door") || hitboxType.contains("Window"))) return true;
+
+        if (bt.getDrawType() == DrawType.Cube) return true;
 
         // Category check for things like trapdoors that aren't caught by hitbox name
         Item item = bt.getItem();

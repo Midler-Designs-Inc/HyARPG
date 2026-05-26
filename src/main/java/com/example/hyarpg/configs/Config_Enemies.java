@@ -23,4 +23,12 @@ public class Config_Enemies {
     @Key("clear_enemy_nameplates")
     @Comment("Remove existing enemy nameplates. WARNING: This may interfere with other mods. Use it if needed, then turn it off again. Default: false")
     public boolean clear_enemy_nameplates = false;
+
+    @Key("show_enemy_rarity_glow")
+    @Comment("Rather or not to highlight enemies based on their rarity color. Default: true")
+    public boolean show_enemy_rarity_glow = true;
+
+    @Key("show_enemy_targeting_glow")
+    @Comment("Rather or not to highlight enemies with a red effect when targeted. This effect only shows for an individual player. Default: true")
+    public boolean show_enemy_targeting_glow = true;
 }

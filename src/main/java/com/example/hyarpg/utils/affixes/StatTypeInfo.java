@@ -3,6 +3,7 @@ package com.example.hyarpg.utils;
 import com.example.hyarpg.utils.affixes.StatType;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Random;
 
@@ -137,6 +138,15 @@ public class StatTypeInfo {
         String maxFormatted = max == (int) max ? String.valueOf((int) max) : String.format("%.2f", max);
         String range = minFormatted.equals(maxFormatted) ? maxFormatted : (minFormatted + "-" + maxFormatted);
         return template.replace("{value}", range);
+    }
+
+    // returns the StatType for the given name, or null if not found
+    @Nullable
+    public static StatType getStatType(@Nonnull String name) {
+        for (StatType stat : StatType.values()) {
+            if (stat.name().equals(name)) return stat;
+        }
+        return null;
     }
 
     // rolls a float value inclusively between min and max

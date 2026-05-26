@@ -1,20 +1,29 @@
 package com.example.hyarpg.utils.items;
 
+// Hytale Imports
+import com.hypixel.hytale.codec.Codec;
+import com.hypixel.hytale.server.core.Message;
+import com.hypixel.hytale.server.core.asset.type.item.config.Item;
+import com.hypixel.hytale.server.core.asset.type.item.config.metadata.ItemDisplayMetadata;
+import com.hypixel.hytale.server.core.inventory.ItemStack;
+
+// Mod Imports
+import com.example.hyarpg.modules.Module_CombatSystem;
 import com.example.hyarpg.utils.StatTypeInfo;
 import com.example.hyarpg.utils.affixes.Affix;
 import com.example.hyarpg.utils.affixes.AffixPool;
 import com.example.hyarpg.utils.affixes.StatType;
-import com.hypixel.hytale.codec.Codec;
-import com.hypixel.hytale.server.core.asset.type.item.config.Item;
-import com.hypixel.hytale.server.core.inventory.ItemStack;
+
+// Java Imports
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -110,11 +119,6 @@ public class ItemFactory {
 
     // record to hold structured recipe input data
     public record RecipeInput(String itemId, String displayName, int quantity) {}
-
-    // converts a bench category string to a display name e.g. "Heads_and_Blades" -> "Heads & Blades"
-    private static String categoryToDisplay(@Nonnull String raw) {
-        return COMPONENT_CATEGORY_DISPLAY.computeIfAbsent(raw, k -> k.replace("_and_", " & ").replace("_", " "));
-    }
 
     // builds the component index by scanning all Weapon_Component_ and Armor_Component_ assets
     public static void buildComponentIndex() {
@@ -264,6 +268,9 @@ public class ItemFactory {
         // apply gear score from player level
         stack = stack.withMetadata("GearScore", Codec.INTEGER, gearScore);
 
+        // apply custom name/description overrides
+        stack = applyDisplayMetadata(stack, rarity);
+
         return stack;
     }
 
@@ -395,5 +402,94 @@ public class ItemFactory {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    // returns a new item stack with a custom name and description override
+    @Nonnull
+    private static ItemStack applyDisplayMetadata(@Nonnull ItemStack stack, @Nonnull String rarity) {
+        // read encoded implicits and affixes from stack metadata
+        String[] implicitStrings = stack.getFromMetadataOrNull("implicits", Codec.STRING_ARRAY);
+        String[] affixStrings    = stack.getFromMetadataOrNull("affixes",   Codec.STRING_ARRAY);
+
+        // compose display name as "{Rarity} {localized item name}" using Message.join
+        String translationKey = Objects.requireNonNullElse(stack.getItem().getTranslationProperties().getName(), "Gear");
+        Message displayName = Message.translation(translationKey);
+
+        // split implicits into weapon damage (shown bold at top) and regular implicits
+        List<String> weaponDamageImplicits = getWeaponDamageImplicits(stack);
+        List<String> regularImplicitLines = new ArrayList<>();
+        if (implicitStrings != null) {
+            for (String implicit : implicitStrings) {
+                if (!weaponDamageImplicits.contains(implicit)) {
+                    String[] parts = implicit.split("\\|");
+                    if (parts.length < 3) continue;
+                    regularImplicitLines.add(parts[2]);
+                }
+            }
+        }
+
+        // build bold colored weapon damage message shown above everything else
+        Message weaponDamage = Message.empty();
+        for (String line : weaponDamageImplicits) {
+            // split into [stat, value, display] and skip malformed entries
+            String[] parts = line.split("\\|");
+            if (parts.length < 3) continue;
+
+            // match stat name against damage type keys to resolve a display color
+            String statName = parts[0];
+            Color color = null;
+            for (Map.Entry<String, Color> entry : Module_CombatSystem.DAMAGE_COLORS.entrySet()) {
+                if (statName.contains(entry.getKey().toUpperCase())) {
+                    color = entry.getValue();
+                    break;
+                }
+            }
+
+            // build bold message with color if one was resolved
+            Message damageLine = Message.raw(parts[2] + "\n").bold(true);
+            if (color != null) damageLine = damageLine.color(color);
+            weaponDamage = weaponDamage.insert(damageLine);
+        }
+
+        // gear score line
+        Message gearScoreLine = Message.empty();
+        Integer gearScore = stack.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+        if (gearScore != null) gearScoreLine = Message.raw("Gear Score: " + gearScore);
+
+        // append regular implicit display strings
+        StringBuilder desc = new StringBuilder();
+        for (String line : regularImplicitLines) desc.append(line).append("\n");
+
+        // separate affixes from implicits with a blank line if both are present
+        if (affixStrings != null) {
+            if (!regularImplicitLines.isEmpty()) desc.append("\n");
+
+            // loop over affixes
+            for (String affix : affixStrings) {
+                // split into [stat, value, tier] and skip malformed entries
+                String[] parts = affix.split("\\|");
+                if (parts.length < 3) continue;
+
+                // look up the affix by stat name to get its display template
+                Affix affixDef = AffixPool.getAffixByStatName(parts[0]);
+                if (affixDef == null) continue;
+
+                // parse value and tier
+                float value = Float.parseFloat(parts[1]);
+                int tier = (int) Float.parseFloat(parts[2]);
+
+                // format display string with bullet and tier in brackets on the right
+                String display = affixDef.display().replace("%s", String.format("%.1f", value)).replace("%%", "%");
+                desc.append("• [T").append(tier).append("] ").append(display).append("\n");
+            }
+        }
+
+        // compose final description as weapon damage + gear score + rest
+        Message description = weaponDamage
+                .insert(gearScoreLine)
+                .insert(Message.raw("\n\n" + desc.toString().stripTrailing()));
+
+        // return the updated item stack with the overridden name and description
+        return stack.withMetadata(ItemDisplayMetadata.KEYED_CODEC, new ItemDisplayMetadata(displayName, description));
     }
 }

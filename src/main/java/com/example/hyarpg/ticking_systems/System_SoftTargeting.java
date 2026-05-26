@@ -1,6 +1,7 @@
 package com.example.hyarpg.ticking_systems;
 
 // Hytale Imports
+import com.example.hyarpg.configs.ModConfig;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.component.dependency.Dependency;
@@ -133,6 +134,9 @@ public class System_SoftTargeting extends EntityTickingSystem<EntityStore> {
 
     // push an add or remove highlight effect to a single player's viewer queue
     private void sendHighlightPacket(@Nonnull Ref<EntityStore> ref, @Nonnull Ref<EntityStore> npcRef, @Nonnull Store<EntityStore> store, boolean apply) {
+        // if targeting highlight is disabled just bail
+        if(!ModConfig.get().enemies.show_enemy_targeting_glow) return;
+
         // get the NPC's visible component so we can find this player's viewer
         EntityTrackerSystems.Visible visibleComponent = store.getComponent(npcRef, EntityTrackerSystems.Visible.getComponentType());
         if (visibleComponent == null) return;

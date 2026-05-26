@@ -157,7 +157,6 @@
   },
   "MaxDurability": 0,
   "DurabilityLossOnHit": 0.52,
-  "Weapon": {},
   "ItemSoundSetId": "ISS_Weapons_Blade_Large",
   "Recipe": {
     "TimeSeconds": 5,

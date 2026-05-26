@@ -30,6 +30,7 @@ public class Module_PlayerHud {
         Store<EntityStore> store = world.getEntityStore().getStore();
         if (entityRef == null) return;
 
+        // get the PlayerRef component
         PlayerRef playerRef = store.getComponent(entityRef, PlayerRef.getComponentType());
         if (playerRef == null) return;
 

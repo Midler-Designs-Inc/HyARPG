@@ -23,6 +23,7 @@ import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
+import com.example.hyarpg.components.Component_RPG_Enemy;
 import com.example.hyarpg.components.Component_Hunger;
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.components.Component_Thirst;
@@ -33,6 +34,7 @@ import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.modules.Module_Thirst;
 import com.example.hyarpg.ui.CustomHUD_Player;
 import com.example.hyarpg.utils.skills.SkillNode;
+import com.hypixel.hytale.server.npc.entities.NPCEntity;
 
 // Java Imports
 import javax.annotation.Nonnull;
@@ -165,6 +167,26 @@ public class System_PlayerHud extends EntityTickingSystem<EntityStore> {
                 state.raidCountdown = "Raid ends in " + Math.max(0, (raidState.raidEndMs - nowMs) / 1000L) + "s";
             }
             state.raidEnemiesRemaining = raidState.raidGroup != null ? raidState.getLiveEnemyCount(player.getWorld()) : 0;
+        }
+
+        // soft target panel — reads enemy name, level, rarity, prefix and health from the current target ref
+        Ref<EntityStore> targetRef = rpgPlayer.currentTarget;
+        state.hasTarget = targetRef != null && targetRef.isValid();
+        if (state.hasTarget) {
+            NPCEntity npcEntity = store.getComponent(targetRef, NPCEntity.getComponentType());
+            Component_RPG_Enemy rpgEnemy = store.getComponent(targetRef, Module_RPGSystem.componentTypeRPGEnemy);
+            EntityStatMap targetStatMap = store.getComponent(targetRef, EntityStatsModule.get().getEntityStatMapComponentType());
+
+            if (npcEntity != null) state.targetName = npcEntity.getRoleName().replace("_", " ");
+            if (rpgEnemy != null) {
+                String rarity = rpgEnemy.getRarityString();
+                state.targetLevelRarity = rarity.isEmpty() ? "Lv " + rpgEnemy.level : "Lv " + rpgEnemy.level + "  |  " + rarity;
+                state.targetPrefix = rpgEnemy.prefix;
+            }
+            if (targetStatMap != null) {
+                EntityStatValue targetHealth = targetStatMap.get(DefaultEntityStatTypes.getHealth());
+                if (targetHealth != null && targetHealth.getMax() > 0) state.targetHealthPercent = (float) targetHealth.get() / targetHealth.getMax();
+            }
         }
 
         // all state is ready — hand it off to the HUD to push the delta packet

@@ -63,6 +63,16 @@ public class CustomHUD_Player extends CustomUIHud {
         cmd.set("#currentRoom.Visible", state.showRoomInfo);
         if (state.showRoomInfo) cmd.set("#currentRoom.Text", state.roomText);
 
+        // target panel — shown when the player has a soft-locked enemy target
+        cmd.set("#targetPanel.Visible", state.hasTarget);
+        if (state.hasTarget) {
+            cmd.set("#targetName.Text", state.targetName);
+            cmd.set("#targetLevelRarity.Text", state.targetLevelRarity);
+            cmd.set("#targetPrefix.Visible", state.targetPrefix != null);
+            if (state.targetPrefix != null) cmd.set("#targetPrefix.Text", state.targetPrefix);
+            cmd.set("#targetHealthBar.Value", state.targetHealthPercent);
+        }
+
         // raid panel shown on the left during an active raid — hidden entirely otherwise
         cmd.set("#raidHudIcon.Visible", state.raidActive);
         cmd.set("#raidHudWaveStatus.Visible", state.raidActive);
@@ -108,6 +118,13 @@ public class CustomHUD_Player extends CustomUIHud {
         // territory and room context
         public boolean showRoomInfo;
         public String roomText = "";
+
+        // soft target info
+        public boolean hasTarget;
+        public String targetName = "";
+        public String targetLevelRarity = "";
+        public String targetPrefix = null;
+        public float targetHealthPercent;
 
         // raid state
         public boolean raidActive;

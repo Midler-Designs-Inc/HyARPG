@@ -187,6 +187,37 @@ Group {
         Text: "";
     }
 
+    // Target panel shown top center when the player has a soft-targeted enemy
+    Group #targetPanel {
+        Anchor: (Width: 250, Height: 60, Top: 115);
+        Visible: false;
+
+        Label #targetName {
+            Anchor: (Width: 250, Height: 18, Top: 0);
+            Style: (FontSize: 14, TextColor: #ffffff, RenderBold: true, Alignment: Center);
+            Text: "";
+        }
+        Label #targetLevelRarity {
+            Anchor: (Width: 250, Height: 14, Top: 20);
+            Style: (FontSize: 11, TextColor: #ffffff, RenderBold: false, Alignment: Center);
+            Text: "";
+        }
+        Label #targetPrefix {
+            Anchor: (Width: 250, Height: 14, Top: 36);
+            Visible: false;
+            Style: (FontSize: 11, TextColor: #ffaa00, RenderBold: true, Alignment: Center);
+            Text: "";
+        }
+        Group {
+            Anchor: (Width: 200, Height: 8, Top: 52);
+            Background: #333333;
+            ProgressBar #targetHealthBar {
+                Anchor: (Width: 200, Height: 8);
+                BarTexturePath: "../d74c5a.png";
+            }
+        }
+    }
+
     // Raid HUD shown during an active raid
     Group #raidHudIcon {
         Anchor: (Width: 120, Height: 50, Left: 25, Top: 200);

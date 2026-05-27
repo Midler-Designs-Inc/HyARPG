@@ -269,7 +269,7 @@ public class ItemFactory {
         stack = stack.withMetadata("GearScore", Codec.INTEGER, gearScore);
 
         // apply custom name/description overrides
-        stack = applyDisplayMetadata(stack, rarity);
+        stack = applyDisplayMetadata(stack);
 
         return stack;
     }
@@ -406,7 +406,7 @@ public class ItemFactory {
 
     // returns a new item stack with a custom name and description override
     @Nonnull
-    private static ItemStack applyDisplayMetadata(@Nonnull ItemStack stack, @Nonnull String rarity) {
+    private static ItemStack applyDisplayMetadata(@Nonnull ItemStack stack) {
         // read encoded implicits and affixes from stack metadata
         String[] implicitStrings = stack.getFromMetadataOrNull("implicits", Codec.STRING_ARRAY);
         String[] affixStrings    = stack.getFromMetadataOrNull("affixes",   Codec.STRING_ARRAY);
@@ -491,5 +491,45 @@ public class ItemFactory {
 
         // return the updated item stack with the overridden name and description
         return stack.withMetadata(ItemDisplayMetadata.KEYED_CODEC, new ItemDisplayMetadata(displayName, description));
+    }
+
+    // returns raw text of a custom description override
+    public static String buildSlotDescription(@Nonnull ItemStack stack) {
+        String[] implicitStrings = stack.getFromMetadataOrNull("implicits", Codec.STRING_ARRAY);
+        String[] affixStrings    = stack.getFromMetadataOrNull("affixes",   Codec.STRING_ARRAY);
+
+        StringBuilder desc = new StringBuilder();
+
+        // gear score
+        Integer gearScore = stack.getFromMetadataOrNull("GearScore", Codec.INTEGER);
+        if (gearScore != null) desc.append("Gear Score: ").append(gearScore).append("\n\n");
+
+        // regular implicits (skip weapon damage stats)
+        if (implicitStrings != null) {
+            List<String> weaponDamageImplicits = getWeaponDamageImplicits(stack);
+            for (String implicit : implicitStrings) {
+                if (weaponDamageImplicits.contains(implicit)) continue;
+                String[] parts = implicit.split("\\|");
+                if (parts.length < 3) continue;
+                desc.append(parts[2]).append("\n");
+            }
+        }
+
+        // affixes
+        if (affixStrings != null) {
+            if (desc.length() > 0) desc.append("\n");
+            for (String affix : affixStrings) {
+                String[] parts = affix.split("\\|");
+                if (parts.length < 3) continue;
+                Affix affixDef = AffixPool.getAffixByStatName(parts[0]);
+                if (affixDef == null) continue;
+                float value = Float.parseFloat(parts[1]);
+                int tier = (int) Float.parseFloat(parts[2]);
+                String display = affixDef.display().replace("%s", String.format("%.1f", value)).replace("%%", "%");
+                desc.append("• [T").append(tier).append("] ").append(display).append("\n");
+            }
+        }
+
+        return desc.toString().stripTrailing();
     }
 }

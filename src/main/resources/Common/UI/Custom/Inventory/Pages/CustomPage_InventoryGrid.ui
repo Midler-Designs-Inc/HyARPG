@@ -26,35 +26,12 @@ $Common = "../../Common.ui";
 
         Label { Text: "ARMOR"; Style: (FontSize: 11, RenderBold: true, TextColor: #888888, RenderUppercase: true); Anchor: (Bottom: 6); }
 
-        Group { LayoutMode: Left; Anchor: (Bottom: 4);
-            Button #ArmorSlot0 {Anchor: (Width: 74, Height: 74, Right: 4);
-                ItemSlot #ArmorItem0 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
-                Group #ArmorSelectedOverlay0 { Anchor: (Full: 0); Visible: false; Background: @GearSlotSelectedBG; }
-                Group #ArmorValidOverlay0    { Anchor: (Full: 0); Visible: false; Background: #002200(0.4); }
-                Group #ArmorInvalidOverlay0  { Anchor: (Full: 0); Visible: false; Background: #220000(0.4); }
-                Group { Anchor: (Width: 44, Height: 44, Top: 15, Left: 15); Background: @GearSlotBGHead; }
-            }
-            Button #ArmorSlot1 { Anchor: (Width: 74, Height: 74, Right: 4);
-                ItemSlot #ArmorItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
-                Group #ArmorSelectedOverlay1 { Anchor: (Full: 0); Visible: false; Background: @GearSlotSelectedBG; }
-                Group #ArmorValidOverlay1    { Anchor: (Full: 0); Visible: false; Background: #002200(0.4); }
-                Group #ArmorInvalidOverlay1  { Anchor: (Full: 0); Visible: false; Background: #220000(0.4); }
-                Group { Anchor: (Width: 44, Height: 44, Top: 15, Left: 15); Background: @GearSlotBGChest; }
-            }
-            Button #ArmorSlot2 { Anchor: (Width: 74, Height: 74, Right: 4);
-                ItemSlot #ArmorItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
-                Group #ArmorSelectedOverlay2 { Anchor: (Full: 0); Visible: false; Background: @GearSlotSelectedBG; }
-                Group #ArmorValidOverlay2    { Anchor: (Full: 0); Visible: false; Background: #002200(0.4); }
-                Group #ArmorInvalidOverlay2  { Anchor: (Full: 0); Visible: false; Background: #220000(0.4); }
-                Group { Anchor: (Width: 44, Height: 44, Top: 15, Left: 15); Background: @GearSlotBGHands; }
-            }
-            Button #ArmorSlot3 { Anchor: (Width: 74, Height: 74);
-                ItemSlot #ArmorItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
-                Group #ArmorSelectedOverlay3 { Anchor: (Full: 0); Visible: false; Background: @GearSlotSelectedBG; }
-                Group #ArmorValidOverlay3    { Anchor: (Full: 0); Visible: false; Background: #002200(0.4); }
-                Group #ArmorInvalidOverlay3  { Anchor: (Full: 0); Visible: false; Background: #220000(0.4); }
-                Group { Anchor: (Width: 44, Height: 44, Top: 15, Left: 15); Background: @GearSlotBGLegs; }
-            }
+        // Armor slots
+        ItemGrid #ArmorGrid {
+            SlotsPerRow: 4;
+            InventorySectionId: -3;
+            AreItemsDraggable: true;
+            Style: (SlotSize: 74, SlotSpacing: 2, SlotIconSize: 64, SlotBackground: (TexturePath: "../../EmptyInvSlot.png"));
         }
     }
 
@@ -65,102 +42,36 @@ $Common = "../../Common.ui";
 
         Label { Text: "UTILITY"; Style: (FontSize: 11, RenderBold: true, TextColor: #888888, RenderUppercase: true); Anchor: (Bottom: 6); }
 
-        Group {
-            LayoutMode: Left;
-
-            Button #UtilitySlot0 { Anchor: (Width: 56, Height: 56, Right: 3);
-                ItemSlot #UtilityItem0 { Anchor: (Width: 48, Height: 48); ShowQualityBackground: true; ShowQuantity: false; }
-                Group #UtilitySelectedOverlay0 { Anchor: (Full: 0); Visible: false; Background: @GearSlotSelectedBG; }
-                Group #UtilityActiveOverlay0   { Anchor: (Full: 0); Visible: false; Background: @GearSlotActiveUtilityBG; }
-                Group #UtilityValidOverlay0    { Anchor: (Full: 0); Visible: false; Background: #002200(0.4); }
-                Group #UtilityInvalidOverlay0  { Anchor: (Full: 0); Visible: false; Background: #220000(0.4); }
-            }
-            Button #UtilitySlot1 { Anchor: (Width: 56, Height: 56, Right: 3);
-                ItemSlot #UtilityItem1 { Anchor: (Width: 48, Height: 48); ShowQualityBackground: true; ShowQuantity: false; }
-                Group #UtilitySelectedOverlay1 { Anchor: (Full: 0); Visible: false; Background: @GearSlotSelectedBG; }
-                Group #UtilityActiveOverlay1   { Anchor: (Full: 0); Visible: false; Background: @GearSlotActiveUtilityBG; }
-                Group #UtilityValidOverlay1    { Anchor: (Full: 0); Visible: false; Background: #002200(0.4); }
-                Group #UtilityInvalidOverlay1  { Anchor: (Full: 0); Visible: false; Background: #220000(0.4); }
-            }
-            Button #UtilitySlot2 { Anchor: (Width: 56, Height: 56, Right: 3);
-                ItemSlot #UtilityItem2 { Anchor: (Width: 48, Height: 48); ShowQualityBackground: true; ShowQuantity: false; }
-                Group #UtilitySelectedOverlay2 { Anchor: (Full: 0); Visible: false; Background: @GearSlotSelectedBG; }
-                Group #UtilityActiveOverlay2   { Anchor: (Full: 0); Visible: false; Background: @GearSlotActiveUtilityBG; }
-                Group #UtilityValidOverlay2    { Anchor: (Full: 0); Visible: false; Background: #002200(0.4); }
-                Group #UtilityInvalidOverlay2  { Anchor: (Full: 0); Visible: false; Background: #220000(0.4); }
-            }
-            Button #UtilitySlot3 { Anchor: (Width: 56, Height: 56, Right: 3);
-                ItemSlot #UtilityItem3 { Anchor: (Width: 48, Height: 48); ShowQualityBackground: true; ShowQuantity: false; }
-                Group #UtilitySelectedOverlay3 { Anchor: (Full: 0); Visible: false; Background: @GearSlotSelectedBG; }
-                Group #UtilityActiveOverlay3   { Anchor: (Full: 0); Visible: false; Background: @GearSlotActiveUtilityBG; }
-                Group #UtilityValidOverlay3    { Anchor: (Full: 0); Visible: false; Background: #002200(0.4); }
-                Group #UtilityInvalidOverlay3  { Anchor: (Full: 0); Visible: false; Background: #220000(0.4); }
-            }
+        // Utility slots
+        ItemGrid #UtilityGrid {
+            SlotsPerRow: 4;
+            InventorySectionId: -5;
+            AreItemsDraggable: true;
+            Style: (SlotSize: 74, SlotSpacing: 2, SlotIconSize: 64, SlotBackground: (TexturePath: "../../EmptyInvSlot.png"));
         }
     }
 
     // Separator between gear and inventory
     Group { Background: #9c8863(0.2); Anchor: (Height: 1, Bottom: 8); }
 
-    // Storage grid — 36 slots in 4 rows of 9
-    Group { LayoutMode: Left; Anchor: (Height: 76, Top: 0);
-        Button #InvStorageSlot0  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem0  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay0  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay0  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot1  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem1  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay1  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay1  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot2  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem2  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay2  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay2  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot3  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem3  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay3  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay3  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot4  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem4  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay4  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay4  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot5  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem5  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay5  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay5  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot6  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem6  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay6  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay6  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot7  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem7  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay7  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay7  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot8  { Anchor: (Width: 74, Height: 74);         ItemSlot #InvStorageItem8  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay8  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay8  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-    }
-    Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
-        Button #InvStorageSlot9  { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem9  { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay9  { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay9  { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot10 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem10 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay10 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay10 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot11 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem11 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay11 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay11 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot12 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem12 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay12 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay12 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot13 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem13 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay13 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay13 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot14 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem14 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay14 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay14 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot15 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem15 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay15 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay15 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot16 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem16 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay16 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay16 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot17 { Anchor: (Width: 74, Height: 74);         ItemSlot #InvStorageItem17 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay17 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay17 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-    }
-    Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
-        Button #InvStorageSlot18 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem18 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay18 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay18 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot19 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem19 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay19 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay19 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot20 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem20 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay20 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay20 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot21 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem21 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay21 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay21 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot22 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem22 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay22 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay22 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot23 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem23 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay23 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay23 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot24 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem24 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay24 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay24 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot25 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem25 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay25 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay25 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot26 { Anchor: (Width: 74, Height: 74);         ItemSlot #InvStorageItem26 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay26 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay26 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-    }
-    Group { LayoutMode: Left; Anchor: (Height: 76, Top: 2);
-        Button #InvStorageSlot27 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem27 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay27 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay27 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot28 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem28 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay28 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay28 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot29 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem29 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay29 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay29 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot30 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem30 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay30 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay30 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot31 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem31 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay31 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay31 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot32 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem32 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay32 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay32 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot33 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem33 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay33 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay33 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot34 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvStorageItem34 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay34 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay34 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvStorageSlot35 { Anchor: (Width: 74, Height: 74);         ItemSlot #InvStorageItem35 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvStorageSelectedOverlay35 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvStorageInvalidOverlay35 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
+    // Storage grid
+    ItemGrid #InvStorageGrid {
+        SlotsPerRow: 9;
+        InventorySectionId: -2;
+        AreItemsDraggable: true;
+        Style: (SlotSize: 74, SlotSpacing: 2, SlotIconSize: 64, SlotBackground: (TexturePath: "../../EmptyInvSlot.png"));
+        ContentHeight: 302;
     }
 
     // Separator between storage and hotbar
     Group { Background: #9c8863(0.15); Anchor: (Height: 2, Top: 6, Bottom: 6); }
 
-    // Hotbar — 9 slots
-    Group { LayoutMode: Left; Anchor: (Height: 76, Bottom: 0);
-        Button #InvHotbarSlot0 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvHotbarItem0 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay0 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay0 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvHotbarSlot1 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvHotbarItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay1 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay1 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvHotbarSlot2 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvHotbarItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay2 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay2 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvHotbarSlot3 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvHotbarItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay3 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay3 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvHotbarSlot4 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvHotbarItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay4 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay4 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvHotbarSlot5 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvHotbarItem5 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay5 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay5 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvHotbarSlot6 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvHotbarItem6 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay6 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay6 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvHotbarSlot7 { Anchor: (Width: 74, Height: 74, Right: 2); ItemSlot #InvHotbarItem7 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay7 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay7 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
-        Button #InvHotbarSlot8 { Anchor: (Width: 74, Height: 74);         ItemSlot #InvHotbarItem8 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: true; } Group #InvHotbarSelectedOverlay8 { Anchor: (Full: 0); Visible: false; Background: @InvSlotSelectedBackground; } Group #InvHotbarInvalidOverlay8 { Anchor: (Full: 0); Visible: false; Background: #220000(0.5); } }
+    // Hotbar gRID
+    ItemGrid #InvHotbarGrid {
+        SlotsPerRow: 9;
+        InventorySectionId: -1;
+        AreItemsDraggable: true;
+        Style: (SlotSize: 74, SlotSpacing: 2, SlotIconSize: 64, SlotBackground: (TexturePath: "../../EmptyInvSlot.png"));
+        ContentHeight: 74;
     }
 };

@@ -13,14 +13,13 @@ import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
 import com.hypixel.hytale.server.core.Message;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.asset.type.item.config.metadata.ItemDisplayMetadata;
+import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
+import com.hypixel.hytale.server.core.entity.entities.player.pages.PageManager;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
 import com.hypixel.hytale.server.core.ui.ItemGridSlot;
-import com.hypixel.hytale.server.core.ui.PatchStyle;
-import com.hypixel.hytale.server.core.ui.Value;
-import com.hypixel.hytale.server.core.ui.ValueCodec;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
@@ -30,25 +29,13 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
-import com.example.hyarpg.utils.StatTypeInfo;
-import com.example.hyarpg.utils.affixes.Affix;
-import com.example.hyarpg.utils.affixes.AffixPool;
-import com.example.hyarpg.utils.affixes.StatType;
-import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
-
 import static com.example.hyarpg.modules.Module_RPGSystem.componentTypeRPGPlayer;
 
 // Java Imports
-import org.bson.BsonDocument;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inventory.PageData> {
 
@@ -57,14 +44,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private static final int HOTBAR_SLOTS  = 9;
     private static final int ARMOR_SLOTS   = 4;
     private static final int UTILITY_SLOTS = 4;
-
-    // flags for the drag/drop
-    private int droppedSlot = -1;
-    private String droppedContainer = null;
-
-    // flags for the right click move
-    private int rightClickedSlot = -1;
-    private String rightClickedContainer = null;
 
     // quick-craft slot definitions
     private static final int QUICK_CRAFT_SLOTS = 6;
@@ -86,29 +65,17 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         // load main UI file
         cmd.append("CustomPage_Inventory.ui");
 
-        // bind grid drop events, released left click while an item was being dragged
+        // bind grid click when clicking to start a drag
         events.addEventBinding(CustomUIEventBindingType.Dropped, "#InvStorageGrid", EventData.of("Action", "dropped:storage"));
         events.addEventBinding(CustomUIEventBindingType.Dropped, "#InvHotbarGrid", EventData.of("Action", "dropped:hotbar"));
         events.addEventBinding(CustomUIEventBindingType.Dropped, "#ArmorGrid", EventData.of("Action", "dropped:armor"));
         events.addEventBinding(CustomUIEventBindingType.Dropped, "#UtilityGrid", EventData.of("Action", "dropped:utility"));
 
-        // bind grid click when clicking to start a drag
-        events.addEventBinding(CustomUIEventBindingType.SlotMouseDragCompleted, "#InvStorageGrid", EventData.of("Action", "dragComplete:storage"));
-        events.addEventBinding(CustomUIEventBindingType.SlotMouseDragCompleted, "#InvHotbarGrid", EventData.of("Action", "dragComplete:hotbar"));
-        events.addEventBinding(CustomUIEventBindingType.SlotMouseDragCompleted, "#ArmorGrid", EventData.of("Action", "dragComplete:armor"));
-        events.addEventBinding(CustomUIEventBindingType.SlotMouseDragCompleted, "#UtilityGrid", EventData.of("Action", "dragComplete:utility"));
-
         // bind grid click while dragging events (right clicked a single item to start, needs to left click to place)
-        events.addEventBinding(CustomUIEventBindingType.RightClicking, "#InvStorageGrid", EventData.of("Action", "clickedWhileDragging:storage"));
-        events.addEventBinding(CustomUIEventBindingType.RightClicking, "#InvHotbarGrid", EventData.of("Action", "clickedWhileDragging:hotbar"));
-        events.addEventBinding(CustomUIEventBindingType.SlotClickPressWhileDragging, "#ArmorGrid", EventData.of("Action", "clickedWhileDragging:armor"));
-        events.addEventBinding(CustomUIEventBindingType.SlotClickPressWhileDragging, "#UtilityGrid", EventData.of("Action", "clickedWhileDragging:utility"));
-
-//        // bind the grid right click events
-//        events.addEventBinding(CustomUIEventBindingType.RightClicking, "#InvStorageGrid", EventData.of("Action", "rightClicked:storage"));
-//        events.addEventBinding(CustomUIEventBindingType.RightClicking, "#InvHotbarGrid", EventData.of("Action", "rightClicked:hotbar"));
-//        events.addEventBinding(CustomUIEventBindingType.RightClicking, "#ArmorGrid", EventData.of("Action", "rightClicked:armor"));
-//        events.addEventBinding(CustomUIEventBindingType.RightClicking, "#UtilityGrid", EventData.of("Action", "rightClicked:utility"));
+        events.addEventBinding(CustomUIEventBindingType.SlotClickReleaseWhileDragging, "#InvStorageGrid", EventData.of("Action", "clickedWhileDragging:storage"));
+        events.addEventBinding(CustomUIEventBindingType.SlotClickReleaseWhileDragging, "#InvHotbarGrid", EventData.of("Action", "clickedWhileDragging:hotbar"));
+        events.addEventBinding(CustomUIEventBindingType.SlotClickReleaseWhileDragging, "#ArmorGrid", EventData.of("Action", "clickedWhileDragging:armor"));
+        events.addEventBinding(CustomUIEventBindingType.SlotClickReleaseWhileDragging, "#UtilityGrid", EventData.of("Action", "clickedWhileDragging:utility"));
 
         // bind quick-craft slot clicks
         for (int i = 0; i < QUICK_CRAFT_SLOTS; i++) events.addEventBinding(CustomUIEventBindingType.Activating, "#QuickCraftSlot" + i, EventData.of("Action", "quickcraft:" + i));
@@ -117,61 +84,54 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         applyFullState(ref, store, cmd);
     }
 
+//    // debug the event properties
+//    @Override
+//    public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, String rawData) {
+//        // broadcast the full raw event payload to all players for debugging
+//        for (PlayerRef player : Universe.get().getPlayers()) {
+//            player.sendMessage(Message.raw(rawData));
+//        }
+//        super.handleDataEvent(ref, store, rawData);
+//    }
+
+    // process UI element event bindings
     @Override
     public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull PageData data) {
+        // bail if there isn't a valid action
         if (data.action == null) { sendUpdate((UICommandBuilder) null, false); return; }
 
         UICommandBuilder cmd = new UICommandBuilder();
 
-        // get the origin container
-        String[] actionParts = data.action.split(":");
-        String originContainer = actionParts[1];
+        // get the target container name from the action string and then get its inventory section ID
+        String targetContainer = data.action.split(":")[1];
+        int targetSectionId = targetContainer.equals("storage") ? InventoryComponent.STORAGE_SECTION_ID : targetContainer.equals("hotbar") ? InventoryComponent.HOTBAR_SECTION_ID : targetContainer.equals("armor") ? InventoryComponent.ARMOR_SECTION_ID : InventoryComponent.UTILITY_SECTION_ID;
 
-        // clicked on a quick craft slot
-        if (data.action.startsWith("quickcraft:")) {
-            handleQuickCraft(Integer.parseInt(data.action.substring("quickcraft:".length())), ref, store, cmd);
-        }
+        // quick craft slot was clicked
+        if (data.action.startsWith("quickcraft:")) handleQuickCraft(Integer.parseInt(data.action.substring("quickcraft:".length())), ref, store, cmd);
 
-        // update the slot the drop was placed into (drag complete fires after with the origin slot)
+        // left click drag completed — move the full stack from source to destination
         else if (data.action.startsWith("dropped:")) {
-            droppedSlot = data.slotIndex;
-            droppedContainer = originContainer;
-        }
-
-        // update teh slot the right click happened on
-        else if (data.action.startsWith("rightClicked:")) {
-            rightClickedSlot = data.slotIndex;
-            rightClickedContainer = originContainer;
-        }
-
-        // released on a slot while dragging something
-        else if (data.action.startsWith("dragComplete:")) {
-            // if a dropped event was set we need to handle the move
-            if (droppedSlot != -1) handleDragComplete(ref, originContainer, data.slotIndex, droppedSlot, false);
-
-            // clear all drag/drop stuff
-            droppedSlot = -1;
-            droppedContainer = null;
-            rightClickedSlot = -1;
-            rightClickedContainer = null;
-
-            // refresh all grids to reflect updated inventory state
+            handleDragComplete(ref, data.sourceSectionId, targetSectionId, data.sourceSlotId, data.slotIndex, false);
             applyFullState(ref, store, cmd);
         }
 
-        // Right clicked to start the drag with a single item, fires when clicking to place
+
+        else if (data.action.startsWith("clicked:")) {
+            for (PlayerRef player : Universe.get().getPlayers()) {
+                player.sendMessage(Message.raw("You clicked"));
+            }
+        }
+
+        // right click drag placed — move a single item from source to destination
         else if (data.action.startsWith("clickedWhileDragging:")) {
-            // if a right click event was set we need to handle the move
-            if (rightClickedSlot != -1) handleDragComplete(ref, originContainer, rightClickedSlot, data.slotIndex, true);
+            for (PlayerRef player : Universe.get().getPlayers()) player.sendMessage(Message.raw("clickedWhileDragging — sourceSectionId: " + data.dragSourceSectionId + " sourceSlot: " + data.dragSourceSlotId + " targetSectionId: " + targetSectionId + " targetSlot: " + data.slotIndex));
+            // perform the single item move
+            handleDragComplete(ref, data.dragSourceSectionId, targetSectionId, data.dragSourceSlotId, data.slotIndex, true);
 
-            // clear all drag/drop stuff
-            droppedSlot = -1;
-            droppedContainer = null;
-            rightClickedSlot = -1;
-            rightClickedContainer = null;
-
-            // refresh all grids to reflect updated inventory state
-            applyFullState(ref, store, cmd);
+            // reopen the page to clear client drag state — replicates the escape/reopen cycle
+            Player player = store.getComponent(ref, Player.getComponentType());
+            if (player != null) player.getPageManager().openCustomPage(ref, store, new CustomPage_Inventory(store.getComponent(ref, PlayerRef.getComponentType())));
+            return;
         }
 
         // push empty state
@@ -180,7 +140,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
             return;
         }
 
-        // otherwise fire off whatever was applied above in apply full state
         sendUpdate(cmd, false);
     }
 
@@ -193,29 +152,50 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         pushStorageGrid(ref, store, cmd);
     }
 
-    // called when a drag event is completed
-    private  void handleDragComplete(@Nonnull Ref<EntityStore> ref, String containerName, int beforeSlot, int afterSlot, boolean moveSingle) {
+    // called when a drag event is completed, moves items between containers/slots or stacks them
+    private void handleDragComplete(@Nonnull Ref<EntityStore> ref, int sourceSectionId, int targetSectionId, int sourceSlot, int targetSlot, boolean moveSingle) {
         // get the store from the ref
         Store<EntityStore> store = ref.getStore();
 
-        // get the ref/player's inventory comp
-        InventoryComponent.Storage storageComp = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
-        if (storageComp == null) return;
+        // resolve source and target containers from their section ids
+        ItemContainer sourceInv = getContainerBySectionId(sourceSectionId, ref, store);
+        ItemContainer targetInv = getContainerBySectionId(targetSectionId, ref, store);
+        if (sourceInv == null || targetInv == null) return;
 
-        // get the item container from the inventory comp
-        ItemContainer inv = storageComp.getInventory();
-        if (inv == null) return;
+        // get the source and target stacks
+        ItemStack sourceStack = sourceInv.getItemStack((short) sourceSlot);
+        ItemStack targetStack = targetInv.getItemStack((short) targetSlot);
+        if (sourceStack == null || sourceStack.isEmpty()) return;
 
-        // get the item stack being dragged
-        ItemStack beforeStack = inv.getItemStack((short) beforeSlot);
-        if (beforeStack == null) return;
+        // determine how many items to move — single item for right click, full stack for left click
+        int itemQty = moveSingle ? 1 : sourceStack.getQuantity();
 
-        // check if the dragged stack can merge into the dropped stack
-        int itemQty = moveSingle ? 1 : beforeStack.getQuantity();
-        boolean canMergeStacks = storageComp.getInventory().canAddItemStackToSlot((short) afterSlot, new ItemStack(beforeStack.getItemId(), itemQty), true, false);
+        // check target state for merge or swap decisions
+        boolean targetIsEmpty = targetStack == null || targetStack.isEmpty();
+        boolean sameItemType = !targetIsEmpty && ItemStack.isSameItemType(sourceStack, targetStack);
 
-        // the items can merge, move them over
-        if (canMergeStacks) inv.moveItemStackFromSlotToSlot((short) beforeSlot, itemQty, inv, (short) afterSlot);
+        // move into empty slot directly
+        if (targetIsEmpty) {
+            sourceInv.moveItemStackFromSlotToSlot((short) sourceSlot, itemQty, targetInv, (short) targetSlot);
+            return;
+        }
+
+        // merge into same item type if there is room in the stack
+        if (sameItemType) {
+            int maxStack = targetStack.getItem().getMaxStack();
+            int room = maxStack - targetStack.getQuantity();
+            if (room > 0) {
+                int moveQty = Math.min(itemQty, room);
+                sourceInv.moveItemStackFromSlotToSlot((short) sourceSlot, moveQty, targetInv, (short) targetSlot);
+                return;
+            }
+        }
+
+        // swap the two slots if items are different or stack is full and this is a full stack move
+        if (!moveSingle) {
+            sourceInv.replaceItemStackInSlot((short) sourceSlot, sourceStack, targetStack);
+            targetInv.replaceItemStackInSlot((short) targetSlot, targetStack, sourceStack);
+        }
     }
 
     // full state push — called on open and after any equip/unequip
@@ -364,6 +344,12 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         try {
             Component_RPG_Player rpg = store.getComponent(ref, componentTypeRPGPlayer);
             if (rpg == null) return;
+
+            // update all stats before pushing it
+            rpg.calculateGearScore(ref, store);
+            rpg.calculateAffixStats(ref, store);
+
+            // extract the stats
             var stats = rpg.stats;
 
             cmd.set("#StatPlayerLevel.Text", String.valueOf(rpg.level));
@@ -461,13 +447,46 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private static String fmt(float v) { float r = Math.round(v * 10) / 10f; return r == (int) r ? String.valueOf((int) r) : String.valueOf(r); }
     private static String fmtPct(float v) { return fmt(v) + "%"; }
 
-    // PageData codec — now includes slotIndex for grid click events
+    // maps an inventory section id to its container
+    @Nullable
+    private ItemContainer getContainerBySectionId(int sectionId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        return switch (sectionId) {
+            case InventoryComponent.STORAGE_SECTION_ID -> { InventoryComponent.Storage c = store.getComponent(ref, InventoryComponent.Storage.getComponentType()); yield c != null ? c.getInventory() : null; }
+            case InventoryComponent.HOTBAR_SECTION_ID  -> { InventoryComponent.Hotbar  c = store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());  yield c != null ? c.getInventory() : null; }
+            case InventoryComponent.ARMOR_SECTION_ID   -> { InventoryComponent.Armor   c = store.getComponent(ref, InventoryComponent.Armor.getComponentType());   yield c != null ? c.getInventory() : null; }
+            case InventoryComponent.UTILITY_SECTION_ID -> { InventoryComponent.Utility c = store.getComponent(ref, InventoryComponent.Utility.getComponentType()); yield c != null ? c.getInventory() : null; }
+            default -> null;
+        };
+    }
+
+    // compile a class to handle the event data payloads
     public static class PageData {
         public static final BuilderCodec<PageData> CODEC = BuilderCodec.<PageData>builder(PageData.class, PageData::new)
+                // default properties
                 .append(new KeyedCodec<>("Action", Codec.STRING), (d, v) -> d.action = v, d -> d.action).add()
                 .append(new KeyedCodec<>("SlotIndex", Codec.INTEGER), (d, v) -> d.slotIndex = v, d -> d.slotIndex).add()
+
+                // dragComplete keys
+                .append(new KeyedCodec<>("SourceSlotId", Codec.INTEGER), (d, v) -> d.sourceSlotId = v, d -> d.sourceSlotId).add()
+                .append(new KeyedCodec<>("SourceInventorySectionId", Codec.INTEGER), (d, v) -> d.sourceSectionId = v, d -> d.sourceSectionId).add()
+
+                // clickedWhileDragging keys
+                .append(new KeyedCodec<>("DragSourceSlotId", Codec.INTEGER), (d, v) -> d.dragSourceSlotId = v, d -> d.dragSourceSlotId).add()
+                .append(new KeyedCodec<>("DragSourceInventorySectionId", Codec.INTEGER), (d, v) -> d.dragSourceSectionId = v, d -> d.dragSourceSectionId).add()
+
+                // build the codec
                 .build();
+
+        // default properties
         public String action;
         public int slotIndex = -1;
+
+        // dragComplete properties
+        public int sourceSlotId = -1;
+        public int sourceSectionId = 0;
+
+        // clickedWhileDragging properties
+        public int dragSourceSlotId = -1;
+        public int dragSourceSectionId = 0;
     }
 }

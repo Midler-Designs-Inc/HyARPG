@@ -34,26 +34,26 @@ public final class Affix {
     public void rollTier(int level) {
         ThreadLocalRandom r = ThreadLocalRandom.current();
 
-        // Determine bracket (0–5 max)
+        // determine which tier bracket this level falls into (0–5), capped at 5
         int bracket = Math.min(level / 20, 5);
 
-        // Lowest possible tier based on bracket
+        // higher bracket = lower minimum tier (better rolls available)
         int minTier = 5 - bracket;
 
-        // Roll tier between minTier and 5 inclusive
+        // roll a tier between the minimum and 5 inclusive
         int rolledTier = r.nextInt(minTier, 6);
 
-        // Special rule: if tier 1 is rolled AND level >= 500, 25% chance to upgrade to 0
+        // at high levels, tier 1 rolls have a 25% chance to upgrade to the best tier (0)
         if (level >= 500 && rolledTier == 1) {
             if (r.nextFloat() < 0.25f) {
                 rolledTier = 0;
             }
         }
 
-        // update the tier on the affix
+        // store the final rolled tier
         this.tier = rolledTier;
 
-        // multiply the value by the rolled tier
-        this.value *= (6 - rolledTier);
+        // roll a fresh base value and scale it by tier multiplier
+        this.value = rollValue() * (6 - rolledTier);
     }
 }

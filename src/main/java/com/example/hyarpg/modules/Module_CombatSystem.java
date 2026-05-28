@@ -90,6 +90,7 @@ public class Module_CombatSystem {
         "Ingredient_Fabric"
     );
 
+    // global loot drop lists based on world tier
     private static final String[] TIER_DROP_LISTS = {
         "HyARPG_Container_Tier0",
         "HyARPG_Container_Tier1",
@@ -100,6 +101,7 @@ public class Module_CombatSystem {
         "HyARPG_Container_Tier6",
     };
 
+    // list of damage types tied to weapons
     private static final Set<String> WEAPON_CAUSE_IDS = Set.of(
         "MainHand", "OffHand",
         "MainHand_Scalar",

@@ -7,6 +7,7 @@ import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
+import com.hypixel.hytale.event.EventRegistration;
 import com.hypixel.hytale.protocol.ItemArmorSlot;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
@@ -84,21 +85,11 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         applyFullState(ref, store, cmd);
     }
 
-//    // debug the event properties
-//    @Override
-//    public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, String rawData) {
-//        // broadcast the full raw event payload to all players for debugging
-//        for (PlayerRef player : Universe.get().getPlayers()) {
-//            player.sendMessage(Message.raw(rawData));
-//        }
-//        super.handleDataEvent(ref, store, rawData);
-//    }
-
     // process UI element event bindings
     @Override
     public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull PageData data) {
         // bail if there isn't a valid action
-        if (data.action == null) { sendUpdate((UICommandBuilder) null, false); return; }
+        if (data.action == null) { sendUpdate(null, false); return; }
 
         UICommandBuilder cmd = new UICommandBuilder();
 
@@ -115,28 +106,21 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
             applyFullState(ref, store, cmd);
         }
 
-
-        else if (data.action.startsWith("clicked:")) {
-            for (PlayerRef player : Universe.get().getPlayers()) {
-                player.sendMessage(Message.raw("You clicked"));
-            }
-        }
-
         // right click drag placed — move a single item from source to destination
         else if (data.action.startsWith("clickedWhileDragging:")) {
-            for (PlayerRef player : Universe.get().getPlayers()) player.sendMessage(Message.raw("clickedWhileDragging — sourceSectionId: " + data.dragSourceSectionId + " sourceSlot: " + data.dragSourceSlotId + " targetSectionId: " + targetSectionId + " targetSlot: " + data.slotIndex));
             // perform the single item move
             handleDragComplete(ref, data.dragSourceSectionId, targetSectionId, data.dragSourceSlotId, data.slotIndex, true);
 
             // reopen the page to clear client drag state — replicates the escape/reopen cycle
             Player player = store.getComponent(ref, Player.getComponentType());
-            if (player != null) player.getPageManager().openCustomPage(ref, store, new CustomPage_Inventory(store.getComponent(ref, PlayerRef.getComponentType())));
+            PlayerRef playerRef = store.getComponent(ref, PlayerRef.getComponentType());
+            if (player != null && playerRef != null) player.getPageManager().openCustomPage(ref, store, new CustomPage_Inventory(playerRef));
             return;
         }
 
         // push empty state
         else {
-            sendUpdate((UICommandBuilder) null, false);
+            sendUpdate(null, false);
             return;
         }
 
@@ -420,27 +404,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
             cmd.set("#StatAmmo.Text",     "+" + fmt(stats.getAddedAmmo()));
             cmd.set("#StatAmmoRegen.Text","+" + fmtPct(stats.getAmmoRegenPercent()));
         } catch (Exception _) {}
-    }
-
-    // item classification helpers
-    private static boolean isGearItem(@Nonnull Item item) { return item.getArmor() != null && item.getArmor().getArmorSlot() != null; }
-    private static boolean isUtilityItem(@Nonnull Item item) { return item.getUtility().isUsable(); }
-    private static boolean isCompatibleArmorSlot(@Nonnull Item item, int slot) {
-        if (item.getArmor() == null || item.getArmor().getArmorSlot() == null) return false;
-        if (slot == 0) return item.getArmor().getArmorSlot() == ItemArmorSlot.Head;
-        if (slot == 1) return item.getArmor().getArmorSlot() == ItemArmorSlot.Chest;
-        if (slot == 2) return item.getArmor().getArmorSlot() == ItemArmorSlot.Hands;
-        if (slot == 3) return item.getArmor().getArmorSlot() == ItemArmorSlot.Legs;
-        return false;
-    }
-    private static boolean isItemCompatibleWithSlot(@Nonnull Item item, @Nonnull String slotSource, int slotIndex) {
-        if (slotSource.equals("utility")) return isUtilityItem(item);
-        if (slotSource.equals("armor"))   return isCompatibleArmorSlot(item, slotIndex);
-        return false;
-    }
-    private static String deriveRarity(@Nonnull String itemId) {
-        for (String r : new String[]{"Legendary", "Epic", "Rare", "Uncommon", "Common"}) { if (itemId.endsWith("_" + r)) return r; }
-        return "Common";
     }
 
     // formatting helpers

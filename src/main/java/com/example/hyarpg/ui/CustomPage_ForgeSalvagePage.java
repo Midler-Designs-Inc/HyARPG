@@ -58,10 +58,6 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
     private String inputSlotId = null;
     private Item inputItem = null;
 
-    // currently selected inventory slot — null means nothing selected
-    private String selectedSlotId = null;
-    private Item selectedItem = null;
-
     public CustomPage_ForgeSalvagePage(@Nonnull PlayerRef playerRef) {
         super(playerRef, CustomPageLifetime.CanDismiss, PageData.CODEC);
 
@@ -76,20 +72,26 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         this.combinedItemContainer = new CombinedItemContainer(new ItemContainer[]{ this.inputContainer, this.outputContainer });
     }
 
+    @Nonnull
+    @Override
+    public ItemContainer getItemContainer() {
+        return this.combinedItemContainer;
+    }
+
     @Override
     public void build(@Nonnull Ref<EntityStore> ref, @Nonnull UICommandBuilder cmd, @Nonnull UIEventBuilder events, @Nonnull Store<EntityStore> store) {
         // load the UI file
         cmd.append("CustomForgeSalvagePanel.ui");
 
-        // bind input slot click — places/clears the selected inventory item
+        // bind input slot click — clears the placed item
         events.addEventBinding(CustomUIEventBindingType.Activating, "#SalvageInputSlot", EventData.of("Action", "place"));
 
-        // bind storage slot clicks — selects the item in that inventory slot
+        // bind storage slot clicks — places the item into the input slot
         for (int i = 0; i < 36; i++) {
             events.addEventBinding(CustomUIEventBindingType.Activating, "#StorageSlot" + i, EventData.of("Action", "select:storage:" + i));
         }
 
-        // bind hotbar slot clicks — selects the item in that hotbar slot
+        // bind hotbar slot clicks — places the item into the input slot
         for (int i = 0; i < 9; i++) {
             events.addEventBinding(CustomUIEventBindingType.Activating, "#HotbarSlot" + i, EventData.of("Action", "select:hotbar:" + i));
         }
@@ -101,47 +103,46 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         pushInventoryState(ref, store, cmd);
     }
 
-    @Nonnull
-    @Override
-    public ItemContainer getItemContainer() {
-        return this.combinedItemContainer;
-    }
-
+    // UI element event handler/router
     @Override
     public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull PageData data) {
-        // route incoming actions
+        // bail if there isn't a valid action
         if (data.action == null) { sendUpdate((UICommandBuilder) null, false); return; }
-        if (data.action.equals("place")) {
-            handleInputPlace(ref, store);
-        } else if (data.action.startsWith("select:")) {
-            handleInventorySelect(data.action.substring("select:".length()), ref, store);
-        } else if (data.action.equals("salvage")) {
-            handleSalvage(ref, store);
-        } else {
-            sendUpdate((UICommandBuilder) null, false);
-        }
+
+        // inventory slot clicked — place item into input slot or remove if already placed
+        if (data.action.startsWith("select:")) handleInventorySelect(data.action.substring("select:".length()), ref, store);
+
+            // input slot clicked — clear the slot
+        else if (data.action.equals("place")) handleInputPlace(ref, store);
+
+            // salvage button clicked, do the salvage
+        else if (data.action.equals("salvage")) handleSalvage(ref, store);
+
+            // action not recognized, push empty state
+        else sendUpdate((UICommandBuilder) null, false);
     }
 
+    // inventory slot was clicked — place into input slot, or remove if already placed
     private void handleInventorySelect(@Nonnull String slotId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        // parse "storage:N" or "hotbar:N" to find the item at that slot
         String[] parts = slotId.split(":");
         boolean isHotbar = parts[0].equals("hotbar");
         int index = Integer.parseInt(parts[1]);
 
+        // init the command builder
         UICommandBuilder cmd = new UICommandBuilder();
 
-        // get the inventory container for the clicked slot
+        // get the inventory container and bail if the slot is empty
         ItemContainer inv = isHotbar
                 ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
                 : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
         if (inv == null) { sendUpdate((UICommandBuilder) null, false); return; }
-
-        // bail if the slot is empty
         ItemStack stack = inv.getItemStack((short) index);
         if (stack == null || stack.isEmpty()) { sendUpdate((UICommandBuilder) null, false); return; }
 
-        // if this item is already in the input slot clicking it removes it
+        // if this item is already in the input slot, clicking it removes it
         if (slotId.equals(this.inputSlotId)) {
-            cmd.set("#" + (isHotbarItem(this.inputSlotId) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotId) + ".Visible", false);
+            cmd.set("#" + (isHotbar ? "Hotbar" : "Storage") + "InUseOverlay" + index + ".Visible", false);
             cmd.setNull("#SalvageInputItem.ItemId");
             this.inputSlotId = null;
             this.inputItem = null;
@@ -152,34 +153,34 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
             return;
         }
 
-        // bail if item is not salvageable mod gear
+        // bail if item is not salvageable mod gear or component
         if (!isSalvageableItem(stack.getItem())) { sendUpdate((UICommandBuilder) null, false); return; }
 
-        // deselect previously selected slot if any
-        if (this.selectedSlotId != null) {
-            cmd.set("#" + (isHotbarItem(this.selectedSlotId) ? "Hotbar" : "Storage") + "SelectedOverlay" + getSlotNumber(this.selectedSlotId) + ".Visible", false);
+        // if input slot already has a different item, clear it first
+        if (this.inputSlotId != null) {
+            cmd.set("#" + (isHotbarItem(this.inputSlotId) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotId) + ".Visible", false);
         }
 
-        // if clicking the already selected slot deselect it
-        if (slotId.equals(this.selectedSlotId)) {
-            this.selectedSlotId = null;
-            this.selectedItem = null;
-            sendUpdate(cmd, false);
-            return;
-        }
+        // place the clicked item into the input slot
+        this.inputSlotId = slotId;
+        this.inputItem = stack.getItem();
+        cmd.set("#SalvageInputItem.ItemId", this.inputItem.getId());
 
-        // select the new slot
-        this.selectedSlotId = slotId;
-        this.selectedItem = stack.getItem();
-        cmd.set("#" + (isHotbarItem(slotId) ? "Hotbar" : "Storage") + "SelectedOverlay" + getSlotNumber(slotId) + ".Visible", true);
+        // enable the in use overlay on the inventory slot
+        cmd.set("#" + (isHotbar ? "Hotbar" : "Storage") + "InUseOverlay" + index + ".Visible", true);
+
+        // populate output slots and info panel from the placed item's metadata
+        setOutputSlotState(cmd, stack);
 
         sendUpdate(cmd, false);
     }
 
+    // input slot was clicked — clear it
     private void handleInputPlace(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
+        // init the command builder
         UICommandBuilder cmd = new UICommandBuilder();
 
-        // if input slot already has an item, clear it
+        // clear the input slot if it has an item
         if (this.inputSlotId != null) {
             cmd.set("#" + (isHotbarItem(this.inputSlotId) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotId) + ".Visible", false);
             cmd.setNull("#SalvageInputItem.ItemId");
@@ -190,32 +191,10 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
             cmd.set("#SalvageItemStats.Visible", false);
         }
 
-        // if nothing is selected there is nothing to place
-        if (this.selectedItem == null) {
-            sendUpdate(cmd, false);
-            return;
-        }
-
-        // place the selected item into the input slot
-        this.inputSlotId = this.selectedSlotId;
-        this.inputItem = this.selectedItem;
-
-        // update the input slot icon
-        cmd.set("#SalvageInputItem.ItemId", this.inputItem.getId());
-
-        // enable the in use overlay on the inventory slot
-        cmd.set("#" + (isHotbarItem(this.inputSlotId) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotId) + ".Visible", true);
-
-        // clear the selection overlay and data
-        clearSelectedSlot(cmd);
-
-        // populate output slots and info panel from the placed item's metadata
-        ItemStack stack = getStackFromSlotId(this.inputSlotId, ref, store);
-        if (stack != null) setOutputSlotState(cmd, stack);
-
         sendUpdate(cmd, false);
     }
 
+    // salvage button was clicked — validate, consume item, return components
     private void handleSalvage(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         UICommandBuilder cmd = new UICommandBuilder();
 
@@ -237,11 +216,13 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         // branch salvage logic based on item type
         if (isComponent(this.inputItem.getId())) {
             handleSalvageComponent(cmd, inv, slot, stack, ref, store);
-        } else {
+        }
+        else {
             handleSalvageGear(cmd, inv, slot, stack, ref, store);
         }
     }
 
+    // salvage a gear item — return a random component and shard if applicable
     private void handleSalvageGear(@Nonnull UICommandBuilder cmd, @Nonnull ItemContainer inv, short slot, @Nonnull ItemStack stack, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         // read the components from item metadata
         String[] components = stack.getFromMetadataOrNull("components", Codec.STRING_ARRAY);
@@ -282,6 +263,7 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         finishSalvage(cmd, ref, store);
     }
 
+    // salvage a crafting component — return a random amount of recipe ingredients
     private void handleSalvageComponent(@Nonnull UICommandBuilder cmd, @Nonnull ItemContainer inv, short slot, @Nonnull ItemStack stack, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         String itemId = stack.getItem().getId();
 
@@ -289,7 +271,7 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         List<RecipeInput> recipeInputs = readRecipeInputs(itemId);
         if (recipeInputs.isEmpty()) { sendUpdate((UICommandBuilder) null, false); return; }
 
-        // randomly pick SALVAGE_COMPONENT_COUNT ingredients to return
+        // randomly pick SALVAGE_MATERIAL_COUNT ingredients to return
         List<RecipeInput> pool = new ArrayList<>(recipeInputs);
         List<RecipeInput> toReturn = new ArrayList<>();
         ThreadLocalRandom r = ThreadLocalRandom.current();
@@ -314,16 +296,16 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         finishSalvage(cmd, ref, store);
     }
 
-    // shared cleanup after any salvage
+    // shared cleanup after any salvage — resets UI and refreshes inventory
     private void finishSalvage(@Nonnull UICommandBuilder cmd, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         // clear the in-use overlay on the input slot before resetting state
         if (this.inputSlotId != null) {
             cmd.set("#" + (isHotbarItem(this.inputSlotId) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotId) + ".Visible", false);
         }
 
+        // reset input slot state
         this.inputSlotId = null;
         this.inputItem = null;
-        clearSelectedSlot(cmd);
         clearOutputSlots(cmd);
         cmd.setNull("#SalvageInputItem.ItemId");
         cmd.set("#SalvageButton.Disabled", true);
@@ -338,7 +320,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
 
         if (isComponent(itemId)) {
             setOutputSlotStateForComponent(cmd, itemId);
-        } else {
+        }
+        else {
             setOutputSlotStateForGear(cmd, stack, itemId);
         }
     }
@@ -368,7 +351,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
                     for (int s = 0; s < 3; s++) {
                         cmd.set("#SalvageOutputStat" + slot + statLabels[s] + ".Text", s < statLines.size() ? statLines.get(s) : "");
                     }
-                } else {
+                }
+                else {
                     cmd.setNull("#SalvageOutputItem" + slot + ".ItemId");
                     cmd.set("#SalvageOutputName" + slot + ".Text", "");
                     for (String s : statLabels) cmd.set("#SalvageOutputStat" + slot + s + ".Text", "");
@@ -382,13 +366,14 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
             cmd.set("#SalvageOutputItem4.ItemId", rarity + "_Shards");
             cmd.set("#SalvageOutputName4.Text", rarity + " Shard");
             cmd.set("#SalvageOutputStat4a.Text", "Used to craft " + rarity + " quality items");
-        } else {
+        }
+        else {
             cmd.setNull("#SalvageOutputItem4.ItemId");
             cmd.set("#SalvageOutputName4.Text", "");
             cmd.set("#SalvageOutputStat4a.Text", "");
         }
 
-        // right panel
+        // right panel — item type, implicits and affixes
         String weaponType = ItemFactory.deriveItemType(itemId);
         cmd.set("#SalvageItemType.Text", (weaponType != null ? weaponType : itemId) + " (" + rarity + ")");
         populateRightPanel(cmd, implicits, affixes);
@@ -412,9 +397,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
                 // set ingredient icon if valid item asset exists
                 Item ingredientItem = Item.getAssetMap().getAsset(input.itemId);
                 if (ingredientItem != null) cmd.set("#SalvageOutputItem" + slot + ".ItemId", input.itemId);
-                cmd.set("#SalvageOutputStat" + slot + "a.Text", "Returns: " + minQty + "-" + maxQty + "x");
 
-                // set ingredient name and return quantity
+                // set ingredient name and return quantity range
                 cmd.set("#SalvageOutputName" + slot + ".Text", input.displayName);
                 cmd.set("#SalvageOutputStat" + slot + "a.Text", "Returns: " + minQty + "-" + maxQty + "x");
 
@@ -423,7 +407,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
                     cmd.set("#SalvageOutputStat" + slot + "b.Text", "");
                     cmd.set("#SalvageOutputStat" + slot + "c.Text", "");
                 }
-            } else {
+            }
+            else {
                 // clear unused slot
                 cmd.setNull("#SalvageOutputItem" + slot + ".ItemId");
                 cmd.set("#SalvageOutputName" + slot + ".Text", "");
@@ -452,7 +437,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         for (String line : implicitLines) {
             if (weaponDamageText.isEmpty() && line.contains("Base Weapon Damage")) {
                 weaponDamageText = line;
-            } else {
+            }
+            else {
                 remaining.add(line);
             }
         }
@@ -474,6 +460,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
     private void populateRightPanel(@Nonnull UICommandBuilder cmd, @Nullable String[] implicits, @Nullable String[] affixes) {
         String weaponDamageText = "";
         List<String> implicitLines = new ArrayList<>();
+
+        // parse implicit stat strings and split weapon damage from the rest
         if (implicits != null) {
             for (String implicit : implicits) {
                 String[] parts = implicit.split("\\|");
@@ -482,16 +470,20 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
                 try { stat = StatType.valueOf(parts[0]); } catch (Exception e) { continue; }
                 if (weaponDamageText.isEmpty() && StatTypeInfo.isWeaponDamageStat(stat)) {
                     weaponDamageText = parts[2];
-                } else {
+                }
+                else {
                     implicitLines.add(parts[2]);
                 }
             }
         }
+
+        // push weapon damage and implicit lines
         cmd.set("#SalvageWeaponDamage.Text", weaponDamageText);
         for (int i = 0; i < 5; i++) {
             cmd.set("#SalvageImplicitLine" + (i + 1) + ".Text", i < implicitLines.size() ? implicitLines.get(i) : "");
         }
 
+        // parse affix strings and build display lines
         List<String> affixLines = new ArrayList<>();
         if (affixes != null) {
             for (String affix : affixes) {
@@ -504,6 +496,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
                 affixLines.add("T" + tier + " " + affixDef.display().formatted(Math.round(value * 10) / 10f));
             }
         }
+
+        // push affix lines
         for (int i = 0; i < 4; i++) {
             cmd.set("#SalvageAffixLine" + (i + 1) + ".Text", i < affixLines.size() ? affixLines.get(i) : "");
         }
@@ -515,6 +509,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         if (compDoc == null) return statLines;
         BsonValue implicitsVal = compDoc.get("implicits");
         if (implicitsVal == null || !implicitsVal.isArray()) return statLines;
+
+        // loop over implicit entries and build display strings
         for (BsonValue entry : implicitsVal.asArray()) {
             if (!entry.isDocument()) continue;
             BsonDocument implicit = entry.asDocument();
@@ -528,7 +524,8 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
                 StatType stat = StatType.valueOf(statVal.asString().getValue());
                 if (StatTypeInfo.isWeaponDamageStat(stat)) {
                     statLines.add(fmt(min) + "-" + fmt(max) + " " + damageTypeName(stat));
-                } else {
+                }
+                else {
                     statLines.add(StatTypeInfo.getDisplay(stat, min, max));
                 }
             } catch (Exception ignored) {}
@@ -543,24 +540,6 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         return cached.stream()
                 .map(r -> new RecipeInput(r.itemId(), r.displayName(), r.quantity()))
                 .toList();
-    }
-
-    // small record to hold recipe input data
-    private record RecipeInput(String itemId, String displayName, int quantity) {}
-
-    // also need this helper
-    private static String damageTypeName(@Nonnull StatType stat) {
-        if (stat == StatType.MAIN_HAND_FIRE_DAMAGE_FLAT      || stat == StatType.OFF_HAND_FIRE_DAMAGE_FLAT)      return "Fire";
-        if (stat == StatType.MAIN_HAND_LIGHTNING_DAMAGE_FLAT || stat == StatType.OFF_HAND_LIGHTNING_DAMAGE_FLAT) return "Lightning";
-        if (stat == StatType.MAIN_HAND_ICE_DAMAGE_FLAT       || stat == StatType.OFF_HAND_ICE_DAMAGE_FLAT)       return "Ice";
-        if (stat == StatType.MAIN_HAND_POISON_DAMAGE_FLAT    || stat == StatType.OFF_HAND_POISON_DAMAGE_FLAT)    return "Poison";
-        if (stat == StatType.MAIN_HAND_MAGIC_DAMAGE_FLAT     || stat == StatType.OFF_HAND_MAGIC_DAMAGE_FLAT)     return "Magic";
-        return "Physical";
-    }
-
-    private static String fmt(float value) {
-        float rounded = Math.round(value * 100) / 100f;
-        return rounded == (int) rounded ? String.valueOf((int) rounded) : String.valueOf(rounded);
     }
 
     // clear all 4 output slot icons, names and stat labels
@@ -606,12 +585,13 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
             }
         }
 
-        // apply usability overlays — only mod gear items are valid
+        // apply usability overlays — only salvageable items are valid
         applyInventoryUsabilityOverlays(ref, store, cmd);
     }
 
-    // set invalid overlays on inventory items that are not salvageable mod gear
+    // set invalid overlays on inventory items that are not salvageable
     private void applyInventoryUsabilityOverlays(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
+        // loop storage slots and set overlay based on whether the item is salvageable
         InventoryComponent.Storage storageComponent = (InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType());
         if (storageComponent != null) {
             ItemContainer storage = storageComponent.getInventory();
@@ -622,6 +602,7 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
             }
         }
 
+        // loop hotbar slots and set overlay based on whether the item is salvageable
         InventoryComponent.Hotbar hotbarComponent = (InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
         if (hotbarComponent != null) {
             ItemContainer hotbar = hotbarComponent.getInventory();
@@ -631,14 +612,6 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
                 cmd.set("#HotbarInvalidOverlay" + i + ".Visible", !isSalvageableItem(stack.getItem()));
             }
         }
-    }
-
-    // clear the selected slot overlay and data
-    private void clearSelectedSlot(@Nonnull UICommandBuilder cmd) {
-        if (this.selectedSlotId == null || this.selectedItem == null) return;
-        cmd.set("#" + (isHotbarItem(this.selectedSlotId) ? "Hotbar" : "Storage") + "SelectedOverlay" + getSlotNumber(this.selectedSlotId) + ".Visible", false);
-        this.selectedSlotId = null;
-        this.selectedItem = null;
     }
 
     // get the ItemStack from a slotId e.g. "storage:5"
@@ -683,6 +656,22 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         return "Common";
     }
 
+    // returns a human-readable damage type name from a weapon damage stat type
+    private static String damageTypeName(@Nonnull StatType stat) {
+        if (stat == StatType.MAIN_HAND_FIRE_DAMAGE_FLAT      || stat == StatType.OFF_HAND_FIRE_DAMAGE_FLAT)      return "Fire";
+        if (stat == StatType.MAIN_HAND_LIGHTNING_DAMAGE_FLAT || stat == StatType.OFF_HAND_LIGHTNING_DAMAGE_FLAT) return "Lightning";
+        if (stat == StatType.MAIN_HAND_ICE_DAMAGE_FLAT       || stat == StatType.OFF_HAND_ICE_DAMAGE_FLAT)       return "Ice";
+        if (stat == StatType.MAIN_HAND_POISON_DAMAGE_FLAT    || stat == StatType.OFF_HAND_POISON_DAMAGE_FLAT)    return "Poison";
+        if (stat == StatType.MAIN_HAND_MAGIC_DAMAGE_FLAT     || stat == StatType.OFF_HAND_MAGIC_DAMAGE_FLAT)     return "Magic";
+        return "Physical";
+    }
+
+    // formatting helper
+    private static String fmt(float value) {
+        float rounded = Math.round(value * 100) / 100f;
+        return rounded == (int) rounded ? String.valueOf((int) rounded) : String.valueOf(rounded);
+    }
+
     // determines if a slotId refers to the hotbar
     private boolean isHotbarItem(@Nonnull String slotId) {
         return slotId.split(":")[0].equals("hotbar");
@@ -693,20 +682,32 @@ public class CustomPage_ForgeSalvagePage extends InteractiveCustomUIPage<CustomP
         return slotId.split(":")[1];
     }
 
+    // small record to hold recipe input data
+    private record RecipeInput(String itemId, String displayName, int quantity) {}
+
+    // compile a class to handle the event data payloads
     public static class PageData {
         public static final BuilderCodec<PageData> CODEC = BuilderCodec
-                .<PageData>builder(PageData.class, PageData::new)
-                .append(new KeyedCodec<>("Action", Codec.STRING), (d, v) -> d.action = v, d -> d.action).add()
-                .append(new KeyedCodec<>("ItemStackId", Codec.STRING), (d, v) -> d.itemStackId = v, d -> d.itemStackId).add()
-                .append(new KeyedCodec<>("SourceSlotId", Codec.INTEGER), (d, v) -> d.sourceSlotId = v, d -> d.sourceSlotId).add()
-                .append(new KeyedCodec<>("SourceInventorySectionId", Codec.INTEGER), (d, v) -> d.sourceInventorySectionId = v, d -> d.sourceInventorySectionId).add()
-                .append(new KeyedCodec<>("SlotIndex", Codec.INTEGER), (d, v) -> d.slotIndex = v, d -> d.slotIndex).add()
-                .build();
+            .<PageData>builder(PageData.class, PageData::new)
+            // default properties
+            .append(new KeyedCodec<>("Action", Codec.STRING), (d, v) -> d.action = v, d -> d.action).add()
+            .append(new KeyedCodec<>("SlotIndex", Codec.INTEGER), (d, v) -> d.slotIndex = v, d -> d.slotIndex).add()
 
+            // legacy keys retained for codec compatibility
+            .append(new KeyedCodec<>("ItemStackId", Codec.STRING), (d, v) -> d.itemStackId = v, d -> d.itemStackId).add()
+            .append(new KeyedCodec<>("SourceSlotId", Codec.INTEGER), (d, v) -> d.sourceSlotId = v, d -> d.sourceSlotId).add()
+            .append(new KeyedCodec<>("SourceInventorySectionId", Codec.INTEGER), (d, v) -> d.sourceInventorySectionId = v, d -> d.sourceInventorySectionId).add()
+
+            // build the codec
+            .build();
+
+        // default properties
         public String action;
+        public Integer slotIndex;
+
+        // legacy properties
         public String itemStackId;
         public Integer sourceSlotId;
         public Integer sourceInventorySectionId;
-        public Integer slotIndex;
     }
 }

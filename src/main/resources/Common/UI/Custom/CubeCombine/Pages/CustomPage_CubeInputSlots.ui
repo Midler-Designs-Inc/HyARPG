@@ -17,17 +17,17 @@
                 LayoutMode: Left;
                 Anchor: (Height: 74, Bottom: 4);
 
-                Button #CubeSlot0 { Anchor: (Width: 74, Height: 74, Right: 4);
+                ItemSlotButton #CubeSlot0 { Anchor: (Width: 74, Height: 74, Right: 4);
                     ItemSlot #CubeSlotItem0 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay0 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty0 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
                 }
-                Button #CubeSlot1 { Anchor: (Width: 74, Height: 74, Right: 4);
+                ItemSlotButton #CubeSlot1 { Anchor: (Width: 74, Height: 74, Right: 4);
                     ItemSlot #CubeSlotItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay1 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty1 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
                 }
-                Button #CubeSlot2 { Anchor: (Width: 74, Height: 74);
+                ItemSlotButton #CubeSlot2 { Anchor: (Width: 74, Height: 74);
                     ItemSlot #CubeSlotItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay2 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty2 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
@@ -39,17 +39,17 @@
                 LayoutMode: Left;
                 Anchor: (Height: 74, Bottom: 4);
 
-                Button #CubeSlot3 { Anchor: (Width: 74, Height: 74, Right: 4);
+                ItemSlotButton #CubeSlot3 { Anchor: (Width: 74, Height: 74, Right: 4);
                     ItemSlot #CubeSlotItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay3 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty3 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
                 }
-                Button #CubeSlot4 { Anchor: (Width: 74, Height: 74, Right: 4);
+                ItemSlotButton #CubeSlot4 { Anchor: (Width: 74, Height: 74, Right: 4);
                     ItemSlot #CubeSlotItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay4 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty4 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
                 }
-                Button #CubeSlot5 { Anchor: (Width: 74, Height: 74);
+                ItemSlotButton #CubeSlot5 { Anchor: (Width: 74, Height: 74);
                     ItemSlot #CubeSlotItem5 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay5 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty5 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
@@ -61,17 +61,17 @@
                 LayoutMode: Left;
                 Anchor: (Height: 74);
 
-                Button #CubeSlot6 { Anchor: (Width: 74, Height: 74, Right: 4);
+                ItemSlotButton #CubeSlot6 { Anchor: (Width: 74, Height: 74, Right: 4);
                     ItemSlot #CubeSlotItem6 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay6 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty6 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
                 }
-                Button #CubeSlot7 { Anchor: (Width: 74, Height: 74, Right: 4);
+                ItemSlotButton #CubeSlot7 { Anchor: (Width: 74, Height: 74, Right: 4);
                     ItemSlot #CubeSlotItem7 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay7 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty7 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }
                 }
-                Button #CubeSlot8 { Anchor: (Width: 74, Height: 74);
+                ItemSlotButton #CubeSlot8 { Anchor: (Width: 74, Height: 74);
                     ItemSlot #CubeSlotItem8 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; }
                     Group #CubeSlotInUseOverlay8 { Anchor: (Full: 0); Visible: false; Background: #000000(0.5); }
                     Label #CubeSlotQty8 { Anchor: (Full: 0); Visible: false; Style: (FontSize: 16, TextColor: #ffffff, RenderBold: true, Alignment: End, VerticalAlignment: End); Padding: (Right: 6, Bottom: 6); }

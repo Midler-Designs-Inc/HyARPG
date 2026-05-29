@@ -28,6 +28,7 @@ import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
+import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import org.bson.BsonDocument;
 import org.bson.BsonValue;
@@ -55,13 +56,13 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
     );
 
     // category tab id constants
-    public static final String CAT_1H = "1h";
-    public static final String CAT_2H = "2h";
-    public static final String CAT_RANGED = "ranged";
-    public static final String CAT_MAGIC = "magic";
-    public static final String CAT_ARMOR = "armor";
+    public static final String CAT_1H      = "1h";
+    public static final String CAT_2H      = "2h";
+    public static final String CAT_RANGED  = "ranged";
+    public static final String CAT_MAGIC   = "magic";
+    public static final String CAT_ARMOR   = "armor";
     public static final String CAT_LEATHER = "leather";
-    public static final String CAT_CLOTH = "cloth";
+    public static final String CAT_CLOTH   = "cloth";
 
     // all diagram group ids matching exactly the ui file
     private static final String[] ALL_DIAGRAMS = {
@@ -81,13 +82,8 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
     };
 
     // tab overlays paired with categories — must match ui file exactly
-    private static final String[] ALL_TAB_OVERLAYS = {
-        "#Tab1HOverlay", "#Tab2HOverlay", "#TabRangedOverlay", "#TabMagicOverlay",
-        "#TabMetalArmorOverlay", "#TabLeatherArmorOverlay", "#TabClothArmorOverlay"
-    };
-    private static final String[] ALL_TAB_CATEGORIES = {
-        CAT_1H, CAT_2H, CAT_RANGED, CAT_MAGIC, CAT_ARMOR, CAT_LEATHER, CAT_CLOTH
-    };
+    private static final String[] ALL_TAB_OVERLAYS   = { "#Tab1HOverlay", "#Tab2HOverlay", "#TabRangedOverlay", "#TabMagicOverlay", "#TabMetalArmorOverlay", "#TabLeatherArmorOverlay", "#TabClothArmorOverlay" };
+    private static final String[] ALL_TAB_CATEGORIES = { CAT_1H, CAT_2H, CAT_RANGED, CAT_MAGIC, CAT_ARMOR, CAT_LEATHER, CAT_CLOTH };
 
     // icon overlays paired with item names — overlay visible means INACTIVE, hidden means ACTIVE
     private static final String[] ALL_ICON_OVERLAYS = {
@@ -122,12 +118,8 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
     private int hoveredSlot = -1;
 
     // tracks item ids placed in each input slot (index 0-3 maps to slots 1-4)
-    public record SlotEntry (String slotN, Item item) {};
+    public record SlotEntry(String slotN, Item item) {}
     private final SlotEntry[] inputSlotItems = new SlotEntry[4];
-
-    // currently selected inventory slot — null means nothing selected, format: "storage:N" or "hotbar:N"
-    private String selectedSlotId = null;
-    private Item selectedItem = null;
 
     public CustomPage_ForgeCraftingPage(@Nonnull PlayerRef playerRef) {
         super(playerRef, CustomPageLifetime.CanDismiss, PageData.CODEC);
@@ -143,64 +135,70 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         this.combinedItemContainer = new CombinedItemContainer(new ItemContainer[]{ this.inputContainer, this.outputContainer });
     }
 
+    @Nonnull
+    @Override
+    public ItemContainer getItemContainer() {
+        return this.combinedItemContainer;
+    }
+
     @Override
     public void build(@Nonnull Ref<EntityStore> ref, @Nonnull UICommandBuilder cmd, @Nonnull UIEventBuilder events, @Nonnull Store<EntityStore> store) {
         // load the UI file
         cmd.append("CustomForgeCraftingPanel.ui");
 
         // bind category tab clicks
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#Tab1H", EventData.of("Action", "category:1h"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#Tab2H", EventData.of("Action", "category:2h"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabRanged", EventData.of("Action", "category:ranged"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabMagic", EventData.of("Action", "category:magic"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabMetalArmor", EventData.of("Action", "category:armor"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Tab1H",           EventData.of("Action", "category:1h"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#Tab2H",           EventData.of("Action", "category:2h"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabRanged",       EventData.of("Action", "category:ranged"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabMagic",        EventData.of("Action", "category:magic"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabMetalArmor",   EventData.of("Action", "category:armor"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#TabLeatherArmor", EventData.of("Action", "category:leather"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabClothArmor", EventData.of("Action", "category:cloth"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#TabClothArmor",   EventData.of("Action", "category:cloth"));
 
         // bind item icon clicks for 1H weapons
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconAxe", EventData.of("Action", "item:Axe"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClub", EventData.of("Action", "item:Club"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconAxe",    EventData.of("Action", "item:Axe"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClub",   EventData.of("Action", "item:Club"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconShield", EventData.of("Action", "item:Shield"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconSpear", EventData.of("Action", "item:Spear"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconSword", EventData.of("Action", "item:Sword"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconSpear",  EventData.of("Action", "item:Spear"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconSword",  EventData.of("Action", "item:Sword"));
 
         // bind item icon clicks for 2H weapons
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconBattleaxe", EventData.of("Action", "item:Battleaxe"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClaws", EventData.of("Action", "item:Claws"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconDaggers", EventData.of("Action", "item:Daggers"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClaws",     EventData.of("Action", "item:Claws"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconDaggers",   EventData.of("Action", "item:Daggers"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLongsword", EventData.of("Action", "item:Longsword"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconMace", EventData.of("Action", "item:Mace"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconScythe", EventData.of("Action", "item:Scythe"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconSickles", EventData.of("Action", "item:Sickles"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconMace",      EventData.of("Action", "item:Mace"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconScythe",    EventData.of("Action", "item:Scythe"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconSickles",   EventData.of("Action", "item:Sickles"));
 
         // bind item icon clicks for ranged weapons
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconCrossbow", EventData.of("Action", "item:Crossbow"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconKunai", EventData.of("Action", "item:Kunai"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLongbow", EventData.of("Action", "item:Longbow"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconKunai",    EventData.of("Action", "item:Kunai"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLongbow",  EventData.of("Action", "item:Longbow"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconShortbow", EventData.of("Action", "item:Shortbow"));
 
         // bind item icon clicks for magic weapons
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconSpellbook", EventData.of("Action", "item:Spellbook"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconStaff", EventData.of("Action", "item:Staff"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconWand", EventData.of("Action", "item:Wand"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconStaff",     EventData.of("Action", "item:Staff"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconWand",      EventData.of("Action", "item:Wand"));
 
         // bind item icon clicks for metal armor
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconArmorHelmet", EventData.of("Action", "item:Helmet"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconArmorChest", EventData.of("Action", "item:Chest"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconArmorChest",  EventData.of("Action", "item:Chest"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconArmorGloves", EventData.of("Action", "item:Gloves"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconArmorPants", EventData.of("Action", "item:Pants"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconArmorPants",  EventData.of("Action", "item:Pants"));
 
         // bind item icon clicks for leather armor
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLeatherHelmet", EventData.of("Action", "item:Helmet"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLeatherChest", EventData.of("Action", "item:Chest"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLeatherChest",  EventData.of("Action", "item:Chest"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLeatherGloves", EventData.of("Action", "item:Gloves"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLeatherPants", EventData.of("Action", "item:Pants"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconLeatherPants",  EventData.of("Action", "item:Pants"));
 
         // bind item icon clicks for cloth armor
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClothHelmet", EventData.of("Action", "item:Helmet"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClothChest", EventData.of("Action", "item:Chest"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClothChest",  EventData.of("Action", "item:Chest"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClothGloves", EventData.of("Action", "item:Gloves"));
-        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClothPants", EventData.of("Action", "item:Pants"));
+        events.addEventBinding(CustomUIEventBindingType.Activating, "#IconClothPants",  EventData.of("Action", "item:Pants"));
 
         // bind slot hover — locksInterface false so events are never blocked by acknowledgments
         events.addEventBinding(CustomUIEventBindingType.MouseEntered, "#InputSlot1", EventData.of("Action", "hover:1"), false);
@@ -212,18 +210,18 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         events.addEventBinding(CustomUIEventBindingType.MouseExited, "#InputSlot2", EventData.of("Action", "unhover:2"), false);
         events.addEventBinding(CustomUIEventBindingType.MouseExited, "#InputSlot3", EventData.of("Action", "unhover:3"), false);
 
-        // bind input slot clicks — places the currently selected inventory item into this slot
+        // bind input slot clicks — clears the item in that slot
         events.addEventBinding(CustomUIEventBindingType.Activating, "#InputSlot1", EventData.of("Action", "place:1"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#InputSlot2", EventData.of("Action", "place:2"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#InputSlot3", EventData.of("Action", "place:3"));
         events.addEventBinding(CustomUIEventBindingType.Activating, "#InputSlot4", EventData.of("Action", "place:4"));
 
-        // bind storage slot clicks — selects the item in that inventory slot
+        // bind storage slot clicks — places the item into the first valid input slot
         for (int i = 0; i < 36; i++) {
             events.addEventBinding(CustomUIEventBindingType.Activating, "#StorageSlot" + i, EventData.of("Action", "select:storage:" + i));
         }
 
-        // bind hotbar slot clicks — selects the item in that hotbar slot
+        // bind hotbar slot clicks — places the item into the first valid input slot
         for (int i = 0; i < 9; i++) {
             events.addEventBinding(CustomUIEventBindingType.Activating, "#HotbarSlot" + i, EventData.of("Action", "select:hotbar:" + i));
         }
@@ -238,42 +236,54 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         pushInventoryState(ref, store, cmd);
     }
 
-    @Nonnull
-    @Override
-    public ItemContainer getItemContainer() {
-        return this.combinedItemContainer;
-    }
+    // debug the event properties
+//    @Override
+//    public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, String rawData) {
+//        // broadcast the full raw event payload to all players for debugging
+//        for (PlayerRef player : Universe.get().getPlayers()) {
+//            player.sendMessage(Message.raw(rawData));
+//        }
+//        super.handleDataEvent(ref, store, rawData);
+//    }
 
+    // UI element event handler/router
     @Override
     public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull PageData data) {
-        // route incoming actions — action encodes type and value as "type:value"
+        // bail if there isn't a valid action
         if (data.action == null) { sendUpdate((UICommandBuilder) null, false); return; }
-        if (data.action.startsWith("category:")) {
-            handleCategoryChanged(ref, store, data.action.substring("category:".length()));
-        } else if (data.action.startsWith("item:")) {
-            handleItemChanged(ref, store, data.action.substring("item:".length()));
-        } else if (data.action.startsWith("hover:")) {
-            handleSlotHover(Integer.parseInt(data.action.substring("hover:".length())), ref, store);
-        } else if (data.action.startsWith("unhover:")) {
-            handleSlotUnhover(Integer.parseInt(data.action.substring("unhover:".length())), ref, store);
-        } else if (data.action.startsWith("select:")) {
-            handleInventorySelect(data.action.substring("select:".length()), ref, store);
-        } else if (data.action.startsWith("place:")) {
-            handleInputPlace(Integer.parseInt(data.action.substring("place:".length())), ref, store);
-        } else if (data.action.equals("craft")) {
-            handleCraft(ref, store);
-        } else {
-            sendUpdate((UICommandBuilder) null, false);
-        }
+
+        // weapons category tab clicked, swap the item icons and all that
+        if (data.action.startsWith("category:")) handleCategoryChanged(ref, store, data.action.substring("category:".length()));
+
+            // specific gear item selected, swap the diagrams and all that
+        else if (data.action.startsWith("item:")) handleItemChanged(ref, store, data.action.substring("item:".length()));
+
+            // input slot hovered, highlight the weapon part that the slot belongs to
+        else if (data.action.startsWith("hover:")) handleSlotHover(Integer.parseInt(data.action.substring("hover:".length())), ref, store);
+
+            // input slot unhovered, remove the weapon part highlighting
+        else if (data.action.startsWith("unhover:")) handleSlotUnhover(Integer.parseInt(data.action.substring("unhover:".length())), ref, store);
+
+            // inventory slot clicked — place item into first valid input slot or remove if already placed
+        else if (data.action.startsWith("select:")) handleInventorySelect(data.action.substring("select:".length()), ref, store);
+
+            // input slot clicked — clear the slot
+        else if (data.action.startsWith("place:")) handleInputPlace(Integer.parseInt(data.action.substring("place:".length())), ref, store);
+
+            // craft button clicked, do the craft
+        else if (data.action.equals("craft")) handleCraft(ref, store);
+
+            // action not recognized, push empty state
+        else sendUpdate((UICommandBuilder) null, false);
     }
 
+    // category tab was clicked — switch category, reset item, clear inputs
     private void handleCategoryChanged(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull String category) {
         // switch active category and reset to first item in that category
         this.activeCategory = category;
-        this.activeItem = getDefaultItemForCategory(category);
-        this.hoveredSlot = -1;
+        this.activeItem     = getDefaultItemForCategory(category);
+        this.hoveredSlot    = -1;
         UICommandBuilder cmd = new UICommandBuilder();
-        clearSelectedSlot(cmd);
         clearInputSlots(cmd, false);
         setOutputSlotState(cmd);
         applyState(cmd);
@@ -281,12 +291,12 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         sendUpdate(cmd, false);
     }
 
+    // item icon was clicked — switch active item within current category, clear inputs
     private void handleItemChanged(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull String item) {
         // switch active item within current category
-        this.activeItem = item;
+        this.activeItem  = item;
         this.hoveredSlot = -1;
         UICommandBuilder cmd = new UICommandBuilder();
-        clearSelectedSlot(cmd);
         clearInputSlots(cmd, false);
         setOutputSlotState(cmd);
         applyState(cmd);
@@ -294,6 +304,7 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         sendUpdate(cmd, false);
     }
 
+    // mouse entered a diagram slot — switch glow state
     private void handleSlotHover(int slot, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         UICommandBuilder cmd = new UICommandBuilder();
         String base = getActiveDiagramId().substring(1);
@@ -301,151 +312,112 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         // restore previously hovered slot part back to default
         if (this.hoveredSlot != -1 && this.hoveredSlot != slot) {
             cmd.set("#" + base + "P" + this.hoveredSlot + "Default.Visible", true);
-            cmd.set("#" + base + "P" + this.hoveredSlot + "Glow.Visible", false);
+            cmd.set("#" + base + "P" + this.hoveredSlot + "Glow.Visible",    false);
         }
 
         // set new hovered slot part to glow
         cmd.set("#" + base + "P" + slot + "Default.Visible", false);
-        cmd.set("#" + base + "P" + slot + "Glow.Visible", true);
+        cmd.set("#" + base + "P" + slot + "Glow.Visible",    true);
 
         this.hoveredSlot = slot;
         sendHoverUpdate(cmd);
     }
 
+    // mouse exited a diagram slot — restore default state if the slot hasn't changed
     private void handleSlotUnhover(int slot, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         // if hoveredSlot has already moved to a different slot, MouseEntered already handled the reset
         if (this.hoveredSlot != slot) { sendUpdate((UICommandBuilder) null, false); return; }
         UICommandBuilder cmd = new UICommandBuilder();
         String base = getActiveDiagramId().substring(1);
         cmd.set("#" + base + "P" + slot + "Default.Visible", true);
-        cmd.set("#" + base + "P" + slot + "Glow.Visible", false);
+        cmd.set("#" + base + "P" + slot + "Glow.Visible",    false);
         this.hoveredSlot = -1;
         sendHoverUpdate(cmd);
     }
 
+    // inventory slot was clicked — place into first valid empty input slot, or remove if already placed
     private void handleInventorySelect(@Nonnull String slotId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         // parse "storage:N" or "hotbar:N" to find the item at that slot
-        String[] parts = slotId.split(":");
+        String[] parts   = slotId.split(":");
         boolean isHotbar = parts[0].equals("hotbar");
-        int index = Integer.parseInt(parts[1]);
+        int index        = Integer.parseInt(parts[1]);
 
         // init the command builder
         UICommandBuilder cmd = new UICommandBuilder();
 
-        // try to get the clicked inventory slot/item or bail
+        // get the inventory container and bail if the slot is empty
         ItemContainer inv = isHotbar
-                ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
+                ? ((InventoryComponent.Hotbar)  store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
                 : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
         if (inv == null) { sendUpdate((UICommandBuilder) null, false); return; }
-
-        // if slot is empty bail
         ItemStack stack = inv.getItemStack((short) index);
         if (stack == null || stack.isEmpty()) { sendUpdate((UICommandBuilder) null, false); return; }
 
-        // loop over input slots and check if this item is in there
+        // if this item is already placed in an input slot, remove it
         for (int i = 0; i < inputSlotItems.length; i++) {
             SlotEntry entry = inputSlotItems[i];
             if (entry == null) continue;
-
-            if(entry.slotN().equals(slotId)) {
-                cmd.set("#" + (isHotbarItem(this.inputSlotItems[i].slotN) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotItems[i].slotN) + ".Visible", false);
+            if (entry.slotN().equals(slotId)) {
+                cmd.set("#" + (isHotbar ? "Hotbar" : "Storage") + "InUseOverlay" + index + ".Visible", false);
                 cmd.setNull("#InputItem" + (i + 1) + ".ItemId");
                 this.inputSlotItems[i] = null;
-
+                setOutputSlotState(cmd);
                 sendUpdate(cmd, false);
                 return;
             }
         }
 
-        // if the item is not usable bail
-        boolean usable = isComponentAllowed(stack.getItem().getId(), null);
-        if (!usable) { sendUpdate((UICommandBuilder) null, false); return; }
+        // bail if the item is not usable for the active recipe at all
+        if (!isComponentAllowed(stack.getItem().getId(), null)) { sendUpdate((UICommandBuilder) null, false); return; }
 
-        // deselect previously selected slot if any
-        if (this.selectedSlotId != null) {
-            cmd.set("#" + (isHotbarItem(this.selectedSlotId) ? "Hotbar" : "Storage") + "SelectedOverlay" + getSlotNumber(this.selectedSlotId) + ".Visible", false);
-        }
-
-        // if clicking the already selected slot, deselect it
-        if (slotId.equals(this.selectedSlotId)) {
-            this.selectedSlotId = null;
-            this.selectedItem = null;
-            clearInputSlots(cmd, true);
-            sendUpdate(cmd, false);
-            return;
-        }
-
-        // select the new slot — fade its ItemSlot to indicate it is "in use"
-        this.selectedSlotId = slotId;
-        this.selectedItem = stack.getItem();
-        cmd.set("#" + (isHotbarItem(slotId) ? "Hotbar" : "Storage") + "SelectedOverlay" + getSlotNumber(slotId) + ".Visible", true);
-
-        // update the input slots to indicate they can be used
+        // find the first valid empty input slot for this item
+        int targetSlot = -1;
         for (int i = 0; i < inputSlotItems.length; i++) {
-            final Integer indx = i;
-            boolean slotValid = isComponentAllowed(stack.getItem().getId(), indx);
-            cmd.set("#InputSlotOverlay" + (i + 1) + ".Visible", !slotValid);
+            if (inputSlotItems[i] != null) continue;
+            if (!isComponentAllowed(stack.getItem().getId(), i)) continue;
+            targetSlot = i;
+            break;
         }
 
-        // send the updates
+        // bail if no valid empty slot was found
+        if (targetSlot == -1) { sendUpdate((UICommandBuilder) null, false); return; }
+
+        // place the item into the target slot
+        this.inputSlotItems[targetSlot] = new SlotEntry(slotId, stack.getItem());
+        cmd.set("#InputItem" + (targetSlot + 1) + ".ItemId", stack.getItem().getId());
+
+        // enable the in use overlay for the placed item
+        cmd.set("#" + (isHotbar ? "Hotbar" : "Storage") + "InUseOverlay" + index + ".Visible", true);
+
+        // update the output slot state
+        setOutputSlotState(cmd);
+
         sendUpdate(cmd, false);
     }
 
+    // input slot was clicked — clear the slot
     private void handleInputPlace(int slot, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         // init the command builder
         UICommandBuilder cmd = new UICommandBuilder();
 
-        // if there is a selected item, validate it can go in this slot before any other change
-        if (this.selectedItem != null) {
-            // check the selected item against this slot type, don't let components go into slots that dont support their type
-            boolean slotValid = isComponentAllowed(this.selectedItem.getId(), slot - 1);
-            if (!slotValid) {
-                sendUpdate(cmd, false);
-                return;
-            }
-        }
-
-        // No matter what the input slot was clicked so we are either clearing or swaping an existing value if applicable
+        // clear the existing entry in this slot if any
         if (this.inputSlotItems[slot - 1] != null) {
             cmd.set("#" + (isHotbarItem(this.inputSlotItems[slot - 1].slotN) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.inputSlotItems[slot - 1].slotN) + ".Visible", false);
             cmd.setNull("#InputItem" + slot + ".ItemId");
             this.inputSlotItems[slot - 1] = null;
 
-            // if slots 1-3 were cleared
+            // disable the craft button if one of the required slots was cleared
             if (slot - 1 < 3) {
                 cmd.set("#CraftButton.Disabled", true);
             }
         }
 
-        // if nothing was selected it's just a clear and we are good.
-        if (this.selectedItem == null) {
-            setOutputSlotState(cmd);
-            sendUpdate(cmd, false);
-            return;
-        }
-
-        // otherwise place the selected item id into the input slot array
-        this.inputSlotItems[slot - 1] = new SlotEntry(this.selectedSlotId, this.selectedItem);
-
-        // update the clicked input slot with the selected item icon
-        cmd.set("#InputItem" + slot + ".ItemId", this.selectedItem.getId());
-
-        // enable the in use overlay for the slotted item
-        cmd.set("#" + (isHotbarItem(this.selectedSlotId) ? "Hotbar" : "Storage") + "InUseOverlay" + getSlotNumber(this.selectedSlotId) + ".Visible", true);
-
-        // clear the selection overlay and data
-        clearSelectedSlot(cmd);
-
-        // clear input hilighting
-        clearInputSlots(cmd, true);
-
-        // toggle the output slot state
+        // update the output slot state and send
         setOutputSlotState(cmd);
-
-        // send the updates
         sendUpdate(cmd, false);
     }
 
+    // craft button was clicked — validate inputs, consume items, give output
     private void handleCraft(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {
         UICommandBuilder cmd = new UICommandBuilder();
 
@@ -477,31 +449,25 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         // build the output item via item factory
         String outputItemId = ItemFactory.readCraftingComponent(inputSlotItems[0].item().getId())
                 .get("outputAssetID").asString().getValue() + "_" + rarity;
-        ItemStack output = ItemFactory.createItem(
-                outputItemId,
-                playerLevel,
-                inputSlotItems[0].item().getId(),
-                inputSlotItems[1].item().getId(),
-                inputSlotItems[2].item().getId()
-        );
+        ItemStack output = ItemFactory.createItem(outputItemId, playerLevel, inputSlotItems[0].item().getId(), inputSlotItems[1].item().getId(), inputSlotItems[2].item().getId());
         if (output == null) { sendUpdate((UICommandBuilder) null, false); return; }
 
-        // remove components from inventory — one of each, last thing before giving item
+        // consume one of each component from the player's inventory
         for (int i = 0; i < 3; i++) {
             SlotEntry entry = inputSlotItems[i];
             ItemContainer inv = isHotbarItem(entry.slotN())
-                    ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
+                    ? ((InventoryComponent.Hotbar)  store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
                     : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
             short slot = Short.parseShort(getSlotNumber(entry.slotN()));
             ItemStack current = inv.getItemStack(slot);
             inv.replaceItemStackInSlot(slot, current, current.withQuantity(current.getQuantity() - 1));
         }
 
-        // remove shard if present
+        // consume the shard if one was placed
         if (inputSlotItems[3] != null) {
             SlotEntry shardEntry = inputSlotItems[3];
             ItemContainer inv = isHotbarItem(shardEntry.slotN())
-                    ? ((InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
+                    ? ((InventoryComponent.Hotbar)  store.getComponent(ref, InventoryComponent.Hotbar.getComponentType())).getInventory()
                     : ((InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType())).getInventory();
             short slot = Short.parseShort(getSlotNumber(shardEntry.slotN()));
             ItemStack current = inv.getItemStack(slot);
@@ -512,8 +478,7 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         InventoryComponent.Storage storage = (InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType());
         if (storage != null) storage.getInventory().addItemStack(output);
 
-        // clear the UI
-        clearSelectedSlot(cmd);
+        // clear the UI and refresh
         clearInputSlots(cmd, false);
         setOutputSlotState(cmd);
         pushInventoryState(ref, store, cmd);
@@ -535,23 +500,14 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         ));
     }
 
-    // converts a slotId like "storage:5" or "hotbar:2" to its ItemSlot element id e.g. "StorageItem5"
-    private String getItemSlotId(@Nonnull String slotId) {
-        String[] parts = slotId.split(":");
-        boolean isHotbar = parts[0].equals("hotbar");
-        return isHotbar ? "HotbarItem" + parts[1] : "StorageItem" + parts[1];
-    }
-
-    // determines if is hotbar or not
+    // determines if a slotId refers to a hotbar slot
     private boolean isHotbarItem(@Nonnull String slotId) {
-        String[] parts = slotId.split(":");
-        return parts[0].equals("hotbar");
+        return slotId.split(":")[0].equals("hotbar");
     }
 
-    // determines if is hotbar or not
+    // extracts the numeric slot index from a slotId like "storage:5" or "hotbar:2"
     private String getSlotNumber(@Nonnull String slotId) {
-        String[] parts = slotId.split(":");
-        return parts[1];
+        return slotId.split(":")[1];
     }
 
     // apply all visibility and label state to a UICommandBuilder
@@ -576,19 +532,14 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         }
 
         // update the category and sub category label text
-        cmd.set("#CategoryLabel.TextSpans", Message.raw(getCategoryLabel(this.activeCategory)));
+        cmd.set("#CategoryLabel.TextSpans",    Message.raw(getCategoryLabel(this.activeCategory)));
         cmd.set("#SubCategoryLabel.TextSpans", Message.raw(activeItemKey));
 
         // restore any items already placed in input slots
         for (int i = 0; i < inputSlotItems.length; i++) {
             if (inputSlotItems[i] != null) {
-                cmd.set("#InputItem" + (i + 1) + ".ItemId", inputSlotItems[i].item.getId());
+                cmd.set("#InputItem" + (i + 1) + ".ItemId", inputSlotItems[i].item().getId());
             }
-        }
-
-        // restore selected slot fade state if a selection is active
-        if (this.selectedSlotId != null) {
-            cmd.set("#" + getItemSlotId(this.selectedSlotId) + ".Visible", false);
         }
 
         // temporarily hidden weapons — remove this block when ready to enable
@@ -597,156 +548,8 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         }
     }
 
-    // returns the diagram group id for the current category and item
-    private String getActiveDiagramId() {
-        return switch (this.activeCategory) {
-            case CAT_ARMOR -> "#DiagramArmor" + this.activeItem;
-            case CAT_LEATHER -> "#DiagramLeather" + this.activeItem;
-            case CAT_CLOTH -> "#DiagramCloth" + this.activeItem;
-            default -> "#Diagram" + this.activeItem;
-        };
-    }
-
-    // maps active category to its icon row group id
-    private String getActiveIconRow() {
-        return switch (this.activeCategory) {
-            case CAT_2H -> "#ItemCategories2H";
-            case CAT_RANGED -> "#ItemCategoriesRanged";
-            case CAT_MAGIC -> "#ItemCategoriesMagic";
-            case CAT_ARMOR -> "#ItemCategoriesArmor";
-            case CAT_LEATHER -> "#ItemCategoriesLeather";
-            case CAT_CLOTH -> "#ItemCategoriesCloth";
-            default -> "#ItemCategories1H";
-        };
-    }
-
-    // maps category id to display label text
-    private String getCategoryLabel(@Nonnull String category) {
-        return switch (category) {
-            case CAT_2H -> "2H WEAPONS";
-            case CAT_RANGED -> "RANGED WEAPONS";
-            case CAT_MAGIC -> "MAGIC WEAPONS";
-            case CAT_ARMOR -> "METAL ARMOR";
-            case CAT_LEATHER -> "LEATHER ARMOR";
-            case CAT_CLOTH -> "CLOTH ARMOR";
-            default -> "1H WEAPONS";
-        };
-    }
-
-    // returns the first item for a given category on initial load or category switch
-    private String getDefaultItemForCategory(@Nonnull String category) {
-        return switch (category) {
-            case CAT_2H -> "Battleaxe";
-            case CAT_RANGED -> "Crossbow";
-            case CAT_MAGIC -> "Spellbook";
-            case CAT_ARMOR, CAT_LEATHER, CAT_CLOTH -> "Helmet";
-            default -> "Axe";
-        };
-    }
-
-    // extracts the component type from the raw asset json e.g. "Axe Head"
-    private static String extractComponentType(@Nonnull String itemId) {
-        if (SHARD_IDS.contains(itemId)) return "Shard";
-        BsonDocument component = readCraftingComponent(itemId);
-        if (component == null) return null;
-        BsonValue type = component.get("type");
-        return (type != null && type.isString()) ? type.asString().getValue() : null;
-    }
-
-    // checks if this item is allowed for the active weapon (and/or in this slot as applicable)
-    public boolean isComponentAllowed(@Nonnull String itemId, @Nullable Integer slot) {
-        // shards are always valid in slot 3 only
-        if (SHARD_IDS.contains(itemId)) {
-            return slot == null || slot == 3;
-        }
-
-        String type = extractComponentType(itemId);
-        if (type == null) return false;
-
-        // use full key for armor categories since ALLOWED_COMPONENTS stores full names
-        List<String> allowed = ItemFactory.ALLOWED_COMPONENTS.get(getActiveItemKey());
-        if (allowed == null) return false;
-
-        if (slot == null) return allowed.contains(type);
-        return slot < allowed.size() && allowed.get(slot).equals(type);
-    }
-
-    // Enable/disable inventory items based on the selected category
-    private void applyInventoryUsabilityOverlays(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
-        // loop storage slots and set overlay based on whether the item is usable for the active weapon
-        InventoryComponent.Storage storageComponent = (InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType());
-        if (storageComponent != null) {
-            ItemContainer storage = storageComponent.getInventory();
-            for (short i = 0; i < Math.min(storage.getCapacity(), 36); i++) {
-                ItemStack stack = storage.getItemStack(i);
-                if (stack == null || stack.isEmpty()) continue;
-                boolean usable = isComponentAllowed(stack.getItem().getId(), null);
-                cmd.set("#StorageInvalidOverlay" + i + ".Visible", !usable);
-            }
-        }
-
-        // loop hotbar slots and set overlay based on whether the item is usable for the active weapon
-        InventoryComponent.Hotbar hotbarComponent = (InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
-        if (hotbarComponent != null) {
-            ItemContainer hotbar = hotbarComponent.getInventory();
-            for (short i = 0; i < Math.min(hotbar.getCapacity(), 9); i++) {
-                ItemStack stack = hotbar.getItemStack(i);
-                if (stack == null || stack.isEmpty()) continue;
-                boolean usable = isComponentAllowed(stack.getItem().getId(), null);
-                cmd.set("#HotbarInvalidOverlay" + i + ".Visible", !usable);
-            }
-        }
-    }
-
-    // push all inventory item ids to the UI slots
-    private void pushInventoryState(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
-        Player playerComponent = (Player) store.getComponent(ref, Player.getComponentType());
-        if (playerComponent == null) return;
-
-        // push storage slots
-        InventoryComponent.Storage storageComponent = (InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType());
-        if (storageComponent != null) {
-            ItemContainer storage = storageComponent.getInventory();
-            for (short i = 0; i < Math.min(storage.getCapacity(), 36); i++) {
-                ItemStack item = storage.getItemStack(i);
-                String itemId = (item != null && !item.isEmpty()) ? item.getItem().getId() : null;
-                if (itemId != null) {
-                    cmd.set("#StorageItem" + i + ".ItemId", itemId);
-                }
-                else cmd.setNull("#StorageItem" + i + ".ItemId");
-            }
-        }
-
-        // push hotbar slots
-        InventoryComponent.Hotbar hotbarComponent = (InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
-        if (hotbarComponent != null) {
-            ItemContainer hotbar = hotbarComponent.getInventory();
-            for (short i = 0; i < Math.min(hotbar.getCapacity(), 9); i++) {
-                ItemStack item = hotbar.getItemStack(i);
-                String itemId = (item != null && !item.isEmpty()) ? item.getItem().getId() : null;
-                if (itemId != null) {
-                    cmd.set("#HotbarItem" + i + ".ItemId", itemId);
-                }
-                else cmd.setNull("#HotbarItem" + i + ".ItemId");
-            }
-        }
-
-        // apply usability overlays based on default active item
-        applyInventoryUsabilityOverlays(ref, store, cmd);
-    }
-
-    // clear the selected slot overlays and data
-    private void clearSelectedSlot(UICommandBuilder cmd) {
-        if(this.selectedSlotId == null || this.selectedItem == null) return;
-
-        cmd.set("#" + (isHotbarItem(this.selectedSlotId) ? "Hotbar" : "Storage") + "SelectedOverlay" + getSlotNumber(this.selectedSlotId) + ".Visible", false);
-        this.selectedSlotId = null;
-        this.selectedItem = null;
-    }
-
-    // clear the input slot overlays and data
-    private void clearInputSlots(UICommandBuilder cmd, boolean onlyClearOverlays) {
-        // update the input slots to indicate they can be used
+    // clear the input slot overlays and optionally the slot data and item icons
+    private void clearInputSlots(@Nonnull UICommandBuilder cmd, boolean onlyClearOverlays) {
         for (int i = 0; i < inputSlotItems.length; i++) {
             cmd.set("#InputSlotOverlay" + (i + 1) + ".Visible", false);
             if (!onlyClearOverlays && inputSlotItems[i] != null) {
@@ -757,7 +560,7 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         }
     }
 
-    // update teh crafting result panel/window
+    // update the crafting result panel/window based on current input slot state
     private void setOutputSlotState(@Nonnull UICommandBuilder cmd) {
         if (this.inputSlotItems[0] != null && this.inputSlotItems[1] != null && this.inputSlotItems[2] != null) {
             cmd.set("#CraftButton.Disabled", false);
@@ -803,8 +606,8 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
                     if (!entry.isDocument()) continue;
                     BsonDocument implicit = entry.asDocument();
                     BsonValue statVal = implicit.get("stat");
-                    BsonValue minVal = implicit.get("min");
-                    BsonValue maxVal = implicit.get("max");
+                    BsonValue minVal  = implicit.get("min");
+                    BsonValue maxVal  = implicit.get("max");
                     if (statVal == null || minVal == null || maxVal == null) continue;
 
                     StatType stat;
@@ -817,14 +620,15 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
                     // slot 0's first main/off hand damage flat is the weapon damage — shown separately
                     if (i == 0 && weaponDamageText.isEmpty() && StatTypeInfo.isWeaponDamageStat(stat)) {
                         weaponDamageText = StatTypeInfo.getDisplay(stat, min, max);
-                    } else {
+                    }
+                    else {
                         implicitLines.add(StatTypeInfo.getDisplay(stat, min, max));
                     }
                 }
             }
 
             // populate weapon stats section
-            cmd.set("#WeaponDamage.Text", weaponDamageText);
+            cmd.set("#WeaponDamage.Text",   weaponDamageText);
             cmd.set("#WeaponStats.Visible", true);
 
             // populate implicit lines 1-5 — clear any beyond what we have
@@ -834,24 +638,132 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
 
             // populate affix count line based on rarity
             int affixCount = switch (rarity) {
-                case "Uncommon" -> 1;
-                case "Rare" -> 2;
-                case "Epic" -> 3;
+                case "Uncommon"  -> 1;
+                case "Rare"      -> 2;
+                case "Epic"      -> 3;
                 case "Legendary" -> 4;
-                default -> 0;
+                default          -> 0;
             };
             cmd.set("#ImplicitLine5Empty.Text", "");
             cmd.set("#AffixCount.Text", affixCount == 1 ? "+1 random stat" : "+" + affixCount + " random stats");
 
-        } else {
+        }
+        else {
             // clear output state
             cmd.setNull("#OutputItem.ItemId");
             cmd.set("#CraftButton.Disabled", true);
-            cmd.set("#WeaponStats.Visible", false);
+            cmd.set("#WeaponStats.Visible",  false);
         }
     }
 
-    // get the active item key based on category or passthrough for weapons
+    // Enable/disable inventory items based on the selected category
+    private void applyInventoryUsabilityOverlays(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
+        // loop storage slots and set overlay based on whether the item is usable for the active weapon
+        InventoryComponent.Storage storageComponent = (InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        if (storageComponent != null) {
+            ItemContainer storage = storageComponent.getInventory();
+            for (short i = 0; i < Math.min(storage.getCapacity(), 36); i++) {
+                ItemStack stack = storage.getItemStack(i);
+                if (stack == null || stack.isEmpty()) continue;
+                boolean usable = isComponentAllowed(stack.getItem().getId(), null);
+                cmd.set("#StorageInvalidOverlay" + i + ".Visible", !usable);
+            }
+        }
+
+        // loop hotbar slots and set overlay based on whether the item is usable for the active weapon
+        InventoryComponent.Hotbar hotbarComponent = (InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+        if (hotbarComponent != null) {
+            ItemContainer hotbar = hotbarComponent.getInventory();
+            for (short i = 0; i < Math.min(hotbar.getCapacity(), 9); i++) {
+                ItemStack stack = hotbar.getItemStack(i);
+                if (stack == null || stack.isEmpty()) continue;
+                boolean usable = isComponentAllowed(stack.getItem().getId(), null);
+                cmd.set("#HotbarInvalidOverlay" + i + ".Visible", !usable);
+            }
+        }
+    }
+
+    // push all inventory item ids to the UI slots
+    private void pushInventoryState(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
+        Player playerComponent = (Player) store.getComponent(ref, Player.getComponentType());
+        if (playerComponent == null) return;
+
+        // push storage slots
+        InventoryComponent.Storage storageComponent = (InventoryComponent.Storage) store.getComponent(ref, InventoryComponent.Storage.getComponentType());
+        if (storageComponent != null) {
+            ItemContainer storage = storageComponent.getInventory();
+            for (short i = 0; i < Math.min(storage.getCapacity(), 36); i++) {
+                ItemStack item = storage.getItemStack(i);
+                String itemId = (item != null && !item.isEmpty()) ? item.getItem().getId() : null;
+                if (itemId != null) cmd.set("#StorageItem" + i + ".ItemId", itemId);
+                else cmd.setNull("#StorageItem" + i + ".ItemId");
+            }
+        }
+
+        // push hotbar slots
+        InventoryComponent.Hotbar hotbarComponent = (InventoryComponent.Hotbar) store.getComponent(ref, InventoryComponent.Hotbar.getComponentType());
+        if (hotbarComponent != null) {
+            ItemContainer hotbar = hotbarComponent.getInventory();
+            for (short i = 0; i < Math.min(hotbar.getCapacity(), 9); i++) {
+                ItemStack item = hotbar.getItemStack(i);
+                String itemId = (item != null && !item.isEmpty()) ? item.getItem().getId() : null;
+                if (itemId != null) cmd.set("#HotbarItem" + i + ".ItemId", itemId);
+                else cmd.setNull("#HotbarItem" + i + ".ItemId");
+            }
+        }
+
+        // apply usability overlays based on the active item
+        applyInventoryUsabilityOverlays(ref, store, cmd);
+    }
+
+    // returns the diagram group id for the current category and item
+    private String getActiveDiagramId() {
+        return switch (this.activeCategory) {
+            case CAT_ARMOR   -> "#DiagramArmor"   + this.activeItem;
+            case CAT_LEATHER -> "#DiagramLeather" + this.activeItem;
+            case CAT_CLOTH   -> "#DiagramCloth"   + this.activeItem;
+            default          -> "#Diagram"         + this.activeItem;
+        };
+    }
+
+    // maps active category to its icon row group id
+    private String getActiveIconRow() {
+        return switch (this.activeCategory) {
+            case CAT_2H      -> "#ItemCategories2H";
+            case CAT_RANGED  -> "#ItemCategoriesRanged";
+            case CAT_MAGIC   -> "#ItemCategoriesMagic";
+            case CAT_ARMOR   -> "#ItemCategoriesArmor";
+            case CAT_LEATHER -> "#ItemCategoriesLeather";
+            case CAT_CLOTH   -> "#ItemCategoriesCloth";
+            default          -> "#ItemCategories1H";
+        };
+    }
+
+    // maps category id to display label text
+    private String getCategoryLabel(@Nonnull String category) {
+        return switch (category) {
+            case CAT_2H      -> "2H WEAPONS";
+            case CAT_RANGED  -> "RANGED WEAPONS";
+            case CAT_MAGIC   -> "MAGIC WEAPONS";
+            case CAT_ARMOR   -> "METAL ARMOR";
+            case CAT_LEATHER -> "LEATHER ARMOR";
+            case CAT_CLOTH   -> "CLOTH ARMOR";
+            default          -> "1H WEAPONS";
+        };
+    }
+
+    // returns the first item for a given category on initial load or category switch
+    private String getDefaultItemForCategory(@Nonnull String category) {
+        return switch (category) {
+            case CAT_2H                            -> "Battleaxe";
+            case CAT_RANGED                        -> "Crossbow";
+            case CAT_MAGIC                         -> "Spellbook";
+            case CAT_ARMOR, CAT_LEATHER, CAT_CLOTH -> "Helmet";
+            default                                -> "Axe";
+        };
+    }
+
+    // gets the active item key — full name for armor categories, passthrough for weapons
     private String getActiveItemKey() {
         return switch (this.activeCategory) {
             case CAT_ARMOR   -> "Metal "   + this.activeItem;
@@ -869,6 +781,33 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         };
     }
 
+    // extracts the component type from the raw asset json e.g. "Axe Head"
+    private static String extractComponentType(@Nonnull String itemId) {
+        if (SHARD_IDS.contains(itemId)) return "Shard";
+        BsonDocument component = readCraftingComponent(itemId);
+        if (component == null) return null;
+        BsonValue type = component.get("type");
+        return (type != null && type.isString()) ? type.asString().getValue() : null;
+    }
+
+    // checks if this item is allowed for the active weapon (and/or in this slot as applicable)
+    public boolean isComponentAllowed(@Nonnull String itemId, @Nullable Integer slot) {
+        // shards are always valid in slot 3 only
+        if (SHARD_IDS.contains(itemId)) {
+            return slot == null || slot == 3;
+        }
+
+        String type = extractComponentType(itemId);
+        if (type == null) return false;
+
+        // use full key for armor categories since ALLOWED_COMPONENTS stores full names
+        List<String> allowed = ItemFactory.ALLOWED_COMPONENTS.get(getActiveItemKey());
+        if (allowed == null) return false;
+
+        if (slot == null) return allowed.contains(type);
+        return slot < allowed.size() && allowed.get(slot).equals(type);
+    }
+
     // reads and caches the CraftingComponent block from a raw asset json — returns null if not present
     private static BsonDocument readCraftingComponent(@Nonnull String itemId) {
         return CRAFTING_COMPONENT_CACHE.computeIfAbsent(itemId, id -> {
@@ -884,22 +823,35 @@ public class CustomPage_ForgeCraftingPage extends InteractiveCustomUIPage<Custom
         });
     }
 
+    // compile a class to handle the event data payloads
     public static class PageData {
         public static final BuilderCodec<PageData> CODEC = BuilderCodec
-                .<PageData>builder(PageData.class, PageData::new)
-                .append(new KeyedCodec<>("Action", Codec.STRING), (d, v) -> d.action = v, d -> d.action).add()
-                .append(new KeyedCodec<>("ItemStackId", Codec.STRING), (d, v) -> d.itemStackId = v, d -> d.itemStackId).add()
-                .append(new KeyedCodec<>("DragItemStackId", Codec.STRING), (d, v) -> d.dragItemStackId = v, d -> d.dragItemStackId).add()
-                .append(new KeyedCodec<>("SourceSlotId", Codec.INTEGER), (d, v) -> d.sourceSlotId = v, d -> d.sourceSlotId).add()
-                .append(new KeyedCodec<>("SourceInventorySectionId", Codec.INTEGER), (d, v) -> d.sourceInventorySectionId = v, d -> d.sourceInventorySectionId).add()
-                .append(new KeyedCodec<>("SlotIndex", Codec.INTEGER), (d, v) -> d.slotIndex = v, d -> d.slotIndex).add()
-                .build();
+            .<PageData>builder(PageData.class, PageData::new)
+            // default properties
+            .append(new KeyedCodec<>("Action",    Codec.STRING),  (d, v) -> d.action    = v, d -> d.action).add()
+            .append(new KeyedCodec<>("SlotIndex", Codec.INTEGER), (d, v) -> d.slotIndex = v, d -> d.slotIndex).add()
 
-        public String action;
-        public String itemStackId;
-        public String dragItemStackId;
+            // dragComplete keys
+            .append(new KeyedCodec<>("SourceSlotId",             Codec.INTEGER), (d, v) -> d.sourceSlotId             = v, d -> d.sourceSlotId).add()
+            .append(new KeyedCodec<>("SourceInventorySectionId", Codec.INTEGER), (d, v) -> d.sourceInventorySectionId = v, d -> d.sourceInventorySectionId).add()
+
+            // legacy keys retained for codec compatibility
+            .append(new KeyedCodec<>("ItemStackId",     Codec.STRING), (d, v) -> d.itemStackId     = v, d -> d.itemStackId).add()
+            .append(new KeyedCodec<>("DragItemStackId", Codec.STRING), (d, v) -> d.dragItemStackId = v, d -> d.dragItemStackId).add()
+
+            // build the codec
+            .build();
+
+        // default properties
+        public String  action;
+        public int     slotIndex = -1;
+
+        // dragComplete properties
         public Integer sourceSlotId;
         public Integer sourceInventorySectionId;
-        public Integer slotIndex;
+
+        // legacy properties
+        public String itemStackId;
+        public String dragItemStackId;
     }
 }

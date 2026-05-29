@@ -9,7 +9,7 @@
         LayoutMode: Left;
         Anchor: (Height: 90, Bottom: 6);
 
-        Button #SalvageOutputSlot1 {
+        ItemSlotButton #SalvageOutputSlot1 {
             Anchor: (Width: 74, Height: 74);
             ItemSlot #SalvageOutputItem1 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
         }
@@ -33,7 +33,7 @@
         LayoutMode: Left;
         Anchor: (Height: 90, Bottom: 6);
 
-        Button #SalvageOutputSlot2 {
+        ItemSlotButton #SalvageOutputSlot2 {
             Anchor: (Width: 74, Height: 74);
             ItemSlot #SalvageOutputItem2 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
         }
@@ -57,7 +57,7 @@
         LayoutMode: Left;
         Anchor: (Height: 90, Bottom: 6);
 
-        Button #SalvageOutputSlot3 {
+        ItemSlotButton #SalvageOutputSlot3 {
             Anchor: (Width: 74, Height: 74);
             ItemSlot #SalvageOutputItem3 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
         }
@@ -81,7 +81,7 @@
         LayoutMode: Left;
         Anchor: (Height: 90, Bottom: 6);
 
-        Button #SalvageOutputSlot4 {
+        ItemSlotButton #SalvageOutputSlot4 {
             Anchor: (Width: 74, Height: 74);
             ItemSlot #SalvageOutputItem4 { Anchor: (Width: 64, Height: 64); ShowQualityBackground: true; ShowQuantity: false; }
         }

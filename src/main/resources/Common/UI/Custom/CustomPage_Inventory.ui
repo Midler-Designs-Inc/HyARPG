@@ -1,7 +1,6 @@
 $Common = "Common.ui";
 $GearPanel    = "Inventory/Pages/CustomPage_InventoryStatsPanel.ui";
 $InventoryGrid = "Inventory/Pages/CustomPage_InventoryGrid.ui";
-$InspectPanel  = "Inventory/Pages/CustomPage_InventoryInspect.ui";
 
 SceneBlur {}
 
@@ -44,12 +43,6 @@ Group {
 
                 // Center column — inventory grid + hotbar
                 $InventoryGrid.@InventoryGrid #InventoryGrid {}
-
-                // Vertical separator
-                $Common.@VerticalSeparator {}
-
-                // Right column — item inspect panel
-                $InspectPanel.@InspectPanel #InspectPanel {}
             }
         }
     }

@@ -1,36 +1,37 @@
 package com.example.hyarpg.ui;
 
 // Hytale Imports
-import com.example.hyarpg.utils.items.ItemFactory;
 import com.hypixel.hytale.codec.Codec;
 import com.hypixel.hytale.codec.KeyedCodec;
 import com.hypixel.hytale.codec.builder.BuilderCodec;
+import com.hypixel.hytale.component.ComponentType;
 import com.hypixel.hytale.component.Ref;
 import com.hypixel.hytale.component.Store;
-import com.hypixel.hytale.event.EventRegistration;
-import com.hypixel.hytale.protocol.ItemArmorSlot;
 import com.hypixel.hytale.protocol.packets.interface_.CustomPageLifetime;
 import com.hypixel.hytale.protocol.packets.interface_.CustomUIEventBindingType;
-import com.hypixel.hytale.server.core.Message;
-import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.asset.type.item.config.metadata.ItemDisplayMetadata;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.entities.player.pages.InteractiveCustomUIPage;
-import com.hypixel.hytale.server.core.entity.entities.player.pages.PageManager;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.ItemContainer;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
+import com.hypixel.hytale.server.core.modules.entitystats.EntityStatsModule;
+import com.hypixel.hytale.server.core.modules.entitystats.asset.DefaultEntityStatTypes;
 import com.hypixel.hytale.server.core.ui.ItemGridSlot;
+import com.hypixel.hytale.server.core.ui.PatchStyle;
+import com.hypixel.hytale.server.core.ui.Value;
 import com.hypixel.hytale.server.core.ui.builder.EventData;
 import com.hypixel.hytale.server.core.ui.builder.UICommandBuilder;
 import com.hypixel.hytale.server.core.ui.builder.UIEventBuilder;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
-import com.hypixel.hytale.server.core.universe.Universe;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
 import static com.example.hyarpg.modules.Module_RPGSystem.componentTypeRPGPlayer;
+import com.example.hyarpg.utils.items.ItemFactory;
 
 // Java Imports
 import javax.annotation.Nonnull;
@@ -46,15 +47,12 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
     private static final int ARMOR_SLOTS   = 4;
     private static final int UTILITY_SLOTS = 4;
 
-    // quick-craft slot definitions
-    private static final int QUICK_CRAFT_SLOTS = 6;
-    private static final String[] QUICK_CRAFT_ITEM_IDS = {
-        "HyARPG_How_To_Play_Guide",
-        "Tool_Hatchet_Crude",
-        "Tool_Pickaxe_Crude",
-        "Bench_Light_Well",
-        "Bench_WorkBench",
-        "Dimensional_Cube",
+    // armor slot background textures — one per slot in helmet/chest/gloves/legs order
+    private static final String[] ARMOR_SLOT_BACKGROUNDS = {
+        "Inventory/Icons/EmptyHelmetSlot.png",
+        "Inventory/Icons/EmptyChestSlot.png",
+        "Inventory/Icons/EmptyGlovesSlot.png",
+        "Inventory/Icons/EmptyLegsSlot.png",
     };
 
     public CustomPage_Inventory(@Nonnull PlayerRef playerRef) {
@@ -78,9 +76,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         events.addEventBinding(CustomUIEventBindingType.SlotClickReleaseWhileDragging, "#ArmorGrid", EventData.of("Action", "clickedWhileDragging:armor"));
         events.addEventBinding(CustomUIEventBindingType.SlotClickReleaseWhileDragging, "#UtilityGrid", EventData.of("Action", "clickedWhileDragging:utility"));
 
-        // bind quick-craft slot clicks
-        for (int i = 0; i < QUICK_CRAFT_SLOTS; i++) events.addEventBinding(CustomUIEventBindingType.Activating, "#QuickCraftSlot" + i, EventData.of("Action", "quickcraft:" + i));
-
         // apply full initial state
         applyFullState(ref, store, cmd);
     }
@@ -97,11 +92,8 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         String targetContainer = data.action.split(":")[1];
         int targetSectionId = targetContainer.equals("storage") ? InventoryComponent.STORAGE_SECTION_ID : targetContainer.equals("hotbar") ? InventoryComponent.HOTBAR_SECTION_ID : targetContainer.equals("armor") ? InventoryComponent.ARMOR_SECTION_ID : InventoryComponent.UTILITY_SECTION_ID;
 
-        // quick craft slot was clicked
-        if (data.action.startsWith("quickcraft:")) handleQuickCraft(Integer.parseInt(data.action.substring("quickcraft:".length())), ref, store, cmd);
-
         // left click drag completed — move the full stack from source to destination
-        else if (data.action.startsWith("dropped:")) {
+        if (data.action.startsWith("dropped:")) {
             handleDragComplete(ref, data.sourceSectionId, targetSectionId, data.sourceSlotId, data.slotIndex, false);
             applyFullState(ref, store, cmd);
         }
@@ -125,15 +117,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         }
 
         sendUpdate(cmd, false);
-    }
-
-    // called when a quick-craft slot is clicked
-    private void handleQuickCraft(int slot, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
-        if (slot < 0 || slot >= QUICK_CRAFT_SLOTS) return;
-        InventoryComponent.Storage storage = store.getComponent(ref, InventoryComponent.Storage.getComponentType());
-        if (storage == null) return;
-        storage.getInventory().addItemStack(new ItemStack(QUICK_CRAFT_ITEM_IDS[slot], 1));
-        pushStorageGrid(ref, store, cmd);
     }
 
     // called when a drag event is completed, moves items between containers/slots or stacks them
@@ -189,7 +172,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
         pushArmorGrid(ref, store, cmd);
         pushUtilityGrid(ref, store, cmd);
         pushStats(ref, store, cmd);
-        pushQuickCraftStates(ref, store, cmd);
     }
 
     // push the individual item grids
@@ -268,6 +250,9 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
             ItemGridSlot slot = new ItemGridSlot();
             slot.setActivatable(true);
 
+            // set the per-slot background icon for empty armor slots
+            slot.setBackground(Value.of(new PatchStyle(Value.of(ARMOR_SLOT_BACKGROUNDS[i]), Value.of(4))));
+
             // populate slot details if an item is present
             if (stack != null && !stack.isEmpty()) {
                 // use a clean stack with just id and quantity
@@ -313,14 +298,6 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
 
         // push the slot list to the grid
         cmd.set("#UtilityGrid.Slots", slots);
-    }
-
-    // push quick-craft slot item icons
-    private void pushQuickCraftStates(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull UICommandBuilder cmd) {
-        for (int i = 0; i < QUICK_CRAFT_SLOTS; i++) {
-            cmd.set("#QuickCraftItem" + i + ".ItemId", QUICK_CRAFT_ITEM_IDS[i]);
-            cmd.set("#QuickCraftDimOverlay" + i + ".Visible", false);
-        }
     }
 
     // push all stat values to the left panel labels
@@ -403,6 +380,19 @@ public class CustomPage_Inventory extends InteractiveCustomUIPage<CustomPage_Inv
             cmd.set("#StatRunSpeed.Text", "+" + fmtPct(stats.getRunSpeedPercent()));
             cmd.set("#StatAmmo.Text",     "+" + fmt(stats.getAddedAmmo()));
             cmd.set("#StatAmmoRegen.Text","+" + fmtPct(stats.getAmmoRegenPercent()));
+
+            // get max resource values from the entity stat map
+            ComponentType<EntityStore, EntityStatMap> statMapType = EntityStatsModule.get().getEntityStatMapComponentType();
+            EntityStatMap statMap = store.getComponent(ref, statMapType);
+            if (statMap != null) {
+                EntityStatValue healthStat = statMap.get(DefaultEntityStatTypes.getHealth());
+                EntityStatValue staminaStat = statMap.get(DefaultEntityStatTypes.getStamina());
+                EntityStatValue manaStat = statMap.get(DefaultEntityStatTypes.getMana());
+
+                if (healthStat != null) cmd.set("#StatMaxHP.Text", fmt(healthStat.getMax()));
+                if (staminaStat != null) cmd.set("#StatMaxStamina.Text", fmt(staminaStat.getMax()));
+                if (manaStat != null) cmd.set("#StatMaxMana.Text", fmt(manaStat.getMax()));
+            }
         } catch (Exception _) {}
     }
 

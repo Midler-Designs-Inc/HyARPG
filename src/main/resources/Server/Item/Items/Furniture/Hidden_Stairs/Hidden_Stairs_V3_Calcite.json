@@ -1,0 +1,106 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Hidden_Door_V3.name",
+    "Description": "server.items.Hidden_Door_V3.description"
+  },
+  "PlayerAnimationsId": "Block",
+  "Categories": [
+    "Furniture.Doors"
+  ],
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      43.615,
+      22.5
+    ],
+    "Scale": 0.38,
+    "Translation": [
+      -22.8,
+      -53.4
+    ]
+  },
+  "BlockType": {
+    "CustomModel": "Blocks/Structures/Hidden_Stairs/Hidden_Stairs_V3.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "BlockTextures/Calcite_Brick_Top.png"
+      }
+    ],
+    "DrawType": "Model",
+    "Gathering": {
+      "Breaking": {
+        "ItemId": "Hidden_Stairs_V3"
+      }
+    },
+    "HitboxType": "Door_Hidden_Stairs_V3_Closed",
+    "Material": "Solid",
+    "State": {
+      "Definitions": {
+        "CloseDoorIn": {
+          "CustomModelAnimation": "Blocks/Structures/Hidden_Stairs/Stair_Movement_V3_Close.blockyanim",
+          "InteractionSoundEventId": "SFX_Door_Temple_Dark_Close"
+        },
+        "CloseDoorOut": {
+          "CustomModelAnimation": "Blocks/Structures/Hidden_Stairs/Stair_Movement_V3_Close.blockyanim",
+          "InteractionSoundEventId": "SFX_Door_Temple_Dark_Close"
+        },
+        "OpenDoorIn": {
+          "CustomModelAnimation": "Blocks/Structures/Hidden_Stairs/Stair_Movement_V3_Open.blockyanim",
+          "InteractionSoundEventId": "SFX_Door_Temple_Dark_Open",
+          "HitboxType": "Door_Hidden_Stairs_V3_Open"
+        },
+        "OpenDoorOut": {
+          "CustomModelAnimation": "Blocks/Structures/Hidden_Stairs/Stair_Movement_V3_Open.blockyanim",
+          "InteractionSoundEventId": "SFX_Door_Temple_Dark_Open",
+          "HitboxType": "Door_Hidden_Stairs_V3_Open"
+        }
+      }
+    },
+    "VariantRotation": "NESW",
+    "BlockSoundSetId": "Stone",
+    "InteractionHint": "",
+    "IsDoor": true,
+    "Interactions": {
+      "Use": "Door"
+    },
+    "ParticleColor": "#d4ece7",
+    "InteractionSoundEventId": "SFX_Door_Temple_Dark_Open",
+    "TextureComputedColor": "#9FAEB3"
+  },
+  "Scale": 1,
+  "Tags": {
+    "Type": [
+      "Furniture"
+    ],
+    "Family": [
+      "Human"
+    ]
+  },
+  "$Comment": "",
+  "Icon": "Icons/ItemsGenerated/Rock_Calcite_Brick.png",
+  "ItemSoundSetId": "ISS_Blocks_Stone",
+  "Recipe": {
+    "Input": [
+      {
+        "Quantity": 10,
+        "ResourceTypeId": "Rock"
+      },
+      {
+        "ItemId": "Ingredient_Life_Essence",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Furniture_Bench",
+        "Categories": [
+          "Furniture_Misc"
+        ]
+      }
+    ]
+  }
+}

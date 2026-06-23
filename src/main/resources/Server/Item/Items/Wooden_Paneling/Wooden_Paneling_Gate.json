@@ -1,0 +1,106 @@
+{
+  "PlayerAnimationsId": "Block",
+  "Categories": [
+    "Furniture.Doors"
+  ],
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      43.615,
+      22.5
+    ],
+    "Scale": 0.38,
+    "Translation": [
+      -22.8,
+      -53.4
+    ]
+  },
+  "BlockType": {
+    "BlockParticleSetId": "Wood",
+    "CustomModel": "Blocks/Structures/Fences/Edge_Fence/Wooden_Paneling_Gate.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Structures/Fences/Edge_Fence/Wooden_Paneling.png",
+        "Weight": 1
+      }
+    ],
+    "DrawType": "Model",
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Woods"
+      }
+    },
+    "HitboxType": "Block_Vertical_Flat_Double",
+    "Material": "Solid",
+    "State": {
+      "Definitions": {
+        "CloseDoorIn": {
+          "CustomModelAnimation": "Blocks/Structures/Fences/Edge_Fence/Wooden_Paneling_Gate_Close.blockyanim",
+          "InteractionSoundEventId": "SFX_Door_Lumberjack_Close"
+        },
+        "CloseDoorOut": {
+          "CustomModelAnimation": "Blocks/Structures/Fences/Edge_Fence/Wooden_Paneling_Gate_Close.blockyanim",
+          "InteractionSoundEventId": "SFX_Door_Lumberjack_Close"
+        },
+        "OpenDoorIn": {
+          "HitboxType": "Block_Vertical_Flat_Double_Raised",
+          "CustomModelAnimation": "Blocks/Structures/Fences/Edge_Fence/Wooden_Paneling_Gate_Open.blockyanim",
+          "InteractionSoundEventId": "SFX_Door_Lumberjack_Open"
+        },
+        "OpenDoorOut": {
+          "HitboxType": "Block_Vertical_Flat_Double_Raised",
+          "CustomModelAnimation": "Blocks/Structures/Fences/Edge_Fence/Wooden_Paneling_Gate_Open.blockyanim",
+          "InteractionSoundEventId": "SFX_Door_Lumberjack_Open"
+        }
+      }
+    },
+    "VariantRotation": "NESW",
+    "BlockSoundSetId": "Wood",
+    "InteractionHint": "server.interactionHints.openDoor",
+    "IsDoor": true,
+    "Interactions": {
+      "Use": "Door"
+    },
+    "ParticleColor": "#72503e",
+    "InteractionSoundEventId": "SFX_Door_Lumberjack_Open",
+    "CustomModelScale": 0.5
+  },
+  "Scale": 0.5,
+  "Tags": {
+    "Type": [
+      "Furniture"
+    ],
+    "Family": [
+      "Human"
+    ]
+  },
+  "$Comment": "",
+  "Icon": "Icons/ItemsGenerated/Wooden_Paneling_Gate_Icon.png",
+  "ItemSoundSetId": "ISS_Blocks_Wood",
+  "TranslationProperties": {
+    "Name": "server.items.Edge_Fence_Gate.name",
+    "Description": "server.items.Edge_Fence_Gate.description"
+  },
+  "Recipe": {
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Hardwood",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Builders",
+        "Type": "StructuralCrafting",
+        "Categories": [
+          "Gate"
+        ]
+      }
+    ],
+    "OutputQuantity": 1
+  }
+}

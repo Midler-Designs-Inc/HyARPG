@@ -1,0 +1,12 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "DreamerTemple_Circle",
+      "PositionOffset": {
+        "Y": 1.0
+      }
+    }
+  ],
+  "IsImportant": false,
+  "CullDistance": 500
+}

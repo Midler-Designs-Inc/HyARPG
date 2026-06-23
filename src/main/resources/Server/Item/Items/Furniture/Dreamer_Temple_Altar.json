@@ -1,0 +1,132 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Furniture_Temple_Dark_Bed.name"
+  },
+  "PlayerAnimationsId": "Block",
+  "Categories": [
+    "Furniture.Beds"
+  ],
+  "Set": "Furniture_Temple_Dark",
+  "Icon": "Icons/ItemsGenerated/Furniture_Temple_Dark_Bed.png",
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      45,
+      22.5
+    ],
+    "Scale": 0.295,
+    "Translation": [
+      7.3,
+      -2.3
+    ]
+  },
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "BlockType": {
+    "BlockParticleSetId": "Stone",
+    "Beds": [
+      {
+        "Offset": {
+          "X": 0.3,
+          "Y": -0.2,
+          "Z": 1.0
+        },
+        "Yaw": 0
+      }
+    ],
+    "Interactions": {
+      "Use": {
+        "Interactions": [
+          {
+            "Type": "Bed"
+          }
+        ]
+      },
+      "Primary": "Check_Can_Break_Respawn"
+    },
+    "CustomModel": "Blocks/Decorative_Sets/Temple_Dark/Bed.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Decorative_Sets/Temple_Dark/Bed_Texture.png",
+        "Weight": 1
+      }
+    ],
+    "DrawType": "Model",
+    "Flags": {},
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Rocks"
+      }
+    },
+    "HitboxType": "Bed_Temple_Dark",
+    "Material": "Solid",
+    "Opacity": "Transparent",
+    "Support": {
+      "Down": [
+        {
+          "FaceType": "Full"
+        }
+      ]
+    },
+    "VariantRotation": "NESW",
+    "ParticleColor": "#383b3f",
+    "BlockSoundSetId": "Stone",
+    "PhysicalMaterialId": "Stone",
+    "BlockEntity": {
+      "Components": {
+        "RespawnBlock": {}
+      }
+    },
+    "TextureComputedColor": "#1F282A",
+    "Light": {
+      "Radius": 1,
+      "Color": "#fff"
+    },
+    "Particles": [
+      {
+        "SystemId": "DreamerTemple_Circle",
+        "PositionOffset": {
+          "Y": 8,
+          "X": -1,
+          "Z": 0.5
+        },
+        "Scale": 0.6
+      },
+      {
+        "SystemId": "DreamerTemple_Sparks",
+        "PositionOffset": {
+          "X": -1,
+          "Z": 0.5,
+          "Y": 9.5
+        },
+        "Scale": 0.8,
+        "RotationOffset": {
+          "Roll": 180
+        }
+      },
+      {
+        "SystemId": "DreamerTemple_Image",
+        "PositionOffset": {
+          "Y": 8.8,
+          "X": -1.5,
+          "Z": 0.5
+        },
+        "Scale": 3.1
+      }
+    ]
+  },
+  "Tags": {
+    "Type": [
+      "Furniture"
+    ],
+    "Family": [
+      "Temple"
+    ]
+  },
+  "Scale": 0.6,
+  "ItemSoundSetId": "ISS_Blocks_Stone",
+  "MaxStack": 1,
+  "ItemLevel": 6
+}

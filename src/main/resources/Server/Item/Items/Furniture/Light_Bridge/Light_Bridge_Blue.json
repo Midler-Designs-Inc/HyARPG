@@ -1,0 +1,236 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Light_Bridge_Blue.name",
+    "Description": "server.items.Light_Bridge_Blue.description"
+  },
+  "PlayerAnimationsId": "Block",
+  "Categories": [
+    "Furniture.Doors"
+  ],
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "IconProperties": {
+    "Rotation": [
+      22.5,
+      43.615,
+      22.5
+    ],
+    "Scale": 0.38,
+    "Translation": [
+      -22.8,
+      -53.4
+    ]
+  },
+  "BlockType": {
+    "CustomModel": "Blocks/Structures/Light_Bridge/Light_Bridge.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Structures/Light_Bridge/Light_Bridge_Blue.png",
+        "Weight": 1
+      }
+    ],
+    "DrawType": "Model",
+    "Gathering": {
+      "Breaking": {
+        "ItemId": "Light_Bridge"
+      }
+    },
+    "HitboxType": "Block_Three_Eighth",
+    "Material": "Solid",
+    "State": {
+      "Definitions": {
+        "OpenDoorOut": {
+          "CustomModelAnimation": "Blocks/Structures/Light_Bridge/Light_Bridge_Extend.blockyanim",
+          "InteractionSoundEventId": "SFX_Divine_Respawn",
+          "HitboxType": "Light_Bridge_Extended",
+          "CustomModelTexture": [
+            {
+              "Texture": "Blocks/Structures/Light_Bridge/Light_Bridge_Blue_Active.png",
+              "Weight": 1
+            }
+          ],
+          "InteractionHint": "server.interactionHints.turnoff",
+          "Particles": [
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal1",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal2",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal3",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal4",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal5",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal6",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal7",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal8",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal9",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            },
+            {
+              "SystemId": "Light_Bridge_Platform_Blue",
+              "TargetNodeName": "Crystal10",
+              "Scale": 2.2,
+              "RotationOffset": {
+                "Roll": 45,
+                "Pitch": 90
+              },
+              "PositionOffset": {
+                "Y": 0.2
+              }
+            }
+          ]
+        },
+        "CloseDoorOut": {
+          "CustomModelAnimation": "Blocks/Structures/Light_Bridge/Light_Bridge_Retract.blockyanim",
+          "InteractionSoundEventId": "SFX_MemoryMote",
+          "InteractionHint": "server.interactionHints.turnon"
+        }
+      }
+    },
+    "VariantRotation": "NESW",
+    "BlockSoundSetId": "Crystal",
+    "IsDoor": true,
+    "Interactions": {
+      "Use": "Door"
+    },
+    "ParticleColor": "#60c9ff",
+    "InteractionSoundEventId": "SFX_Divine_Respawn",
+    "CustomModelScale": 0.5,
+    "Light": {
+      "Color": "#8af"
+    },
+    "InteractionHint": "server.interactionHints.turnon",
+    "BlockParticleSetId": "Crystal",
+    "CubeShadingMode": "Standard",
+    "RequiresAlphaBlending": false,
+    "PlacementSettings": {
+      "BlockPreviewVisibility": "AlwaysVisible"
+    }
+  },
+  "Tags": {
+    "Type": [
+      "Furniture"
+    ],
+    "Family": [
+      "Human"
+    ]
+  },
+  "$Comment": "",
+  "Icon": "Icons/ItemsGenerated/Light_Bridge_Blue_Icon.png",
+  "ItemSoundSetId": "ISS_Blocks_Stone",
+  "Recipe": {
+    "Input": [
+      {
+        "Quantity": 10,
+        "ResourceTypeId": "Rock"
+      },
+      {
+        "ItemId": "Ingredient_Void_Essence",
+        "Quantity": 10
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Furniture_Bench",
+        "Categories": [
+          "Furniture_Misc"
+        ]
+      }
+    ]
+  }
+}

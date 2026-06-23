@@ -1,0 +1,71 @@
+{
+  "Tags": {
+    "Type": [
+      "Wood"
+    ],
+    "Family": [
+      "Hardwood"
+    ]
+  },
+  "Icon": "Icons/ItemsGenerated/Wooden_Paneling_Icon.png",
+  "Categories": [
+    "Blocks.Wood"
+  ],
+  "SubCategory": "BlockSets",
+  "MaxStack": 100,
+  "ItemSoundSetId": "ISS_Blocks_Wood",
+  "Set": "Wood_Hardwood_Planks",
+  "PlayerAnimationsId": "Item",
+  "Recipe": {
+    "Input": [
+      {
+        "ResourceTypeId": "Wood_Hardwood",
+        "Quantity": 1
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Builders",
+        "Type": "StructuralCrafting",
+        "Categories": [
+          "Wall"
+        ]
+      }
+    ],
+    "OutputQuantity": 2
+  },
+  "BlockType": {
+    "CustomModel": "Blocks/Structures/Fences/Edge_Fence/Wooden_Paneling_Inner.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Structures/Fences/Edge_Fence/Wooden_Paneling.png",
+        "Weight": 1
+      }
+    ],
+    "VariantRotation": "NESW",
+    "Gathering": {
+      "Breaking": {
+        "ItemId": "Wooden_Paneling"
+      }
+    },
+    "PlacementSettings": {
+      "BlockPreviewVisibility": "AlwaysVisible"
+    },
+    "HitboxType": "Block_Vertical_Flat",
+    "Material": "Solid",
+    "Opacity": "Transparent",
+    "CustomModelScale": 0.5,
+    "DrawType": "Model",
+    "BlockParticleSetId": "Wood",
+    "ParticleColor": "#693e2a",
+    "RotationYawPlacementOffset": "OneEighty"
+  },
+  "Interactions": {
+    "Primary": "Block_Primary",
+    "Secondary": "Block_Secondary"
+  },
+  "TranslationProperties": {
+    "Name": "server.items.Edge_Fence_Inner.name",
+    "Description": "server.items.Edge_Fence_Inner.description"
+  }
+}

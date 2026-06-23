@@ -1,0 +1,27 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "Light_Bridge_FX_Blue",
+      "SpawnRate": {
+        "Min": 1.0,
+        "Max": 1.0
+      },
+      "TotalSpawners": -1,
+      "RotationOffset": {
+        "Roll": 45
+      },
+      "StartDelay": 0.5
+    },
+    {
+      "SpawnerId": "Light_Bridge_Pulse_Blue",
+      "TotalSpawners": -1,
+      "RotationOffset": {
+        "Roll": 45
+      },
+      "StartDelay": 0.5
+    }
+  ],
+  "CullDistance": 100.0,
+  "BoundingRadius": 10.0,
+  "IsImportant": true
+}

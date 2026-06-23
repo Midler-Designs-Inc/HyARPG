@@ -1,0 +1,139 @@
+{
+  "TranslationProperties": {
+    "Name": "server.items.Rock_Crystal_White.name"
+  },
+  "Icon": "Icons/ItemsGenerated/Rock_Crystal_White.png",
+  "Categories": [
+    "Blocks.Ores",
+    "Blocks.Ores"
+  ],
+  "Interactions": {
+    "Secondary": {
+      "Interactions": [
+        {
+          "Parent": "Half_Block",
+          "Matchers": [
+            {
+              "Block": {
+                "Id": "Rock_Crystal_White_Half",
+                "State": "default"
+              },
+              "Face": "Up",
+              "StaticFace": false
+            }
+          ]
+        }
+      ],
+      "Cooldown": {
+        "Id": "BlockInteraction",
+        "Cooldown": 0.3,
+        "ClickBypass": true
+      },
+      "Settings": {
+        "Creative": {
+          "AllowSkipChainOnClick": true
+        }
+      }
+    }
+  },
+  "BlockType": {
+    "CustomModelTexture": [
+      {
+        "Sides": "BlockTextures/Rock_Crystal_White.png",
+        "UpDown": "BlockTextures/Rock_Crystal_White_Top.png",
+        "Weight": 1,
+        "Texture": "BlockTextures/Rock_Crystal_White_Top.png"
+      }
+    ],
+    "Gathering": {
+      "Breaking": {
+        "GatherType": "Rocks"
+      }
+    },
+    "RandomRotation": "None",
+    "BlockParticleSetId": "Crystal",
+    "Supporting": {
+      "Down": [
+        {}
+      ]
+    },
+    "BlockSoundSetId": "Crystal",
+    "PhysicalMaterialId": "Stone",
+    "State": {
+      "Definitions": {
+        "Block": {
+          "Material": "Solid",
+          "DrawType": "Cube",
+          "HitboxType": "Full",
+          "Textures": [
+            {
+              "Weight": 1,
+              "UpDown": "BlockTextures/Rock_Crystal_White_Top.png",
+              "Sides": "BlockTextures/Rock_Crystal_White.png"
+            }
+          ],
+          "Supporting": {
+            "BlockSides": [
+              {}
+            ]
+          },
+          "Gathering": {
+            "Breaking": {
+              "GatherType": "Rocks",
+              "DropList": {
+                "Container": {
+                  "Type": "Single",
+                  "Item": {
+                    "ItemId": "Rock_Crystal_White_Half",
+                    "QuantityMax": 2,
+                    "QuantityMin": 2
+                  }
+                }
+              }
+            }
+          },
+          "Opacity": "Transparent",
+          "Light": {
+            "Color": "#ddd"
+          }
+        }
+      }
+    },
+    "ParticleColor": "#c5c5c5",
+    "TextureComputedColor": "#9CABA4",
+    "CubeShadingMode": "Reflective",
+    "Material": "Solid",
+    "Opacity": "Transparent",
+    "Light": {
+      "Color": "#ddd"
+    }
+  },
+  "Tags": {
+    "Family": [
+      "Gold"
+    ],
+    "Type": [
+      "Rock"
+    ]
+  },
+  "Parent": "Rock_Stone_Brick_Smooth_Half",
+  "ItemSoundSetId": "ISS_Blocks_Stone",
+  "SubCategory": "Crystal",
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Crystal_White",
+        "Quantity": 4
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Builders",
+        "Type": "StructuralCrafting",
+        "Categories": [
+          "Decorative"
+        ]
+      }
+    ]
+  }
+}

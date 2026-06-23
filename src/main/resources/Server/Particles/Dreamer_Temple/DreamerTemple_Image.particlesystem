@@ -1,0 +1,13 @@
+{
+  "Spawners": [
+    {
+      "SpawnerId": "CreativeWorld_Default",
+      "RotationOffset": {
+        "Pitch": 90,
+        "Roll": 90
+      }
+    }
+  ],
+  "IsImportant": false,
+  "CullDistance": 500
+}

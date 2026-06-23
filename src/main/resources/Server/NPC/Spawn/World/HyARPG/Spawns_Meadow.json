@@ -1,0 +1,70 @@
+{
+  "Environments": [
+    "Env_HyARPG_Meadows"
+  ],
+  "NPCs": [
+    {
+      "Weight": 2,
+      "SpawnBlockSet": "Birds",
+      "Id": "Crow",
+      "Flock": "Group_Small"
+    },
+    {
+      "Weight": 2,
+      "SpawnBlockSet": "Birds",
+      "Id": "Finch_Green",
+      "Flock": "Group_Small"
+    },
+    {
+      "Weight": 2,
+      "SpawnBlockSet": "Birds",
+      "Id": "Bluebird",
+      "Flock": "Group_Small"
+    },
+    {
+      "Weight": 2,
+      "SpawnBlockSet": "Birds",
+      "Id": "Sparrow",
+      "Flock": "Group_Small"
+    },
+    {
+      "Weight": 2,
+      "SpawnBlockSet": "Birds",
+      "Id": "Woodpecker",
+      "Flock": "One_Or_Two"
+    },
+    {
+      "Weight": 2,
+      "SpawnBlockSet": "Birds",
+      "Id": "Owl_Brown",
+      "Flock": "One_Or_Two"
+    },
+    {
+      "Weight": 2,
+      "SpawnBlockSet": "Birds",
+      "Id": "Pigeon",
+      "Flock": "Group_Small"
+    },
+    {
+      "Weight": 4,
+      "SpawnBlockSet": "Soil",
+      "Id": "Duck",
+      "Flock": "One_Or_Two"
+    },
+    {
+      "Weight": 6,
+      "SpawnBlockSet": "Soil",
+      "Id": "Squirrel"
+    },
+    {
+      "Weight": 10,
+      "SpawnBlockSet": "Soil",
+      "Id": "Bunny",
+      "Flock": "Group_Tiny"
+    }
+  ],
+  "DayTimeRange": [
+    6,
+    18
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "Icon": "Icons/ItemsGenerated/Tiny_Crystal_Icon.png",
+  "Categories": [
+    "Furniture.Lighting"
+  ],
+  "TranslationProperties": {
+    "Name": "server.items.Rock_Crystal_White_Small.name"
+  },
+  "SubCategory": "Crystal",
+  "PlayerAnimationsId": "Block",
+  "Recipe": {
+    "Input": [
+      {
+        "ItemId": "Ingredient_Crystal_White",
+        "Quantity": 2
+      }
+    ],
+    "BenchRequirement": [
+      {
+        "Id": "Builders",
+        "Type": "StructuralCrafting",
+        "Categories": [
+          "Decorative"
+        ]
+      }
+    ]
+  },
+  "BlockType": {
+    "DrawType": "Model",
+    "CustomModel": "Blocks/Structures/Tiny_Crystal.blockymodel",
+    "CustomModelTexture": [
+      {
+        "Texture": "Blocks/Structures/Tiny_Crystal.png"
+      }
+    ],
+    "Material": "Solid",
+    "Opacity": "Transparent",
+    "Light": {
+      "Radius": 1,
+      "Color": "#fff"
+    },
+    "BlockParticleSetId": "Crystal",
+    "TextureComputedColor": "#d4d4d4",
+    "Gathering": {
+      "Breaking": {
+        "ItemId": "Tiny_Crystal"
+      }
+    },
+    "HitboxType": "Block_One_Eighth",
+    "BlockSoundSetId": "Crystal",
+    "PhysicalMaterialId": "Stone",
+    "Interactions": {
+      "Secondary": "Lantern_White"
+    },
+    "VariantRotation": "All",
+    "PlacementSettings": {
+      "RotationMode": "FacingPlayer",
+      "BlockPreviewVisibility": "AlwaysVisible"
+    }
+  }
+}

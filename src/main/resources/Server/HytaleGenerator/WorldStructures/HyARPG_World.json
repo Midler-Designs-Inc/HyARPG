@@ -1,0 +1,52 @@
+{
+  "Type": "NoiseRange",
+  "Biomes": [
+    { "Biome": "HyARPG_Meadows",          "Min": -1.000000, "Max": -0.857143 },
+    { "Biome": "HyARPG_Forest",           "Min": -0.857143, "Max": -0.714286 },
+    { "Biome": "Desert1_Stacks",          "Min": -0.714286, "Max": -0.571429 },
+    { "Biome": "Boreal1_Hedera",          "Min": -0.571429, "Max": -0.428571 },
+    { "Biome": "Glacial1_Mountains",      "Min": -0.428571, "Max": -0.285714 },
+    { "Biome": "Volcanic1_Caldera",       "Min": -0.285714, "Max": -0.142857 },
+    { "Biome": "Taiga1_Redwood",          "Min": -0.142857, "Max": -0.000001 },
+    { "Biome": "HyARPG_Oceans",           "Min":  0.000000, "Max":  2.000000 }
+  ],
+  "DefaultBiome": "HyARPG_Meadows",
+  "DefaultTransitionDistance": 128,
+  "MaxBiomeEdgeDistance": 128,
+  "Density": {
+    "Type": "Imported",
+    "Name": "HyARPG_Biome_Map"
+  },
+  "SpawnPositions": {
+    "Type": "Imported",
+    "Name": "Spawns"
+  },
+  "Framework": [
+    {
+      "Type": "Positions",
+      "Entries": [
+        {
+          "Name": "Spawns",
+          "Positions": {
+            "Type": "List",
+            "ExportAs": "Spawns",
+            "Positions": [
+              { "X": 0,  "Y": 200, "Z": 0  }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Type": "DecimalConstants",
+      "Entries": [
+        { "Name": "Base",    "Value": 100 },
+        { "Name": "Water",   "Value": 100 },
+        { "Name": "Bedrock", "Value": -30 }
+      ]
+    }
+  ],
+  "Tags": {
+    "Template": []
+  }
+}

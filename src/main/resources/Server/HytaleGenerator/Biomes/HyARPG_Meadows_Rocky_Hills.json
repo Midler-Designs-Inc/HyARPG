@@ -1,6 +1,6 @@
 {
 	"$NodeId":	"Biome-e24e5daf-dbc1-468c-aa4b-8175a5955181",
-	"Name":	"HyARPG_Meadows",
+	"Name":	"HyARPG_Meadows_Rocky_Hills",
 	"Terrain":	{
 		"$NodeId":	"Terrain-f4f07f4f-e040-49d9-8933-35ff18ba1b09",
 		"Type":	"DAOTerrain",
@@ -1126,51 +1126,6 @@
 						}]
 				}
 			}
-		}, {
-			"$NodeId":	"Runtime-3a2488eb-cab9-4fb6-85d2-3d5605052444",
-			"Skip":	false,
-			"Runtime":	-1,
-			"PropDistribution":	{
-				"$NodeId":	"Constant.PropDistribution-5758340c-bede-419a-89fa-3526ab96b117",
-				"Type":	"Constant",
-				"Skip":	false,
-				"Positions":	{
-					"$NodeId":	"ListPositions-f71b46ad-ae10-4750-9198-ef1bba58efef",
-					"Type":	"List",
-					"Skip":	false,
-					"Positions":	[{
-							"$NodeId":	"Point3D-740db4ed-9517-4c98-827b-f8c7063152ad",
-							"X":	0,
-							"Y":	100,
-							"Z":	0
-						}]
-				},
-				"Prop":	{
-					"$NodeId":	"Offset.Prop-62a4d86e-8925-4fed-bca3-a92cb3160d44",
-					"Type":	"Offset",
-					"Skip":	false,
-					"Offset":	{
-						"$NodeId":	"Point3D-d5d11eb5-ec83-48d3-86f5-fc1cfedfbf82",
-						"X":	0,
-						"Y":	-1,
-						"Z":	0
-					},
-					"Prop":	{
-						"$NodeId":	"Prefab.Prop-cad153c4-81aa-4726-a4db-e3b4d42b74a6",
-						"Type":	"Prefab",
-						"Skip":	false,
-						"WeightedPrefabPaths":	[{
-								"$NodeId":	"WeightedPath.Prefab.Prop-89ad805b-afa5-4f28-a3e2-94349df99323",
-								"Path":	"Monuments/Unique/Temple/Dreamer_Temple.prefab.json",
-								"Weight":	1
-							}],
-						"LegacyPath":	false,
-						"LoadEntities":	true,
-						"MoldingDirection":	"NONE",
-						"MoldingChildren":	false
-					}
-				}
-			}
 		}],
 	"EnvironmentProvider":	{
 		"$NodeId":	"Constant.EnvironmentProvider-9d435dc0-ffa2-4de6-886d-c6e8b54f3b44",
@@ -1181,8 +1136,8 @@
 	"TintProvider":	{
 		"$NodeId":	"Constant.TintProvider-586df4b2-cb2b-41b4-90d7-e120658f5650",
 		"Type":	"Constant",
-		"Skip":	true,
-		"Color":	"#00FF00"
+		"Skip":	false,
+		"Color":	"#00FFFF"
 	},
 	"Tags":	{
 		"Template":	[]
@@ -2508,54 +2463,6 @@
 				"$Position":	{
 					"$x":	-8184,
 					"$y":	-10182
-				}
-			},
-			"Runtime-3a2488eb-cab9-4fb6-85d2-3d5605052444":	{
-				"$Position":	{
-					"$x":	-8669,
-					"$y":	2504
-				}
-			},
-			"ListPositions-f71b46ad-ae10-4750-9198-ef1bba58efef":	{
-				"$Position":	{
-					"$x":	-7382,
-					"$y":	2443
-				}
-			},
-			"Point3D-740db4ed-9517-4c98-827b-f8c7063152ad":	{
-				"$Position":	{
-					"$x":	-6762,
-					"$y":	2441
-				}
-			},
-			"Constant.PropDistribution-5758340c-bede-419a-89fa-3526ab96b117":	{
-				"$Position":	{
-					"$x":	-8044,
-					"$y":	2536
-				}
-			},
-			"Prefab.Prop-cad153c4-81aa-4726-a4db-e3b4d42b74a6":	{
-				"$Position":	{
-					"$x":	-6757,
-					"$y":	2826
-				}
-			},
-			"WeightedPath.Prefab.Prop-89ad805b-afa5-4f28-a3e2-94349df99323":	{
-				"$Position":	{
-					"$x":	-5966,
-					"$y":	2834
-				}
-			},
-			"Offset.Prop-62a4d86e-8925-4fed-bca3-a92cb3160d44":	{
-				"$Position":	{
-					"$x":	-7392,
-					"$y":	2679
-				}
-			},
-			"Point3D-d5d11eb5-ec83-48d3-86f5-fc1cfedfbf82":	{
-				"$Position":	{
-					"$x":	-6761,
-					"$y":	2630
 				}
 			}
 		},

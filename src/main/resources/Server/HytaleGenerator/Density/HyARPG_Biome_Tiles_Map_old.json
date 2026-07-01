@@ -57,7 +57,7 @@
 																			"Type":	"Normalizer",
 																			"Skip":	false,
 																			"FromMin":	1,
-																			"FromMax":	8,
+																			"FromMax":	7,
 																			"ToMin":	0,
 																			"ToMax":	1,
 																			"Inputs":	[{
@@ -373,12 +373,6 @@
 					"$y":	-6884
 				}
 			},
-			"FloorDensityNode-ad8ab905-a842-4aea-a8d1-b2d66695556f":	{
-				"$Position":	{
-					"$x":	-1535,
-					"$y":	-6895
-				}
-			},
 			"NormalizerDensityNode-018e85da-5c18-4dfa-bc58-ec318f48ad7f":	{
 				"$Position":	{
 					"$x":	-890,
@@ -671,6 +665,12 @@
 				"$Position":	{
 					"$x":	978,
 					"$y":	-3822
+				}
+			},
+			"FloorDensityNode-ad8ab905-a842-4aea-a8d1-b2d66695556f":	{
+				"$Position":	{
+					"$x":	-1535,
+					"$y":	-6895
 				}
 			}
 		},

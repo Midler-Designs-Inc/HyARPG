@@ -52,7 +52,7 @@ public class Listeners_Player {
     // Handle player connect event
     private void onPlayerConnect(PlayerConnectEvent event) {
         // Emit the event on the internal mod bus
-        ModEventBus.post(new Event_PlayerJoin(event.getPlayerRef(), event.getWorld()));
+        ModEventBus.post(new Event_PlayerJoin(event.getHolder(), event));
     }
 
     // Handle player disconnect event

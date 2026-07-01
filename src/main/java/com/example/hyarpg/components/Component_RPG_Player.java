@@ -47,6 +47,9 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 public class Component_RPG_Player implements Component<EntityStore> {
+    // new player flag
+    public boolean newPlayer = true;
+
     // Constructor properties
     public int level;
     public double xp;
@@ -116,6 +119,10 @@ public class Component_RPG_Player implements Component<EntityStore> {
     public static final BuilderCodec<Component_RPG_Player> CODEC = BuilderCodec.builder(
             Component_RPG_Player.class, Component_RPG_Player::new
         )
+        .append(new KeyedCodec<>("HyARPG_New_Player", Codec.BOOLEAN),
+                ((comp, value) -> comp.newPlayer = value),
+                comp -> comp.newPlayer
+        ).add()
         .append(new KeyedCodec<>("RPGStatsLevel", Codec.INTEGER),
             ((comp, value) -> comp.level = value),
             comp -> comp.level

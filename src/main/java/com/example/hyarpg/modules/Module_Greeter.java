@@ -36,7 +36,7 @@ public class Module_Greeter {
     // This function runs whenever a PlayerJoin event is posted
     private void onPlayerJoin(Event_PlayerJoin event) {
         // get the joning player from the event and formulate our message
-        Message systemMessage = Message.raw("Player " + event.getPlayer().getUsername() + " has come online.")
+        Message systemMessage = Message.raw("Player " + event.event().getPlayerRef().getUsername() + " has come online.")
                 .color(Color.GREEN);
 
         // loop over all players and broadcast the message

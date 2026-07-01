@@ -103,11 +103,11 @@ public class CustomPage_CubeCombinePage extends InteractiveCustomUIPage<CustomPa
     @Override
     public void handleDataEvent(@Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store, @Nonnull PageData data) {
         // route incoming actions to their handlers
-        if (data.action == null)                    { sendUpdate((UICommandBuilder) null, false); return; }
-        if (data.action.startsWith("cube:"))        { handleCubeSlotClick(Integer.parseInt(data.action.substring("cube:".length())), ref, store); }
+        if (data.action == null) { sendUpdate(null, false); return; }
+        if (data.action.startsWith("cube:")) { handleCubeSlotClick(Integer.parseInt(data.action.substring("cube:".length())), ref, store); }
         else if (data.action.startsWith("select:")) { handleInventorySelect(data.action.substring("select:".length()), ref, store); }
-        else if (data.action.equals("combine"))     { handleCombine(ref, store); }
-        else                                        { sendUpdate((UICommandBuilder) null, false); }
+        else if (data.action.equals("combine")) { handleCombine(ref, store); }
+        else { sendUpdate(null, false); }
     }
 
     private void handleInventorySelect(@Nonnull String slotId, @Nonnull Ref<EntityStore> ref, @Nonnull Store<EntityStore> store) {

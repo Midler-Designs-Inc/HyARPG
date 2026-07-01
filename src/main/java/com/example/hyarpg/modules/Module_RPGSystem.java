@@ -1,9 +1,11 @@
 package com.example.hyarpg.modules;
 
 // Hytale Imports
+import com.hypixel.hytale.builtin.instances.InstancesPlugin;
 import com.hypixel.hytale.component.*;
 import com.hypixel.hytale.logger.HytaleLogger;
 import com.hypixel.hytale.math.util.ChunkUtil;
+import com.hypixel.hytale.math.vector.Transform;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.entityeffect.config.EntityEffect;
 import com.hypixel.hytale.server.core.asset.type.gameplay.DeathConfig;
@@ -11,6 +13,7 @@ import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.entity.effect.EffectControllerComponent;
 import com.hypixel.hytale.server.core.entity.entities.Player;
 import com.hypixel.hytale.server.core.entity.nameplate.Nameplate;
+import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
@@ -60,7 +63,6 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 public class Module_RPGSystem {
 
@@ -120,6 +122,7 @@ public class Module_RPGSystem {
         interactionRegistry.register("Wayward_Compass_Find_Puzzle_Key", Interaction_WaywardShrineCompassFindPuzzleKey.class, Interaction_WaywardShrineCompassFindPuzzleKey.CODEC);
 
         // Listen to applicable events on the mods internal event bus
+        plugin.getEventRegistry().register(PlayerConnectEvent.class, this::onPlayerConnect);
         ModEventBus.register(Event_PlayerReady.class, this::onPlayerReady);
         ModEventBus.register(Event_PlayerDisconnect.class, this::onPlayerDisconnect);
         ModEventBus.register(Event_NPCSpawn.class, this::onNPCSpawn);
@@ -144,6 +147,38 @@ public class Module_RPGSystem {
 //        Window.CLIENT_REQUESTABLE_WINDOW_TYPES.put(WindowType.PocketCrafting, () -> new InterceptPocketCraftingWindow());
     }
 
+    // This function runs on every connect, before the player exists in a world, to attach the rpg component and route new players
+    private void onPlayerConnect(PlayerConnectEvent event) {
+        // pull the pre-spawn holder off the event and attach the rpg component to it
+        Holder<EntityStore> holder = event.getHolder();
+        Component_RPG_Player rpgPlayer = holder.ensureAndGetComponent(componentTypeRPGPlayer);
+
+        // skip routing entirely for returning players, they spawn wherever they were already headed
+        if (!rpgPlayer.newPlayer) return;
+
+        // look for any already loaded world whose name contains our instance prefix
+        World targetWorld = null;
+        for (String worldName : Universe.get().getWorlds().keySet()) {
+            if (worldName.contains("HyARPG_World")) {
+                targetWorld = Universe.get().getWorld(worldName);
+                break;
+            }
+        }
+
+        // none exists yet, spawn it fresh off the default world and use whatever it returns
+        if (targetWorld == null) {
+            // get the default world as a fallback or bail
+            World fallbackWorld = event.getWorld() != null ? event.getWorld() : Universe.get().getDefaultWorld();
+            assert fallbackWorld != null;
+
+            // Create a new instance of hte HyARPG world
+            targetWorld = InstancesPlugin.get().spawnInstance("HyARPG_World", fallbackWorld, new Transform(0, 110, 0)).join();
+        }
+
+        // route the new player into our world instead of wherever they were headed
+        event.setWorld(targetWorld);
+    }
+
     // This function runs whenever a PlayerReady event fires to add teh RPGStats component
     private void onPlayerReady(Event_PlayerReady event) {
         // get the joining player
@@ -158,6 +193,9 @@ public class Module_RPGSystem {
         // ensure the player components exists, add them if they don't
         Component_RPG_Player rpgPlayer = store.ensureAndGetComponent(entityRef, componentTypeRPGPlayer);
         store.ensureAndGetComponent(entityRef, componentTypeCraftingKnowledge);
+
+        // the player has now fully entered the world, so they are no longer new regardless of how they got here
+        rpgPlayer.newPlayer = false;
 
         // load the latest skill library and migrate the player if needed
         SkillLibrary currentLibrary = new SkillLibrary(SKILL_TREE_VERSION); // fresh instance with latest trees

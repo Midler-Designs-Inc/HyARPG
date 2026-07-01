@@ -3,7 +3,7 @@
     "Name": "server.items.Light_Well.name",
     "Description": "server.items.Light_Well.description"
   },
-  "Icon": "Icons/ItemsGenerated/Crystal_Font_Icon.png",
+  "Icon": "Icons/ItemsGenerated/Light_Well_Icon.png",
   "Categories": [
     "Furniture.Benches"
   ],
@@ -33,10 +33,10 @@
     "Material": "Solid",
     "DrawType": "Model",
     "Opacity": "Transparent",
-    "CustomModel": "Items/Crystal_Font/Crystal_Font.blockymodel",
+    "CustomModel": "Items/Light_Well/Light_Well.blockymodel",
     "CustomModelTexture": [
       {
-        "Texture": "Items/Crystal_Font/Crystal_Font.png",
+        "Texture": "Items/Light_Well/Light_Well.png",
         "Weight": 1
       }
     ],
@@ -57,7 +57,7 @@
       ]
     },
     "BlockSoundSetId": "Gem",
-    "CustomModelScale": 1.8,
+    "CustomModelScale": 0.45,
     "Light": {
       "Color": "#ccc",
       "Radius": 1
@@ -68,18 +68,23 @@
         "DetachedFromModel": false,
         "TargetEntityPart": "Entity",
         "TargetNodeName": "Foundation",
+        "Scale": 4,
         "PositionOffset": {
-          "Y": 0.2,
-          "Z": -0.1
+          "Y": 1,
+          "Z": -0.4
         }
       },
       {
         "SystemId": "Light_Well_Beam",
         "TargetEntityPart": "Entity",
-        "TargetNodeName": "Foundation"
+        "TargetNodeName": "Foundation",
+        "Scale": 3,
+        "PositionOffset": {
+          "Y": 0.1
+        }
       }
     ],
-    "CustomModelAnimation": "Items/Crystal_Font/Crystal_Rotation.blockyanim",
+    "CustomModelAnimation": "Items/Light_Well/Light_Well_Rotation.blockyanim",
     "RequiresAlphaBlending": false,
     "BlockEntity": {
       "Components": {

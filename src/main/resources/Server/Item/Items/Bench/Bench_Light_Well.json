@@ -56,7 +56,6 @@
         }
       ]
     },
-    "BlockSoundSetId": "Gem",
     "CustomModelScale": 0.45,
     "Light": {
       "Color": "#ccc",
@@ -132,6 +131,5 @@
     ]
   },
   "MaxStack": 1,
-  "ItemSoundSetId": "ISS_Items_Gems",
   "Quality": "Legendary"
 }

@@ -16975,5 +16975,60 @@
       "name": "Empty",
       "level": 0
     }
+  ],
+  "entities": [
+    {
+      "Components": {
+        "Transform": {
+          "Position": {
+            "X": 0.5,
+            "Y": 7.5,
+            "Z": 1.0
+          },
+          "Rotation": {
+            "Pitch": 0.0,
+            "Yaw": 0.0,
+            "Roll": 0.0
+          }
+        },
+        "TriggerVolume": {
+          "Shape": {
+            "Type": "Box",
+            "Min": {
+              "X": -12.5,
+              "Y": -9.5,
+              "Z": -12.0
+            },
+            "Max": {
+              "X": 12.5,
+              "Y": 9.5,
+              "Z": 12.0
+            }
+          },
+          "Rules": [
+            {
+              "Type": "NoBuild",
+              "Target": "Self",
+              "MatchKey": "",
+              "MatchValue": "",
+              "Radius": 50.0
+            },
+            {
+              "Type": "NoDestroy",
+              "Target": "Self",
+              "MatchKey": "",
+              "MatchValue": "",
+              "Radius": 50.0
+            }
+          ],
+          "Enabled": true,
+          "TargetTypes": [
+            "Player"
+          ],
+          "KeepLoaded": false,
+          "PrefabIndex": 0
+        }
+      }
+    }
   ]
 }

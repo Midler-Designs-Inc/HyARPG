@@ -26,25 +26,14 @@
   },
   "BlockType": {
     "BlockParticleSetId": "Stone",
-    "Beds": [
-      {
-        "Offset": {
-          "X": 0.3,
-          "Y": -0.2,
-          "Z": 1.0
-        },
-        "Yaw": 0
-      }
-    ],
     "Interactions": {
       "Use": {
         "Interactions": [
           {
-            "Type": "Bed"
+            "Type": "ExitInstance"
           }
         ]
-      },
-      "Primary": "Check_Can_Break_Respawn"
+      }
     },
     "CustomModel": "Blocks/Decorative_Sets/Temple_Dark/Bed.blockymodel",
     "CustomModelTexture": [
@@ -54,11 +43,8 @@
       }
     ],
     "DrawType": "Model",
-    "Flags": {},
-    "Gathering": {
-      "Breaking": {
-        "GatherType": "Rocks"
-      }
+    "Flags": {
+      "IsUsable": true
     },
     "HitboxType": "Bed_Temple_Dark",
     "Material": "Solid",
@@ -74,11 +60,6 @@
     "ParticleColor": "#383b3f",
     "BlockSoundSetId": "Stone",
     "PhysicalMaterialId": "Stone",
-    "BlockEntity": {
-      "Components": {
-        "RespawnBlock": {}
-      }
-    },
     "TextureComputedColor": "#1F282A",
     "Light": {
       "Radius": 1,
@@ -115,7 +96,8 @@
         },
         "Scale": 3.1
       }
-    ]
+    ],
+    "InteractionHint": "server.items.Dreamer_Temple_Alter.hint"
   },
   "Tags": {
     "Type": [

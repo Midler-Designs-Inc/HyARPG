@@ -20,6 +20,8 @@ import com.hypixel.hytale.server.npc.role.Role;
 
 // Java Imports
 import javax.annotation.Nonnull;
+
+import com.hypixel.hytale.server.npc.role.support.CombatSupport;
 import org.joml.Vector3d;
 
 public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
@@ -86,7 +88,7 @@ public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
                         if (npc == null) continue;
                         Role role = npc.getRole();
                         if (role == null) continue;
-                        if (!role.isFriendly(homing.casterRef, store)) {
+                        if (CombatSupport.get(aoeTarget, store).getCanCauseDamage(aoeTarget, homing.casterRef, store)) {
                             DamageSystems.executeDamage(aoeTarget, commandBuffer,
                                 new Damage(
                                     new Damage.EntitySource(homing.casterRef),

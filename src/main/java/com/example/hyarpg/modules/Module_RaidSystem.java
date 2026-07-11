@@ -727,7 +727,7 @@ public class Module_RaidSystem {
                             if (bt == null || !RoomFloodFill.isStructural(bt)) continue;
 
                             // apply block damage
-                            BlockHarvestUtils.performBlockDamage(null, new Vector3i(x, y, z), null, null, null, false, ModConfig.get().raids.explosion_hit_damage_blocks, 2048 | 1024, chunkRef, store, chunkStore);
+                            BlockHarvestUtils.performBlockDamage(null, new Vector3i(x, y, z), null, null, null, true, ModConfig.get().raids.explosion_hit_damage_blocks, 2048 | 1024, false, chunkRef, store, chunkStore);
                         } catch (Exception e) {
                             System.err.println("[RaidSystem] Error breaking block during explosion: " + e.getMessage());
                         }

@@ -264,7 +264,7 @@ public class Module_JobsSystem {
                     if (chunkReference == null || !chunkReference.isValid()) return;
 
                     // perform block damage on the players behalf so the break can flow through the normal routes
-                    BlockHarvestUtils.performBlockDamage(ref, blockLocation, null, null, null, false, 999f, 0, chunkReference, store, chunkStore);
+                    BlockHarvestUtils.performBlockDamage(ref, blockLocation, null, null, null, false, 999f, 0, false, chunkReference, store, chunkStore);
                 });
             }
         }

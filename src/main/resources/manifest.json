@@ -6,5 +6,5 @@
   "Authors": [{"Name": "Jeffery Midler"}, {"Name": "Michael Midler"}],
   "Main": "com.example.hyarpg.HyARPGPlugin",
   "IncludesAssetPack": true,
-  "ServerVersion": "^0.5.2"
+  "ServerVersion": "^0.6.0-pre.7"
 }

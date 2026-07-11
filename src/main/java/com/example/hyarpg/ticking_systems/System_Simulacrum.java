@@ -18,6 +18,8 @@ import com.example.hyarpg.components.Component_Simulacrum;
 
 // Java Imports
 import javax.annotation.Nonnull;
+
+import com.hypixel.hytale.server.npc.role.support.CombatSupport;
 import org.joml.Vector3d;
 
 public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
@@ -79,10 +81,10 @@ public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
             NPCEntity npc = store.getComponent(nearbyRef, NPCEntity.getComponentType());
             if (npc == null) continue;
             Role role = npc.getRole();
-            if (role == null || role.isFriendly(ref, store)) continue;
+            if (role == null || !CombatSupport.get(nearbyRef, store).getCanCauseDamage(nearbyRef, ref, store)) continue;
 
             // re-assert aggro
-            role.setMarkedTarget("LockedTarget", ref);
+            role.setMarkedTarget(nearbyRef, store, "LockedTarget", ref);
             npc.onFlockSetState(nearbyRef, "Alerted", null, store);
 
             // track nearest for missile targeting

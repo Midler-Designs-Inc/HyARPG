@@ -25,6 +25,7 @@ import com.hypixel.hytale.server.core.util.TargetUtil;
 import com.hypixel.hytale.server.npc.NPCPlugin;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.npc.role.Role;
+import com.hypixel.hytale.server.npc.role.support.CombatSupport;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_RPG_Player;
@@ -45,6 +46,7 @@ public class Simulacrum extends Ability {
     private static final int MAX_BLINK_DISTANCE = 10;
     private static final String SIMULACRUM_ROLE = "Role_Simulacrum";
 
+    // register this ability with its name, resource cost, cooldown and flags
     public Simulacrum() {
         super("Ability_Simulacrum", DefaultEntityStatTypes.getMana(), 10f, false, 30, false, List.of(), false);
     }
@@ -78,6 +80,7 @@ public class Simulacrum extends Ability {
         Vector3d lookOrigin = look.getPosition();
         Vector3d lookDir = new Vector3d(look.getDirection()).normalize();
 
+        // defer the blink + spawn logic onto the world thread
         world.execute(() -> {
             // raycast up to MAX_BLINK_DISTANCE blocks along look direction
             Vector3d blinkTarget = raycastToSolid(world, lookOrigin, lookDir, MAX_BLINK_DISTANCE);
@@ -94,46 +97,54 @@ public class Simulacrum extends Ability {
             if (roleIndex < 0) return;
 
             NPCPlugin.get().spawnEntity(store, roleIndex, spawnOrigin, new Rotation3f(0, transform.getRotation().yaw(), 0), null, null,
-                (npcEntity, simulacrumRef, s) -> {
-                    // add the simulacrum component so the ticking system can fire the arcane missiles
-                    s.addComponent(simulacrumRef, Component_Simulacrum.getComponentType(), new Component_Simulacrum(ref));
+                    (npcEntity, simulacrumRef, s) -> {
+                        // add the simulacrum component so the ticking system can fire the arcane missiles
+                        s.addComponent(simulacrumRef, Component_Simulacrum.getComponentType(), new Component_Simulacrum(ref));
 
-                    // add RPG enemy component at player's level so damage pipeline scales correctly
-                    Component_RPG_Enemy simulacrumEnemy = new Component_RPG_Enemy(rpgPlayer.gearScore);
-                    s.addComponent(simulacrumRef, Module_RPGSystem.componentTypeRPGEnemy, simulacrumEnemy);
+                        // add RPG enemy component at player's level so damage pipeline scales correctly
+                        Component_RPG_Enemy simulacrumEnemy = new Component_RPG_Enemy(rpgPlayer.gearScore);
+                        s.addComponent(simulacrumRef, Module_RPGSystem.componentTypeRPGEnemy, simulacrumEnemy);
 
-                    // add the despawn component with a 30 second timer
-                    TimeResource time = s.getResource(TimeResource.getResourceType());
-                    s.addComponent(simulacrumRef, DespawnComponent.getComponentType(), new DespawnComponent(time.getNow().plus(Duration.ofSeconds(30L))));
+                        // add the despawn component with a 30 second timer
+                        TimeResource time = s.getResource(TimeResource.getResourceType());
+                        s.addComponent(simulacrumRef, DespawnComponent.getComponentType(), new DespawnComponent(time.getNow().plus(Duration.ofSeconds(30L))));
 
-                    // set simulacrum HP to player's max mana via stat modifier
-                    EntityStatMap npcStatMap = s.getComponent(simulacrumRef, EntityStatsModule.get().getEntityStatMapComponentType());
-                    if (npcStatMap == null) return;
+                        // set simulacrum HP to player's max mana via stat modifier
+                        EntityStatMap npcStatMap = s.getComponent(simulacrumRef, EntityStatsModule.get().getEntityStatMapComponentType());
+                        if (npcStatMap == null) return;
 
-                    int healthIndex = DefaultEntityStatTypes.getHealth();
-                    EntityStatValue healthStat = npcStatMap.get(healthIndex);
-                    if (healthStat == null) return;
+                        int healthIndex = DefaultEntityStatTypes.getHealth();
+                        EntityStatValue healthStat = npcStatMap.get(healthIndex);
+                        if (healthStat == null) return;
 
-                    // compute delta to reach target HP and apply as modifier
-                    float currentMax = healthStat.getMax();
-                    float delta = simulacrumHp - currentMax;
-                    npcStatMap.putModifier(healthIndex, "SIMULACRUM_HP", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, delta));
-                    npcStatMap.setStatValue(healthIndex, simulacrumHp);
+                        // compute delta to reach target HP and apply as modifier
+                        float currentMax = healthStat.getMax();
+                        float delta = simulacrumHp - currentMax;
+                        npcStatMap.putModifier(healthIndex, "SIMULACRUM_HP", new StaticModifier(Modifier.ModifierTarget.MAX, StaticModifier.CalculationType.ADDITIVE, delta));
+                        npcStatMap.setStatValue(healthIndex, simulacrumHp);
 
-                    // alert nearby hostile NPCs to the simulacrum's presence on spawn
-                    float aggroRange = 20f;
-                    Vector3d min = new Vector3d(spawnOrigin.x - aggroRange, spawnOrigin.y - 5, spawnOrigin.z - aggroRange);
-                    Vector3d max = new Vector3d(spawnOrigin.x + aggroRange, spawnOrigin.y + 5, spawnOrigin.z + aggroRange);
-                    for (Ref<EntityStore> nearbyRef : TargetUtil.getAllEntitiesInBox(min, max, s)) {
-                        if (!nearbyRef.isValid() || nearbyRef.equals(simulacrumRef)) continue;
-                        NPCEntity npc = s.getComponent(nearbyRef, NPCEntity.getComponentType());
-                        if (npc == null) continue;
-                        Role role = npc.getRole();
-                        if (role == null || role.isFriendly(simulacrumRef, s)) continue;
-                        role.setMarkedTarget("LockedTarget", simulacrumRef);
-                        npc.onFlockSetState(nearbyRef, "Alerted", null, s);
+                        // alert nearby hostile NPCs to the simulacrum's presence on spawn
+                        float aggroRange = 20f;
+                        Vector3d min = new Vector3d(spawnOrigin.x - aggroRange, spawnOrigin.y - 5, spawnOrigin.z - aggroRange);
+                        Vector3d max = new Vector3d(spawnOrigin.x + aggroRange, spawnOrigin.y + 5, spawnOrigin.z + aggroRange);
+                        // loop over every entity in aggro range and alert the hostile ones to the simulacrum
+                        for (Ref<EntityStore> nearbyRef : TargetUtil.getAllEntitiesInBox(min, max, s)) {
+                            // skip invalid entities and the simulacrum itself
+                            if (!nearbyRef.isValid() || nearbyRef.equals(simulacrumRef)) continue;
+
+                            // fetch the nearby entity's NPC/role data so we can check hostility
+                            NPCEntity npc = s.getComponent(nearbyRef, NPCEntity.getComponentType());
+                            if (npc == null) continue;
+                            Role role = npc.getRole();
+
+                            // only alert NPCs that are actually hostile to the simulacrum
+                            if (role == null || !CombatSupport.get(nearbyRef, s).getCanCauseDamage(nearbyRef, simulacrumRef, s)) continue;
+
+                            // lock the NPC's target onto the simulacrum and put it into an alerted flock state
+                            role.setMarkedTarget(nearbyRef, s, "LockedTarget", simulacrumRef);
+                            npc.onFlockSetState(nearbyRef, "Alerted", null, s);
+                        }
                     }
-                }
             );
         });
     }
@@ -141,6 +152,7 @@ public class Simulacrum extends Ability {
     // steps along look direction until hitting a solid block or reaching max distance
     private Vector3d raycastToSolid(World world, Vector3d origin, Vector3d dir, int maxBlocks) {
         Vector3d pos = new Vector3d(origin);
+        // step forward one block at a time along the look direction
         for (int i = 0; i < maxBlocks; i++) {
             pos.add(dir.x, dir.y, dir.z);
             long chunkIndex = ChunkUtil.indexChunkFromBlock((int) pos.x, (int) pos.z);
@@ -159,8 +171,10 @@ public class Simulacrum extends Ability {
 
     // finds a safe 1x3x1 air gap position near the origin
     private Vector3d findSafePosition(World world, double x, double y, double z) {
+        // try the origin itself first
         if (isPositionSafe(world, x, y, z)) return new Vector3d(x, y, z);
 
+        // expand outward in rings, checking the ring edge and one block up at each spot
         for (int r = 1; r <= 3; r++) {
             for (int dx = -r; dx <= r; dx++) {
                 for (int dz = -r; dz <= r; dz++) {
@@ -171,16 +185,19 @@ public class Simulacrum extends Ability {
             }
         }
 
+        // fall back to the original position if nothing safe was found
         return new Vector3d(x, y, z);
     }
 
     // checks for a solid floor and 3 blocks of clear air above it
     private boolean isPositionSafe(World world, double x, double y, double z) {
         try {
+            // load the chunk at this position, bail if it's not in memory
             long chunkIndex = ChunkUtil.indexChunkFromBlock((int) x, (int) z);
             WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
             if (chunk == null) return false;
 
+            // check the block at feet level and the block at head level
             int blockAtFeet = chunk.getBlock((int) x, (int) y,     (int) z);
             int blockAtHead = chunk.getBlock((int) x, (int) y + 1, (int) z);
 

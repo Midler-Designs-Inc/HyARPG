@@ -21,11 +21,7 @@ public class ShowJobs extends CommandBase {
     public ShowJobs() {
         // Name, Description
         super("jobs", "Show the available job skills.", false);
-    }
-
-    @Override
-    protected boolean canGeneratePermission() {
-        return false;
+        this.requireNoPermission();
     }
 
     @Override

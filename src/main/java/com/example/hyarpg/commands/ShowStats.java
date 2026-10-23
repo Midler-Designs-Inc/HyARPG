@@ -21,11 +21,7 @@ public class ShowStats extends CommandBase {
     public ShowStats() {
         // Name, Description
         super("stats", "Show the player's gear affixes and character stats.", false);
-    }
-
-    @Override
-    protected boolean canGeneratePermission() {
-        return false;
+        this.requireNoPermission();
     }
 
     @Override

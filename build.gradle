@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.example.hyarpg'
-version = '3.6.0'
+version = '3.6.2'
 
 repositories {
     mavenCentral()
@@ -24,7 +24,7 @@ repositories {
 
 dependencies {
     // Hytale Server API from official Maven repository
-    compileOnly 'com.hypixel.hytale:Server:0.5.2'
+    compileOnly 'com.hypixel.hytale:Server:0.7.4'
     // JSR305 annotations (@Nonnull, @Nullable)
     compileOnly 'com.google.code.findbugs:jsr305:3.0.2'
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -49,24 +49,10 @@ shadowJar {
 // Disable the default jar task to avoid conflicts with shadowJar
 tasks.named('jar') {
     enabled = false
-    finalizedBy("deployToServer")
 }
 
 tasks.named('build') {
     dependsOn shadowJar
-}
-
-// Deploy plugin JAR to server mods folder
-tasks.register('deployToServer', Copy) {
-    from shadowJar
-    into 'C:\\Users\\jeffm\\AppData\\Roaming\\Hytale\\UserData\\Mods'
-    doLast {
-        copy {
-            from shadowJar
-            into 'C:\\Users\\jeffm\\AppData\\Roaming\\Hytale\\data\\pre-release\\Mods'
-        }
-        println "Deployed to release and pre-release"
-    }
 }
 
 // Watch for changes and auto-rebuild (useful during development)

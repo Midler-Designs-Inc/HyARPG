@@ -9,7 +9,7 @@ import com.hypixel.hytale.server.core.asset.type.blockhitbox.BlockBoundingBoxes;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.asset.type.item.config.Item;
 import com.hypixel.hytale.server.core.universe.world.World;
-import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
+import com.example.hyarpg.utils.WorldBlockAccess;
 
 // Java Import
 import javax.annotation.Nullable;
@@ -173,11 +173,7 @@ public class RoomFloodFill {
     @Nullable
     private static BlockType getBlockType(World world, int x, int y, int z) {
         if (y < 0 || y >= 320) return BlockType.EMPTY;
-        long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-        WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-        if (chunk == null) return BlockType.UNKNOWN;
-        int blockId = chunk.getBlock(x, y, z);
-        return BlockType.getAssetMap().getAsset(blockId);
+        return WorldBlockAccess.getBlockType(world, x, y, z).orElse(BlockType.UNKNOWN);
     }
 
     public static boolean isStructural(BlockType bt) {

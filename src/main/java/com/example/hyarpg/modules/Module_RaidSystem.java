@@ -29,6 +29,7 @@ import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.example.hyarpg.components.Component_RPG_Enemy;
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.configs.ModConfig;
+import com.example.hyarpg.utils.WorldBlockAccess;
 import com.example.hyarpg.utils.rooms.RoomFloodFill;
 import com.example.hyarpg.utils.rooms.TerritoryData;
 
@@ -88,9 +89,9 @@ public class Module_RaidSystem {
             ),
 
             new RaidDefinition("the_goblin_economy", 110, List.of(
-                List.of("Goblin_Miner", "Goblin_Miner", "Goblin_Scavenger", "Goblin_Hermit"),
-                List.of("Goblin_Lobber", "Goblin_Lobber", "Goblin_Thief", "Goblin_Ogre"),
-                List.of("Goblin_Duke", "Goblin_Ogre", "Goblin_Lobber", "Goblin_Scavenger", "Goblin_Thief")
+                List.of("Goblin_Miner", "Goblin_Miner", "Goblin_Scrapper", "Goblin_Glutton"),
+                List.of("Goblin_Lobber", "Goblin_Lobber", "Goblin_Thief", "Goblin_Guardian"),
+                List.of("Goblin_Duke", "Goblin_Guardian", "Goblin_Lobber", "Goblin_Scrapper", "Goblin_Thief")
             ),
                 "You hear the distant jingle of stolen coins...",
                 "The goblins have assessed your property value and decided to liquidate your assets!",
@@ -140,9 +141,9 @@ public class Module_RaidSystem {
 
             new RaidDefinition("the_void_rupture", 70, List.of(
                 List.of("Larva_Void", "Larva_Void", "Larva_Void", "Eye_Void", "Eye_Void"),
-                List.of("Crawler_Void", "Crawler_Void", "Spawn_Void", "Eye_Void"),
-                List.of("Spawn_Void", "Spawn_Void", "Spectre_Void", "Crawler_Void", "Larva_Void"),
-                List.of("Spectre_Void", "Spectre_Void", "Spawn_Void", "Shadow_Knight")
+                List.of("Crawler_Void", "Crawler_Void", "Void_Spawn", "Eye_Void"),
+                List.of("Void_Spawn", "Void_Spawn", "Void_Spectre", "Crawler_Void", "Larva_Void"),
+                List.of("Void_Spectre", "Void_Spectre", "Void_Spawn", "Shadow_Knight")
             ),
                 "Reality flickers. Something on the other side has noticed you...",
                 "The void tears open — creatures from beyond pour through the rift!",
@@ -201,11 +202,11 @@ public class Module_RaidSystem {
             ),
 
             new RaidDefinition("the_grand_convergence", 40, List.of(
-                List.of("Goblin_Ogre", "Outlander_Berserker", "Zombie_Aberrant", "Trork_Warrior", "Skeleton_Burnt_Praetorian"),
+                List.of("Goblin_Guardian", "Outlander_Berserker", "Zombie_Aberrant", "Trork_Warrior", "Skeleton_Burnt_Praetorian"),
                 List.of("Skeleton_Frost_Knight", "Outlander_Brute", "Werewolf", "Ghoul", "Skeleton_Incandescent_Head"),
-                List.of("Golem_Crystal_Thunder", "Golem_Crystal_Flame", "Scarak_Broodmother_Young", "Wraith", "Spawn_Void"),
+                List.of("Golem_Crystal_Thunder", "Golem_Crystal_Flame", "Scarak_Broodmother", "Wraith", "Void_Spawn"),
                 List.of("Shadow_Knight", "Goblin_Duke", "Trork_Chieftain", "Outlander_Cultist", "Skeleton_Archmage", "Spirit_Thunder"),
-                List.of("Hedera", "Werewolf", "Wraith", "Shadow_Knight", "Spectre_Void", "Golem_Firesteel", "Scarak_Broodmother_Young")
+                List.of("Hedera", "Werewolf", "Wraith", "Shadow_Knight", "Void_Spectre", "Golem_Firesteel", "Scarak_Broodmother")
             ),
                 "Every faction goes quiet at once. That's never good...",
                 "The Grand Convergence — every enemy you've ever made has compared notes and arrived together!",
@@ -214,8 +215,8 @@ public class Module_RaidSystem {
 
             new RaidDefinition("broodmothers_calling", 65, List.of(
                 List.of("Larva_Void", "Larva_Void", "Larva_Void", "Larva_Void", "Eye_Void", "Eye_Void"),
-                List.of("Crawler_Void", "Crawler_Void", "Spawn_Void", "Larva_Void", "Larva_Void"),
-                List.of("Scarak_Broodmother_Young", "Spawn_Void", "Crawler_Void", "Spectre_Void", "Eye_Void", "Larva_Void")
+                List.of("Crawler_Void", "Crawler_Void", "Void_Spawn", "Larva_Void", "Larva_Void"),
+                List.of("Scarak_Broodmother", "Void_Spawn", "Crawler_Void", "Void_Spectre", "Eye_Void", "Larva_Void")
             ),
                 "A chittering sound rises and falls just below the threshold of comfort...",
                 "The Broodmother has called her children home — and your base is the nest!",
@@ -702,6 +703,7 @@ public class Module_RaidSystem {
         if (transform == null) return;
 
         Vector3d pos = transform.getPosition();
+        World world = store.getExternalData().getWorld();
         int cx = (int) Math.floor(pos.x);
         int cy = (int) Math.floor(pos.y);
         int cz = (int) Math.floor(pos.z);
@@ -716,18 +718,31 @@ public class Module_RaidSystem {
                         try {
                             // resolve the chunk for this block position
                             long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-                            Ref<ChunkStore> chunkRef = ((ChunkStore) chunkStore.getExternalData()).getChunkReference(chunkIndex);
-                            if (chunkRef == null || !chunkRef.isValid()) continue;
+                            var chunkRef = WorldBlockAccess.getLoadedChunkReference(world, chunkIndex);
+                            if (chunkRef.isEmpty()) continue;
 
                             // resolve the block and skip if non-structural
-                            WorldChunk worldChunk = (WorldChunk) chunkStore.getComponent(chunkRef, WorldChunk.getComponentType());
-                            if (worldChunk == null) continue;
-                            int blockId = worldChunk.getBlock(x, y, z);
-                            BlockType bt = BlockType.getAssetMap().getAsset(blockId);
+                            var blockId = WorldBlockAccess.getBlockId(world, x, y, z);
+                            if (blockId.isEmpty()) continue;
+                            BlockType bt = BlockType.getAssetMap().getAsset(blockId.getAsInt());
                             if (bt == null || !RoomFloodFill.isStructural(bt)) continue;
 
                             // apply block damage
-                            BlockHarvestUtils.performBlockDamage(null, new Vector3i(x, y, z), null, null, null, false, ModConfig.get().raids.explosion_hit_damage_blocks, 2048 | 1024, chunkRef, store, chunkStore);
+                            BlockHarvestUtils.performBlockDamage(
+                                null,
+                                null,
+                                new Vector3i(x, y, z),
+                                null,
+                                null,
+                                null,
+                                false,
+                                ModConfig.get().raids.explosion_hit_damage_blocks,
+                                2048 | 1024,
+                                false,
+                                chunkRef.get(),
+                                store,
+                                chunkStore
+                            );
                         } catch (Exception e) {
                             System.err.println("[RaidSystem] Error breaking block during explosion: " + e.getMessage());
                         }
@@ -789,16 +804,15 @@ public class Module_RaidSystem {
 
     // Scans downward from startY to find the first solid non-fluid block, returns Integer.MIN_VALUE if none found
     private int findGroundY(World world, int x, int startY, int z) {
-        // bail early if the chunk isn't in memory
         long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-        WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-        if (chunk == null) return Integer.MIN_VALUE;
+        if (WorldBlockAccess.getLoadedChunkReference(world, chunkIndex).isEmpty()) return Integer.MIN_VALUE;
 
         // scan downward from the clamped start height
         int clampedStart = Math.min(startY, 319);
-        for (int y = clampedStart; y >= 1; y--) {
-            int blockId = chunk.getBlock(x, y, z);
-            BlockType bt = BlockType.getAssetMap().getAsset(blockId);
+        for (int y = clampedStart; y >= ChunkUtil.MIN_Y; y--) {
+            var blockId = WorldBlockAccess.getBlockId(world, x, y, z);
+            if (blockId.isEmpty()) return Integer.MIN_VALUE;
+            BlockType bt = BlockType.getAssetMap().getAsset(blockId.getAsInt());
             if (bt != null && RoomFloodFill.isStructural(bt)) return y;
         }
 
@@ -841,16 +855,19 @@ public class Module_RaidSystem {
                 long index = ChunkUtil.indexChunk(cx, cz);
                 if (load) {
                     // request the chunk async and mark it as keep-loaded once available
-                    world.getChunkAsync(index).thenAcceptAsync(chunk -> {
+                    WorldBlockAccess.getChunkReferenceAsync(world, index).thenAcceptAsync(chunkRef -> {
+                        if (chunkRef == null || !chunkRef.isValid()) return;
+                        WorldChunk chunk = world.getChunkStore().getStore().getComponent(chunkRef, WorldChunk.getComponentType());
                         if (chunk == null) return;
                         chunk.addKeepLoaded();
                         chunk.resetKeepAlive();
                         chunk.resetActiveTimer();
-                        world.loadChunkIfInMemory(index);
                     }, world);
                 } else {
                     // release the keep-loaded lock so the chunk can unload naturally
-                    WorldChunk chunk = world.getChunkIfInMemory(index);
+                    WorldChunk chunk = WorldBlockAccess.getLoadedChunkReference(world, index)
+                        .map(chunkRef -> world.getChunkStore().getStore().getComponent(chunkRef, WorldChunk.getComponentType()))
+                        .orElse(null);
                     if (chunk != null) chunk.removeKeepLoaded();
                 }
             }
@@ -869,7 +886,9 @@ public class Module_RaidSystem {
 
             for (int cx = minChunkX; cx <= maxChunkX; cx++) {
                 for (int cz = minChunkZ; cz <= maxChunkZ; cz++) {
-                    WorldChunk chunk = group.world.getChunkIfInMemory(ChunkUtil.indexChunk(cx, cz));
+                    WorldChunk chunk = WorldBlockAccess.getLoadedChunkReference(group.world, ChunkUtil.indexChunk(cx, cz))
+                        .map(chunkRef -> group.world.getChunkStore().getStore().getComponent(chunkRef, WorldChunk.getComponentType()))
+                        .orElse(null);
                     if (chunk == null) continue;
                     chunk.resetActiveTimer();
                     chunk.resetKeepAlive();

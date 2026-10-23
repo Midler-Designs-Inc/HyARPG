@@ -42,7 +42,7 @@
     { "Name": "Skeleton_Sand_Scout", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Skeleton_Scout", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Skeleton_Soldier", "Weight": 100, "SpawnAfterGameTime": "P1D" },
-    { "Name": "Spectre_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Void_Spectre", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Spirit_Ember", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Spirit_Frost", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Spirit_Root", "Weight": 100, "SpawnAfterGameTime": "P1D" },

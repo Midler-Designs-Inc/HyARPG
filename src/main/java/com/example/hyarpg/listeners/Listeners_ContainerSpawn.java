@@ -43,26 +43,11 @@ public class Listeners_ContainerSpawn extends HolderSystem<ChunkStore> {
         BlockModule.BlockStateInfo blockStateInfo = holder.getComponent(BlockModule.BlockStateInfo.getComponentType());
         if (blockStateInfo == null) return;
 
-        // Get the block's local location
-        int index = blockStateInfo.getIndex();
-        int localX = ChunkUtil.xFromBlockInColumn(index);
-        int localY = ChunkUtil.yFromBlockInColumn(index);
-        int localZ = ChunkUtil.zFromBlockInColumn(index);
-
-        // get the chunk
-        Ref<ChunkStore> chunkRef = blockStateInfo.getChunkRef();
-        WorldChunk worldChunk = (WorldChunk) store.getComponent(chunkRef, WorldChunk.getComponentType());
-        if(worldChunk == null) return;
-
-        int chunkX = worldChunk.getX();
-        int chunkZ = worldChunk.getZ();
-
-        // get the blocks world location from the chunk
-        int worldX = ChunkUtil.worldCoordFromLocalCoord(chunkX, localX);
-        int worldZ = ChunkUtil.worldCoordFromLocalCoord(chunkZ, localZ);
+        org.joml.Vector3i worldPos = new org.joml.Vector3i();
+        if (!blockStateInfo.fillWorldPos(store, worldPos)) return;
 
         // fire off the event to the mod
-        ModEventBus.post(new Event_ContainerSpawned(containerBlock, blockStateInfo, worldX, localY, worldZ));
+        ModEventBus.post(new Event_ContainerSpawned(containerBlock, blockStateInfo, worldPos.x, worldPos.y, worldPos.z));
     }
 
     @Override

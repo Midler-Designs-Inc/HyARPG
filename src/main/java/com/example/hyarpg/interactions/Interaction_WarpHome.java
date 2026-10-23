@@ -25,6 +25,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Mod Imports
 import com.example.hyarpg.utils.rooms.TerritoryData;
 import com.example.hyarpg.utils.rooms.WorldRoomRegistry;
+import com.example.hyarpg.utils.WorldBlockAccess;
 
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -141,13 +142,13 @@ public class Interaction_WarpHome extends SimpleInstantInteraction {
     @Nullable
     private Vector3d checkAirGap(World world, int x, int y, int z) {
         long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-        WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-        if (chunk == null) return null;
+        if (WorldBlockAccess.getLoadedChunkReference(world, chunkIndex).isEmpty()) return null;
 
         // all 3 blocks of the column must be air
         for (int airY = y; airY <= y + 2; airY++) {
-            int blockId = chunk.getBlock(x, airY, z);
-            BlockType bt = BlockType.getAssetMap().getAsset(blockId);
+            var blockId = WorldBlockAccess.getBlockId(world, x, airY, z);
+            if (blockId.isEmpty()) return null;
+            BlockType bt = BlockType.getAssetMap().getAsset(blockId.getAsInt());
             String id = bt != null ? bt.getId().toLowerCase() : "";
             if (!id.equals("air") && !id.equals("empty")) return null;
         }

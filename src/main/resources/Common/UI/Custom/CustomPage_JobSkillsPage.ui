@@ -1,6 +1,6 @@
 $Common = "Common.ui";
-$JobSkillsNav   = "Jobs/Pages/CustomPage_JobSkillsNav.ui";
-$JobSkillsPerks = "Jobs/Pages/CustomPage_JobSkillsPerks.ui";
+$JobSkillsNav   = "jobs/Pages/CustomPage_JobSkillsNav.ui";
+$JobSkillsPerks = "jobs/Pages/CustomPage_JobSkillsPerks.ui";
 
 SceneBlur {}
 

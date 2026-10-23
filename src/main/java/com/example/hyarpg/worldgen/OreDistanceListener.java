@@ -4,8 +4,8 @@ import com.example.hyarpg.worldgen.OreDistanceConfig.OreZone;
 import com.hypixel.hytale.event.EventPriority;
 import com.hypixel.hytale.event.EventRegistry;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
-import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.events.ChunkPreLoadProcessEvent;
+import com.example.hyarpg.utils.WorldGenChunkAccess;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +18,6 @@ public class OreDistanceListener {
     private static final Logger LOGGER = Logger.getLogger(OreDistanceListener.class.getName());
 
     private static final int CHUNK_SIZE = 32;
-
-    /**
-     * ChunkPreLoadProcessEvent fires BEFORE terrain generation populates the
-     * chunk with stone. Ore placed here gets written into an empty chunk;
-     * terrain gen then fills in stone around the pre-placed ore blocks,
-     * leaving them naturally embedded.
-     *
-     * Because world and reference are null at this stage, we must skip every
-     * setBlock operation that dereferences them:
-     *   0x02 — skip setState        (needs world)
-     *   0x04 — skip particles       (needs world)
-     *   0x08 — skip setFiller       (needs reference)
-     *   0x10 — skip removeFiller    (needs reference)
-     *   0x200 — skip height update  (terrain gen recalculates anyway)
-     */
-    private static final int PLACEMENT_SETTINGS = 0x02 | 0x04 | 0x08 | 0x10 | 0x200;
 
     private final OreDistanceConfig config;
 
@@ -62,7 +46,7 @@ public class OreDistanceListener {
         }
         if (resolvedOres == null || resolvedOres.isEmpty()) return;
 
-        WorldChunk chunk = event.getChunk();
+        WorldGenChunkAccess chunk = new WorldGenChunkAccess(event.getHolder(), event.getChunk());
 
         double centreX = (chunk.getX() * CHUNK_SIZE) + (CHUNK_SIZE / 2.0);
         double centreZ = (chunk.getZ() * CHUNK_SIZE) + (CHUNK_SIZE / 2.0);
@@ -109,7 +93,7 @@ public class OreDistanceListener {
      * The walk advances ~1 block per step so the vein has a natural elongated
      * shape rather than a perfect sphere.
      */
-    private void generateVein(WorldChunk chunk, ResolvedOre resolved,
+    private void generateVein(WorldGenChunkAccess chunk, ResolvedOre resolved,
                               int cx, int cy, int cz,
                               int size, Random rand) {
         float fx = cx;
@@ -144,8 +128,7 @@ public class OreDistanceListener {
                         if (Math.floorDiv(bx, CHUNK_SIZE) != chunk.getX()) continue;
                         if (Math.floorDiv(bz, CHUNK_SIZE) != chunk.getZ()) continue;
 
-                        chunk.setBlock(bx, by, bz, resolved.oreId, resolved.oreType,
-                                0, 0, PLACEMENT_SETTINGS);
+                        chunk.setBlock(bx, by, bz, resolved.oreId, 0, 0);
                     }
                 }
             }

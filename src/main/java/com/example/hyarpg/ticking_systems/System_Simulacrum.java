@@ -15,6 +15,7 @@ import com.hypixel.hytale.server.npc.role.Role;
 // Mod Imports
 import com.example.hyarpg.components.Component_HomingMissile;
 import com.example.hyarpg.components.Component_Simulacrum;
+import com.example.hyarpg.utils.NPCUtils;
 
 // Java Imports
 import javax.annotation.Nonnull;
@@ -79,10 +80,10 @@ public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
             NPCEntity npc = store.getComponent(nearbyRef, NPCEntity.getComponentType());
             if (npc == null) continue;
             Role role = npc.getRole();
-            if (role == null || role.isFriendly(ref, store)) continue;
+            if (role == null || NPCUtils.isFriendly(nearbyRef, ref, store)) continue;
 
             // re-assert aggro
-            role.setMarkedTarget("LockedTarget", ref);
+            role.setMarkedTarget(nearbyRef, store, "LockedTarget", ref);
             npc.onFlockSetState(nearbyRef, "Alerted", null, store);
 
             // track nearest for missile targeting
@@ -125,7 +126,7 @@ public class System_Simulacrum extends EntityTickingSystem<EntityStore> {
                 // offset forward in the launch direction so missile spawns outside simulacrum hitbox
                 Vector3d launchOrigin = new Vector3d(pos).add(0, 1.6, 0).add(dir.x * 1.5, 0, dir.z * 1.5);
 
-                Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(null, capturedCaster, commandBuffer, config, new Vector3d(launchOrigin), dir);
+                Ref<EntityStore> missileRef = ProjectileModule.get().spawnProjectile(capturedCaster, commandBuffer, config, new Vector3d(launchOrigin), dir);
                 commandBuffer.putComponent(missileRef, homingComponentType, new Component_HomingMissile(capturedCaster, capturedTarget, TURN_RATE, ARM_TIME, "MainHand_Magic_Scalar", 0.1f));
             });
         }

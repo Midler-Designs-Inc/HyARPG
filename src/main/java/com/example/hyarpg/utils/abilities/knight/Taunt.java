@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.npc.role.Role;
 
 // Mod Imports
 import com.example.hyarpg.utils.abilities.Ability;
+import com.example.hyarpg.utils.NPCUtils;
 
 
 // Java Imports
@@ -59,8 +60,8 @@ public class Taunt extends Ability {
             Role role = npc.getRole();
             if (role == null) continue;
 
-            if (!role.isFriendly(ref, store)) {
-                role.setMarkedTarget("LockedTarget", ref);
+            if (!NPCUtils.isFriendly(targetRef, ref, store)) {
+                role.setMarkedTarget(targetRef, store, "LockedTarget", ref);
                 npc.onFlockSetState(targetRef, "Alerted", null, store);
             }
         }

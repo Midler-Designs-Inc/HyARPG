@@ -56,7 +56,7 @@
         }
       ]
     },
-    "BlockSoundSetId": "Gem",
+    "BlockSoundSetId": "Stone",
     "CustomModelScale": 1.8,
     "Light": {
       "Color": "#ccc",

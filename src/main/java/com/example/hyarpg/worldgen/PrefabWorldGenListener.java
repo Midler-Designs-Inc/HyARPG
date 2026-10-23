@@ -3,17 +3,18 @@ package com.example.hyarpg.worldgen;
 // Hytale Imports
 import com.hypixel.hytale.event.EventPriority;
 import com.hypixel.hytale.event.EventRegistry;
+import com.hypixel.hytale.math.util.ChunkUtil;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.prefab.PrefabStore;
 import com.hypixel.hytale.server.core.prefab.selection.standard.BlockSelection;
 import com.hypixel.hytale.server.core.universe.world.World;
-import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
 import com.hypixel.hytale.server.core.universe.world.events.ChunkPreLoadProcessEvent;
 import com.hypixel.hytale.server.worldgen.chunk.ChunkGenerator;
 
 // Mod Imports
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.configs.Config_World;
+import com.example.hyarpg.utils.WorldGenChunkAccess;
 
 // Java Imports
 import java.io.IOException;
@@ -30,9 +31,8 @@ public class PrefabWorldGenListener {
     // constants
     private static final Logger LOGGER = Logger.getLogger(PrefabWorldGenListener.class.getName());
     private static final int CHUNK_SIZE = 32;
-    private static final int UNDERGROUND_FLOOR = -30;
+    private static final int UNDERGROUND_FLOOR = ChunkUtil.MIN_Y;
     private static final int UNDERGROUND_PADDING = 20;
-    private static final int PLACEMENT_SETTINGS = 0x02 | 0x04 | 0x08 | 0x10;
     private static final String[] SPAWNER_BLOCKS = {
             "HyARPG_BlockSpawner_Goblin",
             "HyARPG_BlockSpawner_Outlanders",
@@ -87,8 +87,8 @@ public class PrefabWorldGenListener {
         }
 
         // gather chunk and world context needed by all placement methods
-        WorldChunk chunk = event.getChunk();
-        World world = chunk.getWorld();
+        WorldGenChunkAccess chunk = new WorldGenChunkAccess(event.getHolder(), event.getChunk());
+        World world = event.getWorld();
         long worldSeed = world.getWorldConfig().getSeed();
         ChunkGenerator generator = (ChunkGenerator) world.getChunkStore().getGenerator();
         if (generator == null) return;
@@ -126,7 +126,7 @@ public class PrefabWorldGenListener {
     }
 
     // pick a surface prefab for this region, ground it, paste it, and record its placement
-    private void processSurface(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldChunk chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
+    private void processSurface(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldGenChunkAccess chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
         long regionSeed = (long) regionX * 341873128712L + (long) regionZ * 132897987541L ^ worldSeed ^ 0x1L;
         Random random = new Random(regionSeed);
         if (random.nextDouble() >= Math.max(0.0, Math.min(1.0, cfg.prefabSurfaceSpawnChance))) return;
@@ -149,7 +149,7 @@ public class PrefabWorldGenListener {
     }
 
     // pick a wayward shrine for this region, ground it, paste it, and record its placement
-    private void processWaywardShrine(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldChunk chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
+    private void processWaywardShrine(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldGenChunkAccess chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
         long regionSeed = (long) regionX * 341873128712L + (long) regionZ * 132897987541L ^ worldSeed ^ 0x6L;
         Random random = new Random(regionSeed);
         if (random.nextDouble() >= Math.max(0.0, Math.min(1.0, cfg.prefabWaywardShrineSpawnChance))) return;
@@ -169,7 +169,7 @@ public class PrefabWorldGenListener {
     }
 
     // pick an underground prefab for this region, find a valid depth, paste it, and record its placement
-    private void processUnderground(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldChunk chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
+    private void processUnderground(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldGenChunkAccess chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
         long regionSeed = (long) regionX * 341873128712L + (long) regionZ * 132897987541L ^ worldSeed ^ 0x3L;
         Random random = new Random(regionSeed);
         if (random.nextDouble() >= Math.max(0.0, Math.min(1.0, cfg.prefabUndergroundSpawnChance))) return;
@@ -192,7 +192,7 @@ public class PrefabWorldGenListener {
     }
 
     // pick a surface dungeon for this region, ground it, scatter spawners, paste it, and record its placement
-    private void processSurfaceDungeon(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldChunk chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
+    private void processSurfaceDungeon(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldGenChunkAccess chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
         long regionSeed = (long) regionX * 341873128712L + (long) regionZ * 132897987541L ^ worldSeed ^ 0x4L;
         Random random = new Random(regionSeed);
         if (random.nextDouble() >= Math.max(0.0, Math.min(1.0, cfg.prefabSurfaceDungeonSpawnChance))) return;
@@ -217,7 +217,7 @@ public class PrefabWorldGenListener {
     }
 
     // pick an underground dungeon for this region, find a valid depth, scatter spawners, paste it, and record its placement
-    private void processUndergroundDungeon(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldChunk chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
+    private void processUndergroundDungeon(int regionX, int regionZ, Config_World cfg, long worldSeed, WorldGenChunkAccess chunk, World world, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, ChunkGenerator generator) {
         long regionSeed = (long) regionX * 341873128712L + (long) regionZ * 132897987541L ^ worldSeed ^ 0x5L;
         Random random = new Random(regionSeed);
         if (random.nextDouble() >= Math.max(0.0, Math.min(1.0, cfg.prefabUndergroundDungeonSpawnChance))) return;
@@ -273,7 +273,7 @@ public class PrefabWorldGenListener {
     }
 
     // scatter enemy spawners across the prefab interior at the configured density
-    private void placeSpawners(BlockSelection buffer, int[] bounds, WorldChunk chunk, int anchorX, int anchorY, int anchorZ, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, Random random, double density) {
+    private void placeSpawners(BlockSelection buffer, int[] bounds, WorldGenChunkAccess chunk, int anchorX, int anchorY, int anchorZ, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ, Random random, double density) {
         int bufAnchorX = buffer.getAnchorX(), bufAnchorY = buffer.getAnchorY(), bufAnchorZ = buffer.getAnchorZ();
         int volume = Math.max(1, (bounds[3] - bounds[0]) * (bounds[4] - bounds[1]) * (bounds[5] - bounds[2]));
         int spawnerCount = (int) ((volume / 1000.0) * density);
@@ -322,26 +322,25 @@ public class PrefabWorldGenListener {
                 if (sx < chunkMinX || sx > chunkMaxX || sz < chunkMinZ || sz > chunkMaxZ) continue;
                 if (chunk.getBlock(sx, sy, sz) != 0) continue;
                 if (spawnerTypes[spawnerIndex] == null) continue;
-                chunk.setBlock(sx, sy, sz, spawnerIds[spawnerIndex], spawnerTypes[spawnerIndex], 0, 0, PLACEMENT_SETTINGS & ~0x02);
+                chunk.setBlock(sx, sy, sz, spawnerIds[spawnerIndex], 0, 0);
                 break;
             }
         }
     }
 
     // write every block in this chunk's XZ column that belongs to the prefab, clearing terrain first
-    private void pasteSlice(boolean fillAir, boolean skipTeleporter, BlockSelection buffer, WorldChunk chunk, int anchorX, int anchorY, int anchorZ, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ) {
+    private void pasteSlice(boolean fillAir, boolean skipTeleporter, BlockSelection buffer, WorldGenChunkAccess chunk, int anchorX, int anchorY, int anchorZ, int chunkMinX, int chunkMaxX, int chunkMinZ, int chunkMaxZ) {
         int bufAnchorX = buffer.getAnchorX(), bufAnchorY = buffer.getAnchorY(), bufAnchorZ = buffer.getAnchorZ();
         BlockType airType = BlockType.getAssetMap().getAsset(0);
         int[] b = computeBounds(buffer);
 
         // flood the bounding box with air so terrain doesn't bleed through the prefab interior
         if (fillAir && airType != null && b[0] != Integer.MAX_VALUE) {
-            int airSettings = PLACEMENT_SETTINGS | 0x02;
             for (int x = b[0]; x <= b[3]; x++) for (int y = b[1]; y <= b[4]; y++) for (int z = b[2]; z <= b[5]; z++) {
                 int wx = anchorX + (x - bufAnchorX), wy = anchorY + (y - bufAnchorY), wz = anchorZ + (z - bufAnchorZ);
                 if (wy < UNDERGROUND_FLOOR || wy > 318) continue;
                 if (wx < chunkMinX || wx > chunkMaxX || wz < chunkMinZ || wz > chunkMaxZ) continue;
-                chunk.setBlock(wx, wy, wz, 0, airType, 0, 0, airSettings);
+                chunk.setBlock(wx, wy, wz, 0, 0, 0);
             }
         }
 
@@ -354,10 +353,10 @@ public class PrefabWorldGenListener {
             BlockType blockType = BlockType.getAssetMap().getAsset(block.blockId());
             if (blockType == null) return;
             if (blockType.getId().equals("Empty") || blockType.getId().startsWith("Bench_") || (skipTeleporter && blockType.getId().equals("Teleporter"))) {
-                if (airType != null) chunk.setBlock(wx, wy, wz, 0, airType, 0, 0, PLACEMENT_SETTINGS);
+                if (airType != null) chunk.setBlock(wx, wy, wz, 0, 0, 0);
                 return;
             }
-            chunk.setBlock(wx, wy, wz, block.blockId(), blockType, block.rotation(), block.filler(), PLACEMENT_SETTINGS);
+            chunk.setBlock(wx, wy, wz, block.blockId(), block.rotation(), block.filler());
         });
     }
 

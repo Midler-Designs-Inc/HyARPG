@@ -23,6 +23,7 @@ import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.utils.abilities.Ability;
 import com.example.hyarpg.utils.combat.SwingDamageGroup;
 import com.example.hyarpg.utils.items.ItemFactory;
+import com.example.hyarpg.utils.WorldBlockAccess;
 import com.example.hyarpg.modules.Module_RPGSystem;
 
 // Java Imports
@@ -159,18 +160,15 @@ public class Shadow_Strike extends Ability {
     // checks if a position has a solid floor and non-solid space for the player to stand
     private boolean isPositionSafe(World world, double x, double y, double z) {
         try {
-            long chunkIndex = com.hypixel.hytale.math.util.ChunkUtil.indexChunkFromBlock((int) x, (int) z);
-            com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-            if (chunk == null) return false;
-
             // feet and head blocks must be non-solid, floor must be solid
-            int blockAtFeet = chunk.getBlock((int) x, (int) y, (int) z);
-            int blockAtHead = chunk.getBlock((int) x, (int) y + 1, (int) z);
-            int blockAtFloor = chunk.getBlock((int) x, (int) y - 1, (int) z);
+            var blockAtFeet = WorldBlockAccess.getBlockId(world, (int) x, (int) y, (int) z);
+            var blockAtHead = WorldBlockAccess.getBlockId(world, (int) x, (int) y + 1, (int) z);
+            var blockAtFloor = WorldBlockAccess.getBlockId(world, (int) x, (int) y - 1, (int) z);
+            if (blockAtFeet.isEmpty() || blockAtHead.isEmpty() || blockAtFloor.isEmpty()) return false;
 
-            BlockType feet = BlockType.getAssetMap().getAsset(blockAtFeet);
-            BlockType head = BlockType.getAssetMap().getAsset(blockAtHead);
-            BlockType floor = BlockType.getAssetMap().getAsset(blockAtFloor);
+            BlockType feet = BlockType.getAssetMap().getAsset(blockAtFeet.getAsInt());
+            BlockType head = BlockType.getAssetMap().getAsset(blockAtHead.getAsInt());
+            BlockType floor = BlockType.getAssetMap().getAsset(blockAtFloor.getAsInt());
 
             boolean feetClear = feet == null || !com.example.hyarpg.utils.rooms.RoomFloodFill.isStructural(feet);
             boolean headClear = head == null || !com.example.hyarpg.utils.rooms.RoomFloodFill.isStructural(head);

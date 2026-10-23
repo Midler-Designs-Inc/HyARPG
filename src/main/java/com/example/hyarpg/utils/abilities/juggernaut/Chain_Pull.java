@@ -13,6 +13,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
 import com.example.hyarpg.utils.abilities.Ability;
+import com.example.hyarpg.utils.NPCUtils;
 import com.hypixel.hytale.server.core.util.TargetUtil;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
 import com.hypixel.hytale.server.npc.role.Role;
@@ -60,7 +61,7 @@ public class Chain_Pull extends Ability {
             if (npc == null) continue;
 
             Role role = npc.getRole();
-            if (role == null || role.isFriendly(ref, store)) continue;
+            if (role == null || NPCUtils.isFriendly(targetRef, ref, store)) continue;
 
             Velocity vc = store.getComponent(targetRef, Velocity.getComponentType());
             if (vc == null) continue;

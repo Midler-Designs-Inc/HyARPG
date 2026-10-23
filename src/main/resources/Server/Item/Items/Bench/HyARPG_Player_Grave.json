@@ -12,9 +12,6 @@
       }
     ],
     "DrawType": "Model",
-    "Flags": {
-      "IsUsable": true
-    },
     "Material": "Solid",
     "Opacity": "Transparent",
     "State": {

@@ -2,9 +2,9 @@
   "groupId": "com.example",
   "artifactId": "hyarpg",
   "modName": "HyARPG",
-  "version": "1.0.0",
+  "version": "3.6.2",
   "buildSystem": "Gradle",
   "language": "Java",
-  "jarPath": "build/libs/hyarpg-1.0.0.jar",
+  "jarPath": "build/libs/hyarpg-3.6.2.jar",
   "buildTask": "shadowJar"
 }

@@ -21,11 +21,7 @@ public class ShowDiscovered extends CommandBase {
     public ShowDiscovered() {
         // Name, Description
         super("discovered", "Show the player's discovered room recipes.", false);
-    }
-
-    @Override
-    protected boolean canGeneratePermission() {
-        return false;
+        this.requireNoPermission();
     }
 
     @Override

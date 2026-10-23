@@ -15,6 +15,8 @@ import com.hypixel.hytale.server.core.inventory.InventoryComponent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
 import com.hypixel.hytale.server.core.inventory.container.SimpleItemContainer;
 import com.hypixel.hytale.server.core.modules.block.BlockModule.BlockStateInfo;
+import com.hypixel.hytale.server.core.modules.block.BlockEntity;
+import com.hypixel.hytale.server.core.universe.world.chunk.section.BlockComponentSection;
 import com.hypixel.hytale.server.core.modules.entity.component.TransformComponent;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatMap;
 import com.hypixel.hytale.server.core.modules.entitystats.EntityStatValue;
@@ -50,6 +52,7 @@ import com.example.hyarpg.utils.affixes.StatType;
 import com.example.hyarpg.utils.combat.EnemyConfigLoader;
 import com.example.hyarpg.utils.items.ItemFactory;
 import com.example.hyarpg.utils.rooms.RoomFloodFill;
+import com.example.hyarpg.utils.WorldBlockAccess;
 import org.joml.Vector3d;
 
 // Java Imports
@@ -376,28 +379,15 @@ public class Module_RPGSystem {
         // if droplist is already null this chest was previously looted — leave it empty
         if ("Empty".equals(containerBlock.getDroplist())) return;
 
-        // getIndex() returns indexBlockInColumn — full column-relative coords
-        int index = blockStateInfo.getIndex();
-        int localX = ChunkUtil.xFromBlockInColumn(index);
-        int localY = ChunkUtil.yFromBlockInColumn(index);
-        int localZ = ChunkUtil.zFromBlockInColumn(index);
-
-        // Get chunk X/Z from the WorldChunk component on the chunk ref
-        Ref<ChunkStore> chunkRef = blockStateInfo.getChunkRef();
-        Store<ChunkStore> store = chunkRef.getStore();
-        WorldChunk worldChunk = (WorldChunk) store.getComponent(chunkRef, WorldChunk.getComponentType());
-        if(worldChunk == null) return;
-
-        int chunkX = worldChunk.getX();
-        int chunkZ = worldChunk.getZ();
-
-        // Reconstruct world coordinates — no sectionY needed, localY is already full column Y
-        int worldX = ChunkUtil.worldCoordFromLocalCoord(chunkX, localX);
-        int worldZ = ChunkUtil.worldCoordFromLocalCoord(chunkZ, localZ);
+        org.joml.Vector3i worldPos = new org.joml.Vector3i();
+        if (!blockStateInfo.fillWorldPos(worldPos)) return;
+        int worldX = worldPos.x;
+        int worldY = worldPos.y;
+        int worldZ = worldPos.z;
 
         // Compute distance from config origin
         double dx = worldX - ModConfig.get().world.origin_spawn_point_x;
-        double dy = localY - ModConfig.get().world.origin_spawn_point_y;
+        double dy = worldY - ModConfig.get().world.origin_spawn_point_y;
         double dz = worldZ - ModConfig.get().world.origin_spawn_point_z;
         double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
@@ -498,20 +488,19 @@ public class Module_RPGSystem {
                 int gy = Integer.parseInt(parts[1]);
                 int gz = Integer.parseInt(parts[2]);
 
-                // force load the chunk so the break can execute regardless of load state
                 long oldChunkIndex = ChunkUtil.indexChunkFromBlock(gx, gz);
-                world.getChunkAsync(oldChunkIndex).thenAccept(oldChunk -> {
-                    if (oldChunk == null) return;
-
-                    // break the old grave — the engine drops its container contents automatically
-                    world.breakBlock(gx, gy, gz, 0);
+                WorldBlockAccess.getChunkReferenceAsync(world, oldChunkIndex).thenAccept(oldChunkRef -> {
+                    if (oldChunkRef == null || !oldChunkRef.isValid()) return;
+                    if (!WorldBlockAccess.breakBlockIfLoaded(world, gx, gy, gz, 0, null)) {
+                        System.err.println("[HyARPG] Previous grave chunk unloaded before the grave could be removed");
+                    }
                 });
             }
 
             // force load the chunk at the death position so we can place the grave
             long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-            world.getChunkAsync(chunkIndex).thenAccept(chunk -> {
-                if (chunk == null) return;
+            WorldBlockAccess.getChunkReferenceAsync(world, chunkIndex).thenAccept(chunkRef -> {
+                if (chunkRef == null || !chunkRef.isValid()) return;
 
                 // resolve the grave block type — bail if not registered
                 BlockType blockType = BlockType.getAssetMap().getAsset("HyARPG_Player_Grave");
@@ -520,8 +509,13 @@ public class Module_RPGSystem {
 
                 // scan downward from death position to find the ground so the grave doesn't float
                 int groundY = y;
-                for (int scanY = y - 1; scanY >= -30; scanY--) {
-                    BlockType below = BlockType.getAssetMap().getAsset(chunk.getBlock(x, scanY, z));
+                for (int scanY = y - 1; scanY >= ChunkUtil.MIN_Y; scanY--) {
+                    var belowId = WorldBlockAccess.getBlockId(world, x, scanY, z);
+                    if (belowId.isEmpty()) {
+                        System.err.println("[HyARPG] Could not read the loaded block section while placing a grave");
+                        return;
+                    }
+                    BlockType below = BlockType.getAssetMap().getAsset(belowId.getAsInt());
                     if (RoomFloodFill.isStructural(below)) { groundY = scanY + 1; break; }
                 }
 
@@ -535,9 +529,36 @@ public class Module_RPGSystem {
                 container.setItemContainer(new SimpleItemContainer((short) 36));
                 container.getItemContainer().addItemStacks(itemsToGrave);
 
-                // set the block and update it's state
-                chunk.setBlock(x, groundY, z, blockIndex, blockType, 0, 0, 2);
-                chunk.setState(x, groundY, z, blockType, 0, graveHolder);
+                if (!WorldBlockAccess.setBlockIfLoaded(world, x, groundY, z, blockIndex, blockType, 0, 0, 2)) {
+                    System.err.println("[HyARPG] Could not place the grave block in the loaded chunk");
+                    return;
+                }
+
+                Ref<ChunkStore> sectionRef = world.getChunkStore().getChunkSectionReferenceAtBlock(x, groundY, z);
+                if (sectionRef == null || !sectionRef.isValid()) {
+                    System.err.println("[HyARPG] Grave section unloaded before its block components could be attached");
+                    return;
+                }
+                Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
+                BlockComponentSection blockComponents = chunkStore.getComponent(
+                    sectionRef,
+                    BlockComponentSection.getComponentType()
+                );
+                if (blockComponents == null) {
+                    System.err.println("[HyARPG] Grave block section has no block-component storage");
+                    return;
+                }
+                BlockEntity.setBlockEntity(
+                    chunkStore,
+                    sectionRef,
+                    blockComponents,
+                    x,
+                    groundY,
+                    z,
+                    blockType,
+                    0,
+                    graveHolder
+                );
 
                 // record the grave position on the player component
                 rpg.gravePosition = x + "," + groundY + "," + z;

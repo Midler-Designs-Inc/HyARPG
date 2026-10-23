@@ -19,11 +19,7 @@ public class ShowSkills extends CommandBase {
     public ShowSkills() {
         // Name, Description
         super("skills", "Show the available skill trees.", false);
-    }
-
-    @Override
-    protected boolean canGeneratePermission() {
-        return false;
+        this.requireNoPermission();
     }
 
     @Override

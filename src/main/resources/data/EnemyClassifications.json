@@ -32,7 +32,7 @@
     "nature": "hostile"
   },
   {
-    "id": "Ghoul1",
+    "id": "Ghoul",
     "faction": "undead",
     "damageType": "Physical",
     "operationalSpace": "ground",
@@ -48,7 +48,7 @@
     "nature": "hostile"
   },
   {
-    "id": "Goblin_Hermit",
+    "id": "Goblin_Glutton",
     "faction": "goblin",
     "damageType": "Physical",
     "operationalSpace": "ground",
@@ -72,7 +72,7 @@
     "nature": "hostile"
   },
   {
-    "id": "Goblin_Ogre",
+    "id": "Goblin_Guardian",
     "faction": "goblin",
     "damageType": "Physical",
     "operationalSpace": "ground",
@@ -80,7 +80,7 @@
     "nature": "hostile"
   },
   {
-    "id": "Goblin_Scavenger",
+    "id": "Goblin_Scrapper",
     "faction": "goblin",
     "damageType": "Physical",
     "operationalSpace": "ground",
@@ -264,7 +264,7 @@
     "nature": "hostile"
   },
   {
-    "id": "Scarak_Broodmother_Young",
+    "id": "Scarak_Broodmother",
     "faction": "scarak",
     "damageType": "Physical",
     "operationalSpace": "ground",
@@ -560,7 +560,7 @@
     "nature": "hostile"
   },
   {
-    "id": "Spawn_Void",
+    "id": "Void_Spawn",
     "faction": "void",
     "damageType": "Magic",
     "operationalSpace": "ground",
@@ -568,7 +568,7 @@
     "nature": "hostile"
   },
   {
-    "id": "Spectre_Void",
+    "id": "Void_Spectre",
     "faction": "void",
     "damageType": "Magic",
     "operationalSpace": "air",

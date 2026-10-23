@@ -6,7 +6,7 @@ import com.hypixel.hytale.protocol.BlockMaterial;
 import com.hypixel.hytale.protocol.DrawType;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.universe.world.World;
-import com.hypixel.hytale.server.core.universe.world.chunk.WorldChunk;
+import com.example.hyarpg.utils.WorldBlockAccess;
 
 // Java Imports
 import javax.annotation.Nullable;
@@ -156,9 +156,7 @@ public class OutdoorRoomFloodFill {
         for (int i = 1; i <= limit; i++) {
             int x = origin.x + dx * i;
             int z = origin.z + dz * i;
-            long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-            WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-            if (chunk == null) return Integer.MIN_VALUE;
+            if (WorldBlockAccess.getBlockId(world, x, scanY, z).isEmpty()) return Integer.MIN_VALUE;
             if (isBoundaryAt(world, x, scanY, z, pendingAdd, pendingAddType, pendingRemove))
                 return dx != 0 ? x : z;
         }
@@ -218,11 +216,9 @@ public class OutdoorRoomFloodFill {
         for (int x = scanMinX; x <= scanMaxX; x++) {
             for (int y = scanMinY; y <= scanMaxY; y++) {
                 for (int z = scanMinZ; z <= scanMaxZ; z++) {
-                    long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-                    WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-                    if (chunk == null) continue;
-                    int blockId = chunk.getBlock(x, y, z);
-                    BlockType bt = BlockType.getAssetMap().getAsset(blockId);
+                    var blockId = WorldBlockAccess.getBlockId(world, x, y, z);
+                    if (blockId.isEmpty()) continue;
+                    BlockType bt = BlockType.getAssetMap().getAsset(blockId.getAsInt());
                     if (bt != null) rawCounts.merge(bt.getId(), 1, Integer::sum);
                 }
             }
@@ -265,10 +261,6 @@ public class OutdoorRoomFloodFill {
     @Nullable
     private static BlockType getBlockType(World world, int x, int y, int z) {
         if (y < 0 || y >= 320) return null;
-        long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-        WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-        if (chunk == null) return null;
-        int blockId = chunk.getBlock(x, y, z);
-        return BlockType.getAssetMap().getAsset(blockId);
+        return WorldBlockAccess.getBlockType(world, x, y, z).orElse(null);
     }
 }

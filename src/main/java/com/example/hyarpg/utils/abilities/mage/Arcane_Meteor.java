@@ -65,7 +65,7 @@ public class Arcane_Meteor extends Ability {
         // spawn the projectile on next world execute
         final Ref<EntityStore> capturedTargetRef = target;
         world.execute(() -> {
-            Ref<EntityStore> meteorRef = ProjectileModule.get().spawnProjectile(null, ref, commandBuffer, config, spawnPos, dir);
+            Ref<EntityStore> meteorRef = ProjectileModule.get().spawnProjectile(ref, commandBuffer, config, spawnPos, dir);
             commandBuffer.putComponent(meteorRef, Component_HomingMissile.getComponentType(), new Component_HomingMissile(ref, capturedTargetRef, TURN_RATE, ARM_TIME, "MainHand_Magic_Scalar", 15f, AOE_RANGE, AOE_HEIGHT));
         });
     }

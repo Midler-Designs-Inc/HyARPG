@@ -14,9 +14,9 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 
 // Mod Imports
 import com.example.hyarpg.components.Component_HomingMissile;
+import com.example.hyarpg.utils.NPCUtils;
 import com.hypixel.hytale.server.core.util.TargetUtil;
 import com.hypixel.hytale.server.npc.entities.NPCEntity;
-import com.hypixel.hytale.server.npc.role.Role;
 
 // Java Imports
 import javax.annotation.Nonnull;
@@ -83,10 +83,8 @@ public class System_HomingMissile extends EntityTickingSystem<EntityStore> {
                     for (Ref<EntityStore> aoeTarget : TargetUtil.getAllEntitiesInBox(min, max, store)) {
                         if (!aoeTarget.isValid() || aoeTarget.equals(ref)) continue;
                         NPCEntity npc = store.getComponent(aoeTarget, NPCEntity.getComponentType());
-                        if (npc == null) continue;
-                        Role role = npc.getRole();
-                        if (role == null) continue;
-                        if (!role.isFriendly(homing.casterRef, store)) {
+                        if (npc == null || npc.getRole() == null) continue;
+                        if (!NPCUtils.isFriendly(aoeTarget, homing.casterRef, store)) {
                             DamageSystems.executeDamage(aoeTarget, commandBuffer,
                                 new Damage(
                                     new Damage.EntitySource(homing.casterRef),

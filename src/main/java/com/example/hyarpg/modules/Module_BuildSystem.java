@@ -37,6 +37,7 @@ import com.example.hyarpg.components.Component_CraftingKnowledge;
 import com.example.hyarpg.configs.ModConfig;
 import com.example.hyarpg.events.Event_RemoveBlock;
 import com.example.hyarpg.utils.HookedNotificationHandler;
+import com.example.hyarpg.utils.WorldBlockAccess;
 import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomData;
 import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomFloodFill;
 import com.example.hyarpg.utils.outdoor_rooms.OutdoorRoomType;
@@ -450,11 +451,9 @@ public class Module_BuildSystem {
         for (int x = min.x; x <= max.x; x++) {
             for (int y = min.y; y <= max.y; y++) {
                 for (int z = min.z; z <= max.z; z++) {
-                    long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-                    WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-                    if (chunk == null) continue;
-                    int blockId = chunk.getBlock(x, y, z);
-                    BlockType bt = BlockType.getAssetMap().getAsset(blockId);
+                    var blockId = WorldBlockAccess.getBlockId(world, x, y, z);
+                    if (blockId.isEmpty()) continue;
+                    BlockType bt = BlockType.getAssetMap().getAsset(blockId.getAsInt());
                     if (bt != null) rawCounts.merge(bt.getId(), 1, Integer::sum);
                 }
             }
@@ -531,11 +530,9 @@ public class Module_BuildSystem {
                 for (int z = territory.getMinZ(); z <= territory.getMaxZ(); z++) {
                     try {
                         long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-                        WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-                        if (chunk == null) continue;
-
-                        int blockId = chunk.getBlock(x, y, z);
-                        BlockType bt = BlockType.getAssetMap().getAsset(blockId);
+                        var blockId = WorldBlockAccess.getBlockId(world, x, y, z);
+                        if (blockId.isEmpty()) continue;
+                        BlockType bt = BlockType.getAssetMap().getAsset(blockId.getAsInt());
                         if (bt == null || !requiresTerritory(bt)) continue;
                         if (LIGHT_WELL_KEY.equals(bt.getId())) continue;
 
@@ -546,9 +543,9 @@ public class Module_BuildSystem {
                         // Check for a bench tier component to drop the correct tiered item
                         // BenchBlock tierLevel is 1-based; tier 1 = base block key, tier 2+ = key with tier state
                         try {
-                            Ref<ChunkStore> chunkRef = ((ChunkStore) world.getChunkStore().getStore().getExternalData()).getChunkReference(chunkIndex);
-                            if (chunkRef != null && chunkRef.isValid()) {
-                                BenchBlock benchBlock = world.getChunkStore().getStore().getComponent(chunkRef, BenchBlock.getComponentType());
+                            var chunkRef = WorldBlockAccess.getLoadedChunkReference(world, chunkIndex);
+                            if (chunkRef.isPresent()) {
+                                BenchBlock benchBlock = world.getChunkStore().getStore().getComponent(chunkRef.get(), BenchBlock.getComponentType());
                                 if (benchBlock != null && benchBlock.getTierLevel() > 1) {
                                     // Tier 2+ benches use a state key — getTierStateName() returns e.g. "Tier2"
                                     String tieredKey = bt.getBlockKeyForState(benchBlock.getTierStateName());
@@ -564,7 +561,9 @@ public class Module_BuildSystem {
                             entityStore.addEntities(new Holder[]{holder}, AddReason.SPAWN);
                         }
 
-                        world.breakBlock(x, y, z, 0);
+                        if (!WorldBlockAccess.breakBlockIfLoaded(world, x, y, z, 0, null)) {
+                            throw new IllegalStateException("Block chunk unloaded before restricted block could be broken");
+                        }
                     } catch (Exception e) {
                         for (PlayerRef player : Universe.get().getPlayers()) {
                             player.sendMessage(Message.raw(e.getMessage()));

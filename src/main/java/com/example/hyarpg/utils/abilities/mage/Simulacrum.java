@@ -30,6 +30,8 @@ import com.hypixel.hytale.server.npc.role.Role;
 import com.example.hyarpg.components.Component_RPG_Player;
 import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.utils.abilities.Ability;
+import com.example.hyarpg.utils.NPCUtils;
+import com.example.hyarpg.utils.WorldBlockAccess;
 import com.example.hyarpg.utils.rooms.RoomFloodFill;
 import com.example.hyarpg.components.Component_RPG_Enemy;
 import com.example.hyarpg.components.Component_Simulacrum;
@@ -129,8 +131,8 @@ public class Simulacrum extends Ability {
                         NPCEntity npc = s.getComponent(nearbyRef, NPCEntity.getComponentType());
                         if (npc == null) continue;
                         Role role = npc.getRole();
-                        if (role == null || role.isFriendly(simulacrumRef, s)) continue;
-                        role.setMarkedTarget("LockedTarget", simulacrumRef);
+                        if (role == null || NPCUtils.isFriendly(nearbyRef, simulacrumRef, s)) continue;
+                        role.setMarkedTarget(nearbyRef, s, "LockedTarget", simulacrumRef);
                         npc.onFlockSetState(nearbyRef, "Alerted", null, s);
                     }
                 }
@@ -143,12 +145,9 @@ public class Simulacrum extends Ability {
         Vector3d pos = new Vector3d(origin);
         for (int i = 0; i < maxBlocks; i++) {
             pos.add(dir.x, dir.y, dir.z);
-            long chunkIndex = ChunkUtil.indexChunkFromBlock((int) pos.x, (int) pos.z);
-            WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-            if (chunk == null) break;
-            int blockId = chunk.getBlock((int) pos.x, (int) pos.y, (int) pos.z);
-            BlockType blockType = BlockType.getAssetMap().getAsset(blockId);
-            if (blockType != null && RoomFloodFill.isStructural(blockType)) {
+            var blockType = WorldBlockAccess.getBlockType(world, (int) pos.x, (int) pos.y, (int) pos.z);
+            if (blockType.isEmpty()) break;
+            if (RoomFloodFill.isStructural(blockType.get())) {
                 // hit a solid — step back one to stay in air
                 pos.sub(dir.x, dir.y, dir.z);
                 break;
@@ -177,15 +176,12 @@ public class Simulacrum extends Ability {
     // checks for a solid floor and 3 blocks of clear air above it
     private boolean isPositionSafe(World world, double x, double y, double z) {
         try {
-            long chunkIndex = ChunkUtil.indexChunkFromBlock((int) x, (int) z);
-            WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-            if (chunk == null) return false;
+            var blockAtFeet = WorldBlockAccess.getBlockId(world, (int) x, (int) y, (int) z);
+            var blockAtHead = WorldBlockAccess.getBlockId(world, (int) x, (int) y + 1, (int) z);
+            if (blockAtFeet.isEmpty() || blockAtHead.isEmpty()) return false;
 
-            int blockAtFeet = chunk.getBlock((int) x, (int) y,     (int) z);
-            int blockAtHead = chunk.getBlock((int) x, (int) y + 1, (int) z);
-
-            BlockType feet = BlockType.getAssetMap().getAsset(blockAtFeet);
-            BlockType head = BlockType.getAssetMap().getAsset(blockAtHead);
+            BlockType feet = BlockType.getAssetMap().getAsset(blockAtFeet.getAsInt());
+            BlockType head = BlockType.getAssetMap().getAsset(blockAtHead.getAsInt());
 
             boolean feetClear = !RoomFloodFill.isStructural(feet);
             boolean headClear = !RoomFloodFill.isStructural(head);

@@ -26,6 +26,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 // Mod Imports
 import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.components.Component_Grave;
+import com.example.hyarpg.utils.WorldBlockAccess;
 
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -55,16 +56,14 @@ public class Interaction_RezPlayer extends SimpleInstantInteraction {
         world.execute(() -> {
             // get the chunk the grave block is in
             long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-            WorldChunk chunk = world.getChunkIfInMemory(chunkIndex);
-            if (chunk == null) return;
-
-            BlockComponentChunk bcc = chunk.getBlockComponentChunk();
-            if (bcc == null) return;
-
-            int blockInColumnIndex = ChunkUtil.indexBlockInColumn(x, y, z);
+            if (WorldBlockAccess.getLoadedChunkReference(world, chunkIndex).isEmpty()) return;
+            var graveRefResult = WorldBlockAccess.getBlockEntityReference(world, x, y, z);
+            if (graveRefResult.isEmpty()) return;
+            Ref<ChunkStore> graveRef = graveRefResult.get();
+            Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
 
             // read the grave component directly off the block
-            Component_Grave grave = bcc.getComponent(blockInColumnIndex, Module_RPGSystem.componentTypeGrave);
+            Component_Grave grave = chunkStore.getComponent(graveRef, Module_RPGSystem.componentTypeGrave);
             if (grave == null) return;
 
             // get the dead player — bail if they're not found or already alive
@@ -80,26 +79,24 @@ public class Interaction_RezPlayer extends SimpleInstantInteraction {
             if (deathComponent == null) return;
 
             // get the grave's item container and return all items to the dead player's storage
-            Ref<ChunkStore> graveRef = chunk.getBlockComponentEntity(x, y, z);
-            if (graveRef != null && graveRef.isValid()) {
-                Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
-                ItemContainerBlock graveContainer = chunkStore.getComponent(graveRef, ItemContainerBlock.getComponentType());
+            ItemContainerBlock graveContainer = chunkStore.getComponent(graveRef, ItemContainerBlock.getComponentType());
 
-                // collect all items from the grave and add them back to the player's storage
-                if (graveContainer != null) {
-                    InventoryComponent.Storage storage = entityStore.getComponent(deadRef, InventoryComponent.Storage.getComponentType());
-                    if (storage != null) {
-                        for (short i = 0; i < graveContainer.getItemContainer().getCapacity(); i++) {
-                            ItemStack stack = graveContainer.getItemContainer().getItemStack(i);
-                            if (stack != null && !stack.isEmpty()) storage.getInventory().addItemStack(stack);
-                        }
-                        graveContainer.getItemContainer().clear();
+            // collect all items from the grave and add them back to the player's storage
+            if (graveContainer != null) {
+                InventoryComponent.Storage storage = entityStore.getComponent(deadRef, InventoryComponent.Storage.getComponentType());
+                if (storage != null) {
+                    for (short i = 0; i < graveContainer.getItemContainer().getCapacity(); i++) {
+                        ItemStack stack = graveContainer.getItemContainer().getItemStack(i);
+                        if (stack != null && !stack.isEmpty()) storage.getInventory().addItemStack(stack);
                     }
+                    graveContainer.getItemContainer().clear();
                 }
             }
 
             // break the grave block now that items are returned
-            world.breakBlock(x, y, z, 0);
+            if (!WorldBlockAccess.breakBlockIfLoaded(world, x, y, z, 0, null)) {
+                System.err.println("[HyARPG] Grave block could not be broken after resurrection");
+            }
 
             // reposition the player at the grave and remove their death component to respawn them
             TransformComponent deadTransform = entityStore.getComponent(deadRef, TransformComponent.getComponentType());

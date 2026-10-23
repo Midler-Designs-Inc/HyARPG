@@ -22,13 +22,9 @@ public class SetShowCombatTextSetting extends CommandBase {
     public SetShowCombatTextSetting() {
         // Name, Description
         super("HyARPG_Player_Settings_ShowCombatMessages", "Show or hide the combat messages that are broadcasted to chat.", false);
+        this.requireNoPermission();
 
         this.ENABLED = this.withRequiredArg("ENABLED", "true/false", ArgTypes.BOOLEAN);
-    }
-
-    @Override
-    protected boolean canGeneratePermission() {
-        return false;
     }
 
     @Override

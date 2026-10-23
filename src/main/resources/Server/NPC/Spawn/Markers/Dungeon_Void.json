@@ -4,8 +4,8 @@
     { "Name": "Crawler_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Eye_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
     { "Name": "Larva_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
-    { "Name": "Spawn_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" },
-    { "Name": "Spectre_Void", "Weight": 100, "SpawnAfterGameTime": "P1D" }
+    { "Name": "Void_Spawn", "Weight": 100, "SpawnAfterGameTime": "P1D" },
+    { "Name": "Void_Spectre", "Weight": 100, "SpawnAfterGameTime": "P1D" }
   ],
   "MaxDropHeight": 20,
   "DeactivationDistance": 150

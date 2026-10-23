@@ -28,6 +28,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import com.example.hyarpg.components.Component_Grave;
 import com.example.hyarpg.modules.Module_RPGSystem;
 import com.example.hyarpg.components.Component_RPG_Player;
+import com.example.hyarpg.utils.WorldBlockAccess;
 
 // Java Imports
 import org.checkerframework.checker.nullness.compatqual.NonNullDecl;
@@ -55,22 +56,18 @@ public class Interaction_RecallPlayerGrave extends SimpleInstantInteraction {
             int y = Integer.parseInt(parts[1]);
             int z = Integer.parseInt(parts[2]);
 
-            // force load the grave chunk so we can operate on it regardless of load state
-            long chunkIndex = ChunkUtil.indexChunkFromBlock(x, z);
-            world.getChunkAsync(chunkIndex).thenAccept(chunk -> {
-                if (chunk == null) return;
-
-                BlockComponentChunk bcc = chunk.getBlockComponentChunk();
-                if (bcc == null) return;
+            world.getChunkStore().getChunkSectionReferenceAtBlockAsync(x, y, z).thenAccept(sectionRef -> {
+                if (sectionRef == null || !sectionRef.isValid()) return;
 
                 // verify the grave component is still there
-                int blockInColumnIndex = ChunkUtil.indexBlockInColumn(x, y, z);
-                Component_Grave grave = bcc.getComponent(blockInColumnIndex, Module_RPGSystem.componentTypeGrave);
-                Ref<ChunkStore> graveEntityRef = chunk.getBlockComponentEntity(x, y, z);
-                if (grave == null || graveEntityRef == null || !graveEntityRef.isValid()) return;
+                var graveEntityRefResult = WorldBlockAccess.getBlockEntityReference(world, x, y, z);
+                if (graveEntityRefResult.isEmpty()) return;
+                Ref<ChunkStore> graveEntityRef = graveEntityRefResult.get();
+                Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
+                Component_Grave grave = chunkStore.getComponent(graveEntityRef, Module_RPGSystem.componentTypeGrave);
+                if (grave == null) return;
 
                 // get the grave's item container
-                Store<ChunkStore> chunkStore = world.getChunkStore().getStore();
                 ItemContainerBlock graveContainer = chunkStore.getComponent(graveEntityRef, ItemContainerBlock.getComponentType());
                 if (graveContainer == null) return;
 
@@ -104,7 +101,10 @@ public class Interaction_RecallPlayerGrave extends SimpleInstantInteraction {
                 graveContainer.getItemContainer().clear();
 
                 // break the grave block
-                world.breakBlock(x, y, z, 0);
+                if (!WorldBlockAccess.breakBlockIfLoaded(world, x, y, z, 0, null)) {
+                    System.err.println("[HyARPG] Grave block could not be broken after its contents were recalled");
+                    return;
+                }
 
                 // clear the grave position off the player now that it's been recalled
                 rpgPlayer.gravePosition = null;
